@@ -50,7 +50,7 @@
   },
   "scripts": {
     "start": "node scripts/components.js && node scripts/start.js",
-    "build": "node scripts/components.hs && node scripts/build.js",
+    "build": "node scripts/components.js && node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
