@@ -7,7 +7,6 @@ import './App.css';
 
 class App extends Component {
     componentWillMount = async () => {
-       
         debugger;
         const p = await appManager.executeQuery('mutation', authenticateQuery);
         console.log(p);

@@ -52,7 +52,6 @@ class AppManager {
                 link,
                 cache: new InMemoryCache().restore(window.__APOLLO_STATE__)
             });
-
         }
         return this.apolloClient;
     };
@@ -62,24 +61,24 @@ class AppManager {
         if (payload !== undefined) {
             p = payload;
         }
-        return await this.executeApolloQuery(type, query, p, this.apolloClientAuth);
+        return this.executeApolloQuery(type, query, p, this.apolloClientAuth);
     }
     executeQuery = async (type, query, payload) => {
         let p = {};
         if (payload !== undefined) {
             p = payload;
         }
-        return await this.executeApolloQuery(type, query, p, this.apolloClient);
+        return this.executeApolloQuery(type, query, p, this.apolloClient);
     }
 
-    executeApolloQuery = async(type, query, payload, client) =>{
-        return new Promise(async (resolve, reject) => {
+    executeApolloQuery = async (type, query, payload, client) => {
+        return new Promise(async (resolve) => {
             if (type === 'mutation') {
                 const data = await client
                     .mutate({
                         mutation: query,
                         variables: payload
-                    })
+                    });
                 resolve(data.data);
             } else {
                 const data = await client
@@ -87,12 +86,11 @@ class AppManager {
                         query,
                         variables: payload,
                         fetchPolicy: 'network-only'
-                    })
+                    });
                 resolve(data.data);
             }
-        })
+        });
     }
-
 }
 
 const _am = new AppManager();
