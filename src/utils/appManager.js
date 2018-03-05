@@ -19,7 +19,7 @@ class AppManager {
             app_manager_instance = this;
             this.apolloClient = null;
             this.authToken = '';
-            this.localDB = new PouchDB('user');
+            this.localDB = new PouchDB('user', { revs_limit: 1, auto_compaction: true });
         }
 
         return this.instance;
@@ -32,9 +32,14 @@ class AppManager {
         console.log(e);
     };
     pouchStore = async (_id, payload) => {
-        const doc = await this.localDB.get(_id);
-        const new_dock = Object.assign(doc, payload);
-        return this.localDB.put(new_dock);
+        const doc = await this.pouchGet(_id);
+        let new_doc;
+        if (doc === null) {
+            new_doc = Object.assign(payload, { _id });
+        } else {
+            new_doc = Object.assign(doc, payload);
+        }
+        return this.localDB.put(new_doc);
     }
     pouchGet = async (_id) => {
         try {
