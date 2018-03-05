@@ -6,6 +6,7 @@
  * Mobx will handle component to component communication via observables.
  */
 import ApolloClient from 'apollo-client';
+import PouchDB from 'pouchdb';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -18,6 +19,7 @@ class AppManager {
             app_manager_instance = this;
             this.apolloClient = null;
             this.authToken = '';
+            this.localDB = new PouchDB('user');
         }
 
         return this.instance;
@@ -29,6 +31,18 @@ class AppManager {
     log = e => {
         console.log(e);
     };
+    pouchStore = async (_id, payload) => {
+        const doc = await this.localDB.get(_id);
+        const new_dock = Object.assign(doc, payload);
+        return this.localDB.put(new_dock);
+    }
+    pouchGet = async (_id) => {
+        try {
+            return await this.localDB.get(_id);
+        } catch (e) {
+            return null;
+        }
+    }
     createApolloClient = () => {
         if (this.apolloClient === null) {
             const httpLink = createHttpLink({

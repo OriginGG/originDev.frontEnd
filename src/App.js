@@ -7,9 +7,11 @@ import './App.css';
 
 class App extends Component {
     componentWillMount = async () => {
-        debugger;
+        // pouchTest
         const p = await appManager.executeQuery('mutation', authenticateQuery);
-        console.log(p);
+        await appManager.pouchStore('authenticate', p);
+        const res = await appManager.pouchGet('authenticate');
+        console.log(res);
      };
     render() {
         return (
