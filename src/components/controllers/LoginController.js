@@ -42,7 +42,13 @@ class LoginController extends Component {
                 onSubmit={async (v) => {
                     const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     if (authPayload.authenticate.resultData !== null) {
-                        await this.props.appManager.pouchStore('authenticate', authPayload);
+                        const domainInfo = this.props.appManager.getDomainInfo();
+                        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+                        // we might have a valid user somewhere, but is he part of this domain?
+                        if (subDomain === authPayload.authenticate.resultData.organisation) {
+                            // succesfully logged in store in pouch then change page.
+                            await this.props.appManager.pouchStore('authenticate', authPayload);
+                        }
                     }
                 }}
                 render={({
@@ -52,7 +58,7 @@ class LoginController extends Component {
                     handleChange,
                     handleBlur,
                     handleSubmit,
-                    isSubmitting,
+                    // isSubmitting,
                 }) => (
                         <div>
                             {this.state.content_display !== 'login' &&
@@ -61,9 +67,6 @@ class LoginController extends Component {
                             {this.state.content_display === 'login' &&
                                 <LoginComponentRender values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
                             }
-                            <button type="submit" disabled={isSubmitting}>
-                                Submit
-                             </button>
                         </div>
                     )}
             />
