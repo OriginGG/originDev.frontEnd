@@ -2,10 +2,10 @@ import { observable, action } from 'mobx';
 
 
 class UiStore {
-    @observable current_theme = ''
+    @observable current_organisation = {}
     @action
-    setCurrentTheme = (t) => {
-        this.current_theme = t;
+    setOrganisation = (o) => {
+        this.current_organisation = o;
     }
 }
 

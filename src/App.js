@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import appManager from './utils/appManager';
+import { inject } from 'mobx-react';
+import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import { authenticateQuery } from './queries/login';
+import { getOrganisationQuery } from './queries/organisation';
 
 import './App.css';
 
 class App extends Component {
     componentWillMount = async () => {
         // pouchTest
-        const p = await appManager.executeQuery('mutation', authenticateQuery);
-        await appManager.pouchStore('authenticate', p);
-        const res = await appManager.pouchGet('authenticate');
-        console.log(res);
-     };
+        const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery);
+        await this.props.appManager.pouchStore('authenticate', authPayload);
+        // const res = await appManager.pouchGet('authenticate');
+        const domainInfo = this.props.appManager.getDomainInfo();
+        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+        const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
+        if (o.resultData === null) {
+            console.log('sub domain does not exist!');
+        } else {
+            this.props.uiStore.setOrganisation(o.resultData);
+        }
+    };
     render() {
         return (
             <div className="App">
@@ -28,5 +37,10 @@ class App extends Component {
         );
     }
 }
+App.propTypes = {
+    uiStore: PropTypes.object.isRequired,
+    appManager: PropTypes.object.isRequired
+};
 
-export default App;
+export default inject('uiStore', 'appManager')(App);
+

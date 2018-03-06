@@ -48,6 +48,24 @@ class AppManager {
             return null;
         }
     }
+    getDomainInfo = () => {
+        const regex = /[.:]/g;
+        const { hostname, port, protocol } = window.location;
+        const url_string = `${hostname}${(port === 443 || port === 80) ? '' : `:${port}`}`;
+        const spString = url_string.split(regex);
+        let subDomain;
+        if (spString.length === 3) {
+            subDomain = spString[0];            // eslint-disable-line
+        } else {
+            subDomain = null;
+        }
+        return {
+            hostname,
+            protocol,
+            port,
+            subDomain
+        };
+    }
     createApolloClient = () => {
         if (this.apolloClient === null) {
             const httpLink = createHttpLink({
