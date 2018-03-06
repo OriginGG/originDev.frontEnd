@@ -31,6 +31,9 @@ class LoginComponentRender extends Component {
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.email}/>
                                         </div>
                                     </div>
+                                    <div >{this.props.touched.email && this.props.errors.email && <div style={{
+                                            color: 'red'
+                                        }}>{this.props.errors.email}</div>}</div>
                                     <div className={this.props.classes.input_title}>
                                         Password
                                     </div>
@@ -45,6 +48,9 @@ class LoginComponentRender extends Component {
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.password}/>
                                         </div>
                                     </div>
+                                    <div >{this.props.touched.password && this.props.errors.password && <div style={{
+                                            color: 'red'
+                                        }}>{this.props.errors.password}</div>}</div>
                                     <div style={{
                                         background: '#0a9ab4',
                                         fontSize: '18px',

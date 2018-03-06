@@ -53,8 +53,8 @@ class LoginController extends Component {
                 }}
                 render={({
                     values,
-                    // errors,
-                    // touched,
+                    errors,
+                    touched,
                     handleChange,
                     handleBlur,
                     handleSubmit,
@@ -62,10 +62,10 @@ class LoginController extends Component {
                 }) => (
                         <div>
                             {this.state.content_display !== 'login' &&
-                                <SignupComponentRender values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
+                                <SignupComponentRender errors={errors} touched={touched} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
                             }
                             {this.state.content_display === 'login' &&
-                                <LoginComponentRender values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
+                                <LoginComponentRender errors={errors} touched={touched} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
                             }
                         </div>
                     )}

@@ -1,5 +1,7 @@
+/* eslint-disable */
 
-export const GlobalThemeDefinitions = {
+
+export const GlobalTheme = {
     colorPrimary: 'green',
     signupHeaderColor: '#fff',
     login_contentWidth: '840px',
@@ -38,10 +40,11 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundImage: 'url("./images/login-bg.jpg")',
         width: '100%',
         height: '100vh',
-        display: 'table'
+        display: 'table',
+        paddingBottom: '80px'
     },
     signupFooter: {
-        position: 'absolute',
+        position: 'fixed',
         margin: '0 auto',
         textAlign: 'center',
         width: '100%',
@@ -72,7 +75,7 @@ export const GlobalStyles = GlobalTheme => ({
     tabular_menu: {
         width: '100%',
         height: '54px',
-        display: 'table'
+        display: 'table' 
     },
     tabular_menu_item: {
         width: '50%',
@@ -189,9 +192,13 @@ export const GlobalStyles = GlobalTheme => ({
     }
 });
 
+
+
+
 // user themes
 
-export const UserThemeDefinition = {
+
+export const UserTheme = {
     testFontSize: '19px'
 };
 

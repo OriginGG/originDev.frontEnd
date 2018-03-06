@@ -10,7 +10,7 @@ import './index.css';
 import App from './App';
 import appManager from './utils/appManager';
 import registerServiceWorker from './registerServiceWorker';
-import { GlobalThemeDefinitions } from './utils/themes/Theme';
+import { GlobalTheme } from './utils/themes/Theme';
 
 const stores = {
     appManager,
@@ -21,7 +21,7 @@ appManager.createApolloClient();
 
 ReactDOM.render(
     <Router history={historyStore}>
-        <ThemeProvider theme={GlobalThemeDefinitions}>
+        <ThemeProvider theme={GlobalTheme}>
             <ApolloProvider client={appManager.apolloClient}>
                 <Provider {...stores}>
                     <App />
