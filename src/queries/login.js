@@ -1,10 +1,11 @@
 import gql from 'graphql-tag';
 
 export const authenticateQuery = gql`
-    mutation authenticate {
-        authenticate(input: {email: "stefan.walker@gmail.com", password: "buzz1968"}) {
+    mutation authenticate($email: String!, $password: String!) {
+        authenticate(input: {email: $email, password: $password}) {
             resultData: authPayload {
             jwtToken
+            organisation
 		}
     }
 }
