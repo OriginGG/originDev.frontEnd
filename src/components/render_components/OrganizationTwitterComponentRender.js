@@ -12,20 +12,7 @@ class OrganizationTwitterComponentRender extends Component {
                 <div className={this.props.classes.twitter_title}>
                     <p>LATEST TWEETS</p>
                 </div>
-                <iframe id="twitter-widget-4" scrolling="no" style={{
-                    position: 'static',
-                    visibility: 'visible',
-                    display: 'inline-block',
-                    width: '100%',
-                    height: '300px',
-                    padding: '0px',
-                    border: 'none',
-                    maxWidth: '100%',
-                    minWidth: '180px',
-                    marginTop: '0px',
-                    marginBottom: '0px',
-                    minHeight: '200px'
-                }} data-widget-id="profile:AscendantLLC" title="Twitter Timeline" className="twitter-timeline twitter-timeline-rendered" allowFullScreen="true" allowTransparency="true" frameBorder="0"/>
+                <div >{this.props.feed}</div>
             </div>
         )
     }
