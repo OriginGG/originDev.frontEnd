@@ -5,7 +5,6 @@ import injectSheet from 'react-jss';
 import { Route } from 'react-router-dom';
 
 // import { authenticateQuery } from './queries/login';
-// import { getOrganisationQuery } from './queries/organisation';
 import SignupPageController from './components/controllers/Login/SignupPageController';
 import OriginPageController from './components/controllers/Origin/OriginPageController';
 import { GlobalStyles } from './utils/themes/Theme';
