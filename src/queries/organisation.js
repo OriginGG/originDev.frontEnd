@@ -9,6 +9,7 @@ export const getOrganisationQuery = gql`
     twitterLink
     twitchLink
     logo
+    subDomain
     primaryColor
     twitterFeedUsername
     themesByThemeName {

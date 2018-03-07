@@ -28,10 +28,11 @@ class OriginPageController extends Component {
         if (this.state.visible === false) {
             return null;
         }
+        const { subDomain } = this.props.uiStore.current_organisation;
         return (<OrganizationPageComponentRender
             newsContent={<div>Some news</div>}
             twitterContent={<OriginTwitterController />}
-            matchesContent={<OriginMatchesController />}
+            matchesContent={<OriginMatchesController subDomain={subDomain} />}
             videoContent={<OriginVideoController />}
             topSponsorContent={<OriginSponsorController />}
             bottomSponsorContent={<OriginSponsorController />}

@@ -16,10 +16,8 @@ const TwitterFeed = ({ feedName }) => {
                 screenName: feedName
             }}
             options={{
-                username: feedName,
                 height: '350'
             }}
-            onLoad={() => console.log('Timeline is loaded!')}
         />
     );
 };
