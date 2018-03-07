@@ -29,11 +29,16 @@ class LoginComponentRender extends Component {
                                                 height: '45px',
                                                 fontSize: '16px'
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.email}/>
+                                            <div style={{
+                                                position: 'absolute',
+                                                right: 0,
+                                                marginTop: 13,
+                                                marginRight: 30
+                                            }}>{this.props.touched.email && this.props.errors.email && <div style={{
+                                                    color: 'red'
+                                                }}>{this.props.errors.email}</div>}</div>
                                         </div>
                                     </div>
-                                    <div >{this.props.touched.email && this.props.errors.email && <div style={{
-                                            color: 'red'
-                                        }}>{this.props.errors.email}</div>}</div>
                                     <div className={this.props.classes.input_title}>
                                         Password
                                     </div>
@@ -46,11 +51,16 @@ class LoginComponentRender extends Component {
                                                 height: '45px',
                                                 fontSize: '16px'
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.password}/>
+                                            <div style={{
+                                                position: 'absolute',
+                                                right: 0,
+                                                marginTop: 13,
+                                                marginRight: 30
+                                            }}>{this.props.touched.password && this.props.errors.password && <div style={{
+                                                    color: 'red'
+                                                }}>{this.props.errors.password}</div>}</div>
                                         </div>
                                     </div>
-                                    <div >{this.props.touched.password && this.props.errors.password && <div style={{
-                                            color: 'red'
-                                        }}>{this.props.errors.password}</div>}</div>
                                     <div style={{
                                         background: '#0a9ab4',
                                         fontSize: '18px',

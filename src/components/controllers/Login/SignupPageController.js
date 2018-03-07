@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { GlobalStyles } from 'Theme/Theme';
-import SignupPageComponentRender from '../render_components/SignupPageComponentRender';
-import LoginController from '../controllers/LoginController';
+import SignupPageComponentRender from '../../render_components/SignupPageComponentRender';
+import LoginController from './sub_controllers/LoginController';
 
 class SignupPageController extends Component {
     render() {

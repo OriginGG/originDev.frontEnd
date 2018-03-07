@@ -6,7 +6,8 @@ import { Route } from 'react-router-dom';
 
 // import { authenticateQuery } from './queries/login';
 // import { getOrganisationQuery } from './queries/organisation';
-import SignupPageController from './components/controllers/SignupPageController';
+import SignupPageController from './components/controllers/Login/SignupPageController';
+import OriginPageController from './components/controllers/Origin/OriginPageController';
 import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
 import './App.css';
@@ -20,6 +21,7 @@ class App extends Component {
         const auth = await this.props.appManager.pouchGet('authenticate');
         if (auth && auth.authenticate.resultData.organisation === subDomain) {
             // we are already logged in, and have same organisation
+            historyStore.push('/main');
             console.log('already logged in');
         } else {
             // either we're not logged in, or we are trying to log into a different sub-domain
@@ -43,6 +45,7 @@ class App extends Component {
         return (
             <div>
                 <Route exact path="/signup" component={SignupPageController} />
+                <Route exact path="/main" component={OriginPageController} />
             </div>
         );
     }

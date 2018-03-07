@@ -4,9 +4,11 @@ import { Formik } from 'formik';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
-import LoginComponentRender from '../render_components/LoginComponentRender';
-import SignupComponentRender from '../render_components/SignupComponentRender';
-import { authenticateQuery } from '../../queries/login';
+import LoginComponentRender from '../../../render_components/LoginComponentRender';
+import SignupComponentRender from '../../../render_components/SignupComponentRender';
+import { authenticateQuery } from '../../../../queries/login';
+import historyStore from '../../../../utils/stores/browserHistory';
+
 // import { getOrganisationQuery } from './queries/organisation'
 class LoginController extends Component {
     state = { content_display: 'login' };
@@ -30,6 +32,9 @@ class LoginController extends Component {
                 validate={values => {
                     // same as above, but feel free to move this into a class method now.
                     const errors = {};
+                    if (!values.password) {
+                        errors.password = 'Required';
+                    }
                     if (!values.email) {
                         errors.email = 'Required';
                     } else if (
@@ -48,6 +53,7 @@ class LoginController extends Component {
                         if (subDomain === authPayload.authenticate.resultData.organisation) {
                             // succesfully logged in store in pouch then change page.
                             await this.props.appManager.pouchStore('authenticate', authPayload);
+                            historyStore.push('/main');
                         }
                     }
                 }}
