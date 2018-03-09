@@ -19,6 +19,7 @@ class App extends Component {
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
         const auth = await this.props.appManager.pouchGet('authenticate');
         if (auth && auth.authenticate.resultData.organisation === subDomain) {
+            this.props.appManager.authToken = auth.authenticate.resultData.jwtToken;
             // we are already logged in, and have same organisation
             historyStore.push('/main');
             console.log('already logged in');

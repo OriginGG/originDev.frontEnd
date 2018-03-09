@@ -10,6 +10,7 @@ import OrganizationSponsorController from './sub_controllers/OrganizationSponsor
 import OrganizationMatchesController from './sub_controllers/OrganizationMatchesController';
 import OrganizationNavController from './sub_controllers/OrganizationNavController';
 import OrganizationLogoController from './sub_controllers/OrganizationLogoController';
+import OrganizationNewsController from './sub_controllers/OrganizationNewsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 
 class OrganizationPageController extends Component {
@@ -23,6 +24,7 @@ class OrganizationPageController extends Component {
             console.log('sub domain does not exist!');
         } else {
             this.props.uiStore.setOrganisation(o.resultData);
+            this.props.uiStore.setSubDomain(subDomain);
             this.setState({ visible: true });
         }
     }
@@ -32,7 +34,7 @@ class OrganizationPageController extends Component {
         }
         const { subDomain } = this.props.uiStore.current_organisation;
         return (<OrganizationPageComponentRender
-            newsContent={<div>Some news</div>}
+            newsContent={<OrganizationNewsController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}

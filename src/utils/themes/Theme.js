@@ -466,9 +466,155 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '400',
         color: '#FFF'
+    },
+
+    //*************************************
+    //  Admin Main
+    //*********************************** */
+
+    admin_main: {
+        width: '100%'
+    },
+    menu_title_container: {
+        height: '80px',
+        width: '100%',
+        display: 'table',
+        padding: '20px 15px 20px 15px',
+        borderBottom: 'solid #333 1px'
+    },
+    menu_title_logo: {
+        width: '60px',
+        height: '40px',
+        padding: '0 20px 0 0',
+        float: 'left'
+    },
+    menu_title_image: {
+        width: '40px',
+        height: '40px'
+    },
+    menu_title_text: {
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '1.8em',
+        color: '#fff',
+        textAlign: 'left'
+    },
+    menu_user_container: {
+        width: '100%',
+        height: '90px',
+        padding: '20px 30px 20px 30px'
+    },
+    menu_user_logo: {
+        width: '50px',
+        height: '50px',
+        float: 'left',
+        marginRight: '30px',
+        backgroundColor: '#333',
+        borderRadius: '25px'
+    },
+    menu_user_image: {
+        width: '50px',
+        height: '50px'
+    },
+    menu_user_text: {
+        height: '50px',
+        paddingLeft: '30px',
+        lineHeight: '50px',
+        fontSize: '1.6em',
+        color: '#fff',
+        textAlign: 'left'
+    },
+    menu_item: {
+        width: '100%',
+        height: '30px',
+        display: 'table'
+    },
+    menu_item_icon: {
+        display: 'table',
+        float: 'left',
+        fontSize: '1,3em',
+        padding: '5px 10px 5px 0',
+        height: '30px',
+        lineHeight: '30px'
+    },
+    menu_item_label: {
+        display: 'table',
+        width: '70%',
+        float: 'left',
+        fontSize: '1,3em',
+        padding: '5px 0 5px 0',
+        height: '30px',
+        lineHeight: '30px',
+        textAlign: 'left'
+    },
+    menu_item_dropdown: {
+        padding: '10px'
+    },
+    admin_title_box: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        borderBottom: '1px solid #ccc'
+    },
+    admin_main_logo_box: {
+        width: '100%',
+        padding: '15px 20px 50px 20px'
+    },
+    admin_main_logo_button: {
+        height: '30px',
+        display: 'table',
+        backgroundColor: '#0a9ab4',
+        color: '#fff',
+        borderRadius: '3px',
+        cursor: 'pointer',
+        lineHeight: '30px',
+        paddingLeft: '16px',
+        paddingRight: '16px'
+    },
+    admin_main_logo_image: {
+        maxHeight: '320px',
+        marginTop: '20px'
+    },
+    admin_social_box: {
+        width: '100%',
+        display: 'table',
+        padding: '15px 20px 15px 20px'
+    },
+    admin_social_box_inner: {
+        width: '50%',
+        display: 'table',
+        padding: '30px 30px 50px 0px',
+        float: 'left'
+    },
+    admin_social_box_divider: {
+        width: '100%',
+        height: '50px'
+    },
+    admin_submit_box: {
+        width: '100%',
+        padding: '40px 0px 40px 0px',
+        display: 'table'
+    },
+    admin_submit_button: {
+        height: '40px',
+        width: '100px',
+        lineHeight: '40px',
+        textAlign: 'center',
+        backgroundColor: '#0a9ab4',
+        borderRadius: '3px',
+        cursor: 'pointer',
+        color: '#fff',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    admin_footer: {
+        width: '100%',
+        height: '80px',
+        textAlign: 'center',
+        lineHeight: '80px',
+        backgroundColor: '#ccc',
+        color: '#fff'
     }
-
-
 });
 
 
