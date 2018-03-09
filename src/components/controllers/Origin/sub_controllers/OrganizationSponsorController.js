@@ -3,12 +3,12 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
-import OriginVideoComponentRender from '../../../render_components/OrganizationVideoComponentRender';
+import OrganizationSponsorComponentRender from '../../../render_components/OrganizationSponserComponentRender';
 
 // import { getOrganisationQuery } from './queries/organisation'
-class OriginVideoController extends Component {
+class OrganizationSponsorController extends Component {
     render() {
-        return <OriginVideoComponentRender />;
+        return <OrganizationSponsorComponentRender />;
     }
 }
 // LoginController.propTypes = {
@@ -16,4 +16,4 @@ class OriginVideoController extends Component {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OriginVideoController));
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationSponsorController));

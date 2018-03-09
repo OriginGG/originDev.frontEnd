@@ -6,7 +6,7 @@ import { Route } from 'react-router-dom';
 
 // import { authenticateQuery } from './queries/login';
 import SignupPageController from './components/controllers/Login/SignupPageController';
-import OriginPageController from './components/controllers/Origin/OriginPageController';
+import OrganizationPageController from './components/controllers/Origin/OrganizationPageController';
 import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
 import './App.css';
@@ -44,7 +44,7 @@ class App extends Component {
         return (
             <div>
                 <Route exact path="/signup" component={SignupPageController} />
-                <Route exact path="/main" component={OriginPageController} />
+                <Route exact path="/main" component={OrganizationPageController} />
             </div>
         );
     }

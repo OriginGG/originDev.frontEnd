@@ -6,18 +6,18 @@ import { graphql } from 'react-apollo';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { recentMatchesQuery } from '../../../../queries/matches';
-import OriginMatchesComponentRender from '../../../render_components/OrganizationMatchesComponentRender';
+import OrganizationMatchesComponentRender from '../../../render_components/OrganizationMatchesComponentRender';
 
 // import { getOrganisationQuery } from './queries/organisation'
-class OriginMatchesController extends Component {
+class OrganizationMatchesController extends Component {
     render() {
         if (this.props.data.loading === true) {
             return null;
         }
-        return <OriginMatchesComponentRender />;
+        return <OrganizationMatchesComponentRender />;
     }
 }
-OriginMatchesController.propTypes = {
+OrganizationMatchesController.propTypes = {
     data: PropTypes.object.isRequired,
 };
 
@@ -29,5 +29,5 @@ export default graphql(recentMatchesQuery, {
             organisation: props.subDomain
         }
     })
-})(inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OriginMatchesController)));
+})(inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationMatchesController)));
 

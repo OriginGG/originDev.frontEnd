@@ -14,8 +14,12 @@ class OrganizationPageComponentRender extends Component {
                     </div>
                 </header>
                 <div className={this.props.classes.body_container}>
-                    <div id="organization_nav_logo" className={this.props.classes.nav_container}></div>
-                    <div id="organization_main_logo"></div>
+                    <div id="organization_nav_logo" className={this.props.classes.nav_container}>
+                        <div >{this.props.navContent}</div>
+                    </div>
+                    <div id="organization_main_logo">
+                        <div >{this.props.logoContent}</div>
+                    </div>
                     <div className={this.props.classes.powered_by}>
                         <img src="./images/powered-by.png"/>
                     </div>

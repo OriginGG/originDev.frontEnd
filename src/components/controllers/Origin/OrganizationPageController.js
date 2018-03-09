@@ -4,13 +4,15 @@ import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
 import PropTypes from 'prop-types';
 import OrganizationPageComponentRender from '../../render_components/OrganizationPageComponentRender';
-import OriginVideoController from './sub_controllers/OriginVideoController';
-import OriginTwitterController from './sub_controllers/OriginTwitterController';
-import OriginSponsorController from './sub_controllers/OriginSponsorController';
-import OriginMatchesController from './sub_controllers/OriginMatchesController';
+import OrganizationVideoController from './sub_controllers/OrganizationVideoController';
+import OrganizationTwitterController from './sub_controllers/OrganizationTwitterController';
+import OrganizationSponsorController from './sub_controllers/OrganizationSponsorController';
+import OrganizationMatchesController from './sub_controllers/OrganizationMatchesController';
+import OrganizationNavController from './sub_controllers/OrganizationNavController';
+import OrganizationLogoController from './sub_controllers/OrganizationLogoController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 
-class OriginPageController extends Component {
+class OrganizationPageController extends Component {
     state = { visible: false };
 
     componentWillMount = async () => {
@@ -31,17 +33,19 @@ class OriginPageController extends Component {
         const { subDomain } = this.props.uiStore.current_organisation;
         return (<OrganizationPageComponentRender
             newsContent={<div>Some news</div>}
-            twitterContent={<OriginTwitterController />}
-            matchesContent={<OriginMatchesController subDomain={subDomain} />}
-            videoContent={<OriginVideoController />}
-            topSponsorContent={<OriginSponsorController />}
-            bottomSponsorContent={<OriginSponsorController />}
+            twitterContent={<OrganizationTwitterController />}
+            matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
+            videoContent={<OrganizationVideoController />}
+            topSponsorContent={<OrganizationSponsorController />}
+            bottomSponsorContent={<OrganizationSponsorController />}
+            navContent={<OrganizationNavController />}
+            logoContent={<OrganizationLogoController />}
         />);
     }
 }
-OriginPageController.propTypes = {
+OrganizationPageController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OriginPageController));
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));

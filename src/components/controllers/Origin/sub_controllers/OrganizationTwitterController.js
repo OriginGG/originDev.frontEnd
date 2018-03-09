@@ -4,7 +4,7 @@ import { inject } from 'mobx-react';
 import { Timeline } from 'react-twitter-widgets';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
-import OriginTwitterComponentRender from '../../../render_components/OrganizationTwitterComponentRender';
+import OrganizationSponsorComponenRender from '../../../render_components/OrganizationTwitterComponentRender';
 
 // import { getOrganisationQuery } from './queries/organisation'
 
@@ -22,14 +22,14 @@ const TwitterFeed = ({ feedName }) => {
     );
 };
 
-class OriginTwitterController extends Component {
+class OrganizationSponsorController extends Component {
     render() {
-        return <OriginTwitterComponentRender feed={<TwitterFeed feedName={this.props.uiStore.current_organisation.twitterFeedUsername} />} />;
+        return <OrganizationSponsorComponenRender feed={<TwitterFeed feedName={this.props.uiStore.current_organisation.twitterFeedUsername} />} />;
     }
 }
 
 
-OriginTwitterController.propTypes = {
+OrganizationSponsorController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     // appManager: PropTypes.object.isRequired
 };
@@ -39,4 +39,4 @@ TwitterFeed.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OriginTwitterController));
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationSponsorController));

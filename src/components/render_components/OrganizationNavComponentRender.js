@@ -8,8 +8,25 @@ class OrganizationNavComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.nav_header}>
-                    <img id="nav_img" src="http://api.originbeta.net/adminTemplate/1518192959017g5034r0j085fewubx1or.png" alt="" className={this.props.classes.nav_img}/>
+                <div className={this.props.classes.nav_left}>
+                    <div className={this.props.classes.nav_header}>
+                        <img id="nav_img" src="http://api.originbeta.net/adminTemplate/1518192959017g5034r0j085fewubx1or.png" alt="" className={this.props.classes.nav_img}/>
+                    </div>
+                    <div className={this.props.classes.social_menu_container}>
+                        <div className={this.props.classes.social_menu_item}>
+                            <i className="fa fa-instagram"/>
+                        </div>
+                        <div className={this.props.classes.social_menu_item}>
+                            <i className="fa fa-twitter"/>
+                        </div>
+                    </div>
+                </div>
+                <div className={this.props.classes.nav_right}>
+                    <div className={this.props.classes.org_menu_container}>
+                        <div className={this.props.classes.org_menu_item}>News</div>
+                        <div className={this.props.classes.org_menu_item}>About</div>
+                        <div className={this.props.classes.org_menu_item}>Home</div>
+                    </div>
                 </div>
             </div>
         )

@@ -239,7 +239,47 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         marginTop: '60px',
         paddingTop: '60px',
-        paddingBottom: '25px'
+        paddingBottom: '25px',
+        float: 'left'
+    },
+    nav_left: {
+        width: '50%',
+        float: 'left',
+        display: 'table'
+    },
+    nav_right: {
+        width: '50%',
+        float: 'left',
+        display: 'table'
+    },
+    org_menu_container: {
+        float: 'right',
+        display: 'table',
+        paddingTop: '40px'
+    },
+    social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '40px',
+        paddingLeft: '25px'
+    },
+    org_menu_item: {
+        height: '30px',
+        lineHeight: '30px',
+        float: 'right',
+        color: 'black',
+        fontSize: '14px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+    social_menu_item: {
+        height: '30px',
+        lineHeight: '30px',
+        float: 'left',
+        color: 'black',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
     },
     nav_header: {
         float: 'left',
@@ -252,7 +292,10 @@ export const GlobalStyles = GlobalTheme => ({
     organization_container: {
         width: '100%',
         height: '480px',
-        position: 'relative'
+        position: 'relative',
+        backgroundImage: 'url("http://api.originbeta.net/adminTemplate/1519075843431kc20eieh8417knoy9zfr.jpeg")',
+        backgroundSize: 'cover',
+        overflow: 'hidden'
     },
     organization_type_container: {
         width: '100%',
@@ -308,6 +351,10 @@ export const GlobalStyles = GlobalTheme => ({
         height: '250px',
         paddingTop: '10px',
         position: 'relative',
+        backgroundImage: 'url("http://api.originbeta.net/blogMedia/CoD-4-Header.jpg")',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: '50% 50%'
     },
     news_menu_item: {
         position: 'absolute',
