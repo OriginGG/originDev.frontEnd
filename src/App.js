@@ -3,7 +3,7 @@ import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Route } from 'react-router-dom';
-
+// import { getOrganisationQuery } from './queries/organisation';
 // import { authenticateQuery } from './queries/login';
 import SignupPageController from './components/controllers/Login/SignupPageController';
 import OrganizationPageController from './components/controllers/Origin/OrganizationPageController';
@@ -17,6 +17,9 @@ class App extends Component {
         // pouchTest
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+        // const defaultOrg = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain: 'origin' });
+        // this.props.uiStore.setOrganisation(defaultOrg.resultData);
+
         const auth = await this.props.appManager.pouchGet('authenticate');
         if (auth && auth.authenticate.resultData.organisation === subDomain) {
             this.props.appManager.authToken = auth.authenticate.resultData.jwtToken;

@@ -293,8 +293,14 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '480px',
         position: 'relative',
-        backgroundImage: 'url("http://api.originbeta.net/adminTemplate/1519075843431kc20eieh8417knoy9zfr.jpeg")',
+        backgroundColor: 'black',
         backgroundSize: 'cover',
+        overflow: 'hidden'
+    },
+    organization_image_logo: {
+        width: '100%',
+        height: '480px',
+        position: 'relative',
         overflow: 'hidden'
     },
     organization_type_container: {
@@ -556,9 +562,34 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '50px',
         borderBottom: '1px solid #ccc'
     },
+    media_title_box: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        padding: '30px 0px 10px 0px',
+        display: 'table',
+        borderBottom: '1px solid #ccc'
+    },
     admin_main_logo_box: {
         width: '100%',
-        padding: '15px 20px 50px 20px'
+        padding: '15px 20px 50px 20px',
+        display: 'table'
+    },
+    admin_main_logo_box_inner: {
+        width: '50%',
+        float: 'left',
+        display: 'table'
+    },
+    admin_main_logo_spacer: {
+        width: '100%',
+        height: '50px'
+    },
+    admin_color_label: {
+    },
+    admin_color_picker: {
+        height: '30px',
+        width: '100%',
+        marginTop: '10px'
     },
     admin_main_logo_button: {
         height: '30px',
@@ -584,6 +615,29 @@ export const GlobalStyles = GlobalTheme => ({
         width: '50%',
         display: 'table',
         padding: '30px 30px 50px 0px',
+        float: 'left'
+    },
+    roster_buttons_box: {
+        width: '100%',
+        display: 'table'
+    },
+    roster_team_button: {
+        width: '98px',
+        height: '38px',
+        border: '1px solid rgba(34,36,38,.15)',
+        background: 'rgb(248,248,248)',
+        lineHeight: '28px',
+        padding: '5px',
+        color: '#000',
+        textAlign: 'left',
+        float: 'left',
+        marginRight: '20px',
+        cursor: 'pointer'
+    },
+    admin_roster_box_inner: {
+        width: '25%',
+        display: 'table',
+        padding: '30px 10px 50px 0px',
         float: 'left'
     },
     admin_social_box_divider: {
@@ -614,6 +668,158 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '80px',
         backgroundColor: '#ccc',
         color: '#fff'
+    },
+    admin_search_container: {
+        width: '100%',
+        padding: '40px 15px 40px 15px',
+        borderTop: '1px solid #ccc'
+    },
+    admin_table_edit: {
+        color: '#fff',
+        cursor: 'pointer',
+        background: '#ccc',
+        textAlign: 'center',
+        border: '1px solid #ccc'
+    },
+    admin_sponser_button: {
+        width: '160px',
+        height: '30px',
+        textAlign: 'center',
+        lineHeight: '30px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '10px',
+        marginTop: '30px',
+        backgroundColor: '#0a9ab4',
+        color: '#fff',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        borderRadius: '3px'
+    },
+    admin_file_button: {
+        width: '160px',
+        height: '30px',
+        textAlign: 'center',
+        lineHeight: '30px',
+        marginBottom: '10px',
+        marginTop: '30px',
+        backgroundColor: '#0a9ab4',
+        color: '#fff',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        borderRadius: '3px'
+    },
+    modal_blog_media_preview: {
+        width: '100%',
+        float: 'left'
+    },
+    theme_modal_OR: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        textAlign: 'left',
+        color: '#000',
+        fontSize: '24px',
+        fontWeight: 'bold'
+    },
+    theme_modal_small_container: {
+        width: '100%',
+        padding: '20px 0px 20px 0px',
+        display: 'table'
+    },
+    theme_modal_small_img: {
+        width: '100px',
+        height: '50px',
+        float: 'left',
+        marginRight: '30px',
+        cursor: 'pointer'
+    },
+    admin_sponser_file: {
+        width: '0.1px',
+        height: '0.1px',
+        opacity: '0',
+        overflow: 'hidden',
+        position: 'absolute',
+        zIndex: '-1',
+    },
+    admin_sponser_label: {
+        backgroundColor: 'transparent',
+        color: '#fff'
+    },
+    admin_sponser_image_box: {
+        width: '150px',
+        height: '100px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: '#ccc'
+    },
+    admin_sponser_image: {
+        width: '150px',
+        height: '100px'
+    },
+    modal_inner: {
+        width: '100%',
+        padding: '15px',
+        display: 'table'
+    },
+    modal_blog_media_container: {
+        width: '100%',
+        padding: '15px 0px 15px 0px',
+        textAlign: 'center',
+        display: 'table'
+    },
+    model_blog_media_preview: {
+        maxHeight: '320px',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    blog_add_actions: {
+        width: '100%',
+        padding: '20px 0px 20px 0px' 
+    },
+    theme_type_container: {
+        width: '100%',
+        display: 'table',
+        padding: '20px 0px 20px 0px'
+    },
+    jumbotron_container: {
+        width: '100%',
+        display: 'table',
+        position: 'relative',
+        padding: '20px 0px 20px 30px' 
+    },
+    jumbotron_image: {
+        width: '60%',
+        height: '100%'
+    },
+    jumbotron_overlay: {
+        position: 'absolute',
+        top: '20px',
+        left: '30px',
+        width: '10%',
+        height: '30px',
+        lineHeight: '30px',
+        backgroundColor: 'rgba(0,0,0,.4)',
+        color: '#fff',
+        textAlign: 'center',
+        cursor: 'pointer'
+    },
+    //*************************************
+    //  Individual Main
+    //*********************************** */
+    individual_bg: {
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: 'black',
+        padding: '0px 10% 40px 10%',
+        display: 'table'
+    },
+    individual_inner_bg: {
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: 'rgb(35,35,35)',
+        display: 'table'
     }
 });
 

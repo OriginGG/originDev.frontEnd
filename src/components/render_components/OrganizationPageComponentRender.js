@@ -21,7 +21,7 @@ class OrganizationPageComponentRender extends Component {
                         <div >{this.props.logoContent}</div>
                     </div>
                     <div className={this.props.classes.powered_by}>
-                        <img src="./images/powered-by.png"/>
+                        <img/>
                     </div>
                     <div className={this.props.classes.news_main_container}>
                         <div id="news_container" className={this.props.classes.news_container}>

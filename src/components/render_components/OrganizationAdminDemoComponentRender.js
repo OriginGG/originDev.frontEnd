@@ -18,7 +18,7 @@ class OrganizationAdminDemoComponentRender extends Component {
                     <div className="ui inverted labeled icon left inline vertical wide sidebar menu">
                         <div className={this.props.classes.menu_title_container}>
                             <div className={this.props.classes.menu_title_logo}>
-                                <img src="http://api.originbeta.net/adminTemplate/1520546366661frcn0rmeg8t98jjor.jpeg" alt="logo" className={this.props.classes.menu_title_image}/>
+                                <img alt="logo" className={this.props.classes.menu_title_image}/>
                             </div>
                             <div className={this.props.classes.menu_title_text}>
                                 Admin Panel
@@ -26,7 +26,7 @@ class OrganizationAdminDemoComponentRender extends Component {
                         </div>
                         <div className={this.props.classes.menu_user_container}>
                             <div className={this.props.classes.menu_user_logo}>
-                                <img src="" className={this.props.classes.menu_user_iamge}/>
+                                <img className={this.props.classes.menu_user_iamge}/>
                             </div>
                             <div className={this.props.classes.menu_user_text}>
                                 qwertytest
@@ -67,6 +67,7 @@ class OrganizationAdminDemoComponentRender extends Component {
                                 <div className="title">Manage<i className="dropdown icon"/></div>
                                 <div className="content">
                                     <div className="vertical menu">
+                                        <a hrwf="#" className="item">Theme</a>
                                         <a href="#" className="item">About</a>
                                         <a href="#" className="item">Roster</a>
                                         <a href="#" className="item">Blog</a>

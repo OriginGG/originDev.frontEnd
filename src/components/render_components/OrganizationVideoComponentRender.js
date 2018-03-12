@@ -21,21 +21,21 @@ class OrganizationVideoComponentRender extends Component {
                             }}>More Video</a>
                         </span>
                     </h2>
-                    <iframe title="ifr" width="100%" height="500px" src="https://www.youtube.com/embed/oS9ACN5XQ0M" frameBorder="0"/>
+                    <iframe title="ifr" width="100%" height="500px" frameBorder="0"/>
                     <div className={this.props.classes.small_video_container}>
                         <div className={this.props.classes.small_video}>
                             <div>
-                                <iframe title="ifr" width="100%" height="200px" src="https://www.youtube.com/embed/rh8HEF63rx4" frameBorder="0"/>
+                                <iframe title="ifr" width="100%" height="200px" frameBorder="0"/>
                             </div>
                         </div>
                         <div className={this.props.classes.small_video_middle}>
                             <div>
-                                <iframe title="ifr" width="100%" height="200px" src="https://www.youtube.com/embed/Cdb-X9aQmPY" frameBorder="0"/>
+                                <iframe title="ifr" width="100%" height="200px" frameBorder="0"/>
                             </div>
                         </div>
                         <div className={this.props.classes.small_video}>
                             <div>
-                                <iframe title="ifr" width="100%" height="200px" src="https://www.youtube.com/embed/7D-Jd0BYsBc" frameBorder="0"/>
+                                <iframe title="ifr" width="100%" height="200px" frameBorder="0"/>
                             </div>
                         </div>
                     </div>

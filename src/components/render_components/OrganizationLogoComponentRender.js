@@ -9,6 +9,7 @@ class OrganizationLogoComponentRender extends Component {
         return (
             <div>
                 <div className={this.props.classes.organization_container}>
+                    <img className={this.props.classes.organization_image_logo} src={this.props.image_src}/>
                     <div className={this.props.classes.organization_type_container}>
                         <div id="org_type_text" className={this.props.classes.org_type_text}>
                             Call of Duty

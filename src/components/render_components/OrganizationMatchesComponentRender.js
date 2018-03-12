@@ -106,7 +106,7 @@ class OrganizationMatchesComponentRender extends Component {
                                                     textOverflow: 'ellipsis',
                                                     backgroundColor: 'inherit'
                                                 }}>
-                                                    <img size="40" src="http://api.originbeta.net/defaultRecentMatch/wow.png" style={{
+                                                    <img size="40" style={{
                                                         color: 'rgb(255, 255, 255)',
                                                         backgroundColor: 'transparent',
                                                         userSelect: 'none',
@@ -131,7 +131,7 @@ class OrganizationMatchesComponentRender extends Component {
                                                     textOverflow: 'ellipsis',
                                                     backgroundColor: 'inherit'
                                                 }}>
-                                                    <img size="40" src="http://api.originbeta.net/defaultRecentMatch/1518910314231Capture.PNG" style={{
+                                                    <img size="40" style={{
                                                         color: 'rgb(255, 255, 255)',
                                                         backgroundColor: 'transparent',
                                                         userSelect: 'none',

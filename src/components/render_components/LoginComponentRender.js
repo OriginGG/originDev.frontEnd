@@ -71,7 +71,7 @@ class LoginComponentRender extends Component {
                                     <div className={this.props.classes.social_box_outer}>
                                         <div className={this.props.classes.social_box_inner}>
                                             <div className={this.props.classes.social_box_left}>
-                                                <img src="./images/sm-1.png" className={this.props.classes.social_image_box}/>
+                                                <img className={this.props.classes.social_image_box}/>
                                                 <div className={this.props.classes.social_text_box}>
                                                     Facebook
                                                 </div>
@@ -79,7 +79,7 @@ class LoginComponentRender extends Component {
                                         </div>
                                         <div className={this.props.classes.social_box_inner}>
                                             <div className={this.props.classes.social_box_right}>
-                                                <img src="./images/sm-6.png" className={this.props.classes.social_image_box}/>
+                                                <img className={this.props.classes.social_image_box}/>
                                                 <div className={this.props.classes.social_text_box}>
                                                     Twitch
                                                 </div>

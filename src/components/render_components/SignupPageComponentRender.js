@@ -11,7 +11,7 @@ class SignupPageComponentRender extends Component {
                 <header className={this.props.classes.signupHeader}>
                     <div className="ui container">
                         <a href="#" className="header item">
-                            <img src="./images/logo-top.png" className="logo"/>
+                            <img className="logo"/>
                         </a>
                     </div>
                 </header>

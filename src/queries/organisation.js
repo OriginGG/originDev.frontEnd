@@ -17,6 +17,7 @@ export const getOrganisationQuery = gql`
         node {
           themeName
           themeData
+          themeStructure
         }
       }
     }

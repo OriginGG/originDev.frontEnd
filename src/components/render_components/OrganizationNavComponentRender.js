@@ -10,7 +10,7 @@ class OrganizationNavComponentRender extends Component {
             <div>
                 <div className={this.props.classes.nav_left}>
                     <div className={this.props.classes.nav_header}>
-                        <img id="nav_img" src="http://api.originbeta.net/adminTemplate/1518192959017g5034r0j085fewubx1or.png" alt="" className={this.props.classes.nav_img}/>
+                        <img id="nav_img" alt="" className={this.props.classes.nav_img} src={this.props.image_src}/>
                     </div>
                     <div className={this.props.classes.social_menu_container}>
                         <div className={this.props.classes.social_menu_item}>

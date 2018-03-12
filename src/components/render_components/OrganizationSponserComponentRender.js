@@ -13,33 +13,33 @@ class OrganizationSponserComponentRender extends Component {
                         width: '274px',
                         float: 'left'
                     }} className="container col-sm-4">
-                        <img src="http://api.originbeta.net/sponsor/1518194462521EGL_logo_410x.png" alt="Change Logo" style={{
+                        <img alt="Change Logo" style={{
                             height: '35px'
-                        }} className={this.props.classes.header_logo}/>
+                        }} className={this.props.classes.header_logo} src={this.props.sponsor_image1}/>
                     </div>
                     <div style={{
                         width: '274px',
                         float: 'left'
                     }} className="container col-sm-4">
-                        <img src="http://api.originbeta.net/sponsor/sponsor-logo2.png" alt="Change Logo" style={{
+                        <img alt="Change Logo" style={{
                             height: '35px'
-                        }} className={this.props.classes.header_logo}/>
+                        }} className={this.props.classes.header_logo} src={this.props.sponsor_image2}/>
                     </div>
                     <div style={{
                         width: '274px',
                         float: 'left'
                     }} className="container col-sm-4">
-                        <img src="http://api.originbeta.net/sponsor/1518194462521EGL_logo_410x.png" alt="Change Logo" style={{
+                        <img alt="Change Logo" style={{
                             height: '35px'
-                        }} className={this.props.classes.header_logo}/>
+                        }} className={this.props.classes.header_logo} src={this.props.sponsor_image3}/>
                     </div>
                     <div style={{
                         width: '274px',
                         float: 'left'
                     }} className="container col-sm-4">
-                        <img src="http://api.originbeta.net/sponsor/sponsor-logo2.png" alt="Change Logo" style={{
+                        <img alt="Change Logo" style={{
                             height: '35px'
-                        }} className={this.props.classes.header_logo}/>
+                        }} className={this.props.classes.header_logo} src={this.props.sponsor_image4}/>
                     </div>
                 </marquee>
             </div>
