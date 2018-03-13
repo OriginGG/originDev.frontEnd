@@ -6,7 +6,7 @@ class UiStore {
     @observable current_subdomain = ''
     @observable current_theme_data = {}
     @observable current_theme_structure = {}
-    @action
+    @observable origin_theme_data = {}
     setOrganisation = (o) => {
         const { themeData } = o.themesByThemeName.edges[0].node;
         const { themeStructure } = o.themesByThemeName.edges[0].node;
@@ -17,6 +17,11 @@ class UiStore {
     @action
     setSubDomain = (o) => {
         this.current_subdomain = o;
+    }
+    @action
+    setOriginTheme = (o) => {
+        const { themeData } = o;
+        this.origin_theme_data = JSON.parse(themeData);
     }
 }
 

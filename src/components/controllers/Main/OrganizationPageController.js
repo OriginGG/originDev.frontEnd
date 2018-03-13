@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
+
+
 import PropTypes from 'prop-types';
 import OrganizationPageComponentRender from '../../render_components/OrganizationPageComponentRender';
 import OrganizationVideoController from './sub_controllers/OrganizationVideoController';
@@ -33,16 +35,20 @@ class OrganizationPageController extends Component {
             return null;
         }
         const { subDomain } = this.props.uiStore.current_organisation;
-        return (<OrganizationPageComponentRender
-            newsContent={<OrganizationNewsController />}
-            twitterContent={<OrganizationTwitterController />}
-            matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
-            videoContent={<OrganizationVideoController />}
-            topSponsorContent={<OrganizationSponsorController />}
-            bottomSponsorContent={<OrganizationSponsorController />}
-            navContent={<OrganizationNavController />}
-            logoContent={<OrganizationLogoController />}
-        />);
+        return (
+            <ThemeProvider theme={this.props.uiStore.current_theme_data}>
+                <OrganizationPageComponentRender
+                    newsContent={<OrganizationNewsController />}
+                    twitterContent={<OrganizationTwitterController />}
+                    matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
+                    videoContent={<OrganizationVideoController />}
+                    topSponsorContent={<OrganizationSponsorController />}
+                    bottomSponsorContent={<OrganizationSponsorController />}
+                    navContent={<OrganizationNavController />}
+                    logoContent={<OrganizationLogoController />}
+
+                /></ThemeProvider>
+        );
     }
 }
 OrganizationPageController.propTypes = {

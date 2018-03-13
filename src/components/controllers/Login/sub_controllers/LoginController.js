@@ -47,6 +47,10 @@ class LoginController extends Component {
                 onSubmit={async (v) => {
                     const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     if (authPayload.authenticate.resultData !== null) {
+                        const { organisation } = authPayload.authenticate.resultData;
+                        if (!organisation) {
+                            // we are signed up, but we've not create our subdomain yet.
+                        }
                         const domainInfo = this.props.appManager.getDomainInfo();
                         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
                         // we might have a valid user somewhere, but is he part of this domain?

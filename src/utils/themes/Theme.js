@@ -812,7 +812,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         backgroundColor: 'black',
-        padding: '0px 10% 40px 10%',
+        padding: '0px 10% 0px 10%',
         display: 'table'
     },
     individual_inner_bg: {
@@ -820,6 +820,103 @@ export const GlobalStyles = GlobalTheme => ({
         minHeight: '100vh',
         backgroundColor: 'rgb(35,35,35)',
         display: 'table'
+    },
+    individual_header: {
+        width: '100%',
+        minHeight: '400px',
+        backgroundImage: 'url("./images/profile-bannerbg.jpg")',
+        backgroundSize: '100% 100% !important'
+    },
+    individual_basic_container: {
+        width: '100%',
+        minHeight: '100px',
+        backgroundColor: 'white',
+        display: 'table'
+    },
+    individual_profile_pic_container: {
+        width: '170px',
+        height: '170px',
+        border: '2px solid #fff',
+        borderRadius: '4px',
+        backgroundColor: 'red',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '-85px',
+        overflow: 'visible'
+    },
+    individual_profile_pic: {
+        width: '170px',
+        height: '170px',
+        border: '2px solid #fff',
+        borderRadius: '4px'
+    },
+    individual_basic_name: {
+        width: '100%',
+        height: '30px',
+        lineHeight: '30px',
+        textAlign: 'center',
+        fontSize: '24px',
+        color: 'black',
+        margin: '10px 0px 0px 0px'
+    },
+    individual_basic_handle: {
+        width: '100%',
+        height: '14px',
+        lineHeight: '14px',
+        textAlign: 'center',
+        fontSize: '12px',
+        color: 'black'
+    },
+    individual_table_container: {
+        width: '100%',
+        display: 'table',
+        padding: '15px 15px 15px 15px'
+    },
+    individual_accomplishment_container: {
+        width: '100%',
+        minHeight: '761px',
+        border: '1px solid rgb(228,228,228)',
+        borderRadius: '4px',
+        backgroundColor: 'rgb(245,245,245)'
+    },
+    individual_accomplishment_header: {
+        margin: '0 0 0 0',
+        padding: '13px 15px 12px 15px',
+        background: '#127f93',
+        color: '#fff',
+        fontSize: '14px',
+        fontWeight: '600'
+    },
+    individual_basic_text: {
+        width: '100%',
+        height: '16px',
+        lineHeight: '16px',
+        fontSize: '12px',
+        color: 'black',
+        marginTop: '5px',
+        display: 'table'
+    },
+    individual_footer: {
+        width: '100%',
+        height: '60px',
+        lineHeight: '60px',
+        textAlign: 'center',
+        color: 'white'
+    },
+    individual_social_box: {
+        width: '100%',
+        minHeight: '394px',
+        backgroundColor: 'rgb(56,56,56)',
+        borderRadius: '8px'
+    },
+    individual_social_header: {
+        margin: '0 0 0 0',
+        padding: '13px 15px 12px 15px',
+        background: '#127f93',
+        color: '#fff',
+        fontSize: '14px',
+        fontWeight: '600',
+        borderRadius: '8px 8px 0px 0px'
     }
 });
 

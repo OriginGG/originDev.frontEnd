@@ -9,3 +9,12 @@ export const updateThemeQuery = gql`
         }
     }
 }`;
+
+export const getThemeQuery = gql`
+    query getTheme($subDomain: String!) {
+    resultData: themeByThemeName(themeName: $subDomain) {
+        themeData
+        themeStructure
+        themeName
+    }
+}`;
