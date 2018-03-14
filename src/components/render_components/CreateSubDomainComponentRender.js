@@ -49,7 +49,7 @@ class CreateSubDomainComponentRender extends Component {
                                             }} onChange={this.props.uploadFile}/>
                                         </div>
                                         <div className={this.props.classes.subdomain_logo_upload_container}>
-                                            <img className={this.props.classes.subdomain_logo_upload}/>
+                                            <img className={this.props.classes.subdomain_logo_upload} src={this.props.upload_img_src}/>
                                         </div>
                                         <div className={this.props.classes.subdomain_select_text}>
                                             Select Layout

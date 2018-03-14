@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
@@ -10,16 +11,20 @@ import { updateUserQuery } from '../../../queries/users';
 import { createThemeQuery } from '../../../queries/themes';
 
 class CreateSubDomainController extends Component {
+    state = { image_src: null };
     componentWillMount() {
         const authPayload = this.props.appManager.GetQueryParams('p');
-        const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
-        this.authPayload = p;
-        const token = p.authenticate.resultData.jwtToken;
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace('-', '+').replace('_', '/');
-        const d = JSON.parse(window.atob(base64));
-        const { id } = d;
-        this.user_id = id;
+        if (authPayload) {
+            const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+            this.authPayload = p;
+            const token = p.authenticate.resultData.jwtToken;
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace('-', '+').replace('_', '/');
+            const d = JSON.parse(window.atob(base64));
+            const { id } = d;
+            this.user_id = id;
+            this.logo_files = null;
+        }
     }
     handleDomainChange = e => {
         const v = e.target.value;
@@ -27,18 +32,44 @@ class CreateSubDomainController extends Component {
     }
     uploadFile = (e) => {
         const { files } = e.target;
-        this.logo_files = files[0];                 // eslint-disable-line
+        this.logo_files = files[0];             // eslint-disable-line
+        const reader = new FileReader();
+        reader.readAsDataURL(this.logo_files);
+
+        reader.onloadend = () => {
+            const x = reader.result;
+            this.setState({ image_src: x });
+        };
+    }
+
+    uploadLogo = () => {
+        return new Promise((resolve) => {
+            const formData = new FormData();
+            formData.append('images', this.logo_files);
+            axios.post(`http://127.0.0.1:3333/upload/${this.domain_name}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((x) => {
+                resolve(x.data);
+            });
+        });
     }
     handleSubmit = async () => {
         if (this.domain_name) {
+            const logo_data = await this.uploadLogo();
+            const p = toJS(this.props.uiStore.origin_theme_structure);
+            p.header.logo.imageData = logo_data.Location;
             const t = {
                 themeName: this.domain_name,
-                themeStructure: JSON.stringify(toJS(this.props.uiStore.origin_theme_structure)),
+                themeStructure: JSON.stringify(p),
                 themeData: JSON.stringify(toJS(this.props.uiStore.origin_theme_data))
             };
             await this.props.appManager.executeQuery('mutation', createOrganisationQuery, { subDomain: this.domain_name });
             await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
             await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
+
+
             const domainInfo = this.props.appManager.getDomainInfo();
             const new_payload = Object.assign(this.authPayload, {});
             new_payload.authenticate.resultData.organisation = this.domain_name;
@@ -58,6 +89,7 @@ class CreateSubDomainController extends Component {
                     handleDomainChange={this.handleDomainChange}
                     handleSubmit={this.handleSubmit}
                     uploadFile={this.uploadFile}
+                    upload_img_src={this.state.image_src}
                 />
             </ThemeProvider>
         );

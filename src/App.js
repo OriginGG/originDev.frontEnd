@@ -42,7 +42,7 @@ class App extends Component {
             }
             // we are already logged in, and have same organisation
         } else {
-            historyStore.push('/createsubdomain');
+            historyStore.push('/signup');
             // TODO direct to signup if not on admin page.
             // debugger;
             // either we're not logged in, or we are trying to log into a different sub-domain

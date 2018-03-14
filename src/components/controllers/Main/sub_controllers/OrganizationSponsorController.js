@@ -12,10 +12,12 @@ class OrganizationSponsorController extends Component {
     componentWillMount = async () => {
         const subDomain = this.props.uiStore.current_subdomain;
         const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain });
-        this.sponsor_image1 = sponsor_data.resultData.edges[0].node.imageUrl;
-        this.sponsor_image2 = sponsor_data.resultData.edges[1].node.imageUrl;
-        this.sponsor_image3 = sponsor_data.resultData.edges[2].node.imageUrl;
-        this.sponsor_image4 = sponsor_data.resultData.edges[3].node.imageUrl;
+        if (sponsor_data.resultData.edges.length > 0) {
+            this.sponsor_image1 = sponsor_data.resultData.edges[0].node.imageUrl;
+            this.sponsor_image2 = sponsor_data.resultData.edges[1].node.imageUrl;
+            this.sponsor_image3 = sponsor_data.resultData.edges[2].node.imageUrl;
+            this.sponsor_image4 = sponsor_data.resultData.edges[3].node.imageUrl;
+        }
         this.setState({ visible: true });
     }
     render() {
