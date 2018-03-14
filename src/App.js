@@ -37,8 +37,10 @@ class App extends Component {
             if (auth.authenticate.resultData.organisation === 'origin') {
                 historyStore.push('/signup');
             } else {
-                historyStore.push('/main');
-                console.log('already logged in');
+                const x = window.location.href;
+                if (!x.includes('admin')) {
+                    historyStore.push('/main');
+                }
             }
             // we are already logged in, and have same organisation
         } else {

@@ -7,12 +7,12 @@ import { toJS } from 'mobx';
 import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/CreateSubDomainComponentRender';
-import { updateUserQuery } from '../../../queries/users';
+import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import { createThemeQuery } from '../../../queries/themes';
 
 class CreateSubDomainController extends Component {
-    state = { image_src: null };
-    componentWillMount() {
+    state = { visible: false, image_src: null };
+    componentWillMount = async () => {
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
@@ -23,7 +23,10 @@ class CreateSubDomainController extends Component {
             const d = JSON.parse(window.atob(base64));
             const { id } = d;
             this.user_id = id;
+            const user = await this.props.appManager.executeQuery('query', getUserQuery, { id });
+            this.name = user.resultData.firstName;
             this.logo_files = null;
+            this.setState({ visible: true });
         }
     }
     handleDomainChange = e => {
@@ -80,6 +83,9 @@ class CreateSubDomainController extends Component {
         }
     }
     render() {
+        if (this.state.visible === false) {
+            return null;
+        }
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
                 <CreateSubDomainComponentRender
@@ -90,6 +96,7 @@ class CreateSubDomainController extends Component {
                     handleSubmit={this.handleSubmit}
                     uploadFile={this.uploadFile}
                     upload_img_src={this.state.image_src}
+                    namestring={`Welcome, ${this.name}`}
                 />
             </ThemeProvider>
         );

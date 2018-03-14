@@ -17,7 +17,7 @@ class CreateSubDomainComponentRender extends Component {
                 </header>
                 <div id="modal_container" className="container">
                     <div id="sign_up" className={this.props.classes.signupModal}>
-                        <div className={this.props.classes.subdomain_header}>Welcome, TestOrg</div>
+                        <div className={this.props.classes.subdomain_header}>{this.props.namestring}</div>
                         <div className={this.props.classes.subdomainModalContent}>
                             <form className="ui large form">
                                 <div className="ui stacked segment">
