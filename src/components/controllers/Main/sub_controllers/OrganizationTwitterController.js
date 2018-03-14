@@ -9,6 +9,9 @@ import OrganizationTwitterComponenRender from '../../../render_components/Organi
 // import { getOrganisationQuery } from './queries/organisation'
 
 const TwitterFeed = ({ feedName }) => {
+    if (!feedName) {
+        return null;
+    }
     return (
         <Timeline
             dataSource={{

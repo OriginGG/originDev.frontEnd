@@ -18,3 +18,16 @@ export const getThemeQuery = gql`
         themeName
     }
 }`;
+
+export const createThemeQuery = gql`mutation createTheme($themeName: String!, $themeData: JSON!, $themeStructure: JSON!) {
+  createTheme(input: {theme: {
+    themeName: $themeName
+    themeData: $themeData
+    themeStructure: $themeStructure
+  }}) {
+    theme {
+      themeName
+    }
+  }
+}`;
+

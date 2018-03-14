@@ -13,15 +13,7 @@ import historyStore from './utils/stores/browserHistory';
 import './App.css';
 import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
 
-const GetQueryParams = name => {
-    const url = window.location.href;
-    const new_name = name.replace(/[[\]]/g, '\\$&');
-    const regex = new RegExp(`[?&]${new_name}(=([^&#]*)|&|#|$)`);
-    const results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-};
+
 class App extends Component {
     componentWillMount = async () => {
         // pouchTest
@@ -31,7 +23,7 @@ class App extends Component {
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
 
-        const authPayload = GetQueryParams('p');
+        const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
             await this.props.appManager.pouchStore('authenticate', p);
