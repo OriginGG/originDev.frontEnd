@@ -52,7 +52,7 @@ class OrganizationAdminThemeComponentRender extends Component {
                             </label>
                             <input type="file" id="hidden-new-file" style={{
                                 display: 'none'
-                            }} onchange="readURL(this);"/>
+                            }}/>
                         </div>
                         <div className={this.props.classes.modal_blog_media_container}>
                             <img id="blog_media_preview" className={this.props.classes.modal_blog_media_preview}/>

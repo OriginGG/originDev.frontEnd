@@ -11,7 +11,17 @@ import AdminPageController from './components/controllers/Admin/AdminController'
 import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
 import './App.css';
+import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
 
+const GetQueryParams = name => {
+    const url = window.location.href;
+    const new_name = name.replace(/[[\]]/g, '\\$&');
+    const regex = new RegExp(`[?&]${new_name}(=([^&#]*)|&|#|$)`);
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
 class App extends Component {
     componentWillMount = async () => {
         // pouchTest
@@ -20,6 +30,15 @@ class App extends Component {
         this.props.uiStore.setOriginTheme(originTheme.resultData);
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+
+        const authPayload = GetQueryParams('p');
+        if (authPayload) {
+            const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+            await this.props.appManager.pouchStore('authenticate', p);
+            historyStore.push('/main');
+        }
+        // is there a query param?
+
         const auth = await this.props.appManager.pouchGet('authenticate');
         if (auth && auth.authenticate.resultData.organisation === subDomain) {
             this.props.appManager.authToken = auth.authenticate.resultData.jwtToken;
@@ -31,7 +50,7 @@ class App extends Component {
             }
             // we are already logged in, and have same organisation
         } else {
-
+            historyStore.push('/createsubdomain');
             // TODO direct to signup if not on admin page.
             // debugger;
             // either we're not logged in, or we are trying to log into a different sub-domain
@@ -57,6 +76,7 @@ class App extends Component {
                 <Route exact path="/admin" component={AdminPageController} />
                 <Route exact path="/signup" component={SignupPageController} />
                 <Route exact path="/main" component={OrganizationPageController} />
+                <Route exact path="/createsubdomain" component={CreateSubDomainController} />
             </div>
         );
     }

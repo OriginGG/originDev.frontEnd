@@ -65,7 +65,7 @@ class LoginComponentRender extends Component {
                                         background: '#0a9ab4',
                                         fontSize: '18px',
                                         marginTop: '40px'
-                                    }} className="ui fluid large teal submit button" onClick={this.props.handleSubmit}>Create an Account</div>
+                                    }} className="ui fluid large teal submit button" onClick={this.props.handleSubmit}>Login</div>
                                     <div className={this.props.classes.submit_divider}/>
                                     <div className={this.props.classes.submit_or}>OR</div>
                                     <div className={this.props.classes.social_box_outer}>

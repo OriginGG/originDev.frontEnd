@@ -23,7 +23,7 @@ class OrganizationAdminProfileComponentRender extends Component {
                         </div>
                         <div className={this.props.classes.admin_main_logo_spacer}/>
                         <label className={this.props.classes.admin_color_label}>Primary Color</label>
-                        <input type="color" id="primary_color" onchange="clickColor(0, -1, -1, 5)" value="#0a9ab4" className={this.props.classes.admin_color_picker}/>
+                        <input type="color" id="primary_color" value="#0a9ab4" className={this.props.classes.admin_color_picker}/>
                     </div>
                 </div>
                 <div className={this.props.classes.admin_title_box}>

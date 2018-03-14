@@ -54,6 +54,15 @@ class LoginController extends Component {
                         const domainInfo = this.props.appManager.getDomainInfo();
                         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
                         // we might have a valid user somewhere, but is he part of this domain?
+
+                        if (subDomain === 'origin' && organisation !== null) {
+                            const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
+                            const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
+                            window.location = u_string;
+                        }
+                        if (subDomain === 'origin' && organisation === null) {
+                            historyStore.push('/createsubdomain');
+                        }
                         if (subDomain === authPayload.authenticate.resultData.organisation) {
                             // succesfully logged in store in pouch then change page.
                             await this.props.appManager.pouchStore('authenticate', authPayload);

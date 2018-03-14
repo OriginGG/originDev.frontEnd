@@ -481,6 +481,10 @@ export const GlobalStyles = GlobalTheme => ({
     admin_main: {
         width: '100%'
     },
+    menu_box_container: {
+        height: '100%',
+        width: '350px'
+    },
     menu_title_container: {
         height: '80px',
         width: '100%',
@@ -819,7 +823,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         backgroundColor: 'rgb(35,35,35)',
-        display: 'table'
+        display: 'table',
+        padding: '0px 25px 0px 0px'
     },
     individual_header: {
         width: '100%',
@@ -917,6 +922,76 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '14px',
         fontWeight: '600',
         borderRadius: '8px 8px 0px 0px'
+    },
+    individual_social_content: {
+        width: '100%',
+        display: 'table',
+    },
+    individual_social_empty: {
+        width: '100%',
+        textAlign: 'center',
+        padding: '5px 0px 5px 0px',
+        color: 'white',
+        fontSize: '14px'
+    },
+    /******************************
+     ** Sub domain page          **
+     ******************************/
+    subdomain_logo_upload_container: {
+        width: '100%',
+        display: 'table',
+        margin: '5px 5px 5px 5px'
+    },
+    subdomain_logo_upload: {
+        maxWidth: '100%',
+        maxHeight: '320px'
+    },
+    subdomain_select_text: {
+        width: '100%',
+        height: '30px',
+        lineHeight: '30px',
+        color: 'white',
+        textAlign: 'center'
+    },
+    subdomain_theme_container: {
+        width: '100%',
+        display: 'table',
+        padding: '20px 20px 20px 20px'
+    },
+    subdomain_theme_img: {
+        width: '100%'
+    },
+    theme_title_text: {
+        width: '100%',
+        textAlign: 'center',
+        height: '30px',
+        lineHeight: '30px',
+        color: 'white',
+        fontSize: '18px'
+    },
+    theme_description_text: {
+        width: '100%',
+        textAlign: 'center',
+        color: 'white',
+        padding: '0px 15px 50px 15px'
+    },
+    subdomain_header: {
+        width: '100%',
+        height: '54px',
+        lineHeight: '54px',
+        backgroundColor: 'rgb(102,102,102)',
+        fontSize: '1.75em',
+        textAlign: 'center',
+        float: 'left',
+        color: '#fff',
+        borderRadius: '6px 6px 0 0',
+        cursor: 'pointer'
+    },
+    subdomainModalContent: {
+        width: '100%',
+        paddingLeft: '15px',
+        paddingRight: '15px',
+        display: 'table'
     }
 });
 
