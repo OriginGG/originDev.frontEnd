@@ -18,13 +18,12 @@ class CreateSubDomainController extends Component {
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
             this.authPayload = p;
             const token = p.authenticate.resultData.jwtToken;
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace('-', '+').replace('_', '/');
-            const d = JSON.parse(window.atob(base64));
+            const d = this.props.appManager.decodeJWT(token);
             const { id } = d;
             this.user_id = id;
             const user = await this.props.appManager.executeQuery('query', getUserQuery, { id });
             this.name = user.resultData.firstName;
+            this.props.uiStore.setCurrentUser(user.resultData);
             this.logo_files = null;
             this.setState({ visible: true });
         }

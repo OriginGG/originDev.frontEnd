@@ -47,6 +47,9 @@ class LoginController extends Component {
                 onSubmit={async (v) => {
                     const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     if (authPayload.authenticate.resultData !== null) {
+                        const token = authPayload.authenticate.resultData.jwtToken;
+                        const d = this.props.appManager.decodeJWT(token);
+                        this.props.uiStore.setUserID(d.id);
                         const { organisation } = authPayload.authenticate.resultData;
                         const domainInfo = this.props.appManager.getDomainInfo();
                         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
@@ -91,7 +94,7 @@ class LoginController extends Component {
 }
 
 LoginController.propTypes = {
-    // uiStore: PropTypes.object.isRequired,
+    uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired
 };
 
