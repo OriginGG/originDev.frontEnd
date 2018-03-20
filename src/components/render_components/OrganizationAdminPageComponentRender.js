@@ -16,20 +16,9 @@ class OrganizationAdminPageComponentRender extends Component {
                 </div>
                 <div className="ui bottom attached segment pushable">
                     <div id="admin_menu" className="ui inverted labeled icon left inline vertical wide sidebar menu"></div>
-                    <div className="pusher">
+                    <div>
                         <div className="ui basic segment">
-                            <div className={this.props.classes.admin_main}>
-                                <div id="company_profile_main"></div>
-                                <div id="user_list_main"></div>
-                                <div id="collaborators_main"></div>
-                                <div id="theme_main"></div>
-                                <div id="about_main"></div>
-                                <div id="roster_main"></div>
-                                <div id="blog_main"></div>
-                                <div id="media_main"></div>
-                                <div id="matches_main"></div>
-                                <div id="sponsers_main"></div>
-                            </div>
+                            <div className={this.props.classes.admin_main}>{this.props.admin_content}</div>
                         </div>
                     </div>
                 </div>

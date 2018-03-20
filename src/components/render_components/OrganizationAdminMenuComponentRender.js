@@ -13,7 +13,7 @@ class OrganizationAdminMenuComponentRender extends Component {
                         <div className={this.props.classes.menu_box_container}>
                             <div className={this.props.classes.menu_title_container}>
                                 <div className={this.props.classes.menu_title_logo}>
-                                    <img alt="logo" className={this.props.classes.menu_title_image}/>
+                                    <img alt="logo" className={this.props.classes.menu_title_image} src={this.props.image_src}/>
                                 </div>
                                 <div className={this.props.classes.menu_title_text}>
                                     Admin Panel
@@ -21,13 +21,15 @@ class OrganizationAdminMenuComponentRender extends Component {
                             </div>
                             <div className={this.props.classes.menu_user_container}>
                                 <div className={this.props.classes.menu_user_logo}>
-                                    <img className={this.props.classes.menu_user_iamge}/>
+                                    <img className={this.props.classes.menu_user_image}/>
                                 </div>
-                                <div className={this.props.classes.menu_user_text}>
-                                    qwertytest
-                                </div>
+                                <div className={this.props.classes.menu_user_text}>{this.props.fullname}</div>
                             </div>
-                            <a className="item">
+                            <a className="item" onClick={e => {
+                                this
+                                    .props
+                                    .handleMainMenuClick( 'company', e );
+                            }}>
                                 <div className={this.props.classes.menu_item}>
                                     <div className={this.props.classes.menu_item_icon}>
                                         <i className="home icon"/>
@@ -58,20 +60,7 @@ class OrganizationAdminMenuComponentRender extends Component {
                                 </div>
                             </a>
                             <div className="ui inverted accordion">
-                                <div>
-                                    <div className="title">Manage<i className="dropdown icon"/></div>
-                                    <div className="content">
-                                        <div className="vertical menu">
-                                            <a hrwf="#" className="item">Theme</a>
-                                            <a href="#" className="item">About</a>
-                                            <a href="#" className="item">Roster</a>
-                                            <a href="#" className="item">Blog</a>
-                                            <a href="#" className="item">Media</a>
-                                            <a href="#" className="item">Recent Matches</a>
-                                            <a href="#" className="item">Sponsers</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div >{this.props.dropdown}</div>
                             </div>
                         </div>
                     </div>

@@ -14,16 +14,24 @@ class OrganizationAdminProfileComponentRender extends Component {
                 <div className={this.props.classes.admin_main_logo_box}>
                     <div className={this.props.classes.admin_main_logo_box_inner}>
                         <div className={this.props.classes.admin_main_logo_button}>COMPANY LOGO</div>
-                        <img id="admin_main_logo" className={this.props.classes.admin_main_logo_image}/>
+                        <img id="admin_main_logo" className={this.props.classes.admin_main_logo_image} src={this.props.logo_src}/>
                     </div>
                     <div className={this.props.classes.admin_main_logo_box_inner}>
                         <div className={this.props.classes.admin_main_logo_spacer}/>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Company Name"/>
+                            <input type="text" placeholder="Company Name" value={this.props.company_name_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'company_name_value', e );
+                            }}/>
                         </div>
                         <div className={this.props.classes.admin_main_logo_spacer}/>
                         <label className={this.props.classes.admin_color_label}>Primary Color</label>
-                        <input type="color" id="primary_color" value="#0a9ab4" className={this.props.classes.admin_color_picker}/>
+                        <input type="color" id="primary_color" value="#0a9ab4" className={this.props.classes.admin_color_picker} value={this.props.primary_color_value} onChange={e => {
+                            this
+                                .props
+                                .handleChange( 'primary_color_value', e );
+                        }}/>
                     </div>
                 </div>
                 <div className={this.props.classes.admin_title_box}>
@@ -32,20 +40,36 @@ class OrganizationAdminProfileComponentRender extends Component {
                 <div className={this.props.classes.admin_social_box}>
                     <div className={this.props.classes.admin_social_box_inner}>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Facebook link"/>
+                            <input type="text" placeholder="Facebook link" value={this.props.facebook_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'facebook_value', e );
+                            }}/>
                         </div>
                         <div className={this.props.classes.admin_social_box_divider}/>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Twitter link"/>
+                            <input type="text" placeholder="Twitter link" value={this.props.twitter_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'twitter_value', e );
+                            }}/>
                         </div>
                     </div>
                     <div className={this.props.classes.admin_social_box_inner}>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Instagram link"/>
+                            <input type="text" placeholder="Instagram link" value={this.props.insta_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'insta_value', e );
+                            }}/>
                         </div>
                         <div className={this.props.classes.admin_social_box_divider}/>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="TSelect Rss newsfeed URL"/>
+                            <input type="text" placeholder="Select Rss newsfeed URL" value={this.props.rss_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'rss_value', e );
+                            }}/>
                         </div>
                     </div>
                 </div>
@@ -55,7 +79,11 @@ class OrganizationAdminProfileComponentRender extends Component {
                 <div className={this.props.classes.admin_social_box}>
                     <div className={this.props.classes.admin_social_box_inner}>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Twitter Username"/>
+                            <input type="text" placeholder="Twitter Username" value={this.props.twitter_username_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'twitter_username_value', e );
+                            }}/>
                         </div>
                     </div>
                 </div>
@@ -65,12 +93,16 @@ class OrganizationAdminProfileComponentRender extends Component {
                 <div className={this.props.classes.admin_social_box}>
                     <div className={this.props.classes.admin_social_box_inner}>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Twitch Channel Name"/>
+                            <input type="text" placeholder="Twitch Channel Name" value={this.props.twitch_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'twitch_value', e );
+                            }}/>
                         </div>
                     </div>
                 </div>
                 <div className={this.props.classes.admin_submit_box}>
-                    <div className={this.props.classes.admin_submit_button}>Submit</div>
+                    <div className={this.props.classes.admin_submit_button} onClick={this.props.handleSubmit}>Submit</div>
                 </div>
             </div>
         )

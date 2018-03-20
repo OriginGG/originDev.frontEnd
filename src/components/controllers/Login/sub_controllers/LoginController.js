@@ -45,16 +45,24 @@ class LoginController extends Component {
                     return errors;
                 }}
                 onSubmit={async (v) => {
+                    console.log('submitting....');
                     const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     if (authPayload.authenticate.resultData !== null) {
+                        console.log('submitting2....');
+
                         const token = authPayload.authenticate.resultData.jwtToken;
                         const d = this.props.appManager.decodeJWT(token);
+                        console.log(`d:-${d}`);
                         this.props.uiStore.setUserID(d.id);
                         const { organisation } = authPayload.authenticate.resultData;
                         const domainInfo = this.props.appManager.getDomainInfo();
+                        console.log(`domain info:-${domainInfo}`);
                         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+                        console.log(`subDomain-${subDomain}`);
                         // we might have a valid user somewhere, but is he part of this domain?
                         const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
+                        console.log(`payload:-${d}`);
+
                         if (subDomain === 'origin' && organisation !== null) {
                             const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
                             window.location = u_string;
@@ -68,6 +76,7 @@ class LoginController extends Component {
                             historyStore.push('/main');
                         }
                     }
+                    console.log('submitting3....');
                 }}
                 render={({
                     values,

@@ -77,7 +77,9 @@ class CreateSubDomainComponentRender extends Component {
                                         </div>
                                         <div style={{
                                             width: '304px',
-                                            height: '78px'
+                                            height: '78px',
+                                            marginLeft: 'auto',
+                                            marginRight: 'auto'
                                         }}>
                                             <div><iframe width="304" height="78" role="presentation" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" frameBorder="0"/></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" style={{
                 width: '250px',

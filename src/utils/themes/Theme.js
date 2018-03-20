@@ -193,6 +193,118 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // New Dark Theme
+    // ***************************************************************
+
+    darkBG: {
+        width: '100%',
+        backgroundColor: 'rgb(20,20,20)',
+        padding: '50px 0px 50px 0px'
+    },
+    darkHeader: {
+        width: '100%',
+        padding: '15px 30px 15px 30px',
+        minHeight: '40px',
+        display: 'table',
+        position: 'fixed',
+        zIndex: '1000',
+        top: '0',
+        left: '0',
+        background: 'rgb(6,6,6)',
+        borderBottom: '5px solid black'
+    },
+    darkHeaderInner: {
+        width: '50%',
+        height: '40px'
+    },
+    dark_body_container: {
+        width: '100%',
+        display: 'table',
+        padding: '0px 15px 0px 15px',
+        background: 'rgb(20,20,20)'
+    },
+    darkHeader_menu_div: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        textAlign: 'left',
+        color: '#fff',
+        cursor: 'pointer'
+    },
+    dark_header_logo: {
+        width: '40px',
+        height: '48px'
+    },
+    social_menu_dark_item: {
+        height: '30px',
+        lineHeight: '30px',
+        float: 'left',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+    org_menu_dark_item: {
+        height: '30px',
+        lineHeight: '30px',
+        float: 'right',
+        color: 'white',
+        fontSize: '14px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+    dark_main_image_container: {
+        width: '100%',
+        heightMax: '500px',
+        display: 'table',
+        position: 'relative'
+    },
+    dark_main_image: {
+        width: '100%',
+        maxHeight: '500px',
+        objectFit: 'fill'
+    },
+    dark_main_image_text_container: {
+        width: '100%',
+        height: '40px',
+        background: 'rgba(0,0,0,.5)',
+        position: 'absolute',
+        top: '0'
+    },
+    dark_main_image_text: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 10px 0px 10px',
+        float: 'left',
+        textAlign: 'center',
+        color: 'white'
+    },
+    dark_news_container: {
+        width: '100%',
+        display: 'table',
+        marginTop: '10px',
+        paddingRight: '15px',
+        float: 'left'
+    },
+    dark_news__more_container: {
+        width: '100%',
+        height: '36px',
+        backgroundColor: 'rgb(20,20,20)'
+    },
+    dark_news_more_button: {
+        float: 'right',
+        height: '36px',
+        backgroundColor: 'rgb(50,50,50)',
+        color: 'white',
+        border: '2px solid rgba(0,0,0,.5)',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        borderRadius: '2px',
+        lineHeight: '36px',
+        textAlign: 'center'
+    },
+
+    // ***************************************************************
     // User Theme
     // ***************************************************************
 

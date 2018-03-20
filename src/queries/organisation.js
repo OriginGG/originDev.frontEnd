@@ -11,6 +11,7 @@ export const getOrganisationQuery = gql`
     logo
     subDomain
     primaryColor
+    instaLink
     twitterFeedUsername
     themesByThemeName {
       edges {
@@ -20,6 +21,40 @@ export const getOrganisationQuery = gql`
           themeStructure
         }
       }
+    }
+    usersByOrganisation {
+			edges {
+				node {
+					id
+					firstName
+					lastName
+				}
+			}
+		}
+  }
+}
+`;
+
+export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String!, $name: String, $instaLink: String
+		$fbLink: String, $twitterLink: String, $twitterFeedUsername: String
+		$twitchLink: String, $description: String, $logo: String, $primaryColor: String) {
+  updateOrganisationAccountBySubDomain(input: {
+		subDomain: $subDomain
+    organisationAccountPatch: {
+      name: $name
+      instaLink: $instaLink
+      fbLink: $fbLink
+      twitterLink: $twitterLink
+      twitterFeedUsername: $twitterFeedUsername
+      twitchLink: $twitchLink
+      description: $description
+      logo: $logo
+      primaryColor: $primaryColor
+      
+    }
+  }) {
+    organisationAccount {
+      subDomain
     }
   }
 }

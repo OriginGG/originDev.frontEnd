@@ -16,3 +16,18 @@ export const getBlogsQuery = gql`
     }
 }
 `;
+
+export const createBlogPostQuery = gql`
+mutation createBlogPost($blogTitle: String!, $organisation: String!, $blogContent: String!, $featured: Boolean, $blogMedia: String) {
+  createBlog(input:{blog: {
+    organisation: $organisation,
+    blogTitle: $blogTitle
+    blogContent: $blogContent
+    blogMedia: $blogMedia
+    featured: $featured
+  }}) {
+    blog {
+      id
+    }
+  }
+}`;

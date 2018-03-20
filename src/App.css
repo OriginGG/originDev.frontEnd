@@ -1,1 +1,2 @@
 @import "./external_styles/Semantic-UI-CSS-master/semantic.min.css";
+@import "~react-quill/dist/quill.snow.css";

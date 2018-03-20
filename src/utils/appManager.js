@@ -51,7 +51,9 @@ class AppManager {
     getDomainInfo = () => {
         const regex = /[.:]/g;
         const { hostname, port, protocol } = window.location;
-        const url_string = `${hostname}${(port === 443 || port === 80) ? '' : `:${port}`}`;
+        console.log(`${hostname}, ${port}, ${protocol}`);
+        const url_string = `${hostname}${(port === 443 || port === 80 || port === '') ? '' : `:${port}`}`;
+        console.log(`urlstring = ${url_string}`);
         const spString = url_string.split(regex);
         let subDomain;
         if (spString.length === 3) {

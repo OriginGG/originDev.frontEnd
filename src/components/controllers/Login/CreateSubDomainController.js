@@ -23,7 +23,7 @@ class CreateSubDomainController extends Component {
             this.user_id = id;
             const user = await this.props.appManager.executeQuery('query', getUserQuery, { id });
             this.name = user.resultData.firstName;
-            this.props.uiStore.setCurrentUser(user.resultData);
+            // this.props.uiStore.setCurrentUser(user.resultData);
             this.logo_files = null;
             this.setState({ visible: true });
         }
@@ -48,7 +48,7 @@ class CreateSubDomainController extends Component {
         return new Promise((resolve) => {
             const formData = new FormData();
             formData.append('images', this.logo_files);
-            axios.post(`http://127.0.0.1:3333/upload/${this.domain_name}`, formData, {
+            axios.post(`${process.env.REACT_APP_IMAGE_SERVER}/upload/${this.domain_name}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -67,7 +67,7 @@ class CreateSubDomainController extends Component {
                 themeStructure: JSON.stringify(p),
                 themeData: JSON.stringify(toJS(this.props.uiStore.origin_theme_data))
             };
-            await this.props.appManager.executeQuery('mutation', createOrganisationQuery, { subDomain: this.domain_name });
+            await this.props.appManager.executeQuery('mutation', createOrganisationQuery, { name: this.domain_name, subDomain: this.domain_name });
             await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
             await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
 
