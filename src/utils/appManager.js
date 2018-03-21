@@ -11,6 +11,8 @@ import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
+const jwt = require('jsonwebtoken');
+
 let app_manager_instance = null;
 
 class AppManager {
@@ -19,6 +21,8 @@ class AppManager {
             app_manager_instance = this;
             this.apolloClient = null;
             this.authToken = '';
+            this.logged_in = false;
+            this.admin_logged_in = false;
             this.localDB = new PouchDB('user', { revs_limit: 1, auto_compaction: true });
         }
 
@@ -31,6 +35,16 @@ class AppManager {
     log = e => {
         console.log(e);
     };
+    convertYoutubeURL = (url) => {
+        if (url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;       // eslint-disable-line
+            const match = url.match(regExp);
+            if (match && match[2].length === 11) {
+                return `https://www.youtube.com/embed/${match[2]}`;
+            }
+        }
+        return null;
+    }
     pouchStore = async (_id, payload) => {
         const doc = await this.pouchGet(_id);
         let new_doc;
@@ -72,6 +86,10 @@ class AppManager {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace('-', '+').replace('_', '/');
         return JSON.parse(window.atob(base64));
+    }
+
+    encodeJWT = o => {
+        return jwt.sign(o, 'bbo9Q4jsIkfQ1gkpolQAKLXO4WZ-s3SEcvo3gHwfxCEM_IBSisDWzlwcmDKjVfH0');
     }
     GetQueryParams = name => {
         const url = window.location.href;

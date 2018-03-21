@@ -14,7 +14,7 @@ class SignupComponentRender extends Component {
                         <div className={this.props.classes.tabular_menu_item} onClick={this.props.handleClick}>Sign In</div>
                     </div>
                     <div className={this.props.classes.signupModalContent}>
-                        <form className="ui large form">
+                        <form className="ui large form" onSubmit={this.props.handleSubmit}>
                             <div className="ui stacked segment">
                                 <div className={this.props.classes.form_body}>
                                     <div className={this.props.classes.input_title}>
@@ -22,13 +22,13 @@ class SignupComponentRender extends Component {
                                     </div>
                                     <div className="field">
                                         <div className="ui input">
-                                            <input type="text" style={{
+                                            <input type="text" name="name" placeholder="Name" style={{
                                                 backgroundColor: 'transparent',
                                                 borderColor: '#fff',
                                                 color: '#fff',
                                                 height: '45px',
                                                 fontSize: '16px'
-                                            }} name="email" placeholder="E-mail address" className={this.props.classes.input_box}/>
+                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.name}/>
                                         </div>
                                     </div>
                                     <div className={this.props.classes.input_title}>
@@ -42,7 +42,7 @@ class SignupComponentRender extends Component {
                                                 color: '#fff',
                                                 height: '45px',
                                                 fontSize: '16px'
-                                            }} className={this.props.classes.input_box}/>
+                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.email}/>
                                         </div>
                                     </div>
                                     <div className={this.props.classes.input_title}>
@@ -56,14 +56,14 @@ class SignupComponentRender extends Component {
                                                 color: '#fff',
                                                 height: '45px',
                                                 fontSize: '16px'
-                                            }} className={this.props.classes.input_box}/>
+                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.password}/>
                                         </div>
                                     </div>
                                     <div style={{
                                         background: '#0a9ab4',
                                         fontSize: '18px',
                                         marginTop: '40px'
-                                    }} className="ui fluid large teal submit button">Create an Account</div>
+                                    }} className="ui fluid large teal submit button" onClick={this.props.handleSubmit}>Create an Account</div>
                                     <div className={this.props.classes.submit_divider}/>
                                     <div className={this.props.classes.submit_or}>OR</div>
                                     <div className={this.props.classes.social_box_outer}>

@@ -10,7 +10,9 @@ import OrganizationAdminPageComponentRender from '../../render_components/Organi
 import OrganizationAdminMenuComponentRender from '../../render_components/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
+import AdminMediaController from './sub_controllers/AdminMediaController';
 import { getOrganisationQuery } from '../../../queries/organisation';
+import historyStore from '../../../utils/stores/browserHistory';
 
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
@@ -74,7 +76,7 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
-                        <a className="item">
+                        <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('media', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
@@ -113,18 +115,22 @@ class MenuDrop extends Component {
 class AdminPageController extends Component {
     state = { page: 'company', isOpen: false, visible: false };
     componentWillMount = async () => {
-        const domainInfo = this.props.appManager.getDomainInfo();
-        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
-        const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
-        if (o.resultData === null) {
-            console.log('sub domain does not exist!');
+        if (this.props.appManager.admin_logged_in) {
+            const domainInfo = this.props.appManager.getDomainInfo();
+            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+            const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
+            if (o.resultData === null) {
+                console.log('sub domain does not exist!');
+            } else {
+                this.props.uiStore.setOrganisation(o.resultData);
+                this.props.uiStore.setSubDomain(subDomain);
+                this.setState({ visible: true });
+            }
+            const { user_id } = this.props.uiStore;
+            console.log(user_id);
         } else {
-            this.props.uiStore.setOrganisation(o.resultData);
-            this.props.uiStore.setSubDomain(subDomain);
-            this.setState({ visible: true });
+            historyStore.push('/admin');
         }
-        const { user_id } = this.props.uiStore;
-        console.log(user_id);
     }
     handleClick = () => {
         const f = this.state.isOpen;
@@ -142,6 +148,10 @@ class AdminPageController extends Component {
         switch (this.state.page) {
             case 'company': {
                 p_component = <AdminProfileController />;
+                break;
+            }
+            case 'media': {
+                p_component = <AdminMediaController />;
                 break;
             }
             case 'blog': {

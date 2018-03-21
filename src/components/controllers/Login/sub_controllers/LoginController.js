@@ -28,6 +28,7 @@ class LoginController extends Component {
                 initialValues={{
                     email: '',
                     password: '',
+                    name: ''
                 }}
                 validate={values => {
                     // same as above, but feel free to move this into a class method now.
@@ -45,38 +46,43 @@ class LoginController extends Component {
                     return errors;
                 }}
                 onSubmit={async (v) => {
-                    console.log('submitting....');
-                    const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
-                    if (authPayload.authenticate.resultData !== null) {
-                        console.log('submitting2....');
+                    if (this.state.content_display === 'login') {
+                        console.log('submitting....');
+                        const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
+                        if (authPayload.authenticate.resultData !== null) {
+                            console.log('submitting2....');
 
-                        const token = authPayload.authenticate.resultData.jwtToken;
-                        const d = this.props.appManager.decodeJWT(token);
-                        console.log(`d:-${d}`);
-                        this.props.uiStore.setUserID(d.id);
-                        const { organisation } = authPayload.authenticate.resultData;
-                        const domainInfo = this.props.appManager.getDomainInfo();
-                        console.log(`domain info:-${domainInfo}`);
-                        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
-                        console.log(`subDomain-${subDomain}`);
-                        // we might have a valid user somewhere, but is he part of this domain?
-                        const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
-                        console.log(`payload:-${d}`);
+                            const token = authPayload.authenticate.resultData.jwtToken;
+                            const d = this.props.appManager.decodeJWT(token);
+                            console.log(`d:-${d}`);
+                            this.props.uiStore.setUserID(d.id);
+                            const { organisation } = authPayload.authenticate.resultData;
+                            const domainInfo = this.props.appManager.getDomainInfo();
+                            console.log(`domain info:-${domainInfo}`);
+                            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+                            console.log(`subDomain-${subDomain}`);
+                            // we might have a valid user somewhere, but is he part of this domain?
+                            const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
+                            console.log(`payload:-${d}`);
 
-                        if (subDomain === 'origin' && organisation !== null) {
-                            const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
-                            window.location = u_string;
+                            if (subDomain === 'origin' && organisation !== null) {
+                                const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
+                                window.location = u_string;
+                            }
+                            if (subDomain === 'origin' && organisation === null) {
+                                historyStore.push(`/createsubdomain?p=${payload}`);
+                            }
+                            if (subDomain === authPayload.authenticate.resultData.organisation) {
+                                // succesfully logged in store in pouch then change page.
+                                await this.props.appManager.pouchStore('authenticate', authPayload);
+                                historyStore.push('/main');
+                            }
                         }
-                        if (subDomain === 'origin' && organisation === null) {
-                            historyStore.push(`/createsubdomain?p=${payload}`);
-                        }
-                        if (subDomain === authPayload.authenticate.resultData.organisation) {
-                            // succesfully logged in store in pouch then change page.
-                            await this.props.appManager.pouchStore('authenticate', authPayload);
-                            historyStore.push('/main');
-                        }
+                        console.log('submitting3....');
+                    } else {
+                        console.log('sign up');
+                        // const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     }
-                    console.log('submitting3....');
                 }}
                 render={({
                     values,

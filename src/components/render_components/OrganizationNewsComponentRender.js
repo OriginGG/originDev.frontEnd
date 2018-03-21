@@ -13,7 +13,7 @@ class OrganizationNewsComponentRender extends Component {
                         <div className={this.props.classes.news_menu_item}>
                             <span id="news_item_title" style={{
                                 fontWeight: '600'
-                            }}>We Are Live</span>
+                            }}>{this.props.blog_title}</span>
                             <span id="news_item_date" style={{
                                 position: 'absolute',
                                 right: '20px',
@@ -21,7 +21,7 @@ class OrganizationNewsComponentRender extends Component {
                                 fontWeight: '400',
                                 fontSize: '12px',
                                 paddingLeft: '15px'
-                            }}>February 19, 2018</span>
+                            }}>{this.props.blog_date}</span>
                             <div style={{
                                 height: '68px',
                                 overflowY: 'hidden'
@@ -31,7 +31,7 @@ class OrganizationNewsComponentRender extends Component {
                                     fontWeight: '400',
                                     fontSize: '11px',
                                     lineHeight: '15px'
-                                }}>We are exited to announce the launch of Ascendant Gaming. Please follow us on our social media channels to stay up to date on competitions and events.</p>
+                                }}>{this.props.blog_content}</p>
                             </div>
                         </div>
                     </div>

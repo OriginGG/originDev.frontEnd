@@ -21,21 +21,21 @@ class OrganizationVideoComponentRender extends Component {
                             }}>More Video</a>
                         </span>
                     </h2>
-                    <iframe title="ifr" width="100%" height="500px" frameBorder="0"/>
+                    <iframe title="ifr" width="100%" height="500px" frameBorder="0" src={this.props.video1_url}/>
                     <div className={this.props.classes.small_video_container}>
                         <div className={this.props.classes.small_video}>
                             <div>
-                                <iframe title="ifr" width="100%" height="200px" frameBorder="0"/>
+                                <iframe title="ifr" width="100%" height="200px" frameBorder="0" src={this.props.video2_url}/>
                             </div>
                         </div>
                         <div className={this.props.classes.small_video_middle}>
                             <div>
-                                <iframe title="ifr" width="100%" height="200px" frameBorder="0"/>
+                                <iframe title="ifr" width="100%" height="200px" frameBorder="0" src={this.props.video3_url}/>
                             </div>
                         </div>
                         <div className={this.props.classes.small_video}>
                             <div>
-                                <iframe title="ifr" width="100%" height="200px" frameBorder="0"/>
+                                <iframe title="ifr" width="100%" height="200px" frameBorder="0" src={this.props.video4_url}/>
                             </div>
                         </div>
                     </div>

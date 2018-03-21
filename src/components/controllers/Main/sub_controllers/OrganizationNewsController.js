@@ -11,13 +11,19 @@ class OrganizationNewsController extends Component {
     componentWillMount = async () => {
         const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQueryAuth('query', getBlogsQuery, { subDomain });
-
         this.blog_array = [];
         blog_data.resultData.edges.forEach((blog) => {
-            this.blog_array.push(<OrganizationNewsComponentRender blog={blog} />);
+            const { blogContent } = blog.node;
+            const { blogMedia } = blog.node;
+            const { blogTitle } = blog.node;
+            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
+            // const { createdAt } = blog.node;
+            this.blog_array.push(<OrganizationNewsComponentRender blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} />);
         });
-        console.log(blog_data);
         this.setState({ visible: true });
+    }
+    createMarkup = (content) => {
+        return { __html: content };
     }
     render() {
         if (!this.state.visible) {

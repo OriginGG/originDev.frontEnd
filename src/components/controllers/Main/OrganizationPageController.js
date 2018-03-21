@@ -14,20 +14,25 @@ import OrganizationNavController from './sub_controllers/OrganizationNavControll
 import OrganizationLogoController from './sub_controllers/OrganizationLogoController';
 import OrganizationNewsController from './sub_controllers/OrganizationNewsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
+import historyStore from '../../../utils/stores/browserHistory';
 
 class OrganizationPageController extends Component {
     state = { visible: false };
 
     componentWillMount = async () => {
-        const domainInfo = this.props.appManager.getDomainInfo();
-        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
-        const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
-        if (o.resultData === null) {
-            console.log('sub domain does not exist!');
+        if (this.props.appManager.logged_in === true) {
+            const domainInfo = this.props.appManager.getDomainInfo();
+            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+            const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
+            if (o.resultData === null) {
+                console.log('sub domain does not exist!');
+            } else {
+                this.props.uiStore.setOrganisation(o.resultData);
+                this.props.uiStore.setSubDomain(subDomain);
+                this.setState({ visible: true });
+            }
         } else {
-            this.props.uiStore.setOrganisation(o.resultData);
-            this.props.uiStore.setSubDomain(subDomain);
-            this.setState({ visible: true });
+            historyStore.push('/');
         }
     }
     render() {

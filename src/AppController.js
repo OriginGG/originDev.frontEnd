@@ -23,6 +23,7 @@ class AppController extends Component {
             if (authPayload) {
                 const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
                 await this.props.appManager.pouchStore('authenticate', p);
+                this.props.appManager.logged_in = true;
                 historyStore.push('/main');
             }
             // is there a query param?
@@ -32,11 +33,14 @@ class AppController extends Component {
             if (auth && auth.authenticate.resultData.organisation === subDomain) {
                 const token = auth.authenticate.resultData.jwtToken;
                 const d = this.props.appManager.decodeJWT(token);
+                d.organisation = subDomain;
+                const new_token = this.props.appManager.encodeJWT(d);
                 this.props.uiStore.setUserID(d.id);
-                this.props.appManager.authToken = auth.authenticate.resultData.jwtToken;
+                this.props.appManager.authToken = new_token;
                 if (auth.authenticate.resultData.organisation === 'origin') {
                     historyStore.push('/signup');
                 } else {
+                    this.props.appManager.logged_in = true;
                     historyStore.push('/main');
                 }
                 // we are already logged in, and have same organisation
@@ -67,7 +71,11 @@ class AppController extends Component {
                 if (auth && auth.authenticate.resultData.organisation === subDomain) {
                     const token = auth.authenticate.resultData.jwtToken;
                     const d = this.props.appManager.decodeJWT(token);
+                    d.organisation = subDomain;
+                    const new_token = this.props.appManager.encodeJWT(d);
                     this.props.uiStore.setUserID(d.id);
+                    this.props.appManager.authToken = new_token;
+                    this.props.appManager.admin_logged_in = true;
                     historyStore.push('/admin_page');
                 }
             }

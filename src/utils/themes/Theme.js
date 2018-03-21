@@ -303,7 +303,25 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '36px',
         textAlign: 'center'
     },
-
+    dark_twitter_container: {
+        width: '100%',
+        backgroundColor: 'rgb(0, 0, 0)',
+        padding: '30px',
+        height: '500px',
+        display: 'table'
+    },
+    dark_section_title_container: {
+        width: '70%',
+        color: '#565656',
+        textAlign: 'left',
+        marginTop: '10px'
+    },
+    dark_media_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: 'rgb(20,20,20)',
+        padding: '10px 0px 10px 0px'
+    },
     // ***************************************************************
     // User Theme
     // ***************************************************************
