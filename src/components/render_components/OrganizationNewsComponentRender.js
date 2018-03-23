@@ -10,6 +10,7 @@ class OrganizationNewsComponentRender extends Component {
             <div>
                 <div className={this.props.classes.news_item_container}>
                     <div id="news_item_1" className={this.props.classes.news_item_body}>
+                        <img className={this.props.classes.news_item_image} src={this.props.blog_media}/>
                         <div className={this.props.classes.news_menu_item}>
                             <span id="news_item_title" style={{
                                 fontWeight: '600'

@@ -485,12 +485,17 @@ export const GlobalStyles = GlobalTheme => ({
     news_item_body: {
         width: '100%',
         height: '250px',
-        paddingTop: '10px',
+        paddingTop: '0px',
         position: 'relative',
-        backgroundImage: 'url("http://api.originbeta.net/blogMedia/CoD-4-Header.jpg")',
+        backgroundColor: 'black',//'url("http://api.originbeta.net/blogMedia/CoD-4-Header.jpg")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: '50% 50%'
+    },
+    news_item_image: {
+        width: '100%',
+        height: '250px',
+        objectFit: 'cover'
     },
     news_menu_item: {
         position: 'absolute',
