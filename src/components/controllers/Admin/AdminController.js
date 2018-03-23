@@ -11,6 +11,7 @@ import OrganizationAdminMenuComponentRender from '../../render_components/Organi
 import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
+import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -96,7 +97,7 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
-                        <a className="item">
+                        <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('sponsors', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
@@ -156,6 +157,10 @@ class AdminPageController extends Component {
             }
             case 'blog': {
                 p_component = <AdminBlogController />;
+                break;
+            }
+            case 'sponsors': {
+                p_component = <AdminSponsorController />;
                 break;
             }
             default: {
