@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { Accordion, Icon } from 'semantic-ui-react';
+import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react';
 
-import { push as Menu } from 'react-burger-menu';
+// import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 import OrganizationAdminPageComponentRender from '../../render_components/OrganizationAdminPageComponentRender';
 import OrganizationAdminMenuComponentRender from '../../render_components/OrganizationAdminMenuComponentRender';
@@ -12,6 +12,7 @@ import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
+import AdminThemeController from './sub_controllers/AdminThemeController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -37,7 +38,7 @@ class MenuDrop extends Component {
                         Manage
           </Accordion.Title>
                     <Accordion.Content active={this.state.open}>
-                        <a className="item">
+                        <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('theme', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
@@ -163,6 +164,10 @@ class AdminPageController extends Component {
                 p_component = <AdminSponsorController />;
                 break;
             }
+            case 'theme': {
+                p_component = <AdminThemeController />;
+                break;
+            }
             default: {
                 break;
             }
@@ -171,16 +176,16 @@ class AdminPageController extends Component {
         const full_name = `${nd.firstName} ${nd.lastName}`;
         return (
             <div id="outer-container">
-                <Menu disableCloseOnEsc disableOverlayClick noOverlay width="350px" pageWrapId="scaleDown" outerContainerId="outer-container" isOpen={this.state.isOpen}>
-                    <div id="aaa_menu" style={{ minHeight: '100vh', backGroundColor: 'black' }} >
+                <Sidebar.Pushable as={Segment}>
+                    <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
                         <OrganizationAdminMenuComponentRender handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-                    </div>
-                </Menu>
-                <main id="scaleDown">
-                    <div style={{ minHeight: '100vh' }}>
-                        <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} />
-                    </div>
-                </main>
+                    </Sidebar>
+                    <Sidebar.Pusher>
+                        <Segment basic>
+                            <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} />
+                        </Segment>
+                    </Sidebar.Pusher>
+                </Sidebar.Pushable>
             </div>
         );
     }

@@ -32,8 +32,8 @@ class OrganizationAdminThemeComponentRender extends Component {
                 </div>
                 <p>Change Jumbotron Images</p>
                 <div className={this.props.classes.jumbotron_container}>
-                    <img className={this.props.classes.jumbotron_image}/>
-                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editImage}>
                         <div className={this.props.classes.jumbotron_model_switch}>Edit Jubotron Image</div>
                     </div>
                 </div>
@@ -55,13 +55,13 @@ class OrganizationAdminThemeComponentRender extends Component {
                             }}/>
                         </div>
                         <div className={this.props.classes.modal_blog_media_container}>
-                            <img id="blog_media_preview" className={this.props.classes.modal_blog_media_preview}/>
+                            <img id="blog_media_preview" className={this.props.classes.modal_blog_media_preview} src={this.props.preview_image}/>
                         </div>
                         <p className={this.props.classes.theme_modal_OR}>OR</p>
                         <div className={this.props.classes.theme_modal_small_container}>
-                            <img className={this.props.classes.theme_modal_small_img}/>
-                            <img className={this.props.classes.theme_modal_small_img}/>
-                            <img className={this.props.classes.theme_modal_small_img}/>
+                            <img className={this.props.classes.theme_modal_small_img} src={this.props.default_image1}/>
+                            <img className={this.props.classes.theme_modal_small_img} src={this.props.default_image2}/>
+                            <img className={this.props.classes.theme_modal_small_img} src={this.props.default_image3}/>
                         </div>
                         <div className="ui fluid input">
                             <input type="text" placeholder="Color"/>
