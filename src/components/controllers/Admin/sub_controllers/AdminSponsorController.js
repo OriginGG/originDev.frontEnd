@@ -7,6 +7,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import OrganizationAdminSponsorComponentRender from '../../../render_components/OrganizationAdminSponserComponentRender';
 import { getSponsorsQuery, updateSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
+import blankImage from '../../../../assets/images/imgPlaceholder1.png';
 
 class AdminSponsorController extends Component {
     state = {
@@ -20,17 +21,33 @@ class AdminSponsorController extends Component {
     componentWillMount = async () => {
         this.create = false;
         this.logo_files = {};
+        let s_image0 = blankImage;
+        let s_image1 = blankImage;
+        let s_image2 = blankImage;
+        let s_image3 = blankImage;
         const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         if (sponsor_data.resultData.edges.length === 0) {
             this.create = true;
         } else {
             this.c_id = sponsor_data.resultData.edges[0].node.id;
+            if (sponsor_data.resultData.edges[0].node.sponsor) {
+                s_image0 = sponsor_data.resultData.edges[0].node.sponsor;
+            }
+            if (sponsor_data.resultData.edges[1].node.sponsor) {
+                s_image1 = sponsor_data.resultData.edges[1].node.sponsor;
+            }
+            if (sponsor_data.resultData.edges[2].node.sponsor) {
+                s_image2 = sponsor_data.resultData.edges[2].node.sponsor;
+            }
+            if (sponsor_data.resultData.edges[3].node.sponsor) {
+                s_image3 = sponsor_data.resultData.edges[3].node.sponsor;
+            }
             this.setState({
                 input_values: {
-                    sponsor_image1: sponsor_data.resultData.edges[0].node.sponsor1,
-                    sponsor_image2: sponsor_data.resultData.edges[0].node.sponsor2,
-                    sponsor_image3: sponsor_data.resultData.edges[0].node.sponsor3,
-                    sponsor_image4: sponsor_data.resultData.edges[0].node.sponsor4
+                    sponsor_image1: s_image0,
+                    sponsor_image2: s_image1,
+                    sponsor_image3: s_image2,
+                    sponsor_image4: s_image3
                 }
             });
         }
@@ -114,7 +131,7 @@ class AdminSponsorController extends Component {
     }
     render() {
         return (
-            <div>
+            <div style={{ width: 'calc(100vw - 340px)' }}>
                 <OrganizationAdminSponsorComponentRender
                     uploadFile={this.uploadFile}
                     handleSubmit={this.handleSubmit}

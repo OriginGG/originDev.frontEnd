@@ -27,19 +27,12 @@ class OrganizationAdminCollaboratorComponentRender extends Component {
                                 <th>Password</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td/>
-                                <td/>
-                                <td/>
-                                <td/>
-                            </tr>
-                        </tbody>
+                        <tbody >{this.props.tableData}</tbody>
                         <tfoot className="full-width">
                             <tr>
                                 <th/>
                                 <th colSpan="4">
-                                    <div className="ui right floated small primary labeled icon button">
+                                    <div className="ui right floated small primary labeled icon button" onClick={this.props.addTeam}>
                                         <i className="user icon"/>
                                         Add Team
                                     </div>
