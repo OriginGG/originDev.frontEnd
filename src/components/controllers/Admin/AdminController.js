@@ -14,6 +14,7 @@ import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminThemeController from './sub_controllers/AdminThemeController';
+import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -119,14 +120,6 @@ class AdminPageController extends Component {
     state = { page: 'company', isOpen: false, visible: false };
     componentWillMount = async () => {
         if (this.props.appManager.admin_logged_in) {
-            this.autorun_tracker = autorun(() => {
-                if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
-                    if (this.initialized === true) {
-                        this.my_key += 1;
-                        this.setState({ visible: true });
-                    }
-                }
-            });
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
@@ -136,6 +129,14 @@ class AdminPageController extends Component {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
                 this.setState({ visible: true });
+                this.autorun_tracker = autorun(() => {
+                    if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
+                        if (this.initialized === true) {
+                            this.my_key += 1;
+                            this.setState({ visible: true });
+                        }
+                    }
+                });
             }
             const { user_id } = this.props.uiStore;
             console.log(user_id);
@@ -184,6 +185,10 @@ class AdminPageController extends Component {
             }
             case 'theme': {
                 p_component = <AdminThemeController />;
+                break;
+            }
+            case 'collaborators': {
+                p_component = <AdminCollaboratorController />;
                 break;
             }
             default: {

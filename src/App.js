@@ -10,6 +10,7 @@ import AdminPageController from './components/controllers/Admin/AdminController'
 import { GlobalStyles } from './utils/themes/Theme';
 import './App.css';
 import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
+// import OriginLandingPageController from './components/controllers/Login/OriginLandingPageController';
 
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
             <div>
                 <Route exact path="/" component={AppController} />
                 <Route exact path="/signup" component={SignupPageController} />
+                <Route exact path="/landing" component={SignupPageController} />
                 <Route exact path="/main" component={OrganizationPageController} />
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />

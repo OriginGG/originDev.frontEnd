@@ -1192,6 +1192,9 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100vh',
         color: '#fff'
     },
+    landing_individual_body: {
+        opacity: '0'
+    },
     landing_individual_container: {
         width: '100%',
         height: '100vh',
@@ -1243,7 +1246,8 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#fff',
         fontSize: '48px',
         fontWeight: 'bold',
-        padding: '0px 30px 0px 30px'
+        padding: '0px 30px 0px 30px',
+        opacity: '0'
     },
     landing_org_header_text_blue: {
         color: '#0a9ab4'
@@ -1254,12 +1258,14 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#fff',
         fontSize: '18px',
         lineHeight: '1.4em',
-        padding: '0px 30px 0px 30px'
+        padding: '0px 30px 0px 30px',
+        opacity: '0'
     },
     landing_org_diagram: {
         width: '100%',
         display: 'table',
-        paddingTop: '25px'
+        paddingTop: '25px',
+        opacity: '0'
     },
     landing_org_line: {
         width: '10px',
@@ -1292,7 +1298,8 @@ export const GlobalStyles = GlobalTheme => ({
     landing_why_content: {
         width: '100%',
         display: 'table',
-        padding: '150px 175px 150px 175px'
+        padding: '150px 175px 150px 175px',
+        opacity: '0'
     },
     landing_why_header: {
         width: '100%',
@@ -1341,6 +1348,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
     landing_upcoming_video: {
         padding: '130px 15px 100px 30px'
+    },
+    upcoming_opacity: {
+        opacity: '0'
     },
     upcoming_header: {
         width: '100%',

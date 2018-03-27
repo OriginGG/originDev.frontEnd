@@ -69,7 +69,6 @@ class CreateSubDomainController extends Component {
     handleSubmit = async () => {
         if (this.domain_name) {
             const logo_data = await this.uploadLogo();
-            debugger;
             const p = toJS(this.props.uiStore.origin_theme_structure);
             p.header.logo.imageData = logo_data.Location;
             const t = {

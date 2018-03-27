@@ -38,14 +38,14 @@ class AppController extends Component {
                 this.props.uiStore.setUserID(d.id);
                 this.props.appManager.authToken = new_token;
                 if (auth.authenticate.resultData.organisation === 'origin') {
-                    historyStore.push('/signup');
+                    historyStore.push('/landing');
                 } else {
                     this.props.appManager.logged_in = true;
                     historyStore.push('/main');
                 }
                 // we are already logged in, and have same organisation
             } else {
-                historyStore.push('/signup');
+                historyStore.push('/landing');
                 // TODO direct to signup if not on admin page.
                 // debugger;
                 // either we're not logged in, or we are trying to log into a different sub-domain
