@@ -22,3 +22,13 @@ export const getUserQuery = gql`query getUser($id:Int!) {
     
   }
 }`;
+
+export const createUserQuery = gql`mutation registerUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $adminUser: Boolean! ) {
+    registerUser(input:{firstName: $firstName, lastName:$lastName, email: $email, 
+    password: $password,adminUser: $adminUser }) {
+      user {
+        id
+      }
+    }
+  }`;
+

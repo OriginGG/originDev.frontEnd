@@ -3,10 +3,12 @@ import injectSheet from 'react-jss';
 import { Formik } from 'formik';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { toast, ToastContainer } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../../render_components/LoginComponentRender';
 import SignupComponentRender from '../../../render_components/SignupComponentRender';
 import { authenticateQuery } from '../../../../queries/login';
+import { createUserQuery } from '../../../../queries/users';
 import historyStore from '../../../../utils/stores/browserHistory';
 
 // import { getOrganisationQuery } from './queries/organisation'
@@ -80,7 +82,17 @@ class LoginController extends Component {
                         }
                         console.log('submitting3....');
                     } else {
-                        console.log('sign up');
+                        const payload = {
+                            firstName: v.name,
+                            lastName: '',
+                            password: v.password,
+                            email: v.email,
+                            adminUser: true,
+                        };
+                        await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
+                        toast.success(`Account ${v.email} created, you can now login.`, {
+                            position: toast.POSITION.TOP_LEFT
+                        });
                         // const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     }
                 }}
@@ -100,6 +112,7 @@ class LoginController extends Component {
                             {this.state.content_display === 'login' &&
                                 <LoginComponentRender errors={errors} touched={touched} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
                             }
+                            <ToastContainer autoClose={2500} />
                         </div>
                     )}
             />

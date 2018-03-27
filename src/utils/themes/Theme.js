@@ -1127,6 +1127,259 @@ export const GlobalStyles = GlobalTheme => ({
         paddingLeft: '15px',
         paddingRight: '15px',
         display: 'table'
+    },
+    //*************************************
+    //  Landing Page
+    //*********************************** */
+    landing_body: {
+        width: '100%',
+        background: 'linear-gradient(#061216, #3d4344)',
+        display: 'table'
+    },
+    landing_header: {
+        width: '100%',
+        padding: '30px 50px 30px 50px',
+        position: 'absolute',
+        top: '0'
+    },
+    lading_header_button: {
+        width: '40px',
+        height: '40px'
+    },
+    landing_menu_modal: {
+        width: '100%',
+        height: '100vh',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        display: 'none',
+        background: '#000'
+    },
+    menu_modal_header: {
+        width: '100%',
+        height: '100px',
+        display: 'table',
+        textAlign: 'left',
+        padding: '0px 75px 0px 75px'
+    },
+    menu_close: {
+        color: '#fff',
+        height: '100px',
+        lineHeight: '100px',
+        fontWeight: 'bold',
+        fontSize: '24px',
+        cursor: 'pointer'
+    },
+    menu_modal_item_container: {
+        width: '100%',
+        height: '100px',
+        padding: '0px 175px 0px 175px',
+        textAlign: 'left',
+        color: '#fff',
+        fontSize: '48px',
+        lineHeight: '100px',
+        opacity: '0',
+        cursor: 'pointer'
+    },
+    landing_content_container: {
+        width: '100%',
+        height: '100vh',
+        color: '#fff',
+        padding: '30px'
+    },
+    landing_outer_welcome_container: {
+        width: '100%',
+        height: '100vh',
+        color: '#fff'
+    },
+    landing_individual_container: {
+        width: '100%',
+        height: '100vh',
+        color: '#fff',
+        padding: '30px',
+        position: 'relative'
+    },
+    landing_welcome_container: {
+        width: '100%',
+        height: '100vh',
+        paddingTop: '250px',
+        backgroundImage: 'url("./images/banner-bg.jpg")',
+        backgroundSize: 'cover'
+    },
+    landing_welcome_lines_container: {
+        width: '100%',
+        height: '200px',
+        display: 'table',
+        backgroundImage: 'url("./images/title-bg.png")',
+        objectFit: 'fill'
+    },
+    landing_welcome_lines_image: {
+        height: '200px',
+        marginLeft: '150px'
+    },
+    landing_page_button_container: {
+        width: '100%',
+        display: 'table',
+        position: 'fixed',
+        bottom: '75px',
+        zIndex: '100'
+    },
+    landing_page_join_button: {
+        width: '300px',
+        textAlign: 'center',
+        padding: '15px',
+        background: '#0a9ab4',
+        borderRadius: '5px',
+        color: '#fff',
+        fontSize: '24px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        cursor: 'pointer'
+    },
+    landing_org_header_text: {
+        width: '100%',
+        height: '100px',
+        lineHeight: '100px',
+        color: '#fff',
+        fontSize: '48px',
+        fontWeight: 'bold',
+        padding: '0px 30px 0px 30px'
+    },
+    landing_org_header_text_blue: {
+        color: '#0a9ab4'
+    },
+    landing_org_body: {
+        width: '100%',
+        display: 'table',
+        color: '#fff',
+        fontSize: '18px',
+        lineHeight: '1.4em',
+        padding: '0px 30px 0px 30px'
+    },
+    landing_org_diagram: {
+        width: '100%',
+        display: 'table',
+        paddingTop: '25px'
+    },
+    landing_org_line: {
+        width: '10px',
+        height: '40px',
+        background: '#0a9ab4',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    landing_org_arrow: { 
+        width: '0', 
+        height: '0', 
+        borderLeft: '20px solid transparent',
+        borderRight: '20px solid transparent',
+        borderTop: '20px solid #0a9ab4',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    landing_org_arrow_box: {
+        width: '300px',
+        height: '80px',
+        lineHeight: '80px',
+        backgroundColor: '#0a9ab4',
+        borderRadius: '15px',
+        color: '#fff',
+        fontSize: '24px',
+        textAlign: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    landing_why_content: {
+        width: '100%',
+        display: 'table',
+        padding: '150px 175px 150px 175px'
+    },
+    landing_why_header: {
+        width: '100%',
+        color: '#0a9ab4',
+        fontSize: '48px',
+        fontWeight: 'bold'
+    },
+    landing_why_body: {
+        width: '100%',
+        color: '#ffffff',
+        fontSize: '36px',
+        paddingTop: '75px'
+    },
+    landing_individual_image_container: {
+        padding: '15px',
+        display: 'table'
+    },
+    landing_individual_image: {
+
+    },
+    coming_soon_div: {
+        width: '100%',
+        height: '100vh',
+        lineHeight: '80vh',
+        color: '#0a9ab4',
+        textAlign: 'center',
+        fontSize: '96px',
+        fontWeight: 'bold',
+        position: 'absolute',
+        top: '0'
+    },
+    landing_individual_header: {
+        width: '100%',
+        height: '80px',
+        textAlign: 'left',
+        lineHeight: '80px',
+        fontSize: '36px',
+        fontWeight: 'bold',
+        color: '#0a9ab4'
+    },
+    landing_individual_text: {
+        width: '100%',
+        textAlign: 'left',
+        fontSize: '22px',
+        color: '#ffffff'
+    },
+    landing_upcoming_video: {
+        padding: '130px 15px 100px 30px'
+    },
+    upcoming_header: {
+        width: '100%',
+        height: '100px',
+        lineHeight: '100px',
+        textAlign: 'center',
+        color: '#0a9ab4',
+        fontSize: '36px'
+    },
+    upcoming_title: {
+        width: '100%',
+        height: '80px',
+        lineHeight: '80px',
+        color: '#fff',
+        fontSize: '24px',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        paddingLeft: '15px'
+    },
+    upcoming_body: {
+        width: '100%',
+        color: '#fff',
+        lineHeight: '1.4em',
+        fontSize: '18px',
+        fontWeight: 'lighter',
+        textAlign: 'left',
+        paddingLeft: '15px'
+    },
+    landing_footer: {
+        width: '100%',
+        height: '80px',
+        textAlign: 'center'
+    },
+    landing_footer_text: {
+        height: '80px',
+        lineHeight: '80px',
+        textAlign: 'center',
+        color: '#fff',
+        fontSize: '18px'
     }
 });
 

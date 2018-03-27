@@ -56,16 +56,24 @@ class CreateSubDomainComponentRender extends Component {
                                         </div>
                                         <div className="ui stackable two column grid">
                                             <div className="column">
-                                                <div className={this.props.classes.subdomain_theme_container}>
-                                                    <img className={this.props.classes.subdomain_theme_img} src={this.props.dark_theme_image_src}/>
+                                                <div className={this.props.classes.subdomain_theme_container} style={this.props.theme1_select_style}>
+                                                    <img className={this.props.classes.subdomain_theme_img} onClick={( ) => {
+                                                        this
+                                                            .props
+                                                            .handleThemeClick( 1 );
+                                                    }} src={this.props.dark_theme_image_src}/>
                                                     <div className={this.props.classes.theme_title_text}>
                                                         Dark Theme
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="column">
-                                                <div className={this.props.classes.subdomain_theme_container}>
-                                                    <img className={this.props.classes.subdomain_theme_img} src={this.props.light_theme_image_src}/>
+                                                <div className={this.props.classes.subdomain_theme_container} style={this.props.theme2_select_style}>
+                                                    <img className={this.props.classes.subdomain_theme_img} onClick={( ) => {
+                                                        this
+                                                            .props
+                                                            .handleThemeClick( 2 );
+                                                    }} src={this.props.light_theme_image_src}/>
                                                     <div className={this.props.classes.theme_title_text}>
                                                         Light Theme
                                                     </div>

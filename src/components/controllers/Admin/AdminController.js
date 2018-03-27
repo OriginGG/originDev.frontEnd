@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
+import { autorun } from 'mobx';
 import PropTypes from 'prop-types';
 import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react';
 
@@ -118,6 +119,14 @@ class AdminPageController extends Component {
     state = { page: 'company', isOpen: false, visible: false };
     componentWillMount = async () => {
         if (this.props.appManager.admin_logged_in) {
+            this.autorun_tracker = autorun(() => {
+                if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
+                    if (this.initialized === true) {
+                        this.my_key += 1;
+                        this.setState({ visible: true });
+                    }
+                }
+            });
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
@@ -130,10 +139,19 @@ class AdminPageController extends Component {
             }
             const { user_id } = this.props.uiStore;
             console.log(user_id);
+            this.initialized = true;
         } else {
             historyStore.push('/admin');
         }
     }
+    componentWillUnmount() {
+        if (this.autorun_tracker) {
+            this.autorun_tracker();
+        }
+    }
+    autorun_tracker = null;
+    initialized = false;
+    my_key = 1;
     handleClick = () => {
         const f = this.state.isOpen;
         this.setState({ isOpen: !f });
@@ -178,11 +196,13 @@ class AdminPageController extends Component {
             <div id="outer-container">
                 <Sidebar.Pushable as={Segment}>
                     <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
-                        <OrganizationAdminMenuComponentRender handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+                        <OrganizationAdminMenuComponentRender key={`admin_sidebar_key_${this.my_key}`} handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
                     </Sidebar>
                     <Sidebar.Pusher>
                         <Segment basic>
-                            <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} />
+                            <div style={{ height: '100vh', overflowY: 'auto' }}>
+                                <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} />
+                            </div>
                         </Segment>
                     </Sidebar.Pusher>
                 </Sidebar.Pushable>

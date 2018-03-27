@@ -1,13 +1,12 @@
 import gql from 'graphql-tag';
 
-export const updateThemeQuery = gql`
-    mutation updateTheme($themeName: String!, $themeData: String!) {
-        updateTheme(input: { themePatch: { themeName: $themeName, themeData: $themeData } }) {
-        theme {
-            themeName
-            themeData
-        }
-    }
+export const updateThemeQuery = gql`mutation updateTheme($themeName: String!, $themeData: JSON, $themeStructure: JSON) {
+  	        updateThemeByThemeName(input:{themeName:$themeName, themePatch: {themeData: $themeData, themeStructure: $themeStructure}}) {
+            theme {
+                themeData
+                themeStructure
+            	    }
+        	}
 }`;
 
 export const getThemeQuery = gql`

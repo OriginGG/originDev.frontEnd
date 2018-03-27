@@ -79,7 +79,7 @@ class OrganizationAdminThemeComponentRender extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={this.props.classes.admin_submit_box}>
+                <div className={this.props.classes.admin_submit_box} onClick={this.props.handleSubmit}>
                     <div className={this.props.classes.admin_submit_button}>Save</div>
                 </div>
             </div>

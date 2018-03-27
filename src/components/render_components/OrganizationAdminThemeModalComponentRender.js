@@ -52,10 +52,10 @@ class OrganizationAdminThemeModalComponentRender extends Component {
                             </div>
                             <div className="actions">
                                 <div className={this.props.classes.blog_add_actions}>
-                                    <div className="ui black deny button">
+                                    <div className="ui black deny button" onClick={this.props.cancelModal}>
                                         Cancel
                                     </div>
-                                    <div className="ui positive right labeled icon button">
+                                    <div className="ui positive right labeled icon button" onClick={this.props.saveModal}>
                                         Save
                                         <i className="checkmark icon"/>
                                     </div>

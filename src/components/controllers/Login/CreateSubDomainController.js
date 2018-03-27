@@ -8,13 +8,17 @@ import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/CreateSubDomainComponentRender';
 import { updateUserQuery, getUserQuery } from '../../../queries/users';
-import { createThemeQuery } from '../../../queries/themes';
+import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
 
 class CreateSubDomainController extends Component {
-    state = { visible: false, image_src: null };
+    state = {
+        visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}
+    };
     componentWillMount = async () => {
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
+            const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
+            this.props.uiStore.setOriginTheme(originTheme.resultData);
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
             this.authPayload = p;
             const token = p.authenticate.resultData.jwtToken;
@@ -25,7 +29,12 @@ class CreateSubDomainController extends Component {
             this.name = user.resultData.firstName;
             // this.props.uiStore.setCurrentUser(user.resultData);
             this.logo_files = null;
-            this.setState({ visible: true });
+            this.selected_theme = 1;
+            const s = {
+                border: '1px solid',
+                borderColor: 'white',
+            };
+            this.setState({ theme1_select_style: s, visible: true });
         }
     }
     handleDomainChange = e => {
@@ -60,6 +69,7 @@ class CreateSubDomainController extends Component {
     handleSubmit = async () => {
         if (this.domain_name) {
             const logo_data = await this.uploadLogo();
+            debugger;
             const p = toJS(this.props.uiStore.origin_theme_structure);
             p.header.logo.imageData = logo_data.Location;
             const t = {
@@ -81,6 +91,17 @@ class CreateSubDomainController extends Component {
             // create a domain and theme here.
         }
     }
+    handleThemeClick = (t) => {
+        const s = {
+            border: '1px solid',
+            borderColor: 'white',
+        };
+        if (t === 1) {
+            this.setState({ theme1_select_style: s, theme2_select_style: {} });
+        } else {
+            this.setState({ theme2_select_style: s, theme1_select_style: {} });
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -96,6 +117,9 @@ class CreateSubDomainController extends Component {
                     uploadFile={this.uploadFile}
                     upload_img_src={this.state.image_src}
                     namestring={`Welcome, ${this.name}`}
+                    theme1_select_style={this.state.theme1_select_style}
+                    theme2_select_style={this.state.theme2_select_style}
+                    handleThemeClick={this.handleThemeClick}
                 />
             </ThemeProvider>
         );

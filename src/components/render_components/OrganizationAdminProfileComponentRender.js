@@ -13,7 +13,7 @@ class OrganizationAdminProfileComponentRender extends Component {
                 </div>
                 <div className={this.props.classes.admin_main_logo_box}>
                     <div className={this.props.classes.admin_main_logo_box_inner}>
-                        <div className={this.props.classes.admin_main_logo_button}>COMPANY LOGO</div>
+                        <div className={this.props.classes.admin_main_logo_button} onClick={this.props.handleFileClick}>COMPANY LOGO</div>
                         <img id="admin_main_logo" className={this.props.classes.admin_main_logo_image} src={this.props.logo_src}/>
                     </div>
                     <div className={this.props.classes.admin_main_logo_box_inner}>
