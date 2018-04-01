@@ -28,16 +28,7 @@ class OrganizationAdminAboutComponentRender extends Component {
                             <th>Page Edit</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td/>
-                            <td/>
-                            <td/>
-                            <td/>
-                            <td/>
-                            <td className={this.props.classes.admin_table_edit}>Edit</td>
-                        </tr>
-                    </tbody>
+                    <tbody >{this.props.rows}</tbody>
                     <tfoot className="full-width">
                         <tr>
                             <th colSpan="6">

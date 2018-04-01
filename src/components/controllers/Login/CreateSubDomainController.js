@@ -9,6 +9,7 @@ import { createOrganisationQuery } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/CreateSubDomainComponentRender';
 import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
+import { createPageQuery } from '../../../queries/pages';
 
 class CreateSubDomainController extends Component {
     state = {
@@ -79,6 +80,13 @@ class CreateSubDomainController extends Component {
             await this.props.appManager.executeQuery('mutation', createOrganisationQuery, { name: this.domain_name, subDomain: this.domain_name });
             await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
             await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
+            await this.props.appManager.executeQuery('mutation', createPageQuery, {
+                pageTitle: 'About Us',
+                pageContent: 'Content for the About Us Page',
+                pageSubtitle: 'Sub Title',
+                pageKey: 'about-us',
+                organisation: this.domain_name
+            });
 
 
             const domainInfo = this.props.appManager.getDomainInfo();

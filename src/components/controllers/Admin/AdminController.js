@@ -11,6 +11,7 @@ import OrganizationAdminPageComponentRender from '../../render_components/Organi
 import OrganizationAdminMenuComponentRender from '../../render_components/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
+import AdminAboutController from './sub_controllers/AdminAboutController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminThemeController from './sub_controllers/AdminThemeController';
@@ -51,7 +52,7 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
-                        <a className="item">
+                        <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('about', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
@@ -194,6 +195,10 @@ class AdminPageController extends Component {
             }
             case 'recentmatches': {
                 p_component = <AdminRecentMatchesController />;
+                break;
+            }
+            case 'about': {
+                p_component = <AdminAboutController />;
                 break;
             }
             default: {
