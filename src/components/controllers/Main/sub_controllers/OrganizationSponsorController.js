@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import OrganizationSponsorComponentRender from '../../../render_components/OrganizationSponserComponentRender';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
-import blankImage from '../../../../assets/images/imgPlaceholder1.png';
+import sponsorImage1 from '../../../../assets/images/sponsor-logo1.png';
+import sponsorImage2 from '../../../../assets/images/sponsor-logo2.png';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationSponsorController extends Component {
     state = { visible: false };
@@ -19,16 +20,16 @@ class OrganizationSponsorController extends Component {
             this.sponsor_image4 = sponsor_data.resultData.edges[0].node.sponsor4;
         }
         if (!this.sponsor_image1) {
-            this.sponsor_image1 = blankImage;
+            this.sponsor_image1 = sponsorImage1;
         }
         if (!this.sponsor_image2) {
-            this.sponsor_image2 = blankImage;
+            this.sponsor_image2 = sponsorImage2;
         }
         if (!this.sponsor_image3) {
-            this.sponsor_image3 = blankImage;
+            this.sponsor_image3 = sponsorImage1;
         }
         if (!this.sponsor_image4) {
-            this.sponsor_image4 = blankImage;
+            this.sponsor_image4 = sponsorImage2;
         }
         this.setState({ visible: true });
     }

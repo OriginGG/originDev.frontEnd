@@ -15,6 +15,7 @@ import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminThemeController from './sub_controllers/AdminThemeController';
 import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
+import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -90,7 +91,7 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
-                        <a className="item">
+                        <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('recentmatches', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
@@ -189,6 +190,10 @@ class AdminPageController extends Component {
             }
             case 'collaborators': {
                 p_component = <AdminCollaboratorController />;
+                break;
+            }
+            case 'recentmatches': {
+                p_component = <AdminRecentMatchesController />;
                 break;
             }
             default: {

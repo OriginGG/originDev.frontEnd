@@ -896,6 +896,38 @@ export const GlobalStyles = GlobalTheme => ({
         width: '150px',
         height: '100px'
     },
+    modal_news_header: {
+        width: '100%',
+        height: '250px'
+    },
+    modal_news_header_image: {
+        width: '100%',
+        height: '250px',
+        objectFit: 'cover'
+    },
+    modal_news_body: {
+        width: '100%',
+        height: '50vh',
+        padding: '20px 15px 20px 15px',
+        overflow: 'hidden'
+    },
+    modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        lineHeight: '1.3em',
+        textAlign: 'left',
+        fontSize: '18px',
+        color: 'black',
+        overflowY: 'scroll'
+    },
+    modal_about_header: {
+        width: '100%',
+        height: '120px',
+        lineHeight: '120px',
+        textAlign: 'left',
+        color: 'black',
+        fontSize: '48px'
+    },
     modal_inner: {
         width: '100%',
         padding: '15px',

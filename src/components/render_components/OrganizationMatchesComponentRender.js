@@ -90,78 +90,7 @@ class OrganizationMatchesComponentRender extends Component {
                                         tableLayout: 'fixed',
                                         fontFamily: 'Roboto, sans-serif'
                                     }}>
-                                        <tbody>
-                                            <tr style={{
-                                                color: 'rgba(0, 0, 0, 0.87)',
-                                                height: '48px'
-                                            }}>
-                                                <td style={{
-                                                    paddingLeft: '24px',
-                                                    paddingRight: '24px',
-                                                    height: '48px',
-                                                    textAlign: 'left',
-                                                    fontSize: '13px',
-                                                    overflow: 'hidden',
-                                                    whiteSpace: 'nowrap',
-                                                    textOverflow: 'ellipsis',
-                                                    backgroundColor: 'inherit'
-                                                }}>
-                                                    <img size="40" style={{
-                                                        color: 'rgb(255, 255, 255)',
-                                                        backgroundColor: 'transparent',
-                                                        userSelect: 'none',
-                                                        display: 'inline-flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        fontSize: '20px',
-                                                        borderRadius: '0px',
-                                                        height: '40px',
-                                                        width: '40px'
-                                                    }}/>
-                                                    <br/>
-                                                </td>
-                                                <td style={{
-                                                    paddingLeft: '24px',
-                                                    paddingRight: '24px',
-                                                    height: '48px',
-                                                    textAlign: 'left',
-                                                    fontSize: '13px',
-                                                    overflow: 'hidden',
-                                                    whiteSpace: 'nowrap',
-                                                    textOverflow: 'ellipsis',
-                                                    backgroundColor: 'inherit'
-                                                }}>
-                                                    <img size="40" style={{
-                                                        color: 'rgb(255, 255, 255)',
-                                                        backgroundColor: 'transparent',
-                                                        userSelect: 'none',
-                                                        display: 'inline-flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        fontSize: '20px',
-                                                        borderRadius: '0px',
-                                                        height: '40px',
-                                                        width: '40px'
-                                                    }}/>
-                                                    <br/>
-                                                </td>
-                                                <td style={{
-                                                    color: 'white',
-                                                    fontSize: '16px',
-                                                    paddingLeft: '24px',
-                                                    paddingRight: '24px',
-                                                    height: '48px',
-                                                    textAlign: 'left',
-                                                    fontSize: '13px',
-                                                    overflow: 'hidden',
-                                                    whiteSpace: 'nowrap',
-                                                    textOverflow: 'ellipsis',
-                                                    backgroundColor: 'inherit'
-                                                }}>
-                                                    <span>3 - 2</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody >{this.props.recent_matches}</tbody>
                                     </table>
                                 </div>
                             </div>

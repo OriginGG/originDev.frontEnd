@@ -51,6 +51,7 @@ class OrganizationPageController extends Component {
                     bottomSponsorContent={<OrganizationSponsorController />}
                     navContent={<OrganizationNavController />}
                     logoContent={<OrganizationLogoController />}
+                    footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
 
                 /></ThemeProvider>
         );

@@ -50,7 +50,7 @@ class OrganizationPageComponentRender extends Component {
                         <div >{this.props.bottomSponsorContent}</div>
                     </div>
                 </div>
-                <div className={this.props.classes.orgFooter}>
+                <div className={this.props.classes.orgFooter} style={this.props.footer_style}>
                     <p className={this.props.classes.orgFooterText}>© Origin. All rights reserved.</p>
                 </div>
             </div>
