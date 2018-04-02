@@ -19,7 +19,6 @@ class App extends Component {
             <div>
                 <Route exact path="/" component={AppController} />
                 <Route exact path="/signup" component={SignupPageController} />
-                <Route exact path="/landing" component={SignupPageController} />
                 <Route exact path="/main" component={OrganizationPageController} />
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
