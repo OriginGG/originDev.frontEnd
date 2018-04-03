@@ -10,7 +10,7 @@ class OrganizationNewsController extends Component {
     state = { visible: false };
     componentWillMount = async () => {
         const subDomain = this.props.uiStore.current_subdomain;
-        const blog_data = await this.props.appManager.executeQueryAuth('query', getBlogsQuery, { subDomain });
+        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
         this.blog_array = [];
         blog_data.resultData.edges.forEach((blog) => {
             const { blogContent } = blog.node;

@@ -11,7 +11,7 @@ class OrganizationVideoController extends Component {
         video1_url: '', video2_url: '', video3_url: '', video4_url: ''
     };
     componentWillMount = async () => {
-        const youTubeChannels = await this.props.appManager.executeQueryAuth('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         if (youTubeChannels.resultData.edges.length !== 0) {
             const v1 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo1);
             const v2 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo2);

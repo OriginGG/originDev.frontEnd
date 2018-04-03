@@ -4,18 +4,8 @@ import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
 import Modal from 'react-responsive-modal';
 
-
 import PropTypes from 'prop-types';
-import OrganizationPageComponentRender from '../../render_components/OrganizationPageComponentRender';
-import OrganizationVideoController from './sub_controllers/OrganizationVideoController';
-import OrganizationTwitterController from './sub_controllers/OrganizationTwitterController';
-import OrganizationSponsorController from './sub_controllers/OrganizationSponsorController';
-import OrganizationMatchesController from './sub_controllers/OrganizationMatchesController';
-import OrganizationNavController from './sub_controllers/OrganizationNavController';
-import OrganizationLogoController from './sub_controllers/OrganizationLogoController';
-import OrganizationNewsController from './sub_controllers/OrganizationNewsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
-import OrganizationNewsComponentRender from '../../render_components/OrganizationNewsComponentRender';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 
@@ -39,15 +29,39 @@ const AboutModal = (props) => {
 };
 
 class OrganizationPageController extends Component {
-    state = { visible: false, about_modal_open: false };
+    state = {
+        OrganizationPageComponentRender: null,
+        OrganizationVideoController: null,
+        OrganizationTwitterController: null,
+        OrganizationSponsorController: null,
+        OrganizationMatchesController: null,
+        OrganizationNavController: null,
+        OrganizationLogoController: null,
+        OrganizationNewsController: null,
+        OrganizationNewsComponentRender: null,
+        visible: false,
+        about_modal_open: false
+    };
 
     componentWillMount = async () => {
-        if (this.props.appManager.logged_in === true) {
-            const domainInfo = this.props.appManager.getDomainInfo();
-            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+        const OrganizationPageComponentRender = await import('../../render_components/OrganizationPageComponentRender');
+        const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
+        const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
+        const OrganizationSponsorController = await import('./sub_controllers/OrganizationSponsorController');
+        const OrganizationMatchesController = await import('./sub_controllers/OrganizationMatchesController');
+        const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
+        const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
+        const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
+        const OrganizationNewsComponentRender = await import('../../render_components/OrganizationNewsComponentRender');
+        // if (this.props.appManager.logged_in === true) {
+        const domainInfo = this.props.appManager.getDomainInfo();
+        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+        if (subDomain === 'origin') {
+            historyStore.push('/signup');
+        } else {
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
             if (o.resultData === null) {
-                console.log('sub domain does not exist!');
+                historyStore.push('/');
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
@@ -57,11 +71,23 @@ class OrganizationPageController extends Component {
                 const { edges } = pages.allPages;
                 this.bcontent = <div dangerouslySetInnerHTML={this.createMarkup(edges[0].node.pageContent)} />;
                 this.about_us = edges[0].node;
-                this.setState({ visible: true });
+                this.setState({
+                    visible: true,
+                    OrganizationPageComponentRender: OrganizationPageComponentRender.default,
+                    OrganizationVideoController: OrganizationVideoController.default,
+                    OrganizationTwitterController: OrganizationTwitterController.default,
+                    OrganizationSponsorController: OrganizationSponsorController.default,
+                    OrganizationMatchesController: OrganizationMatchesController.default,
+                    OrganizationNavController: OrganizationNavController.default,
+                    OrganizationLogoController: OrganizationLogoController.default,
+                    OrganizationNewsController: OrganizationNewsController.default,
+                    OrganizationNewsComponentRender: OrganizationNewsComponentRender.default
+                });
             }
-        } else {
-            historyStore.push('/');
         }
+        // } else {
+        //     historyStore.push('/');
+        // }
     }
     createMarkup = (content) => {
         return { __html: content };
@@ -77,18 +103,29 @@ class OrganizationPageController extends Component {
             return null;
         }
         const { subDomain } = this.props.uiStore.current_organisation;
+        const { OrganizationPageComponentRender } = this.state;
+        const { OrganizationNewsController } = this.state;
+        const { OrganizationTwitterController } = this.state;
+        const { OrganizationMatchesController } = this.state;
+        const { OrganizationVideoController } = this.state;
+        const { OrganizationSponsorController } = this.state;
+        const { OrganizationNavController } = this.state;
+        const { OrganizationLogoController } = this.state;
+        const { OrganizationNewsComponentRender } = this.state;
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
                 <div ref={(c) => { this.ref_node = c; }}>
+                    <OrganizationTwitterController theme="light" />
                     <OrganizationPageComponentRender
-                        newsContent={<OrganizationNewsController />}
-                        twitterContent={<OrganizationTwitterController />}
-                        matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
-                        videoContent={<OrganizationVideoController />}
-                        topSponsorContent={<OrganizationSponsorController />}
-                        bottomSponsorContent={<OrganizationSponsorController />}
-                        navContent={<OrganizationNavController handleAboutClick={this.handleAboutClick} />}
-                        logoContent={<OrganizationLogoController />}
+                        theme="light"
+                        newsContent={<OrganizationNewsController theme="light" />}
+                        twitterContent={<OrganizationTwitterController theme="light" />}
+                        matchesContent={<OrganizationMatchesController theme="light" subDomain={subDomain} />}
+                        videoContent={<OrganizationVideoController theme="light" />}
+                        topSponsorContent={<OrganizationSponsorController theme="light" />}
+                        bottomSponsorContent={<OrganizationSponsorController theme="light" />}
+                        navContent={<OrganizationNavController theme="light" handleAboutClick={this.handleAboutClick} />}
+                        logoContent={<OrganizationLogoController theme="light" />}
                         footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
 
                     />

@@ -487,7 +487,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '250px',
         paddingTop: '0px',
         position: 'relative',
-        backgroundColor: 'black',//'url("http://api.originbeta.net/blogMedia/CoD-4-Header.jpg")',
+        backgroundColor: 'black',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: '50% 50%'
@@ -917,7 +917,7 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '1.3em',
         textAlign: 'left',
         fontSize: '18px',
-        color: 'black',
+        color: 'white',
         overflowY: 'scroll'
     },
     modal_about_header: {
@@ -925,13 +925,14 @@ export const GlobalStyles = GlobalTheme => ({
         height: '120px',
         lineHeight: '120px',
         textAlign: 'left',
-        color: 'black',
+        color: 'white',
         fontSize: '48px'
     },
     modal_inner: {
         width: '100%',
         padding: '15px',
-        display: 'table'
+        display: 'table',
+        background: 'black'
     },
     modal_blog_media_container: {
         width: '100%',
