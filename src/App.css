@@ -1,6 +1,8 @@
 @import "./external_styles/Semantic-UI-CSS-master/semantic.min.css";
 @import "~react-quill/dist/quill.snow.css";
 @import "~font-awesome/css/font-awesome.css";
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 .transition-enter {
   transform: scale(0);
 }
