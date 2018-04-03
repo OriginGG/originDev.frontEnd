@@ -1,7 +1,6 @@
 @import "./external_styles/Semantic-UI-CSS-master/semantic.min.css";
 @import "~react-quill/dist/quill.snow.css";
 @import "~font-awesome/css/font-awesome.css";
-@import "~react-alice-carousel/lib/alice-carousel.css";
 .transition-enter {
   transform: scale(0);
 }
@@ -17,11 +16,4 @@
   transition: transform 1000ms ease;
 }
 
-.alice-carousel__wrapper {
-    width: inherit;
-    border: none;
-}
 
-.alice-carousel {
-    padding: 0px;
-}

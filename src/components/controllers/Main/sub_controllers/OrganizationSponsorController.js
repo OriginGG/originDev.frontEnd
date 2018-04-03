@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import AliceCarousel from 'react-alice-carousel';
+import InfiniteCarousel from 'react-leaf-carousel';
 import { GlobalStyles } from 'Theme/Theme';
 // import OrganizationSponsorComponentRender from '../../../render_components/OrganizationSponserComponentRender';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
@@ -62,74 +62,61 @@ class OrganizationSponsorController extends Component {
             return null;
         }
         return (
-            <div onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} style={{ height: 39 }}>
-                <AliceCarousel
-                    duration={1000}
-                    infinite={true}
-                    buttonsDisabled={true}
-                    dotsDisabled={true}
-                    fadeOutAnimation={false}
-                    mouseDragEnabled={false}
-                    playButtonEnabled={false}
-                    slideToIndex={this.state.currentIndex}
+            <div onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseLeave} style={{ height: 53, marginTop: -14 }}>
+                <InfiniteCarousel
+                    breakpoints={[
+                        {
+                            breakpoint: 500,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                            },
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                            },
+                        },
+                    ]}
+                    arrows={false}
+                    autoCycle={true}
+                    dots={false}
+                    showSides={false}
+                    slidesToScroll={1}
+                    slidesToShow={1}
+                    scrollOnDevice={false}
                 >
-                    <div>
+                    <div style={{ marginTop: 0 }}>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                     </div>
-                    <div>
+                    <div style={{ marginTop: 0 }}>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                         <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                        <div className="container col-sm-4" style={{ width: 274, float: 'left' }}>
-                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ width: 'auto', height: 35 }} />
                         </div>
                     </div>
-                </AliceCarousel>
+                </InfiniteCarousel>
             </div>
         );
     }
