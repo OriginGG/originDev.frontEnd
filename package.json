@@ -50,6 +50,7 @@
     "promise": "8.0.1",
     "raf": "3.4.0",
     "react": "^16.2.0",
+    "react-alice-carousel": "^1.9.2",
     "react-apollo": "^2.0.4",
     "react-burger-menu": "^2.3.0",
     "react-dev-utils": "^5.0.0",
