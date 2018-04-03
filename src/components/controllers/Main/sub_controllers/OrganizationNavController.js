@@ -9,6 +9,8 @@ class OrganizationNavController extends Component {
     componentWillMount() {
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
     }
+    handleBlogButtonClick = () => {
+    }
     openPage = page => {
         window.open(page, '_blank');
     }
@@ -34,12 +36,13 @@ class OrganizationNavController extends Component {
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitchLink); }} className="fa fa-twitch" />
             </div>);
         }
-        return <OrganizationNavComponentRender social_links={social_links} image_src={this.image_src} />;
+        return <OrganizationNavComponentRender handleBlogButtonClick={this.handleBlogButtonClick} blog_button_text="READ MORE" handleAboutClick={this.props.handleAboutClick} social_links={social_links} image_src={this.image_src} />;
     }
 }
 
 
 OrganizationNavController.propTypes = {
+    handleAboutClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired
 };

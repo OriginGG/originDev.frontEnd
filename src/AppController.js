@@ -3,6 +3,8 @@ import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { getThemeQuery } from './queries/themes';
+import { getOrganisationQuery } from './queries/organisation';
+import { getUserQuery } from './queries/users';
 // import { authenticateQuery } from './queries/login';
 import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
@@ -29,25 +31,45 @@ class AppController extends Component {
             // is there a query param?
 
             const auth = await this.props.appManager.pouchGet('authenticate');
-
             if (auth && auth.authenticate.resultData.organisation === subDomain) {
                 const token = auth.authenticate.resultData.jwtToken;
                 const d = this.props.appManager.decodeJWT(token);
-                d.organisation = subDomain;
-                const new_token = this.props.appManager.encodeJWT(d);
-                this.props.uiStore.setUserID(d.id);
-                this.props.appManager.authToken = new_token;
-                if (auth.authenticate.resultData.organisation === 'origin') {
-                    window.location.href = '/landing/index.html';
-                    // historyStore.push('/landing');
+                const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: d.id });
+                if (user.resultData === null) {
+                    await this.props.appManager.pouchDelete('authenticate');
+                    historyStore.push('/signup');
+                    // does this user still exist?
+                    // if not, remove from pouchdb and go back to login
                 } else {
-                    this.props.appManager.logged_in = true;
-                    historyStore.push('/main');
+                    d.organisation = subDomain;
+                    const new_token = this.props.appManager.encodeJWT(d);
+                    const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
+                    if (o.resultData === null) {
+                        // test if subdomain is actually in db.
+                        const payload = Buffer.from(JSON.stringify(auth), 'utf8').toString('hex');
+                        historyStore.push(`/createsubdomain?p=${payload}`);
+                    } else {
+                        this.props.uiStore.setUserID(d.id);
+                        this.props.appManager.authToken = new_token;
+                        if (auth.authenticate.resultData.organisation === 'origin') {
+                            if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+                                window.location.href = '/landing/index.html';
+                            } else {
+                                historyStore.push('/signup');
+                            }
+                        } else {
+                            this.props.appManager.logged_in = true;
+                            historyStore.push('/main');
+                        }
+                    }
                 }
                 // we are already logged in, and have same organisation
             } else {
-                window.location.href = '/landing/index.html';
-                // historyStore.push('/landing');
+                if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+                    window.location.href = '/landing/index.html';
+                } else {
+                    historyStore.push('/signup');
+                }
                 // TODO direct to signup if not on admin page.
                 // debugger;
                 // either we're not logged in, or we are trying to log into a different sub-domain

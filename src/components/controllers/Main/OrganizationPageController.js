@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
+import Modal from 'react-responsive-modal';
 
 
 import PropTypes from 'prop-types';
@@ -14,10 +15,31 @@ import OrganizationNavController from './sub_controllers/OrganizationNavControll
 import OrganizationLogoController from './sub_controllers/OrganizationLogoController';
 import OrganizationNewsController from './sub_controllers/OrganizationNewsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
+import OrganizationNewsComponentRender from '../../render_components/OrganizationNewsComponentRender';
 import historyStore from '../../../utils/stores/browserHistory';
+import { getPagesQuery } from '../../../queries/pages';
+
+
+const AboutModal = (props) => {
+    return (
+        <Modal
+            open={props.modal_open}
+            classNames={{
+                transitionEnter: 'transition-enter',
+                transitionEnterActive: 'transition-enter-active',
+                transitionExit: 'transition-exit-active',
+                transitionExitActive: 'transition-exit-active',
+            }}
+            animationDuration={1000}
+        >
+            <div style={{ width: 'calc(100vw - 680px)' }}    >
+                {props.content}
+            </div>
+        </Modal >);
+};
 
 class OrganizationPageController extends Component {
-    state = { visible: false };
+    state = { visible: false, about_modal_open: false };
 
     componentWillMount = async () => {
         if (this.props.appManager.logged_in === true) {
@@ -29,11 +51,26 @@ class OrganizationPageController extends Component {
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
+                const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
+                    organisation: this.props.uiStore.current_organisation.subDomain
+                });
+                const { edges } = pages.allPages;
+                this.bcontent = <div dangerouslySetInnerHTML={this.createMarkup(edges[0].node.pageContent)} />;
+                this.about_us = edges[0].node;
                 this.setState({ visible: true });
             }
         } else {
             historyStore.push('/');
         }
+    }
+    createMarkup = (content) => {
+        return { __html: content };
+    }
+    handleAboutClick = () => {
+        this.setState({ about_modal_open: true });
+    }
+    handleBlogButtonClick = () => {
+        this.setState({ about_modal_open: false });
     }
     render() {
         if (this.state.visible === false) {
@@ -42,18 +79,25 @@ class OrganizationPageController extends Component {
         const { subDomain } = this.props.uiStore.current_organisation;
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
-                <OrganizationPageComponentRender
-                    newsContent={<OrganizationNewsController />}
-                    twitterContent={<OrganizationTwitterController />}
-                    matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
-                    videoContent={<OrganizationVideoController />}
-                    topSponsorContent={<OrganizationSponsorController />}
-                    bottomSponsorContent={<OrganizationSponsorController />}
-                    navContent={<OrganizationNavController />}
-                    logoContent={<OrganizationLogoController />}
-                    footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+                <div ref={(c) => { this.ref_node = c; }}>
+                    <OrganizationPageComponentRender
+                        newsContent={<OrganizationNewsController />}
+                        twitterContent={<OrganizationTwitterController />}
+                        matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
+                        videoContent={<OrganizationVideoController />}
+                        topSponsorContent={<OrganizationSponsorController />}
+                        bottomSponsorContent={<OrganizationSponsorController />}
+                        navContent={<OrganizationNavController handleAboutClick={this.handleAboutClick} />}
+                        logoContent={<OrganizationLogoController />}
+                        footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
 
-                /></ThemeProvider>
+                    />
+                    <AboutModal
+                        modal_open={this.state.about_modal_open}
+                        content={<OrganizationNewsComponentRender handleBlogButtonClick={this.handleBlogButtonClick} blog_button_text="CLOSE" blog_title={this.about_us.pageTitle} blog_content={this.bcontent} blog_media={null} />}
+                    />
+                </div>
+            </ThemeProvider>
         );
     }
 }
@@ -62,4 +106,8 @@ OrganizationPageController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
+AboutModal.propTypes = {
+    modal_open: PropTypes.bool.isRequired,
+    content: PropTypes.object.isRequired
+};
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));

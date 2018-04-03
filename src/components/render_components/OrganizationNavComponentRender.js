@@ -17,7 +17,7 @@ class OrganizationNavComponentRender extends Component {
                 <div className={this.props.classes.nav_right}>
                     <div className={this.props.classes.org_menu_container}>
                         <div className={this.props.classes.org_menu_item}>Store</div>
-                        <div className={this.props.classes.org_menu_item}>About</div>
+                        <div className={this.props.classes.org_menu_item} onClick={this.props.handleAboutClick}>About</div>
                         <div className={this.props.classes.org_menu_item}>Home</div>
                     </div>
                 </div>

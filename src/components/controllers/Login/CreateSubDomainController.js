@@ -21,6 +21,7 @@ class CreateSubDomainController extends Component {
             const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
             this.props.uiStore.setOriginTheme(originTheme.resultData);
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+            debugger;
             this.authPayload = p;
             const token = p.authenticate.resultData.jwtToken;
             const d = this.props.appManager.decodeJWT(token);

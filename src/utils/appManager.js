@@ -62,6 +62,14 @@ class AppManager {
             return null;
         }
     }
+    pouchDelete = async (_id) => {
+        try {
+            const doc = await this.localDB.get(_id);
+            return await this.localDB.remove(doc);
+        } catch (e) {
+            return null;
+        }
+    }
     getDomainInfo = () => {
         const regex = /[.:]/g;
         const { hostname, port, protocol } = window.location;
