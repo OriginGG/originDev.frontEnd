@@ -15,6 +15,7 @@ class OrganizationNavController extends Component {
     handleBlogButtonClick = () => {
     }
     openPage = page => {
+        debugger;
         window.open(page, '_blank');
     }
     render() {
@@ -27,7 +28,14 @@ class OrganizationNavController extends Component {
         const social_links = [];
         if (this.props.uiStore.current_organisation.twitterFeedUsername) {
             social_links.push(<div className={this.props.classes[social_item_class]}>
-                <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitterFeedUsername); }} className="fa fa-twitter" />
+                <i
+                    role="menuItem"
+                    tabIndex={-1}
+                    onClick={() => {
+                        const p_string = `https://twitter.com/${this.props.uiStore.current_organisation.twitterFeedUsername}`;
+                        this.openPage(p_string);
+                    }}
+                    className="fa fa-twitter" />
             </div>);
         }
         if (this.props.uiStore.current_organisation.fbLink) {
@@ -45,7 +53,7 @@ class OrganizationNavController extends Component {
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitchLink); }} className="fa fa-twitch" />
             </div>);
         }
-        return <OrganizationNavComponentRender news_style={this.props.news_style} video_style={this.props.video_style} about_style={this.props.about_style} handleBlogButtonClick={this.handleBlogButtonClick}  handleAboutClick={this.props.handleAboutClick} social_links={social_links} image_src={this.image_src} />;
+        return <OrganizationNavComponentRender news_style={this.props.news_style} video_style={this.props.video_style} about_style={this.props.about_style} handleBlogButtonClick={this.handleBlogButtonClick} handleAboutClick={this.props.handleAboutClick} social_links={social_links} image_src={this.image_src} />;
     }
 }
 
