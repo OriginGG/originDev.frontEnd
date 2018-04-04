@@ -132,7 +132,7 @@ class OrganizationMatchesController extends Component {
                 </td>
 
                 <td style={{
-                    paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
+                    color: 'white', paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
                 }}>
                     <span>{res.node.score}</span>
                 </td>
@@ -141,6 +141,7 @@ class OrganizationMatchesController extends Component {
         return <OrganizationMatchesComponentRender recent_matches={p_array} />;
     }
 }
+
 OrganizationMatchesController.propTypes = {
     data: PropTypes.object.isRequired,
     uiStore: PropTypes.object.isRequired
