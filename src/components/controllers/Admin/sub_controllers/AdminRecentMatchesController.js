@@ -7,7 +7,7 @@ import { Dropdown, Button, Input } from 'semantic-ui-react';
 import { inject } from 'mobx-react';
 import _ from 'lodash';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
 import { createRecentMatchQuery, recentMatchesQuery } from '../../../../queries/matches';
 import coc_image from '../../../../assets/images/game_images/clashofclans.png';
@@ -252,7 +252,6 @@ class AdminRecentMatchesController extends Component {
                     addMatch={this.addMatch}
                     style={{ width: 'calc(100vw - 400px)' }}
                 />
-                <ToastContainer autoClose={2500} />
             </div>);
     }
 }

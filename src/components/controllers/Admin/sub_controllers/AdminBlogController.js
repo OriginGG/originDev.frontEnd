@@ -7,7 +7,7 @@ import { inject } from 'mobx-react';
 import ReactQuill from 'react-quill';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { createBlogPostQuery } from '../../../../queries/blogs';
 
 // import OrganizationAdminBlogComponentRender from '../../../render_components/OrganizationAdminBlogComponentRender';
@@ -101,7 +101,6 @@ class AdminBlogController extends Component {
                         </Card.Description >
                     </Card.Content >
                 </Card>
-                <ToastContainer autoClose={2500} />
             </div>
         );
     }

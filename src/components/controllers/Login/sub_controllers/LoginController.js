@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import { Formik } from 'formik';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../../render_components/signup/LoginComponentRender';
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
@@ -112,7 +112,6 @@ class LoginController extends Component {
                             {this.state.content_display === 'login' &&
                                 <LoginComponentRender errors={errors} touched={touched} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
                             }
-                            <ToastContainer autoClose={2500} />
                         </div>
                     )}
             />

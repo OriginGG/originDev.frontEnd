@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import OrganizationAdminSponsorComponentRender from '../../../render_components/admin/OrganizationAdminSponserComponentRender';
 import { getSponsorsQuery, updateSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 import blankImage from '../../../../assets/images/imgPlaceholder1.png';
@@ -140,7 +140,6 @@ class AdminSponsorController extends Component {
                     sponsor_image3={this.state.input_values.sponsor_image3}
                     sponsor_image4={this.state.input_values.sponsor_image4}
                 />
-                <ToastContainer autoClose={2500} />
             </div>
         );
     }

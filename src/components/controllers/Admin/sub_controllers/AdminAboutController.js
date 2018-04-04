@@ -5,7 +5,7 @@ import { Card, Input, Segment, Button } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import OrganizationAdminAboutComponentRender from '../../../render_components/admin/OrganizationAdminAboutComponentRender';
 import { getPagesQuery, updatePageQuery } from '../../../../queries/pages';
@@ -95,7 +95,6 @@ class AdminAboutController extends Component {
                         </Card.Description>
                     </Card.Content>
                 </Card>
-                <ToastContainer autoClose={2500} />
             </div>
 
         );

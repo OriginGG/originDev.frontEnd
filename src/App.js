@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 // import { authenticateQuery } from './queries/login';
 import AppController from './AppController';
 import SignupPageController from './components/controllers/Login/SignupPageController';
@@ -23,6 +24,7 @@ class App extends Component {
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
                 <Route exact path="/createsubdomain" component={CreateSubDomainController} />
+                <ToastContainer autoClose={2500} />
             </div>
         );
     }

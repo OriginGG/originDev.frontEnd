@@ -43,7 +43,7 @@ class OrganizationNavController extends Component {
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitchLink); }} className="fa fa-twitch" />
             </div>);
         }
-        return <OrganizationNavComponentRender handleBlogButtonClick={this.handleBlogButtonClick}  handleAboutClick={this.props.handleAboutClick} social_links={social_links} image_src={this.image_src} />;
+        return <OrganizationNavComponentRender about_style={this.props.about_style} handleBlogButtonClick={this.handleBlogButtonClick}  handleAboutClick={this.props.handleAboutClick} social_links={social_links} image_src={this.image_src} />;
     }
 }
 
@@ -51,7 +51,8 @@ class OrganizationNavController extends Component {
 OrganizationNavController.propTypes = {
     handleAboutClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    about_style: PropTypes.object.isRequired
 };
 
 

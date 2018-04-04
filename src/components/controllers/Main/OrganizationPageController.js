@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
-import Modal from 'react-responsive-modal';
+import { Modal } from 'antd';
 
 import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
@@ -13,16 +13,13 @@ import { getPagesQuery } from '../../../queries/pages';
 const AboutModal = (props) => {
     return (
         <Modal
-            open={props.modal_open}
-            classNames={{
-                transitionEnter: 'transition-enter',
-                transitionEnterActive: 'transition-enter-active',
-                transitionExit: 'transition-exit-active',
-                transitionExitActive: 'transition-exit-active',
-            }}
+            width="max-content"
+            closable={false}
+            footer={null}
+            visible={props.modal_open}
             animationDuration={1000}
         >
-            <div style={{ width: 'calc(100vw - 680px)' }}    >
+            <div style={{ display: 'block' }}>
                 {props.content}
             </div>
         </Modal >);
@@ -38,7 +35,6 @@ class OrganizationPageController extends Component {
         OrganizationNavController: null,
         OrganizationLogoController: null,
         OrganizationNewsController: null,
-        OrganizationNewsComponentRender: null,
         visible: false,
         about_modal_open: false
     };
@@ -64,7 +60,7 @@ class OrganizationPageController extends Component {
                 const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
-                const OrganizationNewsComponentRender = await import(`../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsComponentRender`);
+                const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}_theme/${theme}_OrganizationAboutModalComponentRender`);
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
                     organisation: this.props.uiStore.current_organisation.subDomain
                 });
@@ -81,7 +77,7 @@ class OrganizationPageController extends Component {
                     OrganizationNavController: OrganizationNavController.default,
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
-                    OrganizationNewsComponentRender: OrganizationNewsComponentRender.default
+                    OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default
                 });
             }
         }
@@ -95,12 +91,16 @@ class OrganizationPageController extends Component {
     handleAboutClick = () => {
         this.setState({ about_modal_open: true });
     }
-    handleBlogButtonClick = () => {
+    closeModal = () => {
         this.setState({ about_modal_open: false });
     }
     render() {
         if (this.state.visible === false) {
             return null;
+        }
+        let s = { display: 'none' };
+        if (this.about_us.pageTitle) {
+            s = { display: 'inherit' };
         }
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
@@ -111,11 +111,10 @@ class OrganizationPageController extends Component {
         const { OrganizationSponsorController } = this.state;
         const { OrganizationNavController } = this.state;
         const { OrganizationLogoController } = this.state;
-        const { OrganizationNewsComponentRender } = this.state;
+        const { OrganizationAboutModalComponentRender } = this.state;
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
                 <div ref={(c) => { this.ref_node = c; }}>
-                    <OrganizationTwitterController theme="light" />
                     <OrganizationPageComponentRender
                         theme="light"
                         newsContent={<OrganizationNewsController theme="light" />}
@@ -124,14 +123,13 @@ class OrganizationPageController extends Component {
                         videoContent={<OrganizationVideoController theme="light" />}
                         topSponsorContent={<OrganizationSponsorController theme="light" />}
                         bottomSponsorContent={<OrganizationSponsorController theme="light" />}
-                        navContent={<OrganizationNavController theme="light" handleAboutClick={this.handleAboutClick} />}
+                        navContent={<OrganizationNavController about_style={s} theme="light" handleAboutClick={this.handleAboutClick} />}
                         logoContent={<OrganizationLogoController theme="light" />}
                         footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
-
                     />
                     <AboutModal
                         modal_open={this.state.about_modal_open}
-                        content={<OrganizationNewsComponentRender handleBlogButtonClick={this.handleBlogButtonClick} blog_button_text="CLOSE" blog_title={this.about_us.pageTitle} blog_content={this.bcontent} blog_media={null} />}
+                        content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent}  />}
                     />
                 </div>
             </ThemeProvider>

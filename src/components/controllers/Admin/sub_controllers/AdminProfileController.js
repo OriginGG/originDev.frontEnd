@@ -6,7 +6,7 @@ import { toJS } from 'mobx';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
 import { updateOrganisationQuery } from '../../../../queries/organisation';
 import { updateThemeQuery } from '../../../../queries/themes';
@@ -123,7 +123,6 @@ class AdminProfileController extends Component {
                     handleSubmit={this.handleSubmit}
                     handleFileClick={this.handleFileClick}
                 />
-                <ToastContainer autoClose={2500} />
             </div>);
     }
 }
