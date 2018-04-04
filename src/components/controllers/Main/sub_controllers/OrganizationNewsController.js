@@ -20,7 +20,7 @@ class OrganizationNewsController extends Component {
             const { blogTitle } = blog.node;
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
-            this.blog_array.push(<OrganizationNewsComponentRender blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} />);
+            this.blog_array.push(<OrganizationNewsComponentRender blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} blog_button_text="READ MORE" />);
         });
         this.setState({ visible: true });
     }
