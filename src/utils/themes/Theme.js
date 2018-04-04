@@ -199,7 +199,7 @@ export const GlobalStyles = GlobalTheme => ({
     darkBG: {
         width: '100%',
         backgroundColor: 'rgb(20,20,20)',
-        padding: '50px 0px 50px 0px'
+        padding: '0px 0px 0px 0px'
     },
     darkHeader: {
         width: '100%',
@@ -235,7 +235,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '40px',
         height: '48px'
     },
-    social_menu_dark_item: {
+    dark_social_menu_item: {
         height: '30px',
         lineHeight: '30px',
         float: 'left',

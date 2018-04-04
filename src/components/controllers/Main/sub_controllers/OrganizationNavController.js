@@ -22,24 +22,26 @@ class OrganizationNavController extends Component {
             return null;
         }
         const { OrganizationNavComponentRender } = this.state;
+        const theme = this.props.uiStore.current_organisation.themeId;
+        const social_item_class = `${theme}_social_menu_item`;
         const social_links = [];
         if (this.props.uiStore.current_organisation.twitterFeedUsername) {
-            social_links.push(<div className={this.props.classes.social_menu_item}>
+            social_links.push(<div className={this.props.classes[social_item_class]}>
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitterFeedUsername); }} className="fa fa-twitter" />
             </div>);
         }
         if (this.props.uiStore.current_organisation.fbLink) {
-            social_links.push(<div className={this.props.classes.social_menu_item}>
+            social_links.push(<div className={this.props.classes[social_item_class]}>
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.fbLink); }} className="fa fa-facebook" />
             </div>);
         }
         if (this.props.uiStore.current_organisation.instaLink) {
-            social_links.push(<div className={this.props.classes.social_menu_item}>
+            social_links.push(<div className={this.props.classes[social_item_class]}>
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.instaLink); }} className="fa fa-instagram" />
             </div>);
         }
         if (this.props.uiStore.current_organisation.twitchLink) {
-            social_links.push(<div className={this.props.classes.social_menu_item}>
+            social_links.push(<div className={this.props.classes[social_item_class]}>
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitchLink); }} className="fa fa-twitch" />
             </div>);
         }
