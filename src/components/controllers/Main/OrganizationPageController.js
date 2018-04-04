@@ -145,7 +145,7 @@ class OrganizationPageController extends Component {
                         topSponsorContent={<OrganizationSponsorController theme="light" />}
                         bottomSponsorContent={<OrganizationSponsorController theme="light" />}
                         navContent={<OrganizationNavController news_style={ns} video_style={vs} about_style={s} theme="light" handleAboutClick={this.handleAboutClick} />}
-                        logoContent={<OrganizationLogoController theme="light" />}
+                        logoContent={<OrganizationLogoController roster_games={<span />} theme="light" />}
                         footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
                     />
                     <AboutModal
