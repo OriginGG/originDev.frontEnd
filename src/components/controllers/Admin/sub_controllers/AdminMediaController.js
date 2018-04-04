@@ -89,7 +89,9 @@ class AdminMediaController extends Component {
     }
     render() {
         return (
-            <div>
+            <div style={{
+                width: 'calc(100vw - 380px)'
+            }}>
                 <OrganizationAdminMediaComponentRender
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
