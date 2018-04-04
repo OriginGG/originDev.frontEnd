@@ -15,7 +15,6 @@ class OrganizationNavController extends Component {
     handleBlogButtonClick = () => {
     }
     openPage = page => {
-        debugger;
         window.open(page, '_blank');
     }
     render() {
