@@ -26,8 +26,8 @@ class OrganizationVideoController extends Component {
                 video4_url: v4
             };
             this.setState(p);
+            this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
         }
-        this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
     }
 
     render() {

@@ -97,6 +97,9 @@ class OrganizationMatchesController extends Component {
         }
         const { OrganizationMatchesComponentRender } = this.state;
         const { edges } = this.props.data.resultdata;
+        if (edges.length === 0) {
+            return null;
+        }
         const p_array = [];
         edges.forEach((res) => {
             const g_image = _.find(gameOptions, (o) => {

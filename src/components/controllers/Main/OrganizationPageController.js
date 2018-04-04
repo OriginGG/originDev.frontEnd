@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
+import { getYouTubeChannelsCountquery } from '../../../queries/youtube_channels';
+import { getBlogsCountQuery } from '../../../queries/blogs';
 
 
 const AboutModal = (props) => {
@@ -67,6 +69,16 @@ class OrganizationPageController extends Component {
                 const { edges } = pages.allPages;
                 this.bcontent = <div dangerouslySetInnerHTML={this.createMarkup(edges[0].node.pageContent)} />;
                 this.about_us = edges[0].node;
+                this.video_display = false;
+                this.news_display = false;
+                const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsCountquery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+                if (youTubeChannels.resultData.totalCount !== 0) {
+                    this.video_display = true;
+                }
+                const blogs = await this.props.appManager.executeQuery('query', getBlogsCountQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+                if (blogs.resultData.totalCount !== 0) {
+                    this.news_display = true;
+                }
                 this.setState({
                     visible: true,
                     OrganizationPageComponentRender: OrganizationPageComponentRender.default,
@@ -102,6 +114,15 @@ class OrganizationPageController extends Component {
         if (this.about_us.pageTitle) {
             s = { display: 'inherit' };
         }
+        let vs = { display: 'none' };
+        if (this.video_display) {
+            vs = { display: 'inherit' };
+        }
+        let ns = { display: 'none' };
+        if (this.news_display) {
+            ns = { display: 'inherit' };
+        }
+
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
         const { OrganizationNewsController } = this.state;
@@ -123,7 +144,7 @@ class OrganizationPageController extends Component {
                         videoContent={<OrganizationVideoController theme="light" />}
                         topSponsorContent={<OrganizationSponsorController theme="light" />}
                         bottomSponsorContent={<OrganizationSponsorController theme="light" />}
-                        navContent={<OrganizationNavController about_style={s} theme="light" handleAboutClick={this.handleAboutClick} />}
+                        navContent={<OrganizationNavController news_style={ns} video_style={vs} about_style={s} theme="light" handleAboutClick={this.handleAboutClick} />}
                         logoContent={<OrganizationLogoController theme="light" />}
                         footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
                     />

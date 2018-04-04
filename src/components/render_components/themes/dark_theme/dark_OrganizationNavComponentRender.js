@@ -17,10 +17,10 @@ class DarkOrganizationNavComponentRender extends Component {
                 <div className={this.props.classes.nav_right}>
                     <div className={this.props.classes.org_menu_container}>
                         <a href="#video_cont">
-                            <div className={this.props.classes.org_menu_dark_item}>Video</div>
+                            <div className={this.props.classes.org_menu_dark_item} style={this.props.video_style}>Video</div>
                         </a>
                         <a href="#news_cont">
-                            <div className={this.props.classes.org_menu_dark_item}>News</div>
+                            <div className={this.props.classes.org_menu_dark_item} style={this.props.news_style}>News</div>
                         </a>
                         <a href="#">
                             <div className={this.props.classes.org_menu_dark_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>

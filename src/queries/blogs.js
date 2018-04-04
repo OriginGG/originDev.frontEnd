@@ -1,5 +1,12 @@
 import gql from 'graphql-tag';
 
+export const getBlogsCountQuery = gql`query getBlogsCount($subDomain: String!) {
+  resultData:allBlogs(condition: {organisation: $subDomain}) {
+    totalCount
+  }
+}
+`;
+
 export const getBlogsQuery = gql`
   query getBlogs($subDomain: String!) {
     resultData: allBlogs(condition: { organisation: $subDomain }) {

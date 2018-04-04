@@ -29,7 +29,9 @@ class OrganizationTwitterController extends Component {
     componentWillMount = async () => {
         const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationTwitterComponenRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationTwitterComponentRender`);
-        this.setState({ visible: true, OrganizationTwitterComponenRender: OrganizationTwitterComponenRender.default });
+        if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+            this.setState({ visible: true, OrganizationTwitterComponenRender: OrganizationTwitterComponenRender.default });
+        }
     }
     render() {
         if (this.state.visible === false) {
