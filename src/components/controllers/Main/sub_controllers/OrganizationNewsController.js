@@ -9,7 +9,7 @@ import { getBlogsQuery } from '../../../../queries/blogs';
 const BlogModal = (props) => {
     return (
         <Modal
-            style={{ top: 0 }}
+            style={{ top: 32 }}
             width="max-content"
             closable={false}
             footer={null}
