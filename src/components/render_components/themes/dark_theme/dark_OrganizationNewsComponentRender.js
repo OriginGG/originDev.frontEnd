@@ -41,7 +41,7 @@ class DarkOrganizationNewsComponentRender extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className={this.props.classes.dark_news__more_container} onClick={this.props.handleBlogButtonClick}>
+                            <div className={this.props.classes.dark_news__more_container}>
                                 <div id="more_news_button" className={this.props.classes.dark_news_more_button} onClick={( ) => {
                                     this
                                         .props
