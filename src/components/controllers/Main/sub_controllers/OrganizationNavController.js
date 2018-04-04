@@ -3,11 +3,14 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
-import OrganizationNavComponentRender from '../../../render_components/OrganizationNavComponentRender';
 
 class OrganizationNavController extends Component {
-    componentWillMount() {
+    state = { visible: false, OrganizationNavComponentRender: null };
+    componentWillMount = async () => {
+        const theme = this.props.uiStore.current_theme_name;
+        const OrganizationNavComponentRender = await import(`../../../render_components/${theme}_OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
+        this.setState({ visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
     }
     handleBlogButtonClick = () => {
     }
@@ -15,6 +18,10 @@ class OrganizationNavController extends Component {
         window.open(page, '_blank');
     }
     render() {
+        if (this.state.visible === false) {
+            return null;
+        }
+        const { OrganizationNavComponentRender } = this.state;
         const social_links = [];
         if (this.props.uiStore.current_organisation.twitterFeedUsername) {
             social_links.push(<div className={this.props.classes.social_menu_item}>

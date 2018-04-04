@@ -44,7 +44,9 @@ class OrganizationPageController extends Component {
     };
 
     componentWillMount = async () => {
-        const OrganizationPageComponentRender = await import('../../render_components/OrganizationPageComponentRender');
+        const theme = this.props.uiStore.current_theme_name;
+        const OrganizationPageComponentRender = await import(`../../render_components/${theme}_OrganizationPageComponentRender`);
+        debugger;
         const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
         const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
         const OrganizationSponsorController = await import('./sub_controllers/OrganizationSponsorController');
@@ -52,7 +54,7 @@ class OrganizationPageController extends Component {
         const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
         const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
         const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
-        const OrganizationNewsComponentRender = await import('../../render_components/OrganizationNewsComponentRender');
+        const OrganizationNewsComponentRender = await import(`../../render_components/${theme}_OrganizationNewsComponentRender`);
         // if (this.props.appManager.logged_in === true) {
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;

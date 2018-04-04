@@ -488,7 +488,6 @@ export const GlobalStyles = GlobalTheme => ({
         paddingTop: '0px',
         position: 'relative',
         backgroundColor: 'black',
-        backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: '50% 50%'
     },

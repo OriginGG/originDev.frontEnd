@@ -8,6 +8,7 @@ class UiStore {
     @observable current_theme_structure = {}
     @observable origin_theme_data = {}
     @observable origin_theme_structure = {}
+    @observable current_theme_name='dark'
     @observable user_id = 0;
     setOrganisation = (o) => {
         const { themeData } = o.themesByThemeName.edges[0].node;

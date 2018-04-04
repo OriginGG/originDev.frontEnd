@@ -10,16 +10,9 @@ class DarkOrganizationNavComponentRender extends Component {
             <div className={this.props.classes.darkBG}>
                 <div className={this.props.classes.nav_left}>
                     <div className={this.props.classes.nav_header}>
-                        <img id="nav_img" alt="" className={this.props.classes.nav_img}/>
+                        <img id="nav_img" alt="" className={this.props.classes.nav_img} src={this.props.image_src}/>
                     </div>
-                    <div className={this.props.classes.social_menu_container}>
-                        <div className={this.props.classes.social_menu_dark_item}>
-                            <i className="fa fa-instagram"/>
-                        </div>
-                        <div className={this.props.classes.social_menu_dark_item}>
-                            <i className="fa fa-twitter"/>
-                        </div>
-                    </div>
+                    <div className={this.props.classes.social_menu_container}>{this.props.social_links}</div>
                 </div>
                 <div className={this.props.classes.nav_right}>
                     <div className={this.props.classes.org_menu_container}>
@@ -30,7 +23,7 @@ class DarkOrganizationNavComponentRender extends Component {
                             <div className={this.props.classes.org_menu_dark_item}>News</div>
                         </a>
                         <a href="#">
-                            <div id="about_button" className={this.props.classes.org_menu_dark_item}>About</div>
+                            <div className={this.props.classes.org_menu_dark_item} onClick={this.props.handleAboutClick}>About</div>
                         </a>
                         <a href="#home_cont">
                             <div className={this.props.classes.org_menu_dark_item}>Home</div>

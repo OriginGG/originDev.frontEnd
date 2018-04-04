@@ -16,7 +16,7 @@ class DarkOrganizationSponserComponentRender extends Component {
                         }} className="container col-sm-4">
                             <img alt="Change Logo" style={{
                                 height: '75px'
-                            }} className={this.props.classes.header_logo}/>
+                            }} className={this.props.classes.header_logo} src={this.props.sponsor_image1}/>
                         </div>
                         <div style={{
                             width: '274px',
@@ -24,7 +24,7 @@ class DarkOrganizationSponserComponentRender extends Component {
                         }} className="container col-sm-4">
                             <img alt="Change Logo" style={{
                                 height: '75px'
-                            }} className={this.props.classes.header_logo}/>
+                            }} className={this.props.classes.header_logo} src={this.props.sponsor_image2}/>
                         </div>
                         <div style={{
                             width: '274px',
@@ -32,7 +32,7 @@ class DarkOrganizationSponserComponentRender extends Component {
                         }} className="container col-sm-4">
                             <img alt="Change Logo" style={{
                                 height: '75px'
-                            }} className={this.props.classes.header_logo}/>
+                            }} className={this.props.classes.header_logo} src={this.props.sponsor_image3}/>
                         </div>
                         <div style={{
                             width: '274px',
@@ -40,7 +40,7 @@ class DarkOrganizationSponserComponentRender extends Component {
                         }} className="container col-sm-4">
                             <img alt="Change Logo" style={{
                                 height: '75px'
-                            }} className={this.props.classes.header_logo}/>
+                            }} className={this.props.classes.header_logo} src={this.props.sponsor_image4}/>
                         </div>
                     </marquee>
                 </div>

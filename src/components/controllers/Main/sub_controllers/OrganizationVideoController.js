@@ -3,14 +3,16 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
-import OrganizationVideoComponentRender from '../../../render_components/OrganizationVideoComponentRender';
 import { getYouTubeChannelsQuery } from '../../../../queries/youtube_channels';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationVideoController extends Component {
     state = {
-        video1_url: '', video2_url: '', video3_url: '', video4_url: ''
+        visible: false, video1_url: '', video2_url: '', video3_url: '', video4_url: ''
     };
     componentWillMount = async () => {
+        const theme = this.props.uiStore.current_theme_name;
+        const OrganizationVideoComponentRender = await import(`../../../render_components/${theme}_OrganizationVideoComponentRender`);
+
         const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         if (youTubeChannels.resultData.edges.length !== 0) {
             const v1 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo1);
@@ -25,9 +27,14 @@ class OrganizationVideoController extends Component {
             };
             this.setState(p);
         }
+        this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
     }
 
     render() {
+        if (this.state.visible === false) {
+            return null;
+        }
+        const { OrganizationVideoComponentRender } = this.state;
         return <OrganizationVideoComponentRender
             video1_url={this.state.video1_url}
             video2_url={this.state.video2_url}
