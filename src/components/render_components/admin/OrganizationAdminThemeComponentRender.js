@@ -17,21 +17,13 @@ class OrganizationAdminThemeComponentRender extends Component {
                             <label>Please Select Theme Type:</label>
                             <div className="field">
                                 <div className="ui radio checkbox">
-                                    <input type="radio" name="light" onChange={( ) => {
-                                        this
-                                            .props
-                                            .checkBoxChanged( 'light' );
-                                    }} checked={this.props.checked_light}/>
+                                    <input type="radio" name="theme_selector" value="light" onChange={this.props.checkBoxChanged} checked={this.props.checked_light}/>
                                     <label>Light Theme</label>
                                 </div>
                             </div>
                             <div className="field">
                                 <div className="ui radio checkbox">
-                                    <input type="radio" name="dark" onChange={( ) => {
-                                        this
-                                            .props
-                                            .checkBoxChanged( 'dark' );
-                                    }} checked={this.props.checked_dark}/>
+                                    <input type="radio" name="theme_selector" value="dark" onChange={this.props.checkBoxChanged} checked={this.props.checked_dark}/>
                                     <label>Dark Theme</label>
                                 </div>
                             </div>

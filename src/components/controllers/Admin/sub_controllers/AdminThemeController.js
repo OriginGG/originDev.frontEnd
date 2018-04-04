@@ -9,12 +9,28 @@ import { toast, ToastContainer } from 'react-toastify';
 import OrganizationAdminThemeComponentRender from '../../../render_components/admin/OrganizationAdminThemeComponentRender';
 import OrganizationAdminThemeModalComponentRender from '../../../render_components/admin/OrganizationAdminThemeModalComponentRender';
 import { updateThemeQuery } from '../../../../queries/themes';
+import { updateOrganisationQuery } from '../../../../queries/organisation';
 
 class AdminThemeController extends Component {
-    state = { modal_open: false, preview_image_src: null, image_src: null }
+    state = {
+        modal_open: false, preview_image_src: null, image_src: null
+    }
     componentWillMount = () => {
+        let checked_dark = 'checked';
+        let checked_light = false;
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
         this.file_uploaded = false;
+        this.selected_theme = this.props.uiStore.current_organisation.themeId;
+        if (this.selected_theme === 'light') {
+            checked_dark = false;
+            checked_light = 'checked';
+        } else {
+            checked_dark = 'checked';
+            checked_light = false;
+        }
+        this.setState({
+            checked_dark, checked_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
+        });
     }
     editImage = () => {
         this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
@@ -82,11 +98,39 @@ class AdminThemeController extends Component {
             }
         });
     }
+    handleSubmit = async () => {
+        if (this.new_theme !== this.selected_theme) {
+            await this.props.appManager.executeQuery(
+                'mutation', updateOrganisationQuery,
+                {
+                    subDomain: this.props.uiStore.current_organisation.subDomain,
+                    themeId: this.new_theme
+                }
+            );
+            this.props.uiStore.current_organisation.themeId = this.new_theme;
+            toast.success('Theme updated !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+    }
+    checkBoxChanged = (e) => {
+        const { value } = e.target;
+        console.log(value);
+        this.new_theme = value;
+        if (value === 'dark') {
+            this.setState({ checked_dark: 'checked', checked_light: '' });
+        } else {
+            this.setState({ checked_light: 'checked', checked_dark: '' });
+        }
+    }
     render() {
         let md = <OrganizationAdminThemeComponentRender
             editImage={this.editImage}
             image_src={this.state.image_src}
             handleSubmit={this.handleSubmit}
+            checkBoxChanged={this.checkBoxChanged}
+            checked_light={this.state.checked_light}
+            checked_dark={this.state.checked_dark}
         />;
         if (this.state.modal_open) {
             md = <div>
@@ -95,7 +139,9 @@ class AdminThemeController extends Component {
                     cancelModal={this.cancelModal}
                     saveModal={this.saveModal}
                     uploadFile={this.uploadFile}
+
                     preview_image={this.state.preview_image_src}
+
                     default_image1="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg1.jpg"
                     default_image2="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg2.jpg"
                     default_image3="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg"

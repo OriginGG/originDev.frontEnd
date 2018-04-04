@@ -35,6 +35,7 @@ class CreateSubDomainController extends Component {
                 border: '1px solid',
                 borderColor: 'white',
             };
+            this.current_theme = 'dark';
             this.setState({ theme1_select_style: s, visible: true });
         }
     }
@@ -77,7 +78,7 @@ class CreateSubDomainController extends Component {
                 themeStructure: JSON.stringify(p),
                 themeData: JSON.stringify(toJS(this.props.uiStore.origin_theme_data))
             };
-            await this.props.appManager.executeQuery('mutation', createOrganisationQuery, { name: this.domain_name, subDomain: this.domain_name });
+            await this.props.appManager.executeQuery('mutation', createOrganisationQuery, { themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name });
             await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
             await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
             await this.props.appManager.executeQuery('mutation', createPageQuery, {
@@ -104,8 +105,10 @@ class CreateSubDomainController extends Component {
             borderColor: 'white',
         };
         if (t === 1) {
+            this.current_theme = 'dark';
             this.setState({ theme1_select_style: s, theme2_select_style: {} });
         } else {
+            this.current_theme = 'light';
             this.setState({ theme2_select_style: s, theme1_select_style: {} });
         }
     }

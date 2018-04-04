@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class OrganizationNavController extends Component {
     state = { visible: false, OrganizationNavComponentRender: null };
     componentWillMount = async () => {
-        const theme = this.props.uiStore.current_theme_name;
+        const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({ visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });

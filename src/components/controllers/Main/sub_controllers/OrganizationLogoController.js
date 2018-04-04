@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class OrganizationLogoController extends Component {
     state = { visible: false, OrganizationLogoComponentRender: null };
     componentWillMount = async () => {
-        const theme = this.props.uiStore.current_theme_name;
+        const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationLogoComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationLogoComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         this.setState({ visible: true, OrganizationLogoComponentRender: OrganizationLogoComponentRender.default });

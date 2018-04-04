@@ -8,7 +8,7 @@ import { getBlogsQuery } from '../../../../queries/blogs';
 class OrganizationNewsController extends Component {
     state = { visible: false };
     componentWillMount = async () => {
-        const theme = this.props.uiStore.current_theme_name;
+        const theme = this.props.uiStore.current_organisation.themeId;
         const comp = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsComponentRender`);
         const OrganizationNewsComponentRender = comp.default;
         const subDomain = this.props.uiStore.current_subdomain;

@@ -27,8 +27,7 @@ const TwitterFeed = ({ feedName }) => {
 class OrganizationTwitterController extends Component {
     state = { visible: false, OrganizationTwitterComponenRender: null };
     componentWillMount = async () => {
-        // const theme = this.props.uiStore.current_theme_name;
-        const theme = this.props.uiStore.current_theme_name;
+        const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationTwitterComponenRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationTwitterComponentRender`);
         this.setState({ visible: true, OrganizationTwitterComponenRender: OrganizationTwitterComponenRender.default });
     }
