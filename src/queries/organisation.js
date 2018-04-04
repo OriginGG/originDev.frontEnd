@@ -4,6 +4,7 @@ export const getOrganisationQuery = gql`
     query getOrg($subDomain: String!) {
   resultData: organisationAccountBySubDomain(subDomain: $subDomain) {
     name
+    companyStoreLink
     description
     fbLink
     twitterLink
@@ -38,11 +39,12 @@ export const getOrganisationQuery = gql`
 
 export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String!, $name: String, $instaLink: String
 		$fbLink: String, $twitterLink: String, $themeId: String, $twitterFeedUsername: String
-		$twitchLink: String, $description: String, $logo: String, $primaryColor: String) {
+		$twitchLink: String, $description: String, $logo: String, $primaryColor: String, $companyStoreLink: String) {
   updateOrganisationAccountBySubDomain(input: {
 		subDomain: $subDomain
     organisationAccountPatch: {
       name: $name
+      companyStoreLink: $companyStoreLink
       instaLink: $instaLink
       fbLink: $fbLink
       twitterLink: $twitterLink
@@ -66,11 +68,12 @@ export const createOrganisationQuery = gql`
 mutation createOrg($subDomain: String!, $name: String, $description: String,
 	$fbLink:String, $instaLink: String, $twitterLink: String, 
 	$twitchLink: String, $themeId: String, $logo: String, $primaryColor: String,
-	$twitterFeedUsername: String) {
+	$twitterFeedUsername: String, $companyStoreLink: String) {
   resultData: createOrganisationAccount(input: {
     organisationAccount: {
       subDomain: $subDomain
       name: $name
+      companyStoreLink: $companyStoreLink
       description: $description
       fbLink: $fbLink
       instaLink: $instaLink

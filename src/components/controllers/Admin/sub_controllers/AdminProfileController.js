@@ -17,6 +17,7 @@ class AdminProfileController extends Component {
             insta_value: '',
             twitch_value: '',
             twitter_value: '',
+            company_store_value: '',
             company_name_value: '',
             facebook_value: '',
             twitter_username_value: '',
@@ -33,6 +34,7 @@ class AdminProfileController extends Component {
                 twitter_value: this.props.uiStore.current_organisation.twitterLink,
                 twitch_value: this.props.uiStore.current_organisation.twitchLink,
                 company_name_value: this.props.uiStore.current_organisation.name,
+                company_store_value: this.props.uiStore.current_organisation.companyStoreLink,
                 facebook_value: this.props.uiStore.current_organisation.fbLink,
                 twitter_username_value: this.props.uiStore.current_organisation.twitterFeedUsername,
                 rss_value: '',
@@ -54,6 +56,7 @@ class AdminProfileController extends Component {
             'mutation', updateOrganisationQuery,
             {
                 subDomain: this.props.uiStore.current_organisation.subDomain,
+                companyStoreLink: this.state.input_values.company_store_value,
                 name: this.state.input_values.company_name_value,
                 fbLink: this.state.input_values.facebook_value,
                 twitterLink: this.state.input_values.twitter_value,
@@ -107,10 +110,13 @@ class AdminProfileController extends Component {
     }
     render() {
         return (
-            <div>
+            <div style={{
+                width: 'calc(100vw - 380px)'
+            }}>
                 <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                 <OrganizationAdminProfileComponentRender
                     company_name_value={this.state.input_values.company_name_value}
+                    company_store_value={this.state.input_values.company_store_value}
                     logo_src={this.state.input_values.logo_src}
                     primary_color_value={this.state.input_values.primary_color_value}
                     handleChange={this.handleChange}

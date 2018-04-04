@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
-import { getYouTubeChannelsCountquery } from '../../../queries/youtube_channels';
-import { getBlogsCountQuery } from '../../../queries/blogs';
 
 
 const AboutModal = (props) => {
@@ -69,15 +67,9 @@ class OrganizationPageController extends Component {
                 const { edges } = pages.allPages;
                 this.bcontent = <div dangerouslySetInnerHTML={this.createMarkup(edges[0].node.pageContent)} />;
                 this.about_us = edges[0].node;
-                this.video_display = false;
-                this.news_display = false;
-                const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsCountquery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-                if (youTubeChannels.resultData.totalCount !== 0) {
-                    this.video_display = true;
-                }
-                const blogs = await this.props.appManager.executeQuery('query', getBlogsCountQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-                if (blogs.resultData.totalCount !== 0) {
-                    this.news_display = true;
+                this.store_display = false;
+                if (this.props.uiStore.current_organisation.companyStoreLink) {
+                    this.store_display = true;
                 }
                 this.setState({
                     visible: true,
@@ -103,6 +95,9 @@ class OrganizationPageController extends Component {
     handleAboutClick = () => {
         this.setState({ about_modal_open: true });
     }
+    handleStoreClick = () => {
+        window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
+    }
     closeModal = () => {
         this.setState({ about_modal_open: false });
     }
@@ -114,13 +109,9 @@ class OrganizationPageController extends Component {
         if (this.about_us.pageTitle) {
             s = { display: 'inherit' };
         }
-        let vs = { display: 'none' };
-        if (this.video_display) {
-            vs = { display: 'inherit' };
-        }
-        let ns = { display: 'none' };
-        if (this.news_display) {
-            ns = { display: 'inherit' };
+        let ss = { display: 'none' };
+        if (this.store_display) {
+            ss = { display: 'inherit' };
         }
 
         const { subDomain } = this.props.uiStore.current_organisation;
@@ -138,19 +129,19 @@ class OrganizationPageController extends Component {
                 <div ref={(c) => { this.ref_node = c; }}>
                     <OrganizationPageComponentRender
                         theme="light"
-                        newsContent={<OrganizationNewsController theme="light" />}
-                        twitterContent={<OrganizationTwitterController theme="light" />}
-                        matchesContent={<OrganizationMatchesController theme="light" subDomain={subDomain} />}
-                        videoContent={<OrganizationVideoController theme="light" />}
-                        topSponsorContent={<OrganizationSponsorController theme="light" />}
-                        bottomSponsorContent={<OrganizationSponsorController theme="light" />}
-                        navContent={<OrganizationNavController news_style={ns} video_style={vs} about_style={s} theme="light" handleAboutClick={this.handleAboutClick} />}
-                        logoContent={<OrganizationLogoController roster_games={<span />} theme="light" />}
+                        newsContent={<OrganizationNewsController />}
+                        twitterContent={<OrganizationTwitterController />}
+                        matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
+                        videoContent={<OrganizationVideoController />}
+                        topSponsorContent={<OrganizationSponsorController />}
+                        bottomSponsorContent={<OrganizationSponsorController />}
+                        navContent={<OrganizationNavController store_style={ss} about_style={s} handleStoreClick={this.handleStoreClick} handleAboutClick={this.handleAboutClick} />}
+                        logoContent={<OrganizationLogoController roster_games={<span />} />}
                         footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
                     />
                     <AboutModal
                         modal_open={this.state.about_modal_open}
-                        content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent}  />}
+                        content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent} />}
                     />
                 </div>
             </ThemeProvider>

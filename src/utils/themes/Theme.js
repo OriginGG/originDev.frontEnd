@@ -524,7 +524,8 @@ export const GlobalStyles = GlobalTheme => ({
         paddingRight: '10px',
         borderRadius: '2px',
         lineHeight: '36px',
-        textAlign: 'center'
+        textAlign: 'center',
+        cursor: 'pointer'
     },
     social_news_container: {
         width: '30%',
