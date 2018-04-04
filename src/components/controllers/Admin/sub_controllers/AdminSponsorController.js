@@ -5,7 +5,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-import OrganizationAdminSponsorComponentRender from '../../../render_components/OrganizationAdminSponserComponentRender';
+import OrganizationAdminSponsorComponentRender from '../../../render_components/admin/OrganizationAdminSponserComponentRender';
 import { getSponsorsQuery, updateSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 import blankImage from '../../../../assets/images/imgPlaceholder1.png';
 

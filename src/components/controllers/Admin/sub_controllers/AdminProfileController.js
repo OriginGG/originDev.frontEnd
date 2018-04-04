@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-import OrganizationAdminProfileComponentRender from '../../../render_components/OrganizationAdminProfileComponentRender';
+import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
 import { updateOrganisationQuery } from '../../../../queries/organisation';
 import { updateThemeQuery } from '../../../../queries/themes';
 

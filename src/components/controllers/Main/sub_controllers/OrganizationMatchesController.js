@@ -87,7 +87,7 @@ class OrganizationMatchesController extends Component {
     state = { OrganizationMatchesComponentRender: null }
     componentWillMount = async () => {
         const theme = this.props.uiStore.current_theme_name;
-        const OrganizationMatchesComponentRender = await import(`../../../render_components/${theme}_OrganizationMatchesComponentRender`);
+        const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationMatchesComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         this.setState({ OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default });
     }

@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast, ToastContainer } from 'react-toastify';
-import OrganizationAdminMediaComponentRender from '../../../render_components/OrganizationAdminMediaComponentRender';
+import OrganizationAdminMediaComponentRender from '../../../render_components/admin/OrganizationAdminMediaComponentRender';
 import { getYouTubeChannelsQuery, updateYouTubeChannelQuery, createYouTubeChannelQuery } from '../../../../queries/youtube_channels';
 
 class AdminMediaController extends Component {

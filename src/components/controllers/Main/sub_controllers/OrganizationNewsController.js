@@ -9,7 +9,7 @@ class OrganizationNewsController extends Component {
     state = { visible: false };
     componentWillMount = async () => {
         const theme = this.props.uiStore.current_theme_name;
-        const comp = await import(`../../../render_components/${theme}_OrganizationNewsComponentRender`);
+        const comp = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsComponentRender`);
         const OrganizationNewsComponentRender = comp.default;
         const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });

@@ -8,7 +8,7 @@ import { inject } from 'mobx-react';
 import _ from 'lodash';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-import OrganizationAdminMatchesComponentRender from '../../../render_components/OrganizationAdminMatchesComponentRender';
+import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
 import { createRecentMatchQuery, recentMatchesQuery } from '../../../../queries/matches';
 import coc_image from '../../../../assets/images/game_images/clashofclans.png';
 import cod_image from '../../../../assets/images/game_images/cod.png';

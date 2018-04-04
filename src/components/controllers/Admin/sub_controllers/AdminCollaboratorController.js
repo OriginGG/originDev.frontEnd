@@ -5,7 +5,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { Input, Segment, Header, Button } from 'semantic-ui-react';
 import { createUserQuery, updateUserQuery, getAllNonAdminUsersQuery } from '../../../../queries/users';
-import OrganizationAdminCollaboratorComponentRender from '../../../render_components/OrganizationAdminCollaboratorComponentRender';
+import OrganizationAdminCollaboratorComponentRender from '../../../render_components/admin/OrganizationAdminCollaboratorComponentRender';
 
 class AdminCollaboratorController extends Component {
     state = {

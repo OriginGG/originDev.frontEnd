@@ -6,8 +6,8 @@ import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
-import OrganizationAdminThemeComponentRender from '../../../render_components/OrganizationAdminThemeComponentRender';
-import OrganizationAdminThemeModalComponentRender from '../../../render_components/OrganizationAdminThemeModalComponentRender';
+import OrganizationAdminThemeComponentRender from '../../../render_components/admin/OrganizationAdminThemeComponentRender';
+import OrganizationAdminThemeModalComponentRender from '../../../render_components/admin/OrganizationAdminThemeModalComponentRender';
 import { updateThemeQuery } from '../../../../queries/themes';
 
 class AdminThemeController extends Component {

@@ -6,7 +6,7 @@ import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery } from '../../../queries/organisation';
-import CreateSubDomainComponentRender from '../../render_components/CreateSubDomainComponentRender';
+import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
 import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
 import { createPageQuery } from '../../../queries/pages';

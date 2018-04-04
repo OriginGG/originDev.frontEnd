@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast, ToastContainer } from 'react-toastify';
 
-import OrganizationAdminAboutComponentRender from '../../../render_components/OrganizationAdminAboutComponentRender';
+import OrganizationAdminAboutComponentRender from '../../../render_components/admin/OrganizationAdminAboutComponentRender';
 import { getPagesQuery, updatePageQuery } from '../../../../queries/pages';
 // import OrganizationAdminBlogComponentRender from '../../../render_components/OrganizationAdminBlogComponentRender';
 

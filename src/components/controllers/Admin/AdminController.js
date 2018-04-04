@@ -7,8 +7,8 @@ import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react';
 
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
-import OrganizationAdminPageComponentRender from '../../render_components/OrganizationAdminPageComponentRender';
-import OrganizationAdminMenuComponentRender from '../../render_components/OrganizationAdminMenuComponentRender';
+import OrganizationAdminPageComponentRender from '../../render_components/admin/OrganizationAdminPageComponentRender';
+import OrganizationAdminMenuComponentRender from '../../render_components/admin/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminAboutController from './sub_controllers/AdminAboutController';

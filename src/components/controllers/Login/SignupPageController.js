@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
-import SignupPageComponentRender from '../../render_components/SignupPageComponentRender';
+import SignupPageComponentRender from '../../render_components/signup/SignupPageComponentRender';
 import LoginController from './sub_controllers/LoginController';
 
 class SignupPageController extends Component {
