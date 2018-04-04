@@ -63,14 +63,7 @@ class OrganizationAdminBlogComponentRender extends Component {
                             <th>Date</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td/>
-                            <td/>
-                            <td/>
-                            <td/>
-                        </tr>
-                    </tbody>
+                    <tbody >{this.props.blog_list}</tbody>
                     <tfoot className="full-width">
                         <tr>
                             <th/>
@@ -81,18 +74,7 @@ class OrganizationAdminBlogComponentRender extends Component {
                                 <div style={{
                                     width: '10px,display'
                                 }} className={this.props.classes.spacer}/>
-                                <div className="ui right floated pagination menu">
-                                    <a className="icon item">
-                                        <i className="left chevron icon"/>
-                                    </a>
-                                    <a className="item">1</a>
-                                    <a className="item">2</a>
-                                    <a className="item">3</a>
-                                    <a className="item">4</a>
-                                    <a className="icon item">
-                                        <i className="right chevron icon"/>
-                                    </a>
-                                </div>
+                                <div className="ui right floated pagination menu">{this.props.pagination_content}</div>
                             </th>
                         </tr>
                     </tfoot>

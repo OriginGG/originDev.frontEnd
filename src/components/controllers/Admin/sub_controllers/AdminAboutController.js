@@ -34,7 +34,7 @@ class AdminAboutController extends Component {
                 <td onClick={() => { this.editClick(p.node.id, p.node.pageContent, p.node.pageTitle, p.node.pageSubtitle); }} className={this.props.classes.admin_table_edit}>Edit</td>
             </tr>);
         });
-        this.setState({ row_array: p_array, visible: true, edit_page: false  });
+        this.setState({ row_array: p_array, visible: true, edit_page: false });
     }
     editClick = (id, pc, pt, pst) => {
         this.current_id = id;
@@ -88,6 +88,7 @@ class AdminAboutController extends Component {
                             </Segment>
                             <Segment>
                                 <ReactQuill
+                                    theme="snow"
                                     value={this.state.page_content}
                                     onChange={this.handleQuillChange} />
                             </Segment>

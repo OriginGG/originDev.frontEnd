@@ -4,6 +4,7 @@ export const getSponsorsQuery = gql`query getSponsors($subDomain: String!) {
   resultData: allSponsors(condition: {organisation: $subDomain}) {
     edges {
       node {
+        id
         sponsor1
         sponsor2
         sponsor3

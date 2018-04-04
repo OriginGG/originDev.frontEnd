@@ -12,6 +12,7 @@ export const getBlogsQuery = gql`
     resultData: allBlogs(condition: { organisation: $subDomain }) {
         edges {
             node {
+                id
                 blogTitle
                 blogContent
                 blogMedia
@@ -24,6 +25,19 @@ export const getBlogsQuery = gql`
 }
 `;
 
+export const updateBlogPostQuery = gql`
+mutation updateBlogPost($id: Int!, $blogTitle: String!, $blogContent: String!, $featured: Boolean, $blogMedia: String) {
+  updateBlogById(input:{id: $id, blogPatch: {
+    blogTitle: $blogTitle
+    blogContent: $blogContent
+    blogMedia: $blogMedia
+    featured: $featured
+  }}) {
+    blog {
+      id
+    }
+  }
+}`;
 export const createBlogPostQuery = gql`
 mutation createBlogPost($blogTitle: String!, $organisation: String!, $blogContent: String!, $featured: Boolean, $blogMedia: String) {
   createBlog(input:{blog: {

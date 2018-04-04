@@ -30,17 +30,17 @@ class AdminSponsorController extends Component {
             this.create = true;
         } else {
             this.c_id = sponsor_data.resultData.edges[0].node.id;
-            if (sponsor_data.resultData.edges[0].node.sponsor) {
-                s_image0 = sponsor_data.resultData.edges[0].node.sponsor;
+            if (sponsor_data.resultData.edges[0].node.sponsor1) {
+                s_image0 = sponsor_data.resultData.edges[0].node.sponsor1;
             }
-            if (sponsor_data.resultData.edges[1].node.sponsor) {
-                s_image1 = sponsor_data.resultData.edges[1].node.sponsor;
+            if (sponsor_data.resultData.edges[0].node.sponsor2) {
+                s_image1 = sponsor_data.resultData.edges[0].node.sponsor2;
             }
-            if (sponsor_data.resultData.edges[2].node.sponsor) {
-                s_image2 = sponsor_data.resultData.edges[2].node.sponsor;
+            if (sponsor_data.resultData.edges[0].node.sponsor3) {
+                s_image2 = sponsor_data.resultData.edges[0].node.sponsor3;
             }
-            if (sponsor_data.resultData.edges[3].node.sponsor) {
-                s_image3 = sponsor_data.resultData.edges[3].node.sponsor;
+            if (sponsor_data.resultData.edges[0].node.sponsor4) {
+                s_image3 = sponsor_data.resultData.edges[0].node.sponsor4;
             }
             this.setState({
                 input_values: {
