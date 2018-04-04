@@ -9,7 +9,7 @@ class DarkOrganizationTwitterComponentRender extends Component {
         return (
             <div className={this.props.classes.darkBG}>
                 <div className={this.props.classes.dark_section_title_container}>
-                    <p>LATEST TWEETS</p>
+                    <h2>LATEST TWEETS</h2>
                 </div>
                 <div >{this.props.feed}</div>
             </div>
