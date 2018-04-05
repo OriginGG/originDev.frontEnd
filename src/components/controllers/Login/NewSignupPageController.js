@@ -5,7 +5,7 @@ import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
 import historyStore from '../../../utils/stores/browserHistory';
 
-import { getPreUserQuery, createUserQuery } from '../../../queries/users';
+import { getPreUserQuery, createUserQuery, deletePreUserQuery } from '../../../queries/users';
 import { authenticateQuery } from '../../../queries/login';
 
 class NewSignupPageController extends Component {
@@ -25,6 +25,7 @@ class NewSignupPageController extends Component {
             await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
             const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: u.email, password: u.password });
             const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
+            await this.props.appManager.executeQuery('mutation', deletePreUserQuery, { id: d.id });
             historyStore.push(`/createsubdomain?p=${new_payload}`);
         }
     }

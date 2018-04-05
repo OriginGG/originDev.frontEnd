@@ -25,13 +25,12 @@ class LoginController extends Component {
         }
     }
     sendEmail = (url) => {
-        return new Promise((resolve) => {
-            axios.get(`${process.env.REACT_APP_API_SERVER}${url}`, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((x) => {
+        return new Promise((resolve, reject) => {
+            const full_url = `${process.env.REACT_APP_API_SERVER}${url}`;
+            axios.get(full_url).then((x) => {
                 resolve(x.data);
+            }).catch((error) => {
+                reject(error);
             });
         });
     }
@@ -90,6 +89,11 @@ class LoginController extends Component {
                                 await this.props.appManager.pouchStore('authenticate', authPayload);
                                 historyStore.push('/main');
                             }
+                        } else {
+                            toast.error(`Cannot log into ${v.email}. Check email & password is correct. Are you signed up?`, {
+                                position: toast.POSITION.TOP_LEFT,
+                                autoClose: 5000
+                            });
                         }
                         console.log('submitting3....');
                     } else {
@@ -113,13 +117,13 @@ class LoginController extends Component {
                                 adminUser: true,
                             };
                             const pre_user = await this.props.appManager.executeQuery('mutation', createPreUserQuery, payload);
-                            debugger;
                             const { jwtToken } = pre_user.preRegisterUser;
                             const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.name}&admin_user=true&token=${jwtToken}`;
                             await this.sendEmail(url);
                             console.log(pre_user);
                             toast.success(`Account ${v.email} register, please check your email for further instructions.`, {
-                                position: toast.POSITION.TOP_LEFT
+                                position: toast.POSITION.TOP_LEFT,
+                                 autoClose: 15000
                             });
                         }
                         // const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);

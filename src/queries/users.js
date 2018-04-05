@@ -36,6 +36,14 @@ export const getUserQuery = gql`query getUser($id:Int!) {
   }
 }`;
 
+export const deletePreUserQuery = gql`mutation deletePreUser($id: Int!) {
+  deletePreUserById(input:{id: $id}) {
+    preUser {
+      id
+    }
+  }
+}`;
+
 export const getPreUserQuery = gql`query getPreUser($id:Int!) {
   resultData: preUserById(id:$id) {
     name
