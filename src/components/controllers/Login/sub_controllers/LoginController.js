@@ -121,7 +121,7 @@ class LoginController extends Component {
                             const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.name}&admin_user=true&token=${jwtToken}`;
                             await this.sendEmail(url);
                             console.log(pre_user);
-                            toast.success(`Account ${v.email} register, please check your email for further instructions.`, {
+                            toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
                                 position: toast.POSITION.TOP_LEFT,
                                  autoClose: 15000
                             });
