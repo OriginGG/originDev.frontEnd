@@ -45,11 +45,13 @@ class OrganizationNewsController extends Component {
             // const { createdAt } = blog.node;
             this.blog_array.push(<OrganizationNewsComponentRender blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
-        this.setState({
-            OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,
-            OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
-            visible: true
-        });
+        if (blog_data.resultData.edges.length > 0) {
+            this.setState({
+                OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,
+                OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                visible: true
+            });
+        }
     }
     handleNewsClick = (blog) => {
         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;

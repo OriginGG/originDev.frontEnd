@@ -14,6 +14,11 @@ class AppController extends Component {
         // pouchTest
         const is_root = location.pathname === '/';              // eslint-disable-line
         if (is_root) {
+            const authPayload = this.props.appManager.GetQueryParams('p');
+            if (authPayload) {
+                const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+                await this.props.appManager.pouchStore('authenticate', p);
+            }
             const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
             this.props.uiStore.setOriginTheme(originTheme.resultData);
             const domainInfo = this.props.appManager.getDomainInfo();

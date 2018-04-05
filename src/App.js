@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 // import { authenticateQuery } from './queries/login';
 import AppController from './AppController';
 import SignupPageController from './components/controllers/Login/SignupPageController';
+import NewSignupPageController from './components/controllers/Login/NewSignupPageController';
 import OrganizationPageController from './components/controllers/Main/OrganizationPageController';
 import AdminPageController from './components/controllers/Admin/AdminController';
 import { GlobalStyles } from './utils/themes/Theme';
@@ -20,6 +21,7 @@ class App extends Component {
             <div>
                 <Route exact path="/" component={AppController} />
                 <Route exact path="/signup" component={SignupPageController} />
+                <Route exact path="/new_signup" component={NewSignupPageController} />
                 <Route exact path="/main" component={OrganizationPageController} />
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
