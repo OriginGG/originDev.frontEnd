@@ -107,14 +107,17 @@ class AdminRecentMatchesController extends Component {
     componentWillMount = async () => {
         this.upload_file = false;
         this.current_game = null;
+        this.calcMatches();
+    }
+
+    calcMatches = async () => {
         const m = await this.props.appManager.executeQueryAuth(
             'query', recentMatchesQuery,
             {
                 organisation: this.props.uiStore.current_organisation.subDomain
             }
         );
-        this.matches = m.resultdata.edges;
-        this.setState({ visible: true });
+        this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
     }
 
     uploadLogo = () => {
@@ -171,9 +174,7 @@ class AdminRecentMatchesController extends Component {
             toast.success('Match Added !', {
                 position: toast.POSITION.TOP_LEFT
             });
-            setTimeout(() => {
-                this.setState({ add_match: false });
-            }, 2000);
+            this.calcMatches();
         }
     }
     render() {
@@ -220,7 +221,7 @@ class AdminRecentMatchesController extends Component {
             );
         }
         const p_array = [];
-        this.matches.forEach((res) => {
+        this.state.matches.forEach((res) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });

@@ -34,18 +34,6 @@ class OrganizationAdminMatchesComponentRender extends Component {
                                     <i className="user icon"/>
                                     Add Recent
                                 </div>
-                                <div className="ui right floated pagination menu">
-                                    <a className="icon item">
-                                        <i className="left chevron icon"/>
-                                    </a>
-                                    <a className="item">1</a>
-                                    <a className="item">2</a>
-                                    <a className="item">3</a>
-                                    <a className="item">4</a>
-                                    <a className="icon item">
-                                        <i className="right chevron icon"/>
-                                    </a>
-                                </div>
                             </th>
                         </tr>
                     </tfoot>

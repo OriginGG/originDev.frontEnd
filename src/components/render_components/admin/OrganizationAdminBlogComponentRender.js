@@ -69,7 +69,7 @@ class OrganizationAdminBlogComponentRender extends Component {
                             <th/>
                             <th colSpan="4">
                                 <div id="blog_modal" className="ui right floated small primary labeled icon button" onClick={this.props.handleClick}>
-                                    <icon className="share"/>Add Blog
+                                    <i className="share icon"/>Add Blog
                                 </div>
                                 <div style={{
                                     width: '10px,display'
