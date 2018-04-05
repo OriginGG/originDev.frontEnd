@@ -45,6 +45,14 @@ export const getPreUserQuery = gql`query getPreUser($id:Int!) {
   }
 }`;
 
+export const createPreUserQuery = gql`mutation preRegister($name: String!, $email: String!, $password: String!, $adminUser: Boolean!) {
+  	preRegisterUser(input: {name: $name, email: $email, password: $password, adminUser:$adminUser}) {
+		jwtToken
+		
+		
+  }
+}`;
+
 export const createUserQuery = gql`mutation registerUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $adminUser: Boolean! ) {
     registerUser(input:{firstName: $firstName, lastName:$lastName, email: $email, 
     password: $password,adminUser: $adminUser }) {

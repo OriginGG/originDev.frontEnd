@@ -102,7 +102,7 @@ class AdminSponsorController extends Component {
             if (this.logo_files[field]) {
                 const formData = new FormData();
                 formData.append('images', this.logo_files[field]);
-                axios.post(`${process.env.REACT_APP_IMAGE_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
+                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

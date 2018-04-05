@@ -4,11 +4,12 @@ import { Formik } from 'formik';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../../render_components/signup/LoginComponentRender';
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
 import { authenticateQuery } from '../../../../queries/login';
-import { createUserQuery } from '../../../../queries/users';
+import { createUserQuery, createPreUserQuery } from '../../../../queries/users';
 import historyStore from '../../../../utils/stores/browserHistory';
 
 // import { getOrganisationQuery } from './queries/organisation'
@@ -23,7 +24,17 @@ class LoginController extends Component {
             this.setState({ content_display: 'login' });
         }
     }
-
+    sendEmail = (url) => {
+        return new Promise((resolve) => {
+            axios.get(`${process.env.REACT_APP_API_SERVER}${url}`, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((x) => {
+                resolve(x.data);
+            });
+        });
+    }
     render() {
         return (
             <Formik
@@ -82,17 +93,35 @@ class LoginController extends Component {
                         }
                         console.log('submitting3....');
                     } else {
-                        const payload = {
-                            firstName: v.name,
-                            lastName: '',
-                            password: v.password,
-                            email: v.email,
-                            adminUser: true,
-                        };
-                        await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
-                        toast.success(`Account ${v.email} created, you can now login.`, {
-                            position: toast.POSITION.TOP_LEFT
-                        });
+                        if (process.env.REACT_APP_SIGNUP_PROCESS === 'SIGNUP_FUZZY') {
+                            const payload = {
+                                firstName: v.name,
+                                lastName: '',
+                                password: v.password,
+                                email: v.email,
+                                adminUser: true,
+                            };
+                            await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
+                            toast.success(`Account ${v.email} created, you can now login.`, {
+                                position: toast.POSITION.TOP_LEFT
+                            });
+                        } else {
+                            const payload = {
+                                name: v.name,
+                                password: v.password,
+                                email: v.email,
+                                adminUser: true,
+                            };
+                            const pre_user = await this.props.appManager.executeQuery('mutation', createPreUserQuery, payload);
+                            debugger;
+                            const { jwtToken } = pre_user.preRegisterUser;
+                            const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.name}&admin_user=true&token=${jwtToken}`;
+                            await this.sendEmail(url);
+                            console.log(pre_user);
+                            toast.success(`Account ${v.email} register, please check your email for further instructions.`, {
+                                position: toast.POSITION.TOP_LEFT
+                            });
+                        }
                         // const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     }
                 }}

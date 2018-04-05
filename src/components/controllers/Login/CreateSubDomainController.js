@@ -59,7 +59,7 @@ class CreateSubDomainController extends Component {
         return new Promise((resolve) => {
             const formData = new FormData();
             formData.append('images', this.logo_files);
-            axios.post(`${process.env.REACT_APP_IMAGE_SERVER}/upload/${this.domain_name}`, formData, {
+            axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.domain_name}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
