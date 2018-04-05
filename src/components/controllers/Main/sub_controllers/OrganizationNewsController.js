@@ -29,6 +29,7 @@ class OrganizationNewsController extends Component {
         const theme = this.props.uiStore.current_organisation.themeId;
         const comp = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsComponentRender`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsModalComponentRender`);
+        const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsModuleComponentRender`);
         const OrganizationNewsComponentRender = comp.default;
         const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
@@ -42,7 +43,11 @@ class OrganizationNewsController extends Component {
             // const { createdAt } = blog.node;
             this.blog_array.push(<OrganizationNewsComponentRender blog={blog} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
-        this.setState({ OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default, visible: true });
+        this.setState({
+            OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,
+            OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+            visible: true
+        });
     }
     handleNewsClick = (blog) => {
         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
@@ -59,9 +64,10 @@ class OrganizationNewsController extends Component {
             return null;
         }
         const { OrganizationNewsModalComponentRender } = this.state;
+        const { OrganizationNewsModuleComponentRender } = this.state;
         return (
             <div>
-                {this.blog_array}
+                <OrganizationNewsModuleComponentRender news_items={this.blog_array} />
                 <BlogModal
                     modal_open={this.state.blog_modal_open}
                     content={<OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.state.blog_media} blog_content={this.state.blog_content} />}

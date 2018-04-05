@@ -8,11 +8,13 @@ class LightOrganizationTwitterComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.twitter_bar}/>
-                <div className={this.props.classes.twitter_title}>
-                    <p>LATEST TWEETS</p>
+                <div id="twitter_container" className={this.props.classes.twitter_container}>
+                    <div className={this.props.classes.twitter_bar}/>
+                    <div className={this.props.classes.twitter_title}>
+                        <p>LATEST TWEETS</p>
+                    </div>
+                    <div >{this.props.feed}</div>
                 </div>
-                <div >{this.props.feed}</div>
             </div>
         )
     }

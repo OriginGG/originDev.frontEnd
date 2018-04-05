@@ -196,6 +196,25 @@ export const GlobalStyles = GlobalTheme => ({
     // New Dark Theme
     // ***************************************************************
 
+    news_modal_info_box: {
+        width: '100%',
+        height: '100px',
+        display: 'table'
+    },
+    news_modal_title_text: {
+        lineHeight: '100px',
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'white'
+    },
+    news_modal_date_text: {
+        lineHeight: '100px',
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'white'
+    },
     darkBG: {
         width: '100%',
         backgroundColor: 'rgb(20,20,20)',
@@ -915,9 +934,6 @@ export const GlobalStyles = GlobalTheme => ({
     modal_news_body_text: {
         width: '100%',
         height: '100%',
-        lineHeight: '1.3em',
-        textAlign: 'left',
-        fontSize: '18px',
         color: 'white',
         overflowY: 'scroll'
     },

@@ -17,6 +17,10 @@ class LightOrganizationNewsModalComponentRender extends Component {
                             </div>
                         </div>
                         <div id="modal_news_body" className={this.props.classes.modal_news_body}>
+                            <div className={this.props.classes.news_modal_info_box}>
+                                <div id="news_modal_item_title" className={this.props.classes.news_modal_title_text}>{this.props.blog_title}</div>
+                                <div id="news_modal_item_date" className={this.props.classes.news_modal_date_text}>{this.props.blog_date}</div>
+                            </div>
                             <div className={this.props.classes.modal_news_body_text}>{this.props.blog_content}</div>
                         </div>
                     </div>

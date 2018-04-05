@@ -24,25 +24,18 @@ class LightOrganizationPageComponentRender extends Component {
                         <img/>
                     </div>
                     <div className={this.props.classes.news_main_container}>
-                        <div id="news_container" className={this.props.classes.news_container}>
-                            <div className={this.props.classes.section_title_container}>
-                                <h2>LATEST NEWS</h2>
-                            </div>
-                            <div id="organization_news_items">
-                                <div >{this.props.newsContent}</div>
-                            </div>
+                        <div id="news_component">
+                            <div >{this.props.newsContent}</div>
                         </div>
                         <div className={this.props.classes.social_news_container}>
-                            <div id="twitter_container" className={this.props.classes.twitter_container}>
-                                <div >{this.props.twitterContent}</div>
-                            </div>
+                            <div >{this.props.twitterContent}</div>
                             <div id="recent_matches_container" className={this.props.classes.recent_matches_container}>
                                 <div >{this.props.matchesContent}</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="organization_video_feed" className={this.props.classes.video_main_container}>
+                <div id="organization_video_feed">
                     <div >{this.props.videoContent}</div>
                 </div>
                 <div className={this.props.classes.organizationFooter}>
