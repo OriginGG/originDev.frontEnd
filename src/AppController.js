@@ -68,7 +68,10 @@ class AppController extends Component {
                             this.props.appManager.admin_logged_in = true;
                             historyStore.push('/admin_page');
                         } else {
-                            historyStore.push('/signup');
+                            const { hostname } = domainInfo;
+                            const new_host = hostname.replace(`${subDomain}.`, '');
+                            const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+                            window.location = `${u_string}/signup`;
                         }
                     }
                 }
