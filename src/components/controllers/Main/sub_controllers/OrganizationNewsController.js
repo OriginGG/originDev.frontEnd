@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
+import moment from 'moment';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
 
@@ -38,10 +39,11 @@ class OrganizationNewsController extends Component {
             const { blogContent } = blog.node;
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
-
+            const { createdAt } = blog.node;
+            const formattedDate = moment(createdAt).format('lll');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
-            this.blog_array.push(<OrganizationNewsComponentRender blog={blog} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
+            this.blog_array.push(<OrganizationNewsComponentRender blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
         this.setState({
             OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,

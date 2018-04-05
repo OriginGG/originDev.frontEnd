@@ -9,7 +9,7 @@ export const getBlogsCountQuery = gql`query getBlogsCount($subDomain: String!) {
 
 export const getBlogsQuery = gql`
   query getBlogs($subDomain: String!) {
-    resultData: allBlogs(condition: { organisation: $subDomain }) {
+    resultData: allBlogs(orderBy: CREATED_AT_DESC, condition: { organisation: $subDomain }) {
         edges {
             node {
                 id
