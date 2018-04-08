@@ -61,11 +61,7 @@ class LoginComponentRender extends Component {
                                                 }}>{this.props.errors.password}</div>}</div>
                                         </div>
                                     </div>
-                                    <div style={{
-                                        background: '#0a9ab4',
-                                        fontSize: '18px',
-                                        marginTop: '40px'
-                                    }} className="ui fluid large teal submit button" onClick={this.props.handleSubmit}>Login</div>
+                                    <div >{this.props.loginAccountButton}</div>
                                     <div className={this.props.classes.submit_divider}/>
                                     <div className={this.props.classes.submit_or}>OR</div>
                                     <div className={this.props.classes.social_box_outer}>

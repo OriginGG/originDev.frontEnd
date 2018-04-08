@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { Formik } from 'formik';
 import { inject } from 'mobx-react';
+import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -10,11 +11,12 @@ import LoginComponentRender from '../../../render_components/signup/LoginCompone
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
 import { authenticateQuery } from '../../../../queries/login';
 import { createUserQuery, createPreUserQuery } from '../../../../queries/users';
+// import { createUserQuery, createPreUserQuery, authenticatePreUserQuery } from '../../../../queries/users';
 import historyStore from '../../../../utils/stores/browserHistory';
 
 // import { getOrganisationQuery } from './queries/organisation'
 class LoginController extends Component {
-    state = { content_display: 'login' };
+    state = { button_disabled: false, content_display: 'login' };
 
     handleClick = () => {
         const p = this.state.content_display;
@@ -43,6 +45,7 @@ class LoginController extends Component {
                     name: ''
                 }}
                 validate={values => {
+                    let disabled = false;
                     // same as above, but feel free to move this into a class method now.
                     const errors = {};
                     if (!values.password) {
@@ -55,6 +58,13 @@ class LoginController extends Component {
                     ) {
                         errors.email = 'Invalid email address';
                     }
+                    if (errors.password || errors.email) {
+                        disabled = true;
+                    }
+                    if (!values.password || !values.email) {
+                        disabled = true;
+                    }
+                    this.setState({ button_disabled: disabled });
                     return errors;
                 }}
                 onSubmit={async (v) => {
@@ -90,6 +100,12 @@ class LoginController extends Component {
                                 historyStore.push('/main');
                             }
                         } else {
+                            // does user exist as a pre-user?
+                            // const pre_user = await this.props.appManager.executeQuery('mutation', authenticatePreUserQuery, { email: v.email, password: v.password });
+                            // const { jwtToken } = pre_user.preUserAuthenticate;
+                            // if (jwtToken) {
+                            //     debugger;
+                            // }
                             toast.error(`Cannot log into ${v.email}. Check email & password is correct. Are you signed up?`, {
                                 position: toast.POSITION.TOP_LEFT,
                                 autoClose: 5000
@@ -123,7 +139,7 @@ class LoginController extends Component {
                             console.log(pre_user);
                             toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
                                 position: toast.POSITION.TOP_LEFT,
-                                 autoClose: 15000
+                                autoClose: 15000
                             });
                         }
                         // const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
@@ -140,10 +156,40 @@ class LoginController extends Component {
                 }) => (
                         <div>
                             {this.state.content_display !== 'login' &&
-                                <SignupComponentRender errors={errors} touched={touched} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
+                                <SignupComponentRender
+                                    createAccountButton={
+                                        <Button
+                                            disabled={this.state.button_disabled}
+                                            className="ui fluid large"
+                                            style={{
+                                                color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 40
+                                            }}>Create an Account</Button>
+                                    }
+                                    errors={errors}
+                                    touched={touched}
+                                    values={values}
+                                    handleChange={handleChange}
+                                    handleSubmit={handleSubmit}
+                                    handleBlur={handleBlur}
+                                    handleClick={this.handleClick} />
                             }
                             {this.state.content_display === 'login' &&
-                                <LoginComponentRender errors={errors} touched={touched} values={values} handleChange={handleChange} handleSubmit={handleSubmit} handleBlur={handleBlur} handleClick={this.handleClick} />
+                                <LoginComponentRender
+                                    loginAccountButton={
+                                        <Button
+                                            disabled={this.state.button_disabled}
+                                            className="ui fluid large"
+                                            style={{
+                                                color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 40
+                                            }}>Login</Button>
+                                    }
+                                    errors={errors}
+                                    touched={touched}
+                                    values={values}
+                                    handleChange={handleChange}
+                                    handleSubmit={handleSubmit}
+                                    handleBlur={handleBlur}
+                                    handleClick={this.handleClick} />
                             }
                         </div>
                     )}
@@ -152,6 +198,7 @@ class LoginController extends Component {
         );
     }
 }
+
 
 LoginController.propTypes = {
     uiStore: PropTypes.object.isRequired,

@@ -9,6 +9,7 @@ import { createOrganisationQuery } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
 import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
+import { createSponsorsQuery } from '../../../queries/sponsors';
 import { createPageQuery } from '../../../queries/pages';
 
 class CreateSubDomainController extends Component {
@@ -88,7 +89,13 @@ class CreateSubDomainController extends Component {
                 pageKey: 'about-us',
                 organisation: this.domain_name
             });
-
+            await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
+                subDomain: this.domain_name,
+                link1: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
+                link2: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
+                link3: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
+                link4: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
+            });
 
             const domainInfo = this.props.appManager.getDomainInfo();
             const new_payload = Object.assign(this.authPayload, {});

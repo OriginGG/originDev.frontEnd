@@ -14,7 +14,7 @@ class DarkOrganizationPageComponentRender extends Component {
                     </div>
                 </header>
                 <div className={this.props.classes.body_container}>
-                    <div id="home_cont" className={this.props.classes.nav_container}>
+                    <div id="home_cont" className={this.props.classes.dark_nav_container}>
                         <div >{this.props.navContent}</div>
                     </div>
                     <div id="logo_cont" className={this.props.classes.dark_main_image_container}>

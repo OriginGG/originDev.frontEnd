@@ -34,6 +34,14 @@ export const getUserByEmailQuery = gql`query getUserByEmail($email:String!) {
     }
   }
 }`;
+
+export const authenticatePreUserQuery = gql`mutation authenticatePre($email: String!, $password: String!) {
+  preUserAuthenticate(input:{email: $email, password: $password}) {
+		jwtToken
+		}
+  }
+`;
+
 export const getUserQuery = gql`query getUser($id:Int!) {
   resultData: userById(id:$id) {
     firstName

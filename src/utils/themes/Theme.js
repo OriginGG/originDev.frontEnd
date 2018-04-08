@@ -196,6 +196,44 @@ export const GlobalStyles = GlobalTheme => ({
     // New Dark Theme
     // ***************************************************************
 
+    dark_nav_container: {
+        display: 'table',
+        width: '100%',
+        height: '90px',
+        marginTop: '70px',
+        paddingTop: '60px',
+        paddingBottom: '15px'
+    },
+    dark_nav_left: {
+        width: '100%',
+        height: '90px',
+        display: 'table',
+        paddingLeft: '30px'
+    },
+    dark_nav_right: {
+        width: '100%',
+        height: '90px',
+        display: 'table',
+        paddingRight: '30px'
+    },
+    dark_nav_center: {
+        width: '100%',
+        height: '90px',
+        display: 'table'
+    },
+    dark_nav_header: {
+        display: 'table',
+        height: '90px',
+        width: '100%',
+        textAlign: 'center'
+    },
+    dark_nav_img: {
+        maxWidth: '150px',
+        maxHeight: '90px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
     news_modal_info_box: {
         width: '100%',
         height: '100px',
@@ -253,6 +291,12 @@ export const GlobalStyles = GlobalTheme => ({
     dark_header_logo: {
         width: '40px',
         height: '48px'
+    },
+    dark_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '35px',
+        paddingLeft: '25px'
     },
     dark_social_menu_item: {
         height: '30px',

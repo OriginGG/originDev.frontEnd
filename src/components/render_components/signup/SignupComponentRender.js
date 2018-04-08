@@ -59,11 +59,7 @@ class SignupComponentRender extends Component {
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.password}/>
                                         </div>
                                     </div>
-                                    <div style={{
-                                        background: '#0a9ab4',
-                                        fontSize: '18px',
-                                        marginTop: '40px'
-                                    }} className="ui fluid large teal submit button" onClick={this.props.handleSubmit}>Create an Account</div>
+                                    <div >{this.props.createAccountButton}</div>
                                     <div className={this.props.classes.submit_divider}/>
                                     <div className={this.props.classes.submit_or}>OR</div>
                                     <div className={this.props.classes.social_box_outer}>

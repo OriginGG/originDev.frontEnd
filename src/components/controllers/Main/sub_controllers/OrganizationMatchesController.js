@@ -21,6 +21,7 @@ import smite_image from '../../../../assets/images/game_images/smite.png';
 import splatoon_image from '../../../../assets/images/game_images/splatoon.png';
 import vainglory_image from '../../../../assets/images/game_images/vainglory.png';
 import wow_image from '../../../../assets/images/game_images/wow.png';
+import r6_image from '../../../../assets/images/game_images/r6.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -63,6 +64,10 @@ const gameOptions = [
     {
         value: 'Pubg',
         image: pubg_image
+    },
+    {
+        value: 'Rainbow Six: Siege',
+        image: r6_image
     },
     {
         value: 'Smite',

@@ -8,23 +8,33 @@ class DarkOrganizationNavComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.darkBG}>
-                <div className={this.props.classes.nav_left}>
-                    <div className={this.props.classes.nav_header}>
-                        <img id="nav_img" alt="" className={this.props.classes.nav_img} src={this.props.image_src}/>
+                <div className="ui stackable three column grid">
+                    <div className="column">
+                        <div className={this.props.classes.nav_left}>
+                            <div className={this.props.classes.dark_social_menu_container}>{this.props.social_links}</div>
+                        </div>
                     </div>
-                    <div className={this.props.classes.social_menu_container}>{this.props.social_links}</div>
-                </div>
-                <div className={this.props.classes.nav_right}>
-                    <div className={this.props.classes.org_menu_container}>
-                        <a href="#">
-                            <div className={this.props.classes.org_menu_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
-                        </a>
-                        <a href="#">
-                            <div className={this.props.classes.org_menu_dark_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
-                        </a>
-                        <a href="#home_cont">
-                            <div className={this.props.classes.org_menu_dark_item}>Home</div>
-                        </a>
+                    <div className="column">
+                        <div className={this.props.classes.dark_nav_center}>
+                            <div className={this.props.classes.dark_nav_header}>
+                                <img id="nav_img" alt="" className={this.props.classes.dark_nav_img} src={this.props.image_src}/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="column">
+                        <div className={this.props.classes.dark_nav_right}>
+                            <div className={this.props.classes.org_menu_container}>
+                                <a href="#">
+                                    <div className={this.props.classes.org_menu_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
+                                </a>
+                                <a href="#">
+                                    <div className={this.props.classes.org_menu_dark_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
+                                </a>
+                                <a href="#home_cont">
+                                    <div className={this.props.classes.org_menu_dark_item}>Home</div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

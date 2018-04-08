@@ -19,38 +19,25 @@ class AdminSponsorController extends Component {
         }
     };
     componentWillMount = async () => {
-        this.create = false;
         this.logo_files = {};
         let s_image0 = blankImage;
         let s_image1 = blankImage;
         let s_image2 = blankImage;
         let s_image3 = blankImage;
         const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        if (sponsor_data.resultData.edges.length === 0) {
-            this.create = true;
-        } else {
-            this.c_id = sponsor_data.resultData.edges[0].node.id;
-            if (sponsor_data.resultData.edges[0].node.sponsor1) {
-                s_image0 = sponsor_data.resultData.edges[0].node.sponsor1;
+        this.c_id = sponsor_data.resultData.edges[0].node.id;
+        s_image0 = sponsor_data.resultData.edges[0].node.sponsor1;
+        s_image1 = sponsor_data.resultData.edges[0].node.sponsor2;
+        s_image2 = sponsor_data.resultData.edges[0].node.sponsor3;
+        s_image3 = sponsor_data.resultData.edges[0].node.sponsor4;
+        this.setState({
+            input_values: {
+                sponsor_image1: s_image0,
+                sponsor_image2: s_image1,
+                sponsor_image3: s_image2,
+                sponsor_image4: s_image3
             }
-            if (sponsor_data.resultData.edges[0].node.sponsor2) {
-                s_image1 = sponsor_data.resultData.edges[0].node.sponsor2;
-            }
-            if (sponsor_data.resultData.edges[0].node.sponsor3) {
-                s_image2 = sponsor_data.resultData.edges[0].node.sponsor3;
-            }
-            if (sponsor_data.resultData.edges[0].node.sponsor4) {
-                s_image3 = sponsor_data.resultData.edges[0].node.sponsor4;
-            }
-            this.setState({
-                input_values: {
-                    sponsor_image1: s_image0,
-                    sponsor_image2: s_image1,
-                    sponsor_image3: s_image2,
-                    sponsor_image4: s_image3
-                }
-            });
-        }
+        });
     }
 
     handleChange = (field, e) => {
@@ -68,7 +55,7 @@ class AdminSponsorController extends Component {
         const sponsor_name3 = await this.uploadSponsorMedia('sponsor_image3');
         const sponsor_name4 = await this.uploadSponsorMedia('sponsor_image4');
         if (this.create) {
-            await this.props.appManager.executeQueryAuth(
+            await this.props.appManager.executeQuery(
                 'mutation', createSponsorsQuery,
                 {
                     subDomain: this.props.uiStore.current_organisation.subDomain,
@@ -82,7 +69,7 @@ class AdminSponsorController extends Component {
                 position: toast.POSITION.TOP_LEFT
             });
         } else {
-            await this.props.appManager.executeQueryAuth(
+            await this.props.appManager.executeQuery(
                 'mutation', updateSponsorsQuery,
                 {
                     id: this.c_id,
@@ -110,7 +97,7 @@ class AdminSponsorController extends Component {
                     resolve(x.data.Location);
                 });
             } else {
-                resolve(null);
+                resolve(this.state[field]);
             }
         });
     }
