@@ -362,10 +362,11 @@ export const GlobalStyles = GlobalTheme => ({
     },
     dark_news_container: {
         width: '100%',
-        display: 'table',
+        maxHeight: '896px',
         marginTop: '10px',
         paddingRight: '15px',
-        float: 'left'
+        float: 'left',
+        overflowY: 'scroll'
     },
     dark_news__more_container: {
         width: '100%',
@@ -387,7 +388,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     dark_twitter_container: {
         width: '100%',
-        backgroundColor: 'rgb(0, 0, 0)',
+        maxHeight: '866px',
         padding: '30px',
         height: '500px',
         display: 'table'

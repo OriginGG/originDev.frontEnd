@@ -23,7 +23,7 @@ class DarkOrganizationNavComponentRender extends Component {
                     </div>
                     <div className="column">
                         <div className={this.props.classes.dark_nav_right}>
-                            <div className={this.props.classes.org_menu_container}>
+                            <div className={this.props.classes.dark_org_menu_container}>
                                 <a href="#">
                                     <div className={this.props.classes.org_menu_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
                                 </a>
