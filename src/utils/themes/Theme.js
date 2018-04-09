@@ -199,39 +199,44 @@ export const GlobalStyles = GlobalTheme => ({
     dark_nav_container: {
         display: 'table',
         width: '100%',
-        height: '90px',
+        height: '50px',
         marginTop: '70px',
         paddingTop: '60px',
         paddingBottom: '15px'
     },
     dark_nav_left: {
         width: '100%',
-        height: '90px',
+        height: '50px',
         display: 'table',
         paddingLeft: '30px'
     },
     dark_nav_right: {
         width: '100%',
-        height: '90px',
+        height: '50px',
         display: 'table',
         paddingRight: '30px'
     },
     dark_nav_center: {
         width: '100%',
-        height: '90px',
+        height: '50px',
         display: 'table'
     },
     dark_nav_header: {
         display: 'table',
-        height: '90px',
+        height: '50px',
         width: '100%',
         textAlign: 'center'
     },
     dark_nav_img: {
-        maxWidth: '150px',
-        maxHeight: '90px',
+        maxWidth: '100px',
+        maxHeight: '50px',
         marginLeft: 'auto',
         marginRight: 'auto'
+    },
+
+    dark_org_menu_container: {
+        float: 'right',
+        display: 'table'
     },
 
     news_modal_info_box: {
@@ -257,6 +262,19 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         backgroundColor: 'rgb(20,20,20)',
         padding: '0px 0px 0px 0px'
+    },
+    darkMainBG: {
+        width: '100%',
+        minHeight: '100%',
+        backgroundColor: 'rgb(20,20,20)',
+        padding: '0px 0px 0px 0px'
+    },
+    pageContraint: {
+        width: '100%',
+        dislay: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     darkHeader: {
         width: '100%',
@@ -295,12 +313,12 @@ export const GlobalStyles = GlobalTheme => ({
     dark_social_menu_container: {
         float: 'left',
         display: 'table',
-        paddingTop: '35px',
+        paddingTop: '0px',
         paddingLeft: '25px'
     },
     dark_social_menu_item: {
-        height: '30px',
-        lineHeight: '30px',
+        height: '50px',
+        lineHeight: '50px',
         float: 'left',
         color: 'white',
         fontSize: '18px',
@@ -308,8 +326,8 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '0px 10px 0px 10px'
     },
     org_menu_dark_item: {
-        height: '30px',
-        lineHeight: '30px',
+        height: '50px',
+        lineHeight: '50px',
         float: 'right',
         color: 'white',
         fontSize: '14px',
