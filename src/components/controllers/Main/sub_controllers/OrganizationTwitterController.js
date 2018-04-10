@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 
 // import { getOrganisationQuery } from './queries/organisation'
 
-const TwitterFeed = ({ feedName }) => {
+const TwitterFeed = ({ feedName, theme }) => {
     if (!feedName) {
         return null;
     }
@@ -18,7 +18,9 @@ const TwitterFeed = ({ feedName }) => {
                 screenName: feedName
             }}
             options={{
-                height: '350'
+                theme,
+                height: '350',
+                chrome: 'noscrollbar nofooter'
             }}
         />
     );
@@ -38,7 +40,7 @@ class OrganizationTwitterController extends Component {
             return null;
         }
         const { OrganizationTwitterComponenRender } = this.state;
-        return <OrganizationTwitterComponenRender feed={<TwitterFeed feedName={this.props.uiStore.current_organisation.twitterFeedUsername} />} />;
+        return <OrganizationTwitterComponenRender feed={<TwitterFeed theme={this.props.uiStore.current_organisation.themeId} feedName={this.props.uiStore.current_organisation.twitterFeedUsername} />} />;
     }
 }
 
@@ -49,7 +51,8 @@ OrganizationTwitterController.propTypes = {
 };
 
 TwitterFeed.propTypes = {
-    feedName: PropTypes.string.isRequired
+    feedName: PropTypes.string.isRequired,
+    theme: PropTypes.string.isRequired
 };
 
 
