@@ -96,6 +96,9 @@ class OrganizationMatchesController extends Component {
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         this.setState({ OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default });
     }
+    componentDidCatch = (error, info) => {
+        console.log(error, info);
+    }
     render() {
         if (this.props.data.loading === true) {
             return null;

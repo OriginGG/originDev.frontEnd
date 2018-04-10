@@ -35,6 +35,9 @@ class OrganizationTwitterController extends Component {
             this.setState({ visible: true, OrganizationTwitterComponenRender: OrganizationTwitterComponenRender.default });
         }
     }
+    componentDidCatch = (error, info) => {
+        console.log(error, info);
+    }
     render() {
         if (this.state.visible === false) {
             return null;

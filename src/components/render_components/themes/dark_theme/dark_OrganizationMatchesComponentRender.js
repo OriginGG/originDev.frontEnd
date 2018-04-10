@@ -15,7 +15,7 @@ class DarkOrganizationMatchesComponentRender extends Component {
                         <div className={this.props.classes.dark_section_title_container}>
                             <h2>RECENT MATCHES</h2>
                         </div>
-                        <div className={this.props.classes.recent_matches_body}>
+                        <div className={this.props.classes.dark_recent_matches_body}>
                             <div className="styles__recent_matchlist___3Px6i">
                                 <div style={{
                                     height: 'auto',
@@ -34,45 +34,45 @@ class DarkOrganizationMatchesComponentRender extends Component {
                                             }}>
                                                 <tr style={{
                                                     borderBottom: '1px solid rgb(224, 224, 224)',
-                                                    color: 'rgba(0, 0, 0, 0.87)',
+                                                    color: 'rgba(200, 200, 200 , 0.87)',
                                                     height: '48px'
                                                 }}>
                                                     <th style={{
                                                         fontWeight: 'normal',
-                                                        fontSize: '12px',
+                                                        fontSize: '14px',
                                                         paddingLeft: '24px',
                                                         paddingRight: '24px',
                                                         height: '56px',
                                                         textAlign: 'left',
                                                         whiteSpace: 'nowrap',
                                                         textOverflow: 'ellipsis',
-                                                        color: 'rgb(158, 158, 158)',
+                                                        color: 'rgb(200, 200, 200)',
                                                         position: 'relative',
                                                         backgroundColor: 'inherit'
                                                     }}>Game</th>
                                                     <th style={{
                                                         fontWeight: 'normal',
-                                                        fontSize: '12px',
+                                                        fontSize: '14px',
                                                         paddingLeft: '24px',
                                                         paddingRight: '24px',
                                                         height: '56px',
                                                         textAlign: 'left',
                                                         whiteSpace: 'nowrap',
                                                         textOverflow: 'ellipsis',
-                                                        color: 'rgb(158, 158, 158)',
+                                                        color: 'rgb(200, 200, 200)',
                                                         position: 'relative',
                                                         backgroundColor: 'inherit'
                                                     }}>Vs</th>
                                                     <th style={{
                                                         fontWeight: 'normal',
-                                                        fontSize: '12px',
+                                                        fontSize: '14px',
                                                         paddingLeft: '24px',
                                                         paddingRight: '24px',
                                                         height: '56px',
                                                         textAlign: 'left',
                                                         whiteSpace: 'nowrap',
                                                         textOverflow: 'ellipsis',
-                                                        color: 'rgb(158, 158, 158)',
+                                                        color: 'rgb(200, 200, 200)',
                                                         position: 'relative',
                                                         backgroundColor: 'inherit'
                                                     }}>Score</th>

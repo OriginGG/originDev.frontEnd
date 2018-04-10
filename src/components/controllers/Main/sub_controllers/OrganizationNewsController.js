@@ -53,6 +53,9 @@ class OrganizationNewsController extends Component {
             });
         }
     }
+    componentDidCatch = (error, info) => {
+        console.log(error, info);
+    }
     handleNewsClick = (blog) => {
         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
         this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });

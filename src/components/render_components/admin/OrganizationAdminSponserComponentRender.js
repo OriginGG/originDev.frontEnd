@@ -29,6 +29,20 @@ class OrganizationAdminSponserComponentRender extends Component {
                         <div className={this.props.classes.admin_sponser_image_box}>
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image1}/>
                         </div>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Sponsor link" value={this.props.http_link1_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'http_link1_value', e );
+                            }}/>
+                        </div>
+                        <div className="ui fluid input">
+                            <textarea placeholder="Sponsor description ..." className={this.props.classes.admin_sponser_description} value={this.props.sponsor_desc1_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'sponsor_desc1_value', e );
+                            }}/>
+                        </div>
                     </div>
                     <div className={this.props.classes.admin_social_box_inner}>
                         <div className={this.props.classes.admin_sponser_button}>
@@ -46,6 +60,20 @@ class OrganizationAdminSponserComponentRender extends Component {
                         </div>
                         <div className={this.props.classes.admin_sponser_image_box}>
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image2}/>
+                        </div>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Sponsor link" value={this.props.http_link2_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'http_link2_value', e );
+                            }}/>
+                        </div>
+                        <div className="ui fluid input">
+                            <textarea placeholder="Sponsor description ..." className={this.props.classes.admin_sponser_description} value={this.props.sponsor_desc2_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'sponsor_desc2_value', e );
+                            }}/>
                         </div>
                     </div>
                     <div className={this.props.classes.admin_social_box_inner}>
@@ -65,6 +93,20 @@ class OrganizationAdminSponserComponentRender extends Component {
                         <div className={this.props.classes.admin_sponser_image_box}>
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image3}/>
                         </div>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Sponsor link" value={this.props.http_link3_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'http_link3_value', e );
+                            }}/>
+                        </div>
+                        <div className="ui fluid input">
+                            <textarea placeholder="Sponsor description ..." className={this.props.classes.admin_sponser_description} value={this.props.sponsor_desc3_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'sponsor_desc3_value', e );
+                            }}/>
+                        </div>
                     </div>
                     <div className={this.props.classes.admin_social_box_inner}>
                         <div className={this.props.classes.admin_sponser_button}>
@@ -82,6 +124,20 @@ class OrganizationAdminSponserComponentRender extends Component {
                         </div>
                         <div className={this.props.classes.admin_sponser_image_box}>
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image4}/>
+                        </div>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Sponsor link" value={this.props.http_link4_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'http_link4_value', e );
+                            }}/>
+                        </div>
+                        <div className="ui fluid input">
+                            <textarea placeholder="Sponsor description ..." className={this.props.classes.admin_sponser_description} value={this.props.sponsor_desc4_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'sponsor_desc4_value', e );
+                            }}/>
                         </div>
                     </div>
                 </div>

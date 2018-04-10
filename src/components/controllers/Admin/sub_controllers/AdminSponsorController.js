@@ -15,7 +15,15 @@ class AdminSponsorController extends Component {
             sponsor_image1: null,
             sponsor_image2: null,
             sponsor_image3: null,
-            sponsor_image4: null
+            sponsor_image4: null,
+            http_link1_value: '',
+            http_link2_value: '',
+            http_link3_value: '',
+            http_link4_value: '',
+            sponsor_desc1_value: '',
+            sponsor_desc2_value: '',
+            sponsor_desc3_value: '',
+            sponsor_desc4_value: ''
         }
     };
     componentWillMount = async () => {
@@ -35,7 +43,15 @@ class AdminSponsorController extends Component {
                 sponsor_image1: s_image0,
                 sponsor_image2: s_image1,
                 sponsor_image3: s_image2,
-                sponsor_image4: s_image3
+                sponsor_image4: s_image3,
+                http_link1_value: sponsor_data.resultData.edges[0].node.hrefLink1,
+                http_link2_value: sponsor_data.resultData.edges[0].node.hrefLink2,
+                http_link3_value: sponsor_data.resultData.edges[0].node.hrefLink3,
+                http_link4_value: sponsor_data.resultData.edges[0].node.hrefLink4,
+                sponsor_desc1_value: sponsor_data.resultData.edges[0].node.sponsorDesc1,
+                sponsor_desc2_value: sponsor_data.resultData.edges[0].node.sponsorDesc2,
+                sponsor_desc3_value: sponsor_data.resultData.edges[0].node.sponsorDesc3,
+                sponsor_desc4_value: sponsor_data.resultData.edges[0].node.sponsorDesc4,
             }
         });
     }
@@ -63,6 +79,15 @@ class AdminSponsorController extends Component {
                     link2: sponsor_name2,
                     link3: sponsor_name3,
                     link4: sponsor_name4,
+                    href_link1: this.state.input_values.http_link1_value,
+                    href_link2: this.state.input_values.http_link2_value,
+                    href_link3: this.state.input_values.http_link3_value,
+                    href_link4: this.state.input_values.http_link4_value,
+                    desc1: this.state.input_values.sponsor_desc1_value,
+                    desc2: this.state.input_values.sponsor_desc2_value,
+                    desc3: this.state.input_values.sponsor_desc3_value,
+                    desc4: this.state.input_values.sponsor_desc4_value
+
                 }
             );
             toast.success('Sponsors Updated!', {
@@ -76,7 +101,15 @@ class AdminSponsorController extends Component {
                     link1: sponsor_name1,
                     link2: sponsor_name2,
                     link3: sponsor_name3,
-                    link4: sponsor_name4
+                    link4: sponsor_name4,
+                    href_link1: this.state.input_values.http_link1_value,
+                    href_link2: this.state.input_values.http_link2_value,
+                    href_link3: this.state.input_values.http_link3_value,
+                    href_link4: this.state.input_values.http_link4_value,
+                    desc1: this.state.input_values.sponsor_desc1_value,
+                    desc2: this.state.input_values.sponsor_desc2_value,
+                    desc3: this.state.input_values.sponsor_desc3_value,
+                    desc4: this.state.input_values.sponsor_desc4_value
                 }
             );
             toast.success('Sponsors Updated!', {
@@ -118,14 +151,23 @@ class AdminSponsorController extends Component {
     }
     render() {
         return (
-            <div style={{ width: 'calc(100vw - 340px)' }}>
+            <div style={{ width: 'calc(100vw - 380px)' }}>
                 <OrganizationAdminSponsorComponentRender
                     uploadFile={this.uploadFile}
                     handleSubmit={this.handleSubmit}
+                    handleChange={this.handleChange}
                     sponsor_image1={this.state.input_values.sponsor_image1}
                     sponsor_image2={this.state.input_values.sponsor_image2}
                     sponsor_image3={this.state.input_values.sponsor_image3}
                     sponsor_image4={this.state.input_values.sponsor_image4}
+                    http_link1_value={this.state.input_values.http_link1_value}
+                    http_link2_value={this.state.input_values.http_link2_value}
+                    http_link3_value={this.state.input_values.http_link3_value}
+                    http_link4_value={this.state.input_values.http_link4_value}
+                    sponsor_desc1_value={this.state.input_values.sponsor_desc1_value}
+                    sponsor_desc2_value={this.state.input_values.sponsor_desc2_value}
+                    sponsor_desc3_value={this.state.input_values.sponsor_desc3_value}
+                    sponsor_desc4_value={this.state.input_values.sponsor_desc4_value}
                 />
             </div>
         );

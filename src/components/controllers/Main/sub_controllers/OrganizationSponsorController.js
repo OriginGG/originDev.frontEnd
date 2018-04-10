@@ -16,13 +16,24 @@ class OrganizationSponsorController extends Component {
         this.sponsor_image2 = sponsor_data.resultData.edges[0].node.sponsor2;
         this.sponsor_image3 = sponsor_data.resultData.edges[0].node.sponsor3;
         this.sponsor_image4 = sponsor_data.resultData.edges[0].node.sponsor4;
+        this.sponsor_link1 = sponsor_data.resultData.edges[0].node.hrefLink1;
+        this.sponsor_link2 = sponsor_data.resultData.edges[0].node.hrefLink2;
+        this.sponsor_link3 = sponsor_data.resultData.edges[0].node.hrefLink3;
+        this.sponsor_link4 = sponsor_data.resultData.edges[0].node.hrefLink4;
         this.setState({ visible: true });
     }
     mouse_over = false;
     componentWillUnMount = () => {
         clearInterval(this.timer);
     }
-
+    componentDidCatch = (error, info) => {
+        console.log(error, info);
+    }
+    handleClick = (link) => {
+        if (link) {
+            window.open(link, '_blank');
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -63,22 +74,22 @@ class OrganizationSponsorController extends Component {
                 <Slider {...settings}>
                     <div className="container col-sm-4" style={{ width: '266px' }}>
                         <div>
-                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img onClick={() => { this.handleClick(this.sponsor_link1); }} src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
                         </div>
                     </div>
                     <div className="container col-sm-4" style={{ width: '266px' }}>
                         <div>
-                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img onClick={() => { this.handleClick(this.sponsor_link2); }} src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
                         </div>
                     </div>
                     <div className="container col-sm-4" style={{ width: '266px' }}>
                         <div>
-                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img onClick={() => { this.handleClick(this.sponsor_link3); }} src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
                         </div>
                     </div>
                     <div className="container col-sm-4" style={{ width: '266px' }}>
                         <div>
-                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
+                            <img onClick={() => { this.handleClick(this.sponsor_link4); }} src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
                         </div>
                     </div>
                     <div className="container col-sm-4" style={{ width: '266px' }}>

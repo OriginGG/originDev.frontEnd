@@ -89,6 +89,9 @@ class OrganizationPageController extends Component {
         //     historyStore.push('/');
         // }
     }
+    componentDidCatch = (error, info) => {
+        console.log(error, info);
+    }
     createMarkup = (content) => {
         return { __html: content };
     }

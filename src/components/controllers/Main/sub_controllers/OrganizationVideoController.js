@@ -29,6 +29,9 @@ class OrganizationVideoController extends Component {
             this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
         }
     }
+    componentDidCatch = (error, info) => {
+        console.log(error, info);
+    }
 
     render() {
         if (this.state.visible === false) {

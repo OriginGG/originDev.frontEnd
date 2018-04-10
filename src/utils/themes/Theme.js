@@ -330,9 +330,13 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '50px',
         float: 'right',
         color: 'white',
-        fontSize: '14px',
+        fontSize: '16px',
+        fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px'
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent'
     },
     dark_main_image_container: {
         width: '100%',
@@ -404,6 +408,13 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         backgroundColor: 'rgb(20,20,20)',
         padding: '10px 0px 10px 0px'
+    },
+
+    dark_recent_matches_body: {
+        width: '100%',
+        maxHeight: '600px',
+        backgroundColor: 'transparent',
+        overflowY: 'scroll'
     },
     // ***************************************************************
     // User Theme
@@ -973,7 +984,13 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100px',
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginBottom: '20px',
         backgroundColor: '#ccc'
+    },
+    admin_sponser_description: {
+        width: '100%',
+        height: '150px',
+        marginTop: '30px'
     },
     admin_sponser_image: {
         width: '150px',

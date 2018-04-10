@@ -12,6 +12,9 @@ class OrganizationNavController extends Component {
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({ visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
     }
+    componentDidCatch = (error, info) => {
+        console.log(error, info);
+    }
     handleBlogButtonClick = () => {
     }
     openPage = page => {
