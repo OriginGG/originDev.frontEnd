@@ -19,8 +19,8 @@ const TwitterFeed = ({ feedName, theme }) => {
             }}
             options={{
                 theme,
-                height: '350',
-                chrome: 'noscrollbar nofooter'
+                height: '578',
+                chrome: 'noborders noscrollbar nofooter'
             }}
         />
     );

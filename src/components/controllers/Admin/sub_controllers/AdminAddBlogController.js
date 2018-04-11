@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { Card, Button, Input, Segment } from 'semantic-ui-react';
@@ -8,7 +9,9 @@ import ReactQuill from 'react-quill';
 import axios from 'axios';
 import Dropzone from 'react-dropzone';
 import { toast } from 'react-toastify';
-import { createBlogPostQuery, updateBlogPostQuery } from '../../../../queries/blogs';
+import { createBlogPostQuery, updateBlogPostQuery, deleteBlogQuery } from '../../../../queries/blogs';
+
+const { confirm } = Modal;
 
 // import OrganizationAdminBlogComponentRender from '../../../render_components/OrganizationAdminBlogComponentRender';
 
@@ -108,7 +111,38 @@ class AdminAddBlogController extends Component {
             }
         });
     }
-
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this blog',
+                content: 'Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    handleDelete = async () => {
+        const action = await this.showDeleteConfirm();
+        if (action) {
+            await this.props.appManager.executeQuery(
+                'mutation', deleteBlogQuery,
+                {
+                    id: this.props.blogId,
+                }
+            );
+            toast.success('Blog post deleted !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            this.props.handleCancel();
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -140,8 +174,12 @@ class AdminAddBlogController extends Component {
                                 onChange={this.handleChange} />
                             <Button onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
                                 SUBMIT
+                        </Button> {!this.create_blog &&
+                                <Button onClick={this.handleDelete} style={{ float: 'right', marginTop: 12 }} negative>
+                                    DELETE BLOG
                         </Button>
-                            <Button onClick={this.handleCancel} style={{ float: 'right', marginTop: 12 }} negative>
+                            }
+                            <Button onClick={this.handleCancel} style={{ float: 'right', marginTop: 12 }} teal>
                                 CANCEL
                         </Button>
                         </Card.Description >

@@ -3,7 +3,8 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { Modal } from 'antd';
-
+import Favicon from 'react-favicon';
+import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -129,24 +130,27 @@ class OrganizationPageController extends Component {
         const { OrganizationAboutModalComponentRender } = this.state;
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
-                <div ref={(c) => { this.ref_node = c; }}>
-                    <OrganizationPageComponentRender
-                        theme="light"
-                        newsContent={<OrganizationNewsController />}
-                        twitterContent={<OrganizationTwitterController />}
-                        matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
-                        videoContent={<OrganizationVideoController />}
-                        topSponsorContent={<OrganizationSponsorController />}
-                        bottomSponsorContent={<OrganizationSponsorController />}
-                        navContent={<OrganizationNavController store_style={ss} about_style={s} handleStoreClick={this.handleStoreClick} handleAboutClick={this.handleAboutClick} />}
-                        logoContent={<OrganizationLogoController roster_games={<span />} />}
-                        footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
-                    />
-                    <AboutModal
-                        modal_open={this.state.about_modal_open}
-                        content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent} />}
-                    />
-                </div>
+                <DocumentTitle title={this.props.uiStore.current_organisation.name}>
+                    <div ref={(c) => { this.ref_node = c; }}>
+                        <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+                        <OrganizationPageComponentRender
+                            theme="light"
+                            newsContent={<OrganizationNewsController />}
+                            twitterContent={<OrganizationTwitterController />}
+                            matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
+                            videoContent={<OrganizationVideoController />}
+                            topSponsorContent={<OrganizationSponsorController />}
+                            bottomSponsorContent={<OrganizationSponsorController />}
+                            navContent={<OrganizationNavController store_style={ss} about_style={s} handleStoreClick={this.handleStoreClick} handleAboutClick={this.handleAboutClick} />}
+                            logoContent={<OrganizationLogoController roster_games={<span />} />}
+                            footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+                        />
+                        <AboutModal
+                            modal_open={this.state.about_modal_open}
+                            content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent} />}
+                        />
+                    </div>
+                </DocumentTitle>
             </ThemeProvider>
         );
     }

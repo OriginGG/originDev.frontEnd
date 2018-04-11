@@ -27,10 +27,10 @@ class LightOrganizationMatchesComponentRender extends Component {
                                         fontFamily: 'Roboto, sans-serif'
                                     }}>
                                         <thead style={{
-                                            borderBottom: '1px solid rgb(224, 224, 224)'
+                                            borderBottom: '1px solid rgb(24, 24, 24)'
                                         }}>
                                             <tr style={{
-                                                borderBottom: '1px solid rgb(224, 224, 224)',
+                                                borderBottom: '1px solid rgb(24, 24, 24)',
                                                 color: 'rgba(0, 0, 0, 0.87)',
                                                 height: '48px'
                                             }}>
@@ -43,7 +43,7 @@ class LightOrganizationMatchesComponentRender extends Component {
                                                     textAlign: 'left',
                                                     whiteSpace: 'nowrap',
                                                     textOverflow: 'ellipsis',
-                                                    color: 'rgb(158, 158, 158)',
+                                                    color: 'rgb(24, 24, 24)',
                                                     position: 'relative',
                                                     backgroundColor: 'inherit'
                                                 }}>Game</th>
@@ -56,7 +56,7 @@ class LightOrganizationMatchesComponentRender extends Component {
                                                     textAlign: 'left',
                                                     whiteSpace: 'nowrap',
                                                     textOverflow: 'ellipsis',
-                                                    color: 'rgb(158, 158, 158)',
+                                                    color: 'rgb(24, 24, 24)',
                                                     position: 'relative',
                                                     backgroundColor: 'inherit'
                                                 }}>Vs</th>
@@ -69,7 +69,7 @@ class LightOrganizationMatchesComponentRender extends Component {
                                                     textAlign: 'left',
                                                     whiteSpace: 'nowrap',
                                                     textOverflow: 'ellipsis',
-                                                    color: 'rgb(158, 158, 158)',
+                                                    color: 'rgb(24, 24, 24)',
                                                     position: 'relative',
                                                     backgroundColor: 'inherit'
                                                 }}>Score</th>

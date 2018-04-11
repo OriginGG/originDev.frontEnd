@@ -278,7 +278,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     darkHeader: {
         width: '100%',
-        padding: '15px 30px 15px 30px',
+        padding: '15px 20px 15px 20px',
         minHeight: '40px',
         display: 'table',
         position: 'fixed',
@@ -492,7 +492,11 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '30px',
         float: 'right',
         color: 'black',
-        fontSize: '14px',
+        fontSize: '16px',
+        fontWeight: '900',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
         cursor: 'pointer',
         padding: '0px 10px 0px 10px'
     },
@@ -652,7 +656,7 @@ export const GlobalStyles = GlobalTheme => ({
     recent_matches_body: {
         width: '100%',
         height: '452px',
-        backgroundColor: '#2d2f30'
+        backgroundColor: 'transparent'
     },
     recent_matches_title: {
         background: 'rgb(83, 191, 235)',

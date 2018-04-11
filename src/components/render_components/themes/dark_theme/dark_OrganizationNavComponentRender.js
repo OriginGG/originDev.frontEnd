@@ -25,6 +25,9 @@ class DarkOrganizationNavComponentRender extends Component {
                         <div className={this.props.classes.dark_nav_right}>
                             <div className={this.props.classes.dark_org_menu_container}>
                                 <a href="#">
+                                    <div id="menu_login" className={this.props.classes.org_menu_dark_item}>Login</div>
+                                </a>
+                                <a href="#">
                                     <div id="menu_store" className={this.props.classes.org_menu_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
                                 </a>
                                 <a href="#">

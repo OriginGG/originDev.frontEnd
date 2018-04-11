@@ -7,6 +7,13 @@ export const getBlogsCountQuery = gql`query getBlogsCount($subDomain: String!) {
 }
 `;
 
+export const deleteBlogQuery = gql`mutation deleteBlog($id: Int!) {
+  deleteBlogById(input:{id: $id}) {
+    blog {
+      id
+    }
+  }
+}`;
 export const getBlogsQuery = gql`
   query getBlogs($subDomain: String!) {
     resultData: allBlogs(orderBy: CREATED_AT_DESC, condition: { organisation: $subDomain }) {

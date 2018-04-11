@@ -16,9 +16,10 @@ class LightOrganizationNavComponentRender extends Component {
                 </div>
                 <div className={this.props.classes.nav_right}>
                     <div className={this.props.classes.org_menu_container}>
-                        <div className={this.props.classes.org_menu_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
-                        <div className={this.props.classes.org_menu_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
-                        <div className={this.props.classes.org_menu_item}>Home</div>
+                        <div id="nav_login" className={this.props.classes.org_menu_item}>Login</div>
+                        <div id="nav_store" className={this.props.classes.org_menu_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
+                        <div id="nav_about" className={this.props.classes.org_menu_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
+                        <div id="nav_home" className={this.props.classes.org_menu_item}>Home</div>
                     </div>
                 </div>
                 <div id="modal_about"></div>
