@@ -22,6 +22,7 @@ class AppManager {
             this.apolloClient = null;
             this.authToken = '';
             this.logged_in = false;
+            this.serveDomain = null;
             this.admin_logged_in = false;
             this.localDB = new PouchDB('user', { revs_limit: 1, auto_compaction: true });
         }
@@ -82,6 +83,9 @@ class AppManager {
             subDomain = spString[0];            // eslint-disable-line
         } else {
             subDomain = null;
+        }
+        if (this.serveDomain) {
+            subDomain = this.serveDomain;
         }
         return {
             hostname,

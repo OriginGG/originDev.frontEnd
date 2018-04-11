@@ -22,10 +22,6 @@ class OrganizationSponsorController extends Component {
         this.sponsor_link4 = sponsor_data.resultData.edges[0].node.hrefLink4;
         this.setState({ visible: true });
     }
-    mouse_over = false;
-    componentWillUnMount = () => {
-        clearInterval(this.timer);
-    }
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }

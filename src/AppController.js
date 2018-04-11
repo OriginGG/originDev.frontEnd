@@ -19,6 +19,12 @@ class AppController extends Component {
                 const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
                 await this.props.appManager.pouchStore('authenticate', p);
             }
+            const domainGo = this.props.appManager.GetQueryParams('domain');
+            if (domainGo) {
+                this.props.appManager.serveDomain = domainGo;
+                historyStore.push('/main');
+            }
+            console.log(domainGo);
             const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
             this.props.uiStore.setOriginTheme(originTheme.resultData);
             const domainInfo = this.props.appManager.getDomainInfo();
