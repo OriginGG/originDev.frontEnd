@@ -7,8 +7,8 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationPageComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.organizationBG}>
-                <div className={this.props.classes.pageContraint}>
+            <div className={this.props.classes.organizationTestBG}>
+                <div className={this.props.classes.pageTestContraint}>
                     <header className={this.props.classes.organizationHeader}>
                         <div id="organization_sponsers" className="container col-sm-12">
                             <div >{this.props.topSponsorContent}</div>

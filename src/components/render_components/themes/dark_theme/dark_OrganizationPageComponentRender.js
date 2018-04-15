@@ -7,8 +7,8 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationPageComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.darkBG}>
-                <div className={this.props.classes.pageContraint}>
+            <div className={this.props.classes.darkMainBG}>
+                <div className={this.props.classes.dark_pageTestContraint}>
                     <header className={this.props.classes.darkHeader}>
                         <div id="dark_header">
                             <div >{this.props.topSponsorContent}</div>

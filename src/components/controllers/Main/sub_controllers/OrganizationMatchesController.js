@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
-import { graphql } from 'react-apollo';
 import _ from 'lodash';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
@@ -89,22 +88,24 @@ const gameOptions = [
 
 ];
 class OrganizationMatchesController extends Component {
-    state = { OrganizationMatchesComponentRender: null }
+    state = { visible: false, OrganizationMatchesComponentRender: null }
     componentWillMount = async () => {
         const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationMatchesComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
-        this.setState({ OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default });
+        const subDomain = this.props.uiStore.current_subdomain;
+        this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
+        this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }
     render() {
-        if (this.props.data.loading === true) {
+        if (this.state.visible === false) {
             return null;
         }
         const { OrganizationMatchesComponentRender } = this.state;
-        const { edges } = this.props.data.resultdata;
+        const { edges } = this.match_data.resultdata;
         if (edges.length === 0) {
             return null;
         }
@@ -151,17 +152,8 @@ class OrganizationMatchesController extends Component {
 }
 
 OrganizationMatchesController.propTypes = {
-    data: PropTypes.object.isRequired,
-    uiStore: PropTypes.object.isRequired
+    uiStore: PropTypes.object.isRequired,
+    appManager: PropTypes.object.isRequired
 };
 
-export default graphql(recentMatchesQuery, {
-    withRef: true,
-    options: props => ({
-        fetchPolicy: 'network-only',
-        variables: {
-            organisation: props.subDomain
-        }
-    })
-})(inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationMatchesController)));
-
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationMatchesController));

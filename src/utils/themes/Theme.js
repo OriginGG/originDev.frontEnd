@@ -200,9 +200,9 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         width: '100%',
         height: '50px',
-        marginTop: '70px',
+        marginTop: '40px',
         paddingTop: '60px',
-        paddingBottom: '15px'
+        paddingBottom: '0px'
     },
     dark_nav_left: {
         width: '100%',
@@ -258,20 +258,53 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'right',
         color: 'white'
     },
+    fixed_div: {
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh'
+    },
     darkBG: {
         width: '100%',
         backgroundColor: 'rgb(20,20,20)',
         padding: '0px 0px 0px 0px'
     },
+    darkNavBG: {
+        width: '100%',
+        backgroundColor: 'transparent',
+        padding: '0px 0px 0px 0px'
+    },
     darkMainBG: {
         width: '100%',
         minHeight: '100%',
-        backgroundColor: 'rgb(20,20,20)',
         padding: '0px 0px 0px 0px'
     },
     pageContraint: {
         width: '100%',
-        dislay: 'table',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    pageTestContraint: {
+        width: '100%',
+        height: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    dark_pageContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundImage: 'url("./images/dark_theme_bg_1.png")',
+    },
+    darkMainBG: {
+        width: '100%',
+        height: '100%',
+        display: 'table',
         maxWidth: '1200px',
         marginLeft: 'auto',
         marginRight: 'auto'
@@ -307,8 +340,7 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
     dark_header_logo: {
-        width: '40px',
-        height: '48px'
+        height: '50px'
     },
     dark_social_menu_container: {
         float: 'left',
@@ -338,11 +370,26 @@ export const GlobalStyles = GlobalTheme => ({
         borderWidth: '2px',
         borderColor: 'transparent'
     },
+    org_hidden_menu_dark_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        display: 'none'
+    },
     dark_main_image_container: {
         width: '100%',
         heightMax: '500px',
         display: 'table',
-        position: 'relative'
+        position: 'relative',
+        marginTop: '10px'
     },
     dark_main_image: {
         width: '100%',
@@ -366,7 +413,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     dark_news_container: {
         width: '100%',
-        maxHeight: '896px',
+        maxHeight: '610px',
         marginTop: '10px',
         paddingRight: '15px',
         float: 'left',
@@ -374,8 +421,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     dark_news__more_container: {
         width: '100%',
-        height: '36px',
-        backgroundColor: 'rgb(20,20,20)'
+        height: '36px'
     },
     dark_news_more_button: {
         float: 'right',
@@ -399,14 +445,14 @@ export const GlobalStyles = GlobalTheme => ({
     },
     dark_section_title_container: {
         width: '70%',
-        color: '#565656',
+        color: '#767676',
         textAlign: 'left',
         marginTop: '10px'
     },
     dark_media_container: {
         width: '100%',
         display: 'table',
-        backgroundColor: 'rgb(20,20,20)',
+        backgroundColor: 'transparent',
         padding: '10px 0px 10px 0px'
     },
 
@@ -425,6 +471,11 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100vh',
         backgroundColor: GlobalTheme.user_styles.lightHeaderColor,
         backgroundImage: 'url("./images/sliderbg_light.jpg")',
+        padding: '15px 0px 15px 0px'
+    },
+    organizationTestBG: {
+        width: '100%',
+        height: '100vh',
         padding: '15px 0px 15px 0px'
     },
     organizationHeader: {
@@ -450,7 +501,7 @@ export const GlobalStyles = GlobalTheme => ({
     header_logo: {
         display: 'block',
         margin: 'auto',
-
+        height: '35px'
     },
     body_container: {
         width: '100%',
@@ -461,35 +512,37 @@ export const GlobalStyles = GlobalTheme => ({
     nav_container: {
         display: 'table',
         width: '100%',
-        marginTop: '60px',
+        height: '50px',
         paddingTop: '60px',
-        paddingBottom: '25px',
+        paddingBottom: '15px',
         float: 'left'
     },
     nav_left: {
         width: '50%',
+        height: '50px',
         float: 'left',
         display: 'table'
     },
     nav_right: {
         width: '50%',
+        height: '50px',
         float: 'left',
         display: 'table'
     },
     org_menu_container: {
         float: 'right',
         display: 'table',
-        paddingTop: '40px'
+        height: '50px'
     },
     social_menu_container: {
         float: 'left',
         display: 'table',
-        paddingTop: '40px',
+        height: '50px',
         paddingLeft: '25px'
     },
     org_menu_item: {
-        height: '30px',
-        lineHeight: '30px',
+        height: '50px',
+        lineHeight: '50px',
         float: 'right',
         color: 'black',
         fontSize: '16px',
@@ -500,9 +553,23 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer',
         padding: '0px 10px 0px 10px'
     },
+    org_hidden_menu_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'black',
+        fontSize: '16px',
+        fontWeight: '900',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        display: 'none'
+    },
     social_menu_item: {
-        height: '30px',
-        lineHeight: '30px',
+        height: '50px',
+        lineHeight: '50px',
         float: 'left',
         color: 'black',
         fontSize: '18px',
@@ -515,7 +582,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     nav_img: {
         maxWidth: '150px',
-        maxHeight: '89px'
+        maxHeight: '50px'
     },
     organization_container: {
         width: '100%',
@@ -562,7 +629,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     section_title_container: {
         width: '70%',
-        color: '#565656',
+        color: '#767676',
         textAlign: 'left'
     },
     news_container: {
@@ -576,7 +643,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '286px',
         position: 'relative',
-        backgroundColor: 'white',
         color: 'white',
         marginBottom: '4px'
     },
@@ -651,7 +717,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     recent_matches_container: {
         width: '100%',
-        display: 'table'
+        display: 'table',
+        backgroundColor: 'transparent'
     },
     recent_matches_body: {
         width: '100%',

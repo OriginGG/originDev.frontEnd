@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationTwitterComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.darkBG}>
+            <div className={this.props.classes.darkNavBG}>
                 <div className={this.props.classes.dark_section_title_container}>
                     <h2>LATEST TWEETS</h2>
                 </div>

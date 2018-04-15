@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationMatchesComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.darkBG}>
+            <div className={this.props.classes.darkNavBG}>
                 <div id="recent_matches_container" className={this.props.classes.recent_matches_container}>
                     <div style={{
                         paddingTop: '0px'
@@ -38,8 +38,8 @@ class DarkOrganizationMatchesComponentRender extends Component {
                                                     height: '48px'
                                                 }}>
                                                     <th style={{
-                                                        fontWeight: 'normal',
-                                                        fontSize: '14px',
+                                                        fontWeight: '900',
+                                                        fontSize: '16px',
                                                         paddingLeft: '24px',
                                                         paddingRight: '24px',
                                                         height: '56px',
@@ -51,8 +51,8 @@ class DarkOrganizationMatchesComponentRender extends Component {
                                                         backgroundColor: 'inherit'
                                                     }}>Game</th>
                                                     <th style={{
-                                                        fontWeight: 'normal',
-                                                        fontSize: '14px',
+                                                        fontWeight: '900',
+                                                        fontSize: '16px',
                                                         paddingLeft: '24px',
                                                         paddingRight: '24px',
                                                         height: '56px',
@@ -64,8 +64,8 @@ class DarkOrganizationMatchesComponentRender extends Component {
                                                         backgroundColor: 'inherit'
                                                     }}>Vs</th>
                                                     <th style={{
-                                                        fontWeight: 'normal',
-                                                        fontSize: '14px',
+                                                        fontWeight: '900',
+                                                        fontSize: '16px',
                                                         paddingLeft: '24px',
                                                         paddingRight: '24px',
                                                         height: '56px',

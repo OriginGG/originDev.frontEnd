@@ -55,7 +55,17 @@ class OrganizationNavController extends Component {
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitchLink); }} className="fa fa-twitch" />
             </div>);
         }
-        return <OrganizationNavComponentRender store_style={this.props.store_style} about_style={this.props.about_style} handleBlogButtonClick={this.handleBlogButtonClick} handleStoreClick={this.props.handleStoreClick} handleAboutClick={this.props.handleAboutClick} social_links={social_links} image_src={this.image_src} />;
+        return <OrganizationNavComponentRender
+            sidebar={this.props.sidebar}
+            login_style={this.props.login_style}
+            home_style={this.props.home_style}
+            store_style={this.props.store_style}
+            about_style={this.props.about_style}
+            handleBlogButtonClick={this.handleBlogButtonClick}
+            handleStoreClick={this.props.handleStoreClick}
+            handleAboutClick={this.props.handleAboutClick}
+            social_links={social_links}
+            image_src={this.image_src} />;
     }
 }
 
@@ -65,8 +75,11 @@ OrganizationNavController.propTypes = {
     handleStoreClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
+    sidebar: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,
-    store_style: PropTypes.object.isRequired
+    store_style: PropTypes.object.isRequired,
+    home_style: PropTypes.object.isRequired,
+    login_style: PropTypes.object.isRequired
 };
 
 
