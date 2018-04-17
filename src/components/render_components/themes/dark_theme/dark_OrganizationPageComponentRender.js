@@ -36,10 +36,10 @@ class DarkOrganizationPageComponentRender extends Component {
                         <div id="video_cont" className={this.props.classes.dark_media_container}>
                             <div >{this.props.videoContent}</div>
                         </div>
-                        <div className={this.props.classes.orgFooter} style={this.props.footer_style}>
-                            <p className={this.props.classes.orgFooterText}>© Origin. All rights reserved.</p>
-                        </div>
                     </div>
+                </div>
+                <div className={this.props.classes.orgFooter} style={this.props.footer_style}>
+                    <p className={this.props.classes.orgFooterText}>© Origin. All rights reserved.</p>
                 </div>
             </div>
         )

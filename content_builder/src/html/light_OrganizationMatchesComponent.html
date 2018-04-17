@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Standard Meta -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <!-- Site Properties -->
+      <title>Login Example - Semantic</title>
+      <link rel="stylesheet" type="text/css" href="./Semantic-UI-CSS-master/semantic.min.css">
+      <script
+         src="https://code.jquery.com/jquery-3.1.1.min.js"
+         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+         crossorigin="anonymous"></script>
+      <script src="./jss/jss.min.js"></script>   
+      <script src="./Semantic-UI-CSS-master/semantic.min.js"></script>    
+      <script type="module">
+         import { GlobalTheme, GlobalStyles } from './Theme.js'
+         import {attach_styles} from './attach-styles.js';
+         attach_styles(GlobalTheme, GlobalStyles, 'classes');
+      </script>   
+   </head>
+   <body>
+      <div data-component-name="light_OrganizationMatchesComponent">
+            <div style="padding-top: 20px;">
+                <div class="classes.recent_matches_body">
+                    <h3 class="classes.recent_matches_title" >Recent Matches</h3>
+                    <div class="styles__recent_matchlist___3Px6i">
+                        <div style="height: auto; overflow: auto;">
+                            <div>
+                                <table style="width: 100%; border-collapse: collapse; border-spacing: 0px; table-layout: fixed; font-family: Roboto, sans-serif;">
+                                    <thead style="border-bottom: 1px solid rgb(24, 24, 24);">
+                                        <tr style="border-bottom: 1px solid rgb(24, 24, 24); color: rgba(0, 0, 0, 0.87); height: 48px;">
+                                            <th style="font-weight: normal; font-size: 12px; padding-left: 24px; padding-right: 24px; height: 56px; text-align: left; white-space: nowrap; text-overflow: ellipsis; color: rgb(24, 24, 24); position: relative; background-color: inherit;">Game</th>
+                                            <th style="font-weight: normal; font-size: 12px; padding-left: 24px; padding-right: 24px; height: 56px; text-align: left; white-space: nowrap; text-overflow: ellipsis; color: rgb(24, 24, 24); position: relative; background-color: inherit;">Vs</th>
+                                            <th style="font-weight: normal; font-size: 12px; padding-left: 24px; padding-right: 24px; height: 56px; text-align: left; white-space: nowrap; text-overflow: ellipsis; color: rgb(24, 24, 24); position: relative; background-color: inherit;">Score</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div style="height: inherit; overflow-x: hidden; overflow-y: auto;">
+                                <table style="width: 100%; border-collapse: collapse; border-spacing: 0px; table-layout: fixed; font-family: Roboto, sans-serif;">
+                                    <tbody data-component-value="{this.props.recent_matches}">
+                                        <tr style="color: rgba(0, 0, 0, 0.87); height: 58px; padding-top:5px">
+                                            <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
+                                                <img size="40" src="http://api.originbeta.net/defaultRecentMatch/wow.png" style="color: rgb(24, 24, 24); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
+                                                <br>
+                                            </td>
+                                            <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
+                                                <img size="40" src="http://api.originbeta.net/defaultRecentMatch/1518910314231Capture.PNG" style="color: rgb(24, 24, 24); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
+                                                <br>
+                                            </td>
+                                            <td style="color: black; font-size:16px; padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
+                                                <span>3 - 2</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+   </body>
+</html>

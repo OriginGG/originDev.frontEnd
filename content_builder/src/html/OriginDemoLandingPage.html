@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Standard Meta -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <!-- Site Properties -->
+      <title>Origin Demo Landing Page</title>
+      <link rel="stylesheet" type="text/css" href="./Semantic-UI-CSS-master/semantic.min.css">
+      <script
+         src="https://code.jquery.com/jquery-3.1.1.min.js"
+         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+         crossorigin="anonymous"></script>
+      <script src="./jss/jss.min.js"></script>   
+      <script src="./Semantic-UI-CSS-master/semantic.min.js"></script>    
+      <script type="module">
+         import { GlobalTheme, GlobalStyles } from './Theme.js'
+         import {attach_styles} from './attach-styles.js';
+         attach_styles(GlobalTheme, GlobalStyles, 'classes');
+      </script>    
+    </head>
+    <body>
+        <div data-component-name="OriginDemoLandingPageComponent">
+            <div class="classes.landing_body">  
+                <header class="classes.landing_header">
+                    <i id="menu_open" class="bars icon" style="color:#fff;font-size: 35px;cursor: pointer;"></i>
+                </header> 
+                <div id="landing_welcome" class="classes.landing_outer_welcome_container">
+                        <div class=classes.landing_welcome_container>
+                            <div class="classes.landing_welcome_lines_container">
+                                <img class="classes.landing_welcome_lines_image" src="./images/logo-top1.png" />
+                            </div>
+                        </div>
+                </div>
+                <div id="landing_organization" class="classes.landing_content_container">
+                    <div class="ui stackable two column grid">
+                        <div class="column">
+                            <div id="org_title" class="classes.landing_org_header_text">
+                                Your Team <span class="classes.landing_org_header_text_blue">Origin</span>ates Here
+                            </div>
+                            <div id="org_body" class="classes.landing_org_body">
+                                    <p><!-- react-text: 83 -->Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.<!-- /react-text --><br><br><!-- react-text: 86 -->After choosing your domain name, you'll have the opportunity to fill out your basic details and choose one of our beautiful themes. From there, upload your own custom graphics or choose some of our in-house images. <!-- /react-text --><br><br><!-- react-text: 89 -->You'll be able to keep your fans updated with news, match updates, and rosters quickly and easily through our in-house CMS system.<!-- /react-text --><br><br><!-- react-text: 92 -->What are you waiting on? Spawn your team now!<!-- /react-text --></p>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div id="org_create" class="classes.landing_org_diagram">
+                                <div class="classes.landing_org_arrow_box">
+                                    Create Your Domain
+                                </div>
+                                <div class="classes.landing_org_line"></div>
+                                <div class="classes.landing_org_arrow"></div>
+                            </div>
+                            <div id="org_add" class="classes.landing_org_diagram">
+                                <div class="classes.landing_org_arrow_box">
+                                    Add Your Details
+                                </div>
+                                <div class="classes.landing_org_line"></div>
+                                <div class="classes.landing_org_arrow"></div>
+                            </div>
+                            <div id="org_grow" class="classes.landing_org_diagram">
+                                <div class="classes.landing_org_arrow_box">
+                                    Grow Your Empire
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="landing_individual" class="classes.landing_individual_container">
+                    <div class="ui stackable two column grid">
+                        <div class="column">
+                            <div class="ui three column grid">
+                                <div class="column">
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                    <div class="classes.landing_individual_image_container">
+                                        <img class="classes.landing_individual_image_container" src="./images/human.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div id="indie_text" class="classes.landing_individual_body">
+                                <div class="classes.landing_individual_header">
+                                    Individuals
+                                </div>
+                                <div class="classes.landing_individual_text">
+                                        <p><!-- react-text: 150 -->Our aim with Individual profiles is to help players and streamers create and build their personal brand. If you are a player looking for a team, you will easily be able to display your accomplishments. When you are picked up by one of our teams, they'll simply be able to add your profile to their roster! <!-- /react-text --><br><!-- react-text: 152 -->  <!-- /react-text --><br><!-- react-text: 154 -->Likewise, if you are a streamer, your brand is important. No matter what streaming service you use, people need access to your brand outside of your social media channels. We want to make it easy for sponsors to find you, get the information they need, and pay you!<!-- /react-text --><br><br><!-- react-text: 157 -->We are currently building our Individual's platform. We'll let you know as soon as we launch.<!-- /react-text --></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="classes.coming_soon_div">
+                        Coming Soon
+                    </div>
+                </div>
+                <div id="landing_why" class="classes.landing_content_container">
+                    <div id="why_content" class="classes.landing_why_content">
+                        <div class="classes.landing_why_header">WHY ORIGIN.GG</div>
+                        <div class="classes.landing_why_body">
+                            <p><!-- react-text: 113 -->Our belief at Origin.gg is that if our teams and players don't succeed, then we don't succeed. It is our daily mission to make sure that YOUR FANS love your team and your brand.<!-- /react-text --><br id="the-individuals"><!-- react-text: 115 -->We will continually build and implement things that will improve your fan retention, increase your sponsorships, and ultimately build your team into a SUCCESS.<!-- /react-text --></p>
+                        </div>  
+                    </div>
+                </div>
+                <div id="landing_upcoming" class="classes.landing_content_container">
+                    <div class="ui stackable two column grid">
+                        <div class="column">
+                            <div class="classes.upcoming_header">Upcoming Features</div>
+                            <div id="up_rosters" class="classes.upcoming_opacity">
+                                <div class="classes.upcoming_title">Team Rosters</div>
+                                <div class="classes.upcoming_body">
+                                    Showcase the talented players your organization represents with our new option to display your teams & rosters on your website.
+                                </div>
+                            </div>
+                            <div id="up_blogs" class="classes.upcoming_opacity">
+                                <div class="classes.upcoming_title">Blog Posts</div>
+                                <div class="classes.upcoming_body">
+                                    Keep your fans up to date with your successes by creating content to share to the world. Our blogging platform allows you to create content quickly & easily.
+                                </div>
+                            </div>
+                            <div id="up_custom" class="classes.upcoming_opacity">
+                                <div class="classes.upcoming_title">Customize Elements</div>
+                                <div class="classes.upcoming_body">
+                                    Customize every feature, colors, images, and more with our deeply integrated customization platform. Make your brand unique and looking like no others.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="classes.landing_upcoming_video">
+                                <iframe title="ifr" width="560" height="315" src="https://www.youtube.com/embed/W0VxEg28UwA" frameborder="0" allowfullscreen="" style="border-width: 1px; border-color: white; border-style: solid; margin-left:auto;margin-right:auto;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="menu_modal_container" class="classes.landing_menu_modal">
+                    <div class="classes.menu_modal_header">
+                        <div id="menu_close" class="classes.menu_close">X</div>
+                    </div>
+                    <div id="menu_welcome" class="classes.menu_modal_item_container">Welcome</div>
+                    <div id="menu_organization" class="classes.menu_modal_item_container">Organization</div>
+                    <div id="menu_individual" class="classes.menu_modal_item_container">Individual</div>
+                    <div id="menu_why" class="classes.menu_modal_item_container">Why Origin?</div>
+                    <div id="menu_upcoming" class="classes.menu_modal_item_container">Upcoming Features</div>
+                </div>
+                <div class="classes.landing_page_button_container">
+                    <div class="classes.landing_page_join_button">Build Your Empire Now</div>
+                </div>
+                <div class="classes.landing_footer">
+                    <p class="classes.landing_footer_text">© Origin. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        $( document ).ready(function() {
+            console.log( "ready!" );
+        });
+
+        $(window).scroll(function() {
+            var top_of_individual = $("#landing_individual").offset().top + $("#landing_individual").outerHeight() / 2;
+            var bottom_of_individual = $("#landing_individual").offset().top + $("#landing_individual").outerHeight();
+
+            var top_of_organization = $("#landing_organization").offset().top + $("#landing_organization").outerHeight() / 2;
+            var bottom_of_organization = $("#landing_organization").offset().top + $("#landing_organization").outerHeight();
+
+            var top_of_why = $("#landing_why").offset().top + $("#landing_why").outerHeight() / 2;
+            var bottom_of_why = $("#landing_why").offset().top + $("#landing_why").outerHeight();
+
+            var top_of_upcoming = $("#landing_upcoming").offset().top + $("#landing_upcoming").outerHeight() / 2;
+            var bottom_of_upcoming = $("#landing_upcoming").offset().top + $("#landing_upcoming").outerHeight();
+
+
+            var bottom_of_screen = $(window).scrollTop() + window.innerHeight;
+            var top_of_screen = $(window).scrollTop();
+
+            if((bottom_of_screen > top_of_individual) && (top_of_screen < bottom_of_individual)){
+                $('#indie_text').animate({'opacity':'1'},1500);
+            }
+
+            if((bottom_of_screen > top_of_organization) && (top_of_screen < bottom_of_organization)){
+                $('#org_title').animate({'opacity':'1'},1500);
+                $('#org_body').animate({'opacity':'1'},1500);
+                $('#org_create').delay(250).animate({'opacity':'1'},1500);
+                $('#org_add').delay(500).animate({'opacity':'1'},1500);
+                $('#org_grow').delay(750).animate({'opacity':'1'},1500);
+            }
+
+            if((bottom_of_screen > top_of_why) && (top_of_screen < bottom_of_why)){
+                $('#why_content').animate({'opacity':'1'},1500);
+            }
+
+            if((bottom_of_screen > top_of_upcoming) && (top_of_screen < bottom_of_upcoming)){
+                $('#up_rosters').animate({'opacity':'1'},1500);
+                $('#up_blogs').delay(250).animate({'opacity':'1'},1500);
+                $('#up_custom').delay(500).animate({'opacity':'1'},1500);
+
+            }
+        });
+
+        function dimAll() {
+            $("#menu_welcome").css({ opacity: 0.5 });
+            $("#menu_organization").css({ opacity: 0.5 });
+            $("#menu_individual").css({ opacity: 0.5 });
+            $("#menu_why").css({ opacity: 0.5 });
+            $("#menu_upcoming").css({ opacity: 0.5 });
+        }
+
+        $('#menu_open').on( "click", function() {
+            $('#menu_modal_container').show();
+            $('#menu_welcome').delay(100).animate({ opacity: .5 }, 700)
+            $('#menu_organization').delay(200).animate({ opacity: .5 }, 700)
+            $('#menu_individual').delay(300).animate({ opacity: .5 }, 700)
+            $('#menu_why').delay(400).animate({ opacity: .5 }, 700)
+            $('#menu_upcoming').delay(500).animate({ opacity: .5 }, 700)
+        });
+
+        $('#menu_close').on( "click", function() {
+            $('#menu_modal_container').hide();
+            $('#menu_welcome').delay(100).animate({ opacity: 0 }, 200)
+            $('#menu_organization').delay(100).animate({ opacity: 0 }, 200)
+            $('#menu_individual').delay(100).animate({ opacity: 0 }, 200)
+            $('#menu_why').delay(100).animate({ opacity: 0 }, 200)
+            $('#menu_upcoming').delay(100).animate({ opacity: 0 }, 200)
+        });
+
+        $('#menu_welcome').hover(function() {
+            $("#menu_welcome").css({ opacity: 1.0 });
+            $("#menu_organization").css({ opacity: 0.5 });
+            $("#menu_individual").css({ opacity: 0.5 });
+            $("#menu_why").css({ opacity: 0.5 });
+            $("#menu_upcoming").css({ opacity: 0.5 });
+        });
+
+        $('#menu_organization').hover(function() {
+            $("#menu_welcome").css({ opacity: 0.5 });
+            $("#menu_organization").css({ opacity: 1.0 });
+            $("#menu_individual").css({ opacity: 0.5 });
+            $("#menu_why").css({ opacity: 0.5 });
+            $("#menu_upcoming").css({ opacity: 0.5 });
+        });
+
+        $('#menu_individual').hover(function() {
+            $("#menu_welcome").css({ opacity: 0.5 });
+            $("#menu_organization").css({ opacity: 0.5 });
+            $("#menu_individual").css({ opacity: 1.0 });
+            $("#menu_why").css({ opacity: 0.5 });
+            $("#menu_upcoming").css({ opacity: 0.5 });
+        });
+
+        $('#menu_why').hover(function() {
+            $("#menu_welcome").css({ opacity: 0.5 });
+            $("#menu_organization").css({ opacity: 0.5 });
+            $("#menu_individual").css({ opacity: 0.5 });
+            $("#menu_why").css({ opacity: 1.0 });
+            $("#menu_upcoming").css({ opacity: 0.5 });
+        });
+
+        $('#menu_upcoming').hover(function() {
+            $("#menu_welcome").css({ opacity: 0.5 });
+            $("#menu_organization").css({ opacity: 0.5 });
+            $("#menu_individual").css({ opacity: 0.5 });
+            $("#menu_why").css({ opacity: 0.5 });
+            $("#menu_upcoming").css({ opacity: 1.0 });
+        });
+
+        $('#menu_welcome').on( "click", function() {
+            $('#menu_modal_container').hide();
+            window.location.hash = '#landing_welcome';
+            $('#menu_welcome').delay(500).animate({ opacity: 0 }, 700)
+            $('#menu_organization').delay(750).animate({ opacity: 0 }, 700)
+            $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
+            $('#menu_why').delay(1250).animate({ opacity: 0 }, 700)
+            $('#menu_upcoming').delay(2000).animate({ opacity: 0 }, 700)
+        });
+        $('#menu_organization').on( "click", function() {
+            $('#menu_modal_container').hide();
+            window.location.hash = '#landing_organization';
+            $('#menu_welcome').delay(500).animate({ opacity: 0 }, 700)
+            $('#menu_organization').delay(750).animate({ opacity: 0 }, 700)
+            $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
+            $('#menu_why').delay(1250).animate({ opacity: 0 }, 700)
+            $('#menu_upcoming').delay(2000).animate({ opacity: 0 }, 700)
+        });
+        $('#menu_individual').on( "click", function() {
+            $('#menu_modal_container').hide();
+            window.location.hash = '#landing_individual';
+            $('#menu_welcome').delay(500).animate({ opacity: 0 }, 700)
+            $('#menu_organization').delay(750).animate({ opacity: 0 }, 700)
+            $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
+            $('#menu_why').delay(1250).animate({ opacity: 0 }, 700)
+            $('#menu_upcoming').delay(2000).animate({ opacity: 0 }, 700)
+        });
+        $('#menu_why').on( "click", function() {
+            $('#menu_modal_container').hide();
+            window.location.hash = '#landing_why';
+            $('#menu_welcome').delay(500).animate({ opacity: 0 }, 700)
+            $('#menu_organization').delay(750).animate({ opacity: 0 }, 700)
+            $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
+            $('#menu_why').delay(1250).animate({ opacity: 0 }, 700)
+            $('#menu_upcoming').delay(2000).animate({ opacity: 0 }, 700)
+        });
+        $('#menu_upcoming').on( "click", function() {
+            $('#menu_modal_container').hide();
+            window.location.hash = '#landing_upcoming';
+            $('#menu_welcome').delay(500).animate({ opacity: 0 }, 700)
+            $('#menu_organization').delay(750).animate({ opacity: 0 }, 700)
+            $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
+            $('#menu_why').delay(1250).animate({ opacity: 0 }, 700)
+            $('#menu_upcoming').delay(2000).animate({ opacity: 0 }, 700)
+        });
+    </script>
+</html>

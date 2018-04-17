@@ -7,17 +7,17 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationVideoComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.darkBG}>
+            <div className={this.props.classes.darkNavBG}>
                 <div className={this.props.classes.section_title_container}>
                     <h2>Videos</h2>
                 </div>
                 <h2 style={{
-                    color: 'rgb(56, 56, 56)'
+                    color: 'rgb(76, 76, 76)'
                 }}>
                     FEATURED VIDEO
                     <span>
                         <a href="#" style={{
-                            color: 'rgb(56, 56, 56)',
+                            color: 'rgb(76, 76, 76)',
                             float: 'right',
                             fontSize: '.8em'
                         }}>More Video</a>
