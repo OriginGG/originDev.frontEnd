@@ -110,8 +110,7 @@ class AppManager {
             if (h.indexOf('www.') === 0) {
                 h = window.location.hostname.replace('www.', '');
             }
-            const full_url = `http://dev.api.originapi.com/domain/get_domain_txt_record?host=${h}`;
-            // const full_url = `${process.env.REACT_APP_API_SERVER}/domain/get_domain_txt_record?host=${h}`;
+            const full_url = `${process.env.REACT_APP_API_SERVER}/domain/get_domain_txt_record?host=${h}`;
             axios.get(full_url).then((x) => {
                 resolve(x.data);
             }).catch((error) => {
