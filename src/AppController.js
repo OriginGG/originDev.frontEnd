@@ -14,44 +14,52 @@ class AppController extends Component {
         // pouchTest
         const is_root = location.pathname === '/';              // eslint-disable-line
         if (is_root) {
-            const authPayload = this.props.appManager.GetQueryParams('p');
-            if (authPayload) {
-                const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
-                await this.props.appManager.pouchStore('authenticate', p);
-            }
-            const domainGo = this.props.appManager.GetQueryParams('domain');
-            if (domainGo) {
-                this.props.appManager.serveDomain = domainGo;
+            // first check if we're being passed a domain token.
+
+            const domainToken = await this.props.appManager.getDomainToken();
+            if (domainToken && domainToken.token) {
+                this.props.appManager.serveDomain = domainToken.host;
                 historyStore.push('/main');
-            }
-            console.log(domainGo);
-            const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
-            this.props.uiStore.setOriginTheme(originTheme.resultData);
-            const domainInfo = this.props.appManager.getDomainInfo();
-            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
-            const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
-            let u_string;
-            if (o.resultData === null) {
-                if (subDomain) {
-                    const { hostname } = domainInfo;
-                    const new_host = hostname.replace(`${subDomain}.`, '');
-                    u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                    console.log(u_string);
-                }
-                if (process.env.REACT_APP_ENVIRONMENT === 'production') {
-                    window.location = `${u_string}/landing/index.html`;
-                } else {
-                    window.location = `${u_string}/signup`;
-                }
             } else {
-                if (subDomain === 'origin') {
+                const authPayload = this.props.appManager.GetQueryParams('p');
+                if (authPayload) {
+                    const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+                    await this.props.appManager.pouchStore('authenticate', p);
+                }
+                // const domainGo = this.props.appManager.GetQueryParams('domain');
+                // if (domainGo) {
+                //     this.props.appManager.serveDomain = domainGo;
+                //     historyStore.push('/main');
+                // }
+                // console.log(domainGo);
+                const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
+                this.props.uiStore.setOriginTheme(originTheme.resultData);
+                const domainInfo = this.props.appManager.getDomainInfo();
+                const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+                const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
+                let u_string;
+                if (o.resultData === null) {
+                    if (subDomain) {
+                        const { hostname } = domainInfo;
+                        const new_host = hostname.replace(`${subDomain}.`, '');
+                        u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+                        console.log(u_string);
+                    }
                     if (process.env.REACT_APP_ENVIRONMENT === 'production') {
-                        window.location.href = '/landing/index.html';
+                        window.location = `${u_string}/landing/index.html`;
                     } else {
-                        historyStore.push('/signup');
+                        window.location = `${u_string}/signup`;
                     }
                 } else {
-                    historyStore.push('/main');
+                    if (subDomain === 'origin') {
+                        if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+                            window.location.href = '/landing/index.html';
+                        } else {
+                            historyStore.push('/signup');
+                        }
+                    } else {
+                        historyStore.push('/main');
+                    }
                 }
             }
         } else {

@@ -7,6 +7,7 @@
  */
 import ApolloClient from 'apollo-client';
 import PouchDB from 'pouchdb';
+import axios from 'axios';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -102,6 +103,21 @@ class AppManager {
 
     encodeJWT = o => {
         return jwt.sign(o, 'bbo9Q4jsIkfQ1gkpolQAKLXO4WZ-s3SEcvo3gHwfxCEM_IBSisDWzlwcmDKjVfH0');
+    }
+    getDomainToken = () => {
+        return new Promise((resolve, reject) => {
+            let h = window.location.hostname;
+            if (h.indexOf('www.') === 0) {
+                h = window.location.hostname.replace('www.', '');
+            }
+            const full_url = `http://dev.api.originapi.com/domain/get_domain_txt_record?host=${h}`;
+            // const full_url = `${process.env.REACT_APP_API_SERVER}/domain/get_domain_txt_record?host=${h}`;
+            axios.get(full_url).then((x) => {
+                resolve(x.data);
+            }).catch((error) => {
+                reject(error);
+            });
+        });
     }
     GetQueryParams = name => {
         const url = window.location.href;
