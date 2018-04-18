@@ -196,6 +196,16 @@ export const GlobalStyles = GlobalTheme => ({
     // New Dark Theme
     // ***************************************************************
 
+    dark_news_title: {
+        fontWeight: '600',
+        textAlign: 'left',
+    },
+    dark_news_date: {
+        fontWeight: '400',
+        fontSize: '12px',
+        textAlign: 'right',
+        float: 'right'
+    },
     dark_nav_container: {
         display: 'table',
         width: '100%',
@@ -241,18 +251,17 @@ export const GlobalStyles = GlobalTheme => ({
 
     news_modal_info_box: {
         width: '100%',
-        height: '100px',
-        display: 'table'
+        display: 'table',
+        paddingTop: '30px',
+        paddingBottom: '30px'
     },
     news_modal_title_text: {
-        lineHeight: '100px',
         fontSize: '24px',
         fontWeight: 'bold',
         float: 'left',
         color: 'white'
     },
     news_modal_date_text: {
-        lineHeight: '100px',
         fontSize: ' 18px',
         fontWeight: 'bold',
         float: 'right',
