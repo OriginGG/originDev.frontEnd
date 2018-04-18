@@ -12,18 +12,26 @@ class DarkOrganizationNewsComponentRender extends Component {
                     <div id="news_item_1" className={this.props.classes.news_item_body}>
                         <img className={this.props.classes.news_item_image} src={this.props.blog_media}/>
                         <div className={this.props.classes.news_menu_item}>
-                            <span id="news_item_title" style={{
-                                fontWeight: '600'
-                            }}>{this.props.blog_title}</span>
-                            <span id="news_item_date" style={{
-                                position: 'absolute',
-                                right: '20px',
-                                top: '8px',
-                                fontWeight: '400',
-                                fontSize: '12px',
-                                paddingLeft: '15px'
-                            }}>{this.props.blog_date}</span>
+                            <div>
+                                <div style={{
+                                    width: '60%',
+                                    float: 'left',
+                                    paddingRight: '0px',
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis'
+                                }}>
+                                    <span className={this.props.classes.dark_news_title}>{this.props.blog_title}</span>
+                                </div>
+                                <div style={{
+                                    width: '40%',
+                                    float: 'left'
+                                }}>
+                                    <span className={this.props.classes.dark_news_date}>{this.props.blog_date}</span>
+                                </div>
+                            </div>
                             <div style={{
+                                width: '100%',
                                 height: '68px',
                                 overflowY: 'hidden'
                             }}>
