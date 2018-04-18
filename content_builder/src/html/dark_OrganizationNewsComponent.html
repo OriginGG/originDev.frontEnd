@@ -26,8 +26,14 @@
             <div id="news_item_1" class="classes.news_item_body">
                 <img class="classes.news_item_image" data-component-props="src={this.props.blog_media}" src="http://api.originbeta.net/blogMedia/CoD-4-Header.jpg" />    
                 <div class="classes.news_menu_item">
-                    <span id="news_item_title" style="font-weight: 600;" data-component-value="{this.props.blog_title}">We Are Live</span>
-                    <span id="news_item_date" style="position: absolute; right: 20px; top: 8px; font-weight: 400; font-size: 12px; padding-left: 15px;" data-component-value="{this.props.blog_date}">February 19, 2018</span>
+                    <div class="ui stackable two column grid">
+                        <div class="column" style="padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
+                            <span class="classes.dark_news_title" data-component-value="{this.props.blog_title}">We are live with a very long title</span>
+                        </div>
+                        <div class="column" style=>
+                            <span class="classes.dark_news_date" data-component-value="{this.props.blog_date}">February 19, 2018</span>
+                        </div>
+                    </div>
                     <div style="height: 68px; overflow-y: hidden;">
                         <p style="padding-top: 5px; font-weight: 400; font-size: 11px; line-height: 15px;" data-component-value="{this.props.blog_content}">We are exited to announce the launch of Ascendant Gaming.  Please follow us on our social media channels to stay up to date on competitions and events.</p>
                     </div>
