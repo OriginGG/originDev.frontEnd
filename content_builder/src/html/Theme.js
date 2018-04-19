@@ -73,6 +73,14 @@ export const GlobalStyles = GlobalTheme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
     },
+    choiceModal: {
+        width: '50%',
+        marginTop: '25%',
+        display: 'table',
+        paddingBottom: '20px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
     tabular_menu: {
         width: '100%',
         height: '54px',

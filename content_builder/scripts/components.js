@@ -10,6 +10,7 @@ const fs = require('fs-extra')
 const component_array = [
     { source_html: './src/html/SignupPageComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/SignupComponent.html', sub_dir: 'signup' },
+    { source_html: './src/html/SignupChoiceComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/LoginComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/CreateSubDomainComponent.html', sub_dir: 'signup' },
 
