@@ -120,6 +120,12 @@ class OrganizationPageController extends Component {
         }
         window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
     }
+    handleLoginClick = () => {
+        if (isMobile && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        historyStore.push('/signup');
+    }
     closeModal = () => {
         this.setState({ about_modal_open: false });
     }
@@ -158,6 +164,7 @@ class OrganizationPageController extends Component {
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
+            handleLoginClick={this.handleLoginClick}
             handleAboutClick={this.handleAboutClick} />;
         if (isMobile) {
             SideBar = <div
@@ -185,7 +192,7 @@ class OrganizationPageController extends Component {
                 handleAboutClick={this.handleAboutClick} />;
         }
         const theme = this.props.uiStore.current_organisation.themeId;
-
+        const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
@@ -194,6 +201,7 @@ class OrganizationPageController extends Component {
                         {SideBar}
                         <div className={`${theme}_gradient_bg`} >
                             <OrganizationPageComponentRender
+                                copyright={cp}
                                 newsContent={<OrganizationNewsController />}
                                 twitterContent={<OrganizationTwitterController />}
                                 matchesContent={<OrganizationMatchesController subDomain={subDomain} />}

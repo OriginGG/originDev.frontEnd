@@ -39,7 +39,7 @@
             <div class="classes.nav_right">
                 <div class="classes.org_menu_container">
                     <div id="nav_mobile" class="classes.org_hidden_menu_item"><i class="sidebar icon"></i></div>
-                    <div id="nav_login" class="classes.org_menu_item">Login</div>
+                    <div id="nav_login" data-component-props="onClick={this.props.handleLoginClick}" class="classes.org_menu_item">Login</div>
                     <div id="nav_store" data-component-props="style={this.props.store_style} onClick={this.props.handleStoreClick}" class="classes.org_menu_item">Store</div>
                     <div id="nav_about" data-component-props="style={this.props.about_style} onClick={this.props.handleAboutClick}" class="classes.org_menu_item">About</div>
                     <div id="nav_home" class="classes.org_menu_item">Home</div>
