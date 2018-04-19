@@ -69,6 +69,7 @@ class OrganizationNavController extends Component {
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
             handleAboutClick={this.props.handleAboutClick}
+            handleLoginClick={this.props.handleLoginClick}
             social_links={social_links}
             image_src={this.image_src} />;
     }
@@ -78,6 +79,7 @@ class OrganizationNavController extends Component {
 OrganizationNavController.propTypes = {
     handleAboutClick: PropTypes.func.isRequired,
     handleStoreClick: PropTypes.func.isRequired,
+    handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
     sidebar: PropTypes.object.isRequired,

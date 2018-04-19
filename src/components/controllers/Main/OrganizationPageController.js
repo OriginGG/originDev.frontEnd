@@ -120,6 +120,12 @@ class OrganizationPageController extends Component {
         }
         window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
     }
+    handleLoginClick = () => {
+        if (isMobile && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        historyStore.push('/signup');
+    }
     closeModal = () => {
         this.setState({ about_modal_open: false });
     }
@@ -158,6 +164,7 @@ class OrganizationPageController extends Component {
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
+            handleLoginClick={this.handleLoginClick}
             handleAboutClick={this.handleAboutClick} />;
         if (isMobile) {
             SideBar = <div
