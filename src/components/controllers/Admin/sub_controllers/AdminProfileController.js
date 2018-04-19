@@ -17,6 +17,7 @@ class AdminProfileController extends Component {
             insta_value: '',
             twitch_value: '',
             twitter_value: '',
+            youtube_value: '',
             company_store_value: '',
             company_name_value: '',
             facebook_value: '',
@@ -33,6 +34,7 @@ class AdminProfileController extends Component {
                 insta_value: this.props.uiStore.current_organisation.instaLink,
                 twitter_value: this.props.uiStore.current_organisation.twitterLink,
                 twitch_value: this.props.uiStore.current_organisation.twitchLink,
+                youtube_value: this.props.uiStore.current_organisation.youtubeLink,
                 company_name_value: this.props.uiStore.current_organisation.name,
                 company_store_value: this.props.uiStore.current_organisation.companyStoreLink,
                 facebook_value: this.props.uiStore.current_organisation.fbLink,
@@ -59,6 +61,7 @@ class AdminProfileController extends Component {
                 companyStoreLink: this.state.input_values.company_store_value,
                 name: this.state.input_values.company_name_value,
                 fbLink: this.state.input_values.facebook_value,
+                youtubeLink: this.state.input_values.youtube_value,
                 twitterLink: this.state.input_values.twitter_value,
                 instaLink: this.state.input_values.insta_value,
                 twitterFeedUsername: this.state.input_values.twitter_username_value,
@@ -120,6 +123,7 @@ class AdminProfileController extends Component {
                     logo_src={this.state.input_values.logo_src}
                     primary_color_value={this.state.input_values.primary_color_value}
                     handleChange={this.handleChange}
+                    youtube_value={this.state.input_values.youtube_value}
                     twitter_value={this.state.input_values.twitter_value}
                     twitch_value={this.state.input_values.twitch_value}
                     insta_value={this.state.input_values.insta_value}

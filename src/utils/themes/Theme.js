@@ -243,6 +243,30 @@ export const GlobalStyles = GlobalTheme => ({
         marginLeft: 'auto',
         marginRight: 'auto'
     },
+    dark_mobile_nav_container: {
+        width: '100%',
+        height: '20px',
+        background: 'black'
+    },
+    dark_mobile_nav_left: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingLeft: '15px',
+    },
+    dark_mobile_nav_right: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingRight: '15px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '20px'
+    },
+    dark_nav_mobile_img: {
+        maxWidth: '50px',
+        maxHeight: '20px',
+    },
 
     dark_org_menu_container: {
         float: 'right',

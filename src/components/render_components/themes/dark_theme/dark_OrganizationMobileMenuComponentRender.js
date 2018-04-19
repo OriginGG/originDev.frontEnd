@@ -21,6 +21,15 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                     <a className="item">
                         Login
                     </a>
+                    <a className="item">
+                        Facebook
+                    </a>
+                    <a className="item">
+                        Twitter
+                    </a>
+                    <a className="item">
+                        Youtube
+                    </a>
                 </div>
             </div>
         )

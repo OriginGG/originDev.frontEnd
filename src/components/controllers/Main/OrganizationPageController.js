@@ -185,7 +185,7 @@ class OrganizationPageController extends Component {
                 handleAboutClick={this.handleAboutClick} />;
         }
         const theme = this.props.uiStore.current_organisation.themeId;
-
+        const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
@@ -194,6 +194,7 @@ class OrganizationPageController extends Component {
                         {SideBar}
                         <div className={`${theme}_gradient_bg`} >
                             <OrganizationPageComponentRender
+                                copyright={cp}
                                 newsContent={<OrganizationNewsController />}
                                 twitterContent={<OrganizationTwitterController />}
                                 matchesContent={<OrganizationMatchesController subDomain={subDomain} />}

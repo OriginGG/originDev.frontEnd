@@ -55,6 +55,11 @@ class OrganizationNavController extends Component {
                 <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitchLink); }} className="fa fa-twitch" />
             </div>);
         }
+        if (this.props.uiStore.current_organisation.youtubeLink) {
+            social_links.push(<div className={this.props.classes[social_item_class]}>
+                <i role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fa fa-youtube" />
+            </div>);
+        }
         return <OrganizationNavComponentRender
             sidebar={this.props.sidebar}
             login_style={this.props.login_style}
