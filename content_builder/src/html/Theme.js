@@ -579,6 +579,11 @@ export const GlobalStyles = GlobalTheme => ({
         heght: '100px',
         borderRadius: '50px'
     },
+    sponser_item_img: {
+        width: '100px',
+        heght: '100px',
+        borderRadius: '10px'
+    },
     roster_item_info_container: {
         width: '100%',
         height: '30px',

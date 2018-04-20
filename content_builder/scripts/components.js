@@ -29,6 +29,8 @@ const component_array = [
     { source_html: './src/html/dark_OrganizationMobileNavComponent.html', sub_dir: 'themes/dark_theme' },
     { source_html: './src/html/dark_OrganizationRosterItemComponent.html', sub_dir: 'themes/dark_theme' },
     { source_html: './src/html/dark_OrganizationRosterPageComponent.html', sub_dir: 'themes/dark_theme' },
+    { source_html: './src/html/dark_OrganizationSponserItemComponent.html', sub_dir: 'themes/dark_theme' },
+    { source_html: './src/html/dark_OrganizationSponserPageComponent.html', sub_dir: 'themes/dark_theme' },
 
     { source_html: './src/html/light_OrganizationAboutModalComponent.html', sub_dir: 'themes/light_theme' },
     { source_html: './src/html/light_OrganizationNewsModalComponent.html', sub_dir: 'themes/light_theme' },
