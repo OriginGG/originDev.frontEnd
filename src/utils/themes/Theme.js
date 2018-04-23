@@ -221,6 +221,13 @@ export const GlobalStyles = GlobalTheme => ({
         borderStyle: 'solid',
         cursor: 'pointer'
     },
+    dark_mobile_menu_item_box: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px'
+    },
     dark_news_title: {
         fontWeight: '600',
         textAlign: 'left',
@@ -791,6 +798,12 @@ export const GlobalStyles = GlobalTheme => ({
         width: '70%',
         color: '#767676',
         textAlign: 'left'
+    },
+    section_video_title_container: {
+        width: '100%',
+        color: '#767676',
+        textAlign: 'left',
+        marginTop: '10px'
     },
     news_container: {
         width: '70%',
