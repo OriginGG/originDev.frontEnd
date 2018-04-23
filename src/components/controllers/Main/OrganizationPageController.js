@@ -201,17 +201,18 @@ class OrganizationPageController extends Component {
         if (this.isMobile()) {
             SideBar =
                 <Menu
+                    pageWrapId="page-wrap"
+                    outerContainerId="outer-container"
                     isOpen={this.state.menu_open}
                     onStateChange={this.isMenuOpen}
                     width="100vw"
                     right
-                ><div>
-                <div style={{ display: 'flex' }}>
-                    <div><OrganizationMobileMenuComponentRender
+            ><div id="page-wrap">
+                <div style={{ display: 'flex', width: '100%' }}>
+                    <OrganizationMobileMenuComponentRender
                         handleSocial={this.handleSocial}
                         handleStoreClick={this.handleStoreClick}
                         handleAboutClick={this.handleAboutClick} />
-                    </div>
                 </div>
             </div></Menu>;
             nv_content = <span />;
@@ -221,7 +222,7 @@ class OrganizationPageController extends Component {
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
-                    <div ref={(c) => { this.ref_node = c; }}>
+                    <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
                         <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
                             {SideBar}
                         <div className={`${theme}_gradient_bg`} >
