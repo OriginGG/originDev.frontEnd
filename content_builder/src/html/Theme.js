@@ -791,6 +791,12 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#767676',
         textAlign: 'left'
     },
+    section_video_title_container: {
+        width: '100%',
+        color: '#767676',
+        textAlign: 'left',
+        marginTop: '10px'
+    },
     news_container: {
         width: '70%',
         display: 'table',
