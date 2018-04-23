@@ -204,6 +204,22 @@ export const GlobalStyles = GlobalTheme => ({
     // New Dark Theme
     // ***************************************************************
 
+    dark_mobile_menu: {
+        width: '100%',
+        height: '100vh',
+        background: 'rgb(20,20,20)'
+    },
+    dark_mobile_menu_item: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px',
+        borderWidth: '1px',
+        borderColor: 'rgb(30,30,30)',
+        borderStyle: 'solid',
+        cursor: 'pointer'
+    },
     dark_news_title: {
         fontWeight: '600',
         textAlign: 'left',
@@ -574,14 +590,22 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto',
         marginTop: '20px'
     },
+    sponser_item_img_container: {
+        width: '125px',
+        height: '125px',
+        display: 'table',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '40%'
+    },
     roster_item_img: {
         width: '100px',
         heght: '100px',
         borderRadius: '50px'
     },
     sponser_item_img: {
-        width: '100px',
-        heght: '100px',
+        width: '125px',
+        heght: '125px',
         borderRadius: '10px'
     },
     roster_item_info_container: {
