@@ -152,7 +152,7 @@ animation: darktheme 19s ease infinite;
 /* General sidebar styles */
 .bm-menu {
   background: #373a47;
-  padding: 2.4em 0;
+  padding: 0;
   font-size: 1.15em;
 }
 

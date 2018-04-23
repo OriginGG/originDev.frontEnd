@@ -205,7 +205,7 @@ export const GlobalStyles = GlobalTheme => ({
     // ***************************************************************
 
     dark_mobile_menu: {
-        width: '100%',
+        width: '100vw',
         height: '100vh',
         background: 'rgb(20,20,20)'
     },
