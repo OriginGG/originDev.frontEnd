@@ -122,3 +122,70 @@ animation: darktheme 19s ease infinite;
     50%{background-position:100% 31%}
     100%{background-position:0% 70%}
 }
+
+.bm-burger-button {
+  position: fixed;
+  width: 12px;
+  color: white;
+  height: 12px;
+  right: 36px;
+  top: 86px;
+  z-index: 100000;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #373a47;
+  padding: 2.4em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.bm-burger-bars {
+    background: #f9fafb;
+}
+
+html {
+    overflow-x: hidden;
+    -ms-overflow-style: none; 
+    overflow: -moz-scrollbars-none; 
+
+}
+::-webkit-scrollbar {
+    width: 0px;  
+    background: transparent; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: transparent;
+}

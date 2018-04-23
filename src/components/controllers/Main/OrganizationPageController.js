@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
-import { Icon } from 'semantic-ui-react';
+import { slide as Menu } from 'react-burger-menu';
 import { Modal } from 'antd';
 import Favicon from 'react-favicon';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
@@ -104,30 +104,65 @@ class OrganizationPageController extends Component {
         const f = this.state.menu_open;
         this.setState({ menu_open: !f });
     }
+    isMobile = () => {
+        return true;
+        // return isMobile;
+    }
 
     createMarkup = (content) => {
         return { __html: content };
     }
     handleAboutClick = () => {
-        if (isMobile && this.state.menu_open) {
+        if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
         this.setState({ about_modal_open: true });
     }
     handleStoreClick = () => {
-        if (isMobile && this.state.menu_open) {
+        if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
-        window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
+        if (this.props.uiStore.current_organisation.companyStoreLink) {
+            window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
+        }
     }
     handleLoginClick = () => {
-        if (isMobile && this.state.menu_open) {
+        if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
         historyStore.push('/signup');
     }
+    isMenuOpen = (state) => {
+        this.setState({ menu_open: state.isOpen });
+    }
     closeModal = () => {
         this.setState({ about_modal_open: false });
+    }
+
+    handleSocial = (t) => {
+        switch (t) {
+            case 'fb': {
+                if (this.props.uiStore.current_organisation.fbLink) {
+                    window.open(this.props.uiStore.current_organisation.fbLink, '_blank');
+                }
+                break;
+            }
+            case 'twitter': {
+                if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+                    const p_string = `https://twitter.com/${this.props.uiStore.current_organisation.twitterFeedUsername}`;
+                    window.open(p_string, '_blank');
+                }
+                break;
+            }
+            case 'youtube': {
+                if (this.props.uiStore.current_organisation.youtubeLink) {
+                    window.open(this.props.uiStore.current_organisation.youtubeLink, '_blank');
+                }
+                break;
+            }
+            default:
+                break;
+        }
     }
     render() {
         if (this.state.visible === false) {
@@ -153,10 +188,7 @@ class OrganizationPageController extends Component {
         const { OrganizationLogoController } = this.state;
         const { OrganizationAboutModalComponentRender } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
-        let ml = -200;
-        if (this.state.menu_open === true) {
-            ml = 0;
-        }
+        // let ml = -200;
         let SideBar = <div />;
         let nv_content = <OrganizationNavController
             store_style={ss}
@@ -166,30 +198,23 @@ class OrganizationPageController extends Component {
             handleStoreClick={this.handleStoreClick}
             handleLoginClick={this.handleLoginClick}
             handleAboutClick={this.handleAboutClick} />;
-        if (isMobile) {
-            SideBar = <div
-                style={{
-                    position: 'absolute',
-                    zIndex: 1000,
-                    right: ml,
-                    top: 98,
-                }}
-            >
+        if (this.isMobile()) {
+            SideBar =
+                <Menu
+                    isOpen={this.state.menu_open}
+                    onStateChange={this.isMenuOpen}
+                    width="100vw"
+                    right
+                ><div>
                 <div style={{ display: 'flex' }}>
-                    <div style={{ marginTop: 12, paddingRight: 8 }}><Icon onClick={this.toggleMenu} style={{ cursor: 'pointer', color: 'white' }} name="bars" /></div>
                     <div><OrganizationMobileMenuComponentRender
+                        handleSocial={this.handleSocial}
                         handleStoreClick={this.handleStoreClick}
-                        handleAboutClick={this.handleAboutClick} />;
+                        handleAboutClick={this.handleAboutClick} />
                     </div>
                 </div>
-            </div>;
-            nv_content = <OrganizationNavController
-                store_style={{ display: 'none' }}
-                about_style={{ display: 'none' }}
-                home_style={{ display: 'none' }}
-                login_style={{ display: 'none' }}
-                handleStoreClick={this.handleStoreClick}
-                handleAboutClick={this.handleAboutClick} />;
+            </div></Menu>;
+            nv_content = <span />;
         }
         const theme = this.props.uiStore.current_organisation.themeId;
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
@@ -198,7 +223,7 @@ class OrganizationPageController extends Component {
                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
                     <div ref={(c) => { this.ref_node = c; }}>
                         <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-                        {SideBar}
+                            {SideBar}
                         <div className={`${theme}_gradient_bg`} >
                             <OrganizationPageComponentRender
                                 copyright={cp}
@@ -217,7 +242,7 @@ class OrganizationPageController extends Component {
                                 content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent} />}
                             />
                         </div>
-                        </div>
+                    </div>
                 </DocumentTitle>
             </ThemeProvider>
         );

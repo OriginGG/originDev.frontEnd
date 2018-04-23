@@ -61,7 +61,6 @@ class OrganizationNavController extends Component {
             </div>);
         }
         return <OrganizationNavComponentRender
-            sidebar={this.props.sidebar}
             login_style={this.props.login_style}
             home_style={this.props.home_style}
             store_style={this.props.store_style}
@@ -82,7 +81,6 @@ OrganizationNavController.propTypes = {
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     classes: PropTypes.object.isRequired,
-    sidebar: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,
