@@ -8,28 +8,54 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className="ui inverted vertical menu">
-                    <a className="item">
-                        Home
-                    </a>
-                    <a className="item" style={this.props.about_style} onClick={this.props.handleAboutClick}>
-                        About
-                    </a>
-                    <a className="item" style={this.props.store_style} onClick={this.props.handleStoreClick}>
-                        Store
-                    </a>
-                    <a className="item">
-                        Login
-                    </a>
-                    <a className="item">
-                        Facebook
-                    </a>
-                    <a className="item">
-                        Twitter
-                    </a>
-                    <a className="item">
-                        Youtube
-                    </a>
+                <div className={this.props.classes.dark_mobile_menu}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item}>
+                            Home
+                        </a>
+                    </div>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item} onClick={this.props.handleAboutClick}>
+                            About
+                        </a>
+                    </div>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item} onClick={this.props.handleStoreClick}>
+                            Store
+                        </a>
+                    </div>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item} onClick={this.props.handleLoginClick}>
+                            Login
+                        </a>
+                    </div>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item} onClick={( ) => {
+                            this
+                                .props
+                                .handleSocial( 'fb' );
+                        }}>
+                            Facebook
+                        </a>
+                    </div>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item} onClick={( ) => {
+                            this
+                                .props
+                                .handleSocial( 'twitter' );
+                        }}>
+                            Twitter
+                        </a>
+                    </div>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item} onClick={( ) => {
+                            this
+                                .props
+                                .handleSocial( 'youtube' );
+                        }}>
+                            Youtube
+                        </a>
+                    </div>
                 </div>
             </div>
         )

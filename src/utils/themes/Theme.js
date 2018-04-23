@@ -73,6 +73,14 @@ export const GlobalStyles = GlobalTheme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
     },
+    choiceModal: {
+        width: '50%',
+        marginTop: '25%',
+        display: 'table',
+        paddingBottom: '20px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
     tabular_menu: {
         width: '100%',
         height: '54px',
@@ -196,6 +204,22 @@ export const GlobalStyles = GlobalTheme => ({
     // New Dark Theme
     // ***************************************************************
 
+    dark_mobile_menu: {
+        width: '100%',
+        height: '100vh',
+        background: 'rgb(20,20,20)'
+    },
+    dark_mobile_menu_item: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px',
+        borderWidth: '1px',
+        borderColor: 'rgb(30,30,30)',
+        borderStyle: 'solid',
+        cursor: 'pointer'
+    },
     dark_news_title: {
         fontWeight: '600',
         textAlign: 'left',
@@ -540,6 +564,109 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         padding: '0px 15px 0px 15px',
         background: 'transparent'
+    },
+    roster_body_container: {
+        width: '100%',
+        height: '100vh',
+        display: 'table',
+        padding: '100px 15px 0px 15px',
+        background: 'transparent'
+    },
+    roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(255,255,255,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+    roster_item_img_container: {
+        width: '100px',
+        height: '100px',
+        display: 'table',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px'
+    },
+    sponser_item_img_container: {
+        width: '125px',
+        height: '125px',
+        display: 'table',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '40%'
+    },
+    roster_item_img: {
+        width: '100px',
+        heght: '100px',
+        borderRadius: '50px'
+    },
+    sponser_item_img: {
+        width: '125px',
+        heght: '125px',
+        borderRadius: '10px'
+    },
+    roster_item_info_container: {
+        width: '100%',
+        height: '30px',
+        textAlign: 'left'
+    },
+    roster_item_name_container: {
+        width: '100%',
+        height: '80px',
+    },
+    roster_name: {
+        lineHeight: '80px',
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white'
+    },
+    roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    roster_item_about_container: {
+        width: '100%',
+        padding: '10px 30px 10px 10px',
+        textAlign: 'left'
+    },
+    roster_item_social_container: {
+        width: '100%',
+        height: '40px',
+    },
+    roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'white',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
+    roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(255,255,255,.8)'
+    },
+    roster_item_title: {
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'rgba(255,255,255,.9)'
+    },
+    roster_item_text: {
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: 'rgba(255,255,255,.7)'
     },
     nav_container: {
         display: 'table',
