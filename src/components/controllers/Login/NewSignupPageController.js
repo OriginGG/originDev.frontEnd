@@ -38,13 +38,17 @@ class NewSignupPageController extends Component {
                 lastName: '',
                 password: u.password,
                 email: u.email,
-                adminUser: true,
+                adminUser: u.adminUser,
             };
             await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
             const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: u.email, password: u.password });
             const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
             await this.props.appManager.executeQuery('mutation', deletePreUserQuery, { id: d.id });
-            historyStore.push(`/createsubdomain?p=${new_payload}`);
+            if (u.adminUser) {
+                historyStore.push(`/createsubdomain?p=${new_payload}`);
+            } else {
+                historyStore.push(`/individual?p=${new_payload}`);
+            }
         }
     }
 

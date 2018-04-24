@@ -12,12 +12,20 @@ class SignupChoiceComponentRender extends Component {
                     <div className="ui stackable two column grid">
                         <div className="column">
                             <div>
-                                <div className={this.props.classes.landing_page_join_button}>Organization</div>
+                                <div className={this.props.classes.landing_page_join_button} onClick={( ) => {
+                                    this
+                                        .props
+                                        .handleClick( 'org' );
+                                }}>Organization</div>
                             </div>
                         </div>
                         <div className="column">
                             <div>
-                                <div className={this.props.classes.landing_page_join_button}>Individual</div>
+                                <div className={this.props.classes.landing_page_join_button} onClick={( ) => {
+                                    this
+                                        .props
+                                        .handleClick( 'ind' );
+                                }}>Individual</div>
                             </div>
                         </div>
                     </div>

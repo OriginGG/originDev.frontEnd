@@ -5,14 +5,17 @@ import { inject } from 'mobx-react';
 import { Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import { Modal } from 'antd';
 import axios from 'axios';
 import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../../render_components/signup/LoginComponentRender';
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
 import { authenticateQuery } from '../../../../queries/login';
-import { createUserQuery, createPreUserQuery } from '../../../../queries/users';
+import { createUserQuery, createPreUserQuery, getUserByEmailQuery } from '../../../../queries/users';
 // import { createUserQuery, createPreUserQuery, authenticatePreUserQuery } from '../../../../queries/users';
 import historyStore from '../../../../utils/stores/browserHistory';
+
+const { confirm } = Modal;
 
 // import { getOrganisationQuery } from './queries/organisation'
 class LoginController extends Component {
@@ -36,6 +39,23 @@ class LoginController extends Component {
             });
         });
     }
+    showSendConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'User already pre-registered!',
+                content: 'Do you want to re-send registration email?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
     render() {
         return (
             <Formik
@@ -73,11 +93,11 @@ class LoginController extends Component {
                         const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                         if (authPayload.authenticate.resultData !== null) {
                             console.log('submitting2....');
-
                             const token = authPayload.authenticate.resultData.jwtToken;
                             const d = this.props.appManager.decodeJWT(token);
                             console.log(`d:-${d}`);
                             this.props.uiStore.setUserID(d.id);
+
                             const { organisation } = authPayload.authenticate.resultData;
                             const domainInfo = this.props.appManager.getDomainInfo();
                             console.log(`domain info:-${domainInfo}`);
@@ -92,7 +112,12 @@ class LoginController extends Component {
                                 window.location = u_string;
                             }
                             if (subDomain === 'origin' && organisation === null) {
-                                historyStore.push(`/createsubdomain?p=${payload}`);
+                                if (authPayload.authenticate.resultData.isAdmin === false) {
+                                    // it's an individual users, go to ind page.
+                                    historyStore.push(`/individual?p=${payload}`);
+                                } else {
+                                    historyStore.push(`/createsubdomain?p=${payload}`);
+                                }
                             }
                             if (subDomain === authPayload.authenticate.resultData.organisation) {
                                 // succesfully logged in store in pouch then change page.
@@ -119,7 +144,7 @@ class LoginController extends Component {
                                 lastName: '',
                                 password: v.password,
                                 email: v.email,
-                                adminUser: true,
+                                adminUser: !this.props.ind,
                             };
                             await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
                             toast.success(`Account ${v.email} created, you can now login.`, {
@@ -130,17 +155,44 @@ class LoginController extends Component {
                                 name: v.name,
                                 password: v.password,
                                 email: v.email,
-                                adminUser: true,
+                                adminUser: !this.props.ind,
                             };
-                            const pre_user = await this.props.appManager.executeQuery('mutation', createPreUserQuery, payload);
-                            const { jwtToken } = pre_user.preRegisterUser;
-                            const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.name}&admin_user=true&token=${jwtToken}`;
-                            await this.sendEmail(url);
-                            console.log(pre_user);
-                            toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
-                                position: toast.POSITION.TOP_LEFT,
-                                autoClose: 15000
-                            });
+
+                            const a = this.props.ind ? 'admin_user=false' : 'admin_user=true';
+
+                            // first see if user exists in normal db?
+
+                            const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
+                            if (registered_user.allUsers.edges.length > 0) {
+                                toast.success(`Account ${v.email} already registered. Please sign in as normal`, {
+                                    position: toast.POSITION.TOP_LEFT,
+                                    autoClose: 15000
+                                });
+                            } else {
+                                try {
+                                    const pre_user = await this.props.appManager.executeQuery('mutation', createPreUserQuery, payload);
+
+                                    const { jwtToken } = pre_user.preRegisterUser;
+                                    const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.name}&${a}&token=${jwtToken}&dev=false`;
+                                    await this.sendEmail(url);
+                                    console.log(pre_user);
+                                    toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
+                                        position: toast.POSITION.TOP_LEFT,
+                                        autoClose: 15000
+                                    });
+                                } catch (err) {
+                                    const { message } = err;
+                                    if (message.indexOf('duplicate') > -1) {
+                                        const f = await this.showSendConfirm();
+                                        if (f) {
+                                            toast.success(`Registration email re-sent to ${v.email}, please check your email for further instructions.`, {
+                                                position: toast.POSITION.TOP_LEFT,
+                                                autoClose: 15000
+                                            });
+                                        }
+                                    }
+                                }
+                            }
                         }
                         // const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     }
@@ -202,7 +254,12 @@ class LoginController extends Component {
 
 LoginController.propTypes = {
     uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+    appManager: PropTypes.object.isRequired,
+    ind: PropTypes.bool
+};
+
+LoginController.defaultProps = {
+    ind: false
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(LoginController));

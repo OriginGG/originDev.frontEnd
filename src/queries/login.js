@@ -5,6 +5,7 @@ export const authenticateQuery = gql`
         authenticate(input: {email: $email, password: $password}) {
             resultData: authPayload {
             jwtToken
+            isAdmin
             organisation
 		}
     }

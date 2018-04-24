@@ -11,21 +11,21 @@ import logoTop from '../../../assets/images/logo-top.png';
 
 const HeaderComp = () => {
     return (
-        <div style={{ display: 'inline' }}><img alt="" src={logoTop} /><Header as="h1" style={{ float: 'right', marginTop: 12 }}>ORGANIZATION</Header></div>
+        <div style={{ display: 'inline' }}><img alt="" src={logoTop} /><Header as="h1" style={{ float: 'right', marginTop: 12 }}>INDIVIDUAL</Header></div>
     );
 };
-class SignupPageController extends Component {
+class SignupIndividualController extends Component {
     render() {
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
-                <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={<LoginController />} />
+                <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={<LoginController ind />} />
             </ThemeProvider>
         );
     }
 }
 
-SignupPageController.propTypes = {
+SignupIndividualController.propTypes = {
     uiStore: PropTypes.object.isRequired,
 };
-export default inject('uiStore')(injectSheet(GlobalStyles)(SignupPageController));
+export default inject('uiStore')(injectSheet(GlobalStyles)(SignupIndividualController));
 
