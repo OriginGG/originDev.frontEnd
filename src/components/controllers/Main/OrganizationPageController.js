@@ -5,7 +5,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { slide as Menu } from 'react-burger-menu';
 import { Modal } from 'antd';
 import Favicon from 'react-favicon';
-// import { isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
@@ -105,8 +105,8 @@ class OrganizationPageController extends Component {
         this.setState({ menu_open: !f });
     }
     isMobile = () => {
-        return true;
-        // return isMobile;
+        // return true;
+        return isMobile;
     }
 
     createMarkup = (content) => {
@@ -205,16 +205,18 @@ class OrganizationPageController extends Component {
                     outerContainerId="outer-container"
                     isOpen={this.state.menu_open}
                     onStateChange={this.isMenuOpen}
-                    width="100vw"
+                    width="100%"
+                    height="100%"
                     right
-            ><div id="page-wrap">
-                <div style={{ display: 'flex', width: '100%' }}>
-                    <OrganizationMobileMenuComponentRender
-                        handleSocial={this.handleSocial}
-                        handleStoreClick={this.handleStoreClick}
-                        handleAboutClick={this.handleAboutClick} />
-                </div>
-            </div></Menu>;
+                ><div id="page-wrap">
+                        <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+                            <OrganizationMobileMenuComponentRender
+                                handleSocial={this.handleSocial}
+                                handleStoreClick={this.handleStoreClick}
+                                handleLoginClick={this.handleLoginClick}
+                                handleAboutClick={this.handleAboutClick} />
+                        </div>
+                    </div></Menu>;
             nv_content = <span />;
         }
         const theme = this.props.uiStore.current_organisation.themeId;
@@ -224,7 +226,7 @@ class OrganizationPageController extends Component {
                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
                     <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
                         <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-                            {SideBar}
+                        {SideBar}
                         <div className={`${theme}_gradient_bg`} >
                             <OrganizationPageComponentRender
                                 copyright={cp}

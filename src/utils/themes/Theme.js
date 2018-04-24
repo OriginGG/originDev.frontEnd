@@ -205,8 +205,9 @@ export const GlobalStyles = GlobalTheme => ({
     // ***************************************************************
 
     dark_mobile_menu: {
-        width: '100vw',
-        height: '100vh',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
         background: 'rgb(20,20,20)'
     },
     dark_mobile_menu_item: {
@@ -219,6 +220,13 @@ export const GlobalStyles = GlobalTheme => ({
         borderColor: 'rgb(30,30,30)',
         borderStyle: 'solid',
         cursor: 'pointer'
+    },
+    dark_mobile_menu_item_box: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px'
     },
     dark_news_title: {
         fontWeight: '600',
@@ -567,7 +575,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     roster_body_container: {
         width: '100%',
-        height: '100vh',
+        height: '100%',
         display: 'table',
         padding: '100px 15px 0px 15px',
         background: 'transparent'
@@ -790,6 +798,12 @@ export const GlobalStyles = GlobalTheme => ({
         width: '70%',
         color: '#767676',
         textAlign: 'left'
+    },
+    section_video_title_container: {
+        width: '100%',
+        color: '#767676',
+        textAlign: 'left',
+        marginTop: '10px'
     },
     news_container: {
         width: '70%',

@@ -8,21 +8,18 @@ class DarkOrganizationVideoComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.darkNavBG}>
-                <div className={this.props.classes.section_title_container}>
-                    <h2>Videos</h2>
+                <div className={this.props.classes.section_video_title_container}>
+                    <h2>
+                        VIDEOS
+                        <span>
+                            <a href="#" style={{
+                                color: '#787878',
+                                float: 'right',
+                                fontSize: '.8em'
+                            }}>More Videos</a>
+                        </span>
+                    </h2>
                 </div>
-                <h2 style={{
-                    color: 'rgb(76, 76, 76)'
-                }}>
-                    FEATURED VIDEO
-                    <span>
-                        <a href="#" style={{
-                            color: 'rgb(76, 76, 76)',
-                            float: 'right',
-                            fontSize: '.8em'
-                        }}>More Video</a>
-                    </span>
-                </h2>
                 <iframe title="ifr" width="100%" height="500px" frameBorder="0" allowFullScreen src={this.props.video1_url}/>
                 <div className="ui stackable three column grid">
                     <div className="column">

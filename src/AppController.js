@@ -11,6 +11,7 @@ import './App.css';
 
 class AppController extends Component {
     componentWillMount = async () => {
+        let admin = false;
         // pouchTest
         const is_root = location.pathname === '/';              // eslint-disable-line
         if (is_root) {
@@ -23,6 +24,7 @@ class AppController extends Component {
             } else {
                 const authPayload = this.props.appManager.GetQueryParams('p');
                 if (authPayload) {
+                    admin = true;
                     const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
                     await this.props.appManager.pouchStore('authenticate', p);
                 }
@@ -58,7 +60,11 @@ class AppController extends Component {
                             historyStore.push('/signup');
                         }
                     } else {
-                        historyStore.push('/main');
+                        if (!admin) {
+                            historyStore.push('/main');
+                        } else {
+                            historyStore.push('/admin');
+                        }
                     }
                 }
             }

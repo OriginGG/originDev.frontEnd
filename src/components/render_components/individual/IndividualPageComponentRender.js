@@ -14,17 +14,17 @@ class IndividualPageComponentRender extends Component {
                         <div className="ui stackable three column grid">
                             <div className="column">
                                 <div className="ui one column grid">
-                                    <div id="basic_info" className="column"></div>
+                                    <div id="basic_info" className="column">{this.props.ColumnOne}</div>
                                 </div>
                             </div>
                             <div className="column">
                                 <div className="ui one column grid">
-                                    <div id="stats_left" className="column"></div>
+                                    <div id="stats_left" className="column">{this.props.ColumnTwo}</div>
                                 </div>
                             </div>
                             <div className="column">
                                 <div className="ui one column grid">
-                                    <div id="stats_right" className="column"></div>
+                                    <div id="stats_right" className="column">{this.props.ColumnThree}</div>
                                 </div>
                             </div>
                         </div>

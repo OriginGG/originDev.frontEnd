@@ -170,22 +170,30 @@ class AppManager {
     }
 
     executeApolloQuery = async (type, query, payload, client) => {
-        return new Promise(async (resolve) => {
+        return new Promise(async (resolve, reject) => {
             if (type === 'mutation') {
-                const data = await client
-                    .mutate({
-                        mutation: query,
-                        variables: payload
-                    });
-                resolve(data.data);
+                try {
+                    const data = await client
+                        .mutate({
+                            mutation: query,
+                            variables: payload
+                        });
+                    resolve(data.data);
+                } catch (err) {
+                    reject(err);
+                }
             } else {
-                const data = await client
-                    .query({
-                        query,
-                        variables: payload,
-                        fetchPolicy: 'network-only'
-                    });
-                resolve(data.data);
+                try {
+                    const data = await client
+                        .query({
+                            query,
+                            variables: payload,
+                            fetchPolicy: 'network-only'
+                        });
+                    resolve(data.data);
+                } catch (err) {
+                    reject(err);
+                }
             }
         });
     }
