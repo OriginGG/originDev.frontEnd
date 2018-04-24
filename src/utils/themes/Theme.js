@@ -575,7 +575,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     roster_body_container: {
         width: '100%',
-        height: '100vh',
+        height: '100%',
         display: 'table',
         padding: '100px 15px 0px 15px',
         background: 'transparent'

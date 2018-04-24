@@ -5,7 +5,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { slide as Menu } from 'react-burger-menu';
 import { Modal } from 'antd';
 import Favicon from 'react-favicon';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
@@ -105,8 +105,8 @@ class OrganizationPageController extends Component {
         this.setState({ menu_open: !f });
     }
     isMobile = () => {
-        // return true;
-        return isMobile;
+        return true;
+        // return isMobile;
     }
 
     createMarkup = (content) => {
