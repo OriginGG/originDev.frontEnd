@@ -1613,9 +1613,10 @@ export const GlobalStyles = GlobalTheme => ({
     },
     landing_org_header_text: {
         width: '100%',
-        height: '100px',
-        lineHeight: '100px',
+        height: '50px',
+        lineHeight: '50px',
         color: '#fff',
+        display: 'table',
         fontSize: '48px',
         fontWeight: 'bold',
         padding: '0px 30px 0px 30px',
