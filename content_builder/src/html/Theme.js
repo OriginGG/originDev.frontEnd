@@ -1621,7 +1621,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '48px',
         fontWeight: 'bold',
         padding: '0px 30px 0px 30px',
-        opacity: '0'
+        opacity: '0',
+        marginBottom: '20px'
     },
     landing_org_header_text_blue: {
         color: '#0a9ab4'
