@@ -1506,8 +1506,7 @@ export const GlobalStyles = GlobalTheme => ({
     //*********************************** */
     landing_body: {
         width: '100%',
-        background: 'linear-gradient(#061216, #3d4344)',
-        display: 'table'
+        background: 'linear-gradient(#061216, #3d4344)'
     },
     landing_header: {
         width: '100%',
@@ -1558,6 +1557,13 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100vh',
         color: '#fff',
+        padding: '30px',
+        display: 'table'
+    },
+    landing_upcoming_content_container: {
+        width: '100%',
+        height: '100vh',
+        color: '#fff',
         padding: '30px'
     },
     landing_outer_welcome_container: {
@@ -1572,7 +1578,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100vh',
         color: '#fff',
-        padding: '30px',
         position: 'relative'
     },
     landing_welcome_container: {
@@ -1580,18 +1585,19 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100vh',
         paddingTop: '250px',
         backgroundImage: 'url("./images/banner-bg.jpg")',
-        backgroundSize: 'cover'
+        backgroundRepeat: 'auto',
+        backgroundSize: 'auto'
     },
     landing_welcome_lines_container: {
         width: '100%',
-        height: '200px',
         display: 'table',
         backgroundImage: 'url("./images/title-bg.png")',
         objectFit: 'fill'
     },
     landing_welcome_lines_image: {
-        height: '200px',
-        marginLeft: '150px'
+        width: '80%',
+        marginLeft: '10%',
+        marginRight: '10%'
     },
     landing_page_button_container: {
         width: '100%',
@@ -1673,11 +1679,14 @@ export const GlobalStyles = GlobalTheme => ({
     landing_why_content: {
         width: '100%',
         display: 'table',
-        padding: '150px 175px 150px 175px',
-        opacity: '0'
+        opacity: '0',
+        paddingTop: '70px',
+        textAlign: 'center'
     },
     landing_why_header: {
         width: '100%',
+        height: '50px',
+        lineHeight: '50px',
         color: '#0a9ab4',
         fontSize: '48px',
         fontWeight: 'bold'
@@ -1686,25 +1695,26 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         color: '#ffffff',
         fontSize: '36px',
-        paddingTop: '75px'
+        paddingTop: '75px',
+        textAlign: 'left'
     },
     landing_individual_image_container: {
         padding: '15px',
         display: 'table'
     },
     landing_individual_image: {
-
+        width: '100%'
     },
     coming_soon_div: {
         width: '100%',
-        height: '100vh',
-        lineHeight: '80vh',
+        height: '100px',
+        lineHeight: '100px',
         color: '#0a9ab4',
         textAlign: 'center',
         fontSize: '96px',
         fontWeight: 'bold',
         position: 'absolute',
-        top: '0'
+        top: '30%'
     },
     landing_individual_header: {
         width: '100%',
@@ -1719,10 +1729,11 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         textAlign: 'left',
         fontSize: '22px',
-        color: '#ffffff'
+        color: '#ffffff',
+        paddingRight: '15px'
     },
     landing_upcoming_video: {
-        padding: '130px 15px 100px 30px'
+        padding: '130px 0px 100px 0px'
     },
     upcoming_opacity: {
         opacity: '0'
