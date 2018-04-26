@@ -12,6 +12,8 @@ import appManager from './utils/appManager';
 import registerServiceWorker from './registerServiceWorker';
 import { GlobalTheme } from './utils/themes/Theme';
 
+require('default-passive-events');
+
 const stores = {
     appManager,
     uiStore,
