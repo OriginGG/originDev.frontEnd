@@ -18,7 +18,7 @@ class AdminBlogController extends Component {
         const { subDomain } = this.props.uiStore.current_organisation;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
         this.blog_array = [];
-        blog_data.resultData.edges.forEach((blog) => {
+        blog_data.resultData.edges.forEach((blog, i) => {
             const { blogContent } = blog.node;
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
@@ -26,7 +26,7 @@ class AdminBlogController extends Component {
 
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
-            this.blog_array.push(<tr onClick={() => { this.editBlog(blog); }} style={{ cursor: 'pointer' }}>
+            this.blog_array.push(<tr key={`blog_table_k_${i}`} onClick={() => { this.editBlog(blog); }} style={{ cursor: 'pointer' }}>
                 <td>{blogTitle}</td>
                 <td style={{
                     height: 64, overflow: 'hidden', maxHeight: 64, display: 'block'

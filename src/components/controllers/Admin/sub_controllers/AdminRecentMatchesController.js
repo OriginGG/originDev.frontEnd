@@ -226,11 +226,11 @@ class AdminRecentMatchesController extends Component {
             );
         }
         const p_array = [];
-        this.state.matches.forEach((res) => {
+        this.state.matches.forEach((res, i) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
-            p_array.push(<tr>
+            p_array.push(<tr key={`key_rm_k_1_${i}`}>
                 <td><img
                     alt=""
                     size="40"

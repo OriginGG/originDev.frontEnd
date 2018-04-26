@@ -25,7 +25,7 @@ class AppManager {
             this.logged_in = false;
             this.serveDomain = null;
             this.admin_logged_in = false;
-            this.localDB = new PouchDB('user', { revs_limit: 1, auto_compaction: true });
+            this.localDB = new PouchDB('user', { adapter: 'idb', revs_limit: 1, auto_compaction: true });
         }
 
         return this.instance;

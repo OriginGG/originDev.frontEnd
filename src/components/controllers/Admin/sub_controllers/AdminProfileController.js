@@ -31,21 +31,23 @@ class AdminProfileController extends Component {
         this.upload_file = false;
         this.setState({
             input_values: {
-                insta_value: this.props.uiStore.current_organisation.instaLink,
-                twitter_value: this.props.uiStore.current_organisation.twitterLink,
-                twitch_value: this.props.uiStore.current_organisation.twitchLink,
-                youtube_value: this.props.uiStore.current_organisation.youtubeLink,
-                company_name_value: this.props.uiStore.current_organisation.name,
-                company_store_value: this.props.uiStore.current_organisation.companyStoreLink,
-                facebook_value: this.props.uiStore.current_organisation.fbLink,
-                twitter_username_value: this.props.uiStore.current_organisation.twitterFeedUsername,
+                insta_value: this.getInputValue(this.props.uiStore.current_organisation.instaLink),
+                twitter_value: this.getInputValue(this.props.uiStore.current_organisation.twitterLink),
+                twitch_value: this.getInputValue(this.props.uiStore.current_organisation.twitchLink),
+                youtube_value: this.getInputValue(this.props.uiStore.current_organisation.youtubeLink),
+                company_name_value: this.getInputValue(this.props.uiStore.current_organisation.name),
+                company_store_value: this.getInputValue(this.props.uiStore.current_organisation.companyStoreLink),
+                facebook_value: this.getInputValue(this.props.uiStore.current_organisation.fbLink),
+                twitter_username_value: this.getInputValue(this.props.uiStore.current_organisation.twitterFeedUsername),
                 rss_value: '',
-                primary_color_value: this.props.uiStore.current_organisation.primaryColor,
+                primary_color_value: this.getInputValue(this.props.uiStore.current_organisation.primaryColor),
                 logo_src: this.props.uiStore.current_theme_structure.header.logo.imageData
             }
         });
     }
-
+    getInputValue = (i) => {
+        return i === null ? '' : i;
+    }
     handleSubmit = async () => {
         if (this.upload_file) {
             const logo_data = await this.uploadLogo();

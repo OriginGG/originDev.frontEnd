@@ -24,8 +24,8 @@ class AdminAboutController extends Component {
         });
         const p_array = [];
         const { edges } = pages.allPages;
-        edges.forEach((p) => {
-            p_array.push(<tr>
+        edges.forEach((p, i) => {
+            p_array.push(<tr key={`about_table_${i}`}>
                 <td>{p.node.pageTitle}</td>
                 <td>{p.node.pageSubtitle}</td>
                 <td>{p.node.pageKey}</td>
