@@ -34,14 +34,7 @@ class DarkOrganizationNewsComponentRender extends Component {
                                 width: '100%',
                                 height: '68px',
                                 overflowY: 'hidden'
-                            }}>
-                                <span style={{
-                                    paddingTop: '5px',
-                                    fontWeight: '400',
-                                    fontSize: '11px',
-                                    lineHeight: '15px'
-                                }}>{this.props.blog_content}</span>
-                            </div>
+                            }}>{this.props.blog_content}</div>
                         </div>
                     </div>
                     <div className={this.props.classes.dark_news__more_container}>

@@ -201,6 +201,333 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // New Obliviot Theme
+    // ***************************************************************
+
+    obliviot_mobile_menu: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        background: 'rgb(255,255,255)'
+    },
+    obliviot_mobile_menu_item: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px',
+        borderWidth: '1px',
+        borderColor: 'rgb(225,225,225)',
+        borderStyle: 'solid',
+        cursor: 'pointer'
+    },
+    obliviot_mobile_menu_item_box: {
+        width: '100%',
+        height: '50px',
+        color: 'black',
+        lineHeight: '50px',
+        paddingLeft: '15px'
+    },
+    obliviot_news_title: {
+        fontWeight: '600',
+        textAlign: 'left',
+    },
+    obliviot_news_date: {
+        fontWeight: '400',
+        fontSize: '12px',
+        textAlign: 'right',
+        float: 'right'
+    },
+    obliviot_nav_container: {
+        display: 'table',
+        width: '100%',
+        height: '50px',
+        marginTop: '40px',
+        paddingTop: '60px',
+        paddingBottom: '0px'
+    },
+    obliviot_nav_left: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        paddingLeft: '30px'
+    },
+    obliviot_nav_right: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        paddingRight: '30px'
+    },
+    obliviot_nav_center: {
+        width: '100%',
+        height: '50px',
+        display: 'table'
+    },
+    obliviot_nav_header: {
+        display: 'table',
+        height: '50px',
+        width: '100%',
+        textAlign: 'center'
+    },
+    obliviot_nav_img: {
+        maxWidth: '100px',
+        maxHeight: '50px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    obliviot_mobile_nav_container: {
+        width: '100%',
+        height: '20px',
+        background: 'white'
+    },
+    obliviot_mobile_nav_left: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingLeft: '15px',
+    },
+    obliviot_mobile_nav_right: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingRight: '15px',
+        textAlign: 'right',
+        color: 'black',
+        fontSize: '20px'
+    },
+    obliviot_nav_mobile_img: {
+        maxWidth: '50px',
+        maxHeight: '20px',
+    },
+
+    obliviot_org_menu_container: {
+        float: 'right',
+        display: 'table'
+    },
+
+    news_modal_info_box: {
+        width: '100%',
+        display: 'table',
+        paddingTop: '30px',
+        paddingBottom: '30px'
+    },
+    news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'white'
+    },
+    news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'white'
+    },
+    fixed_div: {
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh'
+    },
+    obliviotBG: {
+        width: '100%',
+        backgroundColor: 'rgb(255,255,255)',
+        padding: '0px 0px 0px 0px'
+    },
+    obliviotNavBG: {
+        width: '100%',
+        backgroundColor: 'transparent',
+        padding: '0px 0px 0px 0px'
+    },
+    obliviotMainBG: {
+        width: '100%',
+        padding: '0px 0px 0px 0px'
+    },
+    pageContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    pageTestContraint: {
+        width: '100%',
+        height: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    obliviot_pageContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        background: 'rgb(255,255,255)',
+    },
+    obliviot_pageTestContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        background: 'transparent',
+    },
+    obliviotHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        display: 'table',
+        position: 'fixed',
+        zIndex: '1000',
+        top: '0',
+        left: '0',
+        background: 'rgb(255,255,255)',
+        borderBottom: '5px solid white'
+    },
+    obliviotHeaderInner: {
+        width: '50%',
+        height: '40px'
+    },
+    obliviot_body_container: {
+        width: '100%',
+        display: 'table',
+        padding: '0px 15px 0px 15px',
+        background: 'rgb(255,255,225)'
+    },
+    obliviotHeader_menu_div: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        textAlign: 'left',
+        color: '#000',
+        cursor: 'pointer'
+    },
+    obliviot_header_logo: {
+        height: '50px'
+    },
+    obliviot_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '25px'
+    },
+    obliviot_social_menu_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'left',
+        color: 'black',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+    org_menu_obliviot_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'black',
+        fontSize: '16px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent'
+    },
+    org_hidden_menu_obliviot_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'black',
+        fontSize: '16px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        display: 'none'
+    },
+    obliviot_main_image_container: {
+        width: '100%',
+        heightMax: '500px',
+        display: 'table',
+        position: 'relative',
+        marginTop: '10px'
+    },
+    obliviot_main_image: {
+        width: '100%',
+        maxHeight: '500px',
+        objectFit: 'fill'
+    },
+    obliviot_main_image_text_container: {
+        width: '100%',
+        height: '40px',
+        background: 'rgba(255,255,255,.9)',
+        position: 'absolute',
+        top: '0'
+    },
+    obliviot_main_image_text: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 10px 0px 10px',
+        float: 'left',
+        textAlign: 'center',
+        color: 'black'
+    },
+    obliviot_news_container: {
+        width: '100%',
+        maxHeight: '610px',
+        marginTop: '10px',
+        paddingRight: '15px',
+        float: 'left',
+        overflowY: 'scroll'
+    },
+    obliviot_news__more_container: {
+        width: '100%',
+        height: '36px'
+    },
+    obliviot_news_more_button: {
+        float: 'right',
+        height: '36px',
+        backgroundColor: 'rgb(50,50,50)',
+        color: 'white',
+        border: '2px solid rgba(0,0,0,.5)',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        borderRadius: '2px',
+        lineHeight: '36px',
+        textAlign: 'center',
+        cursor: 'pointer'
+    },
+    obliviot_twitter_container: {
+        width: '100%',
+        maxHeight: '866px',
+        padding: '30px',
+        height: '500px',
+        display: 'table'
+    },
+    obliviot_section_title_container: {
+        width: '70%',
+        color: '#767676',
+        textAlign: 'left',
+        marginTop: '10px'
+    },
+    obliviot_media_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: 'transparent',
+        padding: '10px 0px 10px 0px'
+    },
+
+    obliviot_recent_matches_body: {
+        width: '100%',
+        maxHeight: '600px',
+        backgroundColor: 'transparent',
+        overflowY: 'scroll'
+    },
+
+    // ***************************************************************
     // New Dark Theme
     // ***************************************************************
 
@@ -1506,8 +1833,7 @@ export const GlobalStyles = GlobalTheme => ({
     //*********************************** */
     landing_body: {
         width: '100%',
-        background: 'linear-gradient(#061216, #3d4344)',
-        display: 'table'
+        background: 'linear-gradient(#061216, #3d4344)'
     },
     landing_header: {
         width: '100%',
@@ -1558,6 +1884,13 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100vh',
         color: '#fff',
+        padding: '30px',
+        display: 'table'
+    },
+    landing_upcoming_content_container: {
+        width: '100%',
+        height: '100vh',
+        color: '#fff',
         padding: '30px'
     },
     landing_outer_welcome_container: {
@@ -1572,7 +1905,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100vh',
         color: '#fff',
-        padding: '30px',
         position: 'relative'
     },
     landing_welcome_container: {
@@ -1580,18 +1912,19 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100vh',
         paddingTop: '250px',
         backgroundImage: 'url("./images/banner-bg.jpg")',
-        backgroundSize: 'cover'
+        backgroundRepeat: 'auto',
+        backgroundSize: 'auto'
     },
     landing_welcome_lines_container: {
         width: '100%',
-        height: '200px',
         display: 'table',
         backgroundImage: 'url("./images/title-bg.png")',
         objectFit: 'fill'
     },
     landing_welcome_lines_image: {
-        height: '200px',
-        marginLeft: '150px'
+        width: '80%',
+        marginLeft: '10%',
+        marginRight: '10%'
     },
     landing_page_button_container: {
         width: '100%',
@@ -1614,13 +1947,15 @@ export const GlobalStyles = GlobalTheme => ({
     },
     landing_org_header_text: {
         width: '100%',
-        height: '100px',
-        lineHeight: '100px',
+        height: '50px',
+        lineHeight: '50px',
         color: '#fff',
+        display: 'table',
         fontSize: '48px',
         fontWeight: 'bold',
         padding: '0px 30px 0px 30px',
-        opacity: '0'
+        opacity: '0',
+        marginBottom: '20px'
     },
     landing_org_header_text_blue: {
         color: '#0a9ab4'
@@ -1671,11 +2006,14 @@ export const GlobalStyles = GlobalTheme => ({
     landing_why_content: {
         width: '100%',
         display: 'table',
-        padding: '150px 175px 150px 175px',
-        opacity: '0'
+        opacity: '0',
+        paddingTop: '70px',
+        textAlign: 'center'
     },
     landing_why_header: {
         width: '100%',
+        height: '50px',
+        lineHeight: '50px',
         color: '#0a9ab4',
         fontSize: '48px',
         fontWeight: 'bold'
@@ -1684,25 +2022,26 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         color: '#ffffff',
         fontSize: '36px',
-        paddingTop: '75px'
+        paddingTop: '75px',
+        textAlign: 'left'
     },
     landing_individual_image_container: {
         padding: '15px',
         display: 'table'
     },
     landing_individual_image: {
-
+        width: '100%'
     },
     coming_soon_div: {
         width: '100%',
-        height: '100vh',
-        lineHeight: '80vh',
+        height: '100px',
+        lineHeight: '100px',
         color: '#0a9ab4',
         textAlign: 'center',
         fontSize: '96px',
         fontWeight: 'bold',
         position: 'absolute',
-        top: '0'
+        top: '30%'
     },
     landing_individual_header: {
         width: '100%',
@@ -1717,10 +2056,11 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         textAlign: 'left',
         fontSize: '22px',
-        color: '#ffffff'
+        color: '#ffffff',
+        paddingRight: '15px'
     },
     landing_upcoming_video: {
-        padding: '130px 15px 100px 30px'
+        padding: '130px 0px 100px 0px'
     },
     upcoming_opacity: {
         opacity: '0'
