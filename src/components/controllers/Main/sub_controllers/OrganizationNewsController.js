@@ -35,7 +35,7 @@ class OrganizationNewsController extends Component {
         const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
         this.blog_array = [];
-        blog_data.resultData.edges.forEach((blog) => {
+        blog_data.resultData.edges.forEach((blog, i) => {
             const { blogContent } = blog.node;
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
@@ -43,7 +43,7 @@ class OrganizationNewsController extends Component {
             const formattedDate = moment(createdAt).format('lll');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
-            this.blog_array.push(<OrganizationNewsComponentRender blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
+            this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
         if (blog_data.resultData.edges.length > 0) {
             this.setState({

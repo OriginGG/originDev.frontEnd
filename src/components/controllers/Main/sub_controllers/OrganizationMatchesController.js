@@ -110,11 +110,11 @@ class OrganizationMatchesController extends Component {
             return null;
         }
         const p_array = [];
-        edges.forEach((res) => {
+        edges.forEach((res, i) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
-            p_array.push(<tr style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
+            p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
                 <td style={{
                     paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
                 }}>
