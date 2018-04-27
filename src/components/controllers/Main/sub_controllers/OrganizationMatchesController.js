@@ -90,7 +90,8 @@ const gameOptions = [
 class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }
     componentWillMount = async () => {
-        const theme = this.props.uiStore.current_organisation.themeId;
+        // const theme = this.props.uiStore.current_organisation.themeId;
+        const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
         const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationMatchesComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;

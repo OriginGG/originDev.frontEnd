@@ -27,7 +27,8 @@ class OrganizationNewsController extends Component {
         blog_modal_open: false, blog_media: null, blog_content: null, OrganizationNewsModalComponentRender: null, visible: false
     };
     componentWillMount = async () => {
-        const theme = this.props.uiStore.current_organisation.themeId;
+        // const theme = this.props.uiStore.current_organisation.themeId;
+        const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
         const comp = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsComponentRender`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsModalComponentRender`);
         const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsModuleComponentRender`);

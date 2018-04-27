@@ -56,7 +56,7 @@ class OrganizationPageController extends Component {
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
-                const theme = this.props.uiStore.current_organisation.themeId;
+                const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}_theme/${theme}_OrganizationPageComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}_theme/${theme}_OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
