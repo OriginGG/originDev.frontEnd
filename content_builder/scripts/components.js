@@ -80,6 +80,7 @@ const component_array = [
     { source_html: './src/html/IndividualPageComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/IndividualBasicInfoComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/IndividualSocialStatsComponent.html', sub_dir: 'individual' },
+    { source_html: './src/html/IndividualEditModalComponent.html', sub_dir: 'individual' },
 ]
 let p = component_array.length;
 const p_array = [];
