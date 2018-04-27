@@ -27,7 +27,9 @@
             <div class="classes.individual_bg">
                 <div class="classes.individual_inner_bg">
                     <div class="classes.individual_header">
-
+                        <div id="edit_button" class="classes.individual_edit_button">
+                            Edit
+                        </div>
                     </div>
                     <div class="ui stackable three column grid">
                         <div class="column">
@@ -113,12 +115,43 @@
                 <div class="classes.individual_footer">
                         © Origin 2018. All rights reserved.
                 </div>
-            </div>    
+            </div>
+            <div id="edit_modal" class="ui modal">
+                <i class="close icon"></i>
+                <div class="classes.modal_inner">
+                    <div class="header">
+                        <div class="classes.modal_edit_image_container">
+                            <img class="classes.modal_edit_image" src="./images/matthew.png"/>
+                        </div>
+                        <div class="classes.modal_edit_image_upload">
+                            <label for="hidden-new-file1" class="classes.individual_image_label">
+                                <i class="cloud icon"></i>
+                                    Upload Profile Picture
+                            </label>
+                            <input type="file" id="hidden-new-file1" style="display: none">
+                        </div>
+                    </div>
+                    <div id="modal_individual_edit_body" class="classes.modal_individual_edit_body">
+                        <input class="classes.modal_individual_edit_input" placeholder="Name" />
+                        <input class="classes.modal_individual_edit_input" placeholder="Twitter Handle" />
+                        <input class="classes.modal_individual_edit_input" placeholder="Email" />
+                        <input class="classes.modal_individual_edit_input" placeholder="Contact Number" />
+                        <textarea class="classes.modal_individual_edit_about" rows="10" placeholder="About"></textarea>
+                        <textarea class="classes.modal_individual_edit_about" rows="10" placeholder="Accomplishments"></textarea>
+                        <input class="classes.modal_individual_edit_input" placeholder="Twitch" />
+                        <input class="classes.modal_individual_edit_input" placeholder="Youtube" />
+                    </div>
+                </div>        
+            </div>  
         </div>
    </body>
    <script>
        $( document ).ready(function() {
             console.log( "ready!" );
+
+            $("#edit_button").click(function(){
+                $('#edit_modal').modal('show');
+            });
         });
    </script>
 </html>
