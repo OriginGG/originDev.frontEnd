@@ -10,7 +10,11 @@ class IndividualPageComponentRender extends Component {
             <div>
                 <div className={this.props.classes.individual_bg}>
                     <div className={this.props.classes.individual_inner_bg}>
-                        <div className={this.props.classes.individual_header}></div>
+                        <div className={this.props.classes.individual_header}>
+                            <div id="edit_button" className={this.props.classes.individual_edit_button}>
+                                Edit
+                            </div>
+                        </div>
                         <div className="ui stackable three column grid">
                             <div className="column">
                                 <div className="ui one column grid">

@@ -492,7 +492,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '36px',
         backgroundColor: 'rgb(50,50,50)',
         color: 'white',
-        border: '2px solid rgba(0,0,0,.5)',
+        border: '2px solid rgba(0,0,0rf,.5)',
         paddingLeft: '10px',
         paddingRight: '10px',
         borderRadius: '2px',
@@ -1549,6 +1549,16 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'transparent',
         color: '#fff'
     },
+    individual_image_label: {
+        backgroundColor: 'transparent',
+        color: '#fff',
+        padding: '5px 10px 5px 10px',
+        borderColor: 'white',
+        borderStyle: 'solid',
+        borderRadius: '4px',
+        borderWidth: '1px',
+        marginTop: '10px'
+    },
     admin_sponser_image_box: {
         width: '150px',
         height: '100px',
@@ -1664,8 +1674,26 @@ export const GlobalStyles = GlobalTheme => ({
     individual_header: {
         width: '100%',
         minHeight: '400px',
+        position: 'relative',
         backgroundImage: 'url("./images/profile-bannerbg.jpg")',
         backgroundSize: '100% 100% !important'
+    },
+    individual_edit_button: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 20px 0px 20px',
+        fontSize: '18px',
+        fontWeight: '900',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: '20px',
+        right: '20px'
     },
     individual_basic_container: {
         width: '100%',
@@ -1768,6 +1796,59 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '5px 0px 5px 0px',
         color: 'white',
         fontSize: '14px'
+    },
+    modal_edit_image_container: {
+        width: '100px',
+        height: '100px',
+        borderRadius: '5px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '30px'
+    },
+    modal_edit_image: {
+        width: '100px',
+        height: '100px',
+        borderRadius: '5px'
+    },
+    modal_edit_image_upload: {
+        width: '20%',
+        marginLeft: '40%',
+        marginRight: '40%'
+    },
+    modal_individual_edit_body: {
+        width: '80%',
+        marginLeft: '10%',
+        marginRight: '10%',
+        display: 'table',
+        padding: '20px 10px 20px 10px'
+    },
+    modal_individual_edit_input: {
+        width: '100%',
+        padding: '5px 10px 5px 10px',
+        color: 'white',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        marginTop: '10px',
+        marginBottom: '10px',
+        lineHeight: '30px',
+        fontSize: '18px',
+        backgroundColor: 'transparent'
+    },
+    modal_individual_edit_about: {
+        width: '100%',
+        padding: '5px 10px 5px 10px',
+        color: 'white',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        marginTop: '10px',
+        marginBottom: '10px',
+        lineHeight: '1.2',
+        fontSize: '18px',
+        backgroundColor: 'transparent'
     },
     /******************************
      ** Sub domain page          **

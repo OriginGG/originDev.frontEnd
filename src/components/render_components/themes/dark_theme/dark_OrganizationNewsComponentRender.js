@@ -14,7 +14,7 @@ class DarkOrganizationNewsComponentRender extends Component {
                         <div className={this.props.classes.news_menu_item}>
                             <div>
                                 <div style={{
-                                    width: '60%',
+                                    width: '50%',
                                     float: 'left',
                                     paddingRight: '0px',
                                     whiteSpace: 'nowrap',
@@ -24,7 +24,7 @@ class DarkOrganizationNewsComponentRender extends Component {
                                     <span className={this.props.classes.dark_news_title}>{this.props.blog_title}</span>
                                 </div>
                                 <div style={{
-                                    width: '40%',
+                                    width: '50%',
                                     float: 'left'
                                 }}>
                                     <span className={this.props.classes.dark_news_date}>{this.props.blog_date}</span>
