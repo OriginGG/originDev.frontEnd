@@ -1675,7 +1675,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '400px',
         position: 'relative',
-        backgroundImage: 'url("./images/profile-bannerbg.jpg")',
+        backgroundImage: 'url("./../../images/profile-bannerbg.jpg")',
         backgroundSize: '100% 100% !important'
     },
     individual_edit_button: {
@@ -1803,10 +1803,24 @@ export const GlobalStyles = GlobalTheme => ({
         borderRadius: '5px',
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginBottom: '30px'
+        marginBottom: '30px',
+        marginTop: '30px'
     },
     modal_edit_image: {
         width: '100px',
+        height: '100px',
+        borderRadius: '5px'
+    },
+    modal_edit_banner_container: {
+        width: '300px',
+        height: '100px',
+        borderRadius: '5px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '30px'
+    },
+    modal_edit_banner: {
+        width: '300px',
         height: '100px',
         borderRadius: '5px'
     },
