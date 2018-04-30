@@ -11,8 +11,8 @@ class OrganizationVideoController extends Component {
     };
     componentWillMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
-        const OrganizationVideoComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationVideoComponentRender`);
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        const OrganizationVideoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationVideoComponentRender`);
 
         const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         if (youTubeChannels.resultData.edges.length !== 0) {

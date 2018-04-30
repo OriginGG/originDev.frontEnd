@@ -27,11 +27,10 @@ class OrganizationNewsController extends Component {
         blog_modal_open: false, blog_media: null, blog_content: null, OrganizationNewsModalComponentRender: null, visible: false
     };
     componentWillMount = async () => {
-        // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
-        const comp = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsComponentRender`);
-        const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsModalComponentRender`);
-        const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNewsModuleComponentRender`);
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        const comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsComponentRender`);
+        const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
+        const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModuleComponentRender`);
         const OrganizationNewsComponentRender = comp.default;
         const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });

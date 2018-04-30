@@ -16,6 +16,7 @@ export const getOrganisationQuery = gql`
     youtubeLink
     twitterFeedUsername
     themeId
+    themeBaseId
     themesByThemeName {
       edges {
         node {
@@ -39,7 +40,7 @@ export const getOrganisationQuery = gql`
 `;
 
 export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String!, $name: String, $instaLink: String
-		$fbLink: String, $twitterLink: String, $youtubeLink: String, $themeId: String, $twitterFeedUsername: String
+		$fbLink: String, $twitterLink: String, $youtubeLink: String, $themeId: String, $themeBaseId: String, $twitterFeedUsername: String
 		$twitchLink: String, $description: String, $logo: String, $primaryColor: String, $companyStoreLink: String) {
   updateOrganisationAccountBySubDomain(input: {
 		subDomain: $subDomain
@@ -54,6 +55,7 @@ export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String
       youtubeLink: $youtubeLink
       description: $description
       themeId: $themeId
+      themeBaseId: $themeBaseId
       logo: $logo
       primaryColor: $primaryColor
       
@@ -69,7 +71,7 @@ export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String
 export const createOrganisationQuery = gql`
 mutation createOrg($subDomain: String!, $name: String, $description: String,
 	$fbLink:String, $instaLink: String, $twitterLink: String, $youtubeLink: String
-	$twitchLink: String, $themeId: String, $logo: String, $primaryColor: String,
+	$twitchLink: String, $themeId: String, $themeBaseId: String, $logo: String, $primaryColor: String,
 	$twitterFeedUsername: String, $companyStoreLink: String) {
   resultData: createOrganisationAccount(input: {
     organisationAccount: {
@@ -83,6 +85,7 @@ mutation createOrg($subDomain: String!, $name: String, $description: String,
       twitterLink: $twitterLink
       twitchLink: $twitchLink
       themeId: $themeId
+      themeBaseId: $themeBaseId
       logo: $logo
       primaryColor: $primaryColor
       twitterFeedUsername: $twitterFeedUsername

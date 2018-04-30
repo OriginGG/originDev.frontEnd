@@ -91,8 +91,9 @@ class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }
     componentWillMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
-        const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationMatchesComponentRender`);
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+
+        const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });

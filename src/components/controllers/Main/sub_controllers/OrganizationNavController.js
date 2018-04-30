@@ -8,8 +8,8 @@ class OrganizationNavController extends Component {
     state = { visible: false, OrganizationNavComponentRender: null };
     componentWillMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
-        const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}_theme/${theme}_OrganizationNavComponentRender`);
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({ visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
     }

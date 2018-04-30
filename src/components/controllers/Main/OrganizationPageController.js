@@ -56,9 +56,10 @@ class OrganizationPageController extends Component {
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
-                const theme = this.props.uiStore.current_organisation.themeId === 'dark' ? 'dark' : 'obliviot';
-                const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}_theme/${theme}_OrganizationPageComponentRender`);
-                const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}_theme/${theme}_OrganizationMobileMenuComponentRender`);
+                const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+                debugger;
+                const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
+                const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
                 const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
                 const OrganizationSponsorController = await import('./sub_controllers/OrganizationSponsorController');
@@ -66,7 +67,7 @@ class OrganizationPageController extends Component {
                 const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
-                const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}_theme/${theme}_OrganizationAboutModalComponentRender`);
+                const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
                     organisation: this.props.uiStore.current_organisation.subDomain
                 });
