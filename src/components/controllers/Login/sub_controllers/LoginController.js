@@ -101,7 +101,7 @@ class LoginController extends Component {
                             const { organisation } = authPayload.authenticate.resultData;
                             const domainInfo = this.props.appManager.getDomainInfo();
                             console.log(`domain info:-${domainInfo}`);
-                            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+                            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                             console.log(`subDomain-${subDomain}`);
                             // we might have a valid user somewhere, but is he part of this domain?
                             const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');

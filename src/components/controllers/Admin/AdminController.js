@@ -123,7 +123,7 @@ class AdminPageController extends Component {
     componentWillMount = async () => {
         if (this.props.appManager.admin_logged_in) {
             const domainInfo = this.props.appManager.getDomainInfo();
-            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+            const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
             if (o.resultData === null) {
                 console.log('sub domain does not exist!');

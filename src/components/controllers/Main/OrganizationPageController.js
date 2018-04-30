@@ -46,7 +46,7 @@ class OrganizationPageController extends Component {
 
     componentWillMount = async () => {
         const domainInfo = this.props.appManager.getDomainInfo();
-        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+        const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
         if (subDomain === 'origin') {
             historyStore.push('/signup');
         } else {
@@ -57,7 +57,6 @@ class OrganizationPageController extends Component {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-                debugger;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');

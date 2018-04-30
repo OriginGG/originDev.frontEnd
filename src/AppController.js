@@ -37,7 +37,7 @@ class AppController extends Component {
                 const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
                 this.props.uiStore.setOriginTheme(originTheme.resultData);
                 const domainInfo = this.props.appManager.getDomainInfo();
-                const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+                const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                 const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
                 let u_string;
                 if (o.resultData === null) {
@@ -71,7 +71,7 @@ class AppController extends Component {
         } else {
             if (location.pathname === '/admin') {  // eslint-disable-line
                 const domainInfo = this.props.appManager.getDomainInfo();
-                const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_THEME_NAME : domainInfo.subDomain;
+                const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                 if (!domainInfo) {
                     historyStore.push('/signup');
                 } else {

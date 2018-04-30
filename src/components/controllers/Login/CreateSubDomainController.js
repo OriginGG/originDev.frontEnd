@@ -74,12 +74,15 @@ class CreateSubDomainController extends Component {
             const logo_data = await this.uploadLogo();
             const p = toJS(this.props.uiStore.origin_theme_structure);
             p.header.logo.imageData = logo_data.Location;
+            const baseId = process.env.REACT_APP_DEFAULT_BASE_THEME;
             const t = {
                 themeName: this.domain_name,
                 themeStructure: JSON.stringify(p),
                 themeData: JSON.stringify(toJS(this.props.uiStore.origin_theme_data))
             };
-            await this.props.appManager.executeQuery('mutation', createOrganisationQuery, { themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name });
+            await this.props.appManager.executeQuery('mutation', createOrganisationQuery, {
+                themeBaseId: baseId, themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name
+            });
             await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
             await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
             await this.props.appManager.executeQuery('mutation', createPageQuery, {
