@@ -1773,7 +1773,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_box: {
         width: '100%',
-        minHeight: '394px',
+        minHeight: '590px',
+        maxHeight: '590px',
         backgroundColor: 'rgb(56,56,56)',
         borderRadius: '8px'
     },
@@ -1796,6 +1797,12 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '5px 0px 5px 0px',
         color: 'white',
         fontSize: '14px'
+    },
+    individual_youtube_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'red',
+        float: 'left'
     },
     modal_edit_image_container: {
         width: '100px',
