@@ -12,6 +12,18 @@ class IndividualEditModalComponentRender extends Component {
                     <i className="close icon"/>
                     <div className={this.props.classes.modal_inner}>
                         <div className="header">
+                            <div className={this.props.classes.modal_edit_banner_container}>
+                                <img className={this.props.classes.modal_edit_banner}/>
+                            </div>
+                            <div className={this.props.classes.modal_edit_image_upload}>
+                                <label className={this.props.classes.individual_image_label} htmlFor="hidden-new-file1">
+                                    <i className="cloud icon"/>
+                                    Upload Banner Image
+                                </label>
+                                <input type="file" id="hidden-new-file1" style={{
+                                    display: 'none'
+                                }}/>
+                            </div>
                             <div className={this.props.classes.modal_edit_image_container}>
                                 <img className={this.props.classes.modal_edit_image}/>
                             </div>
@@ -34,6 +46,9 @@ class IndividualEditModalComponentRender extends Component {
                             <textarea rows="10" placeholder="Accomplishments" className={this.props.classes.modal_individual_edit_about}/>
                             <input placeholder="Twitch" className={this.props.classes.modal_individual_edit_input}/>
                             <input placeholder="Youtube" className={this.props.classes.modal_individual_edit_input}/>
+                            <input placeholder="Youtube Video 1" className={this.props.classes.modal_individual_edit_input}/>
+                            <input placeholder="Youtube Video 2" className={this.props.classes.modal_individual_edit_input}/>
+                            <input placeholder="Youtube Video 3" className={this.props.classes.modal_individual_edit_input}/>
                         </div>
                     </div>
                 </div>

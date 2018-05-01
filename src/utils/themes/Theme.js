@@ -1675,7 +1675,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '400px',
         position: 'relative',
-        backgroundImage: 'url("./images/profile-bannerbg.jpg")',
+        backgroundImage: 'url("./../../images/profile-bannerbg.jpg")',
         backgroundSize: '100% 100% !important'
     },
     individual_edit_button: {
@@ -1773,7 +1773,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_box: {
         width: '100%',
-        minHeight: '394px',
+        minHeight: '590px',
+        maxHeight: '590px',
         backgroundColor: 'rgb(56,56,56)',
         borderRadius: '8px'
     },
@@ -1788,7 +1789,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_content: {
         width: '100%',
-        display: 'table',
+        height: '545px',
+        overflowY: 'auto'
     },
     individual_social_empty: {
         width: '100%',
@@ -1797,16 +1799,36 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         fontSize: '14px'
     },
+    individual_youtube_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'red',
+        float: 'left'
+    },
     modal_edit_image_container: {
         width: '100px',
         height: '100px',
         borderRadius: '5px',
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginBottom: '30px'
+        marginBottom: '30px',
+        marginTop: '30px'
     },
     modal_edit_image: {
         width: '100px',
+        height: '100px',
+        borderRadius: '5px'
+    },
+    modal_edit_banner_container: {
+        width: '300px',
+        height: '100px',
+        borderRadius: '5px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '30px'
+    },
+    modal_edit_banner: {
+        width: '300px',
         height: '100px',
         borderRadius: '5px'
     },

@@ -11,3 +11,13 @@ export const authenticateQuery = gql`
     }
 }
 `;
+
+export const authenticateIndividualQuery = gql`
+mutation authenticateIndividual($email: String!, $password: String!) {
+	authenticateIndividual(input: {email: $email, password: $password}) {
+		individualAuthPayload {
+			jwtToken
+			userId
+		}
+	}
+}`;
