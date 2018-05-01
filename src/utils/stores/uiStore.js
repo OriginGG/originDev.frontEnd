@@ -9,6 +9,7 @@ class UiStore {
     @observable origin_theme_data = {}
     @observable origin_theme_structure = {}
     @observable user_id = 0;
+    @observable individual_user_id = 0;
     setOrganisation = (o) => {
         const { themeData } = o.themesByThemeName.edges[0].node;
         const { themeStructure } = o.themesByThemeName.edges[0].node;
@@ -18,6 +19,9 @@ class UiStore {
     }
     @action setUserID = (id) => {
         this.user_id = id;
+    }
+    @action setIndividualUserID = (id) => {
+        this.individual_user_id = id;
     }
     @action
     setSubDomain = (o) => {
