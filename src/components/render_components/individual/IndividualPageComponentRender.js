@@ -11,7 +11,7 @@ class IndividualPageComponentRender extends Component {
                 <div className={this.props.classes.individual_bg}>
                     <div className={this.props.classes.individual_inner_bg}>
                         <div className={this.props.classes.individual_header}>
-                            <div id="edit_button" className={this.props.classes.individual_edit_button}>
+                            <div id="edit_button" className={this.props.classes.individual_edit_button} onClick={this.props.handleEditClick} style={this.props.button_style}>
                                 Edit
                             </div>
                         </div>

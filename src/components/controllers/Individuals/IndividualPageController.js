@@ -7,6 +7,7 @@ import { getIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
+import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
 // import { isMobile } from 'react-device-detect';
 // import historyStore from '../../../utils/stores/browserHistory';
 
@@ -14,6 +15,7 @@ import IndividualBasicInfoComponentRender from '../../render_components/individu
 class IndividualPageController extends Component {
     state = { visible: false };
     componentWillMount = async () => {
+        this.is_admin = false;
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
@@ -28,15 +30,24 @@ class IndividualPageController extends Component {
             this.setState({ visible: true });
         }
     }
+    handleEditClick = () => {
+        debugger;
+    }
     render() {
         if (this.state.visible === false) {
             return null;
         }
+        let s = { display: 'inherit' };
+        if (this.is_admin === false) {
+            s = { display: 'none' };
+        }
         return (
             <IndividualPageComponentRender
+                handleEditClick={this.handleEditClick}
+                button_style={s}
                 ColumnOne={<IndividualBasicInfoComponentRender />}
                 ColumnTwo={<IndividualSocialStatsComponentRender />}
-                ColumnThree={<IndividualSocialStatsComponentRender />}
+                ColumnThree={<IndividualVideosComponentRender />}
             />
         );
     }
