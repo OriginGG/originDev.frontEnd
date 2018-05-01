@@ -10,7 +10,7 @@ class IndividualSocialStatsComponentRender extends Component {
             <div>
                 <div className={this.props.classes.individual_social_box}>
                     <h2 className={this.props.classes.individual_social_header}>
-                        Twitch Stats
+                        Videos
                     </h2>
                     <div className={this.props.classes.individual_social_content}>
                         <iframe title="ifr" width="100%" height="500px" frameBorder="0" allowFullScreen src={this.props.video1_url}/>

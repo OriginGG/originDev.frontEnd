@@ -2,18 +2,36 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
+import { Modal } from 'antd';
+
 import PropTypes from 'prop-types';
 import { getIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
 import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
+import IndividualEditComponentRender from '../../render_components/individual/IndividualEditModalComponentRender';
 // import { isMobile } from 'react-device-detect';
 // import historyStore from '../../../utils/stores/browserHistory';
 
 
+const EditModal = (props) => {
+    return (
+        <Modal
+            style={{ top: 32 }}
+            width="max-content"
+            closable={false}
+            footer={null}
+            visible={props.modal_open}
+            animationDuration={1000}
+        >
+            <div style={{ display: 'block' }}>
+                {props.content}
+            </div>
+        </Modal >);
+};
 class IndividualPageController extends Component {
-    state = { visible: false };
+    state = { visible: false, modal_open: false };
     componentWillMount = async () => {
         this.is_admin = false;
         const authPayload = this.props.appManager.GetQueryParams('p');
@@ -31,7 +49,10 @@ class IndividualPageController extends Component {
         }
     }
     handleEditClick = () => {
-        debugger;
+        this.setState({ modal_open: true });
+    }
+    closeModal = () => {
+        this.setState({ modal_open: false });
     }
     render() {
         if (this.state.visible === false) {
@@ -42,18 +63,29 @@ class IndividualPageController extends Component {
             s = { display: 'none' };
         }
         return (
-            <IndividualPageComponentRender
-                handleEditClick={this.handleEditClick}
-                button_style={s}
-                ColumnOne={<IndividualBasicInfoComponentRender />}
-                ColumnTwo={<IndividualSocialStatsComponentRender />}
-                ColumnThree={<IndividualVideosComponentRender />}
-            />
+            <div>
+                <IndividualPageComponentRender
+                    handleEditClick={this.handleEditClick}
+                    button_style={s}
+                    ColumnOne={<IndividualBasicInfoComponentRender />}
+                    ColumnTwo={<IndividualSocialStatsComponentRender />}
+                    ColumnThree={<IndividualVideosComponentRender />}
+                />
+                <EditModal
+                    modal_open={this.state.modal_open}
+                    content={<IndividualEditComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} />}
+                />
+            </div>
         );
     }
 }
 IndividualPageController.propTypes = {
     // uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired
+};
+
+EditModal.propTypes = {
+    modal_open: PropTypes.bool.isRequired,
+    content: PropTypes.object.isRequired
 };
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(IndividualPageController));

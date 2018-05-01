@@ -8,7 +8,7 @@ class IndividualEditModalComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div id="edit_modal" className="ui modal">
+                <div id="edit_modal" style={{ maxWidth: '95%' }}>
                     <i className="close icon"/>
                     <div className={this.props.classes.modal_inner}>
                         <div className="header">
