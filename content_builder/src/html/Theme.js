@@ -1789,7 +1789,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_content: {
         width: '100%',
-        display: 'table',
+        height: '545px',
+        overflowY: 'auto'
     },
     individual_social_empty: {
         width: '100%',
