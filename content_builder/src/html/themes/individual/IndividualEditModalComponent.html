@@ -24,43 +24,41 @@
    </head>
    <body>
         <div data-component-name="IndividualEditModalComponent" class="">
-            <div id="edit_modal" class="ui modal">
-                <i class="close icon"></i>
+            <div id="edit_modal" data-component-props="style={{ maxWidth: 600 }}">
+                <i data-component-props="onClick={this.props.closeModal}" class="close icon"></i>
                 <div class="classes.modal_inner">
                     <div class="header">
                         <div class="classes.modal_edit_banner_container">
-                            <img class="classes.modal_edit_banner" src="./../../images/profile-bannerbg.jpg"/>
+                            <img class="classes.modal_edit_banner" data-component-props="src={this.props.bannerImageUrl}" src="./../../images/profile-bannerbg.jpg"/>
                         </div>
-                        <div class="classes.modal_edit_image_upload">
-                            <label for="hidden-new-file1" class="classes.individual_image_label">
+                        <div data-component-props="onClick={()=>{this.props.handleFileClick('banner')}}" class="classes.modal_edit_image_upload">
+                            <label for="hidden-new-filexx" class="classes.individual_image_label">
                                 <i class="cloud icon"></i>
                                     Upload Banner Image
                             </label>
-                            <input type="file" id="hidden-new-file1" style="display: none">
                         </div>
                         <div class="classes.modal_edit_image_container">
-                            <img class="classes.modal_edit_image" src="../../images/matthew.png"/>
+                            <img class="classes.modal_edit_image" data-component-props="src={this.props.profileImageUrl}"  src="../../images/matthew.png"/>
                         </div>
-                        <div class="classes.modal_edit_image_upload">
-                            <label for="hidden-new-file1" class="classes.individual_image_label">
+                        <div data-component-props="onClick={()=>{this.props.handleFileClick('profile')}}" class="classes.modal_edit_image_upload">
+                            <label for="hidden-new-file2" class="classes.individual_image_label">
                                 <i class="cloud icon"></i>
                                     Upload Profile Picture
                             </label>
-                            <input type="file" id="hidden-new-file1" style="display: none">
                         </div>
                     </div>
                     <div id="modal_individual_edit_body" class="classes.modal_individual_edit_body">
-                        <input class="classes.modal_individual_edit_input" placeholder="Name" />
-                        <input class="classes.modal_individual_edit_input" placeholder="Twitter Handle" />
-                        <input class="classes.modal_individual_edit_input" placeholder="Email" />
-                        <input class="classes.modal_individual_edit_input" placeholder="Contact Number" />
-                        <textarea class="classes.modal_individual_edit_about" rows="10" placeholder="About"></textarea>
-                        <textarea class="classes.modal_individual_edit_about" rows="10" placeholder="Accomplishments"></textarea>
-                        <input class="classes.modal_individual_edit_input" placeholder="Twitch" />
-                        <input class="classes.modal_individual_edit_input" placeholder="Youtube" />
-                        <input class="classes.modal_individual_edit_input" placeholder="Youtube Video 1" />
-                        <input class="classes.modal_individual_edit_input" placeholder="Youtube Video 2" />
-                        <input class="classes.modal_individual_edit_input" placeholder="Youtube Video 3" />
+                        <input data-component-props="value={this.props.firstName} onChange={(e)=>{this.props.handleChange('firstName', e);}}" class="classes.modal_individual_edit_input" placeholder="Name" />
+                        <input data-component-props="value={this.props.twitterHandle} onChange={(e)=>{this.props.handleChange('twitterHandle', e);}}" class="classes.modal_individual_edit_input" placeholder="Twitter Handle" />
+                        <input data-component-props="value={this.props.email} onChange={(e)=>{this.props.handleChange('email', e);}}" class="classes.modal_individual_edit_input" placeholder="Email" />
+                        <input data-component-props="value={this.props.contactNumber} onChange={(e)=>{this.props.handleChange('contactNumber', e);}}" class="classes.modal_individual_edit_input" placeholder="Contact Number" />
+                        <textarea data-component-props="value={this.props.about} onChange={(e)=>{this.props.handleChange('about', e);}}" class="classes.modal_individual_edit_about" rows="10" placeholder="About"></textarea>
+                        <textarea data-component-props="value={this.props.accomplishments} onChange={(e)=>{this.props.handleChange('accomplishments', e);}}" class="classes.modal_individual_edit_about" rows="10" placeholder="Accomplishments"></textarea>
+                        <input data-component-props="value={this.props.twitchUrl} onChange={(e)=>{this.props.handleChange('twitchUrl', e);}}" class="classes.modal_individual_edit_input" placeholder="Twitch" />
+                        <input data-component-props="value={this.props.youtubeChannel} onChange={(e)=>{this.props.handleChange('youtubeChannel', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube" />
+                        <input data-component-props="value={this.props.youtubeVideo1Url} onChange={(e)=>{this.props.handleChange('youtubeVideo1Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 1" />
+                        <input data-component-props="value={this.props.youtubeVideo2Url} onChange={(e)=>{this.props.handleChange('youtubeVideo2Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 2" />
+                        <input data-component-props="value={this.props.youtubeVideo3Url} onChange={(e)=>{this.props.handleChange('youtubeVideo3Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 3" />
                     </div>
                 </div>        
             </div>                 

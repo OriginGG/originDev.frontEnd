@@ -5,9 +5,20 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
     firstName
     lastName
     about
+    email
     contactNumber
-    createdAt
     updatedAt
+    createdAt
+		youtubeChannel
+		twitchUrl
+		twitterHandle
+		accomplishments
+		youtubeVideo1Url
+		youtubeVideo2Url
+		youtubeVideo3Url
+    bannerlImageUrl
+		profileImageUrl
+		id
   }
 }
 `;

@@ -1833,9 +1833,10 @@ export const GlobalStyles = GlobalTheme => ({
         borderRadius: '5px'
     },
     modal_edit_image_upload: {
-        width: '20%',
-        marginLeft: '40%',
-        marginRight: '40%'
+        width: '300px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        textAlign: 'center'
     },
     modal_individual_edit_body: {
         width: '80%',
