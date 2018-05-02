@@ -26,10 +26,10 @@
         <div data-component-name="IndividualBasicInfoComponent" class="">
             <div class="classes.individual_basic_container">
                 <div class="classes.individual_profile_pic_container">
-                    <img class="classes.individual_profile_pic" src="./images/matthew.png"/>
+                    <img class="classes.individual_profile_pic" data-component-props="src={this.props.profileImageUrl}" src="./images/matthew.png"/>
                 </div>
-                <div class="classes.individual_basic_name">John Doe</div>
-                <div class="classes.individual_basic_handle">@JohnDoe</div>
+                <div data-component-value="{this.props.firstName}" class="classes.individual_basic_name">John Doe</div>
+                <div data-component-value="{this.props.twitterHandle}" class="classes.individual_basic_handle">@JohnDoe</div>
                 <div class="classes.individual_table_container">
                     <table class="ui table">
                         <thead>
@@ -42,7 +42,7 @@
                                 <td>
                                     <i class="icon mail"></i> Email Address
                                     <div class="classes.individual_basic_text">
-                                        <p id="basic_email">johndoe@origin.gg</p>
+                                        <p data-component-value="{this.props.email}" id="basic_email">johndoe@origin.gg</p>
                                     </div>
                                 </td>
                             </tr>
@@ -50,14 +50,14 @@
                                 <td>
                                     <i class="icon phone"></i>Contact Number
                                     <div class="classes.individual_basic_text">
-                                        <p id="basic_phone">4155555555</p>
+                                        <p data-component-value="{this.props.contactNumber}" id="basic_phone">4155555555</p>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td><i class="icon user"></i>About
                                     <div class="classes.individual_basic_text">
-                                        <p id="basic_about"> blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>
+                                        <p data-component-value="{this.props.about}" id="basic_about"> blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>
                                     </div>
                                 </td>
                             </tr>

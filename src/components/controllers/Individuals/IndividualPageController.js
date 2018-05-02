@@ -170,7 +170,10 @@ class IndividualPageController extends Component {
             if (user.individualUserById !== null) {
                 this.is_admin = true;
             }
-            this.setState({ visible: true });
+            this.user_details = user.individualUserById;
+            this.setState({
+                visible: true
+            });
         }
     }
     handleEditClick = () => {
@@ -192,7 +195,16 @@ class IndividualPageController extends Component {
                 <IndividualPageComponentRender
                     handleEditClick={this.handleEditClick}
                     button_style={s}
-                    ColumnOne={<IndividualBasicInfoComponentRender />}
+                    ColumnOne={
+                        <IndividualBasicInfoComponentRender
+                            profileImageUrl={this.user_details.profileImageUrl}
+                            twitterHandle={this.user_details.twitterHandle}
+                            about={this.user_details.about}
+                            firstName={this.user_details.firstName}
+                            email={this.user_details.email}
+                            contactNumber={this.user_details.contactNumber}
+                        />
+                    }
                     ColumnTwo={<IndividualSocialStatsComponentRender />}
                     ColumnThree={<IndividualVideosComponentRender />}
                 />

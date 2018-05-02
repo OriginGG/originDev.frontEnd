@@ -10,10 +10,10 @@ class IndividualBasicInfoComponentRender extends Component {
             <div>
                 <div className={this.props.classes.individual_basic_container}>
                     <div className={this.props.classes.individual_profile_pic_container}>
-                        <img className={this.props.classes.individual_profile_pic}/>
+                        <img className={this.props.classes.individual_profile_pic} src={this.props.profileImageUrl}/>
                     </div>
-                    <div className={this.props.classes.individual_basic_name}>John Doe</div>
-                    <div className={this.props.classes.individual_basic_handle}>@JohnDoe</div>
+                    <div className={this.props.classes.individual_basic_name}>{this.props.firstName}</div>
+                    <div className={this.props.classes.individual_basic_handle}>{this.props.twitterHandle}</div>
                     <div className={this.props.classes.individual_table_container}>
                         <table className="ui table">
                             <thead>
@@ -27,7 +27,7 @@ class IndividualBasicInfoComponentRender extends Component {
                                         <i className="icon mail"/>
                                         Email Address
                                         <div className={this.props.classes.individual_basic_text}>
-                                            <p id="basic_email">johndoe@origin.gg</p>
+                                            <p id="basic_email">{this.props.email}</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -35,15 +35,14 @@ class IndividualBasicInfoComponentRender extends Component {
                                     <td>
                                         <i className="icon phone"/>Contact Number
                                         <div className={this.props.classes.individual_basic_text}>
-                                            <p id="basic_phone">4155555555</p>
+                                            <p id="basic_phone">{this.props.contactNumber}</p>
                                         </div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><i className="icon user"/>About
                                         <div className={this.props.classes.individual_basic_text}>
-                                            <p id="basic_about">
-                                                blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>
+                                            <p id="basic_about">{this.props.about}</p>
                                         </div>
                                     </td>
                                 </tr>
