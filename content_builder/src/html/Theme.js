@@ -1557,7 +1557,8 @@ export const GlobalStyles = GlobalTheme => ({
         borderStyle: 'solid',
         borderRadius: '4px',
         borderWidth: '1px',
-        marginTop: '10px'
+        marginTop: '10px',
+        cursor: 'pointer'
     },
     admin_sponser_image_box: {
         width: '150px',
@@ -1872,6 +1873,29 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '1.2',
         fontSize: '18px',
         backgroundColor: 'transparent'
+    },
+    modal_individual_submit_button_container: {
+        width: '50%',
+        height: '80px',
+        float: 'left',
+        paddingTop: '20px'
+    },
+    modal_individual_submit_button: {
+        height: '40px',
+        lineHeight: '40px',
+        width: '200px',
+        fontSize: '18px',
+        fontWeight: '900',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'transparent',
+        textAlign: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     /******************************
      ** Sub domain page          **

@@ -25,7 +25,7 @@
    <body>
         <div data-component-name="IndividualEditModalComponent" class="">
             <div id="edit_modal" data-component-props="style={{ maxWidth: 600 }}">
-                <i data-component-props="onClick={this.props.closeModal}" class="close icon"></i>
+                <i data-component-props="onClick={this.props.closeModal}" class="close icon" style="cursor:pointer;"></i>
                 <div class="classes.modal_inner">
                     <div class="header">
                         <div class="classes.modal_edit_banner_container">
@@ -50,7 +50,6 @@
                     <div id="modal_individual_edit_body" class="classes.modal_individual_edit_body">
                         <input data-component-props="value={this.props.firstName} onChange={(e)=>{this.props.handleChange('firstName', e);}}" class="classes.modal_individual_edit_input" placeholder="Name" />
                         <input data-component-props="value={this.props.twitterHandle} onChange={(e)=>{this.props.handleChange('twitterHandle', e);}}" class="classes.modal_individual_edit_input" placeholder="Twitter Handle" />
-                        <input data-component-props="value={this.props.email} onChange={(e)=>{this.props.handleChange('email', e);}}" class="classes.modal_individual_edit_input" placeholder="Email" />
                         <input data-component-props="value={this.props.contactNumber} onChange={(e)=>{this.props.handleChange('contactNumber', e);}}" class="classes.modal_individual_edit_input" placeholder="Contact Number" />
                         <textarea data-component-props="value={this.props.about} onChange={(e)=>{this.props.handleChange('about', e);}}" class="classes.modal_individual_edit_about" rows="10" placeholder="About"></textarea>
                         <textarea data-component-props="value={this.props.accomplishments} onChange={(e)=>{this.props.handleChange('accomplishments', e);}}" class="classes.modal_individual_edit_about" rows="10" placeholder="Accomplishments"></textarea>
@@ -59,6 +58,12 @@
                         <input data-component-props="value={this.props.youtubeVideo1Url} onChange={(e)=>{this.props.handleChange('youtubeVideo1Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 1" />
                         <input data-component-props="value={this.props.youtubeVideo2Url} onChange={(e)=>{this.props.handleChange('youtubeVideo2Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 2" />
                         <input data-component-props="value={this.props.youtubeVideo3Url} onChange={(e)=>{this.props.handleChange('youtubeVideo3Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 3" />
+                        <div class="classes.modal_individual_submit_button_container">
+                            <div class="classes.modal_individual_submit_button">Cancel</div>
+                        </div>
+                        <div class="classes.modal_individual_submit_button_container">
+                            <div class="classes.modal_individual_submit_button">Submit</div>
+                        </div>
                     </div>
                 </div>        
             </div>                 
