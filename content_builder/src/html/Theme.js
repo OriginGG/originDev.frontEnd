@@ -1674,10 +1674,14 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_header: {
         width: '100%',
-        minHeight: '400px',
+        height: '400px',
         position: 'relative',
-        backgroundImage: 'url("./../../images/profile-bannerbg.jpg")',
-        backgroundSize: '100% 100% !important'
+        backgroundColor: '#000',
+    },
+    individual_header_image: {
+        width: '100%',
+        height: '400px',
+        objectFit: 'cover'
     },
     individual_edit_button: {
         height: '40px',
