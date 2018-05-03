@@ -251,6 +251,19 @@ class IndividualPageController extends Component {
         if (this.is_admin === false) {
             s = { display: 'none' };
         }
+        let v1 = null;
+        let v2 = null;
+        let v3 = null;
+        if (this.user_details.youtubeVideo1Url) {
+            v1 = this.props.appManager.convertYoutubeURL(this.user_details.youtubeVideo1Url);
+        }
+        if (this.user_details.youtubeVideo2Url) {
+            v2 = this.props.appManager.convertYoutubeURL(this.user_details.youtubeVideo2Url);
+        }
+        if (this.user_details.youtubeVideo3Url) {
+            v3 = this.props.appManager.convertYoutubeURL(this.user_details.youtubeVideo3Url);
+        }
+
         return (
             <div>
                 <IndividualPageComponentRender
@@ -267,7 +280,11 @@ class IndividualPageController extends Component {
                         />
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender />}
-                    ColumnThree={<IndividualVideosComponentRender />}
+                    ColumnThree={<IndividualVideosComponentRender
+                        video1_url={v1}
+                        video2_url={v2}
+                        video3_url={v3}
+                    />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
