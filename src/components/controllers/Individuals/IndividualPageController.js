@@ -199,6 +199,7 @@ class IndividualPageController extends Component {
         this.key_index = 1;
         if (authPayload) {
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+            console.log(`token - ${p}`);
             this.authPayload = p;
             const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
             const d = this.props.appManager.decodeJWT(token);
