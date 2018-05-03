@@ -11,7 +11,9 @@ class IndividualEditModalComponentRender extends Component {
                 <div id="edit_modal" style={{
                     maxWidth: 600
                 }}>
-                    <i className="close icon" onClick={this.props.closeModal}/>
+                    <i style={{
+                        cursor: 'pointer'
+                    }} className="close icon" onClick={this.props.closeModal}/>
                     <div className={this.props.classes.modal_inner}>
                         <div className="header">
                             <div className={this.props.classes.modal_edit_banner_container}>
@@ -51,11 +53,6 @@ class IndividualEditModalComponentRender extends Component {
                                 this
                                     .props
                                     .handleChange( 'twitterHandle', e );
-                            }}/>
-                            <input placeholder="Email" className={this.props.classes.modal_individual_edit_input} value={this.props.email} onChange={e => {
-                                this
-                                    .props
-                                    .handleChange( 'email', e );
                             }}/>
                             <input placeholder="Contact Number" className={this.props.classes.modal_individual_edit_input} value={this.props.contactNumber} onChange={e => {
                                 this
@@ -97,6 +94,12 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'youtubeVideo3Url', e );
                             }}/>
+                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.closeModal}>
+                                <div className={this.props.classes.modal_individual_submit_button}>Cancel</div>
+                            </div>
+                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.handleSubmit}>
+                                <div className={this.props.classes.modal_individual_submit_button}>Submit</div>
+                            </div>
                         </div>
                     </div>
                 </div>

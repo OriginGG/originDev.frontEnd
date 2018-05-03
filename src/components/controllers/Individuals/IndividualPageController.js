@@ -3,10 +3,11 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { Modal } from 'antd';
+import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
-
+import axios from 'axios';
 import PropTypes from 'prop-types';
-import { getIndividualUserQuery } from '../../../queries/individuals';
+import { getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
@@ -70,6 +71,8 @@ class ModalContent extends Component {
                 profileImageUrl: this.getInputValue(user.individualUserById.profileImageUrl),
             },
         });
+        this.profile_files = null;
+        this.banner_files = null;
     }
     handleChange = (field, e) => {
         const v = e.target.value;
@@ -84,16 +87,17 @@ class ModalContent extends Component {
     }
 
     uploadFile = (e) => {
-        this.logo_files = e[0];             // eslint-disable-line
         const reader = new FileReader();
-        reader.readAsDataURL(this.logo_files);
+        reader.readAsDataURL(e[0]);
 
         reader.onloadend = () => {
             const x = reader.result;
             const p = this.state.input_values;
             if (this.file_upload_type === 'profile') {
+                this.profile_files = e[0];             // eslint-disable-line
                 p.profileImageUrl = x;
             } else {
+                this.banner_files = e[0];             // eslint-disable-line
                 p.bannerImageUrl = x;
             }
             this.setState({ input_values: p });
@@ -105,7 +109,39 @@ class ModalContent extends Component {
         this.file_upload_type = f;
         this.dropzoneRef.open();
     }
+    handleSubmit = async () => {
+        let bn = this.state.input_values.bannerImageUrl;
+        let pn = this.state.input_values.profileImageUrl;
+        // upload files to s3 if they've changed.
+        if (this.profile_files) {
+            pn = await this.uploadtoS3(this.profile_files);
+        }
+        if (this.banner_files) {
+            bn = await this.uploadtoS3(this.banner_files);
+        }
+        const p = Object.assign(this.state, {});
+        p.input_values.bannerImageUrl = bn;
+        p.input_values.profileImageUrl = pn;
+        this.props.handleSubmit(p.input_values);
+    }
 
+    uploadtoS3 = (f) => {
+        return new Promise((resolve) => {
+            if (f) {
+                const formData = new FormData();
+                formData.append('images', f);
+                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/individuals`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((x) => {
+                    resolve(x.data.Location);
+                });
+            } else {
+                resolve(null);
+            }
+        });
+    }
     // uploadLogo = () => {
     //     return new Promise((resolve) => {
     //         const formData = new FormData();
@@ -146,6 +182,7 @@ class ModalContent extends Component {
                     profileImageUrl={this.state.input_values.profileImageUrl}
                     uploadBannerFile={this.uploadBannerFile}
                     uploadProfileFile={this.uploadProfileFile}
+                    handleSubmit={this.handleSubmit}
                 />
             </div>
         );
@@ -170,6 +207,7 @@ class IndividualPageController extends Component {
             if (user.individualUserById !== null) {
                 this.is_admin = true;
             }
+            debugger;
             this.user_details = user.individualUserById;
             this.setState({
                 visible: true
@@ -181,6 +219,30 @@ class IndividualPageController extends Component {
     }
     closeModal = () => {
         this.setState({ modal_open: false });
+    }
+    handleSubmit = async (state) => {
+        await this.props.appManager.executeQuery(
+            'mutation', updateIndividualUserQuery,
+            {
+                id: this.user_id,
+                about: state.about,
+                firstName: state.firstName,
+                bannerImageUrl: state.bannerImageUrl,
+                profileImageUrl: state.profileImageUrl,
+                accomplishments: state.accomplishments,
+                twitchUrl: state.twitchUrl,
+                twitterHandle: state.twitterHandle,
+                youtubeChannel: state.youtubeChannel,
+                youtubeVideo1Url: state.youtubeVideo1Url,
+                youtubeVideo2Url: state.youtubeVideo2Url,
+                youtubeVideo3Url: state.youtubeVideo3Url
+            }
+        );
+        toast.success('Profile Updated!', {
+            position: toast.POSITION.TOP_LEFT
+        });
+        this.user_details = state;
+        this.closeModal();
     }
     render() {
         if (this.state.visible === false) {
@@ -210,21 +272,22 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent closeModal={this.closeModal} {...this.props} user_id={this.user_id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} {...this.props} user_id={this.user_id} />}
                 />
             </div>
         );
     }
 }
 IndividualPageController.propTypes = {
-    // uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
 };
 
 ModalContent.propTypes = {
+    // uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
     user_id: PropTypes.number.isRequired,
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired
 
 };
 EditModal.propTypes = {

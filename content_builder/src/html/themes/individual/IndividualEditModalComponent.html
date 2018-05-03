@@ -58,10 +58,10 @@
                         <input data-component-props="value={this.props.youtubeVideo1Url} onChange={(e)=>{this.props.handleChange('youtubeVideo1Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 1" />
                         <input data-component-props="value={this.props.youtubeVideo2Url} onChange={(e)=>{this.props.handleChange('youtubeVideo2Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 2" />
                         <input data-component-props="value={this.props.youtubeVideo3Url} onChange={(e)=>{this.props.handleChange('youtubeVideo3Url', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Video 3" />
-                        <div class="classes.modal_individual_submit_button_container">
+                        <div data-component-props="onClick={this.props.closeModal}" class="classes.modal_individual_submit_button_container">
                             <div class="classes.modal_individual_submit_button">Cancel</div>
                         </div>
-                        <div class="classes.modal_individual_submit_button_container">
+                        <div data-component-props="onClick={this.props.handleSubmit}"  class="classes.modal_individual_submit_button_container">
                             <div class="classes.modal_individual_submit_button">Submit</div>
                         </div>
                     </div>
