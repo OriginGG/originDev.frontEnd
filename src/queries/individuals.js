@@ -16,7 +16,7 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
 		youtubeVideo1Url
 		youtubeVideo2Url
 		youtubeVideo3Url
-    bannerlImageUrl
+    bannerImageUrl
 		profileImageUrl
 		id
   }
@@ -28,11 +28,15 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
   $twitterHandle: String, $youtubeChannel: String,
   $youtubeVideo1Url: String,
   $youtubeVideo2Url: String,
-  $youtubeVideo3Url: String
+  $youtubeVideo3Url: String,
+  $bannerImageUrl: String,
+  $profileImageUrl: String
 	) {
   	updateIndividualUserById(input:{id: $id, individualUserPatch: {
       firstName: $firstName
       about: $about
+      bannerImageUrl: $bannerImageUrl
+      profileImageUrl: $profileImageUrl
       contactNumber: $contactNumber
       accomplishments: $accomplishments
       twitchUrl: $twitchUrl

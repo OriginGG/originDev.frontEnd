@@ -11,7 +11,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../../render_components/signup/LoginComponentRender';
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
 import { authenticateQuery, authenticateIndividualQuery } from '../../../../queries/login';
-import { createUserQuery, createPreUserQuery, getUserByEmailQuery } from '../../../../queries/users';
+import { createUserQuery, createPreUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
 // import { createUserQuery, createPreUserQuery, authenticatePreUserQuery } from '../../../../queries/users';
 import historyStore from '../../../../utils/stores/browserHistory';
 
@@ -164,11 +164,18 @@ class LoginController extends Component {
                                 };
 
                                 const a = this.props.ind ? 'admin_user=false' : 'admin_user=true';
-
+                                let registered_user;
                                 // first see if user exists in normal db?
+                                let ll = 0;
+                                if (!this.props.ind) {
+                                    registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
+                                    ll = registered_user.allUsers.edges.length;
+                                } else {
+                                    registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email });
+                                    ll = registered_user.allIndividualUsers.edges.length;
+                                }
 
-                                const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
-                                if (registered_user.allUsers.edges.length > 0) {
+                                if (ll > 0) {
                                     toast.success(`Account ${v.email} already registered. Please sign in as normal`, {
                                         position: toast.POSITION.TOP_LEFT,
                                         autoClose: 15000
