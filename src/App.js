@@ -9,6 +9,7 @@ import SignupChoiceController from './components/controllers/Login/SignupChoiceC
 import SignupPageController from './components/controllers/Login/SignupPageController';
 import SignupIndividualController from './components/controllers/Login/SignupIndividualController';
 import NewSignupPageController from './components/controllers/Login/NewSignupPageController';
+import NewSignupIndividualPageController from './components/controllers/Login/NewSignupIndividualPageController';
 import OrganizationPageController from './components/controllers/Main/OrganizationPageController';
 import AdminPageController from './components/controllers/Admin/AdminController';
 import IndividualPageController from './components/controllers/Individuals/IndividualPageController';
@@ -27,6 +28,7 @@ class App extends Component {
                 <Route exact path="/signup_org" component={SignupPageController} />
                 <Route exact path="/signup_ind" component={SignupIndividualController} />
                 <Route exact path="/new_signup" component={NewSignupPageController} />
+                <Route exact path="/new_signup_ind" component={NewSignupIndividualPageController} />
                 <Route exact path="/main" component={OrganizationPageController} />
                 <Route exact path="/individual" component={IndividualPageController} />
                 <Route exact path="/admin" component={AppController} />
