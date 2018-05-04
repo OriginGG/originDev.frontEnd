@@ -9,17 +9,31 @@ import { GlobalStyles } from 'Theme/Theme';
 import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
-import { getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
+import { deleteRosterUserQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
 import { gameOptions } from './data/AllGames.js';
 
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentWillMount = async () => {
-        const ind_users = await this.props.appManager.executeQuery('query', getAllIndividualUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQuery('query', getAllIndividualUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+
+        const edges = users.allIndividualUsers.edges.slice(0);
+        this.props.game_node.rosterIndividualsByRosterId.edges.forEach((x) => {
+            const f = _.findIndex(edges, (o) => {
+                return o.node.id === x.node.individualUserByIndividualId.id;
+            });
+            if (f > -1) {
+                edges.splice(f, 1);
+            }
+        });
+        const t_array = [];
+        this.props.game_node.rosterIndividualsByRosterId.edges.forEach((p) => {
+            t_array.push({ node: p.node.individualUserByIndividualId });
+        });
         this.setState({
-            target: this.props.game_node.rosterIndividualsByRosterId.edges,
-            source: ind_users.allIndividualUsers.edges,
+            target: t_array,
+            source: edges,
             visible: true
         });
     }
@@ -97,6 +111,7 @@ export class ModalContentAddUser extends Component {
 const AddUserModal = (props) => {
     return (
         <Modal
+            destroyOnClose
             style={{ top: 32 }}
             width="max-content"
             closable={false}
@@ -216,13 +231,61 @@ class AdminRosterController extends Component {
             });
             p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
         });
+        this.current_roster_users = roster_data.allRosters.edges;
         this.setState({ visible: true, games: p_array });
     }
 
-    handleUserSubmit = (t) => {
-        console.log(t);
+    handleUserSubmit = async (t) => {
         this.closeUserModal();
-        debugger;
+        const add_array = [];
+        const delete_array = [];
+        t.forEach((u) => {
+            const p = _.findIndex(this.current_game_node.rosterIndividualsByRosterId.edges, (o) => {
+                return o.node.individualUserByIndividualId.id === u.node.id;
+            });
+            if (p === -1) {
+                add_array.push(u.node);
+            }
+        });
+        this.current_game_node.rosterIndividualsByRosterId.edges.forEach((u) => {
+            const p = _.findIndex(t, (o) => {
+                return o.node.id === u.node.individualUserByIndividualId.id;
+            });
+            if (p === -1) {
+                // make sure its not in add array
+                const p2 = _.findIndex(add_array, (a) => {
+                    return a.id === u.node.id;
+                });
+                if (p2 === -1) {
+                    delete_array.push(u.node);
+                }
+            }
+        });
+        for (let a in add_array) {          // eslint-disable-line
+            const x = add_array[a];
+            await this.props.appManager.executeQuery('mutation', createRosterUserQuery, { rosterId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
+        }
+        for (let a in delete_array) {          // eslint-disable-line
+            const x = delete_array[a];
+            await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
+        }
+        if (add_array.length > 0 && delete_array.length === 0) {
+            toast.success(`${add_array.length} User(s) added..`, {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        if (add_array.length === 0 && delete_array.length > 0) {
+            toast.success(`${delete_array.length} User(s) removed..`, {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        if (add_array.length > 0 && delete_array.length > 0) {
+            toast.success(`${add_array.length} User(s) added, and ${delete_array.length} User(s) removed...`, {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        // here we calculate a list of id's to add or delete..
+        // first found the add id's
     }
 
     handleGameSelectClick = (game, game_node) => {
@@ -262,7 +325,7 @@ class AdminRosterController extends Component {
                 />
                 <AddUserModal
                     user_modal_open={this.state.user_modal_open}
-                    content={<ModalContentAddUser handleSubmit={this.handleUserSubmit}  game_node={this.current_game_node} closeModal={this.closeUserModal} {...this.props} />}
+                    content={<ModalContentAddUser handleSubmit={this.handleUserSubmit} game_node={this.current_game_node} closeModal={this.closeUserModal} {...this.props} />}
                 />
             </div>
         );

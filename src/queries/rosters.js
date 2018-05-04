@@ -12,6 +12,25 @@ export const createRosterQuery = gql`mutation createRoster($subDomain: String!, 
   }
 }`;
 
+export const createRosterUserQuery = gql`mutation createRosterUser($rosterId: Int!, $individualId: Int!) {
+  createRosterIndividual(input:{rosterIndividual: {
+    individualId: $individualId
+    rosterId: $rosterId
+  }}) {
+    rosterIndividual {
+      id
+    }
+  }
+}`;
+
+export const deleteRosterUserQuery = gql`mutation deleteRosterUser($id: Int!) {
+  deleteRosterIndividualById(input:{id: $id}) {
+    rosterIndividual {
+      id
+    }
+  }
+}`;
+
 export const getRosterQuery = gql`query getRosters($subDomain: String!) {
     allRosters(condition: { subDomain: $subDomain }) {
         edges {
@@ -25,6 +44,7 @@ export const getRosterQuery = gql`query getRosters($subDomain: String!) {
                 rosterIndividualsByRosterId {
                     edges {
                         node {
+                            id
                             individualUserByIndividualId {
                                 firstName
                                 lastName
