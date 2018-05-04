@@ -14,6 +14,7 @@ import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminAboutController from './sub_controllers/AdminAboutController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
+import AdminRosterController from './sub_controllers/AdminRosterController';
 import AdminThemeController from './sub_controllers/AdminThemeController';
 import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
@@ -63,7 +64,7 @@ class MenuDrop extends Component {
                             </div>
                         </a>
                         <a className="item">
-                            <div className={this.props.classes.menu_item}>
+                            <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('roster', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
                                 </div>
@@ -171,6 +172,10 @@ class AdminPageController extends Component {
         switch (this.state.page) {
             case 'company': {
                 p_component = <AdminProfileController />;
+                break;
+            }
+            case 'roster': {
+                p_component = <AdminRosterController />;
                 break;
             }
             case 'media': {

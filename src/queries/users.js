@@ -44,6 +44,15 @@ export const getIndividualUserByEmailQuery = gql`query getIndividualUserByEmail(
     }
   }
 }`;
+export const getIndividualUserByIdQuery = gql`query getIndividualUserByEmail($id:Int!) {
+  allIndividualUsers(condition:{id:$id}) {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}`;
 
 export const authenticatePreUserQuery = gql`mutation authenticatePre($email: String!, $password: String!) {
   preUserAuthenticate(input:{email: $email, password: $password}) {
@@ -96,6 +105,20 @@ export const createUserQuery = gql`mutation registerUser($firstName: String!, $l
       }
     }
   }`;
+
+
+export const getAllIndividualUsersQuery = gql`query getAllIndividualUsers {
+  allIndividualUsers {
+    edges {
+      node {
+        firstName
+        lastName
+        id
+        profileImageUrl
+      }
+    }
+  }
+}`;
 
 export const createIndividualUserQuery = gql`mutation registerIndividual($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
 	individualUserRegister(input: {firstName: $firstName, lastName: $lastName, email: $email, password: $password}) {

@@ -13,6 +13,7 @@ import IndividualSocialStatsComponentRender from '../../render_components/indivi
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
 import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
 import IndividualEditComponentRender from '../../render_components/individual/IndividualEditModalComponentRender';
+import browserHistory from '../../../utils/stores/browserHistory';
 // import { isMobile } from 'react-device-detect';
 // import historyStore from '../../../utils/stores/browserHistory';
 
@@ -195,23 +196,34 @@ class IndividualPageController extends Component {
     };
     componentWillMount = async () => {
         this.is_admin = false;
-        const authPayload = this.props.appManager.GetQueryParams('p');
-        this.key_index = 1;
-        if (authPayload) {
-            const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
-            console.log(`token - ${p}`);
-            this.authPayload = p;
-            const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
-            const d = this.props.appManager.decodeJWT(token);
-            this.user_id = d.id;
-            const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
-            if (user.individualUserById !== null) {
-                this.is_admin = true;
-            }
+        const view_id = this.props.appManager.GetQueryParams('u');
+        if (view_id) {
+            const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
             this.user_details = user.individualUserById;
             this.setState({
                 visible: true
             });
+        } else {
+            const authPayload = this.props.appManager.GetQueryParams('p');
+            this.key_index = 1;
+            if (authPayload) {
+                const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+                console.log(`token - ${p}`);
+                this.authPayload = p;
+                const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
+                const d = this.props.appManager.decodeJWT(token);
+                this.user_id = d.id;
+                const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
+                if (user.individualUserById !== null) {
+                    this.is_admin = true;
+                }
+                this.user_details = user.individualUserById;
+                this.setState({
+                    visible: true
+                });
+            } else {
+                browserHistory.push('/signup');
+            }
         }
     }
     handleEditClick = () => {
@@ -268,6 +280,7 @@ class IndividualPageController extends Component {
         return (
             <div>
                 <IndividualPageComponentRender
+                    bannerImageUrl={this.user_details.bannerImageUrl}
                     handleEditClick={this.handleEditClick}
                     button_style={s}
                     ColumnOne={

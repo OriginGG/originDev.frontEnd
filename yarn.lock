@@ -6700,6 +6700,10 @@ prettydiff@^99.0.1:
   version "99.0.1"
   resolved "https://registry.yarnpkg.com/prettydiff/-/prettydiff-99.0.1.tgz#95a5d973358daea342161661401a79b87832b412"
 
+primereact@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/primereact/-/primereact-1.5.1.tgz#fdb2e57e343b9474c176b883ed4d6b5c3e40cafe"
+
 private@^0.1.6, private@^0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
