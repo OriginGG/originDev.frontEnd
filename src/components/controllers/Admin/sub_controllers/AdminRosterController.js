@@ -17,7 +17,6 @@ export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentWillMount = async () => {
         const users = await this.props.appManager.executeQuery('query', getAllIndividualUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-
         const edges = users.allIndividualUsers.edges.slice(0);
         this.props.game_node.rosterIndividualsByRosterId.edges.forEach((x) => {
             const f = _.findIndex(edges, (o) => {
@@ -222,21 +221,23 @@ class AdminRosterController extends Component {
         this.getRosterData();
     }
     getRosterData = async () => {
-        const p_array = [];
-        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        roster_data.allRosters.edges.forEach((r, i) => {
-            const { gameId } = r.node;
-            const currGame = _.find(gameOptions, (o) => {
-                return o.game_id === gameId;
+        return new Promise(async (resolve) => {
+            const p_array = [];
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            roster_data.allRosters.edges.forEach((r, i) => {
+                const { gameId } = r.node;
+                const currGame = _.find(gameOptions, (o) => {
+                    return o.game_id === gameId;
+                });
+                p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
-            p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
+            this.current_roster_users = roster_data.allRosters.edges;
+            this.setState({ visible: true, games: p_array });
+            resolve(true);
         });
-        this.current_roster_users = roster_data.allRosters.edges;
-        this.setState({ visible: true, games: p_array });
     }
 
     handleUserSubmit = async (t) => {
-        this.closeUserModal();
         const add_array = [];
         const delete_array = [];
         t.forEach((u) => {
@@ -284,6 +285,9 @@ class AdminRosterController extends Component {
                 position: toast.POSITION.TOP_LEFT
             });
         }
+        await this.getRosterData();
+        this.closeUserModal();
+
         // here we calculate a list of id's to add or delete..
         // first found the add id's
     }
