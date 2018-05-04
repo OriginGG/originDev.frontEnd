@@ -1628,6 +1628,23 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '20px 0px 20px 0px' 
     },
+    team_add_actions: {
+        display: 'table',
+        padding: '20px 0px 20px 0px',
+        float: 'right'
+    },
+    admin_roster_back: {
+        padding: '10px 30px 10px 30px',
+        borderRadius: '5px',
+        borderColor: '#cdcdcd',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        backgroundColor: '#dddddd',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer'
+    },
     theme_type_container: {
         width: '100%',
         display: 'table',
