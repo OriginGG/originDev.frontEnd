@@ -73,6 +73,14 @@ export const GlobalStyles = GlobalTheme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
     },
+    choiceModal: {
+        width: '50%',
+        marginTop: '25%',
+        display: 'table',
+        paddingBottom: '20px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+    },
     tabular_menu: {
         width: '100%',
         height: '54px',
@@ -193,17 +201,508 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // New Obliviot Theme
+    // ***************************************************************
+
+    obliviot_mobile_menu: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        background: 'rgb(255,255,255)'
+    },
+    obliviot_mobile_menu_item: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px',
+        borderWidth: '1px',
+        borderColor: 'rgb(225,225,225)',
+        borderStyle: 'solid',
+        cursor: 'pointer'
+    },
+    obliviot_mobile_menu_item_box: {
+        width: '100%',
+        height: '50px',
+        color: 'black',
+        lineHeight: '50px',
+        paddingLeft: '15px'
+    },
+    obliviot_news_title: {
+        fontWeight: '600',
+        textAlign: 'left',
+    },
+    obliviot_news_date: {
+        fontWeight: '400',
+        fontSize: '12px',
+        textAlign: 'right',
+        float: 'right'
+    },
+    obliviot_nav_container: {
+        display: 'table',
+        width: '100%',
+        height: '50px',
+        marginTop: '40px',
+        paddingTop: '60px',
+        paddingBottom: '0px'
+    },
+    obliviot_nav_left: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        paddingLeft: '30px'
+    },
+    obliviot_nav_right: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        paddingRight: '30px'
+    },
+    obliviot_nav_center: {
+        width: '100%',
+        height: '50px',
+        display: 'table'
+    },
+    obliviot_nav_header: {
+        display: 'table',
+        height: '50px',
+        width: '100%',
+        textAlign: 'center'
+    },
+    obliviot_nav_img: {
+        maxWidth: '100px',
+        maxHeight: '50px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    obliviot_mobile_nav_container: {
+        width: '100%',
+        height: '20px',
+        background: 'white'
+    },
+    obliviot_mobile_nav_left: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingLeft: '15px',
+    },
+    obliviot_mobile_nav_right: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingRight: '15px',
+        textAlign: 'right',
+        color: 'black',
+        fontSize: '20px'
+    },
+    obliviot_nav_mobile_img: {
+        maxWidth: '50px',
+        maxHeight: '20px',
+    },
+
+    obliviot_org_menu_container: {
+        float: 'right',
+        display: 'table'
+    },
+
+    news_modal_info_box: {
+        width: '100%',
+        display: 'table',
+        paddingTop: '30px',
+        paddingBottom: '30px'
+    },
+    news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'white'
+    },
+    news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'white'
+    },
+    fixed_div: {
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh'
+    },
+    obliviotBG: {
+        width: '100%',
+        backgroundColor: 'rgb(255,255,255)',
+        padding: '0px 0px 0px 0px'
+    },
+    obliviotNavBG: {
+        width: '100%',
+        backgroundColor: 'transparent',
+        padding: '0px 0px 0px 0px'
+    },
+    obliviotMainBG: {
+        width: '100%',
+        padding: '0px 0px 0px 0px'
+    },
+    pageContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    pageTestContraint: {
+        width: '100%',
+        height: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    obliviot_pageContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        background: 'rgb(255,255,255)',
+    },
+    obliviot_pageTestContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        background: 'transparent',
+    },
+    obliviotHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        display: 'table',
+        position: 'fixed',
+        zIndex: '1000',
+        top: '0',
+        left: '0',
+        background: 'rgb(255,255,255)',
+        borderBottom: '5px solid white'
+    },
+    obliviotHeaderInner: {
+        width: '50%',
+        height: '40px'
+    },
+    obliviot_body_container: {
+        width: '100%',
+        display: 'table',
+        padding: '0px 15px 0px 15px',
+        background: 'rgb(255,255,225)'
+    },
+    obliviotHeader_menu_div: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        textAlign: 'left',
+        color: '#000',
+        cursor: 'pointer'
+    },
+    obliviot_header_logo: {
+        height: '50px'
+    },
+    obliviot_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '25px'
+    },
+    obliviot_social_menu_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'left',
+        color: 'black',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+    org_menu_obliviot_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'black',
+        fontSize: '16px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent'
+    },
+    org_hidden_menu_obliviot_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'black',
+        fontSize: '16px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        display: 'none'
+    },
+    obliviot_main_image_container: {
+        width: '100%',
+        heightMax: '500px',
+        display: 'table',
+        position: 'relative',
+        marginTop: '10px'
+    },
+    obliviot_main_image: {
+        width: '100%',
+        maxHeight: '500px',
+        objectFit: 'fill'
+    },
+    obliviot_main_image_text_container: {
+        width: '100%',
+        height: '40px',
+        background: 'rgba(255,255,255,.9)',
+        position: 'absolute',
+        top: '0'
+    },
+    obliviot_main_image_text: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 10px 0px 10px',
+        float: 'left',
+        textAlign: 'center',
+        color: 'black'
+    },
+    obliviot_news_container: {
+        width: '100%',
+        maxHeight: '610px',
+        marginTop: '10px',
+        paddingRight: '15px',
+        float: 'left',
+        overflowY: 'scroll'
+    },
+    obliviot_news__more_container: {
+        width: '100%',
+        height: '36px'
+    },
+    obliviot_news_more_button: {
+        float: 'right',
+        height: '36px',
+        backgroundColor: 'rgb(50,50,50)',
+        color: 'white',
+        border: '2px solid rgba(0,0,0rf,.5)',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        borderRadius: '2px',
+        lineHeight: '36px',
+        textAlign: 'center',
+        cursor: 'pointer'
+    },
+    obliviot_twitter_container: {
+        width: '100%',
+        maxHeight: '866px',
+        padding: '30px',
+        height: '500px',
+        display: 'table'
+    },
+    obliviot_section_title_container: {
+        width: '70%',
+        color: '#767676',
+        textAlign: 'left',
+        marginTop: '10px'
+    },
+    obliviot_media_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: 'transparent',
+        padding: '10px 0px 10px 0px'
+    },
+
+    obliviot_recent_matches_body: {
+        width: '100%',
+        maxHeight: '600px',
+        backgroundColor: 'transparent',
+        overflowY: 'scroll'
+    },
+
+    // ***************************************************************
     // New Dark Theme
     // ***************************************************************
 
+    dark_mobile_menu: {
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        background: 'rgb(20,20,20)'
+    },
+    dark_mobile_menu_item: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px',
+        borderWidth: '1px',
+        borderColor: 'rgb(30,30,30)',
+        borderStyle: 'solid',
+        cursor: 'pointer'
+    },
+    dark_mobile_menu_item_box: {
+        width: '100%',
+        height: '50px',
+        color: 'white',
+        lineHeight: '50px',
+        paddingLeft: '15px'
+    },
+    dark_news_title: {
+        fontWeight: '600',
+        textAlign: 'left',
+    },
+    dark_news_date: {
+        fontWeight: '400',
+        fontSize: '12px',
+        textAlign: 'right',
+        float: 'right'
+    },
+    dark_nav_container: {
+        display: 'table',
+        width: '100%',
+        height: '50px',
+        marginTop: '40px',
+        paddingTop: '60px',
+        paddingBottom: '0px'
+    },
+    dark_nav_left: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        paddingLeft: '30px'
+    },
+    dark_nav_right: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        paddingRight: '30px'
+    },
+    dark_nav_center: {
+        width: '100%',
+        height: '50px',
+        display: 'table'
+    },
+    dark_nav_header: {
+        display: 'table',
+        height: '50px',
+        width: '100%',
+        textAlign: 'center'
+    },
+    dark_nav_img: {
+        maxWidth: '100px',
+        maxHeight: '50px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    dark_mobile_nav_container: {
+        width: '100%',
+        height: '20px',
+        background: 'black'
+    },
+    dark_mobile_nav_left: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingLeft: '15px',
+    },
+    dark_mobile_nav_right: {
+        width: '50%',
+        height: '20px',
+        float: 'left',
+        paddingRight: '15px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '20px'
+    },
+    dark_nav_mobile_img: {
+        maxWidth: '50px',
+        maxHeight: '20px',
+    },
+
+    dark_org_menu_container: {
+        float: 'right',
+        display: 'table'
+    },
+
+    news_modal_info_box: {
+        width: '100%',
+        display: 'table',
+        paddingTop: '30px',
+        paddingBottom: '30px'
+    },
+    news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'white'
+    },
+    news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'white'
+    },
+    fixed_div: {
+        position: 'absolute',
+        width: '100vw',
+        height: '100vh'
+    },
     darkBG: {
         width: '100%',
         backgroundColor: 'rgb(20,20,20)',
-        padding: '50px 0px 50px 0px'
+        padding: '0px 0px 0px 0px'
+    },
+    darkNavBG: {
+        width: '100%',
+        backgroundColor: 'transparent',
+        padding: '0px 0px 0px 0px'
+    },
+    darkMainBG: {
+        width: '100%',
+        padding: '0px 0px 0px 0px'
+    },
+    pageContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    pageTestContraint: {
+        width: '100%',
+        height: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    dark_pageContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundImage: 'url("./images/dark_theme_bg_1.png")',
+    },
+    dark_pageTestContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        background: 'transparent',
     },
     darkHeader: {
         width: '100%',
-        padding: '15px 30px 15px 30px',
+        padding: '15px 20px 15px 20px',
         minHeight: '40px',
         display: 'table',
         position: 'fixed',
@@ -232,12 +731,17 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
     dark_header_logo: {
-        width: '40px',
-        height: '48px'
+        height: '50px'
     },
-    social_menu_dark_item: {
-        height: '30px',
-        lineHeight: '30px',
+    dark_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '25px'
+    },
+    dark_social_menu_item: {
+        height: '50px',
+        lineHeight: '50px',
         float: 'left',
         color: 'white',
         fontSize: '18px',
@@ -245,19 +749,38 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '0px 10px 0px 10px'
     },
     org_menu_dark_item: {
-        height: '30px',
-        lineHeight: '30px',
+        height: '50px',
+        lineHeight: '50px',
         float: 'right',
         color: 'white',
-        fontSize: '14px',
+        fontSize: '16px',
+        fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px'
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent'
+    },
+    org_hidden_menu_dark_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        display: 'none'
     },
     dark_main_image_container: {
         width: '100%',
         heightMax: '500px',
         display: 'table',
-        position: 'relative'
+        position: 'relative',
+        marginTop: '10px'
     },
     dark_main_image: {
         width: '100%',
@@ -281,15 +804,15 @@ export const GlobalStyles = GlobalTheme => ({
     },
     dark_news_container: {
         width: '100%',
-        display: 'table',
+        maxHeight: '610px',
         marginTop: '10px',
         paddingRight: '15px',
-        float: 'left'
+        float: 'left',
+        overflowY: 'scroll'
     },
     dark_news__more_container: {
         width: '100%',
-        height: '36px',
-        backgroundColor: 'rgb(20,20,20)'
+        height: '36px'
     },
     dark_news_more_button: {
         float: 'right',
@@ -301,26 +824,34 @@ export const GlobalStyles = GlobalTheme => ({
         paddingRight: '10px',
         borderRadius: '2px',
         lineHeight: '36px',
-        textAlign: 'center'
+        textAlign: 'center',
+        cursor: 'pointer'
     },
     dark_twitter_container: {
         width: '100%',
-        backgroundColor: 'rgb(0, 0, 0)',
+        maxHeight: '866px',
         padding: '30px',
         height: '500px',
         display: 'table'
     },
     dark_section_title_container: {
         width: '70%',
-        color: '#565656',
+        color: '#767676',
         textAlign: 'left',
         marginTop: '10px'
     },
     dark_media_container: {
         width: '100%',
         display: 'table',
-        backgroundColor: 'rgb(20,20,20)',
+        backgroundColor: 'transparent',
         padding: '10px 0px 10px 0px'
+    },
+
+    dark_recent_matches_body: {
+        width: '100%',
+        maxHeight: '600px',
+        backgroundColor: 'transparent',
+        overflowY: 'scroll'
     },
     // ***************************************************************
     // User Theme
@@ -331,6 +862,11 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100vh',
         backgroundColor: GlobalTheme.user_styles.lightHeaderColor,
         backgroundImage: 'url("./images/sliderbg_light.jpg")',
+        padding: '15px 0px 15px 0px'
+    },
+    organizationTestBG: {
+        width: '100%',
+        display: 'table',
         padding: '15px 0px 15px 0px'
     },
     organizationHeader: {
@@ -356,7 +892,7 @@ export const GlobalStyles = GlobalTheme => ({
     header_logo: {
         display: 'block',
         margin: 'auto',
-
+        height: '35px'
     },
     body_container: {
         width: '100%',
@@ -364,47 +900,170 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '0px 15px 0px 15px',
         background: 'transparent'
     },
+    roster_body_container: {
+        width: '100%',
+        height: '100%',
+        display: 'table',
+        padding: '100px 15px 0px 15px',
+        background: 'transparent'
+    },
+    roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(255,255,255,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+    roster_item_img_container: {
+        width: '100px',
+        height: '100px',
+        display: 'table',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px'
+    },
+    sponser_item_img_container: {
+        width: '125px',
+        height: '125px',
+        display: 'table',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '40%'
+    },
+    roster_item_img: {
+        width: '100px',
+        heght: '100px',
+        borderRadius: '50px'
+    },
+    sponser_item_img: {
+        width: '125px',
+        heght: '125px',
+        borderRadius: '10px'
+    },
+    roster_item_info_container: {
+        width: '100%',
+        height: '30px',
+        textAlign: 'left'
+    },
+    roster_item_name_container: {
+        width: '100%',
+        height: '80px',
+    },
+    roster_name: {
+        lineHeight: '80px',
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white'
+    },
+    roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    roster_item_about_container: {
+        width: '100%',
+        padding: '10px 30px 10px 10px',
+        textAlign: 'left'
+    },
+    roster_item_social_container: {
+        width: '100%',
+        height: '40px',
+    },
+    roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'white',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
+    roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(255,255,255,.8)'
+    },
+    roster_item_title: {
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'rgba(255,255,255,.9)'
+    },
+    roster_item_text: {
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: 'rgba(255,255,255,.7)'
+    },
     nav_container: {
         display: 'table',
         width: '100%',
-        marginTop: '60px',
+        height: '50px',
         paddingTop: '60px',
-        paddingBottom: '25px',
+        paddingBottom: '15px',
         float: 'left'
     },
     nav_left: {
         width: '50%',
+        height: '50px',
         float: 'left',
         display: 'table'
     },
     nav_right: {
         width: '50%',
+        height: '50px',
         float: 'left',
         display: 'table'
     },
     org_menu_container: {
         float: 'right',
         display: 'table',
-        paddingTop: '40px'
+        height: '50px'
     },
     social_menu_container: {
         float: 'left',
         display: 'table',
-        paddingTop: '40px',
+        height: '50px',
         paddingLeft: '25px'
     },
     org_menu_item: {
-        height: '30px',
-        lineHeight: '30px',
+        height: '50px',
+        lineHeight: '50px',
         float: 'right',
         color: 'black',
-        fontSize: '14px',
+        fontSize: '16px',
+        fontWeight: '900',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
         cursor: 'pointer',
         padding: '0px 10px 0px 10px'
     },
+    org_hidden_menu_item: {
+        height: '50px',
+        lineHeight: '50px',
+        float: 'right',
+        color: 'black',
+        fontSize: '16px',
+        fontWeight: '900',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        display: 'none'
+    },
     social_menu_item: {
-        height: '30px',
-        lineHeight: '30px',
+        height: '50px',
+        lineHeight: '50px',
         float: 'left',
         color: 'black',
         fontSize: '18px',
@@ -417,7 +1076,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     nav_img: {
         maxWidth: '150px',
-        maxHeight: '89px'
+        maxHeight: '50px'
     },
     organization_container: {
         width: '100%',
@@ -464,8 +1123,14 @@ export const GlobalStyles = GlobalTheme => ({
     },
     section_title_container: {
         width: '70%',
-        color: '#565656',
+        color: '#767676',
         textAlign: 'left'
+    },
+    section_video_title_container: {
+        width: '100%',
+        color: '#767676',
+        textAlign: 'left',
+        marginTop: '10px'
     },
     news_container: {
         width: '70%',
@@ -478,7 +1143,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '286px',
         position: 'relative',
-        backgroundColor: 'white',
         color: 'white',
         marginBottom: '4px'
     },
@@ -487,8 +1151,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '250px',
         paddingTop: '0px',
         position: 'relative',
-        backgroundColor: 'black',//'url("http://api.originbeta.net/blogMedia/CoD-4-Header.jpg")',
-        backgroundSize: 'cover',
+        backgroundColor: 'black',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: '50% 50%'
     },
@@ -524,7 +1187,8 @@ export const GlobalStyles = GlobalTheme => ({
         paddingRight: '10px',
         borderRadius: '2px',
         lineHeight: '36px',
-        textAlign: 'center'
+        textAlign: 'center',
+        cursor: 'pointer'
     },
     social_news_container: {
         width: '30%',
@@ -553,12 +1217,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
     recent_matches_container: {
         width: '100%',
-        display: 'table'
+        display: 'table',
+        backgroundColor: 'transparent'
     },
     recent_matches_body: {
         width: '100%',
         height: '452px',
-        backgroundColor: '#2d2f30'
+        backgroundColor: 'transparent'
     },
     recent_matches_title: {
         background: 'rgb(83, 191, 235)',
@@ -595,7 +1260,6 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: '5%'
     },
     orgFooter: {
-        margin: '0 auto',
         textAlign: 'center',
         width: '100%',
         background: '#0a9ab4',
@@ -885,12 +1549,29 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'transparent',
         color: '#fff'
     },
+    individual_image_label: {
+        backgroundColor: 'transparent',
+        color: '#fff',
+        padding: '5px 10px 5px 10px',
+        borderColor: 'white',
+        borderStyle: 'solid',
+        borderRadius: '4px',
+        borderWidth: '1px',
+        marginTop: '10px',
+        cursor: 'pointer'
+    },
     admin_sponser_image_box: {
         width: '150px',
         height: '100px',
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginBottom: '20px',
         backgroundColor: '#ccc'
+    },
+    admin_sponser_description: {
+        width: '100%',
+        height: '150px',
+        marginTop: '30px'
     },
     admin_sponser_image: {
         width: '150px',
@@ -914,10 +1595,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_news_body_text: {
         width: '100%',
         height: '100%',
-        lineHeight: '1.3em',
-        textAlign: 'left',
-        fontSize: '18px',
-        color: 'black',
+        color: 'white',
         overflowY: 'scroll'
     },
     modal_about_header: {
@@ -925,13 +1603,14 @@ export const GlobalStyles = GlobalTheme => ({
         height: '120px',
         lineHeight: '120px',
         textAlign: 'left',
-        color: 'black',
+        color: 'white',
         fontSize: '48px'
     },
     modal_inner: {
         width: '100%',
         padding: '15px',
-        display: 'table'
+        display: 'table',
+        background: 'black'
     },
     modal_blog_media_container: {
         width: '100%',
@@ -948,6 +1627,23 @@ export const GlobalStyles = GlobalTheme => ({
     blog_add_actions: {
         width: '100%',
         padding: '20px 0px 20px 0px' 
+    },
+    team_add_actions: {
+        display: 'table',
+        padding: '20px 0px 20px 0px',
+        float: 'right'
+    },
+    admin_roster_back: {
+        padding: '10px 30px 10px 30px',
+        borderRadius: '5px',
+        borderColor: '#cdcdcd',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        backgroundColor: '#dddddd',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer'
     },
     theme_type_container: {
         width: '100%',
@@ -995,9 +1691,31 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_header: {
         width: '100%',
-        minHeight: '400px',
-        backgroundImage: 'url("./images/profile-bannerbg.jpg")',
-        backgroundSize: '100% 100% !important'
+        height: '400px',
+        position: 'relative',
+        backgroundColor: '#000',
+    },
+    individual_header_image: {
+        width: '100%',
+        height: '400px',
+        objectFit: 'cover'
+    },
+    individual_edit_button: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 20px 0px 20px',
+        fontSize: '18px',
+        fontWeight: '900',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: '20px',
+        right: '20px'
     },
     individual_basic_container: {
         width: '100%',
@@ -1077,7 +1795,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_box: {
         width: '100%',
-        minHeight: '394px',
+        minHeight: '590px',
+        maxHeight: '590px',
         backgroundColor: 'rgb(56,56,56)',
         borderRadius: '8px'
     },
@@ -1092,7 +1811,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_content: {
         width: '100%',
-        display: 'table',
+        height: '545px',
+        overflowY: 'auto'
     },
     individual_social_empty: {
         width: '100%',
@@ -1100,6 +1820,103 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '5px 0px 5px 0px',
         color: 'white',
         fontSize: '14px'
+    },
+    individual_youtube_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'red',
+        float: 'left'
+    },
+    modal_edit_image_container: {
+        width: '100px',
+        height: '100px',
+        borderRadius: '5px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '30px',
+        marginTop: '30px'
+    },
+    modal_edit_image: {
+        width: '100px',
+        height: '100px',
+        borderRadius: '5px'
+    },
+    modal_edit_banner_container: {
+        width: '300px',
+        height: '100px',
+        borderRadius: '5px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '30px'
+    },
+    modal_edit_banner: {
+        width: '300px',
+        height: '100px',
+        borderRadius: '5px'
+    },
+    modal_edit_image_upload: {
+        width: '300px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        textAlign: 'center'
+    },
+    modal_individual_edit_body: {
+        width: '80%',
+        marginLeft: '10%',
+        marginRight: '10%',
+        display: 'table',
+        padding: '20px 10px 20px 10px'
+    },
+    modal_individual_edit_input: {
+        width: '100%',
+        padding: '5px 10px 5px 10px',
+        color: 'white',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        marginTop: '10px',
+        marginBottom: '10px',
+        lineHeight: '30px',
+        fontSize: '18px',
+        backgroundColor: 'transparent'
+    },
+    modal_individual_edit_about: {
+        width: '100%',
+        padding: '5px 10px 5px 10px',
+        color: 'white',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        marginTop: '10px',
+        marginBottom: '10px',
+        lineHeight: '1.2',
+        fontSize: '18px',
+        backgroundColor: 'transparent'
+    },
+    modal_individual_submit_button_container: {
+        width: '50%',
+        height: '80px',
+        float: 'left',
+        paddingTop: '20px'
+    },
+    modal_individual_submit_button: {
+        height: '40px',
+        lineHeight: '40px',
+        width: '200px',
+        fontSize: '18px',
+        fontWeight: '900',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'transparent',
+        textAlign: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     /******************************
      ** Sub domain page          **
@@ -1165,8 +1982,7 @@ export const GlobalStyles = GlobalTheme => ({
     //*********************************** */
     landing_body: {
         width: '100%',
-        background: 'linear-gradient(#061216, #3d4344)',
-        display: 'table'
+        background: 'linear-gradient(#061216, #3d4344)'
     },
     landing_header: {
         width: '100%',
@@ -1217,6 +2033,13 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100vh',
         color: '#fff',
+        padding: '30px',
+        display: 'table'
+    },
+    landing_upcoming_content_container: {
+        width: '100%',
+        height: '100vh',
+        color: '#fff',
         padding: '30px'
     },
     landing_outer_welcome_container: {
@@ -1231,7 +2054,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100vh',
         color: '#fff',
-        padding: '30px',
         position: 'relative'
     },
     landing_welcome_container: {
@@ -1239,18 +2061,19 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100vh',
         paddingTop: '250px',
         backgroundImage: 'url("./images/banner-bg.jpg")',
-        backgroundSize: 'cover'
+        backgroundRepeat: 'auto',
+        backgroundSize: 'auto'
     },
     landing_welcome_lines_container: {
         width: '100%',
-        height: '200px',
         display: 'table',
         backgroundImage: 'url("./images/title-bg.png")',
         objectFit: 'fill'
     },
     landing_welcome_lines_image: {
-        height: '200px',
-        marginLeft: '150px'
+        width: '80%',
+        marginLeft: '10%',
+        marginRight: '10%'
     },
     landing_page_button_container: {
         width: '100%',
@@ -1273,13 +2096,15 @@ export const GlobalStyles = GlobalTheme => ({
     },
     landing_org_header_text: {
         width: '100%',
-        height: '100px',
-        lineHeight: '100px',
+        height: '50px',
+        lineHeight: '50px',
         color: '#fff',
+        display: 'table',
         fontSize: '48px',
         fontWeight: 'bold',
         padding: '0px 30px 0px 30px',
-        opacity: '0'
+        opacity: '0',
+        marginBottom: '20px'
     },
     landing_org_header_text_blue: {
         color: '#0a9ab4'
@@ -1330,11 +2155,14 @@ export const GlobalStyles = GlobalTheme => ({
     landing_why_content: {
         width: '100%',
         display: 'table',
-        padding: '150px 175px 150px 175px',
-        opacity: '0'
+        opacity: '0',
+        paddingTop: '70px',
+        textAlign: 'center'
     },
     landing_why_header: {
         width: '100%',
+        height: '50px',
+        lineHeight: '50px',
         color: '#0a9ab4',
         fontSize: '48px',
         fontWeight: 'bold'
@@ -1343,25 +2171,26 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         color: '#ffffff',
         fontSize: '36px',
-        paddingTop: '75px'
+        paddingTop: '75px',
+        textAlign: 'left'
     },
     landing_individual_image_container: {
         padding: '15px',
         display: 'table'
     },
     landing_individual_image: {
-
+        width: '100%'
     },
     coming_soon_div: {
         width: '100%',
-        height: '100vh',
-        lineHeight: '80vh',
+        height: '100px',
+        lineHeight: '100px',
         color: '#0a9ab4',
         textAlign: 'center',
         fontSize: '96px',
         fontWeight: 'bold',
         position: 'absolute',
-        top: '0'
+        top: '30%'
     },
     landing_individual_header: {
         width: '100%',
@@ -1376,10 +2205,11 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         textAlign: 'left',
         fontSize: '22px',
-        color: '#ffffff'
+        color: '#ffffff',
+        paddingRight: '15px'
     },
     landing_upcoming_video: {
-        padding: '130px 15px 100px 30px'
+        padding: '130px 0px 100px 0px'
     },
     upcoming_opacity: {
         opacity: '0'
@@ -1424,5 +2254,6 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '18px'
     }
 });
+
 
 
