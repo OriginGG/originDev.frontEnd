@@ -2060,14 +2060,14 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100vh',
         paddingTop: '250px',
-        backgroundImage: 'url("./images/banner-bg.jpg")',
+        backgroundImage: 'url("./../../images/banner-bg.jpg")',
         backgroundRepeat: 'auto',
         backgroundSize: 'auto'
     },
     landing_welcome_lines_container: {
         width: '100%',
         display: 'table',
-        backgroundImage: 'url("./images/title-bg.png")',
+        backgroundImage: 'url("./../../images/title-bg.png")',
         objectFit: 'fill'
     },
     landing_welcome_lines_image: {
