@@ -2182,11 +2182,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
     coming_soon_div: {
         width: '100%',
-        height: '6em',
-        lineHeight: '6em',
         color: '#0a9ab4',
         textAlign: 'center',
-        fontSize: '96px',
+        fontSize: '400%',
         fontWeight: 'bold',
         position: 'absolute',
         top: '2em'
