@@ -2182,14 +2182,14 @@ export const GlobalStyles = GlobalTheme => ({
     },
     coming_soon_div: {
         width: '100%',
-        height: '100px',
-        lineHeight: '100px',
+        height: '6em',
+        lineHeight: '6em',
         color: '#0a9ab4',
         textAlign: 'center',
         fontSize: '96px',
         fontWeight: 'bold',
         position: 'absolute',
-        top: '30%'
+        top: '2em'
     },
     landing_individual_header: {
         width: '100%',
