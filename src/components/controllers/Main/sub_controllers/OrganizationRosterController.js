@@ -60,13 +60,27 @@ class OrganizationRosterController extends Component {
                 roster_image={im}
             /></div>);
         });
-        return (<div>{p_array}</div>);
+        return (<div>
+            <div
+                onClick={this.props.closeRosters}
+                tabIndex={-1}
+                role="menuItem"
+                style={{
+                    cursor: 'pointer',
+                    fontSize: 28,
+                    position: 'absolute',
+                    right: 32,
+                    top: 94,
+                    color: 'white',
+                }}><span className="fa fa-window-close" /></div>
+            {p_array}</div>);
     }
 }
 OrganizationRosterController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    roster_id: PropTypes.number.isRequired
+    roster_id: PropTypes.number.isRequired,
+    closeRosters: PropTypes.func.isRequired
 };
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,

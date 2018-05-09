@@ -174,6 +174,9 @@ class OrganizationPageController extends Component {
         this.current_roster_id = r;
         this.setState({ display_rosters: true });
     }
+    closeRosters = () => {
+        this.setState({ display_rosters: false });
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -251,7 +254,7 @@ class OrganizationPageController extends Component {
             c_name = 'blackBG';
             disp = <OrganizationPageComponentRender
                 copyright={cp}
-                rosterContent={<OrganizationRosterController roster_id={this.current_roster_id} />}
+                rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
