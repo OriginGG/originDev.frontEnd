@@ -12,6 +12,7 @@ import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
 import { deleteRosterUserQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
 import { gameOptions } from './data/AllGames.js';
+import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
@@ -50,9 +51,13 @@ export class ModalContentAddUser extends Component {
     }
 
     userTemplate = (user) => {
+        let im = blankProfileImage;
+        if (user.node.profileImageUrl) {
+            im = user.node.profileImageUrl;
+        }
         return (
             <div className="ui-helper-clearfix">
-                <img src={user.node.profileImageUrl} alt="" style={{ display: 'inline-block', margin: '2px 0 2px 2px', width: 48 }} />
+                <img src={im} alt="" style={{ display: 'inline-block', margin: '2px 0 2px 2px', width: 48 }} />
                 <div style={{ fontSize: '14px', float: 'right', margin: '15px 5px 0 0' }}>{user.node.firstName}</div>
             </div>
         );

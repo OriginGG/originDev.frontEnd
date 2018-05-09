@@ -12,6 +12,44 @@ export const createRosterQuery = gql`mutation createRoster($subDomain: String!, 
   }
 }`;
 
+export const getRosterByIDQuery = gql`query getRosterById($id: Int!) {
+  rosterById(id: $id) {
+      id
+      createdAt
+      updatedAt
+      subDomain
+      gameId
+      teamName
+      rosterIndividualsByRosterId {
+        edges {
+          node {
+            id
+            individualUserByIndividualId {
+              firstName
+              lastName
+              email
+              about
+              contactNumber
+              id
+              accomplishments
+              createdAt
+              updatedAt
+              twitchUrl
+              twitterHandle
+              youtubeChannel
+              youtubeVideo1Url
+              youtubeVideo2Url
+              youtubeVideo3Url
+              bannerImageUrl
+              profileImageUrl
+            }
+
+          }
+        }
+      }
+    }
+  }`;
+
 export const createRosterUserQuery = gql`mutation createRosterUser($rosterId: Int!, $individualId: Int!) {
   createRosterIndividual(input:{rosterIndividual: {
     individualId: $individualId

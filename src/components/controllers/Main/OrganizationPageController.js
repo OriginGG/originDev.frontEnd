@@ -39,12 +39,15 @@ class OrganizationPageController extends Component {
         OrganizationNavController: null,
         OrganizationLogoController: null,
         OrganizationNewsController: null,
+        OrganizationRosterController: null,
         OrganizationMobileMenuComponentRender: null,
         visible: false,
-        about_modal_open: false
+        about_modal_open: false,
+        display_rosters: false
     };
 
     componentWillMount = async () => {
+        this.current_roster_id = -1;
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
         if (subDomain === 'origin') {
@@ -67,6 +70,8 @@ class OrganizationPageController extends Component {
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
+                const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
+
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
                     organisation: this.props.uiStore.current_organisation.subDomain
                 });
@@ -88,6 +93,7 @@ class OrganizationPageController extends Component {
                     OrganizationNavController: OrganizationNavController.default,
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
+                    OrganizationRosterController: OrganizationRosterController.default,
                     OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default
                 });
             }
@@ -164,6 +170,10 @@ class OrganizationPageController extends Component {
                 break;
         }
     }
+    handleRosterClick = (r) => {
+        this.current_roster_id = r;
+        this.setState({ display_rosters: true });
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -188,6 +198,8 @@ class OrganizationPageController extends Component {
         const { OrganizationLogoController } = this.state;
         const { OrganizationAboutModalComponentRender } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
+        const { OrganizationRosterController } = this.state;
+
         // let ml = -200;
         let SideBar = <div />;
         let nv_content = <OrganizationNavController
@@ -221,25 +233,46 @@ class OrganizationPageController extends Component {
         }
         const theme = this.props.uiStore.current_organisation.themeId;
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
+        let c_name = `${theme}_gradient_bg`;
+        let disp = <OrganizationPageComponentRender
+            copyright={cp}
+            newsContent={<OrganizationNewsController />}
+            twitterContent={<OrganizationTwitterController />}
+            matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
+            videoContent={<OrganizationVideoController />}
+            rosterContent={<span />}
+            topSponsorContent={<OrganizationSponsorController />}
+            bottomSponsorContent={<OrganizationSponsorController />}
+            navContent={nv_content}
+            logoContent={<OrganizationLogoController handleRosterClick={this.handleRosterClick} />}
+            footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+        />;
+        if (this.state.display_rosters) {
+            c_name = 'blackBG';
+            disp = <OrganizationPageComponentRender
+                copyright={cp}
+                rosterContent={<OrganizationRosterController roster_id={this.current_roster_id} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
                     <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
                         <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
                         {SideBar}
-                        <div className={`${theme}_gradient_bg`} >
-                            <OrganizationPageComponentRender
-                                copyright={cp}
-                                newsContent={<OrganizationNewsController />}
-                                twitterContent={<OrganizationTwitterController />}
-                                matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
-                                videoContent={<OrganizationVideoController />}
-                                topSponsorContent={<OrganizationSponsorController />}
-                                bottomSponsorContent={<OrganizationSponsorController />}
-                                navContent={nv_content}
-                                logoContent={<OrganizationLogoController roster_games={<span />} />}
-                                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
-                            />
+                        <div className={c_name} >
+                            {disp}
                             <AboutModal
                                 modal_open={this.state.about_modal_open}
                                 content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent} />}
