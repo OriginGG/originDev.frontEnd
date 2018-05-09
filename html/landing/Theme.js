@@ -2052,7 +2052,6 @@ export const GlobalStyles = GlobalTheme => ({
     },
     landing_individual_container: {
         width: '100%',
-        height: '100vh',
         color: '#fff',
         position: 'relative'
     },
