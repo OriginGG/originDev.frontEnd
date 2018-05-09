@@ -2038,9 +2038,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
     landing_upcoming_content_container: {
         width: '100%',
-        height: '100vh',
         color: '#fff',
-        padding: '30px'
+        padding: '30px',
+        display: 'table'
     },
     landing_outer_welcome_container: {
         width: '100%',
