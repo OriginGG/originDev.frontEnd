@@ -2021,7 +2021,7 @@ export const GlobalStyles = GlobalTheme => ({
     menu_modal_item_container: {
         width: '100%',
         height: '100px',
-        padding: '0px 175px 0px 175px',
+        padding: '0px 5% 0px 20%',
         textAlign: 'left',
         color: '#fff',
         fontSize: '48px',
