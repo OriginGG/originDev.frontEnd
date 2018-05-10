@@ -2213,21 +2213,21 @@ export const GlobalStyles = GlobalTheme => ({
     },
     upcoming_header: {
         width: '100%',
-        height: '100px',
-        lineHeight: '100px',
+        lineHeight: '1.1em',
         textAlign: 'center',
         color: '#0a9ab4',
         fontSize: '36px'
     },
     upcoming_title: {
         width: '100%',
-        height: '80px',
-        lineHeight: '80px',
+        lineHeight: '1.2em',
         color: '#fff',
         fontSize: '24px',
         fontWeight: 'bold',
         textAlign: 'left',
-        paddingLeft: '15px'
+        paddingLeft: '15px',
+        paddingTop: '30px',
+        marginBottom: '30px'
     },
     upcoming_body: {
         width: '100%',
