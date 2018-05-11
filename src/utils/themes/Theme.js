@@ -413,7 +413,6 @@ export const GlobalStyles = GlobalTheme => ({
         paddingLeft: '25px'
     },
     obliviot_social_menu_item: {
-        height: '50px',
         lineHeight: '50px',
         float: 'left',
         color: 'black',
@@ -740,7 +739,6 @@ export const GlobalStyles = GlobalTheme => ({
         paddingLeft: '25px'
     },
     dark_social_menu_item: {
-        height: '50px',
         lineHeight: '50px',
         float: 'left',
         color: 'white',
