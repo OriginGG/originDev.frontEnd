@@ -25,7 +25,7 @@ class OrganizationRosterController extends Component {
     //     }
     // }
 
-    handleClick = (i) => {              // eslint-ignore-line
+    handleClick = (i) => {              // eslint-disable-line
         // const x = this.props.appManager.getDomainInfo();
         // let p = x.hostname;
         // if (p.indexOf(x.subDomain) > -1) {
