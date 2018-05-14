@@ -127,7 +127,7 @@ class LoginController extends Component {
                                 if (subDomain === authPayload.authenticate.resultData.organisation) {
                                     // succesfully logged in store in pouch then change page.
                                     await this.props.appManager.pouchStore('authenticate', authPayload);
-                                    historyStore.push('/main');
+                                    historyStore.push('/admin');
                                 }
                             } else {
                                 // does user exist as a pre-user?

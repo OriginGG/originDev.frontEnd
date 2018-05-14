@@ -43,7 +43,8 @@ class OrganizationPageController extends Component {
         OrganizationMobileMenuComponentRender: null,
         visible: false,
         about_modal_open: false,
-        display_rosters: false
+        display_rosters: false,
+        roster_style: { display: 'none' }
     };
 
     componentWillMount = async () => {
@@ -136,7 +137,7 @@ class OrganizationPageController extends Component {
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
-        historyStore.push('/signup');
+        historyStore.push('/signup_org');
     }
     isMenuOpen = (state) => {
         this.setState({ menu_open: state.isOpen });
@@ -172,10 +173,10 @@ class OrganizationPageController extends Component {
     }
     handleRosterClick = (r) => {
         this.current_roster_id = r;
-        this.setState({ display_rosters: true });
+        this.setState({ roster_style: { display: 'table', width: '100%' }, display_rosters: true });
     }
     closeRosters = () => {
-        this.setState({ display_rosters: false });
+        this.setState({ roster_style: { display: 'none' }, display_rosters: false });
     }
     render() {
         if (this.state.visible === false) {
@@ -238,6 +239,7 @@ class OrganizationPageController extends Component {
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
+            roster_style={this.state.roster_style}
             copyright={cp}
             newsContent={<OrganizationNewsController />}
             twitterContent={<OrganizationTwitterController />}
@@ -253,6 +255,7 @@ class OrganizationPageController extends Component {
         if (this.state.display_rosters) {
             c_name = 'blackBG';
             disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
                 copyright={cp}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
