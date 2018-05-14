@@ -23,6 +23,7 @@ class ObliviotOrganizationPageComponentRender extends Component {
                         </div>
                         <div id="theme_about_modal"></div>
                         <div id="roster_component">{this.props.rosterContent}</div>
+<<<<<<< HEAD
                         <div id="#news_cont" className="ui stackable three column grid">
                             <div id="news_component" className="column">
                                 <div >{this.props.newsContent}</div>
@@ -33,14 +34,23 @@ class ObliviotOrganizationPageComponentRender extends Component {
                             <div id="matches_component" className="column">
                                 <div >{this.props.matchesContent}</div>
                             </div>
+=======
+                    </div>
+                    <div id="#news_cont" className="ui stackable three column grid">
+                        <div id="news_component" className="column">
+                            <div >{this.props.newsContent}</div>
                         </div>
-                        <div id="video_cont" className={this.props.classes.obliviot_media_container}>
-                            <div >{this.props.videoContent}</div>
+                        <div id="twitter_compontent" className="column">
+                            <div >{this.props.twitterContent}</div>
+>>>>>>> cb4db5aef360fc7246053efb5f016b192b8415bf
+                        </div>
+                        <div id="matches_component" className="column">
+                            <div >{this.props.matchesContent}</div>
                         </div>
                     </div>
-                </div>
-                <div className={this.props.classes.orgFooter} style={this.props.footer_style}>
-                    <p className={this.props.classes.orgFooterText}>{this.props.copyright}</p>
+                    <div id="video_cont" className={this.props.classes.obliviot_media_container}>
+                        <div >{this.props.videoContent}</div>
+                    </div>
                 </div>
             </div>
         )
