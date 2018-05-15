@@ -1809,8 +1809,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_box: {
         width: '100%',
-        minHeight: '590px',
-        maxHeight: '590px',
+        minHeight: '1209px',
+        maxHeight: '1209px',
         backgroundColor: 'rgb(56,56,56)',
         borderRadius: '8px'
     },
