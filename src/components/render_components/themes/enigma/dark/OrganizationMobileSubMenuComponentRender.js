@@ -9,7 +9,7 @@ class DarkOrganizationMobileSubMenuComponentRender extends Component {
         return (
             <div>
                 <a className={this.props.classes.dark_mobile_submenu_item_box}>
-                    <span id="submenu_item">Call of Duty</span>
+                    <span id="submenu_item">{this.props.name}</span>
                 </a>
             </div>
         )

@@ -57,11 +57,11 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                         </a>
                     </div>
                     <div className={this.props.classes.dark_mobile_menu_item}>
-                        <a className={this.props.classes.dark_mobile_menu_item_box}>
+                        <div className={this.props.classes.dark_mobile_menu_item_box}>
                             Rosters
-                        </a>
+                        </div>
+                        <div >{this.props.rosterContent}</div>
                     </div>
-                    <div id="rosters" className={this.props.classes.dark_mobile_menu_item}></div>
                 </div>
             </div>
         )

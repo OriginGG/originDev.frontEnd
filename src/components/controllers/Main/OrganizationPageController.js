@@ -7,11 +7,13 @@ import { Modal } from 'antd';
 import Favicon from 'react-favicon';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
-
+import { getRosterQuery } from '../../../queries/rosters';
+import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 const AboutModal = (props) => {
     return (
@@ -41,6 +43,7 @@ class OrganizationPageController extends Component {
         OrganizationNewsController: null,
         OrganizationRosterController: null,
         OrganizationMobileMenuComponentRender: null,
+        // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         about_modal_open: false,
         display_rosters: false,
@@ -49,6 +52,10 @@ class OrganizationPageController extends Component {
 
     componentWillMount = async () => {
         this.current_roster_id = -1;
+        const domainToken = await this.props.appManager.getDomainToken();
+        if (domainToken && domainToken.token) {
+            this.props.appManager.serveDomain = domainToken.host;
+        }
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
         if (subDomain === 'origin') {
@@ -72,6 +79,20 @@ class OrganizationPageController extends Component {
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
+                if (this.isMobile()) {
+                    const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
+                    const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
+                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+                    this.mobile_roster_data = [];
+                    roster_data.allRosters.edges.forEach((r) => {
+                        const { gameId } = r.node;
+                        const currGame = _.find(gameOptions, (or) => {          // eslint-disable-line
+                            return or.game_id === gameId;
+                        });
+                        this.mobile_roster_data.push(<div onClick={() => { this.handleRosterClick(r.node.id); }} role="menuItem" tabIndex={-1} key={`mobile_roster_${r.node.id}`}><OrganizationMobileSubMenuComponentRender name={currGame.text} /></div>);
+                    });
+                }
+
 
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
                     organisation: this.props.uiStore.current_organisation.subDomain
@@ -95,7 +116,8 @@ class OrganizationPageController extends Component {
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
-                    OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default
+                    OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
+                    // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
             }
         }
@@ -172,6 +194,9 @@ class OrganizationPageController extends Component {
         }
     }
     handleRosterClick = (r) => {
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
         this.current_roster_id = r;
         this.setState({ roster_style: { display: 'table', width: '100%' }, display_rosters: true });
     }
@@ -191,6 +216,7 @@ class OrganizationPageController extends Component {
             ss = { display: 'inherit' };
         }
 
+        // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
         const { OrganizationNewsController } = this.state;
@@ -204,6 +230,11 @@ class OrganizationPageController extends Component {
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
 
+        let rosterComponent = <span />;
+        if (this.isMobile()) {
+            rosterComponent = this.mobile_roster_data;
+        }
+
         // let ml = -200;
         let SideBar = <div />;
         let nv_content = <OrganizationNavController
@@ -214,7 +245,7 @@ class OrganizationPageController extends Component {
             handleStoreClick={this.handleStoreClick}
             handleLoginClick={this.handleLoginClick}
             handleAboutClick={this.handleAboutClick} />;
-        if (this.isMobile()) {
+        if (this.isMobile() && this.state.display_rosters === false) {
             SideBar =
                 <Menu
                     pageWrapId="page-wrap"
@@ -227,6 +258,7 @@ class OrganizationPageController extends Component {
                 ><div id="page-wrap">
                         <div style={{ display: 'flex', width: '100%', height: '100%' }}>
                             <OrganizationMobileMenuComponentRender
+                                rosterContent={rosterComponent}
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
