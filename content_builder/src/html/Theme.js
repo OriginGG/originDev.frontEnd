@@ -964,10 +964,11 @@ export const GlobalStyles = GlobalTheme => ({
     },
     roster_item_name_container: {
         width: '100%',
-        height: '80px',
+        display: 'table',
+        paddingTop: '20px',
+        paddingBottom: '20px'
     },
     roster_name: {
-        lineHeight: '80px',
         fontSize: '36px',
         fontWeight: '900',
         color: 'white'
