@@ -113,6 +113,7 @@ class OrganizationRosterController extends Component {
                     position: 'absolute',
                     right: 32,
                     top: 94,
+                    zIndex: 10000,
                     color: 'white',
                 }}><span className="fa fa-window-close" /></div>
             {p_array}</div>);

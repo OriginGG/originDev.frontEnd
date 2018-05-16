@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import _ from 'lodash';
 import { inject } from 'mobx-react';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
@@ -12,14 +13,16 @@ class OrganizationLogoController extends Component {
 
     componentWillMount = async () => {
         const p_array = [];
-        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        roster_data.allRosters.edges.forEach((r) => {
-            const { gameId } = r.node;
-            const currGame = _.find(gameOptions, (o) => {
-                return o.game_id === gameId;
+        if (!this.isMobile()) {
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            roster_data.allRosters.edges.forEach((r) => {
+                const { gameId } = r.node;
+                const currGame = _.find(gameOptions, (o) => {
+                    return o.game_id === gameId;
+                });
+                p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
-            p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
-        });
+        }
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         // const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationLogoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationLogoComponentRender`);
@@ -28,6 +31,10 @@ class OrganizationLogoController extends Component {
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
+    }
+    isMobile = () => {
+        // return true;
+        return isMobile;
     }
     render() {
         if (this.state.visible === false) {
