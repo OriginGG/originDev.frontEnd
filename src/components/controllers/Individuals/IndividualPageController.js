@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
+import { Card, Icon, Image } from 'semantic-ui-react';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import blankImage from '../../../assets/images/blank_person.png';
 import { getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
@@ -189,6 +191,35 @@ class ModalContent extends Component {
         );
     }
 }
+
+const TwitchInfo = ({ stats }) => {
+    return (
+        <Card style={{ marginTop: 12, marginLeft: 12 }} >
+            <Image src={stats.profile_image_url} />
+            <Card.Content>
+                <Card.Header>
+                    {stats.display_name}
+                </Card.Header>
+                <Card.Meta>
+                    <span className="date">
+                        Broadcaster Type - {stats.broadcaster_type}
+                    </span>
+                </Card.Meta>
+                <Card.Description>
+                    {stats.description}
+                </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <a>
+                    <Icon name="eye" />
+                    {stats.view_count} views
+      </a>
+            </Card.Content>
+        </Card>
+
+    );
+};
+
 class IndividualPageController extends Component {
     state = {
         visible: false,
@@ -196,13 +227,12 @@ class IndividualPageController extends Component {
     };
     componentWillMount = async () => {
         this.is_admin = false;
+        this.twitch_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
         if (view_id) {
             const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
             this.user_details = user.individualUserById;
-            this.setState({
-                visible: true
-            });
+            this.getTwitchStats();
         } else {
             const authPayload = this.props.appManager.GetQueryParams('p');
             this.key_index = 1;
@@ -218,12 +248,20 @@ class IndividualPageController extends Component {
                     this.is_admin = true;
                 }
                 this.user_details = user.individualUserById;
-                this.setState({
-                    visible: true
-                });
+                this.getTwitchStats();
             } else {
                 browserHistory.push('/signup');
             }
+        }
+    }
+    getTwitchStats = async () => {
+        if (this.user_details.twitchUrl) {
+            const tu = this.user_details.twitchUrl.substring(this.user_details.twitchUrl.lastIndexOf('/') + 1);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchUserInfo?name=${tu}`);
+            this.twitch_stats = td.data.user;
+            this.setState({ visible: true });
+        } else {
+            this.setState({ visible: true });
         }
     }
     handleEditClick = () => {
@@ -257,6 +295,12 @@ class IndividualPageController extends Component {
         this.closeModal();
     }
     render() {
+        let twitch_stats = <h2 style={{
+            marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
+        }}>No Data Found</h2>;
+        if (this.twitch_stats) {
+            twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
+        }
         if (this.state.visible === false) {
             return null;
         }
@@ -276,16 +320,23 @@ class IndividualPageController extends Component {
         if (this.user_details.youtubeVideo3Url) {
             v3 = this.props.appManager.convertYoutubeURL(this.user_details.youtubeVideo3Url);
         }
-
+        let pi = this.user_details.profileImageUrl;
+        if (!pi) {
+            pi = blankImage;
+        }
+        let bi = this.user_details.bannerImageUrl;
+        if (!bi) {
+            bi = 'https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg';
+        }
         return (
             <div>
                 <IndividualPageComponentRender
-                    bannerImageUrl={this.user_details.bannerImageUrl}
+                    bannerImageUrl={bi}
                     handleEditClick={this.handleEditClick}
                     button_style={s}
                     ColumnOne={
                         <IndividualBasicInfoComponentRender
-                            profileImageUrl={this.user_details.profileImageUrl}
+                            profileImageUrl={pi}
                             twitterHandle={this.user_details.twitterHandle}
                             about={this.user_details.about}
                             firstName={this.user_details.firstName}
@@ -293,7 +344,7 @@ class IndividualPageController extends Component {
                             contactNumber={this.user_details.contactNumber}
                         />
                     }
-                    ColumnTwo={<IndividualSocialStatsComponentRender />}
+                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
                     ColumnThree={<IndividualVideosComponentRender
                         video1_url={v1}
                         video2_url={v2}
@@ -319,6 +370,9 @@ ModalContent.propTypes = {
     closeModal: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
 
+};
+TwitchInfo.propTypes = {
+    stats: PropTypes.object.isRequired
 };
 EditModal.propTypes = {
     modal_open: PropTypes.bool.isRequired,
