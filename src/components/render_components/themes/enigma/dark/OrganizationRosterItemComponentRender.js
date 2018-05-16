@@ -33,22 +33,22 @@ class DarkOrganizationRosterItemComponentRender extends Component {
                                     <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
-                                            .handle_social( 'twitter' );
+                                            .handle_social( 'twitter', this.props.ind_user );
                                     }} style={this.props.twitter_style}><i className="fa fa-twitter"/></div>
                                     <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
-                                            .handle_social( 'facebook' );
+                                            .handle_social( 'facebook', this.props.ind_user );
                                     }} style={this.props.facebook_style}><i className="fa fa-facebook"/></div>
                                     <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
-                                            .handle_social( 'instagram' );
+                                            .handle_social( 'instagram', this.props.ind_user );
                                     }} style={this.props.instagram_style}><i className="fa fa-instagram"/></div>
                                     <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
-                                            .handle_social( 'youtube' );
+                                            .handle_social( 'youtube', this.props.ind_user );
                                     }} style={this.props.youtube_style}><i className="fa fa-youtube"/></div>
                                 </div>
                             </div>

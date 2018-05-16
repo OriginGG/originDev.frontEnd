@@ -39,7 +39,25 @@ class OrganizationRosterController extends Component {
         // }
     }
 
-    handle_social = (s) => {
+    handle_social = (s, ind_user) => {
+        switch (s) {
+            case 'twitter': {
+                const p_string = `https://twitter.com/${ind_user.twitterHandle}`;
+                window.open(p_string, '_blank');
+                break;
+            }
+            case 'facebook': {
+                window.open(ind_user.facebookLink, '_blank');
+                break;
+            }
+            case 'instagram': {
+                window.open(ind_user.instagramLink, '_blank');
+                break;
+            }
+            default: {
+                break;
+            }
+        }
         console.log(s);
     }
 
@@ -55,13 +73,33 @@ class OrganizationRosterController extends Component {
             if (individualUserByIndividualId.profileImageUrl) {
                 im = individualUserByIndividualId.profileImageUrl;
             }
-
+            let twitter_style = { display: 'inherit' };
+            if (!individualUserByIndividualId.twitterHandle) {
+                twitter_style = { display: 'none' };
+            }
+            let facebook_style = { display: 'inherit' };
+            if (!individualUserByIndividualId.facebookLink) {
+                facebook_style = { display: 'none' };
+            }
+            let youtube_style = { display: 'inherit' };
+            if (!individualUserByIndividualId.youtubeChannel) {
+                youtube_style = { display: 'none' };
+            }
+            let instagram_style = { display: 'inherit' };
+            if (!individualUserByIndividualId.instagramLink) {
+                instagram_style = { display: 'none' };
+            }
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
                 roster_nickname={individualUserByIndividualId.twitterHandle}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
                 roster_image={im}
+                ind_user={individualUserByIndividualId}
                 handle_social={this.handle_social}
+                twitter_style={twitter_style}
+                facebook_style={facebook_style}
+                youtube_style={youtube_style}
+                instagram_style={instagram_style}
             /></div>);
         });
         return (<div>

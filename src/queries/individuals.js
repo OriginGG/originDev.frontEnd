@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const getIndividualUserByHandleQuery = gql`query getIndividualUserByHandle($handle: String!) {
-  allIndividualUsers(condition:{twitterHandle: $handle}) {
+  allIndividualUsers(condition:{username: $handle}) {
     edges {
       node {
         id

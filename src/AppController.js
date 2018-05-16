@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
+import _ from 'lodash';
 import { getThemeQuery } from './queries/themes';
 import { getOrganisationQuery } from './queries/organisation';
 import { getIndividualUserByHandleQuery } from './queries/individuals';
@@ -10,14 +11,25 @@ import historyStore from './utils/stores/browserHistory';
 import './App.css';
 
 
+const pathsToIgnore = [
+    '/signup',
+    '/signup_org',
+    '/signup_ind',
+    '/new_signup',
+    '/new_signup_ind',
+    '/main',
+    '/individual',
+    '/admin_page',
+    '/createsubdomain'
+];
+
 class AppController extends Component {
     componentWillMount = async () => {
         let admin = false;
         // pouchTest
+
         const is_root = location.pathname === '/';              // eslint-disable-line
         if (is_root) {
-            // first check if we're being passed a domain token.
-
             const domainToken = await this.props.appManager.getDomainToken();
             if (domainToken && domainToken.token) {
                 this.props.appManager.serveDomain = domainToken.host;
@@ -102,8 +114,10 @@ class AppController extends Component {
                     }
                 }
             } else {
-                const l = location.pathname;                // eslint-disable-line
-                if (!(l.indexOf('/landing') > -1)) {
+                const l = location.pathname;        // eslint-disable-line
+                if (_.findIndex(pathsToIgnore, (o) => {
+                    return o === l;
+                }) === -1) {
                     const handle = (location.pathname).replace('/', '');            // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
                     if (user.allIndividualUsers.edges.length > 0) {
