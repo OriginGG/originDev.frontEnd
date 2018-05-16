@@ -48,7 +48,9 @@
                         </div>
                     </div>
                     <div id="modal_individual_edit_body" class="classes.modal_individual_edit_body">
-                        <input data-component-props="value={this.props.firstName} onChange={(e)=>{this.props.handleChange('firstName', e);}}" class="classes.modal_individual_edit_input" placeholder="Name" />
+                        <input data-component-props="value={this.props.firstName} onChange={(e)=>{this.props.handleChange('firstName', e);}}" class="classes.modal_individual_edit_input" placeholder="First Name" />
+                        <input data-component-props="value={this.props.lastName} onChange={(e)=>{this.props.handleChange('lastName', e);}}" class="classes.modal_individual_edit_input" placeholder="Last Name" />
+                        <input data-component-props="value={this.props.userName} onChange={(e)=>{this.props.handleChange('userName', e);}}" class="classes.modal_individual_edit_input" placeholder=" Username" />
                         <input data-component-props="value={this.props.twitterHandle} onChange={(e)=>{this.props.handleChange('twitterHandle', e);}}" class="classes.modal_individual_edit_input" placeholder="Twitter Handle" />
                         <input data-component-props="value={this.props.contactNumber} onChange={(e)=>{this.props.handleChange('contactNumber', e);}}" class="classes.modal_individual_edit_input" placeholder="Contact Number" />
                         <textarea data-component-props="value={this.props.about} onChange={(e)=>{this.props.handleChange('about', e);}}" class="classes.modal_individual_edit_about" rows="10" placeholder="About"></textarea>
