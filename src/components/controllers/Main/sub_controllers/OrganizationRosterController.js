@@ -39,6 +39,10 @@ class OrganizationRosterController extends Component {
         // }
     }
 
+    handle_social = (s) => {
+        console.log(s);
+    }
+
     render() {
         if (this.state.visible === false) {
             return null;
@@ -57,6 +61,7 @@ class OrganizationRosterController extends Component {
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
                 roster_image={im}
+                handle_social={this.handle_social}
             /></div>);
         });
         return (<div>

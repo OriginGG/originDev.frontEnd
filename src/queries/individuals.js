@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const getIndividualUserByHandleQuery = gql`query getIndividualUserByHandle($handle: String!) {
+  allIndividualUsers(condition:{twitterHandle: $handle}) {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+`;
+
 export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
   individualUserById(id: $id) {
     firstName
@@ -18,6 +29,9 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
 		youtubeVideo3Url
     bannerImageUrl
 		profileImageUrl
+    facebookLink
+    instagramLink
+    username
 		id
   }
 }
@@ -30,7 +44,10 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
   $youtubeVideo2Url: String,
   $youtubeVideo3Url: String,
   $bannerImageUrl: String,
-  $profileImageUrl: String
+  $profileImageUrl: String,
+  $facebookLink: String,
+  $instagramLink: String,
+  $username: String
 	) {
   	updateIndividualUserById(input:{id: $id, individualUserPatch: {
       firstName: $firstName
@@ -45,6 +62,9 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
       youtubeVideo1Url: $youtubeVideo1Url
       youtubeVideo2Url: $youtubeVideo2Url
       youtubeVideo3Url: $youtubeVideo3Url
+      facebookLink: $facebookLink
+      instagramLink: $instagramLink
+      username: $username
     }}) {
     individualUser {
       id

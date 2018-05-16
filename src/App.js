@@ -34,6 +34,7 @@ class App extends Component {
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
                 <Route exact path="/createsubdomain" component={CreateSubDomainController} />
+                <Route path="*" component={AppController} />
                 <ToastContainer autoClose={2500} />
             </div>
         );
