@@ -23,18 +23,6 @@ class ObliviotOrganizationPageComponentRender extends Component {
                         </div>
                         <div id="theme_about_modal"></div>
                         <div id="roster_component">{this.props.rosterContent}</div>
-<<<<<<< HEAD
-                        <div id="#news_cont" className="ui stackable three column grid">
-                            <div id="news_component" className="column">
-                                <div >{this.props.newsContent}</div>
-                            </div>
-                            <div id="twitter_compontent" className="column">
-                                <div >{this.props.twitterContent}</div>
-                            </div>
-                            <div id="matches_component" className="column">
-                                <div >{this.props.matchesContent}</div>
-                            </div>
-=======
                     </div>
                     <div id="#news_cont" className="ui stackable three column grid">
                         <div id="news_component" className="column">
@@ -42,7 +30,6 @@ class ObliviotOrganizationPageComponentRender extends Component {
                         </div>
                         <div id="twitter_compontent" className="column">
                             <div >{this.props.twitterContent}</div>
->>>>>>> cb4db5aef360fc7246053efb5f016b192b8415bf
                         </div>
                         <div id="matches_component" className="column">
                             <div >{this.props.matchesContent}</div>

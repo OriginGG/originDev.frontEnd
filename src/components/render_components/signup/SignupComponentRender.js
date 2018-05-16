@@ -18,17 +18,45 @@ class SignupComponentRender extends Component {
                             <div className="ui stacked segment">
                                 <div className={this.props.classes.form_body}>
                                     <div className={this.props.classes.input_title}>
-                                        Name
+                                        First Name
                                     </div>
                                     <div className="field">
                                         <div className="ui input">
-                                            <input type="text" name="name" placeholder="Name" style={{
+                                            <input type="text" name="name" placeholder="First Name" style={{
+                                                backgroundColor: 'transparent',
+                                                borderColor: '#fff',
+                                                color: '#fff',
+                                                height: '45px',
+                                                fontSize: '16px'
+                                            }} className={this.props.classes.input_box}/>
+                                        </div>
+                                    </div>
+                                    <div className={this.props.classes.input_title}>
+                                        Last Name
+                                    </div>
+                                    <div className="field">
+                                        <div className="ui input">
+                                            <input type="text" name="name" placeholder="Last Name" style={{
                                                 backgroundColor: 'transparent',
                                                 borderColor: '#fff',
                                                 color: '#fff',
                                                 height: '45px',
                                                 fontSize: '16px'
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.name}/>
+                                        </div>
+                                    </div>
+                                    <div className={this.props.classes.input_title}>
+                                        Username
+                                    </div>
+                                    <div className="field">
+                                        <div className="ui input">
+                                            <input type="text" name="name" placeholder="Username" style={{
+                                                backgroundColor: 'transparent',
+                                                borderColor: '#fff',
+                                                color: '#fff',
+                                                height: '45px',
+                                                fontSize: '16px'
+                                            }} className={this.props.classes.input_box}/>
                                         </div>
                                     </div>
                                     <div className={this.props.classes.input_title}>

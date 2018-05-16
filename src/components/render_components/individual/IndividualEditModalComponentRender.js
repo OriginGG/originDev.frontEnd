@@ -79,21 +79,6 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'youtubeChannel', e );
                             }}/>
-                            <input placeholder="Youtube Video 1" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeVideo1Url} onChange={e => {
-                                this
-                                    .props
-                                    .handleChange( 'youtubeVideo1Url', e );
-                            }}/>
-                            <input placeholder="Youtube Video 2" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeVideo2Url} onChange={e => {
-                                this
-                                    .props
-                                    .handleChange( 'youtubeVideo2Url', e );
-                            }}/>
-                            <input placeholder="Youtube Video 3" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeVideo3Url} onChange={e => {
-                                this
-                                    .props
-                                    .handleChange( 'youtubeVideo3Url', e );
-                            }}/>
                             <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.closeModal}>
                                 <div className={this.props.classes.modal_individual_submit_button}>Cancel</div>
                             </div>

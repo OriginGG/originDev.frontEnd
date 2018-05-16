@@ -34,11 +34,6 @@ class IndividualPageComponentRender extends Component {
                                             <div id="stats_right" className="column">{this.props.ColumnThree}</div>
                                         </div>
                                     </div>
-                                    <div className="sixteen wide column">
-                                        <div className="ui one column grid">
-                                            <div id="stats_right" className="column">{this.props.ColumnFour}</div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
