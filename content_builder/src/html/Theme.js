@@ -919,7 +919,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100%',
         display: 'table',
         padding: '100px 15px 0px 15px',
-        background: 'transparent'
+        background: 'black'
     },
     roster_item_container: {
         width: '100%',
@@ -971,7 +971,8 @@ export const GlobalStyles = GlobalTheme => ({
     roster_name: {
         fontSize: '36px',
         fontWeight: '900',
-        color: 'white'
+        color: 'white',
+        wordBreak: 'break-all'
     },
     roster_divider: {
         lineHeight: '80px',

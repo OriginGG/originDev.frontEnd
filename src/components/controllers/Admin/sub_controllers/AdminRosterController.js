@@ -58,7 +58,7 @@ export class ModalContentAddUser extends Component {
         return (
             <div className="ui-helper-clearfix">
                 <img src={im} alt="" style={{ display: 'inline-block', margin: '2px 0 2px 2px', width: 48 }} />
-                <div style={{ fontSize: '14px', float: 'right', margin: '15px 5px 0 0' }}>{user.node.firstName}</div>
+                <div style={{ fontSize: '14px', float: 'right', margin: '15px 5px 0 0' }}>{user.node.username}</div>
             </div>
         );
     }
