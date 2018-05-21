@@ -16,7 +16,7 @@ require('../config/env');
 
 const path = require('path');
 const chalk = require('chalk');
-const fs = require('fs-extra');   
+const fs = require('fs-extra');
 const webpack = require('webpack');
 const config = require('../config/webpack.config.prod');
 const paths = require('../config/paths');
