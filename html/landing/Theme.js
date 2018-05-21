@@ -2207,6 +2207,19 @@ export const GlobalStyles = GlobalTheme => ({
     landing_upcoming_video: {
         padding: '130px 0px 100px 0px'
     },
+    landing_upcoming_video_container: {
+        position: 'relative',
+        paddingBottom: '56.25%',
+        paddingTop: '25px',
+        height: '0'
+    },
+    landing_upcoming_video_iframe: {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%'
+    },
     upcoming_opacity: {
         opacity: '0'
     },
