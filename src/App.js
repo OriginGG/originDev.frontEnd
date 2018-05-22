@@ -17,15 +17,10 @@ import { GlobalStyles } from './utils/themes/Theme';
 import './App.css';
 import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
 // import OriginLandingPageController from './components/controllers/Login/OriginLandingPageController';
-
-
-
 class App extends Component {
     render() {
         return (
-            <div>
-                
-                <Route exact path="/" component={AppController} />
+            <div><Route exact path="/" component={AppController} />
                 <Route exact path="/signup" component={SignupChoiceController} />
                 <Route exact path="/signup_org" component={SignupPageController} />
                 <Route exact path="/signup_ind" component={SignupIndividualController} />

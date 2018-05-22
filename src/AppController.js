@@ -23,11 +23,21 @@ const pathsToIgnore = [
     '/createsubdomain'
 ];
 
+// export const initGA = () => {
+//     console.log('initGA');
+//     ReactGA.initialize('UA-119536253-1');
+//   };
+
+// export const logPageView = () => {
+//     console.log('logPageview');
+//     ReactGA.set({ page: window.location.pathname });
+//     ReactGA.pageview(window.location.pathname);
+//   };
+
+
 class AppController extends Component {
     componentWillMount = async () => {
         let admin = false;
-        // pouchTest
-
         const is_root = location.pathname === '/';              // eslint-disable-line
         if (is_root) {
             const domainToken = await this.props.appManager.getDomainToken();

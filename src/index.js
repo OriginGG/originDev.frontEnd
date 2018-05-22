@@ -16,16 +16,28 @@ import { GlobalTheme } from './utils/themes/Theme';
 
 require('default-passive-events');
 
+
+export const initGA = () => {
+    console.log('initGA');
+    ReactGA.initialize('UA-119536253-1');
+  };
+
+export const logPageView = () => {
+    console.log('logPageview');
+    ReactGA.set({ page: window.location.pathname });
+    ReactGA.pageview(window.location.pathname);
+  };
+
+
 const stores = {
     appManager,
     uiStore,
 };
 
-ReactGA.initialize('UA-119536253-1);
-ReactGA.pageview(window.location.pathname + window.location.search);
-
 const ref = document.referrer;
 console.log(`referred from:${ref}`);
+initGA();
+logPageView();
 appManager.createApolloClient();
 
 ReactDOM.render(
