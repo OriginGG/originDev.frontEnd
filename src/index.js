@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { Provider } from 'mobx-react';
 import { ApolloProvider } from 'react-apollo';
 import { Router } from 'react-router-dom';
@@ -12,12 +13,16 @@ import appManager from './utils/appManager';
 import registerServiceWorker from './registerServiceWorker';
 import { GlobalTheme } from './utils/themes/Theme';
 
+
 require('default-passive-events');
 
 const stores = {
     appManager,
     uiStore,
 };
+
+ReactGA.initialize('UA-119536253-1);
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 const ref = document.referrer;
 console.log(`referred from:${ref}`);
