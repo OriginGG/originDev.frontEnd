@@ -191,7 +191,6 @@ class LoginController extends Component {
                                 if (!this.props.ind) {
                                     registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
                                     if (registered_user.allUsers.edges.length > 0) {
-                                        debugger;
                                         if (registered_user.allUsers.edges[0].node.authenticated === true) {
                                             ll = 1;
                                         }

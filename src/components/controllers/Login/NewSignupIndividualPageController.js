@@ -14,7 +14,6 @@ class NewSignupIndividualPageController extends Component {
     componentWillMount = async () => {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
-        debugger;
         const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: d.id });
         const u = pre_user.allIndividualUsers.edges[0].node;
         // if (u == null) {

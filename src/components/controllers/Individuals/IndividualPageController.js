@@ -71,9 +71,9 @@ class ModalContent extends Component {
                 twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
                 twitchUrl: this.getInputValue(user.individualUserById.twitchUrl),
                 accomplishments: this.getInputValue(user.individualUserById.accomplishments),
-                youtubeVideo1Url: this.getInputValue(user.individualUserById.youtubeVideo1Url),
-                youtubeVideo2Url: this.getInputValue(user.individualUserById.youtubeVideo2Url),
-                youtubeVideo3Url: this.getInputValue(user.individualUserById.youtubeVideo3Url),
+                // youtubeVideo1Url: this.getInputValue(user.individualUserById.youtubeVideo1Url),
+                // youtubeVideo2Url: this.getInputValue(user.individualUserById.youtubeVideo2Url),
+                // youtubeVideo3Url: this.getInputValue(user.individualUserById.youtubeVideo3Url),
                 bannerImageUrl: this.getInputValue(user.individualUserById.bannerImageUrl),
                 profileImageUrl: this.getInputValue(user.individualUserById.profileImageUrl),
             },
@@ -184,9 +184,9 @@ class ModalContent extends Component {
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
                     accomplishments={this.state.input_values.accomplishments}
-                    youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
-                    youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
-                    youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
+                    // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
+                    // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
+                    // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
                     bannerImageUrl={this.state.input_values.bannerImageUrl}
                     profileImageUrl={this.state.input_values.profileImageUrl}
                     uploadBannerFile={this.uploadBannerFile}
@@ -234,11 +234,12 @@ class IndividualPageController extends Component {
     componentWillMount = async () => {
         this.is_admin = false;
         this.twitch_stats = null;
+        this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
         if (view_id) {
             const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
             this.user_details = user.individualUserById;
-            this.getTwitchStats();
+            this.getStats();
         } else {
             const authPayload = this.props.appManager.GetQueryParams('p');
             this.key_index = 1;
@@ -255,7 +256,6 @@ class IndividualPageController extends Component {
                     }, 5000);
                 } else {
                     this.authPayload = p;
-                    debugger;
                     const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
                     const d = this.props.appManager.decodeJWT(token);
                     this.user_id = d.id;
@@ -264,21 +264,31 @@ class IndividualPageController extends Component {
                         this.is_admin = true;
                     }
                     this.user_details = user.individualUserById;
-                    this.getTwitchStats();
+                    this.getStats();
                 }
             } else {
                 browserHistory.push('/signup');
             }
         }
     }
+
+    getStats = async () => {
+        await this.getTwitchStats();
+        await this.getYouTubeStats();
+        this.setState({ visible: true });
+    }
+
     getTwitchStats = async () => {
         if (this.user_details.twitchUrl) {
             const tu = this.user_details.twitchUrl.substring(this.user_details.twitchUrl.lastIndexOf('/') + 1);
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchUserInfo?name=${tu}`);
             this.twitch_stats = td.data.user;
-            this.setState({ visible: true });
-        } else {
-            this.setState({ visible: true });
+        }
+    }
+    getYouTubeStats = async () => {
+        if (this.user_details.youtubeChannel) {
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?user=${this.user_details.youtubeChannel}`);
+            this.youtube_stats = td.data;
         }
     }
     handleEditClick = () => {
@@ -301,9 +311,9 @@ class IndividualPageController extends Component {
                 twitchUrl: state.twitchUrl,
                 twitterHandle: state.twitterHandle,
                 youtubeChannel: state.youtubeChannel,
-                youtubeVideo1Url: state.youtubeVideo1Url,
-                youtubeVideo2Url: state.youtubeVideo2Url,
-                youtubeVideo3Url: state.youtubeVideo3Url,
+                // youtubeVideo1Url: state.youtubeVideo1Url,
+                // youtubeVideo2Url: state.youtubeVideo2Url,
+                // youtubeVideo3Url: state.youtubeVideo3Url,
             }
         );
         toast.success('Profile Updated!', {
@@ -329,14 +339,15 @@ class IndividualPageController extends Component {
         let v1 = null;
         let v2 = null;
         let v3 = null;
-        if (this.user_details.youtubeVideo1Url) {
-            v1 = this.props.appManager.convertYoutubeURL(this.user_details.youtubeVideo1Url);
+        debugger;
+        if (this.youtube_stats.video_info.items.length > 0 && this.youtube_stats.video_info.items[0].id.videoId) {
+            v1 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[0].id.videoId}`;
         }
-        if (this.user_details.youtubeVideo2Url) {
-            v2 = this.props.appManager.convertYoutubeURL(this.user_details.youtubeVideo2Url);
+        if (this.youtube_stats.video_info.items.length > 1 && this.youtube_stats.video_info.items[1].id.videoId) {
+            v2 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[1].id.videoId}`;
         }
-        if (this.user_details.youtubeVideo3Url) {
-            v3 = this.props.appManager.convertYoutubeURL(this.user_details.youtubeVideo3Url);
+        if (this.youtube_stats.video_info.items.length > 2 && this.youtube_stats.video_info.items[2].id.videoId) {
+            v3 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[2].id.videoId}`;
         }
         let pi = this.user_details.profileImageUrl;
         if (!pi) {

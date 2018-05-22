@@ -14,7 +14,6 @@ class NewSignupPageController extends Component {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
         const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: d.id });
-        debugger;
         const u = user.resultData;
         if (u.authenticated === true) {
             toast.error(`${d.organisation} is already registered - Redirecting you to login page in 5 seconds`, {
