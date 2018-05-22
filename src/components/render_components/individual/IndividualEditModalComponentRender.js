@@ -54,10 +54,10 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'lastName', e );
                             }}/>
-                            <input placeholder=" Username" className={this.props.classes.modal_individual_edit_input} value={this.props.userName} onChange={e => {
+                            <input placeholder="Username" className={this.props.classes.modal_individual_edit_input} value={this.props.username} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'userName', e );
+                                    .handleChange( 'username', e );
                             }}/>
                             <input placeholder="Twitter Handle" className={this.props.classes.modal_individual_edit_input} value={this.props.twitterHandle} onChange={e => {
                                 this

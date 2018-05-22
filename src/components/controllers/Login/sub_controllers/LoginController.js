@@ -11,7 +11,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../../render_components/signup/LoginComponentRender';
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
 import { authenticateQuery, authenticateIndividualQuery } from '../../../../queries/login';
-import { createUserQuery, createPreUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
+import { createUserQuery, createIndividualUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
 // import { createUserQuery, createPreUserQuery, authenticatePreUserQuery } from '../../../../queries/users';
 import historyStore from '../../../../utils/stores/browserHistory';
 
@@ -57,12 +57,18 @@ class LoginController extends Component {
         });
     };
     render() {
+        let s_username_style = { display: 'none' };
+        if (this.state.content_display !== 'login' && this.props.ind === true) {
+            s_username_style = { display: 'inherit' };
+        }
         return (
             <Formik
                 initialValues={{
                     email: '',
                     password: '',
-                    name: ''
+                    firstName: '',
+                    lastName: '',
+                    userName: ''
                 }}
                 validate={values => {
                     let disabled = false;
@@ -70,6 +76,16 @@ class LoginController extends Component {
                     const errors = {};
                     if (!values.password) {
                         errors.password = 'Required';
+                    }
+                    if (this.props.ind && this.state.content_display !== 'login') {
+                        if (!values.userName) {
+                            errors.userName = 'Required';
+                        }
+                    }
+                    if (this.state.content_display !== 'login') {
+                        if (!values.firstName) {
+                            errors.firstName = 'Required';
+                        }
                     }
                     if (!values.email) {
                         errors.email = 'Required';
@@ -145,9 +161,10 @@ class LoginController extends Component {
                         } else {
                             if (process.env.REACT_APP_SIGNUP_PROCESS === 'SIGNUP_FUZZY') {
                                 const payload = {
-                                    firstName: v.name,
-                                    lastName: '',
+                                    firstName: v.firstName,
+                                    lastName: v.lastName,
                                     password: v.password,
+                                    userName: v.userName,
                                     email: v.email,
                                     adminUser: !this.props.ind,
                                 };
@@ -157,10 +174,14 @@ class LoginController extends Component {
                                 });
                             } else {
                                 const payload = {
-                                    name: v.name,
+                                    firstName: v.firstName,
+                                    lastName: v.lastName,
                                     password: v.password,
                                     email: v.email,
                                     adminUser: !this.props.ind,
+                                    authenticated: false,
+                                    userName: v.userName,
+
                                 };
 
                                 const a = this.props.ind ? 'admin_user=false' : 'admin_user=true';
@@ -169,23 +190,54 @@ class LoginController extends Component {
                                 let ll = 0;
                                 if (!this.props.ind) {
                                     registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
-                                    ll = registered_user.allUsers.edges.length;
+                                    if (registered_user.allUsers.edges.length > 0) {
+                                        debugger;
+                                        if (registered_user.allUsers.edges[0].node.authenticated === true) {
+                                            ll = 1;
+                                        }
+                                        if (registered_user.allUsers.edges[0].node.authenticated === false) {
+                                            ll = 2;
+                                        }
+                                    }
                                 } else {
                                     registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email });
-                                    ll = registered_user.allIndividualUsers.edges.length;
+                                    if (registered_user.allIndividualUsers.edges.length > 0) {
+                                        if (registered_user.allIndividualUsers.edges[0].node.authenticated === true) {
+                                            ll = 1;
+                                        }
+                                        if (registered_user.allIndividualUsers.edges[0].node.authenticated === false) {
+                                            ll = 2;
+                                        }
+                                    }
                                 }
 
                                 if (ll > 0) {
-                                    toast.success(`Account ${v.email} already registered. Please sign in as normal`, {
-                                        position: toast.POSITION.TOP_LEFT,
-                                        autoClose: 15000
-                                    });
+                                    if (ll === 1) {
+                                        toast.success(`Account ${v.email} already registered. Please sign in as normal`, {
+                                            position: toast.POSITION.TOP_LEFT,
+                                            autoClose: 15000
+                                        });
+                                    } else {
+                                        const f = await this.showSendConfirm();
+                                        if (f) {
+                                            toast.success(`Registration email re-sent to ${v.email}, please check your email for further instructions.`, {
+                                                position: toast.POSITION.TOP_LEFT,
+                                                autoClose: 15000
+                                            });
+                                        }
+                                    }
                                 } else {
                                     try {
-                                        const pre_user = await this.props.appManager.executeQuery('mutation', createPreUserQuery, payload);
-
-                                        const { jwtToken } = pre_user.preRegisterUser;
-                                        const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.name}&${a}&token=${jwtToken}&dev=false`;
+                                        let pre_user;
+                                        let u_id;
+                                        if (this.props.ind) {
+                                            pre_user = await this.props.appManager.executeQuery('mutation', createIndividualUserQuery, payload);
+                                            u_id = pre_user.individualUserRegister.individualUser.id;
+                                        } else {
+                                            pre_user = await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
+                                            u_id = pre_user.registerUser.user.id;
+                                        }
+                                        const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
                                         await this.sendEmail(url);
                                         console.log(pre_user);
                                         toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
@@ -193,16 +245,7 @@ class LoginController extends Component {
                                             autoClose: 15000
                                         });
                                     } catch (err) {
-                                        const { message } = err;
-                                        if (message.indexOf('duplicate') > -1) {
-                                            const f = await this.showSendConfirm();
-                                            if (f) {
-                                                toast.success(`Registration email re-sent to ${v.email}, please check your email for further instructions.`, {
-                                                    position: toast.POSITION.TOP_LEFT,
-                                                    autoClose: 15000
-                                                });
-                                            }
-                                        }
+                                        console.log(err);
                                     }
                                 }
                             }
@@ -230,6 +273,7 @@ class LoginController extends Component {
                                                 color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 40
                                             }}>Create an Account</Button>
                                     }
+                                    user_style={s_username_style}
                                     errors={errors}
                                     touched={touched}
                                     values={values}

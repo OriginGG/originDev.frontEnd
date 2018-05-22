@@ -37,7 +37,7 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
 }
 `;
 
-export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: Int!, $firstName: String, $about: String,
+export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: Int!, $firstName: String, $lastName: String, $about: String,
 	$contactNumber: String, $accomplishments: String, $twitchUrl: String,
   $twitterHandle: String, $youtubeChannel: String,
   $youtubeVideo1Url: String,
@@ -47,10 +47,12 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
   $profileImageUrl: String,
   $facebookLink: String,
   $instagramLink: String,
-  $username: String
+  $username: String,
+  $authenticated: Boolean
 	) {
   	updateIndividualUserById(input:{id: $id, individualUserPatch: {
       firstName: $firstName
+      lastName: $lastName
       about: $about
       bannerImageUrl: $bannerImageUrl
       profileImageUrl: $profileImageUrl
@@ -65,6 +67,7 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
       facebookLink: $facebookLink
       instagramLink: $instagramLink
       username: $username
+      authenticated: $authenticated
     }}) {
     individualUser {
       id

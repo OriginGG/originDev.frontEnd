@@ -12,8 +12,8 @@ class IndividualBasicInfoComponentRender extends Component {
                     <div className={this.props.classes.individual_profile_pic_container}>
                         <img className={this.props.classes.individual_profile_pic} src={this.props.profileImageUrl}/>
                     </div>
-                    <div className={this.props.classes.individual_basic_name}>{this.props.firstName}</div>
-                    <div className={this.props.classes.individual_basic_handle}>{this.props.twitterHandle}</div>
+                    <div className={this.props.classes.individual_basic_name}>{this.props.name}</div>
+                    <div className={this.props.classes.individual_basic_handle}>{this.props.username}</div>
                     <div className={this.props.classes.individual_table_container}>
                         <table className="ui table">
                             <thead>

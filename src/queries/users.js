@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 
-export const updateUserQuery = gql`mutation updateuser($id: Int!, $organisation: String) {
+export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated: Boolean, $organisation: String) {
     updateUserById(input: {
         id: $id, userPatch: {
             organisation: $organisation
+            authenticated: $authenticated
         }
     }) {
         user {
@@ -30,6 +31,7 @@ export const getUserByEmailQuery = gql`query getUserByEmail($email:String!) {
     edges {
       node {
         id
+        authenticated
       }
     }
   }
@@ -40,6 +42,7 @@ export const getIndividualUserByEmailQuery = gql`query getIndividualUserByEmail(
     edges {
       node {
         id
+        authenticated
       }
     }
   }
@@ -49,6 +52,11 @@ export const getIndividualUserByIdQuery = gql`query getIndividualUserByEmail($id
     edges {
       node {
         id
+        authenticated
+        firstName
+        lastName
+        username
+        email
       }
     }
   }
@@ -68,6 +76,7 @@ export const getUserQuery = gql`query getUser($id:Int!) {
     email
     organisation
     adminUser
+    authenticated
     
   }
 }`;
@@ -97,9 +106,9 @@ export const createPreUserQuery = gql`mutation preRegister($name: String!, $emai
   }
 }`;
 
-export const createUserQuery = gql`mutation registerUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $adminUser: Boolean! ) {
+export const createUserQuery = gql`mutation registerUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $adminUser: Boolean!, $authenticated: Boolean!) {
     registerUser(input:{firstName: $firstName, lastName:$lastName, email: $email, 
-    password: $password,adminUser: $adminUser }) {
+    password: $password,adminUser: $adminUser, authenticated: $authenticated}) {
       user {
         id
       }
@@ -115,15 +124,17 @@ export const getAllIndividualUsersQuery = gql`query getAllIndividualUsers {
         lastName
         id
         profileImageUrl
+        userName
       }
     }
   }
 }`;
 
-export const createIndividualUserQuery = gql`mutation registerIndividual($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-	individualUserRegister(input: {firstName: $firstName, lastName: $lastName, email: $email, password: $password}) {
+export const createIndividualUserQuery = gql`mutation registerIndividual($firstName: String!, $lastName: String!, $email: String!, $password: String!, $authenticated: Boolean!, $userName: String! ) {
+	individualUserRegister(input: {firstName: $firstName, lastName: $lastName, email: $email, password: $password, authenticated: $authenticated, userName: $userName}) {
 		individualUser {
 			email
+      id
 		}
 	}
 }`;

@@ -41,6 +41,8 @@ class ModalContent extends Component {
     state = {
         input_values: {
             firstName: '',
+            lastName: '',
+            username: '',
             about: '',
             email: '',
             contactNumber: '',
@@ -60,8 +62,10 @@ class ModalContent extends Component {
         this.setState({
             input_values: {
                 firstName: this.getInputValue(user.individualUserById.firstName),
+                lastName: this.getInputValue(user.individualUserById.lastName),
                 email: this.getInputValue(user.individualUserById.email),
                 about: this.getInputValue(user.individualUserById.about),
+                username: this.getInputValue(user.individualUserById.username),
                 contactNumber: this.getInputValue(user.individualUserById.contactNumber),
                 youtubeChannel: this.getInputValue(user.individualUserById.youtubeChannel),
                 twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
@@ -171,6 +175,8 @@ class ModalContent extends Component {
                     extra_style={{ display: 'inherit' }}
                     closeModal={this.props.closeModal}
                     firstName={this.state.input_values.firstName}
+                    lastName={this.state.input_values.lastName}
+                    username={this.state.input_values.username}
                     about={this.state.input_values.about}
                     email={this.state.input_values.email}
                     contactNumber={this.state.input_values.contactNumber}
@@ -239,16 +245,27 @@ class IndividualPageController extends Component {
             if (authPayload) {
                 const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
                 console.log(`token - ${p}`);
-                this.authPayload = p;
-                const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
-                const d = this.props.appManager.decodeJWT(token);
-                this.user_id = d.id;
-                const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
-                if (user.individualUserById !== null) {
-                    this.is_admin = true;
+                if (p.authenticateIndividual.individualAuthPayload === null) {
+                    toast.error('Wrong password for  - Redirecting you to login page in 5 seconds', {
+                        position: toast.POSITION.TOP_LEFT,
+                        autoClose: 5000
+                    });
+                    setTimeout(() => {
+                        browserHistory.push('/signup');
+                    }, 5000);
+                } else {
+                    this.authPayload = p;
+                    debugger;
+                    const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
+                    const d = this.props.appManager.decodeJWT(token);
+                    this.user_id = d.id;
+                    const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
+                    if (user.individualUserById !== null) {
+                        this.is_admin = true;
+                    }
+                    this.user_details = user.individualUserById;
+                    this.getTwitchStats();
                 }
-                this.user_details = user.individualUserById;
-                this.getTwitchStats();
             } else {
                 browserHistory.push('/signup');
             }
@@ -277,6 +294,7 @@ class IndividualPageController extends Component {
                 id: this.user_id,
                 about: state.about,
                 firstName: state.firstName,
+                lastName: state.lastName,
                 bannerImageUrl: state.bannerImageUrl,
                 profileImageUrl: state.profileImageUrl,
                 accomplishments: state.accomplishments,
@@ -285,7 +303,7 @@ class IndividualPageController extends Component {
                 youtubeChannel: state.youtubeChannel,
                 youtubeVideo1Url: state.youtubeVideo1Url,
                 youtubeVideo2Url: state.youtubeVideo2Url,
-                youtubeVideo3Url: state.youtubeVideo3Url
+                youtubeVideo3Url: state.youtubeVideo3Url,
             }
         );
         toast.success('Profile Updated!', {
@@ -339,7 +357,8 @@ class IndividualPageController extends Component {
                             profileImageUrl={pi}
                             twitterHandle={this.user_details.twitterHandle}
                             about={this.user_details.about}
-                            firstName={this.user_details.firstName}
+                            username={this.user_details.username}
+                            name={`${this.user_details.firstName} ${this.user_details.lastName}`}
                             email={this.user_details.email}
                             contactNumber={this.user_details.contactNumber}
                         />

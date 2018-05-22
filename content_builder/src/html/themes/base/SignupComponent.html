@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="field">
                                     <div class="ui input">
-                                        <input class="classes.input_box" type="text" name="name" placeholder="First Name" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="name" placeholder="Name" >
+                                        <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.firstName}" class="classes.input_box" type="text" name="firstName" placeholder="First Name" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="name" placeholder="Name" >
                                     </div>
                                 </div>
                                <div class="classes.input_title">
@@ -44,15 +44,17 @@
                                </div>
                                <div class="field">
                                     <div class="ui input">
-                                        <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.name}" class="classes.input_box" type="text" name="name" placeholder="Last Name" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="name" placeholder="Name" >
+                                        <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.lastName}" class="classes.input_box" type="text" name="lastName" placeholder="Last Name" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="name" placeholder="Name" >
                                     </div>
                                 </div>
-                                <div class="classes.input_title">
-                                    Username
-                                </div>
-                                <div class="field">
-                                    <div class="ui input">
-                                        <input class="classes.input_box" type="text" name="name" placeholder="Username" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="name" placeholder="Name" >
+                                <div data-component-props="style={this.props.user_style}">
+                                    <div class="classes.input_title">
+                                        Username
+                                    </div>
+                                    <div class="field">
+                                        <div class="ui input">
+                                            <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.userName}" class="classes.input_box" type="text" name="userName" placeholder="Username" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="name" placeholder="Name" >
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="classes.input_title">

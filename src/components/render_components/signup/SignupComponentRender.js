@@ -22,13 +22,13 @@ class SignupComponentRender extends Component {
                                     </div>
                                     <div className="field">
                                         <div className="ui input">
-                                            <input type="text" name="name" placeholder="First Name" style={{
+                                            <input type="text" name="firstName" placeholder="First Name" style={{
                                                 backgroundColor: 'transparent',
                                                 borderColor: '#fff',
                                                 color: '#fff',
                                                 height: '45px',
                                                 fontSize: '16px'
-                                            }} className={this.props.classes.input_box}/>
+                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.firstName}/>
                                         </div>
                                     </div>
                                     <div className={this.props.classes.input_title}>
@@ -36,27 +36,29 @@ class SignupComponentRender extends Component {
                                     </div>
                                     <div className="field">
                                         <div className="ui input">
-                                            <input type="text" name="name" placeholder="Last Name" style={{
+                                            <input type="text" name="lastName" placeholder="Last Name" style={{
                                                 backgroundColor: 'transparent',
                                                 borderColor: '#fff',
                                                 color: '#fff',
                                                 height: '45px',
                                                 fontSize: '16px'
-                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.name}/>
+                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.lastName}/>
                                         </div>
                                     </div>
-                                    <div className={this.props.classes.input_title}>
-                                        Username
-                                    </div>
-                                    <div className="field">
-                                        <div className="ui input">
-                                            <input type="text" name="name" placeholder="Username" style={{
-                                                backgroundColor: 'transparent',
-                                                borderColor: '#fff',
-                                                color: '#fff',
-                                                height: '45px',
-                                                fontSize: '16px'
-                                            }} className={this.props.classes.input_box}/>
+                                    <div style={this.props.user_style}>
+                                        <div className={this.props.classes.input_title}>
+                                            Username
+                                        </div>
+                                        <div className="field">
+                                            <div className="ui input">
+                                                <input type="text" name="userName" placeholder="Username" style={{
+                                                    backgroundColor: 'transparent',
+                                                    borderColor: '#fff',
+                                                    color: '#fff',
+                                                    height: '45px',
+                                                    fontSize: '16px'
+                                                }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.userName}/>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className={this.props.classes.input_title}>
