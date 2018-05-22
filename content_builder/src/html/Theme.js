@@ -1827,8 +1827,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_content: {
         width: '100%',
-        height: '545px',
-        overflowY: 'auto'
+        padding: '20px 0px 20px 0px'
     },
     individual_social_empty: {
         width: '100%',
@@ -1836,6 +1835,22 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '5px 0px 5px 0px',
         color: 'white',
         fontSize: '14px'
+    },
+    indiviual_stats_container: {
+        width: '100%',
+        padding: '20px 10px 20px 10px',
+        borderBottom: "1px rgba(255,255,255,.1) solid"
+    },
+    individual_stats_title: {
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: '900'
+    },
+    individual_stats_data: {
+        color: 'rgba(255,255,255,.9)',
+        fontSize: '24px',
+        fontWeight: '300',
+        float: 'right'
     },
     individual_youtube_container: {
         width: '100%',
