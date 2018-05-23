@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import _ from 'lodash';
 import { inject } from 'mobx-react';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
@@ -33,12 +33,16 @@ class OrganizationLogoController extends Component {
         console.log(error, info);
     }
     isMobile = () => {
-        // return true;
-        return isMobile;
+        return true;
+        // return isMobile;
     }
     render() {
         if (this.state.visible === false) {
             return null;
+        }
+        let s = { display: 'inherit' };
+        if (this.isMobile()) {
+            s = { display: 'none' };
         }
         const m_array = [];
         const p = this.state.games;
@@ -48,7 +52,7 @@ class OrganizationLogoController extends Component {
             </div>);
         });
         const { OrganizationLogoComponentRender } = this.state;
-        return <OrganizationLogoComponentRender roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} image_src={this.image_src} />;
+        return <OrganizationLogoComponentRender roster_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} image_src={this.image_src} />;
     }
 }
 

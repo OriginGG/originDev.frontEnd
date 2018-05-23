@@ -42,6 +42,7 @@ export const getRosterByIDQuery = gql`query getRosterById($id: Int!) {
               youtubeVideo3Url
               bannerImageUrl
               profileImageUrl
+              username
             }
 
           }
@@ -101,6 +102,7 @@ export const getRosterQuery = gql`query getRosters($subDomain: String!) {
                                 youtubeVideo3Url
                                 bannerImageUrl
                                 profileImageUrl
+                                username
                             }
 
                         }

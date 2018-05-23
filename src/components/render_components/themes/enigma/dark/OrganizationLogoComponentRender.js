@@ -9,7 +9,7 @@ class DarkOrganizationLogoComponentRender extends Component {
         return (
             <div className={this.props.classes.darkBG}>
                 <img className={this.props.classes.dark_main_image} src={this.props.image_src}/>
-                <div className={this.props.classes.dark_main_image_text_container}>
+                <div className={this.props.classes.dark_main_image_text_container} style={this.props.roster_style}>
                     <div className={this.props.classes.dark_main_image_text}>{this.props.roster_games}</div>
                 </div>
             </div>
