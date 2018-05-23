@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import _ from 'lodash';
 import { inject } from 'mobx-react';
-// import { isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
@@ -33,8 +33,7 @@ class OrganizationLogoController extends Component {
         console.log(error, info);
     }
     isMobile = () => {
-        return true;
-        // return isMobile;
+        return isMobile;
     }
     render() {
         if (this.state.visible === false) {
