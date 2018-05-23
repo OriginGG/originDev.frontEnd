@@ -1814,7 +1814,10 @@ export const GlobalStyles = GlobalTheme => ({
         minHeight: '1209px',
         maxHeight: '1209px',
         backgroundColor: 'rgb(56,56,56)',
-        borderRadius: '8px'
+        borderStyle: 'solid',
+        borderColor: 'rgb(56,56,56)',
+        borderWidth: '1px'
+
     },
     individual_social_header: {
         margin: '0 0 0 0',
@@ -1823,7 +1826,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#fff',
         fontSize: '14px',
         fontWeight: '600',
-        borderRadius: '8px 8px 0px 0px'
+        borderRadius: '0px 0px 0px 0px'
     },
     individual_social_content: {
         width: '100%',
