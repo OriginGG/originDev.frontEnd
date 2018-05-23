@@ -349,7 +349,6 @@ class IndividualPageController extends Component {
             channel_subscribers = item.statistics.subscriberCount;
             channel_views = item.statistics.viewCount;
             channel_comments = item.statistics.commentCount;
-            console.log(item);
         }
         let s = { display: 'inherit' };
         if (this.is_admin === false) {
