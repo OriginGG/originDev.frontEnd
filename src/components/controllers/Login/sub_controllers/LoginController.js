@@ -12,7 +12,6 @@ import LoginComponentRender from '../../../render_components/signup/LoginCompone
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
 import { authenticateQuery, authenticateIndividualQuery } from '../../../../queries/login';
 import { createUserQuery, createIndividualUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
-// import { createUserQuery, createPreUserQuery, authenticatePreUserQuery } from '../../../../queries/users';
 import historyStore from '../../../../utils/stores/browserHistory';
 
 const { confirm } = Modal;

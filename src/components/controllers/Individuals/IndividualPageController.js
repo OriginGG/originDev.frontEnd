@@ -341,14 +341,24 @@ class IndividualPageController extends Component {
         let channel_subscribers = 0;
         let channel_videos = 0;
         const channel_views_per_video = 0;
-
-        if (this.youtube_stats.channel_info.items.length > 0) {
-            const item = this.youtube_stats.channel_info.items[0];
-            channel_videos = item.statistics.videoCount;
-            channel_name = item.snippet.title;
-            channel_subscribers = item.statistics.subscriberCount;
-            channel_views = item.statistics.viewCount;
-            channel_comments = item.statistics.commentCount;
+        let youTubeComp = <span />;
+        if (this.youtube_stats) {
+            if (this.youtube_stats.channel_info.items.length > 0) {
+                const item = this.youtube_stats.channel_info.items[0];
+                channel_videos = item.statistics.videoCount;
+                channel_name = item.snippet.title;
+                channel_subscribers = item.statistics.subscriberCount;
+                channel_views = item.statistics.viewCount;
+                channel_comments = item.statistics.commentCount;
+            }
+            youTubeComp = <IndividualYoutubeStatsComponentRender
+                channel_name={channel_name}
+                channel_views={channel_views}
+                channel_subscribers={channel_subscribers}
+                channel_videos={channel_videos}
+                channel_comments={channel_comments}
+                channel_views_per_video={channel_views_per_video}
+            />;
         }
         let s = { display: 'inherit' };
         if (this.is_admin === false) {
@@ -393,14 +403,7 @@ class IndividualPageController extends Component {
                         />
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
-                    ColumnThree={<IndividualYoutubeStatsComponentRender
-                        channel_name={channel_name}
-                        channel_views={channel_views}
-                        channel_subscribers={channel_subscribers}
-                        channel_videos={channel_videos}
-                        channel_comments={channel_comments}
-                        channel_views_per_video={channel_views_per_video}
-                    />}
+                    ColumnThree={youTubeComp}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
