@@ -13,7 +13,9 @@ import { getIndividualUserQuery, updateIndividualUserQuery } from '../../../quer
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
-import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
+// import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
+import IndividualYoutubeStatsComponentRender from '../../render_components/individual/IndividualYoutubeStatsComponentRender';
+
 import IndividualEditComponentRender from '../../render_components/individual/IndividualEditModalComponentRender';
 import browserHistory from '../../../utils/stores/browserHistory';
 // import { isMobile } from 'react-device-detect';
@@ -332,23 +334,40 @@ class IndividualPageController extends Component {
         if (this.state.visible === false) {
             return null;
         }
+
+        let channel_name = '';
+        let channel_comments = 0;
+        let channel_views = 0;
+        let channel_subscribers = 0;
+        let channel_videos = 0;
+        const channel_views_per_video = 0;
+
+        if (this.youtube_stats.channel_info.items.length > 0) {
+            const item = this.youtube_stats.channel_info.items[0];
+            channel_videos = item.statistics.videoCount;
+            channel_name = item.snippet.title;
+            channel_subscribers = item.statistics.subscriberCount;
+            channel_views = item.statistics.viewCount;
+            channel_comments = item.statistics.commentCount;
+            console.log(item);
+        }
         let s = { display: 'inherit' };
         if (this.is_admin === false) {
             s = { display: 'none' };
         }
-        let v1 = null;
-        let v2 = null;
-        let v3 = null;
-        debugger;
-        if (this.youtube_stats.video_info.items.length > 0 && this.youtube_stats.video_info.items[0].id.videoId) {
-            v1 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[0].id.videoId}`;
-        }
-        if (this.youtube_stats.video_info.items.length > 1 && this.youtube_stats.video_info.items[1].id.videoId) {
-            v2 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[1].id.videoId}`;
-        }
-        if (this.youtube_stats.video_info.items.length > 2 && this.youtube_stats.video_info.items[2].id.videoId) {
-            v3 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[2].id.videoId}`;
-        }
+        // let v1 = null;
+        // let v2 = null;
+        // let v3 = null;
+        // debugger;
+        // if (this.youtube_stats.video_info.items.length > 0 && this.youtube_stats.video_info.items[0].id.videoId) {
+        //     v1 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[0].id.videoId}`;
+        // }
+        // if (this.youtube_stats.video_info.items.length > 1 && this.youtube_stats.video_info.items[1].id.videoId) {
+        //     v2 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[1].id.videoId}`;
+        // }
+        // if (this.youtube_stats.video_info.items.length > 2 && this.youtube_stats.video_info.items[2].id.videoId) {
+        //     v3 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[2].id.videoId}`;
+        // }
         let pi = this.user_details.profileImageUrl;
         if (!pi) {
             pi = blankImage;
@@ -375,10 +394,13 @@ class IndividualPageController extends Component {
                         />
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
-                    ColumnThree={<IndividualVideosComponentRender
-                        video1_url={v1}
-                        video2_url={v2}
-                        video3_url={v3}
+                    ColumnThree={<IndividualYoutubeStatsComponentRender
+                        channel_name={channel_name}
+                        channel_views={channel_views}
+                        channel_subscribers={channel_subscribers}
+                        channel_videos={channel_videos}
+                        channel_comments={channel_comments}
+                        channel_views_per_video={channel_views_per_video}
                     />}
                 />
                 <EditModal
