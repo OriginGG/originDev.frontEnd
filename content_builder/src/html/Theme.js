@@ -1813,7 +1813,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '1209px',
         maxHeight: '1209px',
-        backgroundColor: 'rgb(56,56,56)',
         borderStyle: 'solid',
         borderColor: 'rgb(56,56,56)',
         borderWidth: '1px'
