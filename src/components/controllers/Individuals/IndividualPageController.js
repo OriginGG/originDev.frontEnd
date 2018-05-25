@@ -313,6 +313,7 @@ class IndividualPageController extends Component {
                 twitchUrl: state.twitchUrl,
                 twitterHandle: state.twitterHandle,
                 youtubeChannel: state.youtubeChannel,
+                username: state.username
                 // youtubeVideo1Url: state.youtubeVideo1Url,
                 // youtubeVideo2Url: state.youtubeVideo2Url,
                 // youtubeVideo3Url: state.youtubeVideo3Url,
