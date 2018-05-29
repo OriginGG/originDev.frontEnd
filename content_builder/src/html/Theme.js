@@ -1811,12 +1811,12 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_box: {
         width: '100%',
-        minHeight: '1209px',
-        maxHeight: '1209px',
+        minHeight: '580px',
+        maxHeight: '600px',
         borderStyle: 'solid',
         borderColor: 'rgb(56,56,56)',
-        borderWidth: '1px'
-
+        borderWidth: '1px',
+        marginBottom: '8px'
     },
     individual_social_header: {
         margin: '0 0 0 0',
