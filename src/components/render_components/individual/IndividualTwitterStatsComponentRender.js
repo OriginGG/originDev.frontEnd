@@ -12,7 +12,7 @@ class IndividualTwitterStatsComponentRender extends Component {
                     <h2 className={this.props.classes.individual_social_header}>
                         Twitter Stats
                     </h2>
-                    <div className={this.props.classes.individual_social_content}>{this.props.twitch_stats}</div>
+                    <div className={this.props.classes.individual_social_content}>{this.props.twitter_stats}</div>
                 </div>
             </div>
         )

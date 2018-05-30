@@ -238,6 +238,8 @@ class IndividualPageController extends Component {
     componentWillMount = async () => {
         this.is_admin = false;
         this.twitch_stats = null;
+        this.twitter_stats = null;
+        this.instagram_stats = null;
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
         if (view_id) {
@@ -331,6 +333,15 @@ class IndividualPageController extends Component {
         let twitch_stats = <h2 style={{
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
         }}>No Data Found</h2>;
+
+        const twitter_stats = <h2 style={{
+            marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
+        }}>No Data Found</h2>;
+
+        const instagram_stats = <h2 style={{
+            marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
+        }}>No Data Found</h2>;
+
         if (this.twitch_stats) {
             twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
         }
@@ -346,13 +357,15 @@ class IndividualPageController extends Component {
         const channel_views_per_video = 0;
         let youTubeComp = <IndividualYoutubeStatsComponentRender />;
         if (this.youtube_stats) {
-            if (this.youtube_stats.channel_info.items.length > 0) {
-                const item = this.youtube_stats.channel_info.items[0];
-                channel_videos = item.statistics.videoCount;
-                channel_name = item.snippet.title;
-                channel_subscribers = item.statistics.subscriberCount;
-                channel_views = item.statistics.viewCount;
-                channel_comments = item.statistics.commentCount;
+            if (this.youtube_stats.channel_info) {
+                if (this.youtube_stats.channel_info.items.length > 0) {
+                    const item = this.youtube_stats.channel_info.items[0];
+                    channel_videos = item.statistics.videoCount;
+                    channel_name = item.snippet.title;
+                    channel_subscribers = item.statistics.subscriberCount;
+                    channel_views = item.statistics.viewCount;
+                    channel_comments = item.statistics.commentCount;
+                }
             }
             youTubeComp = <IndividualYoutubeStatsComponentRender
                 channel_name={channel_name}
@@ -407,8 +420,8 @@ class IndividualPageController extends Component {
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
                     ColumnThree={youTubeComp}
-                    ColumnFour={<IndividualTwitterStatsComponentRender />}
-                    ColumnFive={<IndividualInstagramStatsComponentRender />}
+                    ColumnFour={<IndividualTwitterStatsComponentRender twitter_stats={twitter_stats} />}
+                    ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
