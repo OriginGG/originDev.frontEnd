@@ -1780,7 +1780,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_accomplishment_container: {
         width: '100%',
-        minHeight: '761px',
+        minHeight: '250px',
+        maxHeight: '761px',
+        overflowY: 'auto',
         border: '1px solid rgb(228,228,228)',
         borderRadius: '4px',
         backgroundColor: 'rgb(245,245,245)'

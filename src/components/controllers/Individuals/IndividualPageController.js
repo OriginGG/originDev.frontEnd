@@ -12,6 +12,8 @@ import blankImage from '../../../assets/images/blank_person.png';
 import { getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
+import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
+import IndividualInstagramStatsComponentRender from '../../render_components/individual/IndividualInstagramStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
 // import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
 import IndividualYoutubeStatsComponentRender from '../../render_components/individual/IndividualYoutubeStatsComponentRender';
@@ -342,7 +344,7 @@ class IndividualPageController extends Component {
         let channel_subscribers = 0;
         let channel_videos = 0;
         const channel_views_per_video = 0;
-        let youTubeComp = <span />;
+        let youTubeComp = <IndividualYoutubeStatsComponentRender />;
         if (this.youtube_stats) {
             if (this.youtube_stats.channel_info.items.length > 0) {
                 const item = this.youtube_stats.channel_info.items[0];
@@ -405,6 +407,8 @@ class IndividualPageController extends Component {
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
                     ColumnThree={youTubeComp}
+                    ColumnFour={<IndividualTwitterStatsComponentRender />}
+                    ColumnFive={<IndividualInstagramStatsComponentRender />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
