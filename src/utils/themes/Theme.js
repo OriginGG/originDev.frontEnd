@@ -1780,7 +1780,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_accomplishment_container: {
         width: '100%',
-        minHeight: '761px',
+        minHeight: '250px',
+        maxHeight: '761px',
+        overflowY: 'auto',
         border: '1px solid rgb(228,228,228)',
         borderRadius: '4px',
         backgroundColor: 'rgb(245,245,245)'
@@ -1811,12 +1813,12 @@ export const GlobalStyles = GlobalTheme => ({
     },
     individual_social_box: {
         width: '100%',
-        minHeight: '1209px',
-        maxHeight: '1209px',
+        minHeight: '580px',
+        maxHeight: '600px',
         borderStyle: 'solid',
         borderColor: 'rgb(56,56,56)',
-        borderWidth: '1px'
-
+        borderWidth: '1px',
+        marginBottom: '8px'
     },
     individual_social_header: {
         margin: '0 0 0 0',
