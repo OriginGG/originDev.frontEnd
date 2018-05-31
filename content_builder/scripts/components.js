@@ -30,6 +30,8 @@ const component_array = [
     { source_html: './src/html/themes/enigma/dark/OrganizationMobileNavComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationRosterItemComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationRosterPageComponent.html', sub_dir: 'themes/enigma/dark' },
+    { source_html: './src/html/themes/enigma/dark/OrganizationAboutItemComponent.html', sub_dir: 'themes/enigma/dark' },
+    { source_html: './src/html/themes/enigma/dark/OrganizationAboutPageComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationSponsersItemComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationSponsersPageComponent.html', sub_dir: 'themes/enigma/dark' },
 
@@ -49,6 +51,8 @@ const component_array = [
     { source_html: './src/html/themes/enigma/light/OrganizationMobileNavComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationRosterItemComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationRosterPageComponent.html', sub_dir: 'themes/enigma/light' },
+    { source_html: './src/html/themes/enigma/light/OrganizationAboutItemComponent.html', sub_dir: 'themes/enigma/light' },
+    { source_html: './src/html/themes/enigma/light/OrganizationAboutPageComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationSponsersItemComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationSponsersPageComponent.html', sub_dir: 'themes/enigma/light' },
 
