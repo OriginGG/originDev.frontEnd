@@ -1608,6 +1608,11 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '20px 15px 20px 15px',
         overflow: 'hidden'
     },
+    modal_about_body: {
+        width: '100%',
+        padding: '20px 15px 20px 15px',
+        overflow: 'hidden'
+    },
     modal_news_body_text: {
         width: '100%',
         height: '100%',
