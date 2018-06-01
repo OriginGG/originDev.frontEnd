@@ -27,5 +27,7 @@ class SignupPageController extends Component {
 SignupPageController.propTypes = {
     uiStore: PropTypes.object.isRequired,
 };
+
+
 export default inject('uiStore')(injectSheet(GlobalStyles)(SignupPageController));
 
