@@ -131,7 +131,7 @@ export const getAllIndividualUsersQuery = gql`query getAllIndividualUsers {
 }`;
 
 export const createIndividualUserQuery = gql`mutation registerIndividual($firstName: String!, $lastName: String!, $email: String!, $password: String!, $authenticated: Boolean!, $userName: String! ) {
-	individualUserRegister(input: {firstName: $firstName, lastName: $lastName, email: $email, password: $password, authenticated: $authenticated, userName: $userName}) {
+	individualUserRegister(input: {firstName: $firstName, lastName: $lastName, email: $email, password: $password, authenticated: $authenticated, username: $userName}) {
 		individualUser {
 			email
       id
