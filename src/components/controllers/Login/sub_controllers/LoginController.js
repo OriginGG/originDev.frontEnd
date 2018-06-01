@@ -12,6 +12,7 @@ import LoginComponentRender from '../../../render_components/signup/LoginCompone
 import SignupComponentRender from '../../../render_components/signup/SignupComponentRender';
 import { authenticateQuery, authenticateIndividualQuery } from '../../../../queries/login';
 import { createUserQuery, createIndividualUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
+import { getIndividualUserByHandleQuery } from '../../../../queries/individuals.js';
 import historyStore from '../../../../utils/stores/browserHistory';
 
 const { confirm } = Modal;
@@ -167,6 +168,8 @@ class LoginController extends Component {
                                     email: v.email,
                                     adminUser: !this.props.ind,
                                 };
+
+
                                 await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
                                 toast.success(`Account ${v.email} created, you can now login.`, {
                                     position: toast.POSITION.TOP_LEFT
@@ -229,6 +232,16 @@ class LoginController extends Component {
                                         let pre_user;
                                         let u_id;
                                         if (this.props.ind) {
+                                            // test if individual user already exists!
+                                            const exists = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle: payload.userName });
+                                            if (exists.getinduserbyusername && exists.getinduserbyusername.edges.length > 0) {
+                                                toast.error(`The username ${payload.userName} is unavailable/already taken, please choose another.`, {
+                                                    position: toast.POSITION.TOP_LEFT,
+                                                    autoClose: 5000
+                                                });
+                                                return;
+                                            }
+                                            debugger;
                                             pre_user = await this.props.appManager.executeQuery('mutation', createIndividualUserQuery, payload);
                                             u_id = pre_user.individualUserRegister.individualUser.id;
                                         } else {
