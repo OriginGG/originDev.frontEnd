@@ -16,7 +16,7 @@ class AdminRecentMatchesController extends Component {
     state = {
         visible: false, add_match: false, logo_src: null, your_score: '', their_score: ''
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.upload_file = false;
         this.current_game = null;
         this.calcMatches();

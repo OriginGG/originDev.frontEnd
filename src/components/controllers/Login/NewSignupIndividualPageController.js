@@ -11,7 +11,7 @@ import { authenticateIndividualQuery } from '../../../queries/login';
 import { updateIndividualUserQuery } from '../../../queries/individuals';
 
 class NewSignupIndividualPageController extends Component {
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
         const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: d.id });

@@ -15,7 +15,7 @@ class AdminAboutController extends Component {
     state = {
         page_content: '', about_title: '', about_sub_title: '', visible: false, edit_page: false, row_array: []
     };
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.calcRows();
     }
     calcRows = async () => {

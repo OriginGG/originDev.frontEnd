@@ -15,7 +15,7 @@ class AdminThemeController extends Component {
     state = {
         modal_open: false, preview_image_src: null, image_src: null
     }
-    componentWillMount = () => {
+    componentDidMount = () => {
         let checked_dark = 'checked';
         let checked_light = false;
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });

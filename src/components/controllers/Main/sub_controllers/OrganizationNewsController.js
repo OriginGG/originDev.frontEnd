@@ -26,7 +26,7 @@ class OrganizationNewsController extends Component {
     state = {
         blog_modal_open: false, blog_media: null, blog_content: null, OrganizationNewsModalComponentRender: null, visible: false
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsComponentRender`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);

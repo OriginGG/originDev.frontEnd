@@ -10,7 +10,7 @@ import blankProfileImage from '../../../../assets/images/blank_person.png';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationRosterController extends Component {
     state = { visible: false };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);

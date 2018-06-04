@@ -16,7 +16,7 @@ import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const users = await this.props.appManager.executeQuery('query', getAllIndividualUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const edges = users.allIndividualUsers.edges.slice(0);
         this.props.game_node.rosterIndividualsByRosterId.edges.forEach((x) => {
@@ -148,7 +148,7 @@ const AddGameModal = (props) => {
 
 class ModalContentAddGame extends Component {
     state = { current_game: null };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.setState({ current_game: gameOptions[0] });
     }
     handleDropDown = (e, data) => {
@@ -222,7 +222,7 @@ class AdminRosterController extends Component {
     state = {
         games: [], user_modal_open: false, game_modal_open: false, visible: false
     };
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.getRosterData();
     }
     getRosterData = async () => {

@@ -11,7 +11,7 @@ import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 class OrganizationLogoController extends Component {
     state = { visible: false, OrganizationLogoComponentRender: null };
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const p_array = [];
         if (!this.isMobile()) {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });

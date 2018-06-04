@@ -200,6 +200,7 @@
       "react/jsx-wrap-multilines": "off",
       "react/no-multi-comp": "off",
       "react/forbid-prop-types": "off",
+      "react/no-did-mount-set-state" : "off",
       "react/jsx-closing-tag-location": "off",
       "react/jsx-indent-props": "off",
       "react/jsx-boolean-value": "off",
