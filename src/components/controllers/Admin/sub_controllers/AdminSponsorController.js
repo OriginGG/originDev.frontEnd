@@ -26,7 +26,7 @@ class AdminSponsorController extends Component {
             sponsor_desc4_value: ''
         }
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.logo_files = {};
         let s_image0 = blankImage;
         let s_image1 = blankImage;

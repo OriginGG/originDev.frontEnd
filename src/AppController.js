@@ -24,7 +24,7 @@ const pathsToIgnore = [
 ];
 
 class AppController extends Component {
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         let admin = false;
         // pouchTest
 

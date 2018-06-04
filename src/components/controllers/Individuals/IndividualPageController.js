@@ -61,7 +61,7 @@ class ModalContent extends Component {
             bannerImageUrl: ''
         }
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.props.user_id });
         this.setState({
             input_values: {
@@ -235,7 +235,7 @@ class IndividualPageController extends Component {
         visible: false,
         modal_open: false,
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.is_admin = false;
         this.twitch_stats = null;
         this.twitter_stats = null;

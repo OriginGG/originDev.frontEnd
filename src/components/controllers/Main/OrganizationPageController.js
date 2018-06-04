@@ -50,7 +50,7 @@ class OrganizationPageController extends Component {
         roster_style: { display: 'none' }
     };
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.current_roster_id = -1;
         const domainToken = await this.props.appManager.getDomainToken();
         if (domainToken && domainToken.token) {

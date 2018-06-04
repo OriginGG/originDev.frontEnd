@@ -12,7 +12,7 @@ class AdminCollaboratorController extends Component {
         visible: false, modal_open: false, firstname_value: '', lastname_value: '', email_value: '', password_value: ''
     }
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         await this.updateTable();
         this.setState({ visible: true });
     }

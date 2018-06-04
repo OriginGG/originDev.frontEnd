@@ -9,7 +9,7 @@ class OrganizationVideoController extends Component {
     state = {
         visible: false, video1_url: '', video2_url: '', video3_url: '', video4_url: ''
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationVideoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationVideoComponentRender`);
