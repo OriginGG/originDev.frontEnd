@@ -241,7 +241,6 @@ class LoginController extends Component {
                                                 });
                                                 return;
                                             }
-                                            debugger;
                                             pre_user = await this.props.appManager.executeQuery('mutation', createIndividualUserQuery, payload);
                                             u_id = pre_user.individualUserRegister.individualUser.id;
                                         } else {
