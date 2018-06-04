@@ -89,7 +89,7 @@ const gameOptions = [
 ];
 class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }
-    componentDidount = async () => {
+    componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
 
