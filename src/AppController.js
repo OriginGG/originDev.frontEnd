@@ -120,8 +120,8 @@ class AppController extends Component {
                 }) === -1) {
                     const handle = (location.pathname).replace('/', '');            // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
-                    if (user.allIndividualUsers.edges.length > 0) {
-                        const user_id = user.allIndividualUsers.edges[0].node.id;
+                    if (user.getinduserbyusername.edges.length > 0) {
+                        const user_id = user.getinduserbyusername.edges[0].node.id;
                         historyStore.push(`/individual?u=${user_id}`);
                     } else {
                         historyStore.push('/');
