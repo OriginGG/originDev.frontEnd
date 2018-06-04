@@ -282,7 +282,7 @@ class LoginController extends Component {
                                             className="ui fluid large"
                                             style={{
                                                 color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 40
-                                            }}>Create an Account</Button>
+                                            }}>Create an Account !!!</Button>
                                     }
                                     user_style={s_username_style}
                                     errors={errors}
@@ -301,7 +301,7 @@ class LoginController extends Component {
                                             className="ui fluid large"
                                             style={{
                                                 color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 40
-                                            }}>Login</Button>
+                                            }}>Login !!</Button>
                                     }
                                     errors={errors}
                                     touched={touched}
