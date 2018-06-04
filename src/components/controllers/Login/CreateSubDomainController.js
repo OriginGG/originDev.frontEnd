@@ -16,7 +16,7 @@ class CreateSubDomainController extends Component {
     state = {
         visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
             const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });

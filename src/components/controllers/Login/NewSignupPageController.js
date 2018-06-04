@@ -10,7 +10,7 @@ import { getUserQuery, updateUserQuery } from '../../../queries/users';
 import { authenticateQuery } from '../../../queries/login';
 
 class NewSignupPageController extends Component {
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
         const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: d.id });

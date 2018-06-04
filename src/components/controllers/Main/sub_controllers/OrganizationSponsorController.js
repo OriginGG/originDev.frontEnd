@@ -9,7 +9,7 @@ import { getSponsorsQuery } from '../../../../queries/sponsors';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationSponsorController extends Component {
     state = { visible: false };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const subDomain = this.props.uiStore.current_subdomain;
         const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
         this.sponsor_image1 = sponsor_data.resultData.edges[0].node.sponsor1;

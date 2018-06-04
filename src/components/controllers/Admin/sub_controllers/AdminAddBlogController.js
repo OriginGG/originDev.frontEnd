@@ -22,7 +22,7 @@ class AdminAddBlogController extends Component {
             visible: false, blog_image: null, blog_title: '', text: ''
         }; // You can also pass a Quill Delta here
     }
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.logo_files = null;
         const p = {
             blog_title: this.props.blogTitle,

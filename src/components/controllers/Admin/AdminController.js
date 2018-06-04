@@ -121,7 +121,7 @@ class MenuDrop extends Component {
 }
 class AdminPageController extends Component {
     state = { page: 'company', isOpen: false, visible: false };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         if (this.props.appManager.admin_logged_in) {
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;

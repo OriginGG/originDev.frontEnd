@@ -16,7 +16,7 @@ class AdminMediaController extends Component {
             link4_value: '',
         }
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.create = false;
         const youTubeChannels = await this.props.appManager.executeQueryAuth('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         if (youTubeChannels.resultData.edges.length === 0) {

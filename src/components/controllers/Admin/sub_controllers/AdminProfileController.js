@@ -27,7 +27,7 @@ class AdminProfileController extends Component {
             logo_src: null
         }
     };
-    componentWillMount() {
+    componentDidMount() {
         this.upload_file = false;
         this.setState({
             input_values: {

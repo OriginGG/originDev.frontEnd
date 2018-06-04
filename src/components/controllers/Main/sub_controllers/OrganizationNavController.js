@@ -6,7 +6,7 @@ import { GlobalStyles } from 'Theme/Theme';
 
 class OrganizationNavController extends Component {
     state = { visible: false, OrganizationNavComponentRender: null };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);

@@ -10,7 +10,7 @@ import AdminAddBlogController from './AdminAddBlogController';
 
 class AdminBlogController extends Component {
     state = { visible: false, add_blog: false, edit_blog: false };
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.fetchBlogData();
     }
 
