@@ -77,7 +77,7 @@ export class ModalContentAddUser extends Component {
                 <div style={{
                     paddingTop: 16, paddingBottom: 12, display: 'inherit', justifyContent: 'center', flexDirection: 'row'
                 }}>
-                    <Header color="blue" as="h3">Roster Game:</Header>
+                    <Header color="blue" as="h3">Staff Position:</Header>
 
                 </div>
                 <div style={{
