@@ -64,6 +64,16 @@ class MenuDrop extends Component {
                             </div>
                         </a>
                         <a className="item">
+                            <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('staff', e); }}>
+                                <div className={this.props.classes.menu_item_icon}>
+                                    <i className="block layout icon" />
+                                </div>
+                                <div className={this.props.classes.menu_item_label}>
+                                    Staff
+                                </div>
+                            </div>
+                        </a>
+                        <a className="item">
                             <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('roster', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
@@ -204,6 +214,10 @@ class AdminPageController extends Component {
             }
             case 'about': {
                 p_component = <AdminAboutController />;
+                break;
+            }
+            case 'staff': {
+                p_component = <AdminStaffController />;
                 break;
             }
             default: {
