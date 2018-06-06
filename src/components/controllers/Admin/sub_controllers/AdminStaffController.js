@@ -210,7 +210,6 @@ const RosterGame = (props) => {
             style={{
                 cursor: 'pointer', display: 'flex', padding: 8, backgroundColor: 'aliceblue', border: '1px solid', borderColor: '#9e9ed6', borderRadius: 8
             }}>
-            <div style={{ width: 24, height: 24 }}><img style={{ width: 'inherit' }} alt="" src={props.game.image} /></div>
             <p style={{
                 fontSize: 14, lineHeight: '24px', color: 'black', paddingLeft: 4
             }}>{props.game.text}</p>
