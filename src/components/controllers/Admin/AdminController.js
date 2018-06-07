@@ -15,6 +15,7 @@ import AdminAboutController from './sub_controllers/AdminAboutController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminRosterController from './sub_controllers/AdminRosterController';
+import AdminStaffController from './sub_controllers/AdminStaffController';
 import AdminThemeController from './sub_controllers/AdminThemeController';
 import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
@@ -63,6 +64,16 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
+                        {/* <a className="item">
+                            <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('staff', e); }}>
+                                <div className={this.props.classes.menu_item_icon}>
+                                    <i className="block layout icon" />
+                                </div>
+                                <div className={this.props.classes.menu_item_label}>
+                                    Staff
+                                </div>
+                            </div>
+                        </a> */}
                         <a className="item">
                             <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('roster', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
@@ -204,6 +215,10 @@ class AdminPageController extends Component {
             }
             case 'about': {
                 p_component = <AdminAboutController />;
+                break;
+            }
+            case 'staff': {
+                p_component = <AdminStaffController />;
                 break;
             }
             default: {
