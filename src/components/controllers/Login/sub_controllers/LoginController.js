@@ -185,7 +185,6 @@ class LoginController extends Component {
                                     userName: v.userName,
 
                                 };
-
                                 const a = this.props.ind ? 'admin_user=false' : 'admin_user=true';
                                 let registered_user;
                                 // first see if user exists in normal db?
