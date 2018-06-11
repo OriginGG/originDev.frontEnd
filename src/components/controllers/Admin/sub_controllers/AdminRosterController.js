@@ -147,9 +147,9 @@ const AddGameModal = (props) => {
 
 
 class ModalContentAddGame extends Component {
-    state = { current_game: null };
+    state = { visible: false, current_game: null };
     componentDidMount = async () => {
-        this.setState({ current_game: gameOptions[0] });
+        this.setState({ current_game: gameOptions[0], visible: true });
     }
     handleDropDown = (e, data) => {
         this.setState({ current_game: data });
@@ -164,7 +164,11 @@ class ModalContentAddGame extends Component {
         this.props.closeModal();
     }
     render() {
+        if (!this.state.visible) {
+            return null;
+        }
         const currGame = _.find(gameOptions, (o) => {
+            debugger;
             return o.value === this.state.current_game.value;
         });
         return (
