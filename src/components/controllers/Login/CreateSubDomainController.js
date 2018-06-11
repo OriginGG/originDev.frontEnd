@@ -4,8 +4,9 @@ import axios from 'axios';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
+import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
-import { createOrganisationQuery } from '../../../queries/organisation';
+import { createOrganisationQuery, getOrganisationByName } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
 import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
@@ -80,32 +81,43 @@ class CreateSubDomainController extends Component {
                 themeStructure: JSON.stringify(p),
                 themeData: JSON.stringify(toJS(this.props.uiStore.origin_theme_data))
             };
-            await this.props.appManager.executeQuery('mutation', createOrganisationQuery, {
-                themeBaseId: baseId, themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name
-            });
-            await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
-            await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
-            await this.props.appManager.executeQuery('mutation', createPageQuery, {
-                pageTitle: '',
-                pageContent: '',
-                pageSubtitle: '',
-                pageKey: 'about-us',
-                organisation: this.domain_name
-            });
-            await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
-                subDomain: this.domain_name,
-                link1: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
-                link2: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
-                link3: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
-                link4: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
-            });
 
-            const domainInfo = this.props.appManager.getDomainInfo();
-            const new_payload = Object.assign(this.authPayload, {});
-            new_payload.authenticate.resultData.organisation = this.domain_name;
-            const payload = Buffer.from(JSON.stringify(new_payload), 'utf8').toString('hex');
-            const u_string = `${domainInfo.protocol}//${this.domain_name}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
-            window.location = u_string;
+            // test if domain already exists.
+
+            const exists = await this.props.appManager.executeQuery('query', getOrganisationByName, { subdomain: this.domain_name });
+            if (exists.getorganisationbyname.edges.length > 0) {
+                toast.error(`Domain: ${this.domain_name} is already in use, please choose another!`, {
+                    position: toast.POSITION.TOP_LEFT,
+                    autoClose: 5000
+                });
+            } else {
+                await this.props.appManager.executeQuery('mutation', createOrganisationQuery, {
+                    themeBaseId: baseId, themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name
+                });
+                await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
+                await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
+                await this.props.appManager.executeQuery('mutation', createPageQuery, {
+                    pageTitle: '',
+                    pageContent: '',
+                    pageSubtitle: '',
+                    pageKey: 'about-us',
+                    organisation: this.domain_name
+                });
+                await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
+                    subDomain: this.domain_name,
+                    link1: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
+                    link2: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
+                    link3: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
+                    link4: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
+                });
+
+                const domainInfo = this.props.appManager.getDomainInfo();
+                const new_payload = Object.assign(this.authPayload, {});
+                new_payload.authenticate.resultData.organisation = this.domain_name;
+                const payload = Buffer.from(JSON.stringify(new_payload), 'utf8').toString('hex');
+                const u_string = `${domainInfo.protocol}//${this.domain_name}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
+                window.location = u_string;
+            }
             // create a domain and theme here.
         }
     }

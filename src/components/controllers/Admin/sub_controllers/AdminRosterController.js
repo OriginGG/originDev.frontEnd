@@ -168,7 +168,6 @@ class ModalContentAddGame extends Component {
             return null;
         }
         const currGame = _.find(gameOptions, (o) => {
-            debugger;
             return o.value === this.state.current_game.value;
         });
         return (
