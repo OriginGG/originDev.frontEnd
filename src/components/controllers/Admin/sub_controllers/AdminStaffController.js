@@ -9,7 +9,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
-import { deleteStaffUserQuery, createStaffQuery, getStaffQuery, createStaffQuery } from '../../../../queries/rosters.js';
+import { deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
 import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
 import { staffOptions } from './data/AllPositions.js';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -268,7 +268,7 @@ class AdminRosterController extends Component {
         });
         for (let a in add_array) {          // eslint-disable-line
             const x = add_array[a];
-            await this.props.appManager.executeQuery('mutation', createStaffQuery, { staffId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
+            await this.props.appManager.executeQuery('mutation', createStaffUserQuery, { staffId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
         }
         for (let a in delete_array) {          // eslint-disable-line
             const x = delete_array[a];

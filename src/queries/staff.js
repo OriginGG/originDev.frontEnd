@@ -49,16 +49,16 @@ export const getStaffByIDQuery = gql`query getStaffById($id: Int!) {
     }
   }`;
 
-export const createStaffUserQuery = gql`mutation createStaffUser($staffId: Int!, $individualId: Int!) {
-  createStaffIndividual(input: {staffIndividual: {
-    individualId: $individualId
-    staffId: $staffId
-  }) {
-    staffIndividual {
-      id
+  export const createStaffUserQuery = gql`mutation createStaffUser($staffId: Int!, $individualId: Int!) {
+    createStaffIndividual(input: {staffIndividual: {
+      individualId: $individualId
+      staffId: $staffId
+    }}) {
+      staffIndividual {
+        id
+      }
     }
-  }
-}`;
+  }`;
 
 export const deleteStaffUserQuery = gql`mutation deleteStaffUser($id: Int!) {
   deleteStaffIndividualById(input:{id: $id}) {
