@@ -9,7 +9,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
-import { deleteRosterUserQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
+import { deleteStaffUserQuery, createStaffQuery, getStaffQuery, createStaffQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
 import { staffOptions } from './data/AllPositions.js';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -227,15 +227,15 @@ class AdminRosterController extends Component {
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-            roster_data.allRosters.edges.forEach((r, i) => {
+            const staff_data = await this.props.appManager.executeQuery('query', getStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            staff_data.allRosters.edges.forEach((r, i) => {
                 const { gameId } = r.node;
                 const currGame = _.find(staffOptions, (o) => {
                     return o.game_id === gameId;
                 });
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
-            this.current_roster_users = roster_data.allRosters.edges;
+            this.current_roster_users = staff_data.allRosters.edges;
             this.setState({ visible: true, games: p_array });
             resolve(true);
         });
@@ -268,11 +268,11 @@ class AdminRosterController extends Component {
         });
         for (let a in add_array) {          // eslint-disable-line
             const x = add_array[a];
-            await this.props.appManager.executeQuery('mutation', createRosterUserQuery, { rosterId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
+            await this.props.appManager.executeQuery('mutation', createStaffQuery, { staffId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
         }
         for (let a in delete_array) {          // eslint-disable-line
             const x = delete_array[a];
-            await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
+            await this.props.appManager.executeQuery('mutation', deleteStaffUserQuery, { id: x.id });         // eslint-disable-line
         }
         if (add_array.length > 0 && delete_array.length === 0) {
             toast.success(`${add_array.length} User(s) added..`, {
@@ -306,7 +306,7 @@ class AdminRosterController extends Component {
     }
     handleSubmit = async (game) => {
         this.closeModal();
-        await this.props.appManager.executeQuery('mutation', createRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, gameId: game.game_id });
+        await this.props.appManager.executeQuery('mutation', createStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, gameId: game.game_id });
         toast.success(`Game ${game.text} added!`, {
             position: toast.POSITION.TOP_LEFT
         });
