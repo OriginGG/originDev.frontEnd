@@ -62,6 +62,14 @@ export const createRosterUserQuery = gql`mutation createRosterUser($rosterId: In
   }
 }`;
 
+export const deleteRosterQuery = gql`mutation deleteRoster($id: Int!) {
+  deleteRosterById(input:{id: $id}) {
+    roster {
+      id
+    }
+  }
+}`;
+
 export const deleteRosterUserQuery = gql`mutation deleteRosterUser($id: Int!) {
   deleteRosterIndividualById(input:{id: $id}) {
     rosterIndividual {

@@ -6,11 +6,14 @@ import { GlobalStyles } from 'Theme/Theme';
 import { Dropdown, Button, Input } from 'semantic-ui-react';
 import { inject } from 'mobx-react';
 import _ from 'lodash';
+import { Modal } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
-import { createRecentMatchQuery, recentMatchesQuery } from '../../../../queries/matches';
+import { createRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
 import { gameOptions } from './data/AllGames.js';
+
+const { confirm } = Modal;
 
 class AdminRecentMatchesController extends Component {
     state = {
@@ -46,7 +49,7 @@ class AdminRecentMatchesController extends Component {
         });
     }
     uploadFile = (e) => {
-        this.logo_files = e[0];             // eslint-disable-line
+        this.logo_files = e[ 0 ];             // eslint-disable-line
         const reader = new FileReader();
         reader.readAsDataURL(this.logo_files);
 
@@ -88,6 +91,38 @@ class AdminRecentMatchesController extends Component {
             });
             this.calcMatches();
         }
+    }
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this Recent Match',
+                content: 'Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    deleteMatch = async (id) => {
+        const action = await this.showDeleteConfirm();
+        if (action) {
+            await this.props.appManager.executeQuery(
+                'mutation', deleteRecentMatchQuery,
+                {
+                    id
+                }
+            );
+            toast.success('Recent match deleted !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        this.calcMatches();
     }
     render() {
         if (this.state.visible === false) {
@@ -154,7 +189,7 @@ class AdminRecentMatchesController extends Component {
                         color: 'rgb(255, 255, 255)', backgroundColor: 'transparent', userSelect: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '20', borderRadius: 0, height: 40, width: 40
                     }} />
                     <br /></td>
-                <td>{res.node.score}</td>
+                <td>{ res.node.score }<Button onClick={() => { this.deleteMatch(res.node.id); }} size="mini" color="red" style={{ float: 'right' }} >Delete</Button></td>
             </tr>);
         });
 
