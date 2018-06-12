@@ -9,6 +9,13 @@ export const createRecentMatchQuery = gql`mutation createRecentMatch($subDomain:
     }
   }
 }`;
+export const deleteRecentMatchQuery = gql`mutation deleteRecentMatch($id: Int!) {
+  deleteRecentmatchById(input: {id: $id}) {
+    recentmatch {
+      id
+    }
+  }
+}`;
 
 export const recentMatchesQuery = gql`
    query recentMatches($organisation: String!) {
