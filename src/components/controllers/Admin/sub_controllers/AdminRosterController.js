@@ -9,10 +9,12 @@ import { GlobalStyles } from 'Theme/Theme';
 import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
-import { deleteRosterUserQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
+import { deleteRosterUserQuery, deleteRosterQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
 import { gameOptions } from './data/AllGames.js';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
+
+const { confirm } = Modal;
 
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
@@ -62,7 +64,40 @@ export class ModalContentAddUser extends Component {
             </div>
         );
     }
-
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this Roster',
+                content: 'Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    handleDeleteRoster = async () => {
+        const p = this.props.game_node;
+        console.log(p);
+        const action = await this.showDeleteConfirm();
+        if (action) {
+            await this.props.appManager.executeQuery(
+                'mutation', deleteRosterQuery,
+                {
+                    id: p.id
+                }
+            );
+            toast.success('Roster deleted !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            this.props.closeModal();
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -103,6 +138,9 @@ export class ModalContentAddUser extends Component {
                 <div style={{ padding: 24 }}>
                     <Button onClick={this.handleOk} primary>Ok</Button>
                     <Button onClick={this.handleCancel} style={{ float: 'right' }} secondary>Cancel</Button>
+                </div>
+                <div style={{ padding: 24 }}>
+                    <Button onClick={this.handleDeleteRoster} color="red" >Delete This Roster</Button>
                 </div>
             </div>
         );
@@ -321,6 +359,7 @@ class AdminRosterController extends Component {
     }
     closeUserModal = () => {
         this.setState({ user_modal_open: false });
+        this.getRosterData();
     }
     render() {
         if (this.state.visible === false) {
