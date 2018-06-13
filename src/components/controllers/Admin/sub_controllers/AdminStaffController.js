@@ -10,7 +10,7 @@ import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
 import { deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
-import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
+import OrganizationAdminStaffComponentRender from '../../../render_components/admin/OrganizationAdminStaffComponentRender';
 import { staffOptions } from './data/AllPositions.js';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
@@ -19,7 +19,7 @@ export class ModalContentAddUser extends Component {
     componentDidMount = async () => {
         const users = await this.props.appManager.executeQuery('query', getAllIndividualUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const edges = users.allIndividualUsers.edges.slice(0);
-        this.props.game_node.rosterIndividualsByRosterId.edges.forEach((x) => {
+        this.props.game_node.staffIndividualsByStaffId.edges.forEach((x) => {
             const f = _.findIndex(edges, (o) => {
                 return o.node.id === x.node.individualUserByIndividualId.id;
             });
@@ -28,7 +28,7 @@ export class ModalContentAddUser extends Component {
             }
         });
         const t_array = [];
-        this.props.game_node.rosterIndividualsByRosterId.edges.forEach((p) => {
+        this.props.game_node.staffIndividualsByStaffId.edges.forEach((p) => {
             t_array.push({ node: p.node.individualUserByIndividualId });
         });
         this.setState({
@@ -68,7 +68,7 @@ export class ModalContentAddUser extends Component {
             return null;
         }
         const currGame = _.find(staffOptions, (o) => {
-            return o.position_id === this.props.game_node.gameId;
+            return o.position_id === this.props.game_node.positionId;
         });
         return (
             <div style={{
@@ -83,7 +83,7 @@ export class ModalContentAddUser extends Component {
                 <div style={{
                     paddingBottom: 12, display: 'inherit', justifyContent: 'center', flexDirection: 'row'
                 }}>
-                    <div style={{ width: 32, height: 32 }}><img style={{ width: 'inherit' }} alt="" src={currGame.image} /></div>
+                    {/* <div style={{ width: 32, height: 32 }}><img style={{ width: 'inherit' }} alt="" src={currGame.image} /></div> */}
                     <p style={{ fontSize: 19, color: 'white', paddingLeft: 4 }}>{currGame.text}</p>
                 </div>
                 <div style={{
@@ -147,9 +147,9 @@ const AddGameModal = (props) => {
 
 
 class ModalContentAddGame extends Component {
-    state = { current_game: null };
+    state = { visible: false, current_game: null };
     componentDidMount = async () => {
-        this.setState({ current_game: staffOptions[0] });
+        this.setState({ visible: true, current_game: staffOptions[0] });
     }
     handleDropDown = (e, data) => {
         this.setState({ current_game: data });
@@ -164,8 +164,11 @@ class ModalContentAddGame extends Component {
         this.props.closeModal();
     }
     render() {
+        if (this.state.visible === false) {
+            return null;
+        }
         const currGame = _.find(staffOptions, (o) => {
-             return o.value; /* === this.state.current_game.value; */
+            return o.value === this.state.current_game.value;
         });
         return (
             <div style={{ width: 500, backgroundColor: 'black' }}>
@@ -189,7 +192,7 @@ class ModalContentAddGame extends Component {
                     <div style={{
                         paddingBottom: 12, display: 'inherit', justifyContent: 'center', flexDirection: 'row'
                     }}>
-                        <div style={{ width: 32, height: 32 }}><img style={{ width: 'inherit' }} alt="" src={currGame.image} /></div>
+                        {/* <div style={{ width: 32, height: 32 }}><img style={{ width: 'inherit' }} alt="" src={currGame.image} /></div> */}
                         <p style={{ fontSize: 19, color: 'white', paddingLeft: 4 }}>{currGame.text}</p>
                     </div>
                     <div style={{ padding: 24 }}>
@@ -217,7 +220,7 @@ const RosterGame = (props) => {
     );
 };
 
-class AdminRosterController extends Component {
+class AdminStaffController extends Component {
     state = {
         games: [], user_modal_open: false, game_modal_open: false, visible: false
     };
@@ -229,9 +232,9 @@ class AdminRosterController extends Component {
             const p_array = [];
             const staff_data = await this.props.appManager.executeQuery('query', getStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
             staff_data.allStaff.edges.forEach((r, i) => {
-                const { gameId } = r.node;
+                const { positionId } = r.node;
                 const currGame = _.find(staffOptions, (o) => {
-                    return o.game_id === gameId;
+                    return o.position_id === positionId;
                 });
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
@@ -245,14 +248,14 @@ class AdminRosterController extends Component {
         const add_array = [];
         const delete_array = [];
         t.forEach((u) => {
-            const p = _.findIndex(this.current_game_node.rosterIndividualsByRosterId.edges, (o) => {
+            const p = _.findIndex(this.current_game_node.staffIndividualsByStaffId.edges, (o) => {
                 return o.node.individualUserByIndividualId.id === u.node.id;
             });
             if (p === -1) {
                 add_array.push(u.node);
             }
         });
-        this.current_game_node.rosterIndividualsByRosterId.edges.forEach((u) => {
+        this.current_game_node.staffIndividualsByStaffId.edges.forEach((u) => {
             const p = _.findIndex(t, (o) => {
                 return o.node.id === u.node.individualUserByIndividualId.id;
             });
@@ -306,8 +309,8 @@ class AdminRosterController extends Component {
     }
     handleSubmit = async (game) => {
         this.closeModal();
-        await this.props.appManager.executeQuery('mutation', createStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, gameId: game.game_id });
-        toast.success(`Game ${game.text} added!`, {
+        await this.props.appManager.executeQuery('mutation', createStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, positionId: game.position_id });
+        toast.success(`Staff Position ${game.text} added!`, {
             position: toast.POSITION.TOP_LEFT
         });
         this.getRosterData();
@@ -326,7 +329,7 @@ class AdminRosterController extends Component {
             <div style={{
                 width: 'calc(100vw - 416px)'
             }}>
-                <OrganizationAdminRosterComponentRender game_list={this.state.games} handleAddNewGame={this.handleAddNewGame} />
+                <OrganizationAdminStaffComponentRender game_list={this.state.games} handleAddNewGame={this.handleAddNewGame} />
                 <AddGameModal
                     game_modal_open={this.state.game_modal_open}
                     content={<ModalContentAddGame handleSubmit={this.handleSubmit} closeModal={this.closeModal} {...this.props} user_id={this.user_id} />}
@@ -340,7 +343,7 @@ class AdminRosterController extends Component {
     }
 }
 
-AdminRosterController.propTypes = {
+AdminStaffController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
 };
@@ -373,4 +376,4 @@ RosterGame.propTypes = {
     handleClick: PropTypes.func.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminRosterController));
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminStaffController));
