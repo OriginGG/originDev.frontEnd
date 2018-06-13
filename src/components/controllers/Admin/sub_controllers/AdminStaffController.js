@@ -165,7 +165,7 @@ class ModalContentAddGame extends Component {
     }
     render() {
         const currGame = _.find(staffOptions, (o) => {
-            return o.value === this.state.current_game.value;
+             return o.value; /* === this.state.current_game.value; */
         });
         return (
             <div style={{ width: 500, backgroundColor: 'black' }}>
@@ -228,14 +228,14 @@ class AdminRosterController extends Component {
         return new Promise(async (resolve) => {
             const p_array = [];
             const staff_data = await this.props.appManager.executeQuery('query', getStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-            staff_data.allRosters.edges.forEach((r, i) => {
+            staff_data.allStaff.edges.forEach((r, i) => {
                 const { gameId } = r.node;
                 const currGame = _.find(staffOptions, (o) => {
                     return o.game_id === gameId;
                 });
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
-            this.current_roster_users = staff_data.allRosters.edges;
+            this.current_roster_users = staff_data.allStaff.edges;
             this.setState({ visible: true, games: p_array });
             resolve(true);
         });
