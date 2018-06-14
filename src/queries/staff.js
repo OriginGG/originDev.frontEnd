@@ -49,6 +49,47 @@ export const getStaffByIDQuery = gql`query getStaffById($id: Int!) {
     }
   }`;
 
+export const getAllStaffQuery = gql`query getStaffAllStaff {
+  allStaff {
+    edges {
+      node {
+        createdAt
+        positionId
+        subDomain
+        id
+        staffIndividualsByStaffId {
+        edges {
+          node {
+            id
+            individualUserByIndividualId {
+              firstName
+              lastName
+              email
+              about
+              contactNumber
+              id
+              accomplishments
+              createdAt
+              updatedAt
+              twitchUrl
+              twitterHandle
+              youtubeChannel
+              youtubeVideo1Url
+              youtubeVideo2Url
+              youtubeVideo3Url
+              bannerImageUrl
+              profileImageUrl
+              username
+            }
+          }
+        }
+      }
+    }
+  }
+}
+}
+`;
+
   export const createStaffUserQuery = gql`mutation createStaffUser($staffId: Int!, $individualId: Int!) {
     createStaffIndividual(input: {staffIndividual: {
       individualId: $individualId
