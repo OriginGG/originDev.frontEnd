@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
-// import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
+import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
 import { getAllStaffQuery } from '../../../../queries/staff';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
@@ -14,11 +15,28 @@ class OrganizationStaffController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
+        const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
         const roster_data = await this.props.appManager.executeQuery('query', getAllStaffQuery, {});
-        debugger;
-        const { edges } = roster_data.staffById.staffIndividualsByRosterId;
-        console.log(roster_data);
-        this.setState({ roster_list: edges, visible: true, OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default });
+        const outer_edges = roster_data.allStaff.edges;
+        let p_array = [];
+        for (let outer in outer_edges) {                // eslint-disable-line
+            const { edges } = outer_edges[outer].node.staffIndividualsByStaffId;
+            const p_type = outer_edges[outer].node.positionId;
+            const tx = _.find(staffOptions, o => o.position_id === p_type).text;
+            const ed_array = [];
+            edges.forEach((ed) => {
+                const pm = JSON.parse(JSON.stringify(ed));
+                pm.node.individualUserByIndividualId.position = tx;
+                ed_array.push(pm);
+            });
+            p_array = p_array.concat(ed_array);
+        }
+        this.setState({
+            roster_list: p_array,
+            visible: true,
+            OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
+            OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+        });
     }
     // handleClick = (link) => {
     //     if (link) {
@@ -67,6 +85,7 @@ class OrganizationStaffController extends Component {
             return null;
         }
         const { OrganizationRosterItemComponentRender } = this.state;
+        const { OrganizationAboutModalComponentRender } = this.state;
         const p_array = [];
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
@@ -91,7 +110,7 @@ class OrganizationStaffController extends Component {
                 instagram_style = { display: 'none' };
             }
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
-                roster_nickname={individualUserByIndividualId.twitterHandle}
+                roster_nickname={individualUserByIndividualId.position}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
                 roster_image={im}
@@ -104,9 +123,9 @@ class OrganizationStaffController extends Component {
             /></div>);
         });
         return (<div>
-            <h2>About</h2>
+            <OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} about_title={this.props.about_title} about_content={this.props.about_content} />
             <div
-                onClick={this.props.closeRosters}
+                onClick={this.props.closeStaff}
                 tabIndex={-1}
                 role="menuItem"
                 style={{
@@ -124,7 +143,9 @@ class OrganizationStaffController extends Component {
 OrganizationStaffController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    closeRosters: PropTypes.func.isRequired
+    closeStaff: PropTypes.func.isRequired,
+    about_title: PropTypes.string.isRequired,
+    about_content: PropTypes.string.isRequired
 };
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,

@@ -3,7 +3,6 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { slide as Menu } from 'react-burger-menu';
-import { Modal } from 'antd';
 import Favicon from 'react-favicon';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
@@ -16,20 +15,6 @@ import { getRosterQuery } from '../../../queries/rosters';
 // import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
-const AboutModal = (props) => {
-    return (
-        <Modal
-            width="max-content"
-            closable={false}
-            footer={null}
-            visible={props.modal_open}
-            animationDuration={1000}
-        >
-            <div style={{ display: 'block' }}>
-                {props.content}
-            </div>
-        </Modal >);
-};
 
 class OrganizationPageController extends Component {
     state = {
@@ -47,7 +32,6 @@ class OrganizationPageController extends Component {
         OrganizationMobileMenuComponentRender: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
-        about_modal_open: false,
         display_rosters: false,
         display_staff: false,
         roster_style: { display: 'none' }
@@ -80,7 +64,6 @@ class OrganizationPageController extends Component {
                 const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
-                const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 if (this.isMobile()) {
@@ -121,7 +104,6 @@ class OrganizationPageController extends Component {
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
-                    OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
             }
@@ -170,9 +152,6 @@ class OrganizationPageController extends Component {
     isMenuOpen = (state) => {
         this.setState({ menu_open: state.isOpen });
     }
-    closeModal = () => {
-        this.setState({ about_modal_open: false });
-    }
 
     handleSocial = (t) => {
         switch (t) {
@@ -209,6 +188,9 @@ class OrganizationPageController extends Component {
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
     }
+    closeStaff = () => {
+        this.setState({ roster_style: { display: 'none' }, display_staff: false });
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -232,7 +214,6 @@ class OrganizationPageController extends Component {
         const { OrganizationSponsorController } = this.state;
         const { OrganizationNavController } = this.state;
         const { OrganizationLogoController } = this.state;
-        const { OrganizationAboutModalComponentRender } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
         const { OrganizationStaffController } = this.state;
@@ -314,7 +295,7 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
-                rosterContent={<OrganizationStaffController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
+                rosterContent={<OrganizationStaffController about_title={this.about_us.pageTitle} about_content={this.bcontent} closeStaff={this.closeStaff} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
@@ -336,10 +317,6 @@ class OrganizationPageController extends Component {
                         {SideBar}
                         <div className={c_name} >
                             {disp}
-                            <AboutModal
-                                modal_open={this.state.about_modal_open}
-                                content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent} />}
-                            />
                         </div>
                     </div>
                 </DocumentTitle>
@@ -352,8 +329,4 @@ OrganizationPageController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-AboutModal.propTypes = {
-    modal_open: PropTypes.bool.isRequired,
-    content: PropTypes.object.isRequired
-};
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));
