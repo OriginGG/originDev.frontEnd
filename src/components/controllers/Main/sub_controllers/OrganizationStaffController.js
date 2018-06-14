@@ -8,7 +8,7 @@ import { getRosterByIDQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 // import { getOrganisationQuery } from './queries/organisation'
-class OrganizationRosterController extends Component {
+class OrganizationStaffController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
@@ -119,7 +119,7 @@ class OrganizationRosterController extends Component {
             {p_array}</div>);
     }
 }
-OrganizationRosterController.propTypes = {
+OrganizationStaffController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
     roster_id: PropTypes.number.isRequired,
@@ -130,4 +130,4 @@ OrganizationRosterController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationRosterController));
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationStaffController));
