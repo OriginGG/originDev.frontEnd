@@ -12,11 +12,13 @@ import blankProfileImage from '../../../../assets/images/blank_person.png';
 class OrganizationStaffController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
+        const subDomain = this.props.uiStore.current_subdomain;
+
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
-        const roster_data = await this.props.appManager.executeQuery('query', getAllStaffQuery, {});
+        const roster_data = await this.props.appManager.executeQuery('query', getAllStaffQuery, { subDomain });
         const outer_edges = roster_data.allStaff.edges;
         let p_array = [];
         for (let outer in outer_edges) {                // eslint-disable-line
