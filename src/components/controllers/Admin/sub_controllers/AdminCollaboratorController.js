@@ -75,7 +75,7 @@ class AdminCollaboratorController extends Component {
                 <div style={{ marginBottom: 14 }}>
                     <div className="ui stackable two column grid">
                         <div className="column">
-                            <Header as="h4">First Name</Header>
+                            <Header as="h4">First Namer</Header>
                             <Input onChange={(e) => { this.handleInputChange(e, 'firstname_value'); }} style={{ width: 280 }} value={this.state.firstname_value} placeholder="First name..." />
                         </div>
                         <div className="column">
