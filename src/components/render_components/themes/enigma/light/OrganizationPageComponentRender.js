@@ -22,7 +22,9 @@ class ObliviotOrganizationPageComponentRender extends Component {
                             <div >{this.props.logoContent}</div>
                         </div>
                         <div id="theme_about_modal"></div>
-                        <div id="roster_component">{this.props.rosterContent}</div>
+                        <div id="roster_component" style={{
+                            minHeight: '100vh'
+                        }}>{this.props.rosterContent}</div>
                     </div>
                     <div id="#news_cont" className="ui stackable three column grid">
                         <div id="news_component" className="column">

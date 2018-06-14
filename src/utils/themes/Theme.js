@@ -1028,13 +1028,13 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'left'
     },
     nav_left: {
-        width: '50%',
+        width: '100%',
         height: '50px',
         float: 'left',
         display: 'table'
     },
     nav_right: {
-        width: '50%',
+        width: '100%',
         height: '50px',
         float: 'left',
         display: 'table'
@@ -1605,6 +1605,11 @@ export const GlobalStyles = GlobalTheme => ({
     modal_news_body: {
         width: '100%',
         height: '50vh',
+        padding: '20px 15px 20px 15px',
+        overflow: 'hidden'
+    },
+    modal_about_body: {
+        width: '100%',
         padding: '20px 15px 20px 15px',
         overflow: 'hidden'
     },
