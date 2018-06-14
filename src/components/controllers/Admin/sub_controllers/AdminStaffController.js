@@ -9,10 +9,12 @@ import { GlobalStyles } from 'Theme/Theme';
 import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
-import { deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
+import { deleteStaffQuery, deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
 import OrganizationAdminStaffComponentRender from '../../../render_components/admin/OrganizationAdminStaffComponentRender';
 import { staffOptions } from './data/AllPositions.js';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
+
+const { confirm } = Modal;
 
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
@@ -63,6 +65,40 @@ export class ModalContentAddUser extends Component {
         );
     }
 
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this Staff Position',
+                content: 'Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    handleDeleteStaff = async () => {
+        const p = this.props.game_node;
+        console.log(p);
+        const action = await this.showDeleteConfirm();
+        if (action) {
+            await this.props.appManager.executeQuery(
+                'mutation', deleteStaffQuery,
+                {
+                    id: p.id
+                }
+            );
+            toast.success('Staff position deleted !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            this.props.closeModal();
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -103,6 +139,9 @@ export class ModalContentAddUser extends Component {
                 <div style={{ padding: 24 }}>
                     <Button onClick={this.handleOk} primary>Ok</Button>
                     <Button onClick={this.handleCancel} style={{ float: 'right' }} secondary>Cancel</Button>
+                </div>
+                <div style={{ padding: 24 }}>
+                    <Button onClick={this.handleDeleteStaff} color="red" >Delete This Roster</Button>
                 </div>
             </div>
         );
@@ -163,6 +202,7 @@ class ModalContentAddGame extends Component {
     handleCancel = () => {
         this.props.closeModal();
     }
+
     render() {
         if (this.state.visible === false) {
             return null;
@@ -320,6 +360,7 @@ class AdminStaffController extends Component {
     }
     closeUserModal = () => {
         this.setState({ user_modal_open: false });
+        this.getRosterData();
     }
     render() {
         if (this.state.visible === false) {

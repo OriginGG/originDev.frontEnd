@@ -49,8 +49,8 @@ export const getStaffByIDQuery = gql`query getStaffById($id: Int!) {
     }
   }`;
 
-export const getAllStaffQuery = gql`query getStaffAllStaff {
-  allStaff {
+export const getAllStaffQuery = gql`query getStaffAllStaff($subDomain:String!) {
+  allStaff(condition: {subDomain: $subDomain}) {
     edges {
       node {
         createdAt
@@ -101,6 +101,13 @@ export const getAllStaffQuery = gql`query getStaffAllStaff {
     }
   }`;
 
+export const deleteStaffQuery = gql`mutation deleteStaff($id: Int!) {
+  deleteStaffById(input:{id: $id}) {
+    staff {
+      id
+    }
+  }
+}`;
 export const deleteStaffUserQuery = gql`mutation deleteStaffUser($id: Int!) {
   deleteStaffIndividualById(input:{id: $id}) {
     staffIndividual {
