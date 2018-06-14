@@ -1028,13 +1028,13 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'left'
     },
     nav_left: {
-        width: '50%',
+        width: '100%',
         height: '50px',
         float: 'left',
         display: 'table'
     },
     nav_right: {
-        width: '50%',
+        width: '100%',
         height: '50px',
         float: 'left',
         display: 'table'
