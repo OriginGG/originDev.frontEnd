@@ -13,7 +13,6 @@ import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
-// import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 const AboutModal = (props) => {
@@ -43,13 +42,11 @@ class OrganizationPageController extends Component {
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
-        /* OrganizationStaffController: null, */
         OrganizationMobileMenuComponentRender: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         about_modal_open: false,
         display_rosters: false,
-        display_staff: false,
         roster_style: { display: 'none' }
     };
 
@@ -82,7 +79,6 @@ class OrganizationPageController extends Component {
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
-                const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
@@ -120,7 +116,6 @@ class OrganizationPageController extends Component {
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
-                    OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -150,9 +145,7 @@ class OrganizationPageController extends Component {
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
-        /* this.setState({ about_modal_open: true }); */
-
-        this.setState({ roster_style: { display: 'table', width: '100%' }, display_staff: true });
+        this.setState({ about_modal_open: true });
     }
     handleStoreClick = () => {
         if (this.isMobile() && this.state.menu_open) {
@@ -236,7 +229,6 @@ class OrganizationPageController extends Component {
         const { OrganizationAboutModalComponentRender } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
-        const { OrganizationStaffController } = this.state;
 
         let rosterComponent = <span />;
         if (this.isMobile()) {
@@ -298,24 +290,6 @@ class OrganizationPageController extends Component {
                 roster_style={this.state.roster_style}
                 copyright={cp}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
-                newsContent={<span />}
-                twitterContent={<span />}
-                matchesContent={<span />}
-                videoContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
-                bottomSponsorContent={<span />}
-                navContent={<span />}
-                logoContent={<span />}
-                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
-            />;
-        }
-
-        if (this.state.display_staff) {
-            c_name = 'blackBG';
-            disp = <OrganizationPageComponentRender
-                roster_style={this.state.roster_style}
-                copyright={cp}
-                rosterContent={<OrganizationStaffController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}

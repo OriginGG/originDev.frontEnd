@@ -246,9 +246,7 @@ class LoginController extends Component {
                                             pre_user = await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
                                             u_id = pre_user.registerUser.user.id;
                                         }
-                                        debugger;
-                                        const host = window.location.origin;
-                                        const url = `/emails/signup?host=${host}&email=${v.email}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
+                                        const url = `/emails/signup?email=${v.email}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
                                         await this.sendEmail(url);
                                         console.log(pre_user);
                                         toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {

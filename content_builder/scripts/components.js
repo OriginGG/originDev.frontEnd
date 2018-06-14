@@ -64,7 +64,6 @@ const component_array = [
     { source_html: './src/html/themes/admin/OrganizationAdminMediaComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminMenuComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminRosterComponent.html', sub_dir: 'admin' },
-    { source_html: './src/html/themes/admin/OrganizationAdminStaffComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminSponserComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminThemeComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminThemeModalComponent.html', sub_dir: 'admin' },
