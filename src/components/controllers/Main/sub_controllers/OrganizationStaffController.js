@@ -4,7 +4,7 @@ import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
-import { getRosterByIDQuery } from '../../../../queries/rosters';
+import { getAllStaffQuery } from '../../../../queries/staff';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 // import { getOrganisationQuery } from './queries/organisation'
@@ -14,8 +14,9 @@ class OrganizationStaffController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
-        const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
-        const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
+        const roster_data = await this.props.appManager.executeQuery('query', getAllStaffQuery, {});
+        debugger;
+        const { edges } = roster_data.staffById.staffIndividualsByRosterId;
         console.log(roster_data);
         this.setState({ roster_list: edges, visible: true, OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default });
     }
@@ -103,6 +104,7 @@ class OrganizationStaffController extends Component {
             /></div>);
         });
         return (<div>
+            <h2>About</h2>
             <div
                 onClick={this.props.closeRosters}
                 tabIndex={-1}
@@ -122,7 +124,6 @@ class OrganizationStaffController extends Component {
 OrganizationStaffController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    roster_id: PropTypes.number.isRequired,
     closeRosters: PropTypes.func.isRequired
 };
 // LoginController.propTypes = {

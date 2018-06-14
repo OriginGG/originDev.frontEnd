@@ -151,7 +151,6 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-
         this.setState({ roster_style: { display: 'table', width: '100%' }, display_staff: true });
     }
     handleStoreClick = () => {
