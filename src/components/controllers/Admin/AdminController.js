@@ -64,7 +64,7 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
-                        {<a className="item">
+                        {/* <a className="item">
                             <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('staff', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
                                     <i className="block layout icon" />
@@ -73,7 +73,7 @@ class MenuDrop extends Component {
                                     Staff
                                 </div>
                             </div>
-                        </a>}
+                        </a> */}
                         <a className="item">
                             <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('roster', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
