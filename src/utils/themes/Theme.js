@@ -675,6 +675,11 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'rgb(20,20,20)',
         padding: '0px 0px 0px 0px'
     },
+    blankBG: {
+        width: '100%',
+        backgroundColor: 'rgba(20,20,20,0)',
+        padding: '0px 0px 0px 0px'
+    },
     darkNavBG: {
         width: '100%',
         backgroundColor: 'transparent',
