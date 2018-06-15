@@ -125,13 +125,7 @@ class OrganizationStaffController extends Component {
             /></div>);
         });
         return (<div>
-            <div className={this.props.classes.roster_item_name_container}>
-                <span className={this.props.classes.roster_name}>About</span>
-            </div>
             <OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} about_title={this.props.about_title} about_content={this.props.about_content} />
-            <div className={this.props.classes.roster_item_name_container}>
-                <span className={this.props.classes.roster_name}>Staff</span>
-            </div>
             <div
                 onClick={this.props.closeStaff}
                 tabIndex={-1}
@@ -150,7 +144,6 @@ class OrganizationStaffController extends Component {
 }
 OrganizationStaffController.propTypes = {
     uiStore: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
     closeStaff: PropTypes.func.isRequired,
     about_title: PropTypes.string.isRequired,
