@@ -44,13 +44,6 @@ export class ModalContentAddUser extends Component {
     handleCancel = () => {
         this.props.closeModal();
     }
-    onChange = (event) => {
-        this.setState({
-            source: event.source,
-            target: event.target
-        });
-    }
-
     showDeleteConfirm = () => {
         return new Promise(resolve => {
             confirm({
@@ -84,6 +77,11 @@ export class ModalContentAddUser extends Component {
             });
             this.props.closeModal();
         }
+    }
+    onChange = (s, t) => {
+        this.setState({
+            source: s, target: t
+        });
     }
     render() {
         if (this.state.visible === false) {
