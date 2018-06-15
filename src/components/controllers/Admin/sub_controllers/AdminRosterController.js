@@ -46,12 +46,6 @@ export class ModalContentAddUser extends Component {
     handleCancel = () => {
         this.props.closeModal();
     }
-    onChange = (event) => {
-        this.setState({
-            source: event.source,
-            target: event.target
-        });
-    }
 
     userTemplate = (user) => {
         let im = blankProfileImage;
@@ -98,6 +92,11 @@ export class ModalContentAddUser extends Component {
             });
             this.props.closeModal();
         }
+    }
+    onChange = (s, t) => {
+        this.setState({
+            source: s, target: t
+        });
     }
     render() {
         if (this.state.visible === false) {
@@ -196,6 +195,7 @@ class ModalContentAddGame extends Component {
     handleCancel = () => {
         this.props.closeModal();
     }
+
     render() {
         if (!this.state.visible) {
             return null;
