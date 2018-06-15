@@ -12,7 +12,7 @@ import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
-import { getStaffQuery } from '../../../queries/staff';
+// import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 
