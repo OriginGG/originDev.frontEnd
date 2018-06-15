@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationAboutModalComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.darkBG}>
+            <div className={this.props.classes.blankBG}>
                 <div className="header">
                     <div className={this.props.classes.modal_about_header}>{this.props.about_title}</div>
                 </div>
