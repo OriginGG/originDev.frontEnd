@@ -12,7 +12,7 @@ import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
-// import { getStaffQuery } from '../../../queries/staff';
+import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 
@@ -28,7 +28,7 @@ class OrganizationPageController extends Component {
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
-        /* OrganizationStaffController: null, */
+        OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
@@ -133,7 +133,7 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-        this.setState({ roster_style: { display: 'table', width: '100%' }, display_staff: true });
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_staff: true });
     }
     handleStoreClick = () => {
         if (this.isMobile() && this.state.menu_open) {
@@ -183,7 +183,7 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         this.current_roster_id = r;
-        this.setState({ roster_style: { display: 'table', width: '100%' }, display_rosters: true });
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_rosters: true });
     }
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
