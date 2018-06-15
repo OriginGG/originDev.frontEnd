@@ -6,13 +6,14 @@ import { Dropdown, Header, Button } from 'semantic-ui-react';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
-import { PickList } from 'primereact/components/picklist/PickList';
+// import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
 import { deleteRosterUserQuery, deleteRosterQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
 import { gameOptions } from './data/AllGames.js';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
+import AdminPickListController from './AdminPickList';
 
 const { confirm } = Modal;
 
@@ -124,15 +125,9 @@ export class ModalContentAddUser extends Component {
                 <div style={{
                     paddingBottom: 12, display: 'inherit', justifyContent: 'center', flexDirection: 'row'
                 }}>
-                    <PickList
+                    <AdminPickListController
                         source={this.state.source}
                         target={this.state.target}
-                        itemTemplate={this.userTemplate}
-                        sourceHeader="Available Users"
-                        targetHeader="Added Users"
-                        responsive={true}
-                        sourceStyle={{ height: '300px' }}
-                        targetStyle={{ height: '300px' }}
                         onChange={this.onChange} />
                 </div>
                 <div style={{ padding: 24 }}>
