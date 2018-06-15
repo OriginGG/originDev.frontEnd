@@ -6,13 +6,12 @@ import { Dropdown, Header, Button } from 'semantic-ui-react';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
-import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
 import { deleteStaffQuery, deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
 import OrganizationAdminStaffComponentRender from '../../../render_components/admin/OrganizationAdminStaffComponentRender';
 import { staffOptions } from './data/AllPositions.js';
-import blankProfileImage from '../../../../assets/images/blank_person.png';
+import AdminPickListController from './AdminPickList';
 
 const { confirm } = Modal;
 
@@ -50,19 +49,6 @@ export class ModalContentAddUser extends Component {
             source: event.source,
             target: event.target
         });
-    }
-
-    userTemplate = (user) => {
-        let im = blankProfileImage;
-        if (user.node.profileImageUrl) {
-            im = user.node.profileImageUrl;
-        }
-        return (
-            <div className="ui-helper-clearfix">
-                <img src={im} alt="" style={{ display: 'inline-block', margin: '2px 0 2px 2px', width: 48 }} />
-                <div style={{ fontSize: '14px', float: 'right', margin: '15px 5px 0 0' }}>{user.node.username}</div>
-            </div>
-        );
     }
 
     showDeleteConfirm = () => {
@@ -125,15 +111,9 @@ export class ModalContentAddUser extends Component {
                 <div style={{
                     paddingBottom: 12, display: 'inherit', justifyContent: 'center', flexDirection: 'row'
                 }}>
-                    <PickList
+                    <AdminPickListController
                         source={this.state.source}
                         target={this.state.target}
-                        itemTemplate={this.userTemplate}
-                        sourceHeader="Available Users"
-                        targetHeader="Added Users"
-                        responsive={true}
-                        sourceStyle={{ height: '300px' }}
-                        targetStyle={{ height: '300px' }}
                         onChange={this.onChange} />
                 </div>
                 <div style={{ padding: 24 }}>
