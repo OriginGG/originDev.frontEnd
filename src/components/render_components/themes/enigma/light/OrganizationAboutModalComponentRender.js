@@ -14,7 +14,7 @@ class ObliviotOrganizationAboutModalComponentRender extends Component {
                         <div className="header">
                             <div className={this.props.classes.modal_about_header}>{this.props.about_title}</div>
                         </div>
-                        <div id="modal_news_body" className={this.props.classes.modal_news_body}>
+                        <div id="modal_news_body" className={this.props.classes.modal_about_body}>
                             <div className={this.props.classes.modal_news_body_text}>{this.props.about_content}</div>
                         </div>
                     </div>
