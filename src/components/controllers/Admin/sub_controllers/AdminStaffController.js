@@ -119,7 +119,7 @@ export class ModalContentAddUser extends Component {
                     <Button onClick={this.handleCancel} style={{ float: 'right' }} secondary>Cancel</Button>
                 </div>
                 <div style={{ padding: 24 }}>
-                    <Button onClick={this.handleDeleteStaff} color="red" >Delete This Roster</Button>
+                    <Button onClick={this.handleDeleteStaff} color="red" >Delete Staff Position</Button>
                 </div>
             </div>
         );
