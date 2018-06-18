@@ -67,6 +67,10 @@ class OrganizationRosterController extends Component {
         }
         const { OrganizationRosterItemComponentRender } = this.state;
         const p_array = [];
+        let no_items = '';
+        if (this.state.roster_list.length < 1) {
+            no_items = 'No Players Are Currently On This Roster';
+        }
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
             let im = blankProfileImage;
@@ -105,7 +109,7 @@ class OrganizationRosterController extends Component {
         return (<div>
             <div
                 onClick={this.props.closeRosters}
-                tabIndex={-1}
+                tabIndex={-2}
                 role="menuItem"
                 style={{
                     cursor: 'pointer',
@@ -116,6 +120,22 @@ class OrganizationRosterController extends Component {
                     zIndex: 10000,
                     color: 'white',
                 }}><span className="fa fa-window-close" /></div>
+                <div
+                    tabIndex={-1}
+                    role="menuItem"
+                    style={{
+                        width: '100%',
+                        fontSize: 32,
+                        fontWeight: 900,
+                        position: 'absolute',
+                        top: 200,
+                        left: '0%',
+                        textAlign: 'center',
+                        color: 'white',
+                        zIndex: 10000,
+                    }}>
+                    {no_items}
+                </div>
             {p_array}</div>);
     }
 }
