@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationAboutModalComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.darkBG}>
+            <div className={this.props.classes.blankBG}>
                 <div id="about_modal" className="ui modal" style={this.props.extra_style}>
                     <i className="close icon" onClick={this.props.closeModal}/>
                     <div className={this.props.classes.modal_inner}>

@@ -675,6 +675,11 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'rgb(20,20,20)',
         padding: '0px 0px 0px 0px'
     },
+    blankBG: {
+        width: '100%',
+        backgroundColor: 'rgba(20,20,20,0)',
+        padding: '0px 0px 0px 0px'
+    },
     darkNavBG: {
         width: '100%',
         backgroundColor: 'transparent',
@@ -711,6 +716,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         maxWidth: '1200px',
+        minHeight: '100vh',
         marginLeft: 'auto',
         marginRight: 'auto',
         background: 'transparent',
@@ -1028,13 +1034,13 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'left'
     },
     nav_left: {
-        width: '50%',
+        width: '100%',
         height: '50px',
         float: 'left',
         display: 'table'
     },
     nav_right: {
-        width: '50%',
+        width: '100%',
         height: '50px',
         float: 'left',
         display: 'table'
