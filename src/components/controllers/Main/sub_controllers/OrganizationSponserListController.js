@@ -18,8 +18,9 @@ class OrganizationSponserListController extends Component {
         const OrganizationSponsersItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponsersItemComponentRender`);
         const sponser_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
         const { edges } = sponser_data.resultData.edges;
-        console.log(sponser_data);
-        this.setState({ sponser_data: edges, visible: true, OrganizationSponsersItemComponentRender: OrganizationSponsersItemComponentRender.default });
+        console.log(`sponser_data = ${JSON.stringify(sponser_data.resultData.edges)}`);
+        console.log(`edges = ${edges}`);
+        this.setState({ sponser_data: sponser_data.resultData.edges, visible: true, OrganizationSponsersItemComponentRender: OrganizationSponsersItemComponentRender.default });
     }
     // handleClick = (link) => {
     //     if (link) {
@@ -48,21 +49,21 @@ class OrganizationSponserListController extends Component {
         const { OrganizationSponsersItemComponentRender } = this.state;
         const p_array = [];
         const no_items = '';
-        // if (this.state.sponser_data.resultData.edges < 1) {
-        //     no_items = 'No Sponsers Are Currently In This List';
+        // if (this.state.sponser_data.length < 1) {
+        //      no_items = 'No Sponsers Are Currently In This List';
         // }
-        const sponser_image1 = this.state.sponser_data.resultData.edges[0].node.sponsor1;
-        const sponser_image2 = this.state.sponser_data.resultData.edges[0].node.sponsor2;
-        const sponser_image3 = this.state.sponser_data.resultData.edges[0].node.sponsor3;
-        const sponser_image4 = this.state.sponser_data.resultData.edges[0].node.sponsor4;
-        const sponser_link1 = this.state.sponser_data.resultData.edges[0].node.hrefLink1;
-        const sponser_link2 = this.state.sponser_data.resultData.edges[0].node.hrefLink2;
-        const sponser_link3 = this.state.sponser_data.resultData.edges[0].node.hrefLink3;
-        const sponser_link4 = this.state.sponser_data.resultData.edges[0].node.hrefLink4;
-        const sponser_desc1 = this.state.sponser_data.resultData.edges[0].node.sponsorDesc1;
-        const sponser_desc2 = this.state.sponser_data.resultData.edges[0].node.sponsorDesc2;
-        const sponser_desc3 = this.state.sponser_data.resultData.edges[0].node.sponsorDesc3;
-        const sponser_desc4 = this.state.sponser_data.resultData.edges[0].node.sponsorDesc4;
+        const sponser_image1 = this.state.sponser_data[0].node.sponsor1;
+        const sponser_image2 = this.state.sponser_data[0].node.sponsor2;
+        const sponser_image3 = this.state.sponser_data[0].node.sponsor3;
+        const sponser_image4 = this.state.sponser_data[0].node.sponsor4;
+        const sponser_link1 = this.state.sponser_data[0].node.hrefLink1;
+        const sponser_link2 = this.state.sponser_data[0].node.hrefLink2;
+        const sponser_link3 = this.state.sponser_data[0].node.hrefLink3;
+        const sponser_link4 = this.state.sponser_data[0].node.hrefLink4;
+        const sponser_desc1 = this.state.sponser_data[0].node.sponsorDesc1;
+        const sponser_desc2 = this.state.sponser_data[0].node.sponsorDesc2;
+        const sponser_desc3 = this.state.sponser_data[0].node.sponsorDesc3;
+        const sponser_desc4 = this.state.sponser_data[0].node.sponsorDesc4;
 
 
         const sponser_array = [];
@@ -72,8 +73,11 @@ class OrganizationSponserListController extends Component {
         sponser_array.push({ s_image: sponser_image3, s_link: sponser_link3, s_desc: sponser_desc3 });
         sponser_array.push({ s_image: sponser_image4, s_link: sponser_link4, s_desc: sponser_desc4 });
 
+        console.log(`sponser_array = ${JSON.stringify(sponser_array)}`);
+
         sponser_array.forEach((r, i) => {
-            const { individualSponserByIndividualId } = r.node;
+            console.log(`r = ${JSON.stringify(r)}`);
+            const individualSponserByIndividualId = r;
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualSponserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender
                 sponser_image={individualSponserByIndividualId.s_image}
                 sponser_name={individualSponserByIndividualId.s_link}
