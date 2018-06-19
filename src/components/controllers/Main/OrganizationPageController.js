@@ -128,6 +128,13 @@ class OrganizationPageController extends Component {
     createMarkup = (content) => {
         return { __html: content };
     }
+    handleSponsersClick = () => {
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_staff: true });
+    }
     handleAboutClick = () => {
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
@@ -203,6 +210,10 @@ class OrganizationPageController extends Component {
         if (this.store_display) {
             ss = { display: 'inherit' };
         }
+        let sss = { display: 'none' };
+        if (this.about_us.pageTitle) {
+            sss = { display: 'inherit' };
+        }
 
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
@@ -228,10 +239,12 @@ class OrganizationPageController extends Component {
         let nv_content = <OrganizationNavController
             store_style={ss}
             about_style={s}
+            sponsers_style={sss}
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleLoginClick={this.handleLoginClick}
+            handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
             SideBar =
@@ -250,6 +263,7 @@ class OrganizationPageController extends Component {
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
+                                handleSponsersClick={this.handleSponsersClick}
                                 handleAboutClick={this.handleAboutClick} />
                         </div>
                     </div></Menu>;

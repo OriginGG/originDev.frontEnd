@@ -77,8 +77,10 @@ class OrganizationNavController extends Component {
             home_style={this.props.home_style}
             store_style={this.props.store_style}
             about_style={this.props.about_style}
+            sponsers_style={this.props.sponsers_style}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
+            handleSponsersClick={this.props.handleSponsersClick}
             handleAboutClick={this.props.handleAboutClick}
             handleLoginClick={this.props.handleLoginClick}
             social_link1={social_link1}
@@ -93,10 +95,12 @@ class OrganizationNavController extends Component {
 
 OrganizationNavController.propTypes = {
     handleAboutClick: PropTypes.func.isRequired,
+    handleSponsersClick: PropTypes.func.isRequired,
     handleStoreClick: PropTypes.func.isRequired,
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,
+    sponsers_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,
     login_style: PropTypes.object.isRequired
