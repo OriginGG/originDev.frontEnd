@@ -28,6 +28,7 @@ class OrganizationPageController extends Component {
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
+        OrganizationSponserListController: null,
         OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
         // OrganizationMobileSubMenuComponentRender: null,
@@ -65,6 +66,7 @@ class OrganizationPageController extends Component {
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
+                const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
@@ -103,6 +105,7 @@ class OrganizationPageController extends Component {
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
+                    OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -230,6 +233,7 @@ class OrganizationPageController extends Component {
         const { OrganizationLogoController } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
+        const { OrganizationSponserListController } = this.state;
         const { OrganizationStaffController } = this.state;
 
         let rosterComponent = <span />;
@@ -312,7 +316,7 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
-                rosterContent={<OrganizationRosterController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
