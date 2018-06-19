@@ -133,7 +133,7 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_staff: true });
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_sponsers: true });
     }
     handleAboutClick = () => {
         if (this.isMobile() && this.state.menu_open) {
@@ -194,6 +194,9 @@ class OrganizationPageController extends Component {
     }
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
+    }
+    closeSponsers = () => {
+        this.setState({ roster_style: { display: 'none' }, display_sponsers: false });
     }
     closeStaff = () => {
         this.setState({ roster_style: { display: 'none' }, display_staff: false });
@@ -292,6 +295,24 @@ class OrganizationPageController extends Component {
                 roster_style={this.state.roster_style}
                 copyright={cp}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+        if (this.state.display_sponsers) {
+            c_name = 'blackBG';
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                rosterContent={<OrganizationRosterController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
