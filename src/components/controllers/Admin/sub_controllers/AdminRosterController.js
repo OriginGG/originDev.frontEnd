@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 // import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
-import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
+import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import { deleteRosterUserQuery, deleteRosterQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterComponentRender from '../../../render_components/admin/OrganizationAdminRosterComponentRender';
 import { gameOptions } from './data/AllGames.js';
@@ -20,15 +20,19 @@ const { confirm } = Modal;
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQuery('query', getAllIndividualUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        const edges = users.allIndividualUsers.edges.slice(0);
+        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const edges = users.allOrganisationMembers.edges.slice(0);
+        const s_array = [];
         this.props.game_node.rosterIndividualsByRosterId.edges.forEach((x) => {
             const f = _.findIndex(edges, (o) => {
-                return o.node.id === x.node.individualUserByIndividualId.id;
+                return o.node.individualUserByIndividalUserId.id === x.node.individualUserByIndividualId.id;
             });
             if (f > -1) {
                 edges.splice(f, 1);
             }
+        });
+        edges.forEach((x1) => {
+            s_array.push({ node: x1.node.individualUserByIndividalUserId });
         });
         const t_array = [];
         this.props.game_node.rosterIndividualsByRosterId.edges.forEach((p) => {
@@ -36,7 +40,7 @@ export class ModalContentAddUser extends Component {
         });
         this.setState({
             target: t_array,
-            source: edges,
+            source: s_array,
             visible: true
         });
     }
