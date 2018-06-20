@@ -14,10 +14,14 @@ class DarkOrganizationAboutModalComponentRender extends Component {
                 <div id="modal_news_body" className={this.props.classes.modal_about_body}>
                     <div className={this.props.classes.modal_news_body_text}>{this.props.about_content}</div>
                 </div>
-                <div className="header">
-                    <div className={this.props.classes.modal_about_header}>
-                        Staff
-                    </div>
+                <div style={{
+                    width: '100%',
+                    paddingTop: '50px',
+                    paddingBottom: '20px'
+                }}>
+                    <h1 style={{
+                        color: 'white'
+                    }}>Staff</h1>
                 </div>
             </div>
         )

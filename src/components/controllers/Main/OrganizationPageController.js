@@ -8,10 +8,14 @@ import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
+import { getIndividualUserByEmailQuery } from '../../../queries/individuals.js';
+import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
+
 // import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
@@ -38,6 +42,31 @@ class OrganizationPageController extends Component {
     };
 
     componentDidMount = async () => {
+        const token = this.props.appManager.GetQueryParams('ipl');
+        this.invite_details = null;
+        console.log(token);
+        if (token) {
+            const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
+            const { email } = d;
+            const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
+                email
+            });
+            const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
+                id: user.individualUserByEmail.id
+            });
+            if (exists.allOrganisationMembers.edges.length > 0) {
+                toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
+                    autoClose: false
+                });
+            } else {
+                console.log(exists);
+                await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
+                    subDomain: d.organisation,
+                    userId: user.individualUserByEmail.id
+                });
+                this.invite_details = user.individualUserByEmail;
+            }
+        }
         this.current_roster_id = -1;
         const domainToken = await this.props.appManager.getDomainToken();
         if (domainToken && domainToken.token) {
@@ -106,6 +135,11 @@ class OrganizationPageController extends Component {
                     OrganizationStaffController: OrganizationStaffController.default,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
+                if (this.invite_details) {
+                    toast.success(`${this.invite_details.username} has been successfully invited`, {
+                        autoClose: false
+                    });
+                }
             }
         }
         // } else {

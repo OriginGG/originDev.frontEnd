@@ -7,7 +7,7 @@ import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
-import { getAllIndividualUsersQuery } from '../../../../queries/users.js';
+import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import { deleteStaffQuery, deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
 import OrganizationAdminStaffComponentRender from '../../../render_components/admin/OrganizationAdminStaffComponentRender';
 import { staffOptions } from './data/AllPositions.js';
@@ -18,15 +18,19 @@ const { confirm } = Modal;
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQuery('query', getAllIndividualUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        const edges = users.allIndividualUsers.edges.slice(0);
+        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const edges = users.allOrganisationMembers.edges.slice(0);
+        const s_array = [];
         this.props.game_node.staffIndividualsByStaffId.edges.forEach((x) => {
             const f = _.findIndex(edges, (o) => {
-                return o.node.id === x.node.individualUserByIndividualId.id;
+                return o.node.individualUserByIndividalUserId.id === x.node.individualUserByIndividualId.id;
             });
             if (f > -1) {
                 edges.splice(f, 1);
             }
+        });
+        edges.forEach((x1) => {
+            s_array.push({ node: x1.node.individualUserByIndividalUserId });
         });
         const t_array = [];
         this.props.game_node.staffIndividualsByStaffId.edges.forEach((p) => {
@@ -34,7 +38,7 @@ export class ModalContentAddUser extends Component {
         });
         this.setState({
             target: t_array,
-            source: edges,
+            source: s_array,
             visible: true
         });
     }
@@ -119,7 +123,7 @@ export class ModalContentAddUser extends Component {
                     <Button onClick={this.handleCancel} style={{ float: 'right' }} secondary>Cancel</Button>
                 </div>
                 <div style={{ padding: 24 }}>
-                    <Button onClick={this.handleDeleteStaff} color="red" >Delete This Roster</Button>
+                    <Button onClick={this.handleDeleteStaff} color="red" >Delete Staff Position</Button>
                 </div>
             </div>
         );
