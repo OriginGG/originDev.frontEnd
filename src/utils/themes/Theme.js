@@ -950,8 +950,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '125px',
         display: 'table',
         marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: '40%'
+        marginRight: 'auto'
     },
     roster_item_img: {
         width: '100px',
