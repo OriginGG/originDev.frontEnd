@@ -12,6 +12,14 @@ export const getIndividualUserByHandleQuery = gql`
 }
 `;
 
+export const getIndividualUserByEmailQuery = gql`query getIndUserByEmail($email: String!) {
+  individualUserByEmail(email: $email) {
+    id
+    authenticated
+    username
+  }
+}`;
+
 export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
   individualUserById(id: $id) {
     firstName

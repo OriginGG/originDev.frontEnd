@@ -11,6 +11,7 @@ import OrganizationAdminPageComponentRender from '../../render_components/admin/
 import OrganizationAdminMenuComponentRender from '../../render_components/admin/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
+import AdminMembersController from './sub_controllers/AdminMembersController';
 import AdminAboutController from './sub_controllers/AdminAboutController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
@@ -207,6 +208,10 @@ class AdminPageController extends Component {
             }
             case 'collaborators': {
                 p_component = <AdminCollaboratorController />;
+                break;
+            }
+            case 'members': {
+                p_component = <AdminMembersController />;
                 break;
             }
             case 'recentmatches': {

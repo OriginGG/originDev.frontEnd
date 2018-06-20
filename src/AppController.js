@@ -20,6 +20,7 @@ const pathsToIgnore = [
     '/main',
     '/individual',
     '/admin_page',
+    '/ind_invite',
     '/createsubdomain'
 ];
 
