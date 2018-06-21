@@ -20,11 +20,22 @@ query getMemberByEmail($id: Int!) {
     }
   }
 }`;
+
+export const deleteOrganisaionMemberQuery = gql`
+mutation deleteMemberQuery($id: Int!) {
+  deleteOrganisationMemberById(input:{id: $id}) {
+    organisationMember {
+      id
+    }
+  }
+}`;
+
 export const getOrganisationMembersQuery = gql`
 query getMembers($subDomain: String!) {
   allOrganisationMembers(condition: {organisation: $subDomain}) {
     edges {
       node {
+        id
         individualUserByIndividalUserId {
           firstName
           lastName

@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';         // eslint-disable-line
 import injectSheet from 'react-jss';
 import axios from 'axios';
-import { Table, Image, Card, Input, Segment, Button, Header } from 'semantic-ui-react';
+import { Modal } from 'antd';
+import { Table, Image, Icon, Card, Input, Segment, Button, Header } from 'semantic-ui-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
 import { getIndividualUserByEmailQuery } from '../../../../queries/individuals';
-import { getOrganisationMembersQuery } from '../../../../queries/members';
+import { getOrganisationMembersQuery, deleteOrganisaionMemberQuery } from '../../../../queries/members';
+
+const { confirm } = Modal;
 
 // import OrganizationAdminBlogComponentRender from '../../../render_components/OrganizationAdminBlogComponentRender';
 
@@ -17,7 +20,11 @@ class AdminMembersController extends Component {
         members: [],
         email: ''                           // eslint-disable-line
     };
-    componentDidMount = async () => {
+    componentDidMount = () => {
+        this.calcMembers();
+    }
+
+    calcMembers = async () => {
         const { subDomain } = this.props.uiStore.current_organisation;
         const members = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, {
             subDomain
@@ -33,10 +40,46 @@ class AdminMembersController extends Component {
                         </Header.Content>
                     </Header>
                 </Table.Cell>
+                <Table.Cell>
+                    <Icon style={{ cursor: 'pointer' }} name="trash" onClick={() => { this.deleteMember(m.node.id); }} />
+                </Table.Cell>
             </Table.Row>);
         });
-        console.log(members);
         this.setState({ members: m_array, visible: true });
+    }
+
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this Member',
+                content: 'Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+
+    deleteMember = async (id) => {
+        const f = await this.showDeleteConfirm();
+        if (f) {
+            await this.props.appManager.executeQuery(
+                'mutation', deleteOrganisaionMemberQuery,
+                {
+                    id
+                }
+            );
+            toast.success('Member deleted !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        this.calcMembers();
     }
     handleInputChange = (e, field) => {
         const p = this.state;
