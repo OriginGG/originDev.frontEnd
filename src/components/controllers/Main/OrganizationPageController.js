@@ -13,6 +13,7 @@ import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
+import { getSponsorsQuery } from '../../../queries/sponsors';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals.js';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
 
@@ -121,6 +122,15 @@ class OrganizationPageController extends Component {
                 this.store_display = false;
                 if (this.props.uiStore.current_organisation.companyStoreLink) {
                     this.store_display = true;
+                }
+                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
+                this.sponsor_desc1 = sponsor_data.resultData.edges[0].node.sponsorDesc1;
+                this.sponsor_desc2 = sponsor_data.resultData.edges[0].node.sponsorDesc2;
+                this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
+                this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
+                this.sponser_display = true;
+                if ((this.sponsor_desc1.length < 1) && (this.sponsor_desc2.length < 1) && (this.sponsor_desc3.length < 1) && (this.sponsor_desc4.length < 1)) {
+                    this.sponser_display = false;
                 }
                 this.setState({
                     visible: true,
@@ -251,8 +261,8 @@ class OrganizationPageController extends Component {
             ss = { display: 'inherit' };
         }
         let sss = { display: 'none' };
-        if (this.about_us.pageTitle) {
-            sss = { display: 'inherit' };
+        if (this.sponser_display) {
+            sss = { display: 'inheret' };
         }
 
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
