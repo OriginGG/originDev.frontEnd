@@ -2,19 +2,42 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';         // eslint-disable-line
 import injectSheet from 'react-jss';
 import axios from 'axios';
-import { Card, Input, Segment, Button, Header } from 'semantic-ui-react';
+import { Table, Image, Card, Input, Segment, Button, Header } from 'semantic-ui-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
 import { getIndividualUserByEmailQuery } from '../../../../queries/individuals';
+import { getOrganisationMembersQuery } from '../../../../queries/members';
 
 // import OrganizationAdminBlogComponentRender from '../../../render_components/OrganizationAdminBlogComponentRender';
 
 class AdminMembersController extends Component {
     state = {
-        visible: true,
+        visible: false,
+        members: [],
         email: ''                           // eslint-disable-line
     };
+    componentDidMount = async () => {
+        const { subDomain } = this.props.uiStore.current_organisation;
+        const members = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, {
+            subDomain
+        });
+        const m_array = [];
+        members.allOrganisationMembers.edges.forEach((m) => {
+            m_array.push(<Table.Row>
+                <Table.Cell>
+                    <Header as="h4" image>
+                        <Image src={m.node.individualUserByIndividalUserId.profileImageUrl} rounded size="mini" />
+                        <Header.Content>
+                            {m.node.individualUserByIndividalUserId.username}
+                        </Header.Content>
+                    </Header>
+                </Table.Cell>
+            </Table.Row>);
+        });
+        console.log(members);
+        this.setState({ members: m_array, visible: true });
+    }
     handleInputChange = (e, field) => {
         const p = this.state;
         p[field] = e.target.value;
@@ -74,6 +97,20 @@ class AdminMembersController extends Component {
                             <Button primary onClick={this.handleSubmit}>SUBMIT</Button>
                         </Card.Description>
                     </Card.Content>
+                </Card>
+                <Card>
+                    <Table style={{ marginLeft: 8, marginTop: 12 }} basic="very" celled collapsing>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Current Members</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            <div style={{ maxHeight: 180, overflowY: 'auto' }}>
+                                {this.state.members}
+                            </div>
+                        </Table.Body>
+                    </Table>
                 </Card>
             </div>
 

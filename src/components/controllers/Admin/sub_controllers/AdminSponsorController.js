@@ -106,7 +106,6 @@ class AdminSponsorController extends Component {
                 position: toast.POSITION.TOP_LEFT
             });
         } else {
-            debugger;
             await this.props.appManager.executeQuery(
                 'mutation', updateSponsorsQuery,
                 {
