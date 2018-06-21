@@ -30,10 +30,10 @@ class OrganizationAdminSponserComponentRender extends Component {
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image1}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor Name" value={this.props.sponser_name1_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor Name" value={this.props.sponsor_name1_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'sponser_name1_value', e );
+                                    .handleChange( 'sponsor_name1_value', e );
                             }}/>
                         </div>
                         <div className="ui fluid input">
@@ -69,10 +69,10 @@ class OrganizationAdminSponserComponentRender extends Component {
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image2}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor Name" value={this.props.sponser_name2_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor Name" value={this.props.sponsor_name2_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'sponser_name2_value', e );
+                                    .handleChange( 'sponsor_name2_value', e );
                             }}/>
                         </div>
                         <div className="ui fluid input">
@@ -108,10 +108,10 @@ class OrganizationAdminSponserComponentRender extends Component {
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image3}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor Name" value={this.props.sponser_name3_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor Name" value={this.props.sponsor_name3_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'sponser_name3_value', e );
+                                    .handleChange( 'sponsor_name3_value', e );
                             }}/>
                         </div>
                         <div className="ui fluid input">
@@ -147,10 +147,10 @@ class OrganizationAdminSponserComponentRender extends Component {
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image4}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor Name" value={this.props.sponser_name4_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor Name" value={this.props.sponsor_name4_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'sponser_name4_value', e );
+                                    .handleChange( 'sponsor_name4_value', e );
                             }}/>
                         </div>
                         <div className="ui fluid input">

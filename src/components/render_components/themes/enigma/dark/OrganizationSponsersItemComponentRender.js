@@ -12,7 +12,7 @@ class DarkOrganizationSponsersItemComponentRender extends Component {
                     <div className="ui stackable two column grid">
                         <div className="three wide column">
                             <div className={this.props.classes.sponser_item_img_container}>
-                                <img className={this.props.classes.sponser_item_img} src={this.props.sponser_image}/>
+                                <img className={this.props.classes.sponser_item_img}/>
                             </div>
                         </div>
                         <div className="thirteen wide column">
@@ -26,6 +26,12 @@ class DarkOrganizationSponsersItemComponentRender extends Component {
                                 </div>
                                 <div className={this.props.classes.roster_item_about_container}>
                                     <span className={this.props.classes.roster_about_text}>{this.props.sponser_desc}</span>
+                                </div>
+                                <div className={this.props.classes.roster_item_social_container}>
+                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-twitter"/></div>
+                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-facebook"/></div>
+                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-instagram"/></div>
+                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-youtube"/></div>
                                 </div>
                             </div>
                         </div>
