@@ -9,7 +9,7 @@ class DarkOrganizationNavComponentRender extends Component {
         return (
             <div className={this.props.classes.darkNavBG}>
                 <div className="ui stackable three column grid">
-                    <div className="column">
+                    <div className="six wide column">
                         <div className={this.props.classes.nav_left}>
                             <div className={this.props.classes.dark_social_menu_container}>
                                 <div className={this.props.classes.dark_social_menu_item}>{this.props.social_link1}</div>
@@ -20,14 +20,14 @@ class DarkOrganizationNavComponentRender extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="column">
+                    <div className="four wide column">
                         <div className={this.props.classes.dark_nav_center}>
                             <div className={this.props.classes.dark_nav_header}>
                                 <img id="nav_img" alt="" className={this.props.classes.dark_nav_img} src={this.props.image_src}/>
                             </div>
                         </div>
                     </div>
-                    <div className="column">
+                    <div className="six wide column">
                         <div className={this.props.classes.dark_nav_right}>
                             <div className={this.props.classes.dark_org_menu_container}>
                                 <a>
