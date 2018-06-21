@@ -64,7 +64,7 @@ class OrganizationSponserListController extends Component {
         const sponser_desc2 = this.state.sponser_data[0].node.sponsorDesc2;
         const sponser_desc3 = this.state.sponser_data[0].node.sponsorDesc3;
         const sponser_desc4 = this.state.sponser_data[0].node.sponsorDesc4;
-        const sponser_name1 = this.state.sponser_data[0].node.sponsorDesc1;
+        const sponser_name1 = this.state.sponser_data[0].node.sponsorName1;
         const sponser_name2 = this.state.sponser_data[0].node.sponsorName2;
         const sponser_name3 = this.state.sponser_data[0].node.sponsorName3;
         const sponser_name4 = this.state.sponser_data[0].node.sponsorName4;
@@ -73,19 +73,27 @@ class OrganizationSponserListController extends Component {
         const sponser_array = [];
 
         if (sponser_desc1.length > 0) {
-            sponser_array.push({ s_image: sponser_image1, s_link: sponser_link1, s_desc: sponser_desc1, s_name: sponser_name1 });
+            sponser_array.push({
+ s_image: sponser_image1, s_link: sponser_link1, s_desc: sponser_desc1, s_name: sponser_name1
+});
         }
 
         if (sponser_desc2.length > 0) {
-            sponser_array.push({ s_image: sponser_image2, s_link: sponser_link2, s_desc: sponser_desc2, s_name: sponser_name2 });
+            sponser_array.push({
+ s_image: sponser_image2, s_link: sponser_link2, s_desc: sponser_desc2, s_name: sponser_name2
+});
         }
 
         if (sponser_desc3.length > 0) {
-            sponser_array.push({ s_image: sponser_image3, s_link: sponser_link3, s_desc: sponser_desc3, s_name: sponser_name3 });
+            sponser_array.push({
+ s_image: sponser_image3, s_link: sponser_link3, s_desc: sponser_desc3, s_name: sponser_name3
+});
         }
 
         if (sponser_desc4.length > 0) {
-            sponser_array.push({ s_image: sponser_image4, s_link: sponser_link4, s_desc: sponser_desc4, s_name: sponser_name4 });
+            sponser_array.push({
+ s_image: sponser_image4, s_link: sponser_link4, s_desc: sponser_desc4, s_name: sponser_name4
+});
         }
         // sponser_array.push({ s_image: sponser_image2, s_link: sponser_link2, s_desc: sponser_desc2 });
         // sponser_array.push({ s_image: sponser_image3, s_link: sponser_link3, s_desc: sponser_desc3 });
