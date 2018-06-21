@@ -12,7 +12,7 @@ class ObliviotOrganizationSponsersItemComponentRender extends Component {
                     <div className="ui stackable two column grid">
                         <div className="three wide column">
                             <div className={this.props.classes.sponser_item_img_container}>
-                                <img className={this.props.classes.sponser_item_img}/>
+                                <img className={this.props.classes.sponser_item_img} src={this.props.sponser_image}/>
                             </div>
                         </div>
                         <div className="thirteen wide column">
