@@ -32,6 +32,7 @@ class OrganizationPageController extends Component {
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
+        OrganizationSponserListController: null,
         OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
         // OrganizationMobileSubMenuComponentRender: null,
@@ -94,6 +95,7 @@ class OrganizationPageController extends Component {
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
+                const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
@@ -132,6 +134,7 @@ class OrganizationPageController extends Component {
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
+                    OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -161,6 +164,13 @@ class OrganizationPageController extends Component {
 
     createMarkup = (content) => {
         return { __html: content };
+    }
+    handleSponsersClick = () => {
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_sponsers: true });
     }
     handleAboutClick = () => {
         if (this.isMobile() && this.state.menu_open) {
@@ -222,6 +232,9 @@ class OrganizationPageController extends Component {
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
     }
+    closeSponsers = () => {
+        this.setState({ roster_style: { display: 'none' }, display_sponsers: false });
+    }
     closeStaff = () => {
         this.setState({ roster_style: { display: 'none' }, display_staff: false });
     }
@@ -237,6 +250,10 @@ class OrganizationPageController extends Component {
         if (this.store_display) {
             ss = { display: 'inherit' };
         }
+        let sss = { display: 'none' };
+        if (this.about_us.pageTitle) {
+            sss = { display: 'inherit' };
+        }
 
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
@@ -250,6 +267,7 @@ class OrganizationPageController extends Component {
         const { OrganizationLogoController } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
+        const { OrganizationSponserListController } = this.state;
         const { OrganizationStaffController } = this.state;
 
         let rosterComponent = <span />;
@@ -262,10 +280,12 @@ class OrganizationPageController extends Component {
         let nv_content = <OrganizationNavController
             store_style={ss}
             about_style={s}
+            sponsers_style={sss}
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleLoginClick={this.handleLoginClick}
+            handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
             SideBar =
@@ -284,6 +304,7 @@ class OrganizationPageController extends Component {
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
+                                handleSponsersClick={this.handleSponsersClick}
                                 handleAboutClick={this.handleAboutClick} />
                         </div>
                     </div></Menu>;
@@ -312,6 +333,24 @@ class OrganizationPageController extends Component {
                 roster_style={this.state.roster_style}
                 copyright={cp}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+        if (this.state.display_sponsers) {
+            c_name = 'blackBG';
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}

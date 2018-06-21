@@ -37,6 +37,9 @@ class DarkOrganizationNavComponentRender extends Component {
                                     <div id="menu_store" className={this.props.classes.org_menu_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
                                 </a>
                                 <a>
+                                    <div id="menu_about" className={this.props.classes.org_menu_dark_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>
+                                </a>
+                                <a>
                                     <div id="menu_about" className={this.props.classes.org_menu_dark_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
                                 </a>
                                 <a href="#home_cont">
