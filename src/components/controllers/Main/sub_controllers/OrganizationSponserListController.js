@@ -100,7 +100,7 @@ class OrganizationSponserListController extends Component {
         });
         return (<div>
             <div
-                onClick={this.props.closeRosters}
+                onClick={this.props.closeSponsers}
                 tabIndex={-2}
                 role="menuItem"
                 style={{
@@ -135,7 +135,7 @@ OrganizationSponserListController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
     // roster_id: PropTypes.number.isRequired,
-    closeRosters: PropTypes.func.isRequired
+    closeSponsers: PropTypes.func.isRequired
 };
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,
