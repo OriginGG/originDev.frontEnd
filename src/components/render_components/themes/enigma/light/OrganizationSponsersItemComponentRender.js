@@ -27,12 +27,6 @@ class ObliviotOrganizationSponsersItemComponentRender extends Component {
                                 <div className={this.props.classes.roster_item_about_container}>
                                     <span className={this.props.classes.roster_about_text}>{this.props.sponser_desc}</span>
                                 </div>
-                                <div className={this.props.classes.roster_item_social_container}>
-                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-twitter"/></div>
-                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-facebook"/></div>
-                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-instagram"/></div>
-                                    <div className={this.props.classes.roster_item_social_icon}><i className="fa fa-youtube"/></div>
-                                </div>
                             </div>
                         </div>
                     </div>
