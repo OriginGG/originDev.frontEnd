@@ -52,6 +52,7 @@ class ModalContent extends Component {
             contactNumber: '',
             youtubeChannel: '',
             twitchUrl: '',
+            instagramLink: '',
             twitterHandle: '',
             accomplishments: '',
             youtubeVideo1Url: '',
@@ -63,6 +64,7 @@ class ModalContent extends Component {
     };
     componentDidMount = async () => {
         const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.props.user_id });
+        console.log(`user = ${JSON.stringify(user)}`);
         this.setState({
             input_values: {
                 firstName: this.getInputValue(user.individualUserById.firstName),
@@ -75,6 +77,7 @@ class ModalContent extends Component {
                 twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
                 twitchUrl: this.getInputValue(user.individualUserById.twitchUrl),
                 accomplishments: this.getInputValue(user.individualUserById.accomplishments),
+                instagramLink: this.getInputValue(user.individualUserById.instagramLink),
                 // youtubeVideo1Url: this.getInputValue(user.individualUserById.youtubeVideo1Url),
                 // youtubeVideo2Url: this.getInputValue(user.individualUserById.youtubeVideo2Url),
                 // youtubeVideo3Url: this.getInputValue(user.individualUserById.youtubeVideo3Url),
@@ -88,6 +91,7 @@ class ModalContent extends Component {
     handleChange = (field, e) => {
         const v = e.target.value;
         const p = this.state.input_values;
+        console.log(`e = ${v} and p = ${p}`);
         p[field] = v;
         this.setState({
             input_values: p
@@ -183,11 +187,12 @@ class ModalContent extends Component {
                     username={this.state.input_values.username}
                     about={this.state.input_values.about}
                     email={this.state.input_values.email}
+                    accomplishments={this.state.input_values.accomplishments}
                     contactNumber={this.state.input_values.contactNumber}
                     youtubeChannel={this.state.input_values.youtubeChannel}
+                    instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
-                    accomplishments={this.state.input_values.accomplishments}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -311,12 +316,14 @@ class IndividualPageController extends Component {
                 about: state.about,
                 firstName: state.firstName,
                 lastName: state.lastName,
+                contactNumber: state.contactNumber,
                 bannerImageUrl: state.bannerImageUrl,
                 profileImageUrl: state.profileImageUrl,
                 accomplishments: state.accomplishments,
                 twitchUrl: state.twitchUrl,
                 twitterHandle: state.twitterHandle,
                 youtubeChannel: state.youtubeChannel,
+                instagramLink: state.instagramLink,
                 username: state.username
                 // youtubeVideo1Url: state.youtubeVideo1Url,
                 // youtubeVideo2Url: state.youtubeVideo2Url,
@@ -416,6 +423,7 @@ class IndividualPageController extends Component {
                             name={`${this.user_details.firstName} ${this.user_details.lastName}`}
                             email={this.user_details.email}
                             contactNumber={this.user_details.contactNumber}
+                            accomplishments={this.user_details.accomplishments}
                         />
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
