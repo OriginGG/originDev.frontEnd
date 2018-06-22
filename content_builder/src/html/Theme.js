@@ -377,6 +377,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         maxWidth: '1200px',
+        minHeight: '100vh',
         marginLeft: 'auto',
         marginRight: 'auto',
         background: 'transparent',
@@ -436,7 +437,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px',
+        padding: '0px 2px 0px 2px',
         borderStyle: 'solid',
         borderWidth: '2px',
         borderColor: 'transparent'
@@ -470,7 +471,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_main_image_text_container: {
         width: '100%',
         height: '40px',
-        background: 'rgba(255,255,255,.9)',
+        background: 'rgba(0,0,0,.9)',
         position: 'absolute',
         top: '0'
     },
@@ -776,7 +777,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px',
+        padding: '0px 2px 0px 2px',
         borderStyle: 'solid',
         borderWidth: '2px',
         borderColor: 'transparent'
