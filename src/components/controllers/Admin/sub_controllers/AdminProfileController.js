@@ -8,7 +8,7 @@ import { inject } from 'mobx-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
-import { updateOrganisationQuery } from '../../../../queries/organisation';
+import { updateOrganisationQuery, getOrganisationQuery } from '../../../../queries/organisation';
 import { updateThemeQuery } from '../../../../queries/themes';
 
 class AdminProfileController extends Component {
@@ -71,6 +71,8 @@ class AdminProfileController extends Component {
                 primaryColor: this.state.input_values.primary_color_value
             }
         );
+        const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        this.props.uiStore.setOrganisation(o.resultData);
         toast.success('Company Details updated !', {
             position: toast.POSITION.TOP_LEFT
         });
