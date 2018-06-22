@@ -377,6 +377,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         maxWidth: '1200px',
+        minHeight: '100vh',
         marginLeft: 'auto',
         marginRight: 'auto',
         background: 'transparent',
