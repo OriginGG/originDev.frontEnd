@@ -436,7 +436,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px',
+        padding: '0px 2px 0px 2px',
         borderStyle: 'solid',
         borderWidth: '2px',
         borderColor: 'transparent'
@@ -776,7 +776,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px',
+        padding: '0px 2px 0px 2px',
         borderStyle: 'solid',
         borderWidth: '2px',
         borderColor: 'transparent'
