@@ -17,6 +17,10 @@ export const getSponsorsQuery = gql`query getSponsors($subDomain: String!) {
         sponsorDesc2
         sponsorDesc3
         sponsorDesc4
+        sponsorName1
+        sponsorName2
+        sponsorName3
+        sponsorName4
         createdAt
         updatedAt
       }
@@ -28,7 +32,8 @@ export const getSponsorsQuery = gql`query getSponsors($subDomain: String!) {
 export const updateSponsorsQuery = gql`mutation updatesponsor($id: Int!, 
 $link1: String, $link2: String, $link3: String, $link4: String,
 $href_link1: String, $href_link2: String, $href_link3: String, $href_link4: String,
-$desc1: String, $desc2: String, $desc3: String, $desc4: String
+$desc1: String, $desc2: String, $desc3: String, $desc4: String, $name1: String,
+$name2: String, $name3: String, $name4: String
 ) {
   updateSponsorById(input:{id: $id, sponsorPatch: {
     sponsor1: $link1
@@ -43,6 +48,10 @@ $desc1: String, $desc2: String, $desc3: String, $desc4: String
     sponsorDesc2: $desc2
     sponsorDesc3: $desc3
     sponsorDesc4: $desc4
+    sponsorName1: $name1
+    sponsorName2: $name2
+    sponsorName3: $name3
+    sponsorName4: $name4
   }}) {
     sponsor {
       id
@@ -52,8 +61,7 @@ $desc1: String, $desc2: String, $desc3: String, $desc4: String
 
 export const createSponsorsQuery = gql`mutation createsponsor($subDomain: String!, $link1: String, $link2: String, $link3: String, $link4: String,
 $href_link1: String, $href_link2: String, $href_link3: String, $href_link4: String,
-$desc1: String, $desc2: String, $desc3: String, $desc4: String
-
+$desc1: String, $desc2: String, $desc3: String, $desc4: String, $name1: String, $name2: String, $name3: String, $name4: String
 ) {
   createSponsor(input:{
     sponsor: {
@@ -70,6 +78,10 @@ $desc1: String, $desc2: String, $desc3: String, $desc4: String
       sponsorDesc2: $desc2
       sponsorDesc3: $desc3
       sponsorDesc4: $desc4
+      sponsorName1: $name1
+      sponsorName2: $name2
+      sponsorName3: $name3
+      sponsorName4: $name4
   }}) {
     sponsor {
       id

@@ -27,16 +27,16 @@
                 <div class="ui stackable two column grid">
                     <div class="three wide column">
                         <div class="classes.sponser_item_img_container">
-                            <img class="classes.sponser_item_img" src="https://23xz2l29cwke20cu15l1tfu1-wpengine.netdna-ssl.com/wp-content/uploads/2015/05/sponsor-1.png" />
+                            <img class="classes.sponser_item_img" data-component-props="src={this.props.sponser_image}" />
                         </div>
                     </div>
                     <div class="thirteen wide column">
                         <div style="display: table; padding-top: 10px; padding-bottom: 10px">
                             <div class="classes.roster_item_name_container">
-                                <span class="classes.roster_name">Jack in the Box</span>
+                                <span class="classes.roster_name">{this.props.sponser_name}</span>
                             </div>
                             <div class="classes.roster_item_about_container">
-                                <span class="classes.roster_about_text">So, you're looking for a career in a company that's expanding, has a great culture, and has tons of amazing opportunities in its restaurants and Corporate Support Center. That place for your career is Jack in the Box®.</span>
+                                <span class="classes.roster_about_text">{this.props.sponser_desc}</span>
                             </div>
                             <div class="classes.roster_item_social_container">
                                 <div class="classes.roster_item_social_icon"><i class="fa fa-twitter"></i></div>

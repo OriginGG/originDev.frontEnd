@@ -11,6 +11,7 @@ import OrganizationAdminPageComponentRender from '../../render_components/admin/
 import OrganizationAdminMenuComponentRender from '../../render_components/admin/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
+import AdminMembersController from './sub_controllers/AdminMembersController';
 import AdminAboutController from './sub_controllers/AdminAboutController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
@@ -47,7 +48,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('theme', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="paint brush icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Theme
@@ -57,7 +58,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('about', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="comment outline icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     About
@@ -67,7 +68,7 @@ class MenuDrop extends Component {
                         {<a className="item">
                             <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('staff', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="id card icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Staff
@@ -77,7 +78,7 @@ class MenuDrop extends Component {
                         <a className="item">
                             <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('roster', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="bullseye icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Roster
@@ -87,7 +88,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('blog', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="keyboard icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Blog
@@ -97,7 +98,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('media', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="file alternate icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Media
@@ -107,7 +108,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('recentmatches', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="trophy icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Recent Matches
@@ -117,7 +118,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('sponsors', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="dollar sign icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Sponsors
@@ -207,6 +208,10 @@ class AdminPageController extends Component {
             }
             case 'collaborators': {
                 p_component = <AdminCollaboratorController />;
+                break;
+            }
+            case 'members': {
+                p_component = <AdminMembersController />;
                 break;
             }
             case 'recentmatches': {

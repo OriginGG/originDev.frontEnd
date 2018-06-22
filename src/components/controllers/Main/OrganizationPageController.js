@@ -8,10 +8,15 @@ import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
+import { getSponsorsQuery } from '../../../queries/sponsors';
+import { getIndividualUserByEmailQuery } from '../../../queries/individuals.js';
+import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
+
 // import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
@@ -28,6 +33,7 @@ class OrganizationPageController extends Component {
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
+        OrganizationSponserListController: null,
         OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
         // OrganizationMobileSubMenuComponentRender: null,
@@ -38,6 +44,31 @@ class OrganizationPageController extends Component {
     };
 
     componentDidMount = async () => {
+        const token = this.props.appManager.GetQueryParams('ipl');
+        this.invite_details = null;
+        console.log(token);
+        if (token) {
+            const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
+            const { email } = d;
+            const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
+                email
+            });
+            const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
+                id: user.individualUserByEmail.id
+            });
+            if (exists.allOrganisationMembers.edges.length > 0) {
+                toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
+                    autoClose: false
+                });
+            } else {
+                console.log(exists);
+                await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
+                    subDomain: d.organisation,
+                    userId: user.individualUserByEmail.id
+                });
+                this.invite_details = user.individualUserByEmail;
+            }
+        }
         this.current_roster_id = -1;
         const domainToken = await this.props.appManager.getDomainToken();
         if (domainToken && domainToken.token) {
@@ -65,6 +96,7 @@ class OrganizationPageController extends Component {
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
+                const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
@@ -91,6 +123,15 @@ class OrganizationPageController extends Component {
                 if (this.props.uiStore.current_organisation.companyStoreLink) {
                     this.store_display = true;
                 }
+                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
+                this.sponsor_desc1 = sponsor_data.resultData.edges[0].node.sponsorDesc1;
+                this.sponsor_desc2 = sponsor_data.resultData.edges[0].node.sponsorDesc2;
+                this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
+                this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
+                this.sponser_display = true;
+                if ((this.sponsor_desc1.length < 1) && (this.sponsor_desc2.length < 1) && (this.sponsor_desc3.length < 1) && (this.sponsor_desc4.length < 1)) {
+                    this.sponser_display = false;
+                }
                 this.setState({
                     visible: true,
                     OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
@@ -103,9 +144,15 @@ class OrganizationPageController extends Component {
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
+                    OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
+                if (this.invite_details) {
+                    toast.success(`${this.invite_details.username} has been successfully invited`, {
+                        autoClose: false
+                    });
+                }
             }
         }
         // } else {
@@ -127,6 +174,13 @@ class OrganizationPageController extends Component {
 
     createMarkup = (content) => {
         return { __html: content };
+    }
+    handleSponsersClick = () => {
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_sponsers: true });
     }
     handleAboutClick = () => {
         if (this.isMobile() && this.state.menu_open) {
@@ -188,6 +242,9 @@ class OrganizationPageController extends Component {
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
     }
+    closeSponsers = () => {
+        this.setState({ roster_style: { display: 'none' }, display_sponsers: false });
+    }
     closeStaff = () => {
         this.setState({ roster_style: { display: 'none' }, display_staff: false });
     }
@@ -203,6 +260,10 @@ class OrganizationPageController extends Component {
         if (this.store_display) {
             ss = { display: 'inherit' };
         }
+        let sss = { display: 'none' };
+        if (this.sponser_display) {
+            sss = { display: 'inheret' };
+        }
 
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
@@ -216,6 +277,7 @@ class OrganizationPageController extends Component {
         const { OrganizationLogoController } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
+        const { OrganizationSponserListController } = this.state;
         const { OrganizationStaffController } = this.state;
 
         let rosterComponent = <span />;
@@ -228,10 +290,12 @@ class OrganizationPageController extends Component {
         let nv_content = <OrganizationNavController
             store_style={ss}
             about_style={s}
+            sponsers_style={sss}
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleLoginClick={this.handleLoginClick}
+            handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
             SideBar =
@@ -250,6 +314,7 @@ class OrganizationPageController extends Component {
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
+                                handleSponsersClick={this.handleSponsersClick}
                                 handleAboutClick={this.handleAboutClick} />
                         </div>
                     </div></Menu>;
@@ -278,6 +343,24 @@ class OrganizationPageController extends Component {
                 roster_style={this.state.roster_style}
                 copyright={cp}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+        if (this.state.display_sponsers) {
+            c_name = 'blackBG';
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
