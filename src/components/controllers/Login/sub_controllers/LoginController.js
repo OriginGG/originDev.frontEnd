@@ -105,12 +105,28 @@ class LoginController extends Component {
                 }}
                 onSubmit={async (v) => {
                     if (this.state.content_display === 'login' && this.props.ind === true) {
+                        const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email });
+                        if (registered_user.allIndividualUsers.edges.length > 0 && registered_user.allIndividualUsers.edges[0].node.authenticated === false) {
+                            toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
+                                position: toast.POSITION.TOP_LEFT,
+                                autoClose: 5000
+                            });
+                            return;
+                        }
                         const authPayload = await this.props.appManager.executeQuery('mutation', authenticateIndividualQuery, v);
                         const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
                         historyStore.push(`/individual?p=${payload}`);
                     } else {
                         if (this.state.content_display === 'login') {
                             console.log('submitting....');
+                            const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
+                            if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
+                                toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
+                                    position: toast.POSITION.TOP_LEFT,
+                                    autoClose: 5000
+                                });
+                                return;
+                            }
                             const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                             if (authPayload.authenticate.resultData !== null) {
                                 console.log('submitting2....');

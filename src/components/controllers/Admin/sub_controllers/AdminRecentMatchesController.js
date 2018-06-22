@@ -22,17 +22,24 @@ class AdminRecentMatchesController extends Component {
     componentDidMount = async () => {
         this.upload_file = false;
         this.current_game = null;
+        this.is_saving = false;
         this.calcMatches();
     }
-
-    calcMatches = async () => {
-        const m = await this.props.appManager.executeQueryAuth(
-            'query', recentMatchesQuery,
-            {
-                organisation: this.props.uiStore.current_organisation.subDomain
+    calcMatches = () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const m = await this.props.appManager.executeQueryAuth(
+                    'query', recentMatchesQuery,
+                    {
+                        organisation: this.props.uiStore.current_organisation.subDomain
+                    }
+                );
+                this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
+                resolve(true);
+            } catch (err) {
+                reject(err);
             }
-        );
-        this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
+        });
     }
 
     uploadLogo = () => {
@@ -49,7 +56,7 @@ class AdminRecentMatchesController extends Component {
         });
     }
     uploadFile = (e) => {
-        this.logo_files = e[ 0 ];             // eslint-disable-line
+        this.logo_files = e[0];             // eslint-disable-line
         const reader = new FileReader();
         reader.readAsDataURL(this.logo_files);
 
@@ -78,7 +85,9 @@ class AdminRecentMatchesController extends Component {
 
     handleSubmit = async () => {
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
-        if (this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
+
+        if (this.is_saving === false && this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
+            this.is_saving = true;
             const logo_data = await this.uploadLogo();
             await this.props.appManager.executeQueryAuth(
                 'mutation', createRecentMatchQuery,
@@ -89,7 +98,8 @@ class AdminRecentMatchesController extends Component {
             toast.success('Match Added !', {
                 position: toast.POSITION.TOP_LEFT
             });
-            this.calcMatches();
+            await this.calcMatches();
+            this.is_saving = false;
         }
     }
     showDeleteConfirm = () => {
@@ -122,7 +132,7 @@ class AdminRecentMatchesController extends Component {
                 position: toast.POSITION.TOP_LEFT
             });
         }
-        this.calcMatches();
+        await this.calcMatches();
     }
     render() {
         if (this.state.visible === false) {
@@ -189,7 +199,7 @@ class AdminRecentMatchesController extends Component {
                         color: 'rgb(255, 255, 255)', backgroundColor: 'transparent', userSelect: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '20', borderRadius: 0, height: 40, width: 40
                     }} />
                     <br /></td>
-                <td>{ res.node.score }<Button onClick={() => { this.deleteMatch(res.node.id); }} size="mini" color="red" style={{ float: 'right' }} >Delete</Button></td>
+                <td>{res.node.score}<Button onClick={() => { this.deleteMatch(res.node.id); }} size="mini" color="red" style={{ float: 'right' }} >Delete</Button></td>
             </tr>);
         });
 

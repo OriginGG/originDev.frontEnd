@@ -42,7 +42,7 @@ class MenuDrop extends Component {
                 <Accordion fluid inverted >
                     <Accordion.Title active={this.state.open} index={0} onClick={this.handleClick}>
                         <Icon name="dropdown" />
-                        Manage
+                        Manage Content
           </Accordion.Title>
                     <Accordion.Content active={this.state.open}>
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('theme', e); }}>
