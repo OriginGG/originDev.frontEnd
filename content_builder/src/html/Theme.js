@@ -470,7 +470,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_main_image_text_container: {
         width: '100%',
         height: '40px',
-        background: 'rgba(255,255,255,.9)',
+        background: 'rgba(0,0,0,.9)',
         position: 'absolute',
         top: '0'
     },
