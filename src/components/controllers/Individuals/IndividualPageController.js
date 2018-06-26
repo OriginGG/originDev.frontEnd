@@ -316,7 +316,9 @@ class IndividualPageController extends Component {
                 break;
             }
             case 'instagram': {
-                window.open('http://www.instagram.com', '_blank');
+                if (this.user_details.instagramLink) {
+                    window.open(`https://www.instagram.com/${this.user_details.instagramLink}/`, '_blank');
+                }
                 break;
             }
             case 'youtube': {
@@ -467,7 +469,7 @@ class IndividualPageController extends Component {
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
                     ColumnThree={youTubeComp}
                     ColumnFour={<IndividualTwitterStatsComponentRender twitter_stats={twitter_stats} handle_redirect={this.handleRedirect} />}
-                    ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} />}
+                    ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} handle_redirect={this.handleRedirect} />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
