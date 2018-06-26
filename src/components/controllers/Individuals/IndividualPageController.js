@@ -302,6 +302,35 @@ class IndividualPageController extends Component {
             this.youtube_stats = td.data;
         }
     }
+    handle_rediect = (s) => {
+        switch (s) {
+            case 'twitter': {
+                const p_string = 'https://twitter.com';
+                window.open(p_string, '_blank');
+                break;
+            }
+            case 'facebook': {
+                window.open('http://www.facebook.com', '_blank');
+                break;
+            }
+            case 'instagram': {
+                window.open('http://www.instagram.com', '_blank');
+                break;
+            }
+            case 'youtube': {
+                window.open('http://www.youtube.com', '_blank');
+                break;
+            }
+            case 'twitch': {
+                window.open('http://www.twitch.com', '_blank');
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        console.log(s);
+    }
     handleEditClick = () => {
         this.setState({ modal_open: true });
     }
@@ -345,7 +374,8 @@ class IndividualPageController extends Component {
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
         }}>No Data Found</h2>;
 
-        const instagram_stats = <h2 style={{
+        const instagram_stats = <h2
+        style={{
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
         }}>No Data Found</h2>;
 
