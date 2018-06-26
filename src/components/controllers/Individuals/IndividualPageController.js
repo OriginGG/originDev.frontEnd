@@ -302,6 +302,44 @@ class IndividualPageController extends Component {
             this.youtube_stats = td.data;
         }
     }
+    handleRedirect = (s) => {
+        switch (s) {
+            case 'twitter': {
+                if (this.user_details.twitterHandle) {
+                    const p_string = `https://twitter.com/${this.user_details.twitterHandle}?lang=en`;
+                    window.open(p_string, '_blank');
+                }
+                break;
+            }
+            case 'facebook': {
+                window.open('http://www.facebook.com', '_blank');
+                break;
+            }
+            case 'instagram': {
+                if (this.user_details.instagramLink) {
+                    window.open(`https://www.instagram.com/${this.user_details.instagramLink}/`, '_blank');
+                }
+                break;
+            }
+            case 'youtube': {
+                if (this.user_details.youtubeChannel) {
+                    window.open(`https://www.youtube.com/channel/${this.user_details.youtubeChannel}?view_as=subscriber`, '_blank');
+                }
+                break;
+            }
+            case 'twitch': {
+                if (this.user_details.twitchUrl) {
+                    window.open(`http://www.twitch.tv/${this.user_details.twitchUrl}`, '_blank');
+                }
+                break;
+            }
+            default: {
+                window.open('http://www.google.com', '_blank');
+                break;
+            }
+        }
+        console.log(s);
+    }
     handleEditClick = () => {
         this.setState({ modal_open: true });
     }
@@ -345,7 +383,8 @@ class IndividualPageController extends Component {
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
         }}>No Data Found</h2>;
 
-        const instagram_stats = <h2 style={{
+        const instagram_stats = <h2
+        style={{
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
         }}>No Data Found</h2>;
 
@@ -381,6 +420,7 @@ class IndividualPageController extends Component {
                 channel_videos={channel_videos}
                 channel_comments={channel_comments}
                 channel_views_per_video={channel_views_per_video}
+                handle_redirect={this.handleRedirect}
             />;
         }
         let s = { display: 'inherit' };
@@ -426,10 +466,10 @@ class IndividualPageController extends Component {
                             accomplishments={this.user_details.accomplishments}
                         />
                     }
-                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
+                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
                     ColumnThree={youTubeComp}
-                    ColumnFour={<IndividualTwitterStatsComponentRender twitter_stats={twitter_stats} />}
-                    ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} />}
+                    ColumnFour={<IndividualTwitterStatsComponentRender twitter_stats={twitter_stats} handle_redirect={this.handleRedirect} />}
+                    ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} handle_redirect={this.handleRedirect} />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}

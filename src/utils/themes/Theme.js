@@ -1838,7 +1838,8 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#fff',
         fontSize: '14px',
         fontWeight: '600',
-        borderRadius: '0px 0px 0px 0px'
+        borderRadius: '0px 0px 0px 0px',
+        cursor: 'pointer'
     },
     individual_social_content: {
         width: '100%',
