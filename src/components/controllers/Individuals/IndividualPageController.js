@@ -305,8 +305,10 @@ class IndividualPageController extends Component {
     handleRedirect = (s) => {
         switch (s) {
             case 'twitter': {
-                const p_string = 'https://twitter.com';
-                window.open(p_string, '_blank');
+                if (this.user_details.twitterHandle) {
+                    const p_string = `https://twitter.com/${this.user_details.twitterHandle}?lang=en`;
+                    window.open(p_string, '_blank');
+                }
                 break;
             }
             case 'facebook': {
@@ -464,7 +466,7 @@ class IndividualPageController extends Component {
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
                     ColumnThree={youTubeComp}
-                    ColumnFour={<IndividualTwitterStatsComponentRender twitter_stats={twitter_stats} />}
+                    ColumnFour={<IndividualTwitterStatsComponentRender twitter_stats={twitter_stats} handle_redirect={this.handleRedirect} />}
                     ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} />}
                 />
                 <EditModal
