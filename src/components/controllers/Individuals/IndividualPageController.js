@@ -302,7 +302,7 @@ class IndividualPageController extends Component {
             this.youtube_stats = td.data;
         }
     }
-    handle_rediect = (s) => {
+    handleRedirect = (s) => {
         switch (s) {
             case 'twitter': {
                 const p_string = 'https://twitter.com';
@@ -318,7 +318,9 @@ class IndividualPageController extends Component {
                 break;
             }
             case 'youtube': {
-                window.open('http://www.youtube.com', '_blank');
+                if (this.user_details.youtubeChannel) {
+                    window.open(`https://www.youtube.com/channel/${this.user_details.youtubeChannel}?view_as=subscriber`, '_blank');
+                }
                 break;
             }
             case 'twitch': {
@@ -326,6 +328,7 @@ class IndividualPageController extends Component {
                 break;
             }
             default: {
+                window.open('http://www.google.com', '_blank');
                 break;
             }
         }
@@ -411,6 +414,7 @@ class IndividualPageController extends Component {
                 channel_videos={channel_videos}
                 channel_comments={channel_comments}
                 channel_views_per_video={channel_views_per_video}
+                handle_redirect={this.handleRedirect}
             />;
         }
         let s = { display: 'inherit' };
