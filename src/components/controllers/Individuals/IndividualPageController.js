@@ -324,7 +324,9 @@ class IndividualPageController extends Component {
                 break;
             }
             case 'twitch': {
-                window.open('http://www.twitch.com', '_blank');
+                if (this.user_details.twitchUrl) {
+                    window.open(`http://www.twitch.tv/${this.user_details.twitchUrl}`, '_blank');
+                }
                 break;
             }
             default: {
@@ -460,7 +462,7 @@ class IndividualPageController extends Component {
                             accomplishments={this.user_details.accomplishments}
                         />
                     }
-                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
+                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
                     ColumnThree={youTubeComp}
                     ColumnFour={<IndividualTwitterStatsComponentRender twitter_stats={twitter_stats} />}
                     ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} />}
