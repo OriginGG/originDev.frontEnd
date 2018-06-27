@@ -38,6 +38,15 @@ class AdminAddBlogController extends Component {
     }
     handleSubmit = async () => {
         const f_name = await this.uploadBlogMedia();
+        const f_title = this.state.blog_title;
+        const f_text = this.state.text;
+
+        if (!f_name && !f_title && !f_text) {
+            toast.error('Not all Blog fields filled out or an image has nott been uploaded', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.create_blog) {
             if (this.state.blog_title && this.state.text) {
                 await this.props.appManager.executeQuery(
