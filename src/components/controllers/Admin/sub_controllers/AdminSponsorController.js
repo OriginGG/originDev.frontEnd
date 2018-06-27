@@ -73,11 +73,44 @@ class AdminSponsorController extends Component {
         });
     }
 
+    isURL = (str)  => {
+        return str.includes('http');
+    }
+
     handleSubmit = async () => {
         const sponsor_image1 = await this.uploadSponsorMedia('sponsor_image1');
         const sponsor_image2 = await this.uploadSponsorMedia('sponsor_image2');
         const sponsor_image3 = await this.uploadSponsorMedia('sponsor_image3');
         const sponsor_image4 = await this.uploadSponsorMedia('sponsor_image4');
+        const sponser_href1 = this.state.input_values.http_link1_value;
+        const sponser_href2 = this.state.input_values.http_link2_value;
+        const sponser_href3 = this.state.input_values.http_link3_value;
+        const sponser_href4 = this.state.input_values.http_link4_value;
+
+        if (!this.isURL(sponser_href1)) {
+            toast.error('First Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(sponser_href2)) {
+            toast.error('Second Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(sponser_href3)) {
+            toast.error('Third Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(sponser_href4)) {
+            toast.error('Fourth Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.create) {
             await this.props.appManager.executeQuery(
                 'mutation', createSponsorsQuery,
@@ -87,10 +120,10 @@ class AdminSponsorController extends Component {
                     link2: sponsor_image2,
                     link3: sponsor_image3,
                     link4: sponsor_image4,
-                    href_link1: this.state.input_values.http_link1_value,
-                    href_link2: this.state.input_values.http_link2_value,
-                    href_link3: this.state.input_values.http_link3_value,
-                    href_link4: this.state.input_values.http_link4_value,
+                    href_link1: sponser_href1,
+                    href_link2: sponser_href2,
+                    href_link3: sponser_href3,
+                    href_link4: sponser_href4,
                     desc1: this.state.input_values.sponsor_desc1_value,
                     desc2: this.state.input_values.sponsor_desc2_value,
                     desc3: this.state.input_values.sponsor_desc3_value,
@@ -114,10 +147,10 @@ class AdminSponsorController extends Component {
                     link2: sponsor_image2,
                     link3: sponsor_image3,
                     link4: sponsor_image4,
-                    href_link1: this.state.input_values.http_link1_value,
-                    href_link2: this.state.input_values.http_link2_value,
-                    href_link3: this.state.input_values.http_link3_value,
-                    href_link4: this.state.input_values.http_link4_value,
+                    href_link1: sponser_href1,
+                    href_link2: sponser_href2,
+                    href_link3: sponser_href3,
+                    href_link4: sponser_href4,
                     desc1: this.state.input_values.sponsor_desc1_value,
                     desc2: this.state.input_values.sponsor_desc2_value,
                     desc3: this.state.input_values.sponsor_desc3_value,
