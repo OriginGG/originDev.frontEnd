@@ -347,6 +347,30 @@ class IndividualPageController extends Component {
         this.setState({ modal_open: false });
     }
     handleSubmit = async (state) => {
+        if (state.twitchUrl.includes('http')) {
+            toast.error('Twitch handle required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (state.youtubeChannel.includes('http')) {
+            toast.error('Youtube Channel required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (state.twitterHandle.includes('http')) {
+            toast.error('Twitter Handle required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (state.instagramLink.includes('http')) {
+            toast.error('Instagram ID required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         await this.props.appManager.executeQuery(
             'mutation', updateIndividualUserQuery,
             {
