@@ -48,7 +48,47 @@ class AdminProfileController extends Component {
     getInputValue = (i) => {
         return i === null ? '' : i;
     }
+    isURL = (str)  => {
+        // console.log(`string is ${str}`);
+        return str.includes('http');
+    }
     handleSubmit = async () => {
+        if (!this.isURL(this.state.input_values.facebook_value) && this.state.input_values.facebook_value) {
+            toast.error('Facebook URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.youtube_value) && this.state.input_values.youtube_value) {
+            toast.error('Youtube URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.twitter_value) && this.state.input_values.twitter_value) {
+            toast.error('Twitter URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.insta_value) && this.state.input_values.insta_value) {
+            toast.error('Instagram URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.company_store_value) && this.state.input_values.company_store_value) {
+            toast.error('Company Store URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (this.isURL(this.state.input_values.twitch_value) && this.state.input_values.twitch_value) {
+            toast.error('Twitch Handle not Valid Format', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.upload_file) {
             const logo_data = await this.uploadLogo();
             const s = toJS(this.props.uiStore.current_theme_structure);

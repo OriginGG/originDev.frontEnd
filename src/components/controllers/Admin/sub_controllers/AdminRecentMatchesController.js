@@ -85,7 +85,30 @@ class AdminRecentMatchesController extends Component {
 
     handleSubmit = async () => {
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
-
+        if (!this.current_game) {
+            toast.error('Please pick a game', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.state.your_score) {
+            toast.error('Please enter your score', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.state.their_score) {
+            toast.error('Please enter your opponents score', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.state.logo_src) {
+            toast.error('Please upload your opponents logo', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.is_saving === false && this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
             this.is_saving = true;
             const logo_data = await this.uploadLogo();
