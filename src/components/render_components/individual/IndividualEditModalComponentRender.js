@@ -59,7 +59,7 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'username', e );
                             }}/>
-                            <input placeholder="Twitter Handle" className={this.props.classes.modal_individual_edit_input} value={this.props.twitterHandle} onChange={e => {
+                            <input placeholder="Twitter Handle not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.twitterHandle} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'twitterHandle', e );
@@ -79,17 +79,17 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'accomplishments', e );
                             }}/>
-                            <input placeholder="Twitch" className={this.props.classes.modal_individual_edit_input} value={this.props.twitchUrl} onChange={e => {
+                            <input placeholder="Twitch Handle not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.twitchUrl} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'twitchUrl', e );
                             }}/>
-                            <input placeholder="Youtube" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeChannel} onChange={e => {
+                            <input placeholder="Youtube User ID not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeChannel} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'youtubeChannel', e );
                             }}/>
-                            <input placeholder="Instagram" className={this.props.classes.modal_individual_edit_input} value={this.props.instagramLink} onChange={e => {
+                            <input placeholder="Instagram Username not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.instagramLink} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'instagramLink', e );

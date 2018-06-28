@@ -377,6 +377,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         maxWidth: '1200px',
+        minHeight: '100vh',
         marginLeft: 'auto',
         marginRight: 'auto',
         background: 'transparent',
@@ -436,7 +437,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px',
+        padding: '0px 2px 0px 2px',
         borderStyle: 'solid',
         borderWidth: '2px',
         borderColor: 'transparent'
@@ -776,7 +777,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '900',
         cursor: 'pointer',
-        padding: '0px 10px 0px 10px',
+        padding: '0px 2px 0px 2px',
         borderStyle: 'solid',
         borderWidth: '2px',
         borderColor: 'transparent'
@@ -1837,7 +1838,8 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#fff',
         fontSize: '14px',
         fontWeight: '600',
-        borderRadius: '0px 0px 0px 0px'
+        borderRadius: '0px 0px 0px 0px',
+        cursor: 'pointer'
     },
     individual_social_content: {
         width: '100%',
