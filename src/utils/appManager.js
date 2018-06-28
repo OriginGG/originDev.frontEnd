@@ -11,6 +11,8 @@ import axios from 'axios';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { toast } from 'react-toastify';
+
 
 const jwt = require('jsonwebtoken');
 
@@ -33,7 +35,12 @@ class AppManager {
     logError = e => {
         console.error(e);
     };
-
+    networkError = () => {
+        toast.error("Error loading content, are you sure you're connected to the Internet?", {
+            position: toast.POSITION.TOP_LEFT,
+            autoClose: 5000
+        });
+    }
     log = e => {
         console.log(e);
     };
@@ -159,14 +166,22 @@ class AppManager {
         if (payload !== undefined) {
             p = payload;
         }
-        return this.executeApolloQuery(type, query, p, this.apolloClientAuth);
+        try {
+            return this.executeApolloQuery(type, query, p, this.apolloClientAuth);
+        } catch (err) {
+            throw err;
+        }
     }
     executeQuery = async (type, query, payload) => {
         let p = {};
         if (payload !== undefined) {
             p = payload;
         }
-        return this.executeApolloQuery(type, query, p, this.apolloClient);
+        try {
+            return this.executeApolloQuery(type, query, p, this.apolloClient);
+        } catch (err) {
+            throw err;
+        }
     }
 
     executeApolloQuery = async (type, query, payload, client) => {
@@ -180,7 +195,7 @@ class AppManager {
                         });
                     resolve(data.data);
                 } catch (err) {
-                    reject(err);
+                    reject(new Error('Network Error'));
                 }
             } else {
                 try {
@@ -192,7 +207,7 @@ class AppManager {
                         });
                     resolve(data.data);
                 } catch (err) {
-                    reject(err);
+                    reject(new Error('Network Error'));
                 }
             }
         });

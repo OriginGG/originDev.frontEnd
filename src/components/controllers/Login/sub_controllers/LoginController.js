@@ -13,6 +13,7 @@ import SignupComponentRender from '../../../render_components/signup/SignupCompo
 import { authenticateQuery, authenticateIndividualQuery } from '../../../../queries/login';
 import { createUserQuery, createIndividualUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
 import { getIndividualUserByHandleQuery } from '../../../../queries/individuals.js';
+import { createEmailRegistrationQuery, getEmailRegistrationQuery } from '../../../../queries/registrations.js';
 import historyStore from '../../../../utils/stores/browserHistory';
 
 const { confirm } = Modal;
@@ -236,6 +237,10 @@ class LoginController extends Component {
                                     } else {
                                         const f = await this.showSendConfirm();
                                         if (f) {
+                                            const r = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, { email: v.email });
+                                            const email_payload = r.registrationEmailByEmail.payload;
+                                            const url = Buffer.from(email_payload, 'hex').toString('utf8');
+                                            await this.sendEmail(url);
                                             toast.success(`Registration email re-sent to ${v.email}, please check your email for further instructions.`, {
                                                 position: toast.POSITION.TOP_LEFT,
                                                 autoClose: 15000
@@ -265,7 +270,9 @@ class LoginController extends Component {
                                         const host = window.location.origin;
                                         const url = `/emails/signup?host=${host}&email=${v.email}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
                                         await this.sendEmail(url);
-                                        console.log(pre_user);
+                                        const payload_email = Buffer.from(url, 'utf8').toString('hex');
+                                        const r_email = await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email, payload: payload_email });
+                                        console.log(pre_user, r_email);
                                         toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
                                             position: toast.POSITION.TOP_LEFT,
                                             autoClose: 15000
