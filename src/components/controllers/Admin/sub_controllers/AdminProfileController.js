@@ -49,7 +49,7 @@ class AdminProfileController extends Component {
         return i === null ? '' : i;
     }
     isURL = (str)  => {
-        console.log(`string is ${str}`);
+        // console.log(`string is ${str}`);
         return str.includes('http');
     }
     handleSubmit = async () => {
