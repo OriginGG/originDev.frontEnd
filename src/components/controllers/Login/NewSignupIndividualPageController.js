@@ -9,6 +9,7 @@ import historyStore from '../../../utils/stores/browserHistory';
 import { getIndividualUserByIdQuery } from '../../../queries/users';
 import { authenticateIndividualQuery } from '../../../queries/login';
 import { updateIndividualUserQuery } from '../../../queries/individuals';
+import { deleteEmailRegistrationQuery } from '../../../queries/registrations';
 
 class NewSignupIndividualPageController extends Component {
     componentDidMount = async () => {
@@ -52,6 +53,7 @@ class NewSignupIndividualPageController extends Component {
                     authenticated: true
                 };
                 await this.props.appManager.executeQuery('mutation', updateIndividualUserQuery, payload);
+                await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
                 const authPayload = await this.props.appManager.executeQuery('mutation', authenticateIndividualQuery, { email: u.email, password: d.password });
                 const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
                 historyStore.push(`/individual?p=${new_payload}`);
