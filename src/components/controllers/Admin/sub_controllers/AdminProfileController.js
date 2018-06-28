@@ -49,6 +49,7 @@ class AdminProfileController extends Component {
         return i === null ? '' : i;
     }
     isURL = (str)  => {
+        console.log(`string is ${str}`);
         return str.includes('http');
     }
     handleSubmit = async () => {
@@ -77,12 +78,6 @@ class AdminProfileController extends Component {
             return;
         }
         if (!this.isURL(this.state.input_values.company_store_value) && this.state.input_values.company_store_value) {
-            toast.error('Company Store URL is not valid', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
-        }
-        if (this.isURL(this.state.input_values.company_store_value) && this.state.input_values.company_store_value) {
             toast.error('Company Store URL is not valid', {
                 position: toast.POSITION.TOP_LEFT
             });
