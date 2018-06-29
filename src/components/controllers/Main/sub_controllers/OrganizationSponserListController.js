@@ -29,6 +29,10 @@ class OrganizationSponserListController extends Component {
     // }
 
     handleClick = (i) => {              // eslint-disable-line
+        console.log(`i = ${i}`);
+        if (i) {
+            window.open(i, '_blank');
+        }
         // const x = this.props.appManager.getDomainInfo();
         // let p = x.hostname;
         // if (p.indexOf(x.subDomain) > -1) {
@@ -104,7 +108,7 @@ class OrganizationSponserListController extends Component {
         sponser_array.forEach((r, i) => {
             console.log(`r = ${JSON.stringify(r)}`);
             const individualSponserByIndividualId = r;
-            p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualSponserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender
+            p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualSponserByIndividualId.s_link); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender
                 sponser_image={individualSponserByIndividualId.s_image}
                 sponser_name={individualSponserByIndividualId.s_name}
                 sponser_desc={individualSponserByIndividualId.s_desc}
