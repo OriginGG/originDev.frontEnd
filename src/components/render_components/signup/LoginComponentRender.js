@@ -62,6 +62,7 @@ class LoginComponentRender extends Component {
                                         </div>
                                     </div>
                                     <div >{this.props.loginAccountButton}</div>
+                                    <div >{this.props.forgotPasswordButton}</div>
                                     <div className={this.props.classes.submit_divider}/>
                                     <div className={this.props.classes.submit_or}>OR</div>
                                     <div className={this.props.classes.social_box_outer}>

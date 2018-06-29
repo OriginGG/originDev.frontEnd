@@ -325,6 +325,14 @@ class LoginController extends Component {
                                                 color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 40
                                             }}>Login</Button>
                                     }
+                                    forgotPasswordButton={
+                                        <Button
+                                            disabled={this.state.button_disabled}
+                                            className="ui fluid large"
+                                            style={{
+                                                color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 20
+                                            }}>Forgot Password?</Button>
+                                    }
                                     errors={errors}
                                     touched={touched}
                                     values={values}
