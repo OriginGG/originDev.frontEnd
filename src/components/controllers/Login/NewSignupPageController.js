@@ -29,7 +29,6 @@ class NewSignupPageController extends Component {
                 authenticated: true,
                 id: d.id,
             };
-            debugger;
             await this.props.appManager.executeQuery('mutation', updateUserQuery, payload);
             await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
             const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
