@@ -64,7 +64,7 @@ class OrganizationAdminProfileComponentRender extends Component {
                         </div>
                         <div className={this.props.classes.admin_social_box_divider}/>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Twitch Channel Name" value={this.props.twitch_value} onChange={e => {
+                            <input type="text" placeholder="Twitch link" value={this.props.twitch_value} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'twitch_value', e );
