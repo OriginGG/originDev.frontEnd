@@ -471,7 +471,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_main_image_text_container: {
         width: '100%',
         height: '40px',
-        background: 'rgba(0,0,0,.9)',
+        background: 'rgba(255,255,255,.9)',
         position: 'absolute',
         top: '0'
     },
@@ -1838,7 +1838,8 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#fff',
         fontSize: '14px',
         fontWeight: '600',
-        borderRadius: '0px 0px 0px 0px'
+        borderRadius: '0px 0px 0px 0px',
+        cursor: 'pointer'
     },
     individual_social_content: {
         width: '100%',

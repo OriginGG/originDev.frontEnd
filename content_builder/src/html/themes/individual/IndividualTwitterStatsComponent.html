@@ -25,7 +25,7 @@
    <body>
         <div data-component-name="IndividualTwitterStatsComponent" class="">
             <div class="classes.individual_social_box">
-                <h2 class="classes.individual_social_header">
+                <h2 class="classes.individual_social_header" data-component-props="onClick={()=>{this.props.handle_redirect('twitter')}}">
                     Twitter Stats
                 </h2>
                 <div class="classes.individual_social_content" data-component-value="{this.props.twitter_stats}">

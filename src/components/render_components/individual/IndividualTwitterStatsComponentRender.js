@@ -9,7 +9,11 @@ class IndividualTwitterStatsComponentRender extends Component {
         return (
             <div>
                 <div className={this.props.classes.individual_social_box}>
-                    <h2 className={this.props.classes.individual_social_header}>
+                    <h2 className={this.props.classes.individual_social_header} onClick={( ) => {
+                                        this
+                                            .props
+                                            .handle_redirect( 'twitter' );
+                                    }}>
                         Twitter Stats
                     </h2>
                     <div className={this.props.classes.individual_social_content}>{this.props.twitter_stats}</div>

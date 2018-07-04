@@ -64,7 +64,7 @@ class OrganizationAdminProfileComponentRender extends Component {
                         </div>
                         <div className={this.props.classes.admin_social_box_divider}/>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Twitch Channel Name" value={this.props.twitch_value} onChange={e => {
+                            <input type="text" placeholder="Twitch link" value={this.props.twitch_value} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'twitch_value', e );
@@ -79,14 +79,14 @@ class OrganizationAdminProfileComponentRender extends Component {
                                     .handleChange( 'insta_value', e );
                             }}/>
                         </div>
-                        <div className={this.props.classes.admin_social_box_divider}/>
+                        {/* <div className={this.props.classes.admin_social_box_divider}/>
                         <div className="ui fluid input">
                             <input type="text" placeholder="Select Rss newsfeed URL" value={this.props.rss_value} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'rss_value', e );
                             }}/>
-                        </div>
+                        </div> */}
                         <div className={this.props.classes.admin_social_box_divider}/>
                         <div className="ui fluid input">
                             <input type="text" placeholder="YouTube link" value={this.props.youtube_value} onChange={e => {
