@@ -112,6 +112,30 @@ export const gameOptions = [
         value: 'Gears Of War',
         image: gow_image
     },
+    {
+        game_id: 17,
+        text: 'Street Fighter',
+        value: 'Street Fighter',
+        image: streetfighter_image
+    },
+    {
+        game_id: 18,
+        text: 'DragonBall: FighterZ',
+        value: 'DragonBall: FighterZ',
+        image: dragonball_image
+    },
+    {
+        game_id: 19,
+        text: 'Super Smash Bros',
+        value: 'Super Smash Bros',
+        image: ssb_image
+    },
+    {
+        game_id: 20,
+        text: 'Tekken',
+        value: 'Tekken',
+        image: tekken_image
+    }
 
 
 ];
