@@ -14,6 +14,10 @@ import vainglory_image from '../../../../../assets/images/game_images/vainglory.
 import wow_image from '../../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../../assets/images/game_images/r6.png';
 import gow_image from '../../../../../assets/images/game_images/gow.png';
+import streetfighter_image from '../../../../../assets/images/game_images/streetfighter.png';
+import ssb_image from '../../../../../assets/images/game_images/ssb.png';
+import dragonball_image from '../../../../../assets/images/game_images/dragonball.png';
+import tekken_image from '../../../../../assets/images/game_images/tekken.png';
 
 export const gameOptions = [
     {
