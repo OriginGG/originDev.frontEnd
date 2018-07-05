@@ -13,6 +13,7 @@ import splatoon_image from '../../../../../assets/images/game_images/splatoon.pn
 import vainglory_image from '../../../../../assets/images/game_images/vainglory.png';
 import wow_image from '../../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../../assets/images/game_images/r6.png';
+import gow_image from '../../../../../assets/images/game_images/gow.png';
 
 export const gameOptions = [
     {
@@ -104,6 +105,12 @@ export const gameOptions = [
         text: 'WOW',
         value: 'WOW',
         image: wow_image
+    },
+    {
+        game_id: 15,
+        text: 'Gears Of War',
+        value: 'Gears Of War',
+        image: gow_image
     },
 
 
