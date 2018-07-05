@@ -107,7 +107,7 @@ export const gameOptions = [
         image: wow_image
     },
     {
-        game_id: 15,
+        game_id: 16,
         text: 'Gears Of War',
         value: 'Gears Of War',
         image: gow_image
