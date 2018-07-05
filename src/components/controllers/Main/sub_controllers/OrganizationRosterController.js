@@ -94,7 +94,7 @@ class OrganizationRosterController extends Component {
                 instagram_style = { display: 'none' };
             }
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
-                roster_nickname={individualUserByIndividualId.twitterHandle}
+                roster_nickname={individualUserByIndividualId.username}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
                 roster_image={im}
