@@ -298,7 +298,7 @@ class IndividualPageController extends Component {
     }
     getYouTubeStats = async () => {
         if (this.user_details.youtubeChannel) {
-            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?user=${this.user_details.youtubeChannel}`);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?channel=${this.user_details.youtubeChannel}`);
             this.youtube_stats = td.data;
         }
     }
