@@ -354,7 +354,7 @@ class IndividualPageController extends Component {
             return;
         }
         if (state.youtubeChannel.includes('http')) {
-            toast.error('Youtube Channel required not full URL', {
+            toast.error('Youtube Channel ID required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
