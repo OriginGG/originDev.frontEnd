@@ -14,6 +14,10 @@ import vainglory_image from '../../../../../assets/images/game_images/vainglory.
 import wow_image from '../../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../../assets/images/game_images/r6.png';
 import gow_image from '../../../../../assets/images/game_images/gow.png';
+import streetfighter_image from '../../../../../assets/images/game_images/streetfighter.png';
+import ssb_image from '../../../../../assets/images/game_images/ssb.png';
+import dragonball_image from '../../../../../assets/images/game_images/dragonball.png';
+import tekken_image from '../../../../../assets/images/game_images/tekken.png';
 
 export const gameOptions = [
     {
@@ -112,6 +116,30 @@ export const gameOptions = [
         value: 'Gears Of War',
         image: gow_image
     },
+    {
+        game_id: 17,
+        text: 'Street Fighter',
+        value: 'Street Fighter',
+        image: streetfighter_image
+    },
+    {
+        game_id: 18,
+        text: 'DragonBall: FighterZ',
+        value: 'DragonBall: FighterZ',
+        image: dragonball_image
+    },
+    {
+        game_id: 19,
+        text: 'Super Smash Bros',
+        value: 'Super Smash Bros',
+        image: ssb_image
+    },
+    {
+        game_id: 20,
+        text: 'Tekken',
+        value: 'Tekken',
+        image: tekken_image
+    }
 
 
 ];
