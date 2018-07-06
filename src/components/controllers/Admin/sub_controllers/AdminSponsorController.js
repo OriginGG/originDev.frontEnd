@@ -87,25 +87,25 @@ class AdminSponsorController extends Component {
         const sponser_href3 = this.state.input_values.http_link3_value;
         const sponser_href4 = this.state.input_values.http_link4_value;
 
-        if (!this.isURL(sponser_href1)) {
+        if (!this.isURL(sponser_href1) && sponser_href1) {
             toast.error('First Sponser URL Not Valid', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
         }
-        if (!this.isURL(sponser_href2)) {
+        if (!this.isURL(sponser_href2) && sponser_href2) {
             toast.error('Second Sponser URL Not Valid', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
         }
-        if (!this.isURL(sponser_href3)) {
+        if (!this.isURL(sponser_href3) && sponser_href3) {
             toast.error('Third Sponser URL Not Valid', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
         }
-        if (!this.isURL(sponser_href4)) {
+        if (!this.isURL(sponser_href4) && sponser_href4) {
             toast.error('Fourth Sponser URL Not Valid', {
                 position: toast.POSITION.TOP_LEFT
             });
