@@ -13,6 +13,7 @@ import './App.css';
 
 const pathsToIgnore = [
     '/signup',
+    '/password',
     '/signup_org',
     '/signup_ind',
     '/new_signup',
