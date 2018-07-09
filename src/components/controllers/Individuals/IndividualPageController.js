@@ -9,7 +9,7 @@ import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import blankImage from '../../../assets/images/blank_person.png';
-import { getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
+import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
@@ -354,7 +354,7 @@ class IndividualPageController extends Component {
             return;
         }
         if (state.youtubeChannel.includes('http')) {
-            toast.error('Youtube Channel required not full URL', {
+            toast.error('Youtube Channel ID required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
@@ -371,32 +371,39 @@ class IndividualPageController extends Component {
             });
             return;
         }
-        await this.props.appManager.executeQuery(
-            'mutation', updateIndividualUserQuery,
-            {
-                id: this.user_id,
-                about: state.about,
-                firstName: state.firstName,
-                lastName: state.lastName,
-                contactNumber: state.contactNumber,
-                bannerImageUrl: state.bannerImageUrl,
-                profileImageUrl: state.profileImageUrl,
-                accomplishments: state.accomplishments,
-                twitchUrl: state.twitchUrl,
-                twitterHandle: state.twitterHandle,
-                youtubeChannel: state.youtubeChannel,
-                instagramLink: state.instagramLink,
-                username: state.username
-                // youtubeVideo1Url: state.youtubeVideo1Url,
-                // youtubeVideo2Url: state.youtubeVideo2Url,
-                // youtubeVideo3Url: state.youtubeVideo3Url,
-            }
-        );
-        toast.success('Profile Updated!', {
-            position: toast.POSITION.TOP_LEFT
-        });
-        this.user_details = state;
-        this.closeModal();
+        const r = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle: state.username });
+        if (r.getinduserbyusername.edges.length > 0 && r.getinduserbyusername.edges[0].node.id !== this.user_id) {
+            toast.error('That Username is taken!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        } else {
+            await this.props.appManager.executeQuery(
+                'mutation', updateIndividualUserQuery,
+                {
+                    id: this.user_id,
+                    about: state.about,
+                    firstName: state.firstName,
+                    lastName: state.lastName,
+                    contactNumber: state.contactNumber,
+                    bannerImageUrl: state.bannerImageUrl,
+                    profileImageUrl: state.profileImageUrl,
+                    accomplishments: state.accomplishments,
+                    twitchUrl: state.twitchUrl,
+                    twitterHandle: state.twitterHandle,
+                    youtubeChannel: state.youtubeChannel,
+                    instagramLink: state.instagramLink,
+                    username: state.username
+                    // youtubeVideo1Url: state.youtubeVideo1Url,
+                    // youtubeVideo2Url: state.youtubeVideo2Url,
+                    // youtubeVideo3Url: state.youtubeVideo3Url,
+                }
+            );
+            toast.success('Profile Updated!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            this.user_details = state;
+            this.closeModal();
+        }
     }
     render() {
         let twitch_stats = <h2 style={{

@@ -13,6 +13,8 @@ import './App.css';
 
 const pathsToIgnore = [
     '/signup',
+    '/password',
+    '/landing',
     '/signup_org',
     '/signup_ind',
     '/new_signup',
@@ -62,14 +64,14 @@ class AppController extends Component {
                         console.log(u_string);
                     }
                     if (process.env.REACT_APP_ENVIRONMENT === 'production') {
-                        window.location = `${u_string}/landing/index.html`;
+                        window.location = `${u_string}/landing`;
                     } else {
                         window.location = `${u_string}/signup`;
                     }
                 } else {
                     if (subDomain === 'origin') {
                         if (process.env.REACT_APP_ENVIRONMENT === 'production') {
-                            window.location.href = '/landing/index.html';
+                            window.location.href = '/landing';
                         } else {
                             historyStore.push('/signup');
                         }
@@ -125,6 +127,7 @@ class AppController extends Component {
                         const user_id = user.getinduserbyusername.edges[0].node.id;
                         historyStore.push(`/individual?u=${user_id}`);
                     } else {
+                        console.log('cock 1');
                         historyStore.push('/');
                     }
                 }
