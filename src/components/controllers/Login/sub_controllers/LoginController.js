@@ -57,6 +57,15 @@ class LoginController extends Component {
             });
         });
     };
+    handleForgotPassword = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        if (this.props.ind) {
+            historyStore.push('/password?t=reset_ind');
+        } else {
+            historyStore.push('/password?t=reset_org');
+        }
+    }
     render() {
         let s_username_style = { display: 'none' };
         if (this.state.content_display !== 'login' && this.props.ind === true) {
@@ -327,7 +336,7 @@ class LoginController extends Component {
                                     }
                                     forgotPasswordButton={
                                         <Button
-                                            disabled={this.state.button_disabled}
+                                            onClick={(e) => { this.handleForgotPassword(e); }}
                                             className="ui fluid large"
                                             style={{
                                                 color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 20
