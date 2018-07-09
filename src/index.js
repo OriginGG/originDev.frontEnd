@@ -10,7 +10,7 @@ import uiStore from './utils/stores/uiStore';
 import './index.css';
 import App from './App';
 import appManager from './utils/appManager';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 import { GlobalTheme } from './utils/themes/Theme';
 
 export const initGA = () => {
@@ -50,4 +50,4 @@ ReactDOM.render(
     </Router>,
     document.getElementById('root')
 );
-registerServiceWorker();
+// registerServiceWorker();

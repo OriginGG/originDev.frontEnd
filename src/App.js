@@ -20,6 +20,8 @@ import CreateSubDomainController from './components/controllers/Login/CreateSubD
 // import OriginLandingPageController from './components/controllers/Login/OriginLandingPageController';
 // Test
 
+const reload = () => window.location.reload();
+
 class App extends Component {
     render() {
         return (
@@ -37,6 +39,8 @@ class App extends Component {
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
                 <Route exact path="/createsubdomain" component={CreateSubDomainController} />
+                <Route path="/landing" onEnter={reload} />
+                <Route path="/landing/index/html" onEnter={reload} />
                 <Route path="*" component={AppController} />
                 <ToastContainer autoClose={2500} />
             </div>
