@@ -64,14 +64,14 @@ class AppController extends Component {
                         console.log(u_string);
                     }
                     if (process.env.REACT_APP_ENVIRONMENT === 'production') {
-                        window.location = `${u_string}/landing`;
+                        window.location = `${u_string}/landing/index.html`;
                     } else {
                         window.location = `${u_string}/signup`;
                     }
                 } else {
                     if (subDomain === 'origin') {
                         if (process.env.REACT_APP_ENVIRONMENT === 'production') {
-                            window.location.href = '/landing';
+                            window.location.href = '/landing/index.html';
                         } else {
                             historyStore.push('/signup');
                         }
