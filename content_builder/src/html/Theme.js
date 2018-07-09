@@ -1834,7 +1834,6 @@ export const GlobalStyles = GlobalTheme => ({
     individual_label: {
         width: '100',
         paddingTop: '10px',
-        paddingBottom: '5px',
         color: 'white',
         fontSize: '16px',
         textAlign: 'left'
