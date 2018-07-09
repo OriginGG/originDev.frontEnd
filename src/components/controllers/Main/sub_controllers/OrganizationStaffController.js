@@ -47,20 +47,22 @@ class OrganizationStaffController extends Component {
     // }
 
     handleClick = (i) => {              // eslint-disable-line
-        const x = this.props.appManager.getDomainInfo();
-        let p = x.hostname;
-        if (p.indexOf(x.subDomain) > -1) {
-            p = p.substr(x.subDomain.length + 1, p.length);
-            let pt = '';
-            if (x.port) {
-                pt = `:${x.port}`;
-            }
-            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
-            window.open(url, '_blank');
-        }
+        this.handle_social('twitter', i);
+        // const x = this.props.appManager.getDomainInfo();
+        // let p = x.hostname;
+        // if (p.indexOf(x.subDomain) > -1) {
+        //     p = p.substr(x.subDomain.length + 1, p.length);
+        //     let pt = '';
+        //     if (x.port) {
+        //         pt = `:${x.port}`;
+        //     }
+        //     const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+        //     window.open(url, '_blank');
+        // }
     }
 
     handle_social = (s, ind_user) => {
+        console.log(`type = ${s}`);
         switch (s) {
             case 'twitter': {
                 const p_string = `https://twitter.com/${ind_user.twitterHandle}`;
