@@ -617,6 +617,13 @@ export const GlobalStyles = GlobalTheme => ({
         borderColor: 'transparent'
     },
 
+    obliviot_darkSponserImage: {
+        height: '70px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        display: 'table'
+    },
+
     // ***************************************************************
     // New Obliviot Theme Dark
     // ***************************************************************
