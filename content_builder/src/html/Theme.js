@@ -536,6 +536,109 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // New Obliviot Theme Dark
+    // ***************************************************************
+
+    darkObliotBG: {
+        width: '100%',
+        minHeight: '100vh',
+        padding: '0px 0px 0px 0px',
+        backgroundColor: '#000'
+    },
+
+    obliviot_darkContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        minHeight: '100vh',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        background: 'transparent',
+    },
+
+    obliviot_dark_bg_img: {
+        width: '100%',
+        position: 'absolute',
+        top: '0px',
+        left: '0px'
+    },
+
+    obliviot_dark_bg_filter: {
+        width: '100%',
+        minHeight: '100vh',
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        backgroundColor: 'rgba(0,0,0,.8)'
+    },
+
+    obliviot_darkHeader: {
+        width: '100%',
+        height: '80px'
+    },
+
+    obliviot_darkLogo: {
+        height: '80px',
+        float: 'left'
+    },
+
+    obliviot_dark_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '25px'
+    },
+
+    obliviot_dark_social_menu_item: {
+        lineHeight: '80px',
+        float: 'left',
+        color: '#ccc',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    obliviot_org_menu_dark_container: {
+        float: 'right',
+        display: 'table'
+    },
+
+    org_menu_obliviot_dark_item : {
+        height: '80px',
+        lineHeight: '80px',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent'
+    },
+
+    // ***************************************************************
+    // New Obliviot Theme Dark
+    // ***************************************************************
+
+    lightObliotBG: {
+        width: '100%',
+        minHeight: '100vh',
+        padding: '0px 0px 0px 0px',
+        backgroundColor: '#fff'
+    },
+
+    obliviot_lightContraint: {
+        width: '100%',
+        display: 'table',
+        maxWidth: '1200px',
+        minHeight: '100vh',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        background: 'transparent',
+    },
+
+    // ***************************************************************
     // New Dark Theme
     // ***************************************************************
 
