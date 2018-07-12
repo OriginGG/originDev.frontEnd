@@ -558,6 +558,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dark_bg_img: {
         width: '100%',
+        height: '100vh',
         position: 'absolute',
         top: '0px',
         left: '0px'
@@ -622,6 +623,148 @@ export const GlobalStyles = GlobalTheme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
         display: 'table'
+    },
+
+    obliviot_darkBlogContainer: {
+        width: '100%',
+        height: '600px',
+        marginTop: '20px'
+    },
+
+    obliviot_darkBlogMiniContainer: {
+        width: '100%',
+        height: '295px',
+        marginBottom: '10px',
+        position: 'relative'
+    },
+
+    obliviot_darkBlogMaxContainer: {
+        width: '100%',
+        height: '600px',
+        position: 'relative'
+    },
+
+    obliviot_main_news_item_image: {
+        width: '100%',
+        height: '600px',
+        objectFit: 'cover'
+    },
+
+    obliviot_main_news_item_mini_image: {
+        width: '100%',
+        height: '295px',
+        objectFit: 'cover'
+    },
+
+    obliviot_main_news_item_micro_image: {
+        width: '100%',
+        height: '200px',
+        objectFit: 'cover'
+    },
+
+    obliviot_main_news_content_container: {
+        width: '86%',
+        height: '130px',
+        position: 'absolute',
+        bottom: '5px',
+        left: '7%'
+    },
+
+    obliviot_dark_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '30px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    obliviot_dark_news_body: {
+        textAlign: 'left',
+        fontSize: '14px',
+        color: 'white',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    obliviot_dark_news_decor: {
+        height: '5px',
+        width: '40%',
+        backgroundColor: 'rgb(241,221,96)',
+        marginTop: '10px'
+    },
+
+    obliviot_dark_section_control_container: {
+        width: '100%',
+        height: '20px',
+        position: 'relative',
+        display: 'table',
+        marginTop: '30px'
+    },
+
+    obliviot_dark_section_divider: {
+        width: '100%',
+        height: '2px',
+        backgroundColor: 'rgba(255,255,255,.5)',
+        marginTop: '9px',
+        position: 'absolute'
+    },
+
+    obliviot_dark_section_title: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'white',
+        backgroundColor: 'black',
+        paddingRight: '10px',
+        position: 'absolute',
+        left: '0px'
+    },
+
+    obliviot_dark_section_view_more: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '12px',
+        fontWeight: '900',
+        color: 'rgba(255,255,255,.5)',
+        backgroundColor: 'black',
+        paddingLeft: '10px',
+        position: 'absolute',
+        right: '0px'
+    },
+
+    obliviot_dark_twitch_container: {
+        width: '100%',
+        overflow: 'hidden',
+        height: '120px',
+        marginTop: '10px'
+    },
+
+    obliviot_dark_twitch_feed_container: {
+        width: '30%',
+        height: '150px',
+        position: 'relative',
+        float: 'left',
+        marginLeft: '1.5%',
+        marginRight: '1.5%',
+        backgroundColor: 'rgba(255,255,255,.1)'
+    },
+
+    obliviot_dark_news_container: {
+        width: '100%',
+        height: '200px',
+        backgroundColor: 'rgba(255,255,255,.1)',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
+    obliviot_dark_video_container: {
+        width: '100%',
+        height: '150px',
+        backgroundColor: 'rgba(255,255,255,.1)',
+        marginTop: '10px'
     },
 
     // ***************************************************************
