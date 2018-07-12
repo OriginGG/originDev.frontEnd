@@ -832,6 +832,20 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'          
     },
 
+    obliviot_orgFooter: {
+        textAlign: 'center',
+        width: '100%',
+        background: '#000000',
+        padding: '20px',
+    },
+    obliviot_orgFooterText: {
+        padding: '0',
+        margin: '0',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: '#FFF'
+    },
+
     // ***************************************************************
     // New Obliviot Theme Dark
     // ***************************************************************
