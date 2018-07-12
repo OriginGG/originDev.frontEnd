@@ -767,6 +767,71 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
+    obliviot_dark_match_container: {
+        width: '100%',
+        padding: '20px 30px 0px 30px',
+        backgroundColor: 'rgba(255,255,255,.1)',
+        position: 'relative'
+    },
+
+    obliviot_dark_match_vs_container: {
+        width: '300px',
+        height: '70px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    obliviot_dark_match_vs_image: {
+        width: '70px',
+        height: '70px',
+        backgroundColor: 'green',
+        float: 'left'
+    },
+
+    obliviot_dark_match_vs_score: {
+        width: '160px',
+        height: '70px',
+        lineHeight: '70px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        float: 'left'
+    },
+
+    obliviot_dark_match_vs_date: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        color: 'white',
+        textAlign: 'center',
+        fontSize: '14px',
+        fontWeight: '900',
+        marginTop: '20px'
+    },
+
+    obliviot_dark_corner_win: {
+        width: '0',
+        height: '0',
+        borderStyle: 'solid',
+        borderWidth: '20px 20px 0 0',
+        borderColor: '#90ce59 transparent transparent transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'     
+    },
+
+    obliviot_dark_corner_lose: {
+        width: '0',
+        height: '0',
+        borderStyle: 'solid',
+        borderWidth: '20px 20px 0 0',
+        borderColor: '#e85149 transparent transparent transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'          
+    },
+
     // ***************************************************************
     // New Obliviot Theme Dark
     // ***************************************************************
