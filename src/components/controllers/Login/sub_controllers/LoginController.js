@@ -91,6 +91,9 @@ class LoginController extends Component {
                         if (!values.userName) {
                             errors.userName = 'Required';
                         }
+                        if (values.userName.indexOf(' ') > -1) {
+                            errors.userName = 'No Spaces allowed!';
+                        }
                     }
                     if (this.state.content_display !== 'login') {
                         if (!values.firstName) {
@@ -104,10 +107,10 @@ class LoginController extends Component {
                     ) {
                         errors.email = 'Invalid email address';
                     }
-                    if (errors.password || errors.email) {
+                    if (errors.password || errors.email || errors.userName) {
                         disabled = true;
                     }
-                    if (!values.password || !values.email) {
+                    if (!values.password || !values.email || !values.userName) {
                         disabled = true;
                     }
                     this.setState({ button_disabled: disabled });

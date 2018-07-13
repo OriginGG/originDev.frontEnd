@@ -51,8 +51,10 @@ class IndividualBasicInfoComponentRender extends Component {
                         <div className={this.props.classes.individual_accomplishment_container}>
                             <h2 className={this.props.classes.individual_accomplishment_header}>Accomplishments</h2>
                             <div style={{
-                            padding: '10px'
-                        }}><p id="basic_acomplishments">{this.props.accomplishments}</p></div>
+                                padding: '10px'
+                            }}>
+                                <p id="basic_accomplishments"/>
+                            </div>
                         </div>
                     </div>
                 </div>

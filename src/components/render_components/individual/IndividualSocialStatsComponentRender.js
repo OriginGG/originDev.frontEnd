@@ -10,10 +10,10 @@ class IndividualSocialStatsComponentRender extends Component {
             <div>
                 <div className={this.props.classes.individual_social_box}>
                     <h2 className={this.props.classes.individual_social_header} onClick={( ) => {
-                                        this
-                                            .props
-                                            .handle_redirect( 'twitch' );
-                                    }}>
+                        this
+                            .props
+                            .handle_redirect( 'twitch' );
+                    }}>
                         Twitch Stats
                     </h2>
                     <div className={this.props.classes.individual_social_content}>{this.props.twitch_stats}</div>

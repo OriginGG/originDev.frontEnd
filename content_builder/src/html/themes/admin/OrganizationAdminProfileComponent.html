@@ -28,7 +28,7 @@
             </div>
             <div class="classes.admin_main_logo_box">
                 <div class="classes.admin_main_logo_box_inner">
-                    <div data-component-props=" onClick={this.props.handleFileClick}" class="classes.admin_main_logo_button">COMPANY LOGO</div>
+                    <div data-component-props="onClick={this.props.handleFileClick}" class="classes.admin_main_logo_button">COMPANY LOGO</div>
                     <img id="admin_main_logo" class="classes.admin_main_logo_image" data-component-props="src={this.props.logo_src}" src="http://api.originbeta.net/adminTemplate/1520546366661frcn0rmeg8t98jjor.jpeg" />
                 </div>
                 <div class="classes.admin_main_logo_box_inner">
@@ -66,10 +66,6 @@
                     <div class="ui fluid input">
                         <input type="text" data-component-props="value={this.props.insta_value} onChange={(e)=>{this.props.handleChange('insta_value', e);}}" placeholder="Instagram link">
                     </div>
-                    <!-- <div class="classes.admin_social_box_divider"></div>
-                    <div class="ui fluid input">
-                        <input data-component-props="value={this.props.rss_value} onChange={(e)=>{this.props.handleChange('rss_value', e);}}"  type="text" placeholder="Select Rss newsfeed URL">
-                    </div> -->
                     <div class="classes.admin_social_box_divider"></div>
                      <div class="ui fluid input">
                         <input data-component-props="value={this.props.youtube_value} onChange={(e)=>{this.props.handleChange('youtube_value', e);}}"  type="text" placeholder="YouTube link">

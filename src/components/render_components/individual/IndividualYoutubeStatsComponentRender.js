@@ -10,10 +10,10 @@ class IndividualYoutubeStatsComponentRender extends Component {
             <div>
                 <div className={this.props.classes.individual_social_box}>
                     <h2 className={this.props.classes.individual_social_header} onClick={( ) => {
-                                        this
-                                            .props
-                                            .handle_redirect( 'youtube' );
-                                    }}>
+                        this
+                            .props
+                            .handle_redirect( 'youtube' );
+                    }}>
                         YouTube Stats
                     </h2>
                     <div id="channel_name" className={this.props.classes.individual_social_content}>
