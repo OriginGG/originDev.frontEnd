@@ -54,6 +54,11 @@ class OrganizationRosterController extends Component {
                 window.open(ind_user.instagramLink, '_blank');
                 break;
             }
+            case 'youtube': {
+                const p_string = `https://www.youtube.com/channel/${ind_user.youtubeChannel}`;
+                window.open(p_string, '_blank');
+                break;
+            }
             default: {
                 break;
             }
