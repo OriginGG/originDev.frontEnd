@@ -21,7 +21,6 @@ const { confirm } = Modal;
 // import { getOrganisationQuery } from './queries/organisation'
 class LoginController extends Component {
     state = { button_disabled: false, content_display: 'login' };
-
     handleClick = () => {
         const p = this.state.content_display;
         if (p === 'login') {
@@ -73,6 +72,7 @@ class LoginController extends Component {
         }
         return (
             <Formik
+                ref={(c) => { this.formikForm = c; }}
                 initialValues={{
                     email: '',
                     password: '',
@@ -107,11 +107,23 @@ class LoginController extends Component {
                     ) {
                         errors.email = 'Invalid email address';
                     }
-                    if (errors.password || errors.email || errors.userName) {
-                        disabled = true;
+                    if (this.props.ind && this.state.content_display !== 'login') {
+                        if (errors.password || errors.email || errors.userName) {
+                            disabled = true;
+                        }
+                    } else {
+                        if (errors.password || errors.email) {
+                            disabled = true;
+                        }
                     }
-                    if (!values.password || !values.email || !values.userName) {
-                        disabled = true;
+                    if (this.props.ind && this.state.content_display !== 'login') {
+                        if (!values.password || !values.email || !values.userName) {
+                            disabled = true;
+                        }
+                    } else {
+                        if (!values.password || !values.email) {
+                            disabled = true;
+                        }
                     }
                     this.setState({ button_disabled: disabled });
                     return errors;
