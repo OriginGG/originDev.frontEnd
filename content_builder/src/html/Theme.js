@@ -579,8 +579,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_darkLogo: {
-        height: '80px',
-        float: 'left'
+        height: '60px',
+        float: 'left',
+        marginTop: '10px'
     },
 
     obliviot_dark_social_menu_container: {
@@ -743,12 +744,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_twitch_feed_container: {
-        width: '30%',
+        width: '100%',
         height: '150px',
-        position: 'relative',
-        float: 'left',
-        marginLeft: '1.5%',
-        marginRight: '1.5%',
         backgroundColor: 'rgba(255,255,255,.1)'
     },
 
@@ -830,6 +827,32 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute',
         top: '0',
         left: '0'          
+    },
+    obliviot_dark_bottom_nav: {
+        width: '100%',
+        marginTop: '30px'
+    },
+
+    obliviot_dark_bottom_nav_logo: {
+        width: '100%'
+    },
+
+    obliviot_dark_bottom_nav_title: {
+        width: '100%',
+        textAlign: 'left',
+        lineHeight: '30px',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    obliviot_dark_bottom_nav_sub: {
+        width: '100%',
+        textAlign: 'left',
+        lineHeight: '30px',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: 'medium'
     },
 
     obliviot_orgFooter: {
