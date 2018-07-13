@@ -168,7 +168,8 @@ class LoginController extends Component {
                                 }
                                 if (subDomain === authPayload.authenticate.resultData.organisation) {
                                     // succesfully logged in store in pouch then change page.
-                                    await this.props.appManager.pouchStore('authenticate', authPayload);
+                                    this.props.appManager.pouchStore('authenticate', authPayload);
+                                    // await this.props.appManager.pouchStore('authenticate', authPayload);
                                     historyStore.push('/admin');
                                 }
                             } else {
