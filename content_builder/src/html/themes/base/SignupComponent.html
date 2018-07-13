@@ -54,6 +54,7 @@
                                     <div class="field">
                                         <div class="ui input">
                                             <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.userName}" class="classes.input_box" type="text" name="userName" placeholder="Username" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="name" placeholder="Name" >
+                                        <div data-component-props="style={{ position: 'absolute', right: 0, marginTop: 13, marginRight: 30 }}" data-component-value="{this.props.touched.userName && this.props.errors.userName && <div style={{color: 'red'}} >{this.props.errors.userName}</div>}">&nbsp;</div>
                                         </div>
                                     </div>
                                 </div>
@@ -63,6 +64,7 @@
                                 <div class="field">
                                     <div class="ui input">
                                         <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.email}" class="classes.input_box" type="text" name="email" placeholder="E-mail address" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="email" placeholder="E-mail address">
+                                        <div data-component-props="style={{ position: 'absolute', right: 0, marginTop: 13, marginRight: 30 }}" data-component-value="{this.props.touched.email && this.props.errors.email && <div style={{color: 'red'}} >{this.props.errors.email}</div>}">&nbsp;</div>
                                     </div>
                                 </div>
                                 <div class="classes.input_title">
@@ -71,6 +73,7 @@
                                 <div class="field">
                                     <div class="ui input">
                                         <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.password}" class="classes.input_box" type="password" name="password" placeholder="Password" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="email" placeholder="E-mail address">
+                                        <div data-component-props="style={{ position: 'absolute', right: 0, marginTop: 13, marginRight: 30 }}" data-component-value="{this.props.touched.password && this.props.errors.password && <div style={{color: 'red'}} >{this.props.errors.password}</div>}">&nbsp;</div>
                                     </div>
                                 </div>
                                 <div data-component-value="{this.props.createAccountButton}">
