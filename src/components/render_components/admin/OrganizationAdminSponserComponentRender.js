@@ -37,7 +37,7 @@ class OrganizationAdminSponserComponentRender extends Component {
                             }}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor link" value={this.props.http_link1_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor link (Valid URL)" value={this.props.http_link1_value} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'http_link1_value', e );
@@ -76,7 +76,7 @@ class OrganizationAdminSponserComponentRender extends Component {
                             }}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor link" value={this.props.http_link2_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor link (Valid URL)" value={this.props.http_link2_value} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'http_link2_value', e );
@@ -115,7 +115,7 @@ class OrganizationAdminSponserComponentRender extends Component {
                             }}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor link" value={this.props.http_link3_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor link (Valid URL)" value={this.props.http_link3_value} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'http_link3_value', e );
@@ -154,7 +154,7 @@ class OrganizationAdminSponserComponentRender extends Component {
                             }}/>
                         </div>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Sponsor link" value={this.props.http_link4_value} onChange={e => {
+                            <input type="text" placeholder="Sponsor link (Valid URL)" value={this.props.http_link4_value} onChange={e => {
                                 this
                                     .props
                                     .handleChange( 'http_link4_value', e );

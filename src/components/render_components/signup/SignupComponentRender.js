@@ -58,6 +58,14 @@ class SignupComponentRender extends Component {
                                                     height: '45px',
                                                     fontSize: '16px'
                                                 }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.userName}/>
+                                                <div style={{
+                                                    position: 'absolute',
+                                                    right: 0,
+                                                    marginTop: 13,
+                                                    marginRight: 30
+                                                }}>{this.props.touched.userName && this.props.errors.userName && <div style={{
+                                                        color: 'red'
+                                                    }}>{this.props.errors.userName}</div>}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -73,6 +81,14 @@ class SignupComponentRender extends Component {
                                                 height: '45px',
                                                 fontSize: '16px'
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.email}/>
+                                            <div style={{
+                                                position: 'absolute',
+                                                right: 0,
+                                                marginTop: 13,
+                                                marginRight: 30
+                                            }}>{this.props.touched.email && this.props.errors.email && <div style={{
+                                                    color: 'red'
+                                                }}>{this.props.errors.email}</div>}</div>
                                         </div>
                                     </div>
                                     <div className={this.props.classes.input_title}>
@@ -87,6 +103,14 @@ class SignupComponentRender extends Component {
                                                 height: '45px',
                                                 fontSize: '16px'
                                             }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.password}/>
+                                            <div style={{
+                                                position: 'absolute',
+                                                right: 0,
+                                                marginTop: 13,
+                                                marginRight: 30
+                                            }}>{this.props.touched.password && this.props.errors.password && <div style={{
+                                                    color: 'red'
+                                                }}>{this.props.errors.password}</div>}</div>
                                         </div>
                                     </div>
                                     <div >{this.props.createAccountButton}</div>
