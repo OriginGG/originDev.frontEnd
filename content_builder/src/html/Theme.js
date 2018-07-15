@@ -740,13 +740,40 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         overflow: 'hidden',
         height: '120px',
-        marginTop: '10px'
+        marginTop: '10px',
+        display: 'table'
     },
 
     obliviot_dark_twitch_feed_container: {
         width: '100%',
         height: '150px',
         backgroundColor: 'rgba(255,255,255,.1)'
+    },
+
+    obliviot_dark_twitch_title_container: {
+        width: '100%',
+        padding: '0px 0px 10px 10px',
+        position: 'absolute',
+        bottom: '0',
+        left: '0'
+    },
+
+    obliviot_dark_twitch_title: {
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        textAlign: 'left',
+        lineHeight: '22px',
+        width: '100%'
+    },
+
+    obliviot_dark_twitch_subtitle: {
+        color: 'white',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        lineHeight: '18px',
+        width: '100%'
     },
 
     obliviot_dark_news_container: {
