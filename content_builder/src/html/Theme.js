@@ -740,13 +740,80 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         overflow: 'hidden',
         height: '120px',
-        marginTop: '10px'
+        marginTop: '10px',
+        display: 'table'
     },
 
     obliviot_dark_twitch_feed_container: {
         width: '100%',
         height: '150px',
-        backgroundColor: 'rgba(255,255,255,.1)'
+        backgroundColor: 'rgba(255,255,255,.1)',
+        position: 'relative'
+    },
+
+    obliviot_dark_twitch_title_container: {
+        width: '100%',
+        padding: '0px 0px 10px 20px',
+        position: 'absolute',
+        bottom: '0px',
+        left: '0px'
+    },
+
+    obliviot_dark_twitch_title: {
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        textAlign: 'left',
+        lineHeight: '22px',
+        width: '100%'
+    },
+
+    obliviot_dark_twitch_subtitle: {
+        color: 'white',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        lineHeight: '18px',
+        width: '100%'
+    },
+
+    obliviot_dark_user_online: {
+        height: '30px',
+        width: '120px',
+        borderRadius: '15px',
+        background: 'linear-gradient(to right, rgba(143,209,90,0) , rgba(143,209,90,.8))',
+        position: 'absolute',
+        top: '10px',
+        right: '15px',
+        padding: '3px'
+    },
+
+    obliviot_dark_user_offline: {
+        height: '30px',
+        width: '120px',
+        borderRadius: '15px',
+        background: 'linear-gradient(to right, rgba(255,255,255,0) , rgba(255,255,255,.2))',
+        position: 'absolute',
+        top: '10px',
+        right: '15px',
+        padding: '3px'
+    },
+
+    obliviot_dark_user_image: {
+        height: '24px',
+        width: '24px',
+        borderRadius: '12px',
+        float: 'right'
+    },
+
+    obliviot_dark_user_online_text: {
+        lineHeight: '24px',
+        paddingRight: '15px',
+        color: 'white',
+        float: 'right',
+        fontSize: '18',
+        fontWeight: '900',
+        textTransform: 'uppercase'
     },
 
     obliviot_dark_news_container: {
