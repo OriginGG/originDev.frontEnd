@@ -747,15 +747,16 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dark_twitch_feed_container: {
         width: '100%',
         height: '150px',
-        backgroundColor: 'rgba(255,255,255,.1)'
+        backgroundColor: 'rgba(255,255,255,.1)',
+        position: 'relative'
     },
 
     obliviot_dark_twitch_title_container: {
         width: '100%',
-        padding: '0px 0px 10px 10px',
+        padding: '0px 0px 10px 20px',
         position: 'absolute',
-        bottom: '0',
-        left: '0'
+        bottom: '0px',
+        left: '0px'
     },
 
     obliviot_dark_twitch_title: {
