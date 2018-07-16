@@ -1831,6 +1831,13 @@ export const GlobalStyles = GlobalTheme => ({
         borderWidth: '1px',
         marginBottom: '8px'
     },
+    individual_label: {
+        width: '100',
+        paddingTop: '10px',
+        color: 'white',
+        fontSize: '16px',
+        textAlign: 'left'
+    },
     individual_social_header: {
         margin: '0 0 0 0',
         padding: '13px 15px 12px 15px',

@@ -43,7 +43,8 @@ class AppController extends Component {
                 if (authPayload) {
                     admin = true;
                     const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
-                    await this.props.appManager.pouchStore('authenticate', p);
+                    this.props.appManager.pouchStore('authenticate', p);
+                    // await this.props.appManager.pouchStore('authenticate', p);
                 }
                 // const domainGo = this.props.appManager.GetQueryParams('domain');
                 // if (domainGo) {
@@ -98,7 +99,8 @@ class AppController extends Component {
                         const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
                         window.location = `${u_string}/signup`;
                     } else {
-                        const auth = await this.props.appManager.pouchGet('authenticate');
+                        const auth = this.props.appManager.pouchGet('authenticate');
+                        // const auth = await this.props.appManager.pouchGet('authenticate');
                         if (auth && auth.authenticate.resultData.organisation === subDomain) {
                             const token = auth.authenticate.resultData.jwtToken;
                             const d = this.props.appManager.decodeJWT(token);

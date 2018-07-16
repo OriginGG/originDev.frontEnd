@@ -6,12 +6,13 @@
  * Mobx will handle component to component communication via observables.
  */
 import ApolloClient from 'apollo-client';
-import PouchDB from 'pouchdb';
+// import PouchDB from 'pouchdb';
 import axios from 'axios';
 import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { toast } from 'react-toastify';
+import store from 'store';
 
 
 const jwt = require('jsonwebtoken');
@@ -27,7 +28,7 @@ class AppManager {
             this.logged_in = false;
             this.serveDomain = null;
             this.admin_logged_in = false;
-            this.localDB = new PouchDB('user', { adapter: 'idb', revs_limit: 1, auto_compaction: true });
+            // this.localDB = new PouchDB('user', { adapter: 'idb', revs_limit: 1, auto_compaction: true });
         }
 
         return this.instance;
@@ -54,30 +55,33 @@ class AppManager {
         }
         return null;
     }
-    pouchStore = async (_id, payload) => {
-        const doc = await this.pouchGet(_id);
-        let new_doc;
-        if (doc === null) {
-            new_doc = Object.assign(payload, { _id });
-        } else {
-            new_doc = Object.assign(doc, payload);
-        }
-        return this.localDB.put(new_doc);
+    pouchStore = (_id, payload) => {
+        store.set(_id, payload);
+        // const doc = await this.pouchGet(_id);
+        // let new_doc;
+        // if (doc === null) {
+        //     new_doc = Object.assign(payload, { _id });
+        // } else {
+        //     new_doc = Object.assign(doc, payload);
+        // }
+        // return this.localDB.put(new_doc);
     }
-    pouchGet = async (_id) => {
-        try {
-            return await this.localDB.get(_id);
-        } catch (e) {
-            return null;
-        }
+    pouchGet = (_id) => {
+        return store.get(_id);
+        // try {
+        //     return await this.localDB.get(_id);
+        // } catch (e) {
+        //     return null;
+        // }
     }
-    pouchDelete = async (_id) => {
-        try {
-            const doc = await this.localDB.get(_id);
-            return await this.localDB.remove(doc);
-        } catch (e) {
-            return null;
-        }
+    pouchDelete = (_id) => {
+        store.remove(_id);
+        // try {
+            // const doc = await this.localDB.get(_id);
+            // return await this.localDB.remove(doc);
+        // } catch (e) {
+            // return null;
+        // }
     }
     getDomainInfo = () => {
         const regex = /[.:]/g;

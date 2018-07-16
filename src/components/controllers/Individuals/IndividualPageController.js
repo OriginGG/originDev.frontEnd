@@ -347,6 +347,12 @@ class IndividualPageController extends Component {
         this.setState({ modal_open: false });
     }
     handleSubmit = async (state) => {
+        if (state.username.indexOf(' ') > -1) {
+            toast.error('Username cannot containt spaces!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (state.twitchUrl.includes('http')) {
             toast.error('Twitch handle required not full URL', {
                 position: toast.POSITION.TOP_LEFT

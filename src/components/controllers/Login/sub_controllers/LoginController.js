@@ -21,7 +21,6 @@ const { confirm } = Modal;
 // import { getOrganisationQuery } from './queries/organisation'
 class LoginController extends Component {
     state = { button_disabled: false, content_display: 'login' };
-
     handleClick = () => {
         const p = this.state.content_display;
         if (p === 'login') {
@@ -73,6 +72,7 @@ class LoginController extends Component {
         }
         return (
             <Formik
+                ref={(c) => { this.formikForm = c; }}
                 initialValues={{
                     email: '',
                     password: '',
@@ -91,6 +91,9 @@ class LoginController extends Component {
                         if (!values.userName) {
                             errors.userName = 'Required';
                         }
+                        if (values.userName.indexOf(' ') > -1) {
+                            errors.userName = 'No Spaces allowed!';
+                        }
                     }
                     if (this.state.content_display !== 'login') {
                         if (!values.firstName) {
@@ -104,11 +107,23 @@ class LoginController extends Component {
                     ) {
                         errors.email = 'Invalid email address';
                     }
-                    if (errors.password || errors.email) {
-                        disabled = true;
+                    if (this.props.ind && this.state.content_display !== 'login') {
+                        if (errors.password || errors.email || errors.userName) {
+                            disabled = true;
+                        }
+                    } else {
+                        if (errors.password || errors.email) {
+                            disabled = true;
+                        }
                     }
-                    if (!values.password || !values.email) {
-                        disabled = true;
+                    if (this.props.ind && this.state.content_display !== 'login') {
+                        if (!values.password || !values.email || !values.userName) {
+                            disabled = true;
+                        }
+                    } else {
+                        if (!values.password || !values.email) {
+                            disabled = true;
+                        }
                     }
                     this.setState({ button_disabled: disabled });
                     return errors;
@@ -168,7 +183,8 @@ class LoginController extends Component {
                                 }
                                 if (subDomain === authPayload.authenticate.resultData.organisation) {
                                     // succesfully logged in store in pouch then change page.
-                                    await this.props.appManager.pouchStore('authenticate', authPayload);
+                                    this.props.appManager.pouchStore('authenticate', authPayload);
+                                    // await this.props.appManager.pouchStore('authenticate', authPayload);
                                     historyStore.push('/admin');
                                 }
                             } else {
