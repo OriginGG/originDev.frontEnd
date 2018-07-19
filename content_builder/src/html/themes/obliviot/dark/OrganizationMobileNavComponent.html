@@ -22,19 +22,13 @@
       </script>  
    </head>
    <body>
-        <div data-component-name="dark_OrganizationSponserComponent">
-            <div class="ui stackable four column grid">
-                <div class="column">
-                    <img class="classes.obliviot_darkSponserImage" data-component-props="src={this.props.sponsor_image1}" src="https://23xz2l29cwke20cu15l1tfu1-wpengine.netdna-ssl.com/wp-content/uploads/2015/05/sponsor-1.png" />
+        <div data-component-name="dark_OrganizationMobileNavComponent" class="classes.darkNavBG">
+            <div class="classes.dark_mobile_nav_container">
+                <div class="classes.dark_mobile_nav_left">
+                    <img id="nav_img" class="classes.dark_nav_mobile_img" data-component-props="src={this.props.image_src}" src="http://api.originbeta.net/adminTemplate/1518192959017g5034r0j085fewubx1or.png" alt=""/>
                 </div>
-                <div class="column">
-                    <img class="classes.obliviot_darkSponserImage" data-component-props="src={this.props.sponsor_image2}" src="https://23xz2l29cwke20cu15l1tfu1-wpengine.netdna-ssl.com/wp-content/uploads/2015/05/sponsor-1.png" />
-                </div>
-                <div class="column">
-                    <img class="classes.obliviot_darkSponserImage" data-component-props="src={this.props.sponsor_image3}" src="https://23xz2l29cwke20cu15l1tfu1-wpengine.netdna-ssl.com/wp-content/uploads/2015/05/sponsor-1.png" />
-                </div>
-                <div class="column">
-                    <img class="classes.obliviot_darkSponserImage" data-component-props="src={this.props.sponsor_image4}" src="https://23xz2l29cwke20cu15l1tfu1-wpengine.netdna-ssl.com/wp-content/uploads/2015/05/sponsor-1.png" />
+                <div class="classes.dark_mobile_nav_right">
+                    <i class="fa fa-bars"></i>
                 </div>
             </div>
         </div>
@@ -50,6 +44,36 @@
              $("#about_button").click(function(){
                  $('#about_modal').modal('show');
              });
+
+             $("#menu_login").hover(function(){
+                $(this).css("border-color", "white");
+                }, function(){
+                $(this).css("border-color", "transparent");
+            }); 
+
+            $("#menu_mobile").hover(function(){
+                $(this).css("border-color", "white");
+                }, function(){
+                $(this).css("border-color", "transparent");
+            }); 
+
+            $("#menu_store").hover(function(){
+                $(this).css("border-color", "white");
+                }, function(){
+                $(this).css("border-color", "transparent");
+            });
+
+            $("#menu_about").hover(function(){
+                $(this).css("border-color", "white");
+                }, function(){
+                $(this).css("border-color", "transparent");
+            });
+
+            $("#menu_home").hover(function(){
+                $(this).css("border-color", "white");
+                }, function(){
+                $(this).css("border-color", "transparent");
+            });
          });
     </script>
 </html>
