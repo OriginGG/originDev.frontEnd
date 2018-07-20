@@ -16,26 +16,26 @@ class AdminThemeController extends Component {
         modal_open: false, preview_image_src: null, image_src: null
     }
     componentDidMount = () => {
-        let obliviot_dark = 'border-color:rgba(0,0,0,0)';
-        let obliviot_light = 'border-color:rgba(0,0,0,0)';
-        let enigma_dark = 'border-color:rgba(0,0,0,0)';
-        let enigma_light = 'border-color:rgba(0,0,0,0)';
+        // let obliviot_dark = 'border-color:rgba(0,0,0,0)';
+        // let obliviot_light = 'border-color:rgba(0,0,0,0)';
+        // let enigma_dark = 'border-color:rgba(0,0,0,0)';
+        // let enigma_light = 'border-color:rgba(0,0,0,0)';
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
         this.file_uploaded = false;
         this.selected_theme = this.props.uiStore.current_organisation.themeId;
         if (this.selected_theme === 'light') {
-            enigma_dark = 'border-color:rgba(0,0,0,0)';
-            obliviot_dark = 'border-color:rgba(0,0,0,0)';
-            obliviot_light = 'border-color:rgba(0,0,0,0)';
-            enigma_light = 'border-color:blue';
+            // enigma_dark = 'border-color:rgba(0,0,0,0)';
+            // obliviot_dark = 'border-color:rgba(0,0,0,0)';
+            // obliviot_light = 'border-color:rgba(0,0,0,0)';
+            // enigma_light = 'border-color:blue';
         } else {
-            enigma_dark = 'border-color:blue';
-            obliviot_dark = 'border-color:rgba(0,0,0,0)';
-            obliviot_light = 'border-color:rgba(0,0,0,0)';
-            enigma_light = 'border-color:rgba(0,0,0,0)';
+            // enigma_dark = 'border-color:blue';
+            // obliviot_dark = 'border-color:rgba(0,0,0,0)';
+            // obliviot_light = 'border-color:rgba(0,0,0,0)';
+            // enigma_light = 'border-color:rgba(0,0,0,0)';
         }
         this.setState({
-            enigma_dark, enigma_light, obliviot_dark, obliviot_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
+            /* enigma_dark, enigma_light, obliviot_dark, obliviot_light, */ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
         });
     }
     editImage = () => {

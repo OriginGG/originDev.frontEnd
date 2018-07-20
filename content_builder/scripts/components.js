@@ -85,6 +85,7 @@ const component_array = [
     { source_html: './src/html/themes/admin/OrganizationAdminSponserComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminThemeComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminThemeModalComponent.html', sub_dir: 'admin' },
+    { source_html: './src/html/themes/admin/OrganizationAdminNewThemeComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminBlogComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminCollaboratorComponent.html', sub_dir: 'admin' },
     
