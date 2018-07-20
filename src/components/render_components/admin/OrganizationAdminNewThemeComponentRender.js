@@ -13,19 +13,19 @@ class OrganizationAdminThemeComponentRender extends Component {
                 </div>
                 <div className={this.props.classes.theme_type_container}>
                     <div className={this.props.classes.admin_theme_display_container} style={this.props.enigma_dark_style} onClick={this.props.handleEnigmaDarkClick}>
-                        <img className={this.props.classes.admin_theme_display_image}/>
+                        <img className={this.props.classes.admin_theme_display_image} src={this.props.enigma_dark_image}/>
                         <div className={this.props.classes.admin_theme_display_text}>Enigma Dark</div>
                     </div>
                     <div className={this.props.classes.admin_theme_display_container} style={this.props.enigma_light_style} onClick={this.props.handleEnigmaLightClick}>
-                        <img className={this.props.classes.admin_theme_display_image}/>
+                        <img className={this.props.classes.admin_theme_display_image} src={this.props.enigma_light_image}/>
                         <div className={this.props.classes.admin_theme_display_text}>Enigma Light</div>
                     </div>
                     <div className={this.props.classes.admin_theme_display_container} style={this.props.obliviot_dark_style} onClick={this.props.handleObliviotDarkClick}>
-                        <img className={this.props.classes.admin_theme_display_image}/>
+                        <img className={this.props.classes.admin_theme_display_image} src={this.props.obliviot_dark_image}/>
                         <div className={this.props.classes.admin_theme_display_text}>Obliviot Dark</div>
                     </div>
                     <div className={this.props.classes.admin_theme_display_container} style={this.props.obliviot_light_style} onClick={this.props.handleObliviotLightClick}>
-                        <img className={this.props.classes.admin_theme_display_image}/>
+                        <img className={this.props.classes.admin_theme_display_image} src={this.props.obliviot_light_image}/>
                         <div className={this.props.classes.admin_theme_display_text}>Obliviot Light</div>
                     </div>
                 </div>

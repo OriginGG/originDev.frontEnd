@@ -16,26 +16,27 @@ class AdminThemeController extends Component {
         modal_open: false, preview_image_src: null, image_src: null
     }
     componentDidMount = () => {
-        // let obliviot_dark = 'border-color:rgba(0,0,0,0)';
-        // let obliviot_light = 'border-color:rgba(0,0,0,0)';
-        // let enigma_dark = 'border-color:rgba(0,0,0,0)';
-        // let enigma_light = 'border-color:rgba(0,0,0,0)';
+        let obliviot_dark = { borderWidth: '0px' };
+        let obliviot_light = { borderWidth: '0px' };
+        let enigma_dark = { borderWidth: '0px' };
+        let enigma_light = { borderWidth: '0px' };
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
         this.file_uploaded = false;
         this.selected_theme = this.props.uiStore.current_organisation.themeId;
+        console.log(`them is ${this.selected_theme}`);
         if (this.selected_theme === 'light') {
-            // enigma_dark = 'border-color:rgba(0,0,0,0)';
-            // obliviot_dark = 'border-color:rgba(0,0,0,0)';
-            // obliviot_light = 'border-color:rgba(0,0,0,0)';
-            // enigma_light = 'border-color:blue';
+            enigma_dark = { borderWidth: '0px' };
+            obliviot_dark = { borderWidth: '0px' };
+            obliviot_light = { borderWidth: '0px' };
+            enigma_light = { borderWidth: '4px' };
         } else {
-            // enigma_dark = 'border-color:blue';
-            // obliviot_dark = 'border-color:rgba(0,0,0,0)';
-            // obliviot_light = 'border-color:rgba(0,0,0,0)';
-            // enigma_light = 'border-color:rgba(0,0,0,0)';
+            enigma_dark = { borderWidth: '4px' };
+            obliviot_dark = { borderWidth: '0px' };
+            obliviot_light = { borderWidth: '0px' };
+            enigma_light = { borderWidth: '0px' };
         }
         this.setState({
-            /* enigma_dark, enigma_light, obliviot_dark, obliviot_light, */ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
+            enigma_dark, enigma_light, obliviot_dark, obliviot_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
         });
     }
     editImage = () => {
@@ -121,31 +122,23 @@ class AdminThemeController extends Component {
     }
     handleObliviotLightClick = () => {
         console.log('obliviot light clicked');
-        this.enigma_dark = 'border-color:rgba(0,0,0,0)';
-        this.obliviot_dark = 'border-color:rgba(0,0,0,0)';
-        this.obliviot_light = 'border-color:blue';
-        this.enigma_light = 'border-color:rgba(0,0,0,0)';
+        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
+        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '4px' } });
     }
     handleObliviotDarkClick = () => {
         console.log('obliviot dark clicked');
-        this.enigma_dark = 'border-color:rgba(0,0,0,0)';
-        this.obliviot_dark = 'border-color:blue';
-        this.obliviot_light = 'border-color:rgba(0,0,0,0)';
-        this.enigma_light = 'border-color:rgba(0,0,0,0)';
+        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '4px' } });
+        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
     }
     handleEnigmaDarkClick = () => {
         console.log('enigma dark clicked');
-        this.enigma_dark = 'border-color:blue';
-        this.obliviot_dark = 'border-color:rgba(0,0,0,0)';
-        this.obliviot_light = 'border-color:rgba(0,0,0,0)';
-        this.enigma_light = 'border-color:rgba(0,0,0,0)';
+        this.setState({ enigma_dark: { borderWidth: '4px' }, obliviot_dark: { borderWidth: '0px' } });
+        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
     }
     handleEnigmaLightClick = () => {
         console.log('enigma light clicked');
-        this.enigma_dark = 'border-color:rgba(0,0,0,0)';
-        this.obliviot_dark = 'border-color:rgba(0,0,0,0)';
-        this.obliviot_light = 'border-color:rgba(0,0,0,0)';
-        this.enigma_light = 'border-color:blue';
+        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
+        this.setState({ enigma_light: { borderWidth: '4px' }, obliviot_light: { borderWidth: '0px' } });
     }
     render() {
         let md = <OrganizationAdminThemeComponentRender
@@ -156,10 +149,14 @@ class AdminThemeController extends Component {
             handleObliviotDarkClick={this.handleObliviotDarkClick}
             handleEnigmaDarkClick={this.handleEnigmaDarkClick}
             handleEnigmaLightClick={this.handleEnigmaLightClick}
-            obliviot_light_style={this.obliviot_light}
-            obliviot_dark_style={this.obliviot_dark}
-            enigma_dark_style={this.enigma_dark}
-            enigma_light_style={this.enigma_light}
+            obliviot_light_style={this.state.obliviot_light}
+            obliviot_dark_style={this.state.obliviot_dark}
+            enigma_dark_style={this.state.enigma_dark}
+            enigma_light_style={this.state.enigma_light}
+            enigma_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
+            enigma_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
+            obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
+            obliviot_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
         />;
         if (this.state.modal_open) {
             md = <div>
