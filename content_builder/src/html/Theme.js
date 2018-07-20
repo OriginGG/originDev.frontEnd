@@ -2099,6 +2099,38 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         padding: '20px 0px 20px 0px'
     },
+    admin_theme_display_container: {
+        float: 'left',
+        width: '100px',
+        height: '200px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'rgba(255,255,255,0)',
+        cursor: 'pointer',
+        marginRight: '10px',
+        marginLeft: '10px',
+        display: 'table',
+        position: 'relative',
+    },
+    admin_theme_display_image: {
+        width: '150px',
+        height: '300px',
+        cursor: 'pointer',
+        objectFit: 'cover'
+    },
+    admin_theme_display_text: {
+        position: 'absolute',
+        width: '100%',
+        height: '20px',
+        textAlign: 'center',
+        backgroundColor: 'black',
+        color: 'white',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        bottom: '0px',
+        left: '0px',
+    },
     jumbotron_container: {
         width: '100%',
         display: 'table',
