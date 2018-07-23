@@ -68,6 +68,7 @@ const component_array = [
     { source_html: './src/html/themes/obliviot/dark/OrganizationNewsComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationBlogComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationSponserComponent.html', sub_dir: 'themes/obliviot/dark' },
+    { source_html: './src/html/themes/obliviot/dark/OrganizationSponserComponentElement.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationNavComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationMobileMenuComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationMobileSubMenuComponent.html', sub_dir: 'themes/obliviot/dark' },
