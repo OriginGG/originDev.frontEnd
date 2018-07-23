@@ -2105,7 +2105,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         borderStyle: 'solid',
         borderWidth: '2px',
-        borderColor: 'rgba(255,255,255,0)',
+        borderColor: 'blue',
         cursor: 'pointer',
         marginRight: '10px',
         marginLeft: '10px',

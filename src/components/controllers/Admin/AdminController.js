@@ -17,7 +17,7 @@ import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminRosterController from './sub_controllers/AdminRosterController';
 import AdminStaffController from './sub_controllers/AdminStaffController';
-import AdminThemeController from './sub_controllers/AdminThemeController';
+import AdminThemeController from './sub_controllers/AdminNewThemeController';
 import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
 import { getOrganisationQuery } from '../../../queries/organisation';

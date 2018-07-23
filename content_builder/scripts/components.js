@@ -64,6 +64,7 @@ const component_array = [
     { source_html: './src/html/themes/obliviot/dark/OrganizationMatchesComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationStitchComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationNewsComponent.html', sub_dir: 'themes/obliviot/dark' },
+    { source_html: './src/html/themes/obliviot/dark/OrganizationBlogComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationSponserComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationNavComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationMobileMenuComponent.html', sub_dir: 'themes/obliviot/dark' },
@@ -85,6 +86,7 @@ const component_array = [
     { source_html: './src/html/themes/admin/OrganizationAdminSponserComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminThemeComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminThemeModalComponent.html', sub_dir: 'admin' },
+    { source_html: './src/html/themes/admin/OrganizationAdminNewThemeComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminBlogComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminCollaboratorComponent.html', sub_dir: 'admin' },
     
