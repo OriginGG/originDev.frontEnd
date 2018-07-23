@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 
-class DarkOrganizationSponserComponentElementRender extends Component {
+class ObliviotOrganizationSponserComponentElementRender extends Component {
     render( ) {
         return (
             <div>
@@ -21,8 +21,8 @@ class DarkOrganizationSponserComponentElementRender extends Component {
     }
 }
 
-DarkOrganizationSponserComponentElementRender.propTypes = {
+ObliviotOrganizationSponserComponentElementRender.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default injectSheet( GlobalStyles )( DarkOrganizationSponserComponentElementRender )
+export default injectSheet( GlobalStyles )( ObliviotOrganizationSponserComponentElementRender )

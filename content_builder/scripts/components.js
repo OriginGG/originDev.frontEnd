@@ -45,6 +45,7 @@ const component_array = [
     { source_html: './src/html/themes/enigma/light/OrganizationTwitterComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationNewsComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationSponserComponent.html', sub_dir: 'themes/enigma/light' },
+    { source_html: './src/html/themes/enigma/light/OrganizationSponserComponentElement.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationNavComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationLogoComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationMobileMenuComponent.html', sub_dir: 'themes/enigma/light' },
