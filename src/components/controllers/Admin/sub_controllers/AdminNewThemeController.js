@@ -16,6 +16,7 @@ class AdminThemeController extends Component {
         modal_open: false, preview_image_src: null, image_src: null
     }
     componentDidMount = () => {
+        let choosen_theme = 'enigma';
         let obliviot_dark = { borderWidth: '0px' };
         let obliviot_light = { borderWidth: '0px' };
         let enigma_dark = { borderWidth: '0px' };
@@ -23,20 +24,29 @@ class AdminThemeController extends Component {
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
         this.file_uploaded = false;
         this.selected_theme = this.props.uiStore.current_organisation.themeId;
-        console.log(`them is ${this.selected_theme}`);
-        if (this.selected_theme === 'light') {
-            enigma_dark = { borderWidth: '0px' };
-            obliviot_dark = { borderWidth: '0px' };
-            obliviot_light = { borderWidth: '0px' };
-            enigma_light = { borderWidth: '4px' };
+        this.selected_base_theme = this.props.uiStore.current_organisation.themeBaseId;
+        console.log(`theme is ${this.selected_base_theme}/${this.selected_theme}`);
+        if (this.selected_base_theme === 'enigma') {
+            choosen_theme = 'enigma';
+            if (this.selected_theme === 'light') {
+                enigma_dark = { borderWidth: '0px' };
+                enigma_light = { borderWidth: '4px' };
+            } else {
+                enigma_dark = { borderWidth: '4px' };
+                enigma_light = { borderWidth: '0px' };
+            }
         } else {
-            enigma_dark = { borderWidth: '4px' };
-            obliviot_dark = { borderWidth: '0px' };
-            obliviot_light = { borderWidth: '0px' };
-            enigma_light = { borderWidth: '0px' };
+            choosen_theme = 'obliviot';
+            if (this.selected_theme === 'light') {
+                obliviot_dark = { borderWidth: '0px' };
+                obliviot_light = { borderWidth: '4px' };
+            } else {
+                obliviot_dark = { borderWidth: '4px' };
+                obliviot_light = { borderWidth: '0px' };
+            }
         }
         this.setState({
-            enigma_dark, enigma_light, obliviot_dark, obliviot_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
+            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
         });
     }
     editImage = () => {
@@ -111,10 +121,12 @@ class AdminThemeController extends Component {
                 'mutation', updateOrganisationQuery,
                 {
                     subDomain: this.props.uiStore.current_organisation.subDomain,
-                    themeId: this.new_theme
+                    themeId: this.new_theme,
+                    themeBaseId: this.state.choosen_theme
                 }
             );
             this.props.uiStore.current_organisation.themeId = this.new_theme;
+            this.props.uiStore.current_organisation.themeBaseId = this.state.choosen_theme;
             toast.success('Theme updated !', {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -124,21 +136,29 @@ class AdminThemeController extends Component {
         console.log('obliviot light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '4px' } });
+        this.setState({ choosen_theme: 'obliviot' });
+        this.new_theme = 'light';
     }
     handleObliviotDarkClick = () => {
         console.log('obliviot dark clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '4px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ choosen_theme: 'obliviot' });
+        this.new_theme = 'dark';
     }
     handleEnigmaDarkClick = () => {
         console.log('enigma dark clicked');
         this.setState({ enigma_dark: { borderWidth: '4px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ choosen_theme: 'enigma' });
+        this.new_theme = 'dark';
     }
     handleEnigmaLightClick = () => {
         console.log('enigma light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '4px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ choosen_theme: 'enigma' });
+        this.new_theme = 'light';
     }
     render() {
         let md = <OrganizationAdminThemeComponentRender

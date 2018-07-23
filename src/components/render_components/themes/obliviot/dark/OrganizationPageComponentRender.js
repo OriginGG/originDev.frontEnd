@@ -12,12 +12,12 @@ class DarkOrganizationPageComponentRender extends Component {
                 <div className={this.props.classes.obliviot_dark_bg_filter}/>
                 <div className={this.props.classes.obliviot_darkContraint}>
                     <header className={this.props.classes.obliviot_darkHeader}>
-                        <div/>
+                        <div >{this.props.navContent}</div>
                     </header>
-                    <div id="sponsors"/>
+                    <div id="sponsors">{this.props.topSponsorContent}</div>
                     <div className={this.props.classes.obliviot_darkBlogContainer}>
                         <div className="ui stackable two column grid">
-                            <div/>
+                            <div >{this.props.blogContent}</div>
                         </div>
                     </div>
                     <div className={this.props.classes.obliviot_dark_section_control_container}>
