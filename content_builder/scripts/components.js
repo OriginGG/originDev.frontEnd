@@ -23,6 +23,7 @@ const component_array = [
     { source_html: './src/html/themes/enigma/dark/OrganizationTwitterComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationNewsComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationSponserComponent.html', sub_dir: 'themes/enigma/dark' },
+    { source_html: './src/html/themes/enigma/dark/OrganizationSponserComponentElement.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationNavComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationLogoComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationMobileMenuComponent.html', sub_dir: 'themes/enigma/dark' },
