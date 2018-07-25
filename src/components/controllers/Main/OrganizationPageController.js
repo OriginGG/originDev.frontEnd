@@ -101,8 +101,10 @@ class OrganizationPageController extends Component {
                 const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 let OrganizationBlogController = null;
+                let OrganizationBlogControllerDefault = null;
                 if (themeBase === 'obliviot') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
+                    OrganizationBlogControllerDefault = OrganizationBlogController.default;
                 }
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
@@ -152,7 +154,7 @@ class OrganizationPageController extends Component {
                     OrganizationRosterController: OrganizationRosterController.default,
                     OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
-                    OrganizationBlogController: OrganizationBlogController.default,
+                    OrganizationBlogController: OrganizationBlogControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
                 if (this.invite_details) {
