@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
 import { GlobalStyles } from 'Theme/Theme';
-import { Dropdown, Button, Input } from 'semantic-ui-react';
+import { Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { inject } from 'mobx-react';
 import _ from 'lodash';
 import { Modal } from 'antd';
@@ -11,7 +11,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
 import { createRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
-import { gameOptions } from './data/AllGames.js';
+import { gameOptions } from './data/AllGames';
 
 const { confirm } = Modal;
 

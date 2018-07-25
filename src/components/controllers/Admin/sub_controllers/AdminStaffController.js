@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import _ from 'lodash';
-import { Dropdown, Header, Button } from 'semantic-ui-react';
+import { Dropdown, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import { deleteStaffQuery, deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
-import OrganizationAdminStaffComponentRender from '../../../render_components/admin/OrganizationAdminStaffComponentRender';
+import OrganizationAdminStaffComponentRender from '../../../render_components/admin/OrganizationAdminStaffComponentRender.js';
 import { staffOptions } from './data/AllPositions.js';
-import AdminPickListController from './AdminPickList';
+import AdminPickListController from './AdminPickList.js';
 
 const { confirm } = Modal;
 

@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 import { Provider } from 'mobx-react';
 import { ApolloProvider } from 'react-apollo';
 import { Router } from 'react-router-dom';
+import { StripeProvider } from 'react-stripe-elements';
 import { ThemeProvider } from 'react-jss';
 import historyStore from './utils/stores/browserHistory';
 import uiStore from './utils/stores/uiStore';
@@ -42,7 +43,9 @@ ReactDOM.render(
         <ThemeProvider theme={GlobalTheme}>
             <ApolloProvider client={appManager.apolloClient}>
                 <Provider {...stores}>
-                    <App />
+                    <StripeProvider apiKey="pk_test_12345">
+                        <App />
+                        </StripeProvider>
                 </Provider>
             </ApolloProvider>
         </ThemeProvider>

@@ -53,6 +53,20 @@ class OrganizationAdminMenuComponentRender extends Component {
                                     </div>
                                 </div>
                             </a>
+                            <a className="item" onClick={e => {
+                                this
+                                    .props
+                                    .handleMainMenuClick( 'subscription', e );
+                            }}>
+                                <div className={this.props.classes.menu_item}>
+                                    <div className={this.props.classes.menu_item_icon}>
+                                        <i className="dollar icon"/>
+                                    </div>
+                                    <div className={this.props.classes.menu_item_label}>
+                                        Subscription
+                                    </div>
+                                </div>
+                            </a>
                             <div className="ui inverted accordion">
                                 <div >{this.props.dropdown}</div>
                             </div>

@@ -14,7 +14,7 @@ import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
 import { getSponsorsQuery } from '../../../queries/sponsors';
-import { getIndividualUserByEmailQuery } from '../../../queries/individuals.js';
+import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
 
 // import { getStaffQuery } from '../../../queries/staff';
