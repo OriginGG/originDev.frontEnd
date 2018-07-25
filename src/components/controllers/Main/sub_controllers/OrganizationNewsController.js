@@ -49,7 +49,6 @@ class OrganizationNewsController extends Component {
             });
             this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
-        console.log(`useable array = ${JSON.stringify(this.results_array)}`);
         if (blog_data.resultData.edges.length > 0) {
             this.setState({
                 OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,

@@ -36,6 +36,7 @@ class OrganizationPageController extends Component {
         OrganizationSponserListController: null,
         OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
+        OrganizationBlogController: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         display_rosters: false,
@@ -86,6 +87,7 @@ class OrganizationPageController extends Component {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+                const themeBase = this.props.uiStore.current_organisation.themeBaseId;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
@@ -98,6 +100,10 @@ class OrganizationPageController extends Component {
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
                 const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
+                let OrganizationBlogController = null;
+                if (themeBase === 'obliviot') {
+                    OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
+                }
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
@@ -146,6 +152,7 @@ class OrganizationPageController extends Component {
                     OrganizationRosterController: OrganizationRosterController.default,
                     OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
+                    OrganizationBlogController: OrganizationBlogController.default,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
                 if (this.invite_details) {
@@ -279,6 +286,7 @@ class OrganizationPageController extends Component {
         const { OrganizationRosterController } = this.state;
         const { OrganizationSponserListController } = this.state;
         const { OrganizationStaffController } = this.state;
+        const { OrganizationBlogController } = this.state;
 
         let rosterComponent = <span />;
         if (this.isMobile()) {
@@ -327,6 +335,7 @@ class OrganizationPageController extends Component {
             roster_style={this.state.roster_style}
             copyright={cp}
             newsContent={<OrganizationNewsController />}
+            blogContent={<OrganizationBlogController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
