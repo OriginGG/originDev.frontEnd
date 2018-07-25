@@ -28,7 +28,9 @@ class DarkOrganizationBlogComponentRender extends Component {
                                 width: '100%',
                                 height: '68px',
                                 overflowY: 'hidden'
-                            }}>{this.props.blog_content_1}</div>
+                            }}>
+                                <p className={this.props.classes.obliviot_dark_news_body}>{this.props.blog_content_1}</p>
+                            </div>
                             <div className={this.props.classes.obliviot_dark_news_decor}/>
                         </div>
                     </div>
@@ -53,7 +55,9 @@ class DarkOrganizationBlogComponentRender extends Component {
                                 width: '100%',
                                 height: '68px',
                                 overflowY: 'hidden'
-                            }}>{this.props.blog_content_2}</div>
+                            }}>
+                                <p className={this.props.classes.obliviot_dark_news_body}>{this.props.blog_content_2}</p>
+                            </div>
                             <div className={this.props.classes.obliviot_dark_news_decor}/>
                         </div>
                     </div>
@@ -76,7 +80,9 @@ class DarkOrganizationBlogComponentRender extends Component {
                                 width: '100%',
                                 height: '68px',
                                 overflowY: 'hidden'
-                            }}>{this.props.blog_content_3}</div>
+                            }}>
+                                <p className={this.props.classes.obliviot_dark_news_body}>{this.props.blog_content_3}</p>
+                            </div>
                             <div className={this.props.classes.obliviot_dark_news_decor}/>
                         </div>
                     </div>
