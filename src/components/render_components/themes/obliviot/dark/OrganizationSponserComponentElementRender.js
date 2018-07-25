@@ -8,8 +8,13 @@ class DarkOrganizationSponserComponentElementRender extends Component {
     render( ) {
         return (
             <div>
-                <div className="column" onClick={this.props.handleClick}>
-                    <img className={this.props.classes.obliviot_darkSponserImage} src={this.props.sponsor_image}/>
+                <div style={{
+                    width: '274px',
+                    float: 'left'
+                }} className="container col-sm-4" onClick={this.props.handleClick}>
+                    <img alt="Change Logo" style={{
+                        height: '35px'
+                    }} className={this.props.classes.header_logo} src={this.props.sponsor_image}/>
                 </div>
             </div>
         )
