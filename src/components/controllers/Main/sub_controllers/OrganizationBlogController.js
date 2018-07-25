@@ -6,6 +6,7 @@ import { Modal } from 'antd';
 import moment from 'moment';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
+import default_image from '../../../../assets/images/game_images/blog_default_image.jpg';
 
 const BlogModal = (props) => {
     return (
@@ -22,16 +23,15 @@ const BlogModal = (props) => {
             </div>
         </Modal >);
 };
-class OrganizationNewsController extends Component {
+class OrganizationBlogController extends Component {
     state = {
-        blog_modal_open: false, blog_media: null, blog_content: null, OrganizationNewsModalComponentRender: null, visible: false
+        blog_modal_open: false, OrganizationBlogComponentRender: null, OrganizationNewsModalComponentRender: null, visible: false
     };
     componentDidMount = async () => {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        const comp = await import(`../../../render_components/themes/${theme}/OrganizationBlogComponentRender`);
+        const OrganizationBlogComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogComponentRender`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
-        const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModuleComponentRender`);
-        const OrganizationNewsComponentRender = comp.default;
+        // const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogModuleComponentRender`);
         const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
         this.results_array = [];
@@ -41,16 +41,15 @@ class OrganizationNewsController extends Component {
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
             const formattedDate = moment(createdAt).format('lll');
-            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             this.results_array.push({
-                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate
+                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate, key: i
             });
             // const { createdAt } = blog.node;
-            this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
+            // this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
         if (blog_data.resultData.edges.length > 0) {
             this.setState({
-                OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,
+                OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
                 OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
                 visible: true
             });
@@ -73,11 +72,48 @@ class OrganizationNewsController extends Component {
         if (!this.state.visible) {
             return null;
         }
+        let b_title_1 = 'Coming Soon';
+        let b_media_1 = default_image;
+        let b_content_1 = 'Latest news coming soon';
+        let b_title_2 = 'Coming Soon';
+        let b_media_2 = default_image;
+        let b_content_2 = 'Latest news coming soon';
+        let b_title_3 = 'Coming Soon';
+        let b_media_3 = default_image;
+        let b_content_3 = 'Latest news coming soon';
+
+        console.log(`blog array = ${JSON.stringify(this.results_array)}`);
+
+        if (this.results_array[0]) {
+            b_title_1 = this.results_array[0].title;
+            b_media_1 = this.results_array[0].media;
+            b_content_1 = this.results_array[0].content;
+        }
+        if (this.results_array[1]) {
+            b_title_2 = this.results_array[1].title;
+            b_media_2 = this.results_array[1].media;
+            b_content_2 = this.results_array[1].content;
+        }
+        if (this.results_array[2]) {
+            b_title_3 = this.results_array[2].title;
+            b_media_3 = this.results_array[2].media;
+            b_content_3 = this.results_array[2].content;
+        }
         const { OrganizationNewsModalComponentRender } = this.state;
-        const { OrganizationNewsModuleComponentRender } = this.state;
+        const { OrganizationBlogComponentRender } = this.state;
         return (
             <div>
-                <OrganizationNewsModuleComponentRender news_items={this.blog_array} />
+                <OrganizationBlogComponentRender
+                    blog_media_1={b_media_1}
+                    blog_content_1={b_content_1}
+                    blog_title_1={b_title_1}
+                    blog_media_2={b_media_2}
+                    blog_content_2={b_content_2}
+                    blog_title_2={b_title_2}
+                    blog_media_3={b_media_3}
+                    blog_content_3={b_content_3}
+                    blog_title_3={b_title_3}
+                />
                 <BlogModal
                     modal_open={this.state.blog_modal_open}
                     content={<OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.state.blog_media} blog_content={this.state.blog_content} />}
@@ -91,9 +127,9 @@ BlogModal.propTypes = {
     modal_open: PropTypes.bool.isRequired,
     content: PropTypes.object.isRequired
 };
-OrganizationNewsController.propTypes = {
+OrganizationBlogController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationNewsController));
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationBlogController));

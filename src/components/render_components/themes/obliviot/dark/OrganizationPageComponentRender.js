@@ -16,9 +16,7 @@ class DarkOrganizationPageComponentRender extends Component {
                     </header>
                     <div id="sponsors">{this.props.topSponsorContent}</div>
                     <div className={this.props.classes.obliviot_darkBlogContainer}>
-                        <div className="ui stackable two column grid">
-                            <div >{this.props.blogContent}</div>
-                        </div>
+                        <div >{this.props.blogContent}</div>
                     </div>
                     <div className={this.props.classes.obliviot_dark_section_control_container}>
                         <div className={this.props.classes.obliviot_dark_section_divider}/>

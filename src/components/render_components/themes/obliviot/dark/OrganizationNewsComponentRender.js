@@ -27,7 +27,9 @@ class DarkOrganizationNewsComponentRender extends Component {
                             width: '100%',
                             height: '68px',
                             overflowY: 'hidden'
-                        }}>{this.props.blog_content}</div>
+                        }}>
+                            <span className={this.props.classes.obliviot_dark_news_body}>{this.props.blog_content}</span>
+                        </div>
                         <div className={this.props.classes.obliviot_dark_news_decor}/>
                     </div>
                 </div>
