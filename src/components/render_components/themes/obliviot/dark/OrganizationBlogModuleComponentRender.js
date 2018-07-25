@@ -8,7 +8,10 @@ class DarkOrganizationNewsModuleComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div id="news_container">
+                <div id="news_container" className={this.props.classes.dark_news_container}>
+                    <div className={this.props.classes.section_title_container}>
+                        <h2>LATEST NEWS</h2>
+                    </div>
                     <div id="organization_news_items">{this.props.news_items}</div>
                 </div>
             </div>
