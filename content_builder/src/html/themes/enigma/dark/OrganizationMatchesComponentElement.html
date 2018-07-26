@@ -23,19 +23,19 @@
    </head>
    <body>
         <div data-component-name="dark_OrganizationMatchesComponentElement">
-            <tr style="color: rgba(0, 0, 0, 0.87); height: 58px;padding-top:5px;">
-                <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
-                    <img size="40" data-component-props="src={this.props.matches_image_1}" style="color: rgb(255, 255, 255); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
-                    <br>
-                </td>
-                <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
-                    <img size="40" data-component-props="src={this.props.matches_image_2}" style="color: rgb(255, 255, 255); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
-                    <br>
-                </td>
-                <td style="color: white; font-size:18px; padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 18px; font-weight: 800; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
-                    <span data-component-value="{this.props.matches_score}">3 - 2</span>
-                </td>
-            </tr>
+            <div class="classes.dark_recent_matches_element_container">
+                <div class="ui three column grid">
+                    <div class="column">
+                        <img class="classes.dark_recent_matches_element_image"  data-component-props="src={this.props.matches_image_1}" src="http://api.originbeta.net/defaultRecentMatch/wow.png" />
+                    </div>
+                    <div class="column">
+                        <img class="classes.dark_recent_matches_element_image" data-component-props="src={this.props.matches_image_2}" src="http://api.originbeta.net/defaultRecentMatch/1518910314231Capture.PNG" />
+                    </div>
+                    <div class="column">
+                        <div class="classes.dark_recent_matches_element_score" data-component-value="{this.props.matches_score}">3 - 2</div>
+                    </div>
+                </div>
+            </div>
         </div>
    </body>
    <script>
