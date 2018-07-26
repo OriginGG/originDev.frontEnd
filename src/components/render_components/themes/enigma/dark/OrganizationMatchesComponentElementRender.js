@@ -8,33 +8,19 @@ class DarkOrganizationMatchesComponentElementRender extends Component {
     render( ) {
         return (
             <div>
-                <img size="40" style={{
-                    color: 'rgb(255, 255, 255)',
-                    backgroundColor: 'transparent',
-                    userSelect: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '20px',
-                    borderRadius: '0px',
-                    height: '40px',
-                    width: '40px'
-                }} src={this.props.matches_image_1}/>
-                <br/>
-                <img size="40" style={{
-                    color: 'rgb(255, 255, 255)',
-                    backgroundColor: 'transparent',
-                    userSelect: 'none',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '20px',
-                    borderRadius: '0px',
-                    height: '40px',
-                    width: '40px'
-                }} src={this.props.matches_image_2}/>
-                <br/>
-                <span >{this.props.matches_score}</span>
+                <div className={this.props.classes.dark_recent_matches_element_container}>
+                    <div className="ui three column grid">
+                        <div className="column">
+                            <img className={this.props.classes.dark_recent_matches_element_image} src={this.props.matches_image_1}/>
+                        </div>
+                        <div className="column">
+                            <img className={this.props.classes.dark_recent_matches_element_image} src={this.props.matches_image_2}/>
+                        </div>
+                        <div className="column">
+                            <div className={this.props.classes.dark_recent_matches_element_score}>{this.props.matches_score}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
