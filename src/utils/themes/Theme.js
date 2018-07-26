@@ -543,7 +543,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         padding: '0px 0px 0px 0px',
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+        position: 'absolute'
     },
 
     obliviot_darkContraint: {

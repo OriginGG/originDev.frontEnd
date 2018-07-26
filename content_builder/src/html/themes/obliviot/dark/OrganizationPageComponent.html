@@ -23,94 +23,94 @@
    </head>
    <body>
       <div data-component-name="dark_OrganizationPageComponent"  class="classes.darkObliotBG">
-            <img id="bg_img" class="classes.obliviot_dark_bg_img" src="../images/dark_main.jpeg" alt=""/>
-            <div class="classes.obliviot_dark_bg_filter"></div>
-            <div class="classes.obliviot_darkContraint">
-                <header class="classes.obliviot_darkHeader">
-                    <div data-component-value="{this.props.navContent}">Nav</div>
-                </header>
-                <div  id="sponsors" data-component-value="{this.props.topSponsorContent}">Nav</div>
-                <div class="classes.obliviot_darkBlogContainer">
-                    <div class="ui stackable two column grid">
+            <div class="classes.dark_pageTestContraint">
+                <img id="bg_img" class="classes.obliviot_dark_bg_img" src="../images/dark_main.jpeg" alt=""/>
+                <div class="classes.obliviot_dark_bg_filter"></div>
+                <div class="classes.obliviot_darkContraint">
+                    <header class="classes.obliviot_darkHeader">
+                        <div data-component-value="{this.props.navContent}">Nav</div>
+                    </header>
+                    <div  id="sponsors" data-component-value="{this.props.topSponsorContent}">Nav</div>
+                    <div class="classes.obliviot_darkBlogContainer">
                         <div data-component-value="{this.props.blogContent}">Nav</div>
                     </div>
-                </div>
-                <div class="classes.obliviot_dark_section_control_container">
-                    <div class="classes.obliviot_dark_section_divider"></div>
-                    <div class="classes.obliviot_dark_section_title">STREAMS</div>
-                    <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
-                </div>
-                <div class="classes.obliviot_dark_twitch_container">
-                    <div class="ui stackable three column grid">
-                        <div data-component-value="{this.props.stitchContent}">Stitch</div>
+                    <div class="classes.obliviot_dark_section_control_container">
+                        <div class="classes.obliviot_dark_section_divider"></div>
+                        <div class="classes.obliviot_dark_section_title">STREAMS</div>
+                        <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
                     </div>
-                </div>
-                <div>
-                    <div class="ui stackable two column grid">
-                        <div class="ten wide column">
-                            <div class="classes.obliviot_dark_section_control_container">
-                                <div class="classes.obliviot_dark_section_divider"></div>
-                                <div class="classes.obliviot_dark_section_title">NEWS</div>
-                                <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
-                            </div>
-                            <div id="news_div">
-                                <div data-component-value="{this.props.newsContent}">News</div>
-                            </div>
-                        </div>
-                        <div class="six wide column">
-                            <div class="classes.obliviot_dark_section_control_container">
-                                <div class="classes.obliviot_dark_section_divider"></div>
-                                <div class="classes.obliviot_dark_section_title">VIDEOS</div>
-                                <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
-                            </div>
-                            <div id="video_div">
-                                <div data-component-value="{this.props.videoContent}">News</div>
-                            </div>
+                    <div class="classes.obliviot_dark_twitch_container">
+                        <div class="ui stackable three column grid">
+                            <div data-component-value="{this.props.stitchContent}">Stitch</div>
                         </div>
                     </div>
-                </div>
-                <div class="classes.obliviot_dark_section_control_container">
-                    <div class="classes.obliviot_dark_section_divider"></div>
-                    <div class="classes.obliviot_dark_section_title">MATCHES</div>
-                    <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
-                </div>
-                <div id="matches_container" class="ui stackable three column grid">
-                    <div data-component-value="{this.props.recent_matches}">Matches</div>
-                </div>
-                <div id="bottom_nav" class="classes.obliviot_dark_bottom_nav">
-                    <div class="ui stackable five column grid">
-                        <div class="column">
-                            <img data-component-props="src={this.props.image_src}" class="classes.obliviot_dark_bottom_nav_logo" src="../images/disrupt_logo.jpg" />
+                    <div>
+                        <div class="ui stackable two column grid">
+                            <div class="ten wide column">
+                                <div class="classes.obliviot_dark_section_control_container">
+                                    <div class="classes.obliviot_dark_section_divider"></div>
+                                    <div class="classes.obliviot_dark_section_title">NEWS</div>
+                                    <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
+                                </div>
+                                <div id="news_div">
+                                    <div data-component-value="{this.props.newsContent}">News</div>
+                                </div>
+                            </div>
+                            <div class="six wide column">
+                                <div class="classes.obliviot_dark_section_control_container">
+                                    <div class="classes.obliviot_dark_section_divider"></div>
+                                    <div class="classes.obliviot_dark_section_title">VIDEOS</div>
+                                    <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
+                                </div>
+                                <div id="video_div">
+                                    <div data-component-value="{this.props.videoContent}">News</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="column">
-                            <div class="classes.obliviot_dark_bottom_nav_title">NAVIGATION</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Teams</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">News</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Partners</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Streams</div>
-                        </div>
-                        <div class="column">
-                            <div class="classes.obliviot_dark_bottom_nav_title">ABOUT</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">About</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Media Resources</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Careers</div>
-                        </div>
-                        <div class="column">
-                            <div class="classes.obliviot_dark_bottom_nav_title">CONTENT</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">About</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Comtact</div>
-                        </div>
-                        <div class="column">
-                            <div class="classes.obliviot_dark_bottom_nav_title">TEAMS</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">About</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Media Resources</div>
-                            <div class="classes.obliviot_dark_bottom_nav_sub">Careers</div>
+                    </div>
+                    <div class="classes.obliviot_dark_section_control_container">
+                        <div class="classes.obliviot_dark_section_divider"></div>
+                        <div class="classes.obliviot_dark_section_title">MATCHES</div>
+                        <div class="classes.obliviot_dark_section_view_more">VIEW MORE</div>
+                    </div>
+                    <div id="matches_container" class="ui stackable three column grid">
+                        <div data-component-value="{this.props.recent_matches}">Matches</div>
+                    </div>
+                    <div id="bottom_nav" class="classes.obliviot_dark_bottom_nav">
+                        <div class="ui stackable five column grid">
+                            <div class="column">
+                                <img data-component-props="src={this.props.image_src}" class="classes.obliviot_dark_bottom_nav_logo" src="../images/disrupt_logo.jpg" />
+                            </div>
+                            <div class="column">
+                                <div class="classes.obliviot_dark_bottom_nav_title">NAVIGATION</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Teams</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">News</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Partners</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Streams</div>
+                            </div>
+                            <div class="column">
+                                <div class="classes.obliviot_dark_bottom_nav_title">ABOUT</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">About</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Media Resources</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Careers</div>
+                            </div>
+                            <div class="column">
+                                <div class="classes.obliviot_dark_bottom_nav_title">CONTENT</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">About</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Comtact</div>
+                            </div>
+                            <div class="column">
+                                <div class="classes.obliviot_dark_bottom_nav_title">TEAMS</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">About</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Media Resources</div>
+                                <div class="classes.obliviot_dark_bottom_nav_sub">Careers</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="classes.obliviot_orgFooter">
-                <p class="classes.obliviot_orgFooterText">© Origin. All rights reserved.</p>
+                <div class="classes.obliviot_orgFooter">
+                    <p class="classes.obliviot_orgFooterText">© Origin. All rights reserved.</p>
+                </div>
             </div>
         </div>
    </body>

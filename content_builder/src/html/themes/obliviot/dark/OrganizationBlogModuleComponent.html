@@ -6,9 +6,8 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
       <!-- Site Properties -->
-      <title>Organization Dark Demo</title>
+      <title>Login Example - Semantic</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" integrity="sha256-oDCP2dNW17Y1QhBwQ+u2kLaKxoauWvIGks3a4as9QKs= sha384-vQPhfJdJkfTCHP7ouiqoAojjcDFuU346yP8z/pRpSn0xsWOfkMd+DkNmxns9jy4l sha512-P6CxF6LlmmWe4kVo37D5SJGcvXhesfQO2T2XU0f3EWmslkSg0Rbu8qxUyX9rMX4dle+J71Fl3acSHM+S33OQtg==" crossorigin="anonymous">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <script
          src="https://code.jquery.com/jquery-3.1.1.min.js"
          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -19,26 +18,15 @@
          import { GlobalTheme, GlobalStyles } from '/Theme.js'
          import {attach_styles} from '/attach-styles.js';
          attach_styles(GlobalTheme, GlobalStyles, 'classes');
-      </script>  
+      </script>    
    </head>
    <body>
-        <div data-component-name="dark_OrganizationSponserComponentElement">
-            <div data-component-props="onClick={this.props.handleClick}" class="container col-sm-4" style="width:274px;float:left;">	
-                <img data-component-props="src={this.props.sponsor_image}" src="https://23xz2l29cwke20cu15l1tfu1-wpengine.netdna-ssl.com/wp-content/uploads/2015/05/sponsor-1.png" alt="Change Logo" class="classes.header_logo" style="height: 35px;">	
-            </div>	
-        </div>
+      <div data-component-name="dark_OrganizationBlogModuleComponent">
+            <div id="news_container">
+                <div id="organization_news_items" data-component-value={this.props.blog_items}>
+                    New items go here.
+                </div>    
+            </div>
+      </div>
    </body>
-   <script>
-        $( document ).ready(function() {
-             console.log( "ready!" );
- 
-             $("#more_news_button").click(function(){
-                 $('#news_modal').modal('show');
-             });
-
-             $("#about_button").click(function(){
-                 $('#about_modal').modal('show');
-             });
-         });
-    </script>
 </html>
