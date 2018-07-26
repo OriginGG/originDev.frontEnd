@@ -8,8 +8,8 @@ class DarkOrganizationMatchesComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.darkNavBG}>
-                <div className="ui stackable three column grid">
-                    <div >{this.props.recent_matches}</div>
+                <div>
+                    <div className="ui stackable three column grid">{this.props.recent_matches}</div>
                 </div>
             </div>
         )

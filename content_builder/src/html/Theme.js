@@ -702,7 +702,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '20px',
         position: 'relative',
         display: 'table',
-        marginTop: '30px'
+        marginTop: '30px',
+        marginBottom: '5px'
     },
 
     obliviot_dark_section_divider: {
@@ -836,7 +837,9 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '20px 30px 0px 30px',
         backgroundColor: 'rgba(255,255,255,.1)',
-        position: 'relative'
+        position: 'relative',
+        display: 'table',
+        marginTop: '15px'
     },
 
     obliviot_dark_match_vs_container: {
