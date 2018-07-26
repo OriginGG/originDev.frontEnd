@@ -22,50 +22,20 @@
       </script>  
    </head>
    <body>
-        <div data-component-name="dark_OrganizationMatchesComponentElement" class="classes.darkNavBG">
-            <div id="recent_matches_container" class="classes.recent_matches_container">
-                <div style="padding-top: 0px;">
-                    <div class="classes.dark_section_title_container">
-                        <h2>RECENT MATCHES</h2>
-                    </div>
-                    <div class="classes.dark_recent_matches_body">
-                        <div class="styles__recent_matchlist___3Px6i">
-                            <div style="height: auto; overflow: auto;">
-                                <div>
-                                    <table style="width: 100%; border-collapse: collapse; border-spacing: 0px; table-layout: fixed; font-family: Roboto, sans-serif;">
-                                        <thead style="border-bottom: 1px solid rgb(224, 224, 224);">
-                                            <tr style="border-bottom: 1px solid rgb(224, 224, 224); color: rgba(200, 200, 200   , 0.87); height: 48px;">
-                                                <th style="font-weight: 900; font-size: 16px; padding-left: 24px; padding-right: 24px; height: 56px; text-align: left; white-space: nowrap; text-overflow: ellipsis; color: rgb(200, 200, 200); position: relative; background-color: inherit;">Game</th>
-                                                <th style="font-weight: 900; font-size: 16px; padding-left: 24px; padding-right: 24px; height: 56px; text-align: left; white-space: nowrap; text-overflow: ellipsis; color: rgb(200, 200, 200); position: relative; background-color: inherit;">Vs</th>
-                                                <th style="font-weight: 900; font-size: 16px; padding-left: 24px; padding-right: 24px; height: 56px; text-align: left; white-space: nowrap; text-overflow: ellipsis; color: rgb(200, 200, 200); position: relative; background-color: inherit;">Score</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                                <div style="height: inherit; overflow-x: hidden; overflow-y: auto;">
-                                    <table style="width: 100%; border-collapse: collapse; border-spacing: 0px; table-layout: fixed; font-family: Roboto, sans-serif;">
-                                        <tbody data-component-value="{this.props.recent_matches}">
-                                            <tr style="color: rgba(0, 0, 0, 0.87); height: 58px;padding-top:5px;">
-                                                <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
-                                                    <img size="40" src="http://api.originbeta.net/defaultRecentMatch/wow.png" style="color: rgb(255, 255, 255); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
-                                                    <br>
-                                                </td>
-                                                <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
-                                                    <img size="40" src="http://api.originbeta.net/defaultRecentMatch/1518910314231Capture.PNG" style="color: rgb(255, 255, 255); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
-                                                    <br>
-                                                </td>
-                                                <td style="color: white; font-size:18px; padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 18px; font-weight: 800; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
-                                                    <span>3 - 2</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div data-component-name="dark_OrganizationMatchesComponentElement">
+            <tr style="color: rgba(0, 0, 0, 0.87); height: 58px;padding-top:5px;">
+                <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
+                    <img size="40" data-component-props="src={this.props.matches_image_1}" style="color: rgb(255, 255, 255); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
+                    <br>
+                </td>
+                <td style="padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 13px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
+                    <img size="40" data-component-props="src={this.props.matches_image_2}" style="color: rgb(255, 255, 255); background-color: transparent; user-select: none; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; border-radius: 0px; height: 40px; width: 40px;">
+                    <br>
+                </td>
+                <td style="color: white; font-size:18px; padding-left: 24px; padding-right: 24px; height: 48px; text-align: left; font-size: 18px; font-weight: 800; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; background-color: inherit;">
+                    <span data-component-value="{this.props.matches_score}">3 - 2</span>
+                </td>
+            </tr>
         </div>
    </body>
    <script>
