@@ -3,8 +3,7 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import PropTypes from 'prop-types';
-import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react';
-
+import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 import OrganizationAdminPageComponentRender from '../../render_components/admin/OrganizationAdminPageComponentRender';
@@ -13,6 +12,7 @@ import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminMembersController from './sub_controllers/AdminMembersController';
 import AdminAboutController from './sub_controllers/AdminAboutController';
+import AdminSubscriptionCheckoutController from './sub_controllers/AdminSubscriptionCheckoutController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminRosterController from './sub_controllers/AdminRosterController';
@@ -182,6 +182,10 @@ class AdminPageController extends Component {
         }
         let p_component = <span />;
         switch (this.state.page) {
+            case 'subscription': {
+                p_component = <AdminSubscriptionCheckoutController />;
+                break;
+            }
             case 'company': {
                 p_component = <AdminProfileController />;
                 break;
