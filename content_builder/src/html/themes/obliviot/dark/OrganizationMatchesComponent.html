@@ -23,16 +23,8 @@
    </head>
    <body>
         <div data-component-name="dark_OrganizationMatchesComponent" class="classes.darkNavBG">
-            <div class="column">
-                <div class="classes.obliviot_dark_match_container">
-                    <div class="classes.obliviot_dark_match_vs_container">
-                        <img class="classes.obliviot_dark_match_vs_image" src="../images/vs_test_us.jpg" />
-                        <div class="classes.obliviot_dark_match_vs_score">10-8</div>
-                        <img class="classes.obliviot_dark_match_vs_image" src="../images/vs_test_them.jpeg" />
-                    </div>
-                    <div class="classes.obliviot_dark_match_vs_date">22 AUG 2018</div>
-                    <div class="classes.obliviot_dark_corner_win"></div>
-                </div>
+            <div>
+                <div class="ui stackable three column grid" data-component-value="{this.props.recent_matches}">Matches</div>
             </div>
         </div>
    </body>
