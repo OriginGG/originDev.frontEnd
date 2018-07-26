@@ -94,10 +94,11 @@ class OrganizationMatchesController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
 
         const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentRender`);
+        const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
-        this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default });
+        this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default, OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -107,6 +108,7 @@ class OrganizationMatchesController extends Component {
             return null;
         }
         const { OrganizationMatchesComponentRender } = this.state;
+        const { OrganizationMatchesComponentElementRender } = this.state;
         const { edges } = this.match_data.resultdata;
         if (edges.length === 0) {
             return null;
@@ -116,38 +118,44 @@ class OrganizationMatchesController extends Component {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
-            p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
-                <td style={{
-                    paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
-                }}>
-                    <img
-                        alt=""
-                        size="40"
-                        src={g_image.image}
-                        style={{
-                            color: 'rgb(255, 255, 255)', backgroundColor: 'transparent', userSelect: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '20', borderRadius: 0, height: 40, width: 40
-                        }} />
-                    <br />
-                </td>
-                <td style={{
-                    paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
-                }}>
-                    <img
-                        alt=""
-                        size="40"
-                        src={res.node.gameLogo}
-                        style={{
-                            color: 'rgb(255, 255, 255)', backgroundColor: 'transparent', userSelect: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '20', borderRadius: 0, height: 40, width: 40
-                        }} />
-                    <br />
-                </td>
+            console.log(`i = ${i}`);
+            p_array.push(<OrganizationMatchesComponentElementRender
+                matches_image_1={g_image.image}
+                matches_image_2={res.node.gameLogo}
+                matches_score={res.node.score}
+            />);
+            // p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
+            //     <td style={{
+            //         paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
+            //     }}>
+            //         <img
+            //             alt=""
+            //             size="40"
+            //             src={g_image.image}
+            //             style={{
+            //                 color: 'rgb(255, 255, 255)', backgroundColor: 'transparent', userSelect: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '20', borderRadius: 0, height: 40, width: 40
+            //             }} />
+            //         <br />
+            //     </td>
+            //     <td style={{
+            //         paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
+            //     }}>
+            //         <img
+            //             alt=""
+            //             size="40"
+            //             src={res.node.gameLogo}
+            //             style={{
+            //                 color: 'rgb(255, 255, 255)', backgroundColor: 'transparent', userSelect: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '20', borderRadius: 0, height: 40, width: 40
+            //             }} />
+            //         <br />
+            //     </td>
 
-                <td style={{
-                    color: 'white', paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
-                }}>
-                    <span>{res.node.score}</span>
-                </td>
-            </tr>);
+            //     <td style={{
+            //         color: 'white', paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
+            //     }}>
+            //         <span>{res.node.score}</span>
+            //     </td>
+            // </tr>);
         });
         return <OrganizationMatchesComponentRender recent_matches={p_array} />;
     }

@@ -1350,7 +1350,7 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '50px',
         textAlign: 'center',
         fontSize: '20',
-        color: 'white',
+        color: 'black',
         display: 'tble'
     },
     light_recent_matches_element_score: {
@@ -1359,7 +1359,7 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '50px',
         textAlign: 'center',
         fontSize: '16',
-        color: 'white',
+        color: 'black',
         display: 'table'
     },
     // ***************************************************************
