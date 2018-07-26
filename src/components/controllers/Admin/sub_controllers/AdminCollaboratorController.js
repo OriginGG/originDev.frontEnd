@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
-import { Input, Segment, Header, Button } from 'semantic-ui-react';
+import { Input, Segment, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { createUserQuery, updateUserQuery, getAllNonAdminUsersQuery } from '../../../../queries/users';
 import OrganizationAdminCollaboratorComponentRender from '../../../render_components/admin/OrganizationAdminCollaboratorComponentRender';
 
