@@ -702,7 +702,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '20px',
         position: 'relative',
         display: 'table',
-        marginTop: '30px'
+        marginTop: '30px',
+        marginBottom: '5px'
     },
 
     obliviot_dark_section_divider: {
@@ -836,7 +837,9 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '20px 30px 0px 30px',
         backgroundColor: 'rgba(255,255,255,.1)',
-        position: 'relative'
+        position: 'relative',
+        display: 'table',
+        marginTop: '15px'
     },
 
     obliviot_dark_match_vs_container: {
@@ -1296,6 +1299,71 @@ export const GlobalStyles = GlobalTheme => ({
         maxHeight: '600px',
         backgroundColor: 'transparent',
         overflowY: 'scroll'
+    },
+
+    dark_recent_matches_element_container: {
+        width: '100%',
+        display: 'table',
+        paddingTop: '5px',
+        paddingBottom: '5px'
+    },
+
+    dark_recent_matches_element_title_container: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        borderBottom: '2px solid white'
+    },
+
+    dark_recent_matches_element_image_container: {
+        width: '100%',
+        position: 'relative',
+        display: 'table'
+    },
+
+    dark_recent_matches_element_image: {
+        width: '40px',
+        height: '40px',
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    dark_recent_matches_element_title: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '20',
+        color: 'white',
+        display: 'tble'
+    },
+    dark_recent_matches_element_score: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '16',
+        color: 'white',
+        display: 'table'
+    },
+    light_recent_matches_element_title: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '20',
+        color: 'black',
+        display: 'tble'
+    },
+    light_recent_matches_element_score: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '16',
+        color: 'black',
+        display: 'table'
     },
     // ***************************************************************
     // User Theme

@@ -58,9 +58,7 @@ class DarkOrganizationPageComponentRender extends Component {
                             <div className={this.props.classes.obliviot_dark_section_title}>MATCHES</div>
                             <div className={this.props.classes.obliviot_dark_section_view_more}>VIEW MORE</div>
                         </div>
-                        <div id="matches_container" className="ui stackable three column grid">
-                            <div >{this.props.recent_matches}</div>
-                        </div>
+                        <div id="matches_container">{this.props.matchesContent}</div>
                         <div id="bottom_nav" className={this.props.classes.obliviot_dark_bottom_nav}>
                             <div className="ui stackable five column grid">
                                 <div className="column">
