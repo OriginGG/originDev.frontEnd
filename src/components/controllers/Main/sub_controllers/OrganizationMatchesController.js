@@ -119,6 +119,7 @@ class OrganizationMatchesController extends Component {
                 return o.value === res.node.gameName;
             });
             console.log(`i = ${i}`);
+            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             p_array.push(<OrganizationMatchesComponentElementRender
                 matches_image_1={g_image.image}
                 matches_image_2={res.node.gameLogo}

@@ -40,10 +40,11 @@ class OrganizationBlogController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            console.log(`blogMain = ${blog}`);
+            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
+            // console.log(`blogMain = ${blog}`);
             const formattedDate = moment(createdAt).format('lll');
             this.results_array.push({
-                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
+                content: bcontent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
             });
         });
         if (blog_data.resultData.edges.length > 0) {
@@ -58,7 +59,7 @@ class OrganizationBlogController extends Component {
         console.log(error, info);
     }
     handleNewsClick = (blog) => {
-         console.log(`blog = ${JSON.stringify(blog)}`);
+         // console.log(`blog = ${JSON.stringify(blog)}`);
          if (blog) {
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
             this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
@@ -87,7 +88,7 @@ class OrganizationBlogController extends Component {
         let b_content_3 = 'Latest news coming soon';
         let b_3 = null;
 
-        console.log(`blog array = ${JSON.stringify(this.results_array)}`);
+        // console.log(`blog array = ${JSON.stringify(this.results_array)}`);
 
         if (this.results_array[0]) {
             b_title_1 = this.results_array[0].title;
