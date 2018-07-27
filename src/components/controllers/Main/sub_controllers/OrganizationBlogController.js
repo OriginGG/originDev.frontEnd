@@ -40,14 +40,11 @@ class OrganizationBlogController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            const { blogMain } = blog;
-            console.log(`blogMain = ${blogMain}`);
+            console.log(`blogMain = ${blog}`);
             const formattedDate = moment(createdAt).format('lll');
             this.results_array.push({
-                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate, blog: blogMain, key: i
+                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
             });
-            // const { createdAt } = blog.node;
-            // this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
         if (blog_data.resultData.edges.length > 0) {
             this.setState({
@@ -62,8 +59,10 @@ class OrganizationBlogController extends Component {
     }
     handleNewsClick = (blog) => {
          console.log(`blog = ${JSON.stringify(blog)}`);
-         // const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-         // this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+         if (blog) {
+            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+            this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+         }
     }
     createMarkup = (content) => {
         return { __html: content };
