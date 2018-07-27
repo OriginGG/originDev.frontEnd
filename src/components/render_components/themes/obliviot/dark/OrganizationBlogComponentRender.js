@@ -10,7 +10,11 @@ class DarkOrganizationBlogComponentRender extends Component {
             <div>
                 <div className="ui stackable two column grid">
                     <div className="seven wide column">
-                        <div className={this.props.classes.obliviot_darkBlogMaxContainer}>
+                        <div className={this.props.classes.obliviot_darkBlogMaxContainer} onClick={( ) => {
+                            this
+                                .props
+                                .handleNewsClick( this.props.blog_1 );
+                        }}>
                             <img className={this.props.classes.obliviot_main_news_item_image} src={this.props.blog_media_1}/>
                             <div className={this.props.classes.obliviot_main_news_content_container}>
                                 <div>
@@ -37,7 +41,11 @@ class DarkOrganizationBlogComponentRender extends Component {
                         </div>
                     </div>
                     <div className="nine wide column">
-                        <div className={this.props.classes.obliviot_darkBlogMiniContainer}>
+                        <div className={this.props.classes.obliviot_darkBlogMiniContainer} onClick={( ) => {
+                            this
+                                .props
+                                .handleNewsClick( this.props.blog_2 );
+                        }}>
                             <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_2}/>
                             <div className={this.props.classes.obliviot_main_news_content_container}>
                                 <div>
@@ -62,7 +70,11 @@ class DarkOrganizationBlogComponentRender extends Component {
                                 <div className={this.props.classes.obliviot_dark_news_decor}/>
                             </div>
                         </div>
-                        <div className={this.props.classes.obliviot_darkBlogMiniContainer}>
+                        <div className={this.props.classes.obliviot_darkBlogMiniContainer} onClick={( ) => {
+                            this
+                                .props
+                                .handleNewsClick( this.props.blog_3 );
+                        }}>
                             <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_3}/>
                             <div className={this.props.classes.obliviot_main_news_content_container}>
                                 <div>

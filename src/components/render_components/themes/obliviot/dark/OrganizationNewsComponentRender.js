@@ -8,7 +8,11 @@ class DarkOrganizationNewsComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.obliviot_dark_news_container}>
+                <div className={this.props.classes.obliviot_dark_news_container} onClick={( ) => {
+                    this
+                        .props
+                        .handleNewsClick( this.props.blog );
+                }}>
                     <img className={this.props.classes.obliviot_main_news_item_micro_image} src={this.props.blog_media}/>
                     <div className={this.props.classes.obliviot_main_news_content_container}>
                         <div>
