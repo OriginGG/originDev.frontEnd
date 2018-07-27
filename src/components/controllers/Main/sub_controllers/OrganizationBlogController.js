@@ -40,9 +40,11 @@ class OrganizationBlogController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
+            const { blogMain } = blog;
+            console.log(`blogMain = ${blogMain}`);
             const formattedDate = moment(createdAt).format('lll');
             this.results_array.push({
-                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate, key: i
+                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate, blog: blogMain, key: i
             });
             // const { createdAt } = blog.node;
             // this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
@@ -59,8 +61,9 @@ class OrganizationBlogController extends Component {
         console.log(error, info);
     }
     handleNewsClick = (blog) => {
-        const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-        this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+         console.log(`blog = ${JSON.stringify(blog)}`);
+         // const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+         // this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
     }
     createMarkup = (content) => {
         return { __html: content };
@@ -75,12 +78,15 @@ class OrganizationBlogController extends Component {
         let b_title_1 = 'Coming Soon';
         let b_media_1 = default_image;
         let b_content_1 = 'Latest news coming soon';
+        let b_1 = null;
         let b_title_2 = 'Coming Soon';
         let b_media_2 = default_image;
         let b_content_2 = 'Latest news coming soon';
+        let b_2 = null;
         let b_title_3 = 'Coming Soon';
         let b_media_3 = default_image;
         let b_content_3 = 'Latest news coming soon';
+        let b_3 = null;
 
         console.log(`blog array = ${JSON.stringify(this.results_array)}`);
 
@@ -88,16 +94,19 @@ class OrganizationBlogController extends Component {
             b_title_1 = this.results_array[0].title;
             b_media_1 = this.results_array[0].media;
             b_content_1 = this.results_array[0].content;
+            b_1 = this.results_array[0].blog;
         }
         if (this.results_array[1]) {
             b_title_2 = this.results_array[1].title;
             b_media_2 = this.results_array[1].media;
             b_content_2 = this.results_array[1].content;
+            b_2 = this.results_array[0].blog;
         }
         if (this.results_array[2]) {
             b_title_3 = this.results_array[2].title;
             b_media_3 = this.results_array[2].media;
             b_content_3 = this.results_array[2].content;
+            b_3 = this.results_array[0].blog;
         }
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
@@ -107,12 +116,16 @@ class OrganizationBlogController extends Component {
                     blog_media_1={b_media_1}
                     blog_content_1={b_content_1}
                     blog_title_1={b_title_1}
+                    blog_1={b_1}
                     blog_media_2={b_media_2}
                     blog_content_2={b_content_2}
                     blog_title_2={b_title_2}
+                    blog_2={b_2}
                     blog_media_3={b_media_3}
                     blog_content_3={b_content_3}
                     blog_title_3={b_title_3}
+                    blog_3={b_3}
+                    handleNewsClick={this.handleNewsClick}
                 />
                 <BlogModal
                     modal_open={this.state.blog_modal_open}
