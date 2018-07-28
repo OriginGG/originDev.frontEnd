@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
+import moment from 'moment';
 import _ from 'lodash';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
@@ -120,10 +121,12 @@ class OrganizationMatchesController extends Component {
             });
             console.log(`i = ${i}`);
             console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            const formattedDate = moment(res.node.createdAt).format('lll');
             p_array.push(<OrganizationMatchesComponentElementRender
                 matches_image_1={g_image.image}
                 matches_image_2={res.node.gameLogo}
                 matches_score={res.node.score}
+                matches_date={formattedDate}
             />);
             // p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
             //     <td style={{
