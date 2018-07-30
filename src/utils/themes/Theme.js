@@ -818,6 +818,20 @@ export const GlobalStyles = GlobalTheme => ({
         textTransform: 'uppercase'
     },
 
+    obliviot_dark_news_outer_constraint: {
+        width: '100%',
+        height: '630px',
+        overflow: 'hidden',
+    },
+
+    obliviot_dark_news_constraint: {
+        width: '100%',
+        height: '630px',
+        overflowY: 'scroll',
+        paddingRight: '17px',
+        boxSizing: 'content-box'
+    },
+
     obliviot_dark_news_container: {
         width: '100%',
         height: '200px',
