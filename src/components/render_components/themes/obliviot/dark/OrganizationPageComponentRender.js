@@ -37,8 +37,10 @@ class DarkOrganizationPageComponentRender extends Component {
                                         <div className={this.props.classes.obliviot_dark_section_title}>NEWS</div>
                                         <div className={this.props.classes.obliviot_dark_section_view_more}>VIEW MORE</div>
                                     </div>
-                                    <div id="news_div">
-                                        <div >{this.props.newsContent}</div>
+                                    <div id="news_div" className={this.props.classes.obliviot_dark_news_outer_constraint}>
+                                        <div>
+                                            <div >{this.props.newsContent}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="six wide column">
