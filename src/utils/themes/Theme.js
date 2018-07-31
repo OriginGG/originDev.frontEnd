@@ -832,6 +832,16 @@ export const GlobalStyles = GlobalTheme => ({
         boxSizing: 'content-box'
     },
 
+    obliviot_dropdown_container: {
+        display: 'none',
+        position: 'absolute',
+        backgroundColor: '#f1f1f1',
+        minWidth: '160px',
+        padding: '10px',
+        boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
+        zIndex: '1'
+    },
+
     obliviot_dark_news_container: {
         width: '100%',
         height: '200px',
