@@ -30,6 +30,7 @@ export const recentMatchesQuery = gql`
                 gameName
                 gameLogo
                 score
+                createdAt
             }
         }
     }

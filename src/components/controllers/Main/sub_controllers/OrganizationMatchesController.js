@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
+import moment from 'moment';
 import _ from 'lodash';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
@@ -119,10 +120,35 @@ class OrganizationMatchesController extends Component {
                 return o.value === res.node.gameName;
             });
             console.log(`i = ${i}`);
+            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            const formattedDate = moment(res.node.createdAt).format('lll');
+
+            const score_array = res.node.score.split(' - ');
+
+            const home_score = parseInt(score_array[0], 10);
+            const away_score = parseInt(score_array[1], 10);
+
+            console.log(`home = ${home_score} | away = ${away_score}`);
+
+            let ws = { borderColor: 'yellow transparent transparent transparent' };
+            if (Number(home_score) < Number(away_score)) {
+                console.log(`home:${home_score} < away:${away_score}`);
+                ws = { borderColor: '#e85149 transparent transparent transparent' };
+            }
+            if (Number(home_score) > Number(away_score)) {
+                console.log(`home:${home_score} > away:${away_score}`);
+                ws = { borderColor: '#90ce59 transparent transparent transparent' };
+            }
+            if (Number(home_score) === Number(away_score)) {
+                console.log(`home:${home_score} === away:${away_score}`);
+                ws = { borderColor: 'yellow transparent transparent transparent' };
+            }
             p_array.push(<OrganizationMatchesComponentElementRender
                 matches_image_1={g_image.image}
                 matches_image_2={res.node.gameLogo}
                 matches_score={res.node.score}
+                matches_date={formattedDate}
+                win_style={ws}
             />);
             // p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
             //     <td style={{

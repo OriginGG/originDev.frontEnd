@@ -9,7 +9,7 @@ class DarkOrganizationNewsModuleComponentRender extends Component {
         return (
             <div>
                 <div id="news_container">
-                    <div id="organization_news_items">{this.props.news_items}</div>
+                    <div id="organization_news_items" className={this.props.classes.obliviot_dark_news_constraint}>{this.props.news_items}</div>
                 </div>
             </div>
         )

@@ -116,7 +116,7 @@ class AdminThemeController extends Component {
         });
     }
     handleSubmit = async () => {
-        if (this.new_theme !== this.selected_theme) {
+       // if (this.new_theme !== this.selected_theme) {
             await this.props.appManager.executeQuery(
                 'mutation', updateOrganisationQuery,
                 {
@@ -130,7 +130,7 @@ class AdminThemeController extends Component {
             toast.success('Theme updated !', {
                 position: toast.POSITION.TOP_LEFT
             });
-        }
+        // }
     }
     handleObliviotLightClick = () => {
         console.log('obliviot light clicked');

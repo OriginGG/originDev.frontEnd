@@ -40,14 +40,12 @@ class OrganizationBlogController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            const { blogMain } = blog;
-            console.log(`blogMain = ${blogMain}`);
+            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
+            // console.log(`blogMain = ${blog}`);
             const formattedDate = moment(createdAt).format('lll');
             this.results_array.push({
-                content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate, blog: blogMain, key: i
+                content: bcontent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
             });
-            // const { createdAt } = blog.node;
-            // this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
         });
         if (blog_data.resultData.edges.length > 0) {
             this.setState({
@@ -61,9 +59,11 @@ class OrganizationBlogController extends Component {
         console.log(error, info);
     }
     handleNewsClick = (blog) => {
-         console.log(`blog = ${JSON.stringify(blog)}`);
-         // const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-         // this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+         // console.log(`blog = ${JSON.stringify(blog)}`);
+         if (blog) {
+            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+            this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+         }
     }
     createMarkup = (content) => {
         return { __html: content };
@@ -88,7 +88,7 @@ class OrganizationBlogController extends Component {
         let b_content_3 = 'Latest news coming soon';
         let b_3 = null;
 
-        console.log(`blog array = ${JSON.stringify(this.results_array)}`);
+        // console.log(`blog array = ${JSON.stringify(this.results_array)}`);
 
         if (this.results_array[0]) {
             b_title_1 = this.results_array[0].title;
