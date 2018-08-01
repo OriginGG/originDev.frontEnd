@@ -543,7 +543,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         padding: '0px 0px 0px 0px',
-        backgroundColor: '#000'
+        backgroundColor: '#000',
+        position: 'absolute'
     },
 
     obliviot_darkContraint: {
@@ -701,7 +702,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '20px',
         position: 'relative',
         display: 'table',
-        marginTop: '30px'
+        marginTop: '30px',
+        marginBottom: '5px'
     },
 
     obliviot_dark_section_divider: {
@@ -816,6 +818,20 @@ export const GlobalStyles = GlobalTheme => ({
         textTransform: 'uppercase'
     },
 
+    obliviot_dark_news_outer_constraint: {
+        width: '100%',
+        height: '630px',
+        overflow: 'hidden',
+    },
+
+    obliviot_dark_news_constraint: {
+        width: '100%',
+        height: '630px',
+        overflowY: 'scroll',
+        paddingRight: '17px',
+        boxSizing: 'content-box'
+    },
+
     obliviot_dark_news_container: {
         width: '100%',
         height: '200px',
@@ -835,7 +851,9 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '20px 30px 0px 30px',
         backgroundColor: 'rgba(255,255,255,.1)',
-        position: 'relative'
+        position: 'relative',
+        display: 'table',
+        marginTop: '15px'
     },
 
     obliviot_dark_match_vs_container: {
@@ -1295,6 +1313,71 @@ export const GlobalStyles = GlobalTheme => ({
         maxHeight: '600px',
         backgroundColor: 'transparent',
         overflowY: 'scroll'
+    },
+
+    dark_recent_matches_element_container: {
+        width: '100%',
+        display: 'table',
+        paddingTop: '5px',
+        paddingBottom: '5px'
+    },
+
+    dark_recent_matches_element_title_container: {
+        width: '100%',
+        height: '50px',
+        display: 'table',
+        borderBottom: '2px solid white'
+    },
+
+    dark_recent_matches_element_image_container: {
+        width: '100%',
+        position: 'relative',
+        display: 'table'
+    },
+
+    dark_recent_matches_element_image: {
+        width: '40px',
+        height: '40px',
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    dark_recent_matches_element_title: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '20',
+        color: 'white',
+        display: 'tble'
+    },
+    dark_recent_matches_element_score: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '16',
+        color: 'white',
+        display: 'table'
+    },
+    light_recent_matches_element_title: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '20',
+        color: 'black',
+        display: 'tble'
+    },
+    light_recent_matches_element_score: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        textAlign: 'center',
+        fontSize: '16',
+        color: 'black',
+        display: 'table'
     },
     // ***************************************************************
     // User Theme
@@ -2098,6 +2181,38 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         padding: '20px 0px 20px 0px'
+    },
+    admin_theme_display_container: {
+        float: 'left',
+        width: '100px',
+        height: '200px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'blue',
+        cursor: 'pointer',
+        marginRight: '10px',
+        marginLeft: '10px',
+        display: 'table',
+        position: 'relative',
+    },
+    admin_theme_display_image: {
+        width: '150px',
+        height: '300px',
+        cursor: 'pointer',
+        objectFit: 'cover'
+    },
+    admin_theme_display_text: {
+        position: 'absolute',
+        width: '100%',
+        height: '20px',
+        textAlign: 'center',
+        backgroundColor: 'black',
+        color: 'white',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        bottom: '0px',
+        left: '0px',
     },
     jumbotron_container: {
         width: '100%',

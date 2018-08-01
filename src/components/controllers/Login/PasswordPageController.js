@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
-import { Segment, Button, Input } from 'semantic-ui-react';
+import { Segment, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { Row, Col } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
