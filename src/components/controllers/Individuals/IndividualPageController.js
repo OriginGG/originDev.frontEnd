@@ -286,6 +286,7 @@ class IndividualPageController extends Component {
     getStats = async () => {
         await this.getTwitchStats();
         await this.getYouTubeStats();
+        await this.getTwitterStats();
         this.setState({ visible: true });
     }
 
@@ -294,6 +295,13 @@ class IndividualPageController extends Component {
             const tu = this.user_details.twitchUrl.substring(this.user_details.twitchUrl.lastIndexOf('/') + 1);
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchUserInfo?name=${tu}`);
             this.twitch_stats = td.data.user;
+        }
+    }
+    getTwitterStats = async () => {
+        if (this.user_details.twitterHandle) {
+            const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('/') + 1);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitter/getTwitterUserInfo?user=${tu}`);
+            [this.twitter_stats] = td.data;
         }
     }
     getYouTubeStats = async () => {
@@ -416,10 +424,6 @@ class IndividualPageController extends Component {
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
         }}>No Data Found</h2>;
 
-        const twitter_stats = <h2 style={{
-            marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
-        }}>No Data Found</h2>;
-
         const instagram_stats = <h2
         style={{
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
@@ -525,7 +529,7 @@ class IndividualPageController extends Component {
                     }
                     ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
                     ColumnThree={youTubeComp}
-                    ColumnFour={twittercomp} />}
+                    ColumnFour={twitterComp}
                     ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} handle_redirect={this.handleRedirect} />}
                 />
                 <EditModal
