@@ -666,12 +666,14 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
 
-    obliviot_main_news_content_container: {
+    obliviot_dark_main_news_content_container: {
         width: '86%',
         height: '130px',
         position: 'absolute',
         bottom: '5px',
-        left: '7%'
+        left: '7%',
+        padding: '5px',
+        backgroundColor: 'rgba(0,0,0,.5)'
     },
 
     obliviot_dark_news_title: {
@@ -1097,12 +1099,14 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
 
-    obliviot_main_news_content_container: {
+    obliviot_light_main_news_content_container: {
         width: '86%',
         height: '130px',
         position: 'absolute',
         bottom: '5px',
-        left: '7%'
+        left: '7%',
+        padding: '5px',
+        backgroundColor: 'rgba(255,255,255,.5)'
     },
 
     obliviot_light_news_title: {

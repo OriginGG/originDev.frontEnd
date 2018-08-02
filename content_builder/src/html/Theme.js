@@ -666,12 +666,14 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
 
-    obliviot_main_news_content_container: {
+    obliviot_dark_main_news_content_container: {
         width: '86%',
         height: '130px',
         position: 'absolute',
         bottom: '5px',
-        left: '7%'
+        left: '7%',
+        padding: '5px',
+        backgroundColor: 'rgba(0,0,0,.5)'
     },
 
     obliviot_dark_news_title: {
@@ -680,8 +682,7 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '30px',
         color: 'white',
         fontWeight: '900',
-        textTransform: 'uppercase',
-        backgroundColor: 'rgba(0,0,0,.5)'
+        textTransform: 'uppercase'
     },
 
     obliviot_dark_news_body: {
@@ -690,8 +691,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         fontWeight: 'bold',
         overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        backgroundColor: 'rgba(0,0,0,.5)'
+        textOverflow: 'ellipsis'
     },
 
     obliviot_dark_news_decor: {
@@ -1099,12 +1099,14 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
 
-    obliviot_main_news_content_container: {
+    obliviot_light_main_news_content_container: {
         width: '86%',
         height: '130px',
         position: 'absolute',
         bottom: '5px',
-        left: '7%'
+        left: '7%',
+        padding: '5px',
+        backgroundColor: 'rgba(255,255,255,.5)'
     },
 
     obliviot_light_news_title: {
@@ -1113,8 +1115,7 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '30px',
         color: 'black',
         fontWeight: '900',
-        textTransform: 'uppercase',
-        rgba: 'rgba(255,255,255,.5)'
+        textTransform: 'uppercase'
     },
 
     obliviot_light_news_body: {
@@ -1123,8 +1124,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'black',
         fontWeight: 'bold',
         overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        rgba: 'rgba(255,255,255,.5)'
+        textOverflow: 'ellipsis'
     },
 
     obliviot_light_news_decor: {
