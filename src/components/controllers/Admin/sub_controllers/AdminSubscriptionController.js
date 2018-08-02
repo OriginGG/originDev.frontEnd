@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CardElement, injectStripe } from 'react-stripe-elements';
-import { Message, Segment } from 'semantic-ui-react';
+import { Message, Segment } from 'semantic-ui-react/dist/commonjs';
 import stripeImage from '../../../../assets/images/powered_by_stripe@3x.png';
 
 const handleBlur = () => {
