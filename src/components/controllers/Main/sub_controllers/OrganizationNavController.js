@@ -1,22 +1,38 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
+import _ from 'lodash';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
+import { getRosterQuery } from '../../../../queries/rosters';
+import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 
 class OrganizationNavController extends Component {
-    state = { visible: false, OrganizationNavComponentRender: null };
+    state = { visible: false, OrganizationNavComponentRender: null, dropdown: false };
     componentDidMount = async () => {
+        const p_array = [];
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        roster_data.allRosters.edges.forEach((r) => {
+            const { gameId } = r.node;
+            const currGame = _.find(gameOptions, (o) => {
+                return o.game_id === gameId;
+            });
+            p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
+        });
         const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
-        this.setState({ visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
+        this.setState({ roster: p_array, visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }
     handleBlogButtonClick = () => {
+    }
+    handleRosterButtonClick = () => {
+        console.log(`roster click ${this.p_array}`);
+        this.setState({ dropdown: true });
     }
     openPage = page => {
         window.open(page, '_blank');
@@ -24,6 +40,10 @@ class OrganizationNavController extends Component {
     render() {
         if (this.state.visible === false) {
             return null;
+        }
+        let d_style = { display: 'none' };
+        if (this.state.dropdown) {
+            d_style = { display: 'table' };
         }
         const { OrganizationNavComponentRender } = this.state;
         const social_links = [];
@@ -72,11 +92,23 @@ class OrganizationNavController extends Component {
             social_link1 = social_links[0];           // eslint-disable-line
         }
 
+        const m_array = [];
+        const p = this.state.roster;
+        console.log(` this.state.roster = ${JSON.stringify(p)}`);
+        p.forEach((g, i) => {
+            m_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.props.handleRosterClick(g.roster_id); }} key={`gm_roster_${i}`} style={{ cursor: 'pointer', paddingLeft: 10, color: 'black' }} >
+                {g.text}
+            </div>);
+        });
+
         return <OrganizationNavComponentRender
             login_style={this.props.login_style}
             home_style={this.props.home_style}
             store_style={this.props.store_style}
             about_style={this.props.about_style}
+            roster_dropdown_style={d_style}
+            dropdown_item={m_array}
+            handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
@@ -96,6 +128,7 @@ class OrganizationNavController extends Component {
 OrganizationNavController.propTypes = {
     handleAboutClick: PropTypes.func.isRequired,
     handleSponsersClick: PropTypes.func.isRequired,
+    handleRosterClick: PropTypes.func.isRequired,
     handleStoreClick: PropTypes.func.isRequired,
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
@@ -103,7 +136,8 @@ OrganizationNavController.propTypes = {
     sponsers_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,
-    login_style: PropTypes.object.isRequired
+    login_style: PropTypes.object.isRequired,
+    appManager: PropTypes.object.isRequired
 };
 
 
