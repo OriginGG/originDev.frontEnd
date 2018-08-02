@@ -305,6 +305,7 @@ class OrganizationPageController extends Component {
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleLoginClick={this.handleLoginClick}
+            handleRosterClick={this.handleRosterClick}
             handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
