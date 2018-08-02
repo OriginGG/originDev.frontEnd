@@ -20,6 +20,7 @@ import AdminStaffController from './sub_controllers/AdminStaffController';
 import AdminThemeController from './sub_controllers/AdminNewThemeController';
 import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
+import AdminContentTeamController from './sub_controllers/AdminContentTeamController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -82,6 +83,16 @@ class MenuDrop extends Component {
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Roster
+                                </div>
+                            </div>
+                        </a>
+                        <a className="item">
+                            <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('content_team', e); }}>
+                                <div className={this.props.classes.menu_item_icon}>
+                                    <i className="group icon" />
+                                </div>
+                                <div className={this.props.classes.menu_item_label}>
+                                    Content Team
                                 </div>
                             </div>
                         </a>
@@ -220,6 +231,10 @@ class AdminPageController extends Component {
             }
             case 'recentmatches': {
                 p_component = <AdminRecentMatchesController />;
+                break;
+            }
+            case 'content_team': {
+                p_component = <AdminContentTeamController />;
                 break;
             }
             case 'about': {

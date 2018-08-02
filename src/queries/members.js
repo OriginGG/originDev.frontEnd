@@ -36,6 +36,12 @@ query getMembers($subDomain: String!) {
     edges {
       node {
         id
+        contentTeamsByMemberId {
+          nodes {
+            id 
+            memberId
+          }
+        }
         individualUserByIndividalUserId {
           firstName
           lastName
@@ -49,5 +55,6 @@ query getMembers($subDomain: String!) {
       }
     }
   }
-}`;
+}
+`;
 
