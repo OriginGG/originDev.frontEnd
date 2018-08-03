@@ -25,9 +25,7 @@ class LightOrganizationPageComponentRender extends Component {
                             <div className={this.props.classes.obliviot_light_section_view_more}>VIEW MORE</div>
                         </div>
                         <div className={this.props.classes.obliviot_light_twitch_container}>
-                            <div className="ui stackable three column grid">
-                                <div >{this.props.stitchContent}</div>
-                            </div>
+                            <div >{this.props.twitchContent}</div>
                         </div>
                         <div>
                             <div className="ui stackable two column grid">
