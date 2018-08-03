@@ -2896,7 +2896,8 @@ export const GlobalStyles = GlobalTheme => ({
         marginBottom: '10px',
         lineHeight: '30px',
         fontSize: '18px',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        fontFamily: 'Monospaced Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif'
     },
     modal_individual_edit_about: {
         width: '100%',
@@ -2910,7 +2911,8 @@ export const GlobalStyles = GlobalTheme => ({
         marginBottom: '10px',
         lineHeight: '1.2',
         fontSize: '18px',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        fontFamily: 'Monospaced Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif'
     },
     modal_individual_submit_button_container: {
         width: '50%',
