@@ -16,9 +16,27 @@ class IndividualTwitterStatsComponentRender extends Component {
                     }}>
                         Twitter Stats
                     </h2>
-                    <div className={this.props.classes.individual_social_content}>{this.props.twitter_stats}</div>
+                    <div id="twitter_handle" className={this.props.classes.individual_social_content}>
+                        <h2 className={this.props.classes.individual_social_empty}>{this.props.username}</h2>
+                        <h2 className={this.props.classes.individual_social_empty}> @{this.props.twitter_screen_name}</h2>
+                    </div>
+                    <div id="twitter_followers_count" className={this.props.classes.indiviual_stats_container}>
+                        <span className={this.props.classes.individual_stats_title}>Followers:
+                        </span>
+                        <span className={this.props.classes.individual_stats_data}>{this.props.twitter_followers_count}</span>
+                    </div>
+                    <div id="twitter_statues_count" className={this.props.classes.indiviual_stats_container}>
+                        <span className={this.props.classes.individual_stats_title}>Statuses:
+                        </span>
+                        <span className={this.props.classes.individual_stats_data}>{this.props.twitter_status_count}</span>
+                    </div>
+                    <div id="twitter_favorites_count" className={this.props.classes.indiviual_stats_container}>
+                        <span className={this.props.classes.individual_stats_title}>Favorites:
+                        </span>
+                        <span className={this.props.classes.individual_stats_data}>{this.props.twitter_favourite_count}</span>
+                    </div>
                 </div>
-            </div>
+            </div>    
         )
     }
 }
