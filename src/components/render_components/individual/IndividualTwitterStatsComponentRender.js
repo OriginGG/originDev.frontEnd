@@ -26,7 +26,7 @@ class IndividualTwitterStatsComponentRender extends Component {
                         <span className={this.props.classes.individual_stats_data}>{this.props.twitter_followers_count}</span>
                     </div>
                     <div id="twitter_statues_count" className={this.props.classes.indiviual_stats_container}>
-                        <span className={this.props.classes.individual_stats_title}>Statuses:
+                        <span className={this.props.classes.individual_stats_title}>Tweets:
                         </span>
                         <span className={this.props.classes.individual_stats_data}>{this.props.twitter_status_count}</span>
                     </div>
