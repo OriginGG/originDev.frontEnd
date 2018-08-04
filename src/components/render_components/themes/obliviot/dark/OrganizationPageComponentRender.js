@@ -25,9 +25,7 @@ class DarkOrganizationPageComponentRender extends Component {
                             <div className={this.props.classes.obliviot_dark_section_view_more}>VIEW MORE</div>
                         </div>
                         <div className={this.props.classes.obliviot_dark_twitch_container}>
-                            <div className="ui stackable three column grid">
-                                <div >{this.props.stitchContent}</div>
-                            </div>
+                            <div >{this.props.twitchContent}</div>
                         </div>
                         <div>
                             <div className="ui stackable two column grid">

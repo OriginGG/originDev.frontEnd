@@ -37,6 +37,7 @@ class OrganizationPageController extends Component {
         OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
         OrganizationBlogController: null,
+        OrganizationTwitchController: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         display_rosters: false,
@@ -102,9 +103,15 @@ class OrganizationPageController extends Component {
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 let OrganizationBlogController = null;
                 let OrganizationBlogControllerDefault = null;
+                let OrganizationTwitchController = null;
+                let OrganizationTwitchControllerDefault = null;
                 if (themeBase === 'obliviot') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
+                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
+                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    // OrganizationTwitchController = null;
+                    // OrganizationTwitchControllerDefault = null;
                 }
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
@@ -155,6 +162,7 @@ class OrganizationPageController extends Component {
                     OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
+                    OrganizationTwitchController: OrganizationTwitchControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
                 if (this.invite_details) {
@@ -289,6 +297,7 @@ class OrganizationPageController extends Component {
         const { OrganizationSponserListController } = this.state;
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
+        const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
         if (this.isMobile()) {
@@ -339,6 +348,7 @@ class OrganizationPageController extends Component {
             copyright={cp}
             newsContent={<OrganizationNewsController />}
             blogContent={<OrganizationBlogController />}
+            twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
