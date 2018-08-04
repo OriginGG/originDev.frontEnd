@@ -221,6 +221,7 @@ class AppManager {
                         });
                     resolve(data.data);
                 } catch (err) {
+                    console.log(`error = ${JSON.stringify(err)}`);
                     reject(new Error('Network Error'));
                 }
             }
