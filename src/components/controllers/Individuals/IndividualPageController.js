@@ -28,7 +28,7 @@ const EditModal = (props) => {
     return (
         <Modal
             style={{ top: 32 }}
-            width="max-content"
+            width="600px"
             closable={false}
             footer={null}
             visible={props.modal_open}
@@ -274,6 +274,7 @@ class IndividualPageController extends Component {
                     if (user.individualUserById !== null) {
                         this.is_admin = true;
                     }
+                    debugger;
                     this.user_details = user.individualUserById;
                     this.getStats();
                 }

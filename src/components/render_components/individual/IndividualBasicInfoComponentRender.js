@@ -53,7 +53,7 @@ class IndividualBasicInfoComponentRender extends Component {
                             <div style={{
                                 padding: '10px'
                             }}>
-                                <p id="basic_accomplishments"/>
+                                <p id="basic_accomplishments">{this.props.accomplishments}</p>
                             </div>
                         </div>
                     </div>
