@@ -14,7 +14,7 @@ class DarkOrganizationNewsComponentRender extends Component {
                         .handleNewsClick( this.props.blog );
                 }}>
                     <img className={this.props.classes.obliviot_main_news_item_micro_image} src={this.props.blog_media}/>
-                    <div className={this.props.classes.obliviot_main_news_content_container}>
+                    <div className={this.props.classes.obliviot_dark_main_news_content_container}>
                         <div>
                             <div style={{
                                 width: '100%',

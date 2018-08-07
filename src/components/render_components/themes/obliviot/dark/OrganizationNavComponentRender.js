@@ -22,14 +22,20 @@ class DarkOrganizationNavComponentRender extends Component {
                     <div className="ten wide column">
                         <div className={this.props.classes.obliviot_nav_right}>
                             <div className={this.props.classes.obliviot_org_menu_dark_container}>
-                                <a href="#video_cont">
+                                <a href="#">
                                     <div id="menu_login" className={this.props.classes.org_menu_obliviot_dark_item} onClick={this.props.handleLoginClick}>Login</div>
                                 </a>
-                                <a href="#news_cont">
+                                <a href="#">
                                     <div id="menu_news" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
                                 </a>
                                 <a href="#">
-                                    <div id="sponsers_button" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsers</div>
+                                    <div id="roster_button" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.roster_style} onClick={this.props.handleRosterButtonClick}>Rosters</div>
+                                    <div className={this.props.classes.obliviot_dropdown_container} style={this.props.roster_dropdown_style}>
+                                        <div >{this.props.dropdown_item}</div>
+                                    </div>
+                                </a>
+                                <a href="#">
+                                    <div id="sponsers_button" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>
                                 </a>
                                 <a href="#">
                                     <div id="about_button" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
