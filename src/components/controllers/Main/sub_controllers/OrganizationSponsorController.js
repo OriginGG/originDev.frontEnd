@@ -33,8 +33,14 @@ class OrganizationSponsorController extends Component {
         console.log(error, info);
     }
     handleClick = (link) => {
-        if (link) {
+        console.log(`link = ${link}`);
+        if (link && link.includes('http')) {
+            console.log(`link has http = ${link}`);
             window.open(link, '_blank');
+        } else if (link) {
+            console.log(`link not full ${link}`);
+            const new_link = `http://${link}`;
+            window.open(new_link, '_blank');
         }
     }
     render() {
@@ -75,10 +81,10 @@ class OrganizationSponsorController extends Component {
         const { OrganizationSponserComponentRender } = this.state;
         const { OrganizationSponserComponentElementRender } = this.state;
         const p_array = [];
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_1" sponsor_image={this.sponsor_image1} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_2" sponsor_image={this.sponsor_image2} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_3" sponsor_image={this.sponsor_image3} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_4" sponsor_image={this.sponsor_image4} />);
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link1); }} key="sponsor_1" sponsor_image={this.sponsor_image1} />);
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link2); }} key="sponsor_2" sponsor_image={this.sponsor_image2} />);
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link3); }} key="sponsor_3" sponsor_image={this.sponsor_image3} />);
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link4); }} key="sponsor_4" sponsor_image={this.sponsor_image4} />);
         return (
             <OrganizationSponserComponentRender sponsor_content={<Slider {...settings}>{p_array}</Slider>} />
         );
