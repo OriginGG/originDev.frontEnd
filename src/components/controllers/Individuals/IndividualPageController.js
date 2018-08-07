@@ -274,7 +274,6 @@ class IndividualPageController extends Component {
                     if (user.individualUserById !== null) {
                         this.is_admin = true;
                     }
-                    debugger;
                     this.user_details = user.individualUserById;
                     this.getStats();
                 }

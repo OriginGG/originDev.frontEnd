@@ -144,7 +144,8 @@ class OrganizationPageController extends Component {
                 this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
                 this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
                 this.sponser_display = true;
-                if ((this.sponsor_desc1.length < 1) && (this.sponsor_desc2.length < 1) && (this.sponsor_desc3.length < 1) && (this.sponsor_desc4.length < 1)) {
+
+                if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
                     this.sponser_display = false;
                 }
                 this.setState({
