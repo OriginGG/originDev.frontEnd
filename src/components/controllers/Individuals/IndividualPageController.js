@@ -209,7 +209,7 @@ class ModalContent extends Component {
 
 const TwitchInfo = ({ stats }) => {
     return (
-        <Card style={{ marginTop: 12, marginLeft: 12 }} >
+        <Card style={{ marginTop: 12, marginLeft: '5%', width: '90%' }} >
             <Image src={stats.profile_image_url} />
             <Card.Content>
                 <Card.Header>
