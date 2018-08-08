@@ -2929,7 +2929,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_individual_submit_button: {
         height: '40px',
         lineHeight: '40px',
-        width: '200px',
+        width: '95%',
         fontSize: '18px',
         fontWeight: '900',
         borderColor: 'white',
