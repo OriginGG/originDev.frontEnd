@@ -669,12 +669,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_main_news_content_container: {
-        width: '86%',
+        width: '100%',
         height: '130px',
         position: 'absolute',
-        bottom: '5px',
-        left: '7%',
+        bottom: '0px',
+        left: '0%',
         padding: '5px',
+        paddingLeft: '20px',
         backgroundColor: 'rgba(0,0,0,.5)'
     },
 
@@ -1108,12 +1109,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_light_main_news_content_container: {
-        width: '86%',
+        width: '100%',
         height: '130px',
         position: 'absolute',
-        bottom: '5px',
-        left: '7%',
+        bottom: '0px',
+        left: '0%',
         padding: '5px',
+        paddingLeft: '20px',
         backgroundColor: 'rgba(255,255,255,.5)'
     },
 
@@ -1551,7 +1553,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     darkBG: {
         width: '100%',
-        backgroundColor: 'rgb(20,20,20)',
+        backgroundColor: 'rgb(0,0,0)',
         padding: '0px 0px 0px 0px'
     },
     blankBG: {
