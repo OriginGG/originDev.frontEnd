@@ -639,13 +639,15 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_darkBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -854,7 +856,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(255,255,255,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_dark_video_container: {
@@ -1075,13 +1078,15 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_lightBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -1290,7 +1295,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(0,0,0,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_light_video_container: {
@@ -1850,7 +1856,8 @@ export const GlobalStyles = GlobalTheme => ({
     header_logo: {
         display: 'block',
         margin: 'auto',
-        height: '35px'
+        height: '35px',
+        cursor: 'pointer'
     },
     body_container: {
         width: '100%',
