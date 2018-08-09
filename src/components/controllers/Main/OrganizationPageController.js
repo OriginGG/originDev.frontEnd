@@ -283,6 +283,12 @@ class OrganizationPageController extends Component {
             sss = { display: 'inheret' };
         }
 
+        const ob_inherit = { display: 'inherit' };
+        const ob_none = { display: 'none' };
+
+        const ob_light = { backgroundColor: '#fff' };
+        const ob_dark = { backgroundColor: '#000', height: '100%' };
+
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
@@ -354,6 +360,8 @@ class OrganizationPageController extends Component {
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
             rosterContent={<span />}
+            obliviot_hidden_style={ob_inherit}
+            obliviot_page_style={ob_light}
             topSponsorContent={<OrganizationSponsorController />}
             bottomSponsorContent={<OrganizationSponsorController />}
             navContent={nv_content}
@@ -365,6 +373,8 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
@@ -383,6 +393,8 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
@@ -401,6 +413,8 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationStaffController about_title={this.about_us.pageTitle} about_content={this.bcontent} closeStaff={this.closeStaff} />}
                 newsContent={<span />}
                 twitterContent={<span />}
