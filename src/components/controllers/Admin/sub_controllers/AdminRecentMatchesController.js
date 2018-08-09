@@ -3,33 +3,43 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
 import { GlobalStyles } from 'Theme/Theme';
-import { Dropdown, Button, Input } from 'semantic-ui-react';
+import { Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { inject } from 'mobx-react';
 import _ from 'lodash';
+import { Modal } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
-import { createRecentMatchQuery, recentMatchesQuery } from '../../../../queries/matches';
-import { gameOptions } from './data/AllGames.js';
+import { createRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
+import { gameOptions } from './data/AllGames';
+
+const { confirm } = Modal;
 
 class AdminRecentMatchesController extends Component {
     state = {
         visible: false, add_match: false, logo_src: null, your_score: '', their_score: ''
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.upload_file = false;
         this.current_game = null;
+        this.is_saving = false;
         this.calcMatches();
     }
-
-    calcMatches = async () => {
-        const m = await this.props.appManager.executeQueryAuth(
-            'query', recentMatchesQuery,
-            {
-                organisation: this.props.uiStore.current_organisation.subDomain
+    calcMatches = () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const m = await this.props.appManager.executeQueryAuth(
+                    'query', recentMatchesQuery,
+                    {
+                        organisation: this.props.uiStore.current_organisation.subDomain
+                    }
+                );
+                this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
+                resolve(true);
+            } catch (err) {
+                reject(err);
             }
-        );
-        this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
+        });
     }
 
     uploadLogo = () => {
@@ -75,7 +85,32 @@ class AdminRecentMatchesController extends Component {
 
     handleSubmit = async () => {
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
-        if (this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
+        if (!this.current_game) {
+            toast.error('Please pick a game', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.state.your_score) {
+            toast.error('Please enter your score', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.state.their_score) {
+            toast.error('Please enter your opponents score', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.state.logo_src) {
+            toast.error('Please upload your opponents logo', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (this.is_saving === false && this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
+            this.is_saving = true;
             const logo_data = await this.uploadLogo();
             await this.props.appManager.executeQueryAuth(
                 'mutation', createRecentMatchQuery,
@@ -86,8 +121,41 @@ class AdminRecentMatchesController extends Component {
             toast.success('Match Added !', {
                 position: toast.POSITION.TOP_LEFT
             });
-            this.calcMatches();
+            await this.calcMatches();
+            this.is_saving = false;
         }
+    }
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this Recent Match',
+                content: 'Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    deleteMatch = async (id) => {
+        const action = await this.showDeleteConfirm();
+        if (action) {
+            await this.props.appManager.executeQuery(
+                'mutation', deleteRecentMatchQuery,
+                {
+                    id
+                }
+            );
+            toast.success('Recent match deleted !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        await this.calcMatches();
     }
     render() {
         if (this.state.visible === false) {
@@ -154,7 +222,7 @@ class AdminRecentMatchesController extends Component {
                         color: 'rgb(255, 255, 255)', backgroundColor: 'transparent', userSelect: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '20', borderRadius: 0, height: 40, width: 40
                     }} />
                     <br /></td>
-                <td>{res.node.score}</td>
+                <td>{res.node.score}<Button onClick={() => { this.deleteMatch(res.node.id); }} size="mini" color="red" style={{ float: 'right' }} >Delete</Button></td>
             </tr>);
         });
 

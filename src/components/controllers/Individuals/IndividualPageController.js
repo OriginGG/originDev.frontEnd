@@ -2,18 +2,22 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Card, Icon, Image } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import blankImage from '../../../assets/images/blank_person.png';
-import { getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
+import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
+import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
+import IndividualInstagramStatsComponentRender from '../../render_components/individual/IndividualInstagramStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
-import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
+// import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
+import IndividualYoutubeStatsComponentRender from '../../render_components/individual/IndividualYoutubeStatsComponentRender';
+
 import IndividualEditComponentRender from '../../render_components/individual/IndividualEditModalComponentRender';
 import browserHistory from '../../../utils/stores/browserHistory';
 // import { isMobile } from 'react-device-detect';
@@ -48,6 +52,7 @@ class ModalContent extends Component {
             contactNumber: '',
             youtubeChannel: '',
             twitchUrl: '',
+            instagramLink: '',
             twitterHandle: '',
             accomplishments: '',
             youtubeVideo1Url: '',
@@ -57,8 +62,9 @@ class ModalContent extends Component {
             bannerImageUrl: ''
         }
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.props.user_id });
+        console.log(`user = ${JSON.stringify(user)}`);
         this.setState({
             input_values: {
                 firstName: this.getInputValue(user.individualUserById.firstName),
@@ -71,6 +77,7 @@ class ModalContent extends Component {
                 twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
                 twitchUrl: this.getInputValue(user.individualUserById.twitchUrl),
                 accomplishments: this.getInputValue(user.individualUserById.accomplishments),
+                instagramLink: this.getInputValue(user.individualUserById.instagramLink),
                 // youtubeVideo1Url: this.getInputValue(user.individualUserById.youtubeVideo1Url),
                 // youtubeVideo2Url: this.getInputValue(user.individualUserById.youtubeVideo2Url),
                 // youtubeVideo3Url: this.getInputValue(user.individualUserById.youtubeVideo3Url),
@@ -84,6 +91,7 @@ class ModalContent extends Component {
     handleChange = (field, e) => {
         const v = e.target.value;
         const p = this.state.input_values;
+        console.log(`e = ${v} and p = ${p}`);
         p[field] = v;
         this.setState({
             input_values: p
@@ -179,11 +187,12 @@ class ModalContent extends Component {
                     username={this.state.input_values.username}
                     about={this.state.input_values.about}
                     email={this.state.input_values.email}
+                    accomplishments={this.state.input_values.accomplishments}
                     contactNumber={this.state.input_values.contactNumber}
                     youtubeChannel={this.state.input_values.youtubeChannel}
+                    instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
-                    accomplishments={this.state.input_values.accomplishments}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -231,9 +240,11 @@ class IndividualPageController extends Component {
         visible: false,
         modal_open: false,
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.is_admin = false;
         this.twitch_stats = null;
+        this.twitter_stats = null;
+        this.instagram_stats = null;
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
         if (view_id) {
@@ -275,6 +286,7 @@ class IndividualPageController extends Component {
     getStats = async () => {
         await this.getTwitchStats();
         await this.getYouTubeStats();
+        await this.getTwitterStats();
         this.setState({ visible: true });
     }
 
@@ -285,11 +297,56 @@ class IndividualPageController extends Component {
             this.twitch_stats = td.data.user;
         }
     }
+    getTwitterStats = async () => {
+        if (this.user_details.twitterHandle) {
+            const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('/') + 1);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitter/getTwitterUserInfo?user=${tu}`);
+            [this.twitter_stats] = td.data;
+        }
+    }
     getYouTubeStats = async () => {
         if (this.user_details.youtubeChannel) {
-            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?user=${this.user_details.youtubeChannel}`);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?channel=${this.user_details.youtubeChannel}`);
             this.youtube_stats = td.data;
         }
+    }
+    handleRedirect = (s) => {
+        switch (s) {
+            case 'twitter': {
+                if (this.user_details.twitterHandle) {
+                    const p_string = `https://twitter.com/${this.user_details.twitterHandle}?lang=en`;
+                    window.open(p_string, '_blank');
+                }
+                break;
+            }
+            case 'facebook': {
+                window.open('http://www.facebook.com', '_blank');
+                break;
+            }
+            case 'instagram': {
+                if (this.user_details.instagramLink) {
+                    window.open(`https://www.instagram.com/${this.user_details.instagramLink}/`, '_blank');
+                }
+                break;
+            }
+            case 'youtube': {
+                if (this.user_details.youtubeChannel) {
+                    window.open(`https://www.youtube.com/channel/${this.user_details.youtubeChannel}?view_as=subscriber`, '_blank');
+                }
+                break;
+            }
+            case 'twitch': {
+                if (this.user_details.twitchUrl) {
+                    window.open(`http://www.twitch.tv/${this.user_details.twitchUrl}`, '_blank');
+                }
+                break;
+            }
+            default: {
+                window.open('http://www.google.com', '_blank');
+                break;
+            }
+        }
+        console.log(s);
     }
     handleEditClick = () => {
         this.setState({ modal_open: true });
@@ -298,57 +355,152 @@ class IndividualPageController extends Component {
         this.setState({ modal_open: false });
     }
     handleSubmit = async (state) => {
-        await this.props.appManager.executeQuery(
-            'mutation', updateIndividualUserQuery,
-            {
-                id: this.user_id,
-                about: state.about,
-                firstName: state.firstName,
-                lastName: state.lastName,
-                bannerImageUrl: state.bannerImageUrl,
-                profileImageUrl: state.profileImageUrl,
-                accomplishments: state.accomplishments,
-                twitchUrl: state.twitchUrl,
-                twitterHandle: state.twitterHandle,
-                youtubeChannel: state.youtubeChannel,
-                // youtubeVideo1Url: state.youtubeVideo1Url,
-                // youtubeVideo2Url: state.youtubeVideo2Url,
-                // youtubeVideo3Url: state.youtubeVideo3Url,
-            }
-        );
-        toast.success('Profile Updated!', {
-            position: toast.POSITION.TOP_LEFT
-        });
-        this.user_details = state;
-        this.closeModal();
+        if (state.username.indexOf(' ') > -1) {
+            toast.error('Username cannot containt spaces!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (state.twitchUrl.includes('http')) {
+            toast.error('Twitch handle required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (state.youtubeChannel.includes('http')) {
+            toast.error('Youtube Channel ID required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (state.twitterHandle.includes('http')) {
+            toast.error('Twitter Handle required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (state.instagramLink.includes('http')) {
+            toast.error('Instagram ID required not full URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        const r = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle: state.username });
+        if (r.getinduserbyusername.edges.length > 0 && r.getinduserbyusername.edges[0].node.id !== this.user_id) {
+            toast.error('That Username is taken!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        } else {
+            await this.props.appManager.executeQuery(
+                'mutation', updateIndividualUserQuery,
+                {
+                    id: this.user_id,
+                    about: state.about,
+                    firstName: state.firstName,
+                    lastName: state.lastName,
+                    contactNumber: state.contactNumber,
+                    bannerImageUrl: state.bannerImageUrl,
+                    profileImageUrl: state.profileImageUrl,
+                    accomplishments: state.accomplishments,
+                    twitchUrl: state.twitchUrl,
+                    twitterHandle: state.twitterHandle,
+                    youtubeChannel: state.youtubeChannel,
+                    instagramLink: state.instagramLink,
+                    username: state.username
+                    // youtubeVideo1Url: state.youtubeVideo1Url,
+                    // youtubeVideo2Url: state.youtubeVideo2Url,
+                    // youtubeVideo3Url: state.youtubeVideo3Url,
+                }
+            );
+            toast.success('Profile Updated!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            this.user_details = state;
+            this.closeModal();
+        }
     }
     render() {
         let twitch_stats = <h2 style={{
             marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
         }}>No Data Found</h2>;
+
+        const instagram_stats = <h2
+        style={{
+            marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
+        }}>No Data Found</h2>;
+
         if (this.twitch_stats) {
             twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
         }
         if (this.state.visible === false) {
             return null;
         }
+
+        let channel_name = '';
+        let channel_comments = 0;
+        let channel_views = 0;
+        let channel_subscribers = 0;
+        let channel_videos = 0;
+        const channel_views_per_video = 0;
+        let youTubeComp = <IndividualYoutubeStatsComponentRender />;
+        if (this.youtube_stats) {
+            if (this.youtube_stats.channel_info) {
+                if (this.youtube_stats.channel_info.items.length > 0) {
+                    const item = this.youtube_stats.channel_info.items[0];
+                    channel_videos = item.statistics.videoCount;
+                    channel_name = item.snippet.title;
+                    channel_subscribers = item.statistics.subscriberCount;
+                    channel_views = item.statistics.viewCount;
+                    channel_comments = item.statistics.commentCount;
+                }
+            }
+            youTubeComp = <IndividualYoutubeStatsComponentRender
+                channel_name={channel_name}
+                channel_views={channel_views}
+                channel_subscribers={channel_subscribers}
+                channel_videos={channel_videos}
+                channel_comments={channel_comments}
+                channel_views_per_video={channel_views_per_video}
+                handle_redirect={this.handleRedirect}
+            />;
+        }
+         // Twitter Rendering Component
+         let twitter_username = '';
+         let twitter_followers_count = 0;
+         let twitter_status_count = 0;
+         let twitter_favourite_count = 0;
+         let twitter_screen_name = '';
+         let twitterComp = <IndividualTwitterStatsComponentRender />;
+         if (this.twitter_stats) {
+             twitter_username = this.twitter_stats.name; // eslint-disable-line
+             twitter_followers_count = this.twitter_stats.followers_count;
+             twitter_status_count = this.twitter_stats.statuses_count;
+             twitter_favourite_count = this.twitter_stats.favourites_count; // eslint-disable-line
+             twitter_screen_name = this.twitter_stats.screen_name; // eslint-disable-line
+             twitterComp = <IndividualTwitterStatsComponentRender
+                             username={twitter_username}
+                             twitter_followers_count={twitter_followers_count}
+                             twitter_status_count={twitter_status_count}
+                             twitter_favourite_count={twitter_favourite_count}
+                             twitter_screen_name={twitter_screen_name} />;
+         }
         let s = { display: 'inherit' };
         if (this.is_admin === false) {
             s = { display: 'none' };
         }
-        let v1 = null;
-        let v2 = null;
-        let v3 = null;
-        debugger;
-        if (this.youtube_stats.video_info.items.length > 0 && this.youtube_stats.video_info.items[0].id.videoId) {
-            v1 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[0].id.videoId}`;
-        }
-        if (this.youtube_stats.video_info.items.length > 1 && this.youtube_stats.video_info.items[1].id.videoId) {
-            v2 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[1].id.videoId}`;
-        }
-        if (this.youtube_stats.video_info.items.length > 2 && this.youtube_stats.video_info.items[2].id.videoId) {
-            v3 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[2].id.videoId}`;
-        }
+        // let v1 = null;
+        // let v2 = null;
+        // let v3 = null;
+        // debugger;
+        // if (this.youtube_stats.video_info.items.length > 0 && this.youtube_stats.video_info.items[0].id.videoId) {
+        //     v1 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[0].id.videoId}`;
+        // }
+        // if (this.youtube_stats.video_info.items.length > 1 && this.youtube_stats.video_info.items[1].id.videoId) {
+        //     v2 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[1].id.videoId}`;
+        // }
+        // if (this.youtube_stats.video_info.items.length > 2 && this.youtube_stats.video_info.items[2].id.videoId) {
+        //     v3 = `https://www.youtube.com/embed/${this.youtube_stats.video_info.items[2].id.videoId}`;
+        // }
         let pi = this.user_details.profileImageUrl;
         if (!pi) {
             pi = blankImage;
@@ -372,14 +524,13 @@ class IndividualPageController extends Component {
                             name={`${this.user_details.firstName} ${this.user_details.lastName}`}
                             email={this.user_details.email}
                             contactNumber={this.user_details.contactNumber}
+                            accomplishments={this.user_details.accomplishments}
                         />
                     }
-                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} />}
-                    ColumnThree={<IndividualVideosComponentRender
-                        video1_url={v1}
-                        video2_url={v2}
-                        video3_url={v3}
-                    />}
+                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
+                    ColumnThree={youTubeComp}
+                    ColumnFour={twitterComp}
+                    ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} handle_redirect={this.handleRedirect} />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}

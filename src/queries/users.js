@@ -37,6 +37,14 @@ export const getUserByEmailQuery = gql`query getUserByEmail($email:String!) {
   }
 }`;
 
+export const getUserByEmailQuery2 = gql`
+query getUserEmail($email: String!) {
+	userByEmail(email: $email) {
+    id
+  }  
+}
+`;
+
 export const getIndividualUserByEmailQuery = gql`query getIndividualUserByEmail($email:String!) {
   allIndividualUsers(condition:{email:$email}) {
     edges {
@@ -124,7 +132,7 @@ export const getAllIndividualUsersQuery = gql`query getAllIndividualUsers {
         lastName
         id
         profileImageUrl
-        userName
+        username
       }
     }
   }

@@ -1,5 +1,16 @@
 import gql from 'graphql-tag';
 
+export const getOrganisationByName = gql`
+  query getSubdomainByName($subdomain: String!) {
+    getorganisationbyname(subdomain: $subdomain) {
+      edges {
+        node {
+          subDomain
+          name
+        }
+      }
+    }
+  }`;
 export const getOrganisationQuery = gql`
     query getOrg($subDomain: String!) {
   resultData: organisationAccountBySubDomain(subDomain: $subDomain) {

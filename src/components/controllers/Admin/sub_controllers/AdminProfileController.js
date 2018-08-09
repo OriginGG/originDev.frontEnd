@@ -8,7 +8,7 @@ import { inject } from 'mobx-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
-import { updateOrganisationQuery } from '../../../../queries/organisation';
+import { updateOrganisationQuery, getOrganisationQuery } from '../../../../queries/organisation';
 import { updateThemeQuery } from '../../../../queries/themes';
 
 class AdminProfileController extends Component {
@@ -27,7 +27,7 @@ class AdminProfileController extends Component {
             logo_src: null
         }
     };
-    componentWillMount() {
+    componentDidMount() {
         this.upload_file = false;
         this.setState({
             input_values: {
@@ -48,32 +48,82 @@ class AdminProfileController extends Component {
     getInputValue = (i) => {
         return i === null ? '' : i;
     }
+    isURL = (str)  => {
+        // console.log(`string is ${str}`);
+        return str.includes('http');
+    }
     handleSubmit = async () => {
+        if (!this.isURL(this.state.input_values.facebook_value) && this.state.input_values.facebook_value) {
+            toast.error('Facebook URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.youtube_value) && this.state.input_values.youtube_value) {
+            toast.error('Youtube URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.twitter_value) && this.state.input_values.twitter_value) {
+            toast.error('Twitter URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.insta_value) && this.state.input_values.insta_value) {
+            toast.error('Instagram URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.company_store_value) && this.state.input_values.company_store_value) {
+            toast.error('Company Store URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.twitch_value) && this.state.input_values.twitch_value) {
+            toast.error('Twitch URL not Valid Format', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.upload_file) {
             const logo_data = await this.uploadLogo();
             const s = toJS(this.props.uiStore.current_theme_structure);
             s.header.logo.imageData = logo_data.Location;
             this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.Location;
-            await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
-        }
-        await this.props.appManager.executeQuery(
-            'mutation', updateOrganisationQuery,
-            {
-                subDomain: this.props.uiStore.current_organisation.subDomain,
-                companyStoreLink: this.state.input_values.company_store_value,
-                name: this.state.input_values.company_name_value,
-                fbLink: this.state.input_values.facebook_value,
-                youtubeLink: this.state.input_values.youtube_value,
-                twitterLink: this.state.input_values.twitter_value,
-                instaLink: this.state.input_values.insta_value,
-                twitterFeedUsername: this.state.input_values.twitter_username_value,
-                twitchLink: this.state.input_values.twitch_value,
-                primaryColor: this.state.input_values.primary_color_value
+            try {
+                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
+            } catch (err) {
+                this.props.appManager.networkError();
             }
-        );
-        toast.success('Company Details updated !', {
-            position: toast.POSITION.TOP_LEFT
-        });
+        }
+        try {
+            await this.props.appManager.executeQuery(
+                'mutation', updateOrganisationQuery,
+                {
+                    subDomain: this.props.uiStore.current_organisation.subDomain,
+                    companyStoreLink: this.state.input_values.company_store_value,
+                    name: this.state.input_values.company_name_value,
+                    fbLink: this.state.input_values.facebook_value,
+                    youtubeLink: this.state.input_values.youtube_value,
+                    twitterLink: this.state.input_values.twitter_value,
+                    instaLink: this.state.input_values.insta_value,
+                    twitterFeedUsername: this.state.input_values.twitter_username_value,
+                    twitchLink: this.state.input_values.twitch_value,
+                    primaryColor: this.state.input_values.primary_color_value
+                }
+            );
+            const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            this.props.uiStore.setOrganisation(o.resultData);
+            toast.success('Company Details updated !', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        } catch (err) {
+            this.props.appManager.networkError();
+        }
     }
     uploadLogo = () => {
         return new Promise((resolve) => {

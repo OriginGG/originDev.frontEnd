@@ -42,6 +42,7 @@ export const getRosterByIDQuery = gql`query getRosterById($id: Int!) {
               youtubeVideo3Url
               bannerImageUrl
               profileImageUrl
+              username
             }
 
           }
@@ -56,6 +57,14 @@ export const createRosterUserQuery = gql`mutation createRosterUser($rosterId: In
     rosterId: $rosterId
   }}) {
     rosterIndividual {
+      id
+    }
+  }
+}`;
+
+export const deleteRosterQuery = gql`mutation deleteRoster($id: Int!) {
+  deleteRosterById(input:{id: $id}) {
+    roster {
       id
     }
   }
@@ -101,6 +110,7 @@ export const getRosterQuery = gql`query getRosters($subDomain: String!) {
                                 youtubeVideo3Url
                                 bannerImageUrl
                                 profileImageUrl
+                                username
                             }
 
                         }

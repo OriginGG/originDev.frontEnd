@@ -9,10 +9,17 @@ export const createRecentMatchQuery = gql`mutation createRecentMatch($subDomain:
     }
   }
 }`;
+export const deleteRecentMatchQuery = gql`mutation deleteRecentMatch($id: Int!) {
+  deleteRecentmatchById(input: {id: $id}) {
+    recentmatch {
+      id
+    }
+  }
+}`;
 
 export const recentMatchesQuery = gql`
    query recentMatches($organisation: String!) {
-    resultdata: allRecentmatches(condition: { organisation: $organisation }) {
+    resultdata: allRecentmatches(orderBy: CREATED_AT_DESC, condition: { organisation: $organisation }) {
         edges {
             node
             {
@@ -23,6 +30,7 @@ export const recentMatchesQuery = gql`
                 gameName
                 gameLogo
                 score
+                createdAt
             }
         }
     }

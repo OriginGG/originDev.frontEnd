@@ -13,6 +13,8 @@ import './App.css';
 
 const pathsToIgnore = [
     '/signup',
+    '/password',
+    '/landing',
     '/signup_org',
     '/signup_ind',
     '/new_signup',
@@ -20,11 +22,12 @@ const pathsToIgnore = [
     '/main',
     '/individual',
     '/admin_page',
+    '/ind_invite',
     '/createsubdomain'
 ];
 
 class AppController extends Component {
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         let admin = false;
         // pouchTest
 
@@ -40,7 +43,8 @@ class AppController extends Component {
                 if (authPayload) {
                     admin = true;
                     const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
-                    await this.props.appManager.pouchStore('authenticate', p);
+                    this.props.appManager.pouchStore('authenticate', p);
+                    // await this.props.appManager.pouchStore('authenticate', p);
                 }
                 // const domainGo = this.props.appManager.GetQueryParams('domain');
                 // if (domainGo) {
@@ -95,7 +99,8 @@ class AppController extends Component {
                         const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
                         window.location = `${u_string}/signup`;
                     } else {
-                        const auth = await this.props.appManager.pouchGet('authenticate');
+                        const auth = this.props.appManager.pouchGet('authenticate');
+                        // const auth = await this.props.appManager.pouchGet('authenticate');
                         if (auth && auth.authenticate.resultData.organisation === subDomain) {
                             const token = auth.authenticate.resultData.jwtToken;
                             const d = this.props.appManager.decodeJWT(token);
@@ -120,10 +125,11 @@ class AppController extends Component {
                 }) === -1) {
                     const handle = (location.pathname).replace('/', '');            // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
-                    if (user.allIndividualUsers.edges.length > 0) {
-                        const user_id = user.allIndividualUsers.edges[0].node.id;
+                    if (user.getinduserbyusername.edges.length > 0) {
+                        const user_id = user.getinduserbyusername.edges[0].node.id;
                         historyStore.push(`/individual?u=${user_id}`);
                     } else {
+                        console.log('cock 1');
                         historyStore.push('/');
                     }
                 }

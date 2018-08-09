@@ -3,21 +3,24 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import PropTypes from 'prop-types';
-import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react';
-
+import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 import OrganizationAdminPageComponentRender from '../../render_components/admin/OrganizationAdminPageComponentRender';
 import OrganizationAdminMenuComponentRender from '../../render_components/admin/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
+import AdminMembersController from './sub_controllers/AdminMembersController';
 import AdminAboutController from './sub_controllers/AdminAboutController';
+import AdminSubscriptionCheckoutController from './sub_controllers/AdminSubscriptionCheckoutController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminRosterController from './sub_controllers/AdminRosterController';
-import AdminThemeController from './sub_controllers/AdminThemeController';
+import AdminStaffController from './sub_controllers/AdminStaffController';
+import AdminThemeController from './sub_controllers/AdminNewThemeController';
 import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
+import AdminContentTeamController from './sub_controllers/AdminContentTeamController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -40,13 +43,13 @@ class MenuDrop extends Component {
                 <Accordion fluid inverted >
                     <Accordion.Title active={this.state.open} index={0} onClick={this.handleClick}>
                         <Icon name="dropdown" />
-                        Manage
+                        Manage Content
           </Accordion.Title>
                     <Accordion.Content active={this.state.open}>
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('theme', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="paint brush icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Theme
@@ -56,27 +59,47 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('about', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="comment outline icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     About
                                 </div>
                             </div>
                         </a>
+                        {<a className="item">
+                            <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('staff', e); }}>
+                                <div className={this.props.classes.menu_item_icon}>
+                                    <i className="id card icon" />
+                                </div>
+                                <div className={this.props.classes.menu_item_label}>
+                                    Staff
+                                </div>
+                            </div>
+                        </a>}
                         <a className="item">
                             <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('roster', e); }}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="bullseye icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Roster
                                 </div>
                             </div>
                         </a>
+                        <a className="item">
+                            <div className={this.props.classes.menu_item} tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('content_team', e); }}>
+                                <div className={this.props.classes.menu_item_icon}>
+                                    <i className="group icon" />
+                                </div>
+                                <div className={this.props.classes.menu_item_label}>
+                                    Content Team
+                                </div>
+                            </div>
+                        </a>
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('blog', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="keyboard icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Blog
@@ -86,7 +109,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('media', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="file alternate icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Media
@@ -96,7 +119,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('recentmatches', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="trophy icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Recent Matches
@@ -106,7 +129,7 @@ class MenuDrop extends Component {
                         <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('sponsors', e); }}>
                             <div className={this.props.classes.menu_item}>
                                 <div className={this.props.classes.menu_item_icon}>
-                                    <i className="block layout icon" />
+                                    <i className="dollar sign icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
                                     Sponsors
@@ -121,7 +144,7 @@ class MenuDrop extends Component {
 }
 class AdminPageController extends Component {
     state = { page: 'company', isOpen: false, visible: false };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         if (this.props.appManager.admin_logged_in) {
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
@@ -170,6 +193,10 @@ class AdminPageController extends Component {
         }
         let p_component = <span />;
         switch (this.state.page) {
+            case 'subscription': {
+                p_component = <AdminSubscriptionCheckoutController />;
+                break;
+            }
             case 'company': {
                 p_component = <AdminProfileController />;
                 break;
@@ -198,12 +225,24 @@ class AdminPageController extends Component {
                 p_component = <AdminCollaboratorController />;
                 break;
             }
+            case 'members': {
+                p_component = <AdminMembersController />;
+                break;
+            }
             case 'recentmatches': {
                 p_component = <AdminRecentMatchesController />;
                 break;
             }
+            case 'content_team': {
+                p_component = <AdminContentTeamController />;
+                break;
+            }
             case 'about': {
                 p_component = <AdminAboutController />;
+                break;
+            }
+            case 'staff': {
+                p_component = <AdminStaffController />;
                 break;
             }
             default: {

@@ -16,7 +16,7 @@ class App extends Component {
       <ThemeProvider theme={GlobalTheme}>
         <div className="App">
             <TestComponent />
-        </div>
+          </div>
       </ThemeProvider>  
     );
   }

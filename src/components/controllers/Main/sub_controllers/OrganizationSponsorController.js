@@ -8,8 +8,11 @@ import { GlobalStyles } from 'Theme/Theme';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationSponsorController extends Component {
-    state = { visible: false };
-    componentWillMount = async () => {
+    state = { visible: false, OrganizationSponserComponentRender: null, OrganizationSponserComponentElementRender: null };
+    componentDidMount = async () => {
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        const OrganizationSponserComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentRender`);
+        const OrganizationSponserComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentElementRender`);
         const subDomain = this.props.uiStore.current_subdomain;
         const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
         this.sponsor_image1 = sponsor_data.resultData.edges[0].node.sponsor1;
@@ -20,7 +23,11 @@ class OrganizationSponsorController extends Component {
         this.sponsor_link2 = sponsor_data.resultData.edges[0].node.hrefLink2;
         this.sponsor_link3 = sponsor_data.resultData.edges[0].node.hrefLink3;
         this.sponsor_link4 = sponsor_data.resultData.edges[0].node.hrefLink4;
-        this.setState({ visible: true });
+        this.setState({
+            visible: true,
+            OrganizationSponserComponentRender: OrganizationSponserComponentRender.default,
+            OrganizationSponserComponentElementRender: OrganizationSponserComponentElementRender.default,
+        });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -65,51 +72,15 @@ class OrganizationSponsorController extends Component {
                 }
             }]
         };
+        const { OrganizationSponserComponentRender } = this.state;
+        const { OrganizationSponserComponentElementRender } = this.state;
+        const p_array = [];
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_1" sponsor_image={this.sponsor_image1} />);
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_2" sponsor_image={this.sponsor_image2} />);
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_3" sponsor_image={this.sponsor_image3} />);
+        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_4" sponsor_image={this.sponsor_image4} />);
         return (
-            <div className="col-sm-12" style={{ height: 36, maxWidth: 'calc(100vw - 68px)', overflow: 'hidden' }}>
-                <Slider {...settings}>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img onClick={() => { this.handleClick(this.sponsor_link1); }} src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
-                        </div>
-                    </div>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img onClick={() => { this.handleClick(this.sponsor_link2); }} src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
-                        </div>
-                    </div>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img onClick={() => { this.handleClick(this.sponsor_link3); }} src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
-                        </div>
-                    </div>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img onClick={() => { this.handleClick(this.sponsor_link4); }} src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ cursor: 'pointer', height: 35 }} />
-                        </div>
-                    </div>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img src={this.sponsor_image1} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                    </div>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img src={this.sponsor_image2} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                    </div>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img src={this.sponsor_image3} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                    </div>
-                    <div className="container col-sm-4" style={{ width: '266px' }}>
-                        <div>
-                            <img src={this.sponsor_image4} alt="Change Logo" className={this.props.classes.header_logo} style={{ height: 35 }} />
-                        </div>
-                    </div>
-                </Slider>
-            </div>
+            <OrganizationSponserComponentRender sponsor_content={<Slider {...settings}>{p_array}</Slider>} />
         );
     }
 }

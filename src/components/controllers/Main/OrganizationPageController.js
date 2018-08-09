@@ -3,32 +3,23 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { slide as Menu } from 'react-burger-menu';
-import { Modal } from 'antd';
 import Favicon from 'react-favicon';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
+import { getSponsorsQuery } from '../../../queries/sponsors';
+import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
+import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
+
+// import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
-const AboutModal = (props) => {
-    return (
-        <Modal
-            width="max-content"
-            closable={false}
-            footer={null}
-            visible={props.modal_open}
-            animationDuration={1000}
-        >
-            <div style={{ display: 'block' }}>
-                {props.content}
-            </div>
-        </Modal >);
-};
 
 class OrganizationPageController extends Component {
     state = {
@@ -42,15 +33,43 @@ class OrganizationPageController extends Component {
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
+        OrganizationSponserListController: null,
+        OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
+        OrganizationBlogController: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
-        about_modal_open: false,
         display_rosters: false,
+        display_staff: false,
         roster_style: { display: 'none' }
     };
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
+        const token = this.props.appManager.GetQueryParams('ipl');
+        this.invite_details = null;
+        console.log(token);
+        if (token) {
+            const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
+            const { email } = d;
+            const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
+                email
+            });
+            const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
+                id: user.individualUserByEmail.id
+            });
+            if (exists.allOrganisationMembers.edges.length > 0) {
+                toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
+                    autoClose: false
+                });
+            } else {
+                console.log(exists);
+                await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
+                    subDomain: d.organisation,
+                    userId: user.individualUserByEmail.id
+                });
+                this.invite_details = user.individualUserByEmail;
+            }
+        }
         this.current_roster_id = -1;
         const domainToken = await this.props.appManager.getDomainToken();
         if (domainToken && domainToken.token) {
@@ -68,6 +87,7 @@ class OrganizationPageController extends Component {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+                const themeBase = this.props.uiStore.current_organisation.themeBaseId;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
@@ -77,8 +97,15 @@ class OrganizationPageController extends Component {
                 const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
                 const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
-                const OrganizationAboutModalComponentRender = await import(`../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
+                const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
+                const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
+                let OrganizationBlogController = null;
+                let OrganizationBlogControllerDefault = null;
+                if (themeBase === 'obliviot') {
+                    OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
+                    OrganizationBlogControllerDefault = OrganizationBlogController.default;
+                }
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
@@ -104,6 +131,15 @@ class OrganizationPageController extends Component {
                 if (this.props.uiStore.current_organisation.companyStoreLink) {
                     this.store_display = true;
                 }
+                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
+                this.sponsor_desc1 = sponsor_data.resultData.edges[0].node.sponsorDesc1;
+                this.sponsor_desc2 = sponsor_data.resultData.edges[0].node.sponsorDesc2;
+                this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
+                this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
+                this.sponser_display = true;
+                if ((this.sponsor_desc1.length < 1) && (this.sponsor_desc2.length < 1) && (this.sponsor_desc3.length < 1) && (this.sponsor_desc4.length < 1)) {
+                    this.sponser_display = false;
+                }
                 this.setState({
                     visible: true,
                     OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
@@ -116,9 +152,16 @@ class OrganizationPageController extends Component {
                     OrganizationLogoController: OrganizationLogoController.default,
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
-                    OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
+                    OrganizationSponserListController: OrganizationSponserListController.default,
+                    OrganizationStaffController: OrganizationStaffController.default,
+                    OrganizationBlogController: OrganizationBlogControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
+                if (this.invite_details) {
+                    toast.success(`${this.invite_details.username} has been successfully invited`, {
+                        autoClose: false
+                    });
+                }
             }
         }
         // } else {
@@ -141,11 +184,19 @@ class OrganizationPageController extends Component {
     createMarkup = (content) => {
         return { __html: content };
     }
+    handleSponsersClick = () => {
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_sponsers: true });
+    }
     handleAboutClick = () => {
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
-        this.setState({ about_modal_open: true });
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_staff: true });
     }
     handleStoreClick = () => {
         if (this.isMobile() && this.state.menu_open) {
@@ -163,9 +214,6 @@ class OrganizationPageController extends Component {
     }
     isMenuOpen = (state) => {
         this.setState({ menu_open: state.isOpen });
-    }
-    closeModal = () => {
-        this.setState({ about_modal_open: false });
     }
 
     handleSocial = (t) => {
@@ -198,10 +246,16 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         this.current_roster_id = r;
-        this.setState({ roster_style: { display: 'table', width: '100%' }, display_rosters: true });
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_rosters: true });
     }
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
+    }
+    closeSponsers = () => {
+        this.setState({ roster_style: { display: 'none' }, display_sponsers: false });
+    }
+    closeStaff = () => {
+        this.setState({ roster_style: { display: 'none' }, display_staff: false });
     }
     render() {
         if (this.state.visible === false) {
@@ -215,6 +269,10 @@ class OrganizationPageController extends Component {
         if (this.store_display) {
             ss = { display: 'inherit' };
         }
+        let sss = { display: 'none' };
+        if (this.sponser_display) {
+            sss = { display: 'inheret' };
+        }
 
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
@@ -226,9 +284,11 @@ class OrganizationPageController extends Component {
         const { OrganizationSponsorController } = this.state;
         const { OrganizationNavController } = this.state;
         const { OrganizationLogoController } = this.state;
-        const { OrganizationAboutModalComponentRender } = this.state;
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
+        const { OrganizationSponserListController } = this.state;
+        const { OrganizationStaffController } = this.state;
+        const { OrganizationBlogController } = this.state;
 
         let rosterComponent = <span />;
         if (this.isMobile()) {
@@ -240,10 +300,13 @@ class OrganizationPageController extends Component {
         let nv_content = <OrganizationNavController
             store_style={ss}
             about_style={s}
+            sponsers_style={sss}
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleLoginClick={this.handleLoginClick}
+            handleRosterClick={this.handleRosterClick}
+            handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
             SideBar =
@@ -262,6 +325,7 @@ class OrganizationPageController extends Component {
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
+                                handleSponsersClick={this.handleSponsersClick}
                                 handleAboutClick={this.handleAboutClick} />
                         </div>
                     </div></Menu>;
@@ -274,6 +338,7 @@ class OrganizationPageController extends Component {
             roster_style={this.state.roster_style}
             copyright={cp}
             newsContent={<OrganizationNewsController />}
+            blogContent={<OrganizationBlogController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
@@ -302,6 +367,42 @@ class OrganizationPageController extends Component {
             />;
         }
 
+        if (this.state.display_sponsers) {
+            c_name = 'blackBG';
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+        if (this.state.display_staff) {
+            c_name = 'blackBG';
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                rosterContent={<OrganizationStaffController about_title={this.about_us.pageTitle} about_content={this.bcontent} closeStaff={this.closeStaff} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
 
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
@@ -311,10 +412,6 @@ class OrganizationPageController extends Component {
                         {SideBar}
                         <div className={c_name} >
                             {disp}
-                            <AboutModal
-                                modal_open={this.state.about_modal_open}
-                                content={<OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_button_text="CLOSE" about_title={this.about_us.pageTitle} about_content={this.bcontent} />}
-                            />
                         </div>
                     </div>
                 </DocumentTitle>
@@ -327,8 +424,4 @@ OrganizationPageController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-AboutModal.propTypes = {
-    modal_open: PropTypes.bool.isRequired,
-    content: PropTypes.object.isRequired
-};
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { Card, Button, Input, Segment } from 'semantic-ui-react';
+import { Card, Button, Input, Segment } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import ReactQuill from 'react-quill';
@@ -22,7 +22,7 @@ class AdminAddBlogController extends Component {
             visible: false, blog_image: null, blog_title: '', text: ''
         }; // You can also pass a Quill Delta here
     }
-    componentWillMount = () => {
+    componentDidMount = () => {
         this.logo_files = null;
         const p = {
             blog_title: this.props.blogTitle,
@@ -38,6 +38,15 @@ class AdminAddBlogController extends Component {
     }
     handleSubmit = async () => {
         const f_name = await this.uploadBlogMedia();
+        const f_title = this.state.blog_title;
+        const f_text = this.state.text;
+
+        if (!f_name && !f_title && !f_text) {
+            toast.error('Not all Blog fields filled out or an image has nott been uploaded', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.create_blog) {
             if (this.state.blog_title && this.state.text) {
                 await this.props.appManager.executeQuery(

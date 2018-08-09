@@ -10,7 +10,7 @@ import blankProfileImage from '../../../../assets/images/blank_person.png';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationRosterController extends Component {
     state = { visible: false };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
@@ -26,17 +26,17 @@ class OrganizationRosterController extends Component {
     // }
 
     handleClick = (i) => {              // eslint-disable-line
-        // const x = this.props.appManager.getDomainInfo();
-        // let p = x.hostname;
-        // if (p.indexOf(x.subDomain) > -1) {
-        //     p = p.substr(x.subDomain.length + 1, p.length);
-        //     let pt = '';
-        //     if (x.port) {
-        //         pt = `:${x.port}`;
-        //     }
-        //     const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
-        //     window.open(url, '_blank');
-        // }
+        const x = this.props.appManager.getDomainInfo();
+        let p = x.hostname;
+        if (p.indexOf(x.subDomain) > -1) {
+            p = p.substr(x.subDomain.length + 1, p.length);
+            let pt = '';
+            if (x.port) {
+                pt = `:${x.port}`;
+            }
+            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+            window.open(url, '_blank');
+        }
     }
 
     handle_social = (s, ind_user) => {
@@ -54,6 +54,11 @@ class OrganizationRosterController extends Component {
                 window.open(ind_user.instagramLink, '_blank');
                 break;
             }
+            case 'youtube': {
+                const p_string = `https://www.youtube.com/channel/${ind_user.youtubeChannel}`;
+                window.open(p_string, '_blank');
+                break;
+            }
             default: {
                 break;
             }
@@ -67,6 +72,10 @@ class OrganizationRosterController extends Component {
         }
         const { OrganizationRosterItemComponentRender } = this.state;
         const p_array = [];
+        let no_items = '';
+        if (this.state.roster_list.length < 1) {
+            no_items = 'No Players Are Currently On This Roster';
+        }
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
             let im = blankProfileImage;
@@ -90,7 +99,7 @@ class OrganizationRosterController extends Component {
                 instagram_style = { display: 'none' };
             }
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
-                roster_nickname={individualUserByIndividualId.twitterHandle}
+                roster_nickname={individualUserByIndividualId.username}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
                 roster_image={im}
@@ -105,7 +114,7 @@ class OrganizationRosterController extends Component {
         return (<div>
             <div
                 onClick={this.props.closeRosters}
-                tabIndex={-1}
+                tabIndex={-2}
                 role="menuItem"
                 style={{
                     cursor: 'pointer',
@@ -116,6 +125,22 @@ class OrganizationRosterController extends Component {
                     zIndex: 10000,
                     color: 'white',
                 }}><span className="fa fa-window-close" /></div>
+                <div
+                    tabIndex={-1}
+                    role="menuItem"
+                    style={{
+                        width: '100%',
+                        fontSize: 32,
+                        fontWeight: 900,
+                        position: 'absolute',
+                        top: 200,
+                        left: '0%',
+                        textAlign: 'center',
+                        color: 'white',
+                        zIndex: 10000,
+                    }}>
+                    {no_items}
+                </div>
             {p_array}</div>);
     }
 }

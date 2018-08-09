@@ -16,7 +16,7 @@ class AdminMediaController extends Component {
             link4_value: '',
         }
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.create = false;
         const youTubeChannels = await this.props.appManager.executeQueryAuth('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         if (youTubeChannels.resultData.edges.length === 0) {
@@ -43,7 +43,36 @@ class AdminMediaController extends Component {
         });
     }
 
+    isURL = (str)  => {
+        // console.log(`string is ${str}`);
+        return str.includes('http');
+    }
+
     handleSubmit = async () => {
+        if (!this.isURL(this.state.input_values.link1_value) && this.state.input_values.link1_value) {
+            toast.error('Link 1 is not a valid URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.link2_value) && this.state.input_values.link2_value) {
+            toast.error('Link 2 is not a valid URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.link3_value) && this.state.input_values.link3_value) {
+            toast.error('Link 3 is not a valid URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.link4_value) && this.state.input_values.link4_value) {
+            toast.error('Link 4 is not a valid URL', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.create) {
             await this.props.appManager.executeQueryAuth(
                 'mutation', createYouTubeChannelQuery,

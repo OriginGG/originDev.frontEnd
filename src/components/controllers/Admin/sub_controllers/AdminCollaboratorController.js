@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
-import { Input, Segment, Header, Button } from 'semantic-ui-react';
+import { Input, Segment, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { createUserQuery, updateUserQuery, getAllNonAdminUsersQuery } from '../../../../queries/users';
 import OrganizationAdminCollaboratorComponentRender from '../../../render_components/admin/OrganizationAdminCollaboratorComponentRender';
 
@@ -12,7 +12,7 @@ class AdminCollaboratorController extends Component {
         visible: false, modal_open: false, firstname_value: '', lastname_value: '', email_value: '', password_value: ''
     }
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         await this.updateTable();
         this.setState({ visible: true });
     }
@@ -75,7 +75,7 @@ class AdminCollaboratorController extends Component {
                 <div style={{ marginBottom: 14 }}>
                     <div className="ui stackable two column grid">
                         <div className="column">
-                            <Header as="h4">First Namer</Header>
+                            <Header as="h4">First Name</Header>
                             <Input onChange={(e) => { this.handleInputChange(e, 'firstname_value'); }} style={{ width: 280 }} value={this.state.firstname_value} placeholder="First name..." />
                         </div>
                         <div className="column">

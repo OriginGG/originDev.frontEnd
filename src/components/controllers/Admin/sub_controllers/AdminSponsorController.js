@@ -23,10 +23,14 @@ class AdminSponsorController extends Component {
             sponsor_desc1_value: '',
             sponsor_desc2_value: '',
             sponsor_desc3_value: '',
-            sponsor_desc4_value: ''
+            sponsor_desc4_value: '',
+            sponsor_name1_value: '',
+            sponsor_name2_value: '',
+            sponsor_name3_value: '',
+            sponsor_name4_value: ''
         }
     };
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         this.logo_files = {};
         let s_image0 = blankImage;
         let s_image1 = blankImage;
@@ -52,6 +56,10 @@ class AdminSponsorController extends Component {
                 sponsor_desc2_value: sponsor_data.resultData.edges[0].node.sponsorDesc2,
                 sponsor_desc3_value: sponsor_data.resultData.edges[0].node.sponsorDesc3,
                 sponsor_desc4_value: sponsor_data.resultData.edges[0].node.sponsorDesc4,
+                sponsor_name1_value: sponsor_data.resultData.edges[0].node.sponsorName1,
+                sponsor_name2_value: sponsor_data.resultData.edges[0].node.sponsorName2,
+                sponsor_name3_value: sponsor_data.resultData.edges[0].node.sponsorName3,
+                sponsor_name4_value: sponsor_data.resultData.edges[0].node.sponsorName4,
             }
         });
     }
@@ -65,28 +73,65 @@ class AdminSponsorController extends Component {
         });
     }
 
+    isURL = (str)  => {
+        return str.includes('http');
+    }
+
     handleSubmit = async () => {
-        const sponsor_name1 = await this.uploadSponsorMedia('sponsor_image1');
-        const sponsor_name2 = await this.uploadSponsorMedia('sponsor_image2');
-        const sponsor_name3 = await this.uploadSponsorMedia('sponsor_image3');
-        const sponsor_name4 = await this.uploadSponsorMedia('sponsor_image4');
+        const sponsor_image1 = await this.uploadSponsorMedia('sponsor_image1');
+        const sponsor_image2 = await this.uploadSponsorMedia('sponsor_image2');
+        const sponsor_image3 = await this.uploadSponsorMedia('sponsor_image3');
+        const sponsor_image4 = await this.uploadSponsorMedia('sponsor_image4');
+        const sponser_href1 = this.state.input_values.http_link1_value;
+        const sponser_href2 = this.state.input_values.http_link2_value;
+        const sponser_href3 = this.state.input_values.http_link3_value;
+        const sponser_href4 = this.state.input_values.http_link4_value;
+
+        if (!this.isURL(sponser_href1) && sponser_href1) {
+            toast.error('First Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(sponser_href2) && sponser_href2) {
+            toast.error('Second Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(sponser_href3) && sponser_href3) {
+            toast.error('Third Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(sponser_href4) && sponser_href4) {
+            toast.error('Fourth Sponser URL Not Valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (this.create) {
             await this.props.appManager.executeQuery(
                 'mutation', createSponsorsQuery,
                 {
                     subDomain: this.props.uiStore.current_organisation.subDomain,
-                    link1: sponsor_name1,
-                    link2: sponsor_name2,
-                    link3: sponsor_name3,
-                    link4: sponsor_name4,
-                    href_link1: this.state.input_values.http_link1_value,
-                    href_link2: this.state.input_values.http_link2_value,
-                    href_link3: this.state.input_values.http_link3_value,
-                    href_link4: this.state.input_values.http_link4_value,
+                    link1: sponsor_image1,
+                    link2: sponsor_image2,
+                    link3: sponsor_image3,
+                    link4: sponsor_image4,
+                    href_link1: sponser_href1,
+                    href_link2: sponser_href2,
+                    href_link3: sponser_href3,
+                    href_link4: sponser_href4,
                     desc1: this.state.input_values.sponsor_desc1_value,
                     desc2: this.state.input_values.sponsor_desc2_value,
                     desc3: this.state.input_values.sponsor_desc3_value,
-                    desc4: this.state.input_values.sponsor_desc4_value
+                    desc4: this.state.input_values.sponsor_desc4_value,
+                    name1: this.state.input_values.sponsor_name1_value,
+                    name2: this.state.input_values.sponsor_name2_value,
+                    name3: this.state.input_values.sponsor_name3_value,
+                    name4: this.state.input_values.sponsor_name4_value
 
                 }
             );
@@ -98,18 +143,22 @@ class AdminSponsorController extends Component {
                 'mutation', updateSponsorsQuery,
                 {
                     id: this.c_id,
-                    link1: sponsor_name1,
-                    link2: sponsor_name2,
-                    link3: sponsor_name3,
-                    link4: sponsor_name4,
-                    href_link1: this.state.input_values.http_link1_value,
-                    href_link2: this.state.input_values.http_link2_value,
-                    href_link3: this.state.input_values.http_link3_value,
-                    href_link4: this.state.input_values.http_link4_value,
+                    link1: sponsor_image1,
+                    link2: sponsor_image2,
+                    link3: sponsor_image3,
+                    link4: sponsor_image4,
+                    href_link1: sponser_href1,
+                    href_link2: sponser_href2,
+                    href_link3: sponser_href3,
+                    href_link4: sponser_href4,
                     desc1: this.state.input_values.sponsor_desc1_value,
                     desc2: this.state.input_values.sponsor_desc2_value,
                     desc3: this.state.input_values.sponsor_desc3_value,
-                    desc4: this.state.input_values.sponsor_desc4_value
+                    desc4: this.state.input_values.sponsor_desc4_value,
+                    name1: this.state.input_values.sponsor_name1_value,
+                    name2: this.state.input_values.sponsor_name2_value,
+                    name3: this.state.input_values.sponsor_name3_value,
+                    name4: this.state.input_values.sponsor_name4_value
                 }
             );
             toast.success('Sponsors Updated!', {
@@ -168,6 +217,10 @@ class AdminSponsorController extends Component {
                     sponsor_desc2_value={this.state.input_values.sponsor_desc2_value}
                     sponsor_desc3_value={this.state.input_values.sponsor_desc3_value}
                     sponsor_desc4_value={this.state.input_values.sponsor_desc4_value}
+                    sponsor_name1_value={this.state.input_values.sponsor_name1_value}
+                    sponsor_name2_value={this.state.input_values.sponsor_name2_value}
+                    sponsor_name3_value={this.state.input_values.sponsor_name3_value}
+                    sponsor_name4_value={this.state.input_values.sponsor_name4_value}
                 />
             </div>
         );

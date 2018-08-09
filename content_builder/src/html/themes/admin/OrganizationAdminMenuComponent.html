@@ -52,23 +52,23 @@
                         </div>
                     </div>
                 </a>
-                <a class="item">
+                <a class="item" data-component-props="onClick={(e)=>{this.props.handleMainMenuClick('members', e);}}">
                     <div class="classes.menu_item">
                         <div class="classes.menu_item_icon">
-                            <i class="block layout icon"></i>
+                            <i class="users icon"></i>
                         </div>
                         <div class="classes.menu_item_label">
-                            User LIst
+                            Members
                         </div>
                     </div>
                 </a>
-                <a class="item" data-component-props="onClick={(e)=>{this.props.handleMainMenuClick('collaborators', e);}}">
+                <a class="item" data-component-props="onClick={(e)=>{this.props.handleMainMenuClick('subscription', e);}}">
                     <div class="classes.menu_item">
                         <div class="classes.menu_item_icon">
-                            <i class="block layout icon"></i>
+                            <i class="dollar icon"></i>
                         </div>
                         <div class="classes.menu_item_label">
-                            Collaborators
+                            Subscription
                         </div>
                     </div>
                 </a>

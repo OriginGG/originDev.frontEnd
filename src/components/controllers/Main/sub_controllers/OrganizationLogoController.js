@@ -11,7 +11,7 @@ import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 class OrganizationLogoController extends Component {
     state = { visible: false, OrganizationLogoComponentRender: null };
 
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const p_array = [];
         if (!this.isMobile()) {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
@@ -33,12 +33,15 @@ class OrganizationLogoController extends Component {
         console.log(error, info);
     }
     isMobile = () => {
-        // return true;
         return isMobile;
     }
     render() {
         if (this.state.visible === false) {
             return null;
+        }
+        let s = { display: 'inherit' };
+        if (this.isMobile()) {
+            s = { display: 'none' };
         }
         const m_array = [];
         const p = this.state.games;
@@ -48,7 +51,7 @@ class OrganizationLogoController extends Component {
             </div>);
         });
         const { OrganizationLogoComponentRender } = this.state;
-        return <OrganizationLogoComponentRender roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} image_src={this.image_src} />;
+        return <OrganizationLogoComponentRender roster_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} image_src={this.image_src} />;
     }
 }
 

@@ -8,9 +8,10 @@ import historyStore from '../../../utils/stores/browserHistory';
 
 import { getUserQuery, updateUserQuery } from '../../../queries/users';
 import { authenticateQuery } from '../../../queries/login';
+import { deleteEmailRegistrationQuery } from '../../../queries/registrations';
 
 class NewSignupPageController extends Component {
-    componentWillMount = async () => {
+    componentDidMount = async () => {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
         const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: d.id });
@@ -29,6 +30,7 @@ class NewSignupPageController extends Component {
                 id: d.id,
             };
             await this.props.appManager.executeQuery('mutation', updateUserQuery, payload);
+            await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
             const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
             const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
             historyStore.push(`/createsubdomain?p=${new_payload}`);
