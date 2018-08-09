@@ -25,16 +25,19 @@
       <div data-component-name="light_OrganizationPageComponent"  class="classes.lightObliotBG">
             <div class="classes.light_pageTestContraint">
                 <img id="bg_img" class="classes.obliviot_light_bg_img" src="../images/light_main.jpeg" alt=""/>
-                <div class="classes.obliviot_light_bg_filter"></div>
+                <div class="classes.obliviot_light_bg_filter" data-component-props="style={this.props.obliviot_page_style}"></div>
                 <div class="classes.obliviot_lightContraint">
                     <header class="classes.obliviot_lightHeader">
                         <div data-component-value="{this.props.navContent}">Nav</div>
                     </header>
                     <div  id="sponsors" data-component-value="{this.props.topSponsorContent}">Nav</div>
+                    <div data-component-value="{this.props.rosterContent}" id="roster_component">
+                        
+                    </div>
                     <div class="classes.obliviot_lightBlogContainer">
                         <div data-component-value="{this.props.blogContent}">Nav</div>
                     </div>
-                    <div class="classes.obliviot_light_section_control_container">
+                    <div class="classes.obliviot_light_section_control_container" data-component-props="style={this.props.obliviot_hidden_style}">
                         <div class="classes.obliviot_light_section_divider"></div>
                         <div class="classes.obliviot_light_section_title">STREAMS</div>
                         <div class="classes.obliviot_light_section_view_more">VIEW MORE</div>
@@ -42,7 +45,7 @@
                     <div class="classes.obliviot_light_twitch_container">
                         <div data-component-value="{this.props.twitchContent}">twitch</div>
                     </div>
-                    <div>
+                    <div data-component-value="{this.props.newsObliviotContent}">
                         <div class="ui stackable two column grid">
                             <div class="ten wide column">
                                 <div class="classes.obliviot_light_section_control_container">
@@ -68,14 +71,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="classes.obliviot_light_section_control_container">
+                    <div class="classes.obliviot_light_section_control_container" data-component-props="style={this.props.obliviot_hidden_style}">
                         <div class="classes.obliviot_light_section_divider"></div>
                         <div class="classes.obliviot_light_section_title">MATCHES</div>
                         <div class="classes.obliviot_light_section_view_more">VIEW MORE</div>
                     </div>
                     <div id="matches_container" data-component-value="{this.props.matchesContent}">
                     </div>
-                    <div id="bottom_nav" class="classes.obliviot_light_bottom_nav">
+                    <div id="bottom_nav" class="classes.obliviot_light_bottom_nav" data-component-props="style={this.props.obliviot_hidden_style}">
                         <div class="ui stackable five column grid">
                             <div class="column">
                                 <img data-component-props="src={this.props.image_src}" class="classes.obliviot_light_bottom_nav_logo" src="../images/disrupt_logo.jpg" />
