@@ -639,13 +639,15 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_darkBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -854,7 +856,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(255,255,255,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_dark_video_container: {
@@ -867,7 +870,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dark_match_container: {
         width: '100%',
         padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(255,255,255,.1)',
+        backgroundColor: 'rgba(255,255,255,0.0)',
         position: 'relative',
         display: 'table',
         marginTop: '15px'
@@ -1075,13 +1078,15 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_lightBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -1290,7 +1295,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(0,0,0,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_light_video_container: {
@@ -1303,7 +1309,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_light_match_container: {
         width: '100%',
         padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(0,0,0,.1)',
+        backgroundColor: 'rgba(0,0,0,0)',
         position: 'relative',
         display: 'table',
         marginTop: '15px'
@@ -1850,7 +1856,8 @@ export const GlobalStyles = GlobalTheme => ({
     header_logo: {
         display: 'block',
         margin: 'auto',
-        height: '35px'
+        height: '35px',
+        cursor: 'pointer'
     },
     body_container: {
         width: '100%',
