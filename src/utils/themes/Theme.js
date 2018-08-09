@@ -867,7 +867,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dark_match_container: {
         width: '100%',
         padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(255,255,255,.1)',
+        backgroundColor: 'rgba(255,255,255,0.0)',
         position: 'relative',
         display: 'table',
         marginTop: '15px'
@@ -1303,7 +1303,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_light_match_container: {
         width: '100%',
         padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(0,0,0,.1)',
+        backgroundColor: 'rgba(0,0,0,0)',
         position: 'relative',
         display: 'table',
         marginTop: '15px'
