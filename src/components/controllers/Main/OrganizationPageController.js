@@ -37,6 +37,7 @@ class OrganizationPageController extends Component {
         OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
         OrganizationBlogController: null,
+        OrganizationTwitchController: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         display_rosters: false,
@@ -102,9 +103,15 @@ class OrganizationPageController extends Component {
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 let OrganizationBlogController = null;
                 let OrganizationBlogControllerDefault = null;
+                let OrganizationTwitchController = null;
+                let OrganizationTwitchControllerDefault = null;
                 if (themeBase === 'obliviot') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
+                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
+                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    // OrganizationTwitchController = null;
+                    // OrganizationTwitchControllerDefault = null;
                 }
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
@@ -137,7 +144,8 @@ class OrganizationPageController extends Component {
                 this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
                 this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
                 this.sponser_display = true;
-                if ((this.sponsor_desc1.length < 1) && (this.sponsor_desc2.length < 1) && (this.sponsor_desc3.length < 1) && (this.sponsor_desc4.length < 1)) {
+
+                if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
                     this.sponser_display = false;
                 }
                 this.setState({
@@ -155,6 +163,7 @@ class OrganizationPageController extends Component {
                     OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
+                    OrganizationTwitchController: OrganizationTwitchControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
                 if (this.invite_details) {
@@ -274,6 +283,12 @@ class OrganizationPageController extends Component {
             sss = { display: 'inheret' };
         }
 
+        const ob_inherit = { display: 'inherit' };
+        const ob_none = { display: 'none' };
+
+        const ob_light = { backgroundColor: '#fff' };
+        const ob_dark = { backgroundColor: '#000', height: '100%' };
+
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
@@ -289,6 +304,7 @@ class OrganizationPageController extends Component {
         const { OrganizationSponserListController } = this.state;
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
+        const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
         if (this.isMobile()) {
@@ -339,10 +355,13 @@ class OrganizationPageController extends Component {
             copyright={cp}
             newsContent={<OrganizationNewsController />}
             blogContent={<OrganizationBlogController />}
+            twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
             rosterContent={<span />}
+            obliviot_hidden_style={ob_inherit}
+            obliviot_page_style={ob_light}
             topSponsorContent={<OrganizationSponsorController />}
             bottomSponsorContent={<OrganizationSponsorController />}
             navContent={nv_content}
@@ -354,6 +373,8 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
@@ -372,6 +393,8 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
@@ -390,6 +413,8 @@ class OrganizationPageController extends Component {
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationStaffController about_title={this.about_us.pageTitle} about_content={this.bcontent} closeStaff={this.closeStaff} />}
                 newsContent={<span />}
                 twitterContent={<span />}

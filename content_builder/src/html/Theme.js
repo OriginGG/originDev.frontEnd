@@ -639,13 +639,15 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_darkBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -667,12 +669,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_main_news_content_container: {
-        width: '86%',
+        width: '100%',
         height: '130px',
         position: 'absolute',
-        bottom: '5px',
-        left: '7%',
+        bottom: '0px',
+        left: '0%',
         padding: '5px',
+        paddingLeft: '20px',
         backgroundColor: 'rgba(0,0,0,.5)'
     },
 
@@ -747,14 +750,17 @@ export const GlobalStyles = GlobalTheme => ({
         overflow: 'hidden',
         height: '120px',
         marginTop: '10px',
-        display: 'table'
+        display: 'table',
+        whiteSpace: 'nowrap'
     },
 
     obliviot_dark_twitch_feed_container: {
-        width: '100%',
+        width: '300px',
         height: '150px',
         backgroundColor: 'rgba(255,255,255,.1)',
-        position: 'relative'
+        position: 'relative',
+        float: 'left',
+        marginRight: '5px'
     },
 
     obliviot_dark_twitch_title_container: {
@@ -851,7 +857,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(255,255,255,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_dark_video_container: {
@@ -864,7 +871,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dark_match_container: {
         width: '100%',
         padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(255,255,255,.1)',
+        backgroundColor: 'rgba(255,255,255,0.0)',
         position: 'relative',
         display: 'table',
         marginTop: '15px'
@@ -1072,13 +1079,15 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_lightBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -1100,12 +1109,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_light_main_news_content_container: {
-        width: '86%',
+        width: '100%',
         height: '130px',
         position: 'absolute',
-        bottom: '5px',
-        left: '7%',
+        bottom: '0px',
+        left: '0%',
         padding: '5px',
+        paddingLeft: '20px',
         backgroundColor: 'rgba(255,255,255,.5)'
     },
 
@@ -1180,14 +1190,17 @@ export const GlobalStyles = GlobalTheme => ({
         overflow: 'hidden',
         height: '120px',
         marginTop: '10px',
-        display: 'table'
+        display: 'table',
+        whiteSpace: 'nowrap'
     },
 
     obliviot_light_twitch_feed_container: {
-        width: '100%',
+        width: '300px',
         height: '150px',
         backgroundColor: 'rgba(0,0,0,.1)',
-        position: 'relative'
+        position: 'relative',
+        float: 'left',
+        marginRight: '5px'
     },
 
     obliviot_light_twitch_title_container: {
@@ -1284,7 +1297,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(0,0,0,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_light_video_container: {
@@ -1297,7 +1311,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_light_match_container: {
         width: '100%',
         padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(0,0,0,.1)',
+        backgroundColor: 'rgba(0,0,0,0)',
         position: 'relative',
         display: 'table',
         marginTop: '15px'
@@ -1539,7 +1553,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     darkBG: {
         width: '100%',
-        backgroundColor: 'rgb(20,20,20)',
+        backgroundColor: 'rgb(0,0,0)',
         padding: '0px 0px 0px 0px'
     },
     blankBG: {
@@ -1844,7 +1858,8 @@ export const GlobalStyles = GlobalTheme => ({
     header_logo: {
         display: 'block',
         margin: 'auto',
-        height: '35px'
+        height: '35px',
+        cursor: 'pointer'
     },
     body_container: {
         width: '100%',
@@ -2923,7 +2938,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_individual_submit_button: {
         height: '40px',
         lineHeight: '40px',
-        width: '200px',
+        width: '95%',
         fontSize: '18px',
         fontWeight: '900',
         borderColor: 'white',

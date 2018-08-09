@@ -113,10 +113,10 @@ class CreateSubDomainController extends Component {
                     });
                     await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
                         subDomain: this.domain_name,
-                        link1: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
-                        link2: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
-                        link3: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png',
-                        link4: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo2.png',
+                        link1: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        link2: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        link3: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        link4: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                     });
 
                     const domainInfo = this.props.appManager.getDomainInfo();

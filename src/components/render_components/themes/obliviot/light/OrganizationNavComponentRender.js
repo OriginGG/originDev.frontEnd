@@ -35,13 +35,10 @@ class LightOrganizationNavComponentRender extends Component {
                                     </div>
                                 </a>
                                 <a href="#">
-                                    <div id="sponsers_button" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsers</div>
+                                    <div id="sponsers_button" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>
                                 </a>
                                 <a href="#">
                                     <div id="about_button" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
-                                </a>
-                                <a href="#">
-                                    <div id="news_button" className={this.props.classes.org_menu_obliviot_light_item}>News</div>
                                 </a>
                                 <a href="#home_cont">
                                     <div id="menu_home" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.home_style}>Home</div>
