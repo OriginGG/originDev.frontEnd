@@ -28,7 +28,32 @@ class DarkOrganizationPageComponentRender extends Component {
                         <div className={this.props.classes.obliviot_dark_twitch_container}>
                             <div >{this.props.twitchContent}</div>
                         </div>
-                        <div >{this.props.newsObliviotContent}</div>
+                        <div style={this.props.obliviot_hidden_style}>
+                            <div className="ui stackable two column grid">
+                                <div className="ten wide column">
+                                    <div className={this.props.classes.obliviot_dark_section_control_container}>
+                                        <div className={this.props.classes.obliviot_dark_section_divider}/>
+                                        <div className={this.props.classes.obliviot_dark_section_title}>NEWS</div>
+                                        <div className={this.props.classes.obliviot_dark_section_view_more}>VIEW MORE</div>
+                                    </div>
+                                    <div id="news_div" className={this.props.classes.obliviot_dark_news_outer_constraint}>
+                                        <div>
+                                            <div >{this.props.newsContent}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="six wide column">
+                                    <div className={this.props.classes.obliviot_dark_section_control_container}>
+                                        <div className={this.props.classes.obliviot_dark_section_divider}/>
+                                        <div className={this.props.classes.obliviot_dark_section_title}>VIDEOS</div>
+                                        <div className={this.props.classes.obliviot_dark_section_view_more}>VIEW MORE</div>
+                                    </div>
+                                    <div id="video_div">
+                                        <div >{this.props.videoContent}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className={this.props.classes.obliviot_dark_section_control_container} style={this.props.obliviot_hidden_style}>
                             <div className={this.props.classes.obliviot_dark_section_divider}/>
                             <div className={this.props.classes.obliviot_dark_section_title}>MATCHES</div>
