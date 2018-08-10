@@ -478,7 +478,7 @@ class IndividualPageController extends Component {
              twitter_favourite_count = this.twitter_stats.favourites_count; // eslint-disable-line
              twitter_screen_name = this.twitter_stats.screen_name; // eslint-disable-line
              twitterComp = <IndividualTwitterStatsComponentRender
-                             username={twitter_username}
+                             twitter_username={twitter_username}
                              twitter_followers_count={twitter_followers_count}
                              twitter_status_count={twitter_status_count}
                              twitter_favourite_count={twitter_favourite_count}
