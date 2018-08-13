@@ -175,8 +175,8 @@ class AdminThemeController extends Component {
             enigma_light_style={this.state.enigma_light}
             enigma_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
             enigma_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
-            obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
-            obliviot_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
+            obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/obliviot-dark-theme.jpg"
+            obliviot_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
         />;
         if (this.state.modal_open) {
             md = <div>
