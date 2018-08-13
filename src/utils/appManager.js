@@ -55,6 +55,16 @@ class AppManager {
         }
         return null;
     }
+    convertTwitchURL = (url) => {
+        if (url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;       // eslint-disable-line
+            const match = url.match(regExp);
+            if (match && match[2].length === 11) {
+                return `https://www.youtube.com/embed/${match[2]}`;
+            }
+        }
+        return null;
+    }
     pouchStore = (_id, payload) => {
         store.set(_id, payload);
         // const doc = await this.pouchGet(_id);
@@ -211,6 +221,7 @@ class AppManager {
                         });
                     resolve(data.data);
                 } catch (err) {
+                    console.log(`error = ${JSON.stringify(err)}`);
                     reject(new Error('Network Error'));
                 }
             }

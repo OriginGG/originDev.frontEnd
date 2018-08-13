@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { Card, Input, Segment, Button } from 'semantic-ui-react';
+import { Card, Input, Segment, Button } from 'semantic-ui-react/dist/commonjs';
 import ReactQuill from 'react-quill';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';

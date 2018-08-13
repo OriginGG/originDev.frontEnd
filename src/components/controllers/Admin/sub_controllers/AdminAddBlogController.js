@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import { Card, Button, Input, Segment } from 'semantic-ui-react';
+import { Card, Button, Input, Segment } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import ReactQuill from 'react-quill';
@@ -179,6 +179,11 @@ class AdminAddBlogController extends Component {
 
                             <ReactQuill
                                 theme="snow"
+                                modules={{
+                                    clipboard: {
+                                        matchVisual: false
+                                    }
+                                }}
                                 value={this.state.text}
                                 onChange={this.handleChange} />
                             <Button onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>

@@ -26,6 +26,7 @@ class OrganizationVideoController extends Component {
                 video3_url: v3,
                 video4_url: v4
             };
+            console.log(`youtube before: ${youTubeChannels.resultData.edges[0].node.youtubeVideo1} asnd youtube after ${v1}`);
             this.setState(p);
             this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
         }
