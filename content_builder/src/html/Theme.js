@@ -848,6 +848,8 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: '#f1f1f1',
         minWidth: '160px',
         padding: '10px',
+        top: '80px',
+        right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
         zIndex: '1'
     },
@@ -1288,8 +1290,22 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: '#f1f1f1',
         minWidth: '160px',
         padding: '10px',
+        top: '80px',
+        right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
         zIndex: '1'
+    },
+
+    obliviot_dropdown_container_close: {
+        position: 'absolute',
+        top: '4px',
+        right: '4px',
+        color: 'white',
+        backgroundColor: 'black',
+        padding: '2px',
+        fontSize: '14px',
+        fontWeight: '900',
+        zIndex: '10'
     },
 
     obliviot_light_news_container: {

@@ -34,6 +34,10 @@ class OrganizationNavController extends Component {
         console.log(`roster click ${this.p_array}`);
         this.setState({ dropdown: true });
     }
+    handleCloseClick = () => {
+        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
+        this.setState({ dropdown: false });
+    }
     openPage = page => {
         window.open(page, '_blank');
     }
@@ -112,6 +116,7 @@ class OrganizationNavController extends Component {
             sponsers_style={this.props.sponsers_style}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
+            handleCloseClick={this.handleCloseClick}
             handleSponsersClick={this.props.handleSponsersClick}
             handleAboutClick={this.props.handleAboutClick}
             handleLoginClick={this.props.handleLoginClick}
