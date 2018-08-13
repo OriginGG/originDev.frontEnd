@@ -179,6 +179,11 @@ class AdminAddBlogController extends Component {
 
                             <ReactQuill
                                 theme="snow"
+                                modules={{
+                                    clipboard: {
+                                        matchVisual: false
+                                    }
+                                }}
                                 value={this.state.text}
                                 onChange={this.handleChange} />
                             <Button onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
