@@ -290,12 +290,6 @@ class OrganizationPageController extends Component {
             ssss = { display: 'inheret' };
         }
 
-        let sssss = { display: 'none' };
-        if (this.roster_display && !this.isMobile()) {
-            console.log('WWWWWWWWWWW there is roster data');
-            sssss = { display: 'inheret' };
-        }
-
         const ob_inherit = { display: 'inherit' };
         const ob_none = { display: 'none' };
 
@@ -330,7 +324,6 @@ class OrganizationPageController extends Component {
             store_style={ss}
             about_style={s}
             sponsers_style={sss}
-            roster_menu_style={sssss}
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}

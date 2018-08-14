@@ -99,11 +99,19 @@ class OrganizationNavController extends Component {
         const m_array = [];
         const p = this.state.roster;
         console.log(` this.state.roster = ${JSON.stringify(p)}`);
+
+        this.roster_button_display = false;
         p.forEach((g, i) => {
+            this.roster_button_display = true;
             m_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.props.handleRosterClick(g.roster_id); }} key={`gm_roster_${i}`} style={{ cursor: 'pointer', paddingLeft: 10, color: 'black' }} >
                 {g.text}
             </div>);
         });
+        let sssss = { display: 'none' };
+        if (this.roster_button_display) {
+            console.log('WWWWWWWWWWW there is roster data');
+            sssss = { display: 'inheret' };
+        }
 
         return <OrganizationNavComponentRender
             login_style={this.props.login_style}
@@ -114,7 +122,7 @@ class OrganizationNavController extends Component {
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
-            roster_menu_style={this.props.roster_menu_style}
+            roster_menu_style={sssss}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
             handleCloseClick={this.handleCloseClick}
@@ -140,7 +148,6 @@ OrganizationNavController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,
     sponsers_style: PropTypes.object.isRequired,
-    roster_menu_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,
     login_style: PropTypes.object.isRequired,
