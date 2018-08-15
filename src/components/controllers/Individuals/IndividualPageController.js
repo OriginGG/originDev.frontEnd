@@ -300,7 +300,7 @@ class IndividualPageController extends Component {
     getTwitterStats = async () => {
         if (this.user_details.twitterHandle) {
             const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('/') + 1);
-            const td = await axios.get(`http://0.0.0.0:8080/twitter/getTwitterUserInfo?user=${tu}`);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitter/getTwitterUserInfo?user=${tu}`);
             console.log(td.data[0]);
             this.twitter_stats = td.data[0]; // eslint-disable-line
         }
