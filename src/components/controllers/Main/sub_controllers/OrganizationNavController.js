@@ -34,6 +34,10 @@ class OrganizationNavController extends Component {
         console.log(`roster click ${this.p_array}`);
         this.setState({ dropdown: true });
     }
+    handleCloseClick = () => {
+        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
+        this.setState({ dropdown: false });
+    }
     openPage = page => {
         window.open(page, '_blank');
     }
@@ -95,11 +99,19 @@ class OrganizationNavController extends Component {
         const m_array = [];
         const p = this.state.roster;
         console.log(` this.state.roster = ${JSON.stringify(p)}`);
+
+        this.roster_button_display = false;
         p.forEach((g, i) => {
+            this.roster_button_display = true;
             m_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.props.handleRosterClick(g.roster_id); }} key={`gm_roster_${i}`} style={{ cursor: 'pointer', paddingLeft: 10, color: 'black' }} >
                 {g.text}
             </div>);
         });
+        let sssss = { display: 'none' };
+        if (this.roster_button_display) {
+            console.log('WWWWWWWWWWW there is roster data');
+            sssss = { display: 'inheret' };
+        }
 
         return <OrganizationNavComponentRender
             login_style={this.props.login_style}
@@ -110,8 +122,10 @@ class OrganizationNavController extends Component {
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
+            roster_menu_style={sssss}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
+            handleCloseClick={this.handleCloseClick}
             handleSponsersClick={this.props.handleSponsersClick}
             handleAboutClick={this.props.handleAboutClick}
             handleLoginClick={this.props.handleLoginClick}

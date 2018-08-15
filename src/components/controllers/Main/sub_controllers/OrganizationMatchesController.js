@@ -120,7 +120,7 @@ class OrganizationMatchesController extends Component {
                 return o.value === res.node.gameName;
             });
             console.log(`i = ${i}`);
-            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');
@@ -128,19 +128,19 @@ class OrganizationMatchesController extends Component {
             const home_score = parseInt(score_array[0], 10);
             const away_score = parseInt(score_array[1], 10);
 
-            console.log(`home = ${home_score} | away = ${away_score}`);
+            // console.log(`home = ${home_score} | away = ${away_score}`);
 
             let ws = { borderColor: 'yellow transparent transparent transparent' };
             if (Number(home_score) < Number(away_score)) {
-                console.log(`home:${home_score} < away:${away_score}`);
+                // console.log(`home:${home_score} < away:${away_score}`);
                 ws = { borderColor: '#e85149 transparent transparent transparent' };
             }
             if (Number(home_score) > Number(away_score)) {
-                console.log(`home:${home_score} > away:${away_score}`);
+                // console.log(`home:${home_score} > away:${away_score}`);
                 ws = { borderColor: '#90ce59 transparent transparent transparent' };
             }
             if (Number(home_score) === Number(away_score)) {
-                console.log(`home:${home_score} === away:${away_score}`);
+                // console.log(`home:${home_score} === away:${away_score}`);
                 ws = { borderColor: 'yellow transparent transparent transparent' };
             }
             p_array.push(<OrganizationMatchesComponentElementRender

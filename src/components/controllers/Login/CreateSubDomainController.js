@@ -72,6 +72,7 @@ class CreateSubDomainController extends Component {
     }
     handleSubmit = async () => {
         if (this.domain_name) {
+            this.current_theme = 'dark';
             if (this.domain_name.indexOf(' ') > -1) {
                 toast.error('Domain name cannot contain spaces!', {
                     position: toast.POSITION.TOP_LEFT,
