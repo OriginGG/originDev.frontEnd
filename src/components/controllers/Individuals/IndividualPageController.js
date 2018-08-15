@@ -300,8 +300,9 @@ class IndividualPageController extends Component {
     getTwitterStats = async () => {
         if (this.user_details.twitterHandle) {
             const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('/') + 1);
-            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitter/getTwitterUserInfo?user=${tu}`);
-            [this.twitter_stats] = td.data;
+            const td = await axios.get(`http://0.0.0.0:8080/twitter/getTwitterUserInfo?user=${tu}`);
+            console.log(td.data[0]);
+            this.twitter_stats = td.data[0]; // eslint-disable-line
         }
     }
     getYouTubeStats = async () => {
@@ -483,7 +484,7 @@ class IndividualPageController extends Component {
                              twitter_status_count={twitter_status_count}
                              twitter_favourite_count={twitter_favourite_count}
                              twitter_screen_name={twitter_screen_name} />;
-         }
+        }
         let s = { display: 'inherit' };
         if (this.is_admin === false) {
             s = { display: 'none' };
