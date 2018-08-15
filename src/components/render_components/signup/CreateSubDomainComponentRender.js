@@ -51,38 +51,6 @@ class CreateSubDomainComponentRender extends Component {
                                         <div className={this.props.classes.subdomain_logo_upload_container}>
                                             <img className={this.props.classes.subdomain_logo_upload} src={this.props.upload_img_src}/>
                                         </div>
-                                        <div className={this.props.classes.subdomain_select_text}>
-                                            Select Layout
-                                        </div>
-                                        <div className="ui stackable two column grid">
-                                            <div className="column">
-                                                <div className={this.props.classes.subdomain_theme_container} style={this.props.theme1_select_style}>
-                                                    <img className={this.props.classes.subdomain_theme_img} onClick={( ) => {
-                                                        this
-                                                            .props
-                                                            .handleThemeClick( 1 );
-                                                    }} src={this.props.dark_theme_image_src}/>
-                                                    <div className={this.props.classes.theme_title_text}>
-                                                        Dark Theme
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="column">
-                                                <div className={this.props.classes.subdomain_theme_container} style={this.props.theme2_select_style}>
-                                                    <img className={this.props.classes.subdomain_theme_img} onClick={( ) => {
-                                                        this
-                                                            .props
-                                                            .handleThemeClick( 2 );
-                                                    }} src={this.props.light_theme_image_src}/>
-                                                    <div className={this.props.classes.theme_title_text}>
-                                                        Light Theme
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={this.props.classes.theme_description_text}>
-                                            This theme will apply for your sub domain, you can customise this theme in very easy steps from admin panel.
-                                        </div>
                                         <div style={{
                                             width: '304px',
                                             height: '78px',
