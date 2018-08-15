@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
-import { GlobalStyles } from 'Theme/Theme';
 import { slide as Menu } from 'react-burger-menu';
+import { GlobalStyles } from 'Theme/Theme';
 import Favicon from 'react-favicon';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
