@@ -844,7 +844,8 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: '#f1f1f1',
+        backgroundColor: 'black',
+        color: 'white',
         minWidth: '160px',
         padding: '10px',
         top: '80px',
