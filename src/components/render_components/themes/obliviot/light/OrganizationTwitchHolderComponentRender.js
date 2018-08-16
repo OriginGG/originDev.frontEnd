@@ -8,7 +8,7 @@ class LightOrganizationTwitchHolderComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.obliviot_light_twitch_feed_container}>{this.props.twitch_items}</div>
+                <div className={this.props.classes.obliviot_light_twitch_container}>{this.props.twitch_items}</div>
             </div>
         )
     }
