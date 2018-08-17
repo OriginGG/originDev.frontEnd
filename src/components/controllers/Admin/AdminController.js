@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import PropTypes from 'prop-types';
+import { Modal } from 'antd';
 import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
@@ -23,6 +24,9 @@ import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesCo
 import AdminContentTeamController from './sub_controllers/AdminContentTeamController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
+
+
+const { confirm } = Modal;
 
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
@@ -136,6 +140,16 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
+                        <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('add_custom_domain', e); }}>
+                            <div className={this.props.classes.menu_item}>
+                                <div className={this.props.classes.menu_item_icon}>
+                                    <i className="linkify icon" />
+                                </div>
+                                <div className={this.props.classes.menu_item_label}>
+                                    Add a custom domain
+                                </div>
+                            </div>
+                        </a>
                     </Accordion.Content>
                 </Accordion>
             </div>
@@ -145,6 +159,7 @@ class MenuDrop extends Component {
 class AdminPageController extends Component {
     state = { page: 'company', isOpen: false, visible: false };
     componentDidMount = async () => {
+        this.subscribed = true;
         if (this.props.appManager.admin_logged_in) {
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
@@ -183,9 +198,34 @@ class AdminPageController extends Component {
         const f = this.state.isOpen;
         this.setState({ isOpen: !f });
     }
+    showSubscribeConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Subscription Required',
+                content: 'To add your own custom domain, you require a subscription.',
+                okText: 'Subscribe',
+                cancelText: 'Cancel',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    subscriptionClick = async () => {
+        const action = this.showSubscribeConfirm();
+        console.log(action);
+    }
 
-    handleManageClick = (v) => {
-        this.setState({ page: v });
+    handleManageClick = async (v) => {
+        if (v === 'add_custom_domain' && this.subscribed === false) {
+            const action = await this.subscriptionClick();
+            console.log(action);
+        } else {
+            this.setState({ page: v });
+        }
     }
     render() {
         if (this.state.visible === false) {
