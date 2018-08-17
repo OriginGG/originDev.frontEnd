@@ -366,7 +366,6 @@ class AdminRosterController extends Component {
     handleAddNewGame = async () => {
         if (this.state.games.length > 1 && this.subscribed === false) {
             const action = await this.showSubscribeConfirm();
-            debugger;
             console.log(action);
         } else {
             this.setState({ game_modal_open: true });
