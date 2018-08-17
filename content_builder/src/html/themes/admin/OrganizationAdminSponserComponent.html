@@ -24,93 +24,13 @@
    <body>
       <div data-component-name="OrganizationAdminSponserComponent" class="">
             <div class="classes.admin_title_box">
-                    <h2>Add Sponsers</h2>
+                    <h2>Add Sponsors</h2>
                 </div>
                 <div class="classes.admin_social_box">
-                    <div class="classes.admin_social_box_inner">
-                        <div class="classes.admin_sponser_button">
-                            <label for="hidden-new-file1" class="class.admin_sponser_label">
-                                <i class="cloud icon"></i>
-                                Upload Sponser 1
-                            </label>
-                            <input data-component-props="onChange={(f)=>{this.props.uploadFile('sponsor_image1', f); }}" type="file" id="hidden-new-file1" style="display: none">
-                        </div>
-                        <div class="classes.admin_sponser_image_box">
-                            <img class="classes.admin_sponser_image" data-component-props="src={this.props.sponsor_image1}" src="http://api.originbeta.net/sponsor/sponsor-logo1.png" />
-                        </div>
-                        <div class="ui fluid input">
-                            <input data-component-props="value={this.props.sponsor_name1_value} onChange={(e)=>{this.props.handleChange('sponsor_name1_value', e);}}"  type="text" placeholder="Sponsor Name">
-                        </div>
-                        <div class="ui fluid input">
-                            <input data-component-props="value={this.props.http_link1_value} onChange={(e)=>{this.props.handleChange('http_link1_value', e);}}"  type="text" placeholder="Sponsor link (Valid URL)">
-                        </div>
-                        <div class="ui fluid input">
-                            <textarea data-component-props="value={this.props.sponsor_desc1_value} onChange={(e)=>{this.props.handleChange('sponsor_desc1_value', e);}}" class="classes.admin_sponser_description" placeholder="Sponsor description ..."></textarea>
-                        </div>
-                    </div>
-                    <div class="classes.admin_social_box_inner">
-                        <div class="classes.admin_sponser_button">
-                            <label for="hidden-new-file2" class="class.admin_sponser_label">
-                                <i class="cloud icon"></i>
-                                Upload Sponser 2
-                            </label>
-                            <input data-component-props="onChange={(f)=>{this.props.uploadFile('sponsor_image2', f); }}" type="file" id="hidden-new-file2" style="display: none">
-                        </div>
-                        <div class="classes.admin_sponser_image_box">
-                            <img class="classes.admin_sponser_image" data-component-props="src={this.props.sponsor_image2}" src="http://api.originbeta.net/sponsor/sponsor-logo1.png" />
-                        </div>
-                        <div class="ui fluid input">
-                            <input data-component-props="value={this.props.sponsor_name2_value} onChange={(e)=>{this.props.handleChange('sponsor_name2_value', e);}}"  type="text" placeholder="Sponsor Name">
-                        </div>
-                        <div class="ui fluid input">
-                                <input data-component-props="value={this.props.http_link2_value} onChange={(e)=>{this.props.handleChange('http_link2_value', e);}}"  type="text" placeholder="Sponsor link (Valid URL)">
-                        </div>
-                        <div class="ui fluid input">
-                            <textarea data-component-props="value={this.props.sponsor_desc2_value} onChange={(e)=>{this.props.handleChange('sponsor_desc2_value', e);}}" class="classes.admin_sponser_description" placeholder="Sponsor description ..."></textarea>
-                        </div>
-                    </div>
-                    <div class="classes.admin_social_box_inner">
-                        <div class="classes.admin_sponser_button">
-                            <label for="hidden-new-file3" class="class.admin_sponser_label">
-                                <i class="cloud icon"></i>
-                                Upload Sponser 3
-                            </label>
-                            <input data-component-props="onChange={(f)=>{this.props.uploadFile('sponsor_image3', f); }}" type="file" id="hidden-new-file3" style="display: none">
-                        </div>
-                        <div class="classes.admin_sponser_image_box">
-                            <img class="classes.admin_sponser_image" data-component-props="src={this.props.sponsor_image3}" src="http://api.originbeta.net/sponsor/sponsor-logo1.png" />
-                        </div>
-                        <div class="ui fluid input">
-                            <input data-component-props="value={this.props.sponsor_name3_value} onChange={(e)=>{this.props.handleChange('sponsor_name3_value', e);}}"  type="text" placeholder="Sponsor Name">
-                        </div>
-                        <div class="ui fluid input">
-                            <input data-component-props="value={this.props.http_link3_value} onChange={(e)=>{this.props.handleChange('http_link3_value', e);}}"  type="text" placeholder="Sponsor link (Valid URL)">
-                        </div>
-                        <div class="ui fluid input">
-                            <textarea data-component-props="value={this.props.sponsor_desc3_value} onChange={(e)=>{this.props.handleChange('sponsor_desc3_value', e);}}" class="classes.admin_sponser_description" placeholder="Sponsor description ..."></textarea>
-                        </div>
-                    </div>
-                    <div class="classes.admin_social_box_inner">
-                        <div class="classes.admin_sponser_button">
-                            <label for="hidden-new-file4" class="class.admin_sponser_label">
-                                <i class="cloud icon"></i>
-                                Upload Sponser 4
-                            </label>
-                            <input data-component-props="onChange={(f)=>{this.props.uploadFile('sponsor_image4', f); }}" type="file" id="hidden-new-file4" style="display: none">
-                        </div>
-                        <div class="classes.admin_sponser_image_box">
-                            <img class="classes.admin_sponser_image" data-component-props="src={this.props.sponsor_image4}" src="http://api.originbeta.net/sponsor/sponsor-logo1.png" />
-                        </div>
-                        <div class="ui fluid input">
-                            <input data-component-props="value={this.props.sponsor_name4_value} onChange={(e)=>{this.props.handleChange('sponsor_name4_value', e);}}"  type="text" placeholder="Sponsor Name">
-                        </div>
-                        <div class="ui fluid input">
-                            <input data-component-props="value={this.props.http_link4_value} onChange={(e)=>{this.props.handleChange('http_link4_value', e);}}"  type="text" placeholder="Sponsor link (Valid URL)">
-                        </div>
-                        <div class="ui fluid input">
-                            <textarea data-component-props="value={this.props.sponsor_desc4_value} onChange={(e)=>{this.props.handleChange('sponsor_desc4_value', e);}}" class="classes.admin_sponser_description" placeholder="Sponsor description ..."></textarea>
-                        </div>
-                    </div>
+                    <div data-component-value="{this.props.sponsor_element1}">Element1</div>
+                    <div data-component-value="{this.props.sponsor_element2}">Element2</div>
+                    <div data-component-value="{this.props.sponsor_element3}">Element3</div>
+                    <div data-component-value="{this.props.sponsor_element4}">Element4</div>
                 </div>
                 <div class="classes.admin_submit_box">
                     <div data-component-props="onClick={this.props.handleSubmit}" class="classes.admin_submit_button">Submit</div>

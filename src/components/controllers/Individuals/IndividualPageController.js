@@ -392,6 +392,14 @@ class IndividualPageController extends Component {
                 position: toast.POSITION.TOP_LEFT
             });
         } else {
+            // get the twitch user_id if there is one.
+
+            this.user_details = state;
+            await this.getTwitchStats();
+            let t_id = null;
+            if (this.twitch_stats.id) {
+                t_id = this.twitch_stats.id;
+            }
             await this.props.appManager.executeQuery(
                 'mutation', updateIndividualUserQuery,
                 {
@@ -400,6 +408,7 @@ class IndividualPageController extends Component {
                     firstName: state.firstName,
                     lastName: state.lastName,
                     contactNumber: state.contactNumber,
+                    twitchUserId: t_id,
                     bannerImageUrl: state.bannerImageUrl,
                     profileImageUrl: state.profileImageUrl,
                     accomplishments: state.accomplishments,
@@ -416,7 +425,6 @@ class IndividualPageController extends Component {
             toast.success('Profile Updated!', {
                 position: toast.POSITION.TOP_LEFT
             });
-            this.user_details = state;
             this.closeModal();
         }
     }
@@ -426,9 +434,9 @@ class IndividualPageController extends Component {
         }}>No Data Found</h2>;
 
         const instagram_stats = <h2
-        style={{
-            marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
-        }}>No Data Found</h2>;
+            style={{
+                marginTop: 8, fontSize: 14, color: 'white', textAlign: 'center'
+            }}>No Data Found</h2>;
 
         if (this.twitch_stats) {
             twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
@@ -465,25 +473,25 @@ class IndividualPageController extends Component {
                 handle_redirect={this.handleRedirect}
             />;
         }
-         // Twitter Rendering Component
-         let twitter_username = '';
-         let twitter_followers_count = 0;
-         let twitter_status_count = 0;
-         let twitter_favourite_count = 0;
-         let twitter_screen_name = '';
-         let twitterComp = <IndividualTwitterStatsComponentRender />;
-         if (this.twitter_stats) {
-             twitter_username = this.twitter_stats.name; // eslint-disable-line
-             twitter_followers_count = this.twitter_stats.followers_count;
-             twitter_status_count = this.twitter_stats.statuses_count;
-             twitter_favourite_count = this.twitter_stats.favourites_count; // eslint-disable-line
-             twitter_screen_name = this.twitter_stats.screen_name; // eslint-disable-line
-             twitterComp = <IndividualTwitterStatsComponentRender
-                             twitter_username={twitter_username}
-                             twitter_followers_count={twitter_followers_count}
-                             twitter_status_count={twitter_status_count}
-                             twitter_favourite_count={twitter_favourite_count}
-                             twitter_screen_name={twitter_screen_name} />;
+        // Twitter Rendering Component
+        let twitter_username = '';
+        let twitter_followers_count = 0;
+        let twitter_status_count = 0;
+        let twitter_favourite_count = 0;
+        let twitter_screen_name = '';
+        let twitterComp = <IndividualTwitterStatsComponentRender />;
+        if (this.twitter_stats) {
+            twitter_username = this.twitter_stats.name; // eslint-disable-line
+            twitter_followers_count = this.twitter_stats.followers_count;
+            twitter_status_count = this.twitter_stats.statuses_count;
+            twitter_favourite_count = this.twitter_stats.favourites_count; // eslint-disable-line
+            twitter_screen_name = this.twitter_stats.screen_name; // eslint-disable-line
+            twitterComp = <IndividualTwitterStatsComponentRender
+                twitter_username={twitter_username}
+                twitter_followers_count={twitter_followers_count}
+                twitter_status_count={twitter_status_count}
+                twitter_favourite_count={twitter_favourite_count}
+                twitter_screen_name={twitter_screen_name} />;
         }
         let s = { display: 'inherit' };
         if (this.is_admin === false) {
