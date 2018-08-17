@@ -51,6 +51,7 @@ query getMembers($subDomain: String!) {
           updatedAt
           profileImageUrl
           twitchUrl
+          twitchUserId
           username
         }
       }
