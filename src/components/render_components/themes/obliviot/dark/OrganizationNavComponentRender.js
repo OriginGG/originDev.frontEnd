@@ -10,7 +10,14 @@ class DarkOrganizationNavComponentRender extends Component {
             <div>
                 <div className="ui stackable two column grid">
                     <div className="six wide column">
-                        <img className={this.props.classes.obliviot_darkLogo} src={this.props.image_src}/>
+                        <div style={{
+                            height: '80px',
+                            lineHeight: '80px',
+                            maxWidth: '55%',
+                            float: 'left'
+                        }}>
+                            <img className={this.props.classes.obliviot_darkLogo} src={this.props.image_src}/>
+                        </div>
                         <div className={this.props.classes.obliviot_dark_social_menu_container}>
                             <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link1}</div>
                             <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link2}</div>
