@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+// import axios from 'axios';
 // mport _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
@@ -39,11 +40,14 @@ class OrganizationTwitchController extends Component {
         const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const t_array = [];
         this.current_game_node = users.allOrganisationMembers.edges;
+        let twitch_url = 'https://api.twitch.tv/helix/streams?user_login=';
         users.allOrganisationMembers.edges.forEach(n => {
             if (n.node.contentTeamsByMemberId.nodes.length > 0) {
                 t_array.push(n.node.individualUserByIndividalUserId);
+                twitch_url += `${n.node.individualUserByIndividalUserId.twitchUrl},`;
             }
         });
+        console.log(`twitch url = ${twitch_url}`);
         console.log(`staff = ${JSON.stringify(t_array)}`);
         this.setState({
             roster_list: t_array,
