@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
+import { Modal } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminSponsorComponentRender from '../../../render_components/admin/OrganizationAdminSponserComponentRender';
+import OrganizationAdminSponsorComponentElementRender from '../../../render_components/admin/OrganizationAdminSponserComponentElementRender';
 import { getSponsorsQuery, updateSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 import blankImage from '../../../../assets/images/imgPlaceholder1.png';
+import disableImage from '../../../../assets/images/element-disabled.png';
+
+const { confirm } = Modal;
 
 class AdminSponsorController extends Component {
     state = {
@@ -31,6 +36,7 @@ class AdminSponsorController extends Component {
         }
     };
     componentDidMount = async () => {
+        this.subscribed = true;
         this.logo_files = {};
         let s_image0 = blankImage;
         let s_image1 = blankImage;
@@ -73,7 +79,7 @@ class AdminSponsorController extends Component {
         });
     }
 
-    isURL = (str)  => {
+    isURL = (str) => {
         return str.includes('http');
     }
 
@@ -198,10 +204,140 @@ class AdminSponsorController extends Component {
             this.setState(p);
         };
     }
+    showSubscribeConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Subscription Required',
+                content: 'To enable this content, you need a subscription.',
+                okText: 'Subscribe',
+                cancelText: 'Cancel',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    subscriptionClick = async () => {
+        const action = this.showSubscribeConfirm();
+        console.log(action);
+    }
     render() {
+        let el3 = <OrganizationAdminSponsorComponentElementRender
+            upload_title="Upload Sponsor 3"
+            element_style_disable_under={{ filter: 'blur(1px) grayscale(1)' }}
+            element_style_disable={{
+                position: 'absolute',
+                cursor: 'pointer',
+                width: 510,
+                height: 526,
+                zIndex: 1,
+                backgroundImage: "url('../../../../assets/images/element-disabled.png')"
+            }}
+            element_style_disable_image={{ width: 'inherit' }}
+            element_disable_image_src={disableImage}
+            subscriptionClick={this.subscriptionClick}
+            image_state_var="sponsor_image3"
+            sponsor_name_state_var="sponsor_name3_value"
+            http_state_var="http_link3_value"
+            state_desc_var="sponsor_desc3_value"
+            sponsor_image={this.state.input_values.sponsor_image3}
+            http_link_value={this.state.input_values.http_link3_value}
+            sponsor_desc_value={this.state.input_values.sponsor_desc3_value}
+            sponsor_name_value={this.state.input_values.sponsor_name3_value}
+            uploadFile={this.uploadFile}
+            handleChange={this.handleChange}
+        />;
+        let el4 = <OrganizationAdminSponsorComponentElementRender
+            upload_title="Upload Sponsor 3"
+            element_style_disable_under={{ filter: 'blur(1px) grayscale(1)' }}
+            element_style_disable={{
+                position: 'absolute',
+                cursor: 'pointer',
+                width: 510,
+                height: 526,
+                zIndex: 1,
+                backgroundImage: "url('../../../../assets/images/element-disabled.png')"
+            }}
+            element_style_disable_image={{ width: 'inherit' }}
+            element_disable_image_src={disableImage}
+            subscriptionClick={this.subscriptionClick}
+            image_state_var="sponsor_image4"
+            sponsor_name_state_var="sponsor_name4_value"
+            http_state_var="http_link4_value"
+            state_desc_var="sponsor_desc4_value"
+            sponsor_image={this.state.input_values.sponsor_image3}
+            http_link_value={this.state.input_values.http_link4_value}
+            sponsor_desc_value={this.state.input_values.sponsor_desc4_value}
+            sponsor_name_value={this.state.input_values.sponsor_name4_value}
+            uploadFile={this.uploadFile}
+            handleChange={this.handleChange}
+        />;
+        if (this.subscribed) {
+            el3 = <OrganizationAdminSponsorComponentElementRender
+                upload_title="Upload Sponsor 3"
+                image_state_var="sponsor_image3"
+                sponsor_name_state_var="sponsor_name3_value"
+                http_state_var="http_link3_value"
+                state_desc_var="sponsor_desc3_value"
+                sponsor_image={this.state.input_values.sponsor_image3}
+                http_link_value={this.state.input_values.http_link3_value}
+                sponsor_desc_value={this.state.input_values.sponsor_desc3_value}
+                sponsor_name_value={this.state.input_values.sponsor_name3_value}
+                uploadFile={this.uploadFile}
+                handleChange={this.handleChange}
+            />;
+            el4 = <OrganizationAdminSponsorComponentElementRender
+                upload_title="Upload Sponsor 4"
+                image_state_var="sponsor_image4"
+                sponsor_name_state_var="sponsor_name4_value"
+                http_state_var="http_link4_value"
+                state_desc_var="sponsor_desc4_value"
+                sponsor_image={this.state.input_values.sponsor_image4}
+                http_link_value={this.state.input_values.http_link4_value}
+                sponsor_desc_value={this.state.input_values.sponsor_desc4_value}
+                sponsor_name_value={this.state.input_values.sponsor_name4_value}
+                uploadFile={this.uploadFile}
+                handleChange={this.handleChange}
+            />;
+        }
         return (
             <div style={{ width: 'calc(100vw - 380px)' }}>
                 <OrganizationAdminSponsorComponentRender
+                    sponsor_element1={
+                        <OrganizationAdminSponsorComponentElementRender
+                            upload_title="Upload Sponsor 1"
+                            image_state_var="sponsor_image1"
+                            sponsor_name_state_var="sponsor_name1_value"
+                            http_state_var="http_link1_value"
+                            state_desc_var="sponsor_desc1_value"
+                            sponsor_image={this.state.input_values.sponsor_image1}
+                            http_link_value={this.state.input_values.http_link1_value}
+                            sponsor_desc_value={this.state.input_values.sponsor_desc1_value}
+                            sponsor_name_value={this.state.input_values.sponsor_name1_value}
+                            uploadFile={this.uploadFile}
+                            handleChange={this.handleChange}
+                        />
+                    }
+                    sponsor_element2={
+                        <OrganizationAdminSponsorComponentElementRender
+                            upload_title="Upload Sponsor 2"
+                            image_state_var="sponsor_image2"
+                            sponsor_name_state_var="sponsor_name2_value"
+                            http_state_var="http_link2_value"
+                            state_desc_var="sponsor_desc2_value"
+                            sponsor_image={this.state.input_values.sponsor_image2}
+                            http_link_value={this.state.input_values.http_link2_value}
+                            sponsor_desc_value={this.state.input_values.sponsor_desc2_value}
+                            sponsor_name_value={this.state.input_values.sponsor_name2_value}
+                            uploadFile={this.uploadFile}
+                            handleChange={this.handleChange}
+                        />
+                    }
+                    sponsor_element3={el3}
+                    sponsor_element4={el4}
                     uploadFile={this.uploadFile}
                     handleSubmit={this.handleSubmit}
                     handleChange={this.handleChange}
