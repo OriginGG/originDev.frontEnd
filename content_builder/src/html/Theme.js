@@ -579,9 +579,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_darkLogo: {
-        height: '60px',
-        float: 'left',
-        marginTop: '10px'
+        maxWidth: '100%',
+        maxHeight: '60px'
     },
 
     obliviot_dark_social_menu_container: {
@@ -1022,9 +1021,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_lightLogo: {
-        height: '60px',
-        float: 'left',
-        marginTop: '10px'
+        maxWidth: '100%',
+        maxHeight: '60px'
     },
 
     obliviot_light_social_menu_container: {
