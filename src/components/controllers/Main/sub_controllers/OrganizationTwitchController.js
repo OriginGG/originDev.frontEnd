@@ -70,9 +70,9 @@ class OrganizationTwitchController extends Component {
         const p_array = [];
         this.state.roster_list.forEach((r, i) => {
             let is_live = false;
-            console.log(i);
+            console.log(`LIVE LIST ${JSON.stringify(this.state.live_list.data.success)} and i = ${i}`);
             console.log(`user_id = ${r.twitchUserId}`);
-            if (this.state.live_list.success) {
+            if (this.state.live_list.data.success) {
                 this.state.live_list.data.users.forEach((l) => {
                     console.log(`r.twitchUserId = ${r.twitchUserId} and l.user_id = ${l.user_id}`);
                     if (Number(l.user_id) === Number(r.twitchUserId)) {
