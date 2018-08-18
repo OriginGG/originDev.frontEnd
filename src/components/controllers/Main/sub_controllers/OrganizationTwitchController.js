@@ -72,17 +72,19 @@ class OrganizationTwitchController extends Component {
             let is_live = false;
             console.log(i);
             console.log(`user_id = ${r.twitchUserId}`);
-            this.state.live_list.data.users.forEach((l) => {
-                console.log(`r.twitchUserId = ${r.twitchUserId} and l.user_id = ${l.user_id}`);
-                if (Number(l.user_id) === Number(r.twitchUserId)) {
-                    is_live = true;
-                    const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
-                    console.log('is_live');
-                    p_array.unshift(<OrganizationTwitchComponentRender
-                        twitch_url={t_url}
-                    />);
-                }
-            });
+            if (this.state.live_list.success) {
+                this.state.live_list.data.users.forEach((l) => {
+                    console.log(`r.twitchUserId = ${r.twitchUserId} and l.user_id = ${l.user_id}`);
+                    if (Number(l.user_id) === Number(r.twitchUserId)) {
+                        is_live = true;
+                        const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
+                        console.log('is_live');
+                        p_array.unshift(<OrganizationTwitchComponentRender
+                            twitch_url={t_url}
+                        />);
+                    }
+                });
+            }
 
             if (!is_live) {
                 console.log('is NOT live');
