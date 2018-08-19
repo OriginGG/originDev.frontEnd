@@ -548,7 +548,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkContraint: {
         width: '100%',
-        display: 'table',
         maxWidth: '1200px',
         minHeight: '100vh',
         marginLeft: 'auto',
@@ -745,10 +744,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dark_twitch_container: {
         width: '100%',
-        overflow: 'hidden',
+        overflow: 'auto',
         height: '150px',
         marginTop: '10px',
-        display: 'table',
         whiteSpace: 'nowrap'
     },
 
@@ -990,7 +988,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_lightContraint: {
         width: '100%',
-        display: 'table',
         maxWidth: '1200px',
         minHeight: '100vh',
         marginLeft: 'auto',
