@@ -7,7 +7,9 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationTwitchComponentRender extends Component {
     render( ) {
         return (
-            <div>
+            <div style={{
+                display: 'inline-block'
+            }}>
                 <div className={this.props.classes.obliviot_light_twitch_feed_container}>
                     <iframe scrolling="no" height="150" width="300" allowFullScreen="true" frameBorder="0" src={this.props.twitch_url}/>
                 </div>
