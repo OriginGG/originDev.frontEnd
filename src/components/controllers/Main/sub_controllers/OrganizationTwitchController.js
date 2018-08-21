@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 // mport _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
@@ -39,13 +40,20 @@ class OrganizationTwitchController extends Component {
         const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const t_array = [];
         this.current_game_node = users.allOrganisationMembers.edges;
+        let twitch_url = '';
         users.allOrganisationMembers.edges.forEach(n => {
             if (n.node.contentTeamsByMemberId.nodes.length > 0) {
                 t_array.push(n.node.individualUserByIndividalUserId);
+                twitch_url += `${n.node.individualUserByIndividalUserId.twitchUserId},`;
             }
         });
-        console.log(`staff = ${JSON.stringify(t_array)}`);
+        console.log(`twitch url = ${twitch_url}`);
+        console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
+        twitch_url = twitch_url.concat(twitch_url.length - 1);
+        const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
+        console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
+            live_list: td,
             roster_list: t_array,
             visible: true,
             OrganizationTwitchComponentRender: OrganizationTwitchComponentRender.default,
@@ -61,13 +69,32 @@ class OrganizationTwitchController extends Component {
         const { OrganizationTwitchHolderComponentRender } = this.state;
         const p_array = [];
         this.state.roster_list.forEach((r, i) => {
-            console.log(i);
-            console.log(`url = ${r.twitchUrl}`);
-            const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
-            // const t_url = '';
-            p_array.push(<OrganizationTwitchComponentRender
-                twitch_url={t_url}
-            />);
+            let is_live = false;
+            console.log(`LIVE LIST ${JSON.stringify(this.state.live_list.data.success)} and i = ${i}`);
+            console.log(`user_id = ${r.twitchUserId}`);
+            if (this.state.live_list.data.success) {
+                this.state.live_list.data.users.forEach((l) => {
+                    console.log(`r.twitchUserId = ${r.twitchUserId} and l.user_id = ${l.user_id}`);
+                    if (Number(l.user_id) === Number(r.twitchUserId)) {
+                        is_live = true;
+                        const t_url = `http://player.twitch.tv/?channel=${r.twitchUrl}`;
+                        console.log('is_live');
+                        p_array.unshift(<OrganizationTwitchComponentRender
+                            twitch_url={t_url}
+                        />);
+                    }
+                });
+            }
+
+            if (!is_live) {
+                console.log('is NOT live');
+                const t_url = `http://player.twitch.tv/?channel=${r.twitchUrl}`;
+                // const t_url = '';
+                p_array.push(<OrganizationTwitchComponentRender
+                    twitch_url={t_url}
+                />);
+            }
+            console.log(`testing what it sorts as ${p_array.toString}`);
         });
         return (<OrganizationTwitchHolderComponentRender twitch_items={p_array} />);
     }

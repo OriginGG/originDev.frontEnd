@@ -30,7 +30,8 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
     updatedAt
     createdAt
 		youtubeChannel
-		twitchUrl
+    twitchUrl
+    twitchUserId
 		twitterHandle
 		accomplishments
 		youtubeVideo1Url
@@ -47,12 +48,13 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
 `;
 
 export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: Int!, $firstName: String, $lastName: String, $about: String,
-	$contactNumber: String, $accomplishments: String, $twitchUrl: String,
+	$contactNumber: String, $accomplishments: String, $twitchUrl: String, 
   $twitterHandle: String, $youtubeChannel: String,
   $youtubeVideo1Url: String,
   $youtubeVideo2Url: String,
   $youtubeVideo3Url: String,
   $bannerImageUrl: String,
+  $twitchUserId: Int,
   $profileImageUrl: String,
   $facebookLink: String,
   $instagramLink: String,
@@ -69,6 +71,7 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
       accomplishments: $accomplishments
       twitchUrl: $twitchUrl
       twitterHandle: $twitterHandle
+      twitchUserId: $twitchUserId
       youtubeChannel: $youtubeChannel
       youtubeVideo1Url: $youtubeVideo1Url
       youtubeVideo2Url: $youtubeVideo2Url

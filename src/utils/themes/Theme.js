@@ -388,7 +388,6 @@ export const GlobalStyles = GlobalTheme => ({
         minHeight: '40px',
         display: 'table',
         position: 'fixed',
-        zIndex: '1000',
         top: '0',
         left: '0',
         background: 'rgb(255,255,255)',
@@ -549,7 +548,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkContraint: {
         width: '100%',
-        display: 'table',
         maxWidth: '1200px',
         minHeight: '100vh',
         marginLeft: 'auto',
@@ -580,9 +578,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_darkLogo: {
-        height: '60px',
-        float: 'left',
-        marginTop: '10px'
+        maxWidth: '100%',
+        maxHeight: '60px'
     },
 
     obliviot_dark_social_menu_container: {
@@ -747,10 +744,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dark_twitch_container: {
         width: '100%',
-        overflow: 'hidden',
-        height: '120px',
+        overflow: 'auto',
+        height: '150px',
         marginTop: '10px',
-        display: 'table',
         whiteSpace: 'nowrap'
     },
 
@@ -845,9 +841,12 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: '#f1f1f1',
+        backgroundColor: 'black',
+        color: 'white',
         minWidth: '160px',
         padding: '10px',
+        top: '80px',
+        right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
         zIndex: '1'
     },
@@ -868,13 +867,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
-    obliviot_dark_match_container: {
+    obliviot_dark_matches_holder: {
         width: '100%',
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
+        marginTop: '15px'
+    },
+
+    obliviot_dark_match_container: {
+        width: '33.3%',
         padding: '20px 30px 0px 30px',
         backgroundColor: 'rgba(255,255,255,0.0)',
         position: 'relative',
-        display: 'table',
-        marginTop: '15px'
+        float: 'left'
     },
 
     obliviot_dark_match_vs_container: {
@@ -887,7 +892,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dark_match_vs_image: {
         width: '70px',
         height: '70px',
-        backgroundColor: 'green',
+        backgroundColor: 'rgba(0,0,0,0)',
         float: 'left'
     },
 
@@ -989,7 +994,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_lightContraint: {
         width: '100%',
-        display: 'table',
         maxWidth: '1200px',
         minHeight: '100vh',
         marginLeft: 'auto',
@@ -1020,9 +1024,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_lightLogo: {
-        height: '60px',
-        float: 'left',
-        marginTop: '10px'
+        maxWidth: '100%',
+        maxHeight: '60px'
     },
 
     obliviot_light_social_menu_container: {
@@ -1187,10 +1190,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_light_twitch_container: {
         width: '100%',
-        overflow: 'hidden',
-        height: '120px',
+        overflow: 'auto',
+        height: '150px',
         marginTop: '10px',
-        display: 'table',
         whiteSpace: 'nowrap'
     },
 
@@ -1285,11 +1287,26 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: '#f1f1f1',
+        backgroundColor: 'black',
+        color: 'white',
         minWidth: '160px',
         padding: '10px',
+        top: '80px',
+        right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
         zIndex: '1'
+    },
+
+    obliviot_dropdown_container_close: {
+        position: 'absolute',
+        top: '4px',
+        right: '4px',
+        color: 'white',
+        backgroundColor: 'black',
+        padding: '2px',
+        fontSize: '14px',
+        fontWeight: '900',
+        zIndex: '10'
     },
 
     obliviot_light_news_container: {
@@ -1308,13 +1325,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
-    obliviot_light_match_container: {
+    obliviot_light_matches_holder: {
         width: '100%',
-        padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(0,0,0,0)',
-        position: 'relative',
-        display: 'table',
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
         marginTop: '15px'
+    },
+
+    obliviot_light_match_container: {
+        width: '33.3%',
+        padding: '20px 30px 0px 30px',
+        backgroundColor: 'rgba(255,255,255,0.0)',
+        position: 'relative',
+        float: 'left'
     },
 
     obliviot_light_match_vs_container: {
@@ -1327,7 +1350,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_light_match_vs_image: {
         width: '70px',
         height: '70px',
-        backgroundColor: 'green',
+        backgroundColor: 'rgba(0,0,0,0)',
         float: 'left'
     },
 
@@ -1608,7 +1631,6 @@ export const GlobalStyles = GlobalTheme => ({
         minHeight: '40px',
         display: 'table',
         position: 'fixed',
-        zIndex: '1000',
         top: '0',
         left: '0',
         background: 'rgb(6,6,6)',
@@ -1841,7 +1863,6 @@ export const GlobalStyles = GlobalTheme => ({
         minHeight: '40px',
         display: 'table',
         position: 'fixed',
-        zIndex: '1000',
         top: '0',
         left: '0',
         background: GlobalTheme.user_styles.lightHeaderColor,

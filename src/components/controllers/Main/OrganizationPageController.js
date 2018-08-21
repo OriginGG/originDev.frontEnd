@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
-import { GlobalStyles } from 'Theme/Theme';
 import { slide as Menu } from 'react-burger-menu';
+import { GlobalStyles } from 'Theme/Theme';
 import Favicon from 'react-favicon';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
@@ -113,12 +113,14 @@ class OrganizationPageController extends Component {
                     // OrganizationTwitchController = null;
                     // OrganizationTwitchControllerDefault = null;
                 }
+                this.roster_display = false;
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
                     const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
                     this.mobile_roster_data = [];
                     roster_data.allRosters.edges.forEach((r) => {
+                        this.roster_display = true;
                         const { gameId } = r.node;
                         const currGame = _.find(gameOptions, (or) => {          // eslint-disable-line
                             return or.game_id === gameId;
@@ -283,6 +285,11 @@ class OrganizationPageController extends Component {
             sss = { display: 'inheret' };
         }
 
+        let ssss = { display: 'none' };
+        if (this.roster_display && this.isMobile()) {
+            ssss = { display: 'inheret' };
+        }
+
         const ob_inherit = { display: 'inherit' };
         const ob_none = { display: 'none' };
 
@@ -338,6 +345,7 @@ class OrganizationPageController extends Component {
                         <div style={{ display: 'flex', width: '100%', height: '100%' }}>
                             <OrganizationMobileMenuComponentRender
                                 rosterContent={rosterComponent}
+                                mobile_roster_item={ssss}
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}

@@ -29,8 +29,9 @@ class LightOrganizationNewsComponentRender extends Component {
                         </div>
                         <div style={{
                             width: '100%',
-                            height: '68px',
-                            overflowY: 'hidden'
+                            height: '60px',
+                            overflowY: 'hidden',
+                            textOverflow: 'ellipsis'
                         }}>
                             <span className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content}</span>
                         </div>

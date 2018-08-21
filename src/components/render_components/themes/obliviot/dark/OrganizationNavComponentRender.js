@@ -10,7 +10,14 @@ class DarkOrganizationNavComponentRender extends Component {
             <div>
                 <div className="ui stackable two column grid">
                     <div className="six wide column">
-                        <img className={this.props.classes.obliviot_darkLogo} src={this.props.image_src}/>
+                        <div style={{
+                            height: '80px',
+                            lineHeight: '80px',
+                            maxWidth: '55%',
+                            float: 'left'
+                        }}>
+                            <img className={this.props.classes.obliviot_darkLogo} src={this.props.image_src}/>
+                        </div>
                         <div className={this.props.classes.obliviot_dark_social_menu_container}>
                             <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link1}</div>
                             <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link2}</div>
@@ -29,8 +36,9 @@ class DarkOrganizationNavComponentRender extends Component {
                                     <div id="menu_news" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
                                 </a>
                                 <a href="#">
-                                    <div id="roster_button" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.roster_style} onClick={this.props.handleRosterButtonClick}>Rosters</div>
+                                    <div id="roster_button" className={this.props.classes.org_menu_obliviot_dark_item} style={this.props.roster_menu_style} onClick={this.props.handleRosterButtonClick}>Rosters</div>
                                     <div className={this.props.classes.obliviot_dropdown_container} style={this.props.roster_dropdown_style}>
+                                        <div className={this.props.classes.obliviot_dropdown_container_close} onClick={this.props.handleCloseClick}>X</div>
                                         <div >{this.props.dropdown_item}</div>
                                     </div>
                                 </a>
