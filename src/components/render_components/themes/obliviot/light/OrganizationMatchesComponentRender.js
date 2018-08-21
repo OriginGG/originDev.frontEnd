@@ -7,9 +7,9 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationMatchesComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.lightNavBG}>
+            <div>
                 <div>
-                    <div className="ui stackable three column grid">{this.props.recent_matches}</div>
+                    <div className={this.props.classes.obliviot_light_matches_holder}>{this.props.recent_matches}</div>
                 </div>
             </div>
         )

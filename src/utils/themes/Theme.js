@@ -867,13 +867,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
-    obliviot_dark_match_container: {
+    obliviot_dark_matches_holder: {
         width: '100%',
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
+        marginTop: '15px'
+    },
+
+    obliviot_dark_match_container: {
+        width: '33.3%',
         padding: '20px 30px 0px 30px',
         backgroundColor: 'rgba(255,255,255,0.0)',
         position: 'relative',
-        display: 'table',
-        marginTop: '15px'
+        float: 'left'
     },
 
     obliviot_dark_match_vs_container: {
@@ -1184,10 +1190,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_light_twitch_container: {
         width: '100%',
-        overflow: 'hidden',
+        overflow: 'auto',
         height: '150px',
         marginTop: '10px',
-        display: 'table',
         whiteSpace: 'nowrap'
     },
 
@@ -1320,13 +1325,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
-    obliviot_light_match_container: {
+    obliviot_light_matches_holder: {
         width: '100%',
-        padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(0,0,0,0)',
-        position: 'relative',
-        display: 'table',
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
         marginTop: '15px'
+    },
+
+    obliviot_light_match_container: {
+        width: '33.3%',
+        padding: '20px 30px 0px 30px',
+        backgroundColor: 'rgba(255,255,255,0.0)',
+        position: 'relative',
+        float: 'left'
     },
 
     obliviot_light_match_vs_container: {
