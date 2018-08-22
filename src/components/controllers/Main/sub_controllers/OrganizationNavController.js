@@ -103,7 +103,14 @@ class OrganizationNavController extends Component {
         this.roster_button_display = false;
         p.forEach((g, i) => {
             this.roster_button_display = true;
-            m_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.props.handleRosterClick(g.roster_id); }} key={`gm_roster_${i}`} style={{ cursor: 'pointer', paddingLeft: 10, color: 'white' }} >
+            m_array.push(<div
+                role="menuItem"
+                tabIndex={-1}
+                onClick={() => { this.props.handleRosterClick(g.roster_id); }}
+                key={`gm_roster_${i}`}
+                style={{
+                cursor: 'pointer', paddingLeft: 10, color: 'white', borderBottom: '1px solid #bbbb'
+                }} >
                 {g.text}
             </div>);
         });
