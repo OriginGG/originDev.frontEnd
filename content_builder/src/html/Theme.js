@@ -840,10 +840,12 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: 'black',
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        lineHeight: '30px',
+        fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px',
+        padding: '10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -1286,10 +1288,12 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: 'black',
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        lineHeight: '30px',
+        fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px',
+        padding: '10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -1298,11 +1302,11 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dropdown_container_close: {
         position: 'absolute',
-        top: '4px',
+        top: '0px',
         right: '4px',
         color: 'white',
         backgroundColor: 'black',
-        padding: '2px',
+        padding: '2px 0px 2px 0px',
         fontSize: '14px',
         fontWeight: '900',
         zIndex: '10'
