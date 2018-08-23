@@ -6,7 +6,7 @@
 @import "~slick-carousel/slick/slick-theme.css";
 @import "~primereact/resources/themes/redmond/theme.css";
 @import "~primereact/resources/primereact.min.css";
-
+@import "~react-alice-carousel/lib/alice-carousel.css";
 .transition-enter {
   transform: scale(0);
 }
@@ -272,4 +272,13 @@ html {
     .StripeElement.IdealBankElement,
     .StripeElement.PaymentRequestButton {
       padding: 0;
+    }
+
+
+    .alice-carousel {
+      padding: 0;
+    }
+
+    .alice-carousel__wrapper {
+      border: none;
     }

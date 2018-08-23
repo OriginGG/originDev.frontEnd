@@ -80,6 +80,7 @@ class OrganizationTwitchController extends Component {
                         const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
                         console.log('is_live');
                         p_array.unshift(<OrganizationTwitchComponentRender
+                            key={`twitch_live_k_${i}`}
                             twitch_url={t_url}
                         />);
                     }
@@ -91,11 +92,13 @@ class OrganizationTwitchController extends Component {
                 const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
                 // const t_url = '';
                 p_array.push(<OrganizationTwitchComponentRender
+                    key={`twitch_live_k_${i}`}
                     twitch_url={t_url}
                 />);
             }
             console.log(`testing what it sorts as ${p_array.toString}`);
         });
+
         return (<OrganizationTwitchHolderComponentRender twitch_items={p_array} />);
     }
 }

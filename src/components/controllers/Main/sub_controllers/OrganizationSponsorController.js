@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import Slider from 'react-slick';
+// import Slider from 'react-slick';
+import AliceCarousel from 'react-alice-carousel';
 import { GlobalStyles } from 'Theme/Theme';
 // import OrganizationSponsorComponentRender from '../../../render_components/OrganizationSponserComponentRender';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
@@ -48,6 +49,27 @@ class OrganizationSponsorController extends Component {
             return null;
         }
         const settings = {
+            buttonsDisabled: true,
+            dotsDisabled: true,
+            swipeDisabled: true,
+            autoPlay: true,
+            keysControlDisabled: true,
+            autoPlayInterval: 6000,
+            responsive: {
+                0: {
+                    items: 4
+                },
+                1024: {
+                    items: 4
+                },
+                600: {
+                    items: 2
+                },
+                480: {
+                    items: 2
+                }
+            },
+
             speed: 1000,
             slidesToShow: 4,
             slidesToScroll: 4,
@@ -56,27 +78,27 @@ class OrganizationSponsorController extends Component {
             initialSlide: 0,
             variableWidth: false,
             arrows: false,
-            responsive: [{
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    infinite: true,
-                }
-            }, {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
-                }
-            }, {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }]
+            // responsive: [{
+            //     breakpoint: 1024,
+            //     settings: {
+            //         slidesToShow: 4,
+            //         slidesToScroll: 4,
+            //         infinite: true,
+            //     }
+            // }, {
+            //     breakpoint: 600,
+            //     settings: {
+            //         slidesToShow: 2,
+            //         slidesToScroll: 2,
+            //         initialSlide: 2
+            //     }
+            // }, {
+            //     breakpoint: 480,
+            //     settings: {
+            //         slidesToShow: 1,
+            //         slidesToScroll: 1
+            //     }
+            // }]
         };
         const { OrganizationSponserComponentRender } = this.state;
         const { OrganizationSponserComponentElementRender } = this.state;
@@ -86,7 +108,7 @@ class OrganizationSponsorController extends Component {
         p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link3); }} key="sponsor_3" sponsor_image={this.sponsor_image3} />);
         p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link4); }} key="sponsor_4" sponsor_image={this.sponsor_image4} />);
         return (
-            <OrganizationSponserComponentRender sponsor_content={<Slider {...settings}>{p_array}</Slider>} />
+            <OrganizationSponserComponentRender sponsor_content={<AliceCarousel {...settings}>{p_array}</AliceCarousel>} />
         );
     }
 }
