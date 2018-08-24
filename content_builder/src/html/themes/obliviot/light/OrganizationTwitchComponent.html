@@ -24,7 +24,13 @@
    <body>
       <div data-component-name="light_OrganizationTwitchComponent" style="display:inline-block;">
             <div class="classes.obliviot_light_twitch_feed_container">
-                <iframe data-component-props="src={this.props.twitch_url}" frameborder="0" allowfullscreen="true" scrolling="no" height="150" width="300"></iframe>
+                <a data-component-props="href={this.props.twitch_url}">
+                    <img class="classes.obliviot_twitch_thumbnail" data-component-props="src={this.props.twitch_thumbnail}"/>
+                    <div class="classes.obliviot_twitch_overlay">
+                        <div class="classes.obliviot_twitch_overlay_text">{this.props.twitch_name}</div>
+                        <div class="classes.obliviot_twitch_overlay_status" data-component-props="style={this.props.status_style}"></div>
+                    </div>
+                </a>
             </div>
         </div>
    </body>

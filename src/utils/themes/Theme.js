@@ -1206,12 +1206,49 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: '5px'
     },
 
+    obliviot_twitch_thumbnail: {
+        width: '300px',
+        height: '150px',
+        objectFit: 'fill'
+    },
+
+    obliviot_twitch_overlay: {
+        width: '300px',
+        height: '20px',
+        backgroundColor: 'rgba(0,0,0,.7)',
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        textAlign: 'left'
+    },
+
     obliviot_light_twitch_title_container: {
         width: '100%',
         padding: '0px 0px 10px 20px',
         position: 'absolute',
         bottom: '0px',
-        left: '0px'
+        left: '0px',
+        textAlign: 'left'
+    },
+
+    obliviot_twitch_overlay_text: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    obliviot_twitch_overlay_status: {
+        width: '18px',
+        height: '18px',
+        position: 'absolute',
+        top: '2px',
+        right: '10px',
+        borderRadius: '9px',
+        backgroundColor: 'red'
     },
 
     obliviot_light_twitch_title: {

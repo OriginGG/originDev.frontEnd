@@ -6,6 +6,7 @@ import axios from 'axios';
 // mport _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
+import offline_image from '../../../../assets/images/game_images/twitch_offline.jpeg';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 // import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
 // import { getAllStaffQuery } from '../../../../queries/staff';
@@ -78,10 +79,17 @@ class OrganizationTwitchController extends Component {
                     if (Number(l.user_id) === Number(r.twitchUserId)) {
                         is_live = true;
                         const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
+                        const t_thumb = l.thumbnail_url;
+                        console.log(`thumbnail is ${t_thumb}`);
+                        const w_thumb = t_thumb.replace('{width}', '300');
+                        const f_thumb = w_thumb.replace('{height}', '150');
+                        console.log(`final thumbnail is ${f_thumb}`);
                         console.log('is_live');
                         p_array.unshift(<OrganizationTwitchComponentRender
                             key={`twitch_live_k_${i}`}
                             twitch_url={t_url}
+                            twitch_thumbnail={f_thumb}
+                            twitch_name={r.twitchUrl}
                         />);
                     }
                 });
@@ -90,10 +98,12 @@ class OrganizationTwitchController extends Component {
             if (!is_live) {
                 console.log('is NOT live');
                 const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
-                // const t_url = '';
+                const t_thumb = offline_image;
                 p_array.push(<OrganizationTwitchComponentRender
                     key={`twitch_live_k_${i}`}
                     twitch_url={t_url}
+                    twitch_thumbnail={t_thumb}
+                    twitch_name={r.twitchUrl}
                 />);
             }
             console.log(`testing what it sorts as ${p_array.toString}`);
