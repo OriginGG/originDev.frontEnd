@@ -78,6 +78,7 @@ class OrganizationTwitchController extends Component {
                     console.log(`r.twitchUserId = ${r.twitchUserId} and l.user_id = ${l.user_id}`);
                     if (Number(l.user_id) === Number(r.twitchUserId)) {
                         is_live = true;
+                        const d_style = { backgroundColor: 'green' };
                         const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
                         const t_thumb = l.thumbnail_url;
                         console.log(`thumbnail is ${t_thumb}`);
@@ -90,6 +91,7 @@ class OrganizationTwitchController extends Component {
                             twitch_url={t_url}
                             twitch_thumbnail={f_thumb}
                             twitch_name={r.twitchUrl}
+                            status_style={d_style}
                         />);
                     }
                 });

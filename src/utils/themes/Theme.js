@@ -1203,7 +1203,7 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'rgba(0,0,0,.1)',
         position: 'relative',
         float: 'left',
-        marginRight: '5px'
+        marginRight: '10px'
     },
 
     obliviot_twitch_thumbnail: {
