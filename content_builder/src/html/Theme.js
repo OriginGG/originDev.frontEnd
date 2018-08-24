@@ -386,7 +386,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
-        display: 'table',
         position: 'fixed',
         top: '0',
         left: '0',
@@ -841,10 +840,12 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: 'black',
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        lineHeight: '30px',
+        fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px',
+        padding: '10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -1202,7 +1203,25 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'rgba(0,0,0,.1)',
         position: 'relative',
         float: 'left',
-        marginRight: '5px'
+        marginRight: '6px'
+    },
+
+    obliviot_twitch_thumbnail: {
+        width: '300px',
+        height: '150px',
+        objectFit: 'fill'
+    },
+
+    obliviot_twitch_overlay: {
+        width: '300px',
+        height: '20px',
+        backgroundColor: 'rgba(0,0,0,.7)',
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        textAlign: 'left'
     },
 
     obliviot_light_twitch_title_container: {
@@ -1210,7 +1229,26 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '0px 0px 10px 20px',
         position: 'absolute',
         bottom: '0px',
-        left: '0px'
+        left: '0px',
+        textAlign: 'left'
+    },
+
+    obliviot_twitch_overlay_text: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    obliviot_twitch_overlay_status: {
+        width: '18px',
+        height: '18px',
+        position: 'absolute',
+        top: '2px',
+        right: '10px',
+        borderRadius: '9px',
+        backgroundColor: 'red'
     },
 
     obliviot_light_twitch_title: {
@@ -1287,10 +1325,12 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: 'black',
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        lineHeight: '30px',
+        fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px',
+        padding: '10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -1299,11 +1339,11 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dropdown_container_close: {
         position: 'absolute',
-        top: '4px',
+        top: '0px',
         right: '4px',
         color: 'white',
         backgroundColor: 'black',
-        padding: '2px',
+        padding: '2px 0px 2px 0px',
         fontSize: '14px',
         fontWeight: '900',
         zIndex: '10'
@@ -1629,7 +1669,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
-        display: 'table',
         position: 'fixed',
         top: '0',
         left: '0',
