@@ -6,7 +6,7 @@ import axios from 'axios';
 // mport _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
-import offline_image from '../../../../assets/images/game_images/twitch_offline.jpeg';
+import offline_image from '../../../../assets/images/game_images/twitch_offline.png';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 // import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
 // import { getAllStaffQuery } from '../../../../queries/staff';
