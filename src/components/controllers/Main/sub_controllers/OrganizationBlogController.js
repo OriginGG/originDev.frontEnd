@@ -100,13 +100,13 @@ class OrganizationBlogController extends Component {
             b_title_2 = this.results_array[1].title;
             b_media_2 = this.results_array[1].media;
             b_content_2 = this.results_array[1].content;
-            b_2 = this.results_array[0].blog;
+            b_2 = this.results_array[1].blog;
         }
         if (this.results_array[2]) {
             b_title_3 = this.results_array[2].title;
             b_media_3 = this.results_array[2].media;
             b_content_3 = this.results_array[2].content;
-            b_3 = this.results_array[0].blog;
+            b_3 = this.results_array[2].blog;
         }
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
