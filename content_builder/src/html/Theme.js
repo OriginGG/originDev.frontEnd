@@ -845,7 +845,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px 0px',
+        padding: '10px 30px 10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -1330,7 +1330,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px 0px',
+        padding: '10px 30px 10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -2617,7 +2617,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_news_body: {
         width: '100%',
         height: '50vh',
-        padding: '20px 15px 20px 15px',
+        padding: '20px 15px 50px 15px',
         overflow: 'hidden'
     },
     modal_about_body: {
