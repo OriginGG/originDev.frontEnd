@@ -73,15 +73,18 @@ class OrganizationNavController extends Component {
         }
         if (this.props.uiStore.current_organisation.youtubeLink) {
             social_links.push(<i key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fa fa-youtube" />);
+            social_links.push(<i key="social_item6" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fa fa-discord" />);
         }
         let social_link1 = <span />;
         let social_link2 = <span />;
         let social_link3 = <span />;
         let social_link4 = <span />;
         let social_link5 = <span />;
+        let social_link6 = <span />;
 
         if (social_links.length > 4) {
             social_link5 = social_links[4];          // eslint-disable-line
+            social_link6 = social_links[5];          // eslint-disable-line
         }
         if (social_links.length > 3) {
             social_link4 = social_links[3];           // eslint-disable-line
@@ -141,6 +144,7 @@ class OrganizationNavController extends Component {
             social_link3={social_link3}
             social_link4={social_link4}
             social_link5={social_link5}
+            social_link6={social_link6}
             image_src={this.image_src} />;
     }
 }

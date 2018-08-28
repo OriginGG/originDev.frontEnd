@@ -23,7 +23,7 @@
    </head>
    <body>
       <div data-component-name="light_OrganizationTwitchHolderComponent" style="position:relative;">
-            <div class="classes.obliviot_light_twitch_container" data-component-props="ref={c => {this.scrollRef = c;}}" data-component-value={this.props.twitch_items}>
+            <div class="classes.obliviot_light_twitch_container" data-component-props="ref={c => {this.props.storeRef(c);}}" data-component-value={this.props.twitch_items}>
                 twitch elements go here
             </div>
             <div class="classes.obliviot_dark_twitch_left_arrow" data-component-props="onClick={this.props.handleLeftScroll}"><i class="fa fa-arrow-left"></i></div>

@@ -105,17 +105,18 @@ class OrganizationMatchesController extends Component {
         console.log(error, info);
     }
     handleLeftScroll = () => {
-        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle left scroll');
         if (this.scrollRef) {
-            // this.scrollRef.scrollLeft -= 100;
+            this.scrollRef.scrollLeft -= 100;
         }
     }
 
     handleRightScroll = () => {
-        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle right scroll');
         if (this.scrollRef) {
-            // this.scrollRef.scrollLeft += 100;
+            this.scrollRef.scrollLeft += 100;
         }
+    }
+    storeRef = ref => {
+        this.scrollRef = ref;
     }
     render() {
         if (this.state.visible === false) {
@@ -196,7 +197,12 @@ class OrganizationMatchesController extends Component {
             //     </td>
             // </tr>);
         });
-        return <OrganizationMatchesComponentRender recent_matches={p_array} />;
+        return <OrganizationMatchesComponentRender
+        handleLeftScroll={this.handleLeftScroll}
+        handleRightScroll={this.handleRightScroll}
+        recent_matches={p_array}
+        storeRef={this.storeRef}
+        />;
     }
 }
 
