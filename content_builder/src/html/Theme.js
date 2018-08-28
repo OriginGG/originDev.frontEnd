@@ -749,6 +749,70 @@ export const GlobalStyles = GlobalTheme => ({
         whiteSpace: 'nowrap'
     },
 
+    obliviot_dark_twitch_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_twitch_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
+    },
+
     obliviot_dark_twitch_feed_container: {
         width: '300px',
         height: '150px',

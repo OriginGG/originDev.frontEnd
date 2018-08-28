@@ -7,8 +7,14 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationTwitchHolderComponentRender extends Component {
     render( ) {
         return (
-            <div>
-                <div className={this.props.classes.obliviot_light_twitch_container}>{this.props.twitch_items}</div>
+            <div style={{
+                position: 'relative'
+            }}>
+                <div className={this.props.classes.obliviot_light_twitch_container} ref={c => {
+                    this.scrollRef = c;
+                }}>{this.props.twitch_items}</div>
+                <div className={this.props.classes.obliviot_dark_twitch_left_arrow} onClick={this.props.handleLeftScroll}><i className="fa fa-arrow-left"/></div>
+                <div className={this.props.classes.obliviot_dark_twitch_right_arrow} onClick={this.props.handleRightScroll}><i className="fa fa-arrow-right"/></div>
             </div>
         )
     }

@@ -23,8 +23,10 @@
    </head>
    <body>
         <div data-component-name="light_OrganizationMatchesComponent">
-            <div>
-                <div class="classes.obliviot_light_matches_holder" data-component-value="{this.props.recent_matches}">Matches</div>
+            <div style="position:relative;">
+                <div class="classes.obliviot_light_matches_holder" data-component-props="ref={c => {this.scrollRef = c;}}" data-component-value="{this.props.recent_matches}">Matches</div>
+                <div class="classes.obliviot_dark_matches_left_arrow" data-component-props="onClick={this.props.handleLeftScroll}"><i class="fa fa-arrow-left"></i></div>
+                <div class="classes.obliviot_dark_matches_right_arrow" data-component-props="onClick={this.props.handleRightScroll}"><i class="fa fa-arrow-right"></i></div>
             </div>
         </div>
    </body>

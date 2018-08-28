@@ -749,6 +749,70 @@ export const GlobalStyles = GlobalTheme => ({
         whiteSpace: 'nowrap'
     },
 
+    obliviot_dark_twitch_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_twitch_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
+    },
+
     obliviot_dark_twitch_feed_container: {
         width: '300px',
         height: '150px',
@@ -1330,7 +1394,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px 0px',
+        padding: '10px 30px 10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -2617,7 +2681,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_news_body: {
         width: '100%',
         height: '50vh',
-        padding: '20px 15px 20px 15px',
+        padding: '20px 15px 50px 15px',
         overflow: 'hidden'
     },
     modal_about_body: {
