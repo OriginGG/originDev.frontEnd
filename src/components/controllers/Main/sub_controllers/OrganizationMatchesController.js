@@ -104,6 +104,19 @@ class OrganizationMatchesController extends Component {
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }
+    handleLeftScroll = () => {
+        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle left scroll');
+        if (this.scrollRef) {
+            // this.scrollRef.scrollLeft -= 100;
+        }
+    }
+
+    handleRightScroll = () => {
+        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle right scroll');
+        if (this.scrollRef) {
+            // this.scrollRef.scrollLeft += 100;
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;

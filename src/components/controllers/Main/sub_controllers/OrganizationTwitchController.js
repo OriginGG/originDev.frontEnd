@@ -60,6 +60,21 @@ class OrganizationTwitchController extends Component {
             OrganizationTwitchComponentRender: OrganizationTwitchComponentRender.default,
             OrganizationTwitchHolderComponentRender: OrganizationTwitchHolderComponentRender.default
         });
+        this.scrollRef = React.createRef();
+    }
+
+    handleLeftScroll = () => {
+        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle left scroll');
+        if (this.scrollRef) {
+            // this.scrollRef.scrollLeft -= 100;
+        }
+    }
+
+    handleRightScroll = () => {
+        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle right scroll');
+        if (this.scrollRef) {
+            // this.scrollRef.scrollLeft += 100;
+        }
     }
 
     render() {
@@ -111,7 +126,11 @@ class OrganizationTwitchController extends Component {
             console.log(`testing what it sorts as ${p_array.toString}`);
         });
 
-        return (<OrganizationTwitchHolderComponentRender twitch_items={p_array} />);
+        return (<OrganizationTwitchHolderComponentRender
+            handleLeftScroll={this.handleLeftScroll}
+            handleRightScroll={this.handleRightScroll}
+            scrollRef={this.scrollRef}
+            twitch_items={p_array} />);
     }
 }
 OrganizationTwitchController.propTypes = {
