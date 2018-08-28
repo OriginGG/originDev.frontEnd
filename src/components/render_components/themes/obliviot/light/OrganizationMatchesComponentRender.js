@@ -14,8 +14,8 @@ class LightOrganizationMatchesComponentRender extends Component {
                     <div className={this.props.classes.obliviot_light_matches_holder} ref={c => {
                         this.scrollRef = c;
                     }}>{this.props.recent_matches}</div>
-                    <div className={this.props.classes.obliviot_dark_twitch_left_arrow} onClick={this.props.handleLeftScroll}><i className="fa fa-arrow-left"/></div>
-                    <div className={this.props.classes.obliviot_dark_twitch_right_arrow} onClick={this.props.handleRightScroll}><i className="fa fa-arrow-right"/></div>
+                    <div className={this.props.classes.obliviot_dark_matches_left_arrow} onClick={this.props.handleLeftScroll}><i className="fa fa-arrow-left"/></div>
+                    <div className={this.props.classes.obliviot_dark_matches_right_arrow} onClick={this.props.handleRightScroll}><i className="fa fa-arrow-right"/></div>
                 </div>
             </div>
         )
