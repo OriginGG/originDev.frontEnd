@@ -73,7 +73,7 @@ class OrganizationNavController extends Component {
         }
         if (this.props.uiStore.current_organisation.youtubeLink) {
             social_links.push(<i key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fa fa-youtube" />);
-            social_links.push(<i key="social_item6" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fa fa-discord" />);
+            social_links.push(<i key="social_item6" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fab fa-discord" />);
         }
         let social_link1 = <span />;
         let social_link2 = <span />;
