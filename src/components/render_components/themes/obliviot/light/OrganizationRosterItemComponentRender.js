@@ -8,7 +8,7 @@ class LightOrganizationRosterItemComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.roster_item_container}>
+                <div className={this.props.classes.light_roster_item_container}>
                     <div className="ui stackable two column grid">
                         <div className="three wide column">
                             <div className={this.props.classes.roster_item_img_container}>
