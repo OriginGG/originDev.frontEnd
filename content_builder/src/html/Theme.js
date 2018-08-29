@@ -566,6 +566,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         position: 'absolute',
+        zIndex: '-1',
         top: '0px',
         left: '0px',
         backgroundColor: 'rgba(0,0,0,.8)'
@@ -1080,6 +1081,7 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute',
         top: '0px',
         left: '0px',
+        zIndex: '-1',
         backgroundColor: 'rgba(255,255,255,.8)'
     },
 
@@ -2050,11 +2052,39 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         wordBreak: 'break-all'
     },
+    dark_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white',
+        wordBreak: 'break-all'
+    },
+    light_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'black',
+        wordBreak: 'break-all'
+    },
     roster_divider: {
         lineHeight: '80px',
         fontSize: '48px',
         fontWeight: '900',
         color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    dark_roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    light_roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'black',
         marginLeft: '10px',
         marginRight: '10px'
     },
@@ -2076,10 +2106,38 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'center',
         float: 'left'
     },
+    dark_roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'white',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
+    light_roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'black',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
     roster_about_text: {
         lineHeight: '25px',
         fontWeight: '400',
         color: 'rgba(255,255,255,.8)'
+    },
+    dark_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(255,255,255,.8)'
+    },
+    light_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(0,0,0,.8)'
     },
     roster_item_title: {
         height: '30px',
@@ -2695,12 +2753,40 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         overflowY: 'scroll'
     },
+    dark_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'white',
+        overflowY: 'scroll'
+    },
+    light_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'black',
+        overflowY: 'scroll'
+    },
     modal_about_header: {
         width: '100%',
         height: '120px',
         lineHeight: '120px',
         textAlign: 'left',
         color: 'white',
+        fontSize: '48px'
+    },
+    dark_modal_about_header: {
+        width: '100%',
+        height: '120px',
+        lineHeight: '120px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '48px'
+    },
+    light_modal_about_header: {
+        width: '100%',
+        height: '120px',
+        lineHeight: '120px',
+        textAlign: 'left',
+        color: 'black',
         fontSize: '48px'
     },
     modal_inner: {

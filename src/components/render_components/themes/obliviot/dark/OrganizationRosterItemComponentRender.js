@@ -22,30 +22,30 @@ class DarkOrganizationRosterItemComponentRender extends Component {
                                 paddingBottom: '10px'
                             }}>
                                 <div className={this.props.classes.roster_item_name_container}>
-                                    <span className={this.props.classes.roster_name}>{this.props.roster_name}</span>
-                                    <span className={this.props.classes.roster_divider}>|</span>
-                                    <span className={this.props.classes.roster_name}>{this.props.roster_nickname}</span>
+                                    <span className={this.props.classes.dark_roster_name}>{this.props.roster_name}</span>
+                                    <span className={this.props.classes.dark_roster_divider}>|</span>
+                                    <span className={this.props.classes.dark_roster_name}>{this.props.roster_nickname}</span>
                                 </div>
                                 <div className={this.props.classes.roster_item_about_container}>
-                                    <span className={this.props.classes.roster_about_text}>{this.props.roster_about}</span>
+                                    <span className={this.props.classes.dark_roster_about_text}>{this.props.roster_about}</span>
                                 </div>
                                 <div className={this.props.classes.roster_item_social_container}>
-                                    <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
+                                    <div className={this.props.classes.dark_roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
                                             .handle_social( 'twitter', this.props.ind_user );
                                     }} style={this.props.twitter_style}><i className="fa fa-twitter"/></div>
-                                    <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
+                                    <div className={this.props.classes.dark_roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
                                             .handle_social( 'facebook', this.props.ind_user );
                                     }} style={this.props.facebook_style}><i className="fa fa-facebook"/></div>
-                                    <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
+                                    <div className={this.props.classes.dark_roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
                                             .handle_social( 'instagram', this.props.ind_user );
                                     }} style={this.props.instagram_style}><i className="fa fa-instagram"/></div>
-                                    <div className={this.props.classes.roster_item_social_icon} onClick={( ) => {
+                                    <div className={this.props.classes.dark_roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
                                             .handle_social( 'youtube', this.props.ind_user );
