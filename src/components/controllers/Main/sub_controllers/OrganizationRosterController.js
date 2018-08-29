@@ -72,7 +72,7 @@ class OrganizationRosterController extends Component {
         }
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         let close_button = 'white';
-        if (theme === 'obliviot/light') {
+        if (theme === 'obliviot/light' || theme === 'enigma/light') {
             close_button = 'black';
         }
         const { OrganizationRosterItemComponentRender } = this.state;
@@ -142,7 +142,7 @@ class OrganizationRosterController extends Component {
                         top: 200,
                         left: '0%',
                         textAlign: 'center',
-                        color: 'white',
+                        color: close_button,
                         zIndex: 10000,
                     }}>
                     {no_items}

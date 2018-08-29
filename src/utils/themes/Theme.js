@@ -1685,6 +1685,11 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'rgb(0,0,0)',
         padding: '0px 0px 0px 0px'
     },
+    lightBG: {
+        width: '100%',
+        backgroundColor: 'rgb(255,255,255)',
+        padding: '0px 0px 0px 0px'
+    },
     blankBG: {
         width: '100%',
         backgroundColor: 'rgba(20,20,20,0)',

@@ -356,6 +356,7 @@ class OrganizationPageController extends Component {
             nv_content = <span />;
         }
         const theme = this.props.uiStore.current_organisation.themeId;
+        const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
@@ -377,7 +378,12 @@ class OrganizationPageController extends Component {
             footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
         />;
         if (this.state.display_rosters) {
-            c_name = 'blackBG';
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
@@ -397,7 +403,12 @@ class OrganizationPageController extends Component {
         }
 
         if (this.state.display_sponsers) {
-            c_name = 'blackBG';
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
@@ -417,7 +428,12 @@ class OrganizationPageController extends Component {
         }
 
         if (this.state.display_staff) {
-            c_name = 'blackBG';
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}

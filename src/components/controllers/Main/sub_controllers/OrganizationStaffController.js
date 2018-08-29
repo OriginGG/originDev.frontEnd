@@ -112,7 +112,7 @@ class OrganizationStaffController extends Component {
         }
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         let close_button = 'white';
-        if (theme === 'obliviot/light') {
+        if (theme === 'obliviot/light' || theme === 'enigma/light') {
             close_button = 'black';
         }
         this.state.roster_list.forEach((r, i) => {
