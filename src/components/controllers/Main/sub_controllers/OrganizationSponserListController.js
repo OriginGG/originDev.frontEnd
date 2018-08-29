@@ -77,7 +77,7 @@ class OrganizationSponserListController extends Component {
 
         let close_button = 'white';
 
-        if (theme === 'obliviot/light') {
+        if (theme === 'obliviot/light' || theme === 'enigma/light') {
             close_button = 'black';
         }
 
