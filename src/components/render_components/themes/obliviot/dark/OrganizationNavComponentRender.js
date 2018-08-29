@@ -24,6 +24,7 @@ class DarkOrganizationNavComponentRender extends Component {
                             <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link3}</div>
                             <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link4}</div>
                             <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link5}</div>
+                            <div className={this.props.classes.obliviot_dark_social_menu_item}>{this.props.social_link6}</div>
                         </div>
                     </div>
                     <div className="ten wide column">

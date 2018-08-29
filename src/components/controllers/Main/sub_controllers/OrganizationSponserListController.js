@@ -73,6 +73,14 @@ class OrganizationSponserListController extends Component {
         const sponser_name3 = this.state.sponser_data[0].node.sponsorName3;
         const sponser_name4 = this.state.sponser_data[0].node.sponsorName4;
 
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+
+        let close_button = 'white';
+
+        if (theme === 'obliviot/light') {
+            close_button = 'black';
+        }
+
 
         const sponser_array = [];
 
@@ -126,7 +134,7 @@ class OrganizationSponserListController extends Component {
                     right: 32,
                     top: 94,
                     zIndex: 10000,
-                    color: 'white',
+                    color: close_button,
                 }}><span className="fa fa-window-close" /></div>
                 <div
                     tabIndex={-1}

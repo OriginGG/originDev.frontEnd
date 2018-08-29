@@ -62,6 +62,20 @@ class OrganizationTwitchController extends Component {
         });
     }
 
+    handleLeftScroll = () => {
+        if (this.scrollRef) {
+            this.scrollRef.scrollLeft -= 100;
+        }
+    }
+
+    handleRightScroll = () => {
+        if (this.scrollRef) {
+            this.scrollRef.scrollLeft += 100;
+        }
+    }
+    storeRef = ref => {
+        this.scrollRef = ref;
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -110,8 +124,12 @@ class OrganizationTwitchController extends Component {
             }
             console.log(`testing what it sorts as ${p_array.toString}`);
         });
-
-        return (<OrganizationTwitchHolderComponentRender twitch_items={p_array} />);
+        return (<OrganizationTwitchHolderComponentRender
+            handleLeftScroll={this.handleLeftScroll}
+            handleRightScroll={this.handleRightScroll}
+            storeRef={this.storeRef}
+            // scrollRef={this.scrollRef}
+            twitch_items={p_array} />);
     }
 }
 OrganizationTwitchController.propTypes = {

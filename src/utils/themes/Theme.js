@@ -566,6 +566,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         position: 'absolute',
+        zIndex: '-1',
         top: '0px',
         left: '0px',
         backgroundColor: 'rgba(0,0,0,.8)'
@@ -747,6 +748,70 @@ export const GlobalStyles = GlobalTheme => ({
         height: '150px',
         marginTop: '10px',
         whiteSpace: 'nowrap'
+    },
+
+    obliviot_dark_twitch_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_twitch_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
     },
 
     obliviot_dark_twitch_feed_container: {
@@ -1016,6 +1081,7 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute',
         top: '0px',
         left: '0px',
+        zIndex: '-1',
         backgroundColor: 'rgba(255,255,255,.8)'
     },
 
@@ -1330,7 +1396,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '18px',
         color: 'white',
         minWidth: '160px',
-        padding: '10px 0px',
+        padding: '10px 30px 10px 0px',
         top: '80px',
         right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
@@ -1944,6 +2010,26 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '30px 0px 30px 0px',
         margin: '10px 0px 10px 0px'
     },
+    dark_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(255,255,255,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+    light_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(0,0,0,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
     roster_item_img_container: {
         width: '100px',
         height: '100px',
@@ -1986,11 +2072,39 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         wordBreak: 'break-all'
     },
+    dark_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white',
+        wordBreak: 'break-all'
+    },
+    light_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'black',
+        wordBreak: 'break-all'
+    },
     roster_divider: {
         lineHeight: '80px',
         fontSize: '48px',
         fontWeight: '900',
         color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    dark_roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    light_roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'black',
         marginLeft: '10px',
         marginRight: '10px'
     },
@@ -2012,10 +2126,38 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'center',
         float: 'left'
     },
+    dark_roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'white',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
+    light_roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'black',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
     roster_about_text: {
         lineHeight: '25px',
         fontWeight: '400',
         color: 'rgba(255,255,255,.8)'
+    },
+    dark_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(255,255,255,.8)'
+    },
+    light_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(0,0,0,.8)'
     },
     roster_item_title: {
         height: '30px',
@@ -2617,7 +2759,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_news_body: {
         width: '100%',
         height: '50vh',
-        padding: '20px 15px 20px 15px',
+        padding: '20px 15px 50px 15px',
         overflow: 'hidden'
     },
     modal_about_body: {
@@ -2631,12 +2773,40 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         overflowY: 'scroll'
     },
+    dark_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'white',
+        overflowY: 'scroll'
+    },
+    light_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'black',
+        overflowY: 'scroll'
+    },
     modal_about_header: {
         width: '100%',
         height: '120px',
         lineHeight: '120px',
         textAlign: 'left',
         color: 'white',
+        fontSize: '48px'
+    },
+    dark_modal_about_header: {
+        width: '100%',
+        height: '120px',
+        lineHeight: '120px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '48px'
+    },
+    light_modal_about_header: {
+        width: '100%',
+        height: '120px',
+        lineHeight: '120px',
+        textAlign: 'left',
+        color: 'black',
         fontSize: '48px'
     },
     modal_inner: {

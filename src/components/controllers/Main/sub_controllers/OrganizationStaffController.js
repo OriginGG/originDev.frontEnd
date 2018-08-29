@@ -95,6 +95,25 @@ class OrganizationStaffController extends Component {
         let no_items = '';
         if (this.state.roster_list.length < 1) {
             no_items = 'No Staff Members Are Currently Listed';
+            p_array.push(<div
+                tabIndex={-1}
+                role="menuItem"
+                style={{
+                    width: '100%',
+                    fontSize: 32,
+                    fontWeight: 900,
+                    left: '0%',
+                    textAlign: 'center',
+                    color: close_button,
+                    zIndex: 10000,
+                }}>
+                {no_items}
+            </div>);
+        }
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let close_button = 'white';
+        if (theme === 'obliviot/light') {
+            close_button = 'black';
         }
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
@@ -144,24 +163,8 @@ class OrganizationStaffController extends Component {
                     right: 32,
                     top: 94,
                     zIndex: 10000,
-                    color: 'white',
+                    color: close_button,
                 }}><span className="fa fa-window-close" /></div>
-                <div
-                    tabIndex={-1}
-                    role="menuItem"
-                    style={{
-                        width: '100%',
-                        fontSize: 32,
-                        fontWeight: 900,
-                        position: 'absolute',
-                        top: 200,
-                        left: '0%',
-                        textAlign: 'center',
-                        color: 'white',
-                        zIndex: 10000,
-                    }}>
-                    {no_items}
-                </div>
             {p_array}</div>);
     }
 }
