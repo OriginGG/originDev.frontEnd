@@ -70,6 +70,11 @@ class OrganizationRosterController extends Component {
         if (this.state.visible === false) {
             return null;
         }
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let close_button = 'white';
+        if (theme === 'obliviot/light') {
+            close_button = 'black';
+        }
         const { OrganizationRosterItemComponentRender } = this.state;
         const p_array = [];
         let no_items = '';
@@ -124,7 +129,7 @@ class OrganizationRosterController extends Component {
                     right: 32,
                     top: 94,
                     zIndex: 10000,
-                    color: 'white',
+                    color: close_button,
                 }}><span className="fa fa-window-close" /></div>
                 <div
                     tabIndex={-1}

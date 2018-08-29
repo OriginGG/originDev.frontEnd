@@ -2010,6 +2010,26 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '30px 0px 30px 0px',
         margin: '10px 0px 10px 0px'
     },
+    dark_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(255,255,255,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+    light_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(0,0,0,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
     roster_item_img_container: {
         width: '100px',
         height: '100px',
