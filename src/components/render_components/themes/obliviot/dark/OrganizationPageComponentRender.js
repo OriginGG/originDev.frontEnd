@@ -62,37 +62,9 @@ class DarkOrganizationPageComponentRender extends Component {
                             <div className={this.props.classes.obliviot_dark_section_view_more}>VIEW MORE</div>
                         </div>
                         <div id="matches_container">{this.props.matchesContent}</div>
-                        <div id="bottom_nav" className={this.props.classes.obliviot_dark_bottom_nav} style={this.props.obliviot_hidden_style}>
-                            <div className="ui stackable five column grid">
-                                <div className="column">
-                                    <img className={this.props.classes.obliviot_dark_bottom_nav_logo} src={this.props.image_src}/>
-                                </div>
-                                <div className="column">
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_title}>NAVIGATION</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Teams</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>News</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Partners</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Streams</div>
-                                </div>
-                                <div className="column">
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_title}>ABOUT</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>About</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Media Resources</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Careers</div>
-                                </div>
-                                <div className="column">
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_title}>CONTENT</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>About</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Comtact</div>
-                                </div>
-                                <div className="column">
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_title}>TEAMS</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>About</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Media Resources</div>
-                                    <div className={this.props.classes.obliviot_dark_bottom_nav_sub}>Careers</div>
-                                </div>
-                            </div>
-                        </div>
+                        <footer className={this.props.classes.obliviot_darkHeader}>
+                            <div >{this.props.navContent}</div>
+                        </footer>
                     </div>
                     <div className={this.props.classes.obliviot_orgFooter}>
                         <p className={this.props.classes.obliviot_orgFooterText}>© Origin. All rights reserved.</p>
