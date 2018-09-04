@@ -83,7 +83,6 @@ class OrganizationSponserListController extends Component {
 
 
         const sponser_array = [];
-        debugger;
         this.state.sponser_data.forEach(n => {
             if (n.description && n.description.length > 0) {
                 sponser_array.push({
