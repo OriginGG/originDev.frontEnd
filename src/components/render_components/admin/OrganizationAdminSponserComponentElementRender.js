@@ -13,15 +13,9 @@ class OrganizationAdminSponserComponentElementRender extends Component {
                         <img style={this.props.element_style_disable_image} src={this.props.element_disable_image_src}/>
                     </div>
                     <div style={this.props.element_style_disable_under}>
-                        <div className={this.props.classes.admin_sponser_button}>
-                            <label className="class.admin_sponser_label" htmlFor="hidden-new-file1">{this.props.upload_title}</label>
-                            <input type="file" id="hidden-new-file1" style={{
-                                display: 'none'
-                            }} onChange={f => {
-                                this
-                                    .props
-                                    .uploadFile( this.props.image_state_var, f );
-                            }}/>
+                        <div className={this.props.classes.admin_sponser_button} onClick={this.props.handleFileClick}>
+                            <i className="cloud icon"/>
+                            Upload Sponsor
                         </div>
                         <div className={this.props.classes.admin_sponser_image_box}>
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image}/>
@@ -30,23 +24,26 @@ class OrganizationAdminSponserComponentElementRender extends Component {
                             <input type="text" placeholder="Sponsor Name" value={this.props.sponsor_name_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( this.props.sponsor_name_state_var, e );
+                                    .handleChangeName( e );
                             }}/>
                         </div>
                         <div className="ui fluid input">
                             <input type="text" placeholder="Sponsor link (Valid URL)" value={this.props.http_link_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( this.props.http_state_var, e );
+                                    .handleChangeLink( e );
                             }}/>
                         </div>
                         <div className="ui fluid input">
                             <textarea placeholder="Sponsor description ..." className={this.props.classes.admin_sponser_description} value={this.props.sponsor_desc_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( this.props.state_desc_var, e );
+                                    .handleChangeDesc( e );
                             }}/>
                         </div>
+                    </div>
+                    <div className={this.props.classes.admin_submit_box}>
+                        <div className={this.props.classes.admin_submit_button} onClick={this.props.handleSubmit}>Submit</div>
                     </div>
                 </div>
             </div>

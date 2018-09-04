@@ -48,7 +48,7 @@ class AdminProfileController extends Component {
     getInputValue = (i) => {
         return i === null ? '' : i;
     }
-    isURL = (str)  => {
+    isURL = (str) => {
         // console.log(`string is ${str}`);
         return str.includes('http');
     }

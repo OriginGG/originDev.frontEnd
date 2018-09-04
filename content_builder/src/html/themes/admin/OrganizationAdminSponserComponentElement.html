@@ -28,25 +28,25 @@
                             <img data-component-props="style={this.props.element_style_disable_image} src={this.props.element_disable_image_src}" src="xx" />
                         </div>
                         <div data-component-props="style={this.props.element_style_disable_under}">
-                            <div class="classes.admin_sponser_button">
-                                <label data-component-value="{this.props.upload_title}" for="hidden-new-file1" class="class.admin_sponser_label">
+                            <div data-component-props="onClick={this.props.handleFileClick}" class="classes.admin_sponser_button">
                                     <i class="cloud icon"></i>
-                                    Upload Sponser 1
-                                </label>
-                                <input data-component-props="onChange={(f)=>{this.props.uploadFile(this.props.image_state_var, f); }}" type="file" id="hidden-new-file1" style="display: none">
+                                    Upload Sponsor
                             </div>
                             <div class="classes.admin_sponser_image_box">
                                 <img class="classes.admin_sponser_image" data-component-props="src={this.props.sponsor_image}" src="http://api.originbeta.net/sponsor/sponsor-logo1.png" />
                             </div>
                             <div class="ui fluid input">
-                                <input data-component-props="value={this.props.sponsor_name_value} onChange={(e)=>{this.props.handleChange(this.props.sponsor_name_state_var, e);}}"  type="text" placeholder="Sponsor Name">
+                                <input data-component-props="value={this.props.sponsor_name_value} onChange={(e)=>{this.props.handleChangeName(e);}}"  type="text" placeholder="Sponsor Name">
                             </div>
                             <div class="ui fluid input">
-                                <input data-component-props="value={this.props.http_link_value} onChange={(e)=>{this.props.handleChange(this.props.http_state_var, e);}}"  type="text" placeholder="Sponsor link (Valid URL)">
+                                <input data-component-props="value={this.props.http_link_value} onChange={(e)=>{this.props.handleChangeLink(e);}}"  type="text" placeholder="Sponsor link (Valid URL)">
                             </div>
                             <div class="ui fluid input">
-                                <textarea data-component-props="value={this.props.sponsor_desc_value} onChange={(e)=>{this.props.handleChange(this.props.state_desc_var, e);}}" class="classes.admin_sponser_description" placeholder="Sponsor description ..."></textarea>
+                                <textarea data-component-props="value={this.props.sponsor_desc_value} onChange={(e)=>{this.props.handleChangeDesc(e);}}" class="classes.admin_sponser_description" placeholder="Sponsor description ..."></textarea>
                             </div>
+                            </div>
+                            <div class="classes.admin_submit_box">
+                                <div data-component-props="onClick={this.props.handleSubmit}" class="classes.admin_submit_button">Submit</div>
                             </div>
                         </div>
         </div>
