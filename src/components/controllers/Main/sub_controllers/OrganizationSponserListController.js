@@ -17,10 +17,10 @@ class OrganizationSponserListController extends Component {
         const subDomain = this.props.uiStore.current_subdomain;
         const OrganizationSponsersItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponsersItemComponentRender`);
         const sponser_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-        const { edges } = sponser_data.resultData.edges;
-        console.log(`sponser_data = ${JSON.stringify(sponser_data.resultData.edges)}`);
-        console.log(`edges = ${edges}`);
-        this.setState({ sponser_data: sponser_data.resultData.edges, visible: true, OrganizationSponsersItemComponentRender: OrganizationSponsersItemComponentRender.default });
+        const { nodes } = sponser_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+        // console.log(`sponser_data = ${JSON.stringify(sponser_data.resultData.edges)}`);
+        // console.log(`edges = ${edges}`);
+        this.setState({ sponser_data: nodes, visible: true, OrganizationSponsersItemComponentRender: OrganizationSponsersItemComponentRender.default });
     }
     // handleClick = (link) => {
     //     if (link) {
@@ -52,26 +52,26 @@ class OrganizationSponserListController extends Component {
         }
         const { OrganizationSponsersItemComponentRender } = this.state;
         const p_array = [];
-        const no_items = '';
-        // if (this.state.sponser_data.length < 1) {
-        //      no_items = 'No Sponsers Are Currently In This List';
-        // }
-        const sponser_image1 = this.state.sponser_data[0].node.sponsor1;
-        const sponser_image2 = this.state.sponser_data[0].node.sponsor2;
-        const sponser_image3 = this.state.sponser_data[0].node.sponsor3;
-        const sponser_image4 = this.state.sponser_data[0].node.sponsor4;
-        const sponser_link1 = this.state.sponser_data[0].node.hrefLink1;
-        const sponser_link2 = this.state.sponser_data[0].node.hrefLink2;
-        const sponser_link3 = this.state.sponser_data[0].node.hrefLink3;
-        const sponser_link4 = this.state.sponser_data[0].node.hrefLink4;
-        const sponser_desc1 = this.state.sponser_data[0].node.sponsorDesc1;
-        const sponser_desc2 = this.state.sponser_data[0].node.sponsorDesc2;
-        const sponser_desc3 = this.state.sponser_data[0].node.sponsorDesc3;
-        const sponser_desc4 = this.state.sponser_data[0].node.sponsorDesc4;
-        const sponser_name1 = this.state.sponser_data[0].node.sponsorName1;
-        const sponser_name2 = this.state.sponser_data[0].node.sponsorName2;
-        const sponser_name3 = this.state.sponser_data[0].node.sponsorName3;
-        const sponser_name4 = this.state.sponser_data[0].node.sponsorName4;
+        let no_items = '';
+        if (this.state.sponser_data.length < 1) {
+             no_items = 'No Sponsers Are Currently In This List';
+        }
+        // const sponser_image1 = this.state.sponser_data[0].node.sponsor1;
+        // const sponser_image2 = this.state.sponser_data[0].node.sponsor2;
+        // const sponser_image3 = this.state.sponser_data[0].node.sponsor3;
+        // const sponser_image4 = this.state.sponser_data[0].node.sponsor4;
+        // const sponser_link1 = this.state.sponser_data[0].node.hrefLink1;
+        // const sponser_link2 = this.state.sponser_data[0].node.hrefLink2;
+        // const sponser_link3 = this.state.sponser_data[0].node.hrefLink3;
+        // const sponser_link4 = this.state.sponser_data[0].node.hrefLink4;
+        // const sponser_desc1 = this.state.sponser_data[0].node.sponsorDesc1;
+        // const sponser_desc2 = this.state.sponser_data[0].node.sponsorDesc2;
+        // const sponser_desc3 = this.state.sponser_data[0].node.sponsorDesc3;
+        // const sponser_desc4 = this.state.sponser_data[0].node.sponsorDesc4;
+        // const sponser_name1 = this.state.sponser_data[0].node.sponsorName1;
+        // const sponser_name2 = this.state.sponser_data[0].node.sponsorName2;
+        // const sponser_name3 = this.state.sponser_data[0].node.sponsorName3;
+        // const sponser_name4 = this.state.sponser_data[0].node.sponsorName4;
 
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
 
@@ -83,30 +83,14 @@ class OrganizationSponserListController extends Component {
 
 
         const sponser_array = [];
-
-        if (sponser_desc1.length > 0) {
-            sponser_array.push({
- s_image: sponser_image1, s_link: sponser_link1, s_desc: sponser_desc1, s_name: sponser_name1
-});
-        }
-
-        if (sponser_desc2.length > 0) {
-            sponser_array.push({
- s_image: sponser_image2, s_link: sponser_link2, s_desc: sponser_desc2, s_name: sponser_name2
-});
-        }
-
-        if (sponser_desc3.length > 0) {
-            sponser_array.push({
- s_image: sponser_image3, s_link: sponser_link3, s_desc: sponser_desc3, s_name: sponser_name3
-});
-        }
-
-        if (sponser_desc4.length > 0) {
-            sponser_array.push({
- s_image: sponser_image4, s_link: sponser_link4, s_desc: sponser_desc4, s_name: sponser_name4
-});
-        }
+        debugger;
+        this.state.sponser_data.forEach(n => {
+            if (n.description && n.description.length > 0) {
+                sponser_array.push({
+                    s_image: n.imageUrl, s_link: n.hrefLink, s_desc: n.description, s_name: n.name
+                });
+            }
+        });
         // sponser_array.push({ s_image: sponser_image2, s_link: sponser_link2, s_desc: sponser_desc2 });
         // sponser_array.push({ s_image: sponser_image3, s_link: sponser_link3, s_desc: sponser_desc3 });
         // sponser_array.push({ s_image: sponser_image4, s_link: sponser_link4, s_desc: sponser_desc4 });
