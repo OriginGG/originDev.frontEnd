@@ -114,10 +114,31 @@ class CreateSubDomainController extends Component {
                     });
                     await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
                         subDomain: this.domain_name,
-                        link1: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                        link2: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                        link3: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                        link4: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        hrefLink: 'http://origin.gg',
+                        name: 'Origin.GG',
+                        description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
+                    });
+                    await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
+                        subDomain: this.domain_name,
+                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        hrefLink: 'http://origin.gg',
+                        name: 'Origin.GG',
+                        description: ''
+                    });
+                    await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
+                        subDomain: this.domain_name,
+                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        hrefLink: 'http://origin.gg',
+                        name: 'Origin',
+                        description: ''
+                    });
+                    await this.props.appManager.executeQuery('mutation', createSponsorsQuery, {
+                        subDomain: this.domain_name,
+                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                        hrefLink: 'http://origin.gg',
+                        name: 'Origin.GG',
+                        description: ''
                     });
 
                     const domainInfo = this.props.appManager.getDomainInfo();

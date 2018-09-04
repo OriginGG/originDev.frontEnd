@@ -13,7 +13,7 @@ class LightOrganizationNavComponentRender extends Component {
                         <div style={{
                             height: '80px',
                             lineHeight: '80px',
-                            maxWidth: '55%',
+                            maxWidth: '50%',
                             float: 'left'
                         }}>
                             <img className={this.props.classes.obliviot_lightLogo} src={this.props.image_src}/>

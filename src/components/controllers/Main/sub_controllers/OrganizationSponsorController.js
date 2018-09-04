@@ -16,14 +16,8 @@ class OrganizationSponsorController extends Component {
         const OrganizationSponserComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentElementRender`);
         const subDomain = this.props.uiStore.current_subdomain;
         const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-        this.sponsor_image1 = sponsor_data.resultData.edges[0].node.sponsor1;
-        this.sponsor_image2 = sponsor_data.resultData.edges[0].node.sponsor2;
-        this.sponsor_image3 = sponsor_data.resultData.edges[0].node.sponsor3;
-        this.sponsor_image4 = sponsor_data.resultData.edges[0].node.sponsor4;
-        this.sponsor_link1 = sponsor_data.resultData.edges[0].node.hrefLink1;
-        this.sponsor_link2 = sponsor_data.resultData.edges[0].node.hrefLink2;
-        this.sponsor_link3 = sponsor_data.resultData.edges[0].node.hrefLink3;
-        this.sponsor_link4 = sponsor_data.resultData.edges[0].node.hrefLink4;
+        const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+        this.sponsor_data = nodes;
         this.setState({
             visible: true,
             OrganizationSponserComponentRender: OrganizationSponserComponentRender.default,
@@ -103,10 +97,9 @@ class OrganizationSponsorController extends Component {
         const { OrganizationSponserComponentRender } = this.state;
         const { OrganizationSponserComponentElementRender } = this.state;
         const p_array = [];
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link1); }} key="sponsor_1" sponsor_image={this.sponsor_image1} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link2); }} key="sponsor_2" sponsor_image={this.sponsor_image2} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link3); }} key="sponsor_3" sponsor_image={this.sponsor_image3} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(this.sponsor_link4); }} key="sponsor_4" sponsor_image={this.sponsor_image4} />);
+        this.sponsor_data.forEach((n, i) => {
+            p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(n.hrefLink); }} key={`sponsor_${i}`} sponsor_image={n.imageUrl} />);
+        });
         return (
             <OrganizationSponserComponentRender sponsor_content={<AliceCarousel {...settings}>{p_array}</AliceCarousel>} />
         );

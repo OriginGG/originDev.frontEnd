@@ -140,16 +140,23 @@ class OrganizationPageController extends Component {
                 if (this.props.uiStore.current_organisation.companyStoreLink) {
                     this.store_display = true;
                 }
+                this.sponser_display = false;
                 const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-                this.sponsor_desc1 = sponsor_data.resultData.edges[0].node.sponsorDesc1;
-                this.sponsor_desc2 = sponsor_data.resultData.edges[0].node.sponsorDesc2;
-                this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
-                this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
-                this.sponser_display = true;
+                const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+                nodes.forEach(n => {
+                    if (n.description && n.description.length > 1) {
+                        this.sponser_display = true;
+                    }
+                });
+                // this.sponsor_desc1 = sponsor_data.resultData.edges[0].node.sponsorDesc1;
+                // this.sponsor_desc2 = sponsor_data.resultData.edges[0].node.sponsorDesc2;
+                // this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
+                // this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
+                // this.sponser_display = true;
 
-                if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
-                    this.sponser_display = false;
-                }
+                // if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
+                //     this.sponser_display = false;
+                // }
                 this.setState({
                     visible: true,
                     OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
@@ -282,12 +289,12 @@ class OrganizationPageController extends Component {
         }
         let sss = { display: 'none' };
         if (this.sponser_display) {
-            sss = { display: 'inheret' };
+            sss = { display: 'inherit' };
         }
 
         let ssss = { display: 'none' };
         if (this.roster_display && this.isMobile()) {
-            ssss = { display: 'inheret' };
+            ssss = { display: 'inherit' };
         }
 
         const ob_inherit = { display: 'inherit' };
@@ -356,6 +363,7 @@ class OrganizationPageController extends Component {
             nv_content = <span />;
         }
         const theme = this.props.uiStore.current_organisation.themeId;
+        const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
@@ -377,7 +385,12 @@ class OrganizationPageController extends Component {
             footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
         />;
         if (this.state.display_rosters) {
-            c_name = 'blackBG';
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
@@ -397,7 +410,12 @@ class OrganizationPageController extends Component {
         }
 
         if (this.state.display_sponsers) {
-            c_name = 'blackBG';
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
@@ -417,7 +435,12 @@ class OrganizationPageController extends Component {
         }
 
         if (this.state.display_staff) {
-            c_name = 'blackBG';
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
