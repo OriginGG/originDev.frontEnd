@@ -7757,6 +7757,10 @@ react-favicon@^0.0.14:
   version "0.0.14"
   resolved "https://registry.yarnpkg.com/react-favicon/-/react-favicon-0.0.14.tgz#3c9c7b999d106e6e112f729ab929b8dbec05b280"
 
+react-fullstory@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-fullstory/-/react-fullstory-1.0.3.tgz#48c936cac738d962d30a0ac29bc6b2a3406e45ef"
+
 react-ga@^2.5.2:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.3.tgz#0f447c73664c069a5fc341f6f431262e3d4c23c4"
