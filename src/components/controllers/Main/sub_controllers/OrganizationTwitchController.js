@@ -44,8 +44,10 @@ class OrganizationTwitchController extends Component {
         let twitch_url = '';
         users.allOrganisationMembers.edges.forEach(n => {
             if (n.node.contentTeamsByMemberId.nodes.length > 0) {
-                t_array.push(n.node.individualUserByIndividalUserId);
-                twitch_url += `${n.node.individualUserByIndividalUserId.twitchUserId},`;
+                if (n.node.individualUserByIndividalUserId.twitchUrl) {
+                    t_array.push(n.node.individualUserByIndividalUserId);
+                    twitch_url += `${n.node.individualUserByIndividalUserId.twitchUserId},`;
+                }
             }
         });
         console.log(`twitch url = ${twitch_url}`);
