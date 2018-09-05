@@ -44,7 +44,7 @@ class OrganizationTwitchController extends Component {
         let twitch_url = '';
         users.allOrganisationMembers.edges.forEach(n => {
             if (n.node.contentTeamsByMemberId.nodes.length > 0) {
-                if (n.node.individualUserByIndividalUserId.twitchUserId) {
+                if (n.node.individualUserByIndividalUserId.twitchUrl) {
                     t_array.push(n.node.individualUserByIndividalUserId);
                     twitch_url += `${n.node.individualUserByIndividalUserId.twitchUserId},`;
                 }
