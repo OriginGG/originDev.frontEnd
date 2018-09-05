@@ -31,7 +31,7 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '60px',
+                                    height: '0px',
                                     overflowY: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>
@@ -63,7 +63,7 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '60px',
+                                    height: '0px',
                                     overflowY: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>
@@ -93,7 +93,7 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '60px',
+                                    height: '0px',
                                     overflowY: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>

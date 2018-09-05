@@ -667,7 +667,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dark_main_news_content_container: {
         width: '100%',
-        height: '130px',
+        height: '50px',
         position: 'absolute',
         bottom: '0px',
         left: '0%',
@@ -1180,7 +1180,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_light_main_news_content_container: {
         width: '100%',
-        height: '130px',
+        height: '50px',
         position: 'absolute',
         bottom: '0px',
         left: '0%',
