@@ -62,6 +62,7 @@
     "react-dom": "^16.4.0",
     "react-dropzone": "^4.2.9",
     "react-favicon": "^0.0.14",
+    "react-fullstory": "^1.0.3",
     "react-ga": "^2.5.2",
     "react-html-parser": "^2.0.2",
     "react-jss": "^8.3.3",
