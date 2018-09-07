@@ -8,7 +8,7 @@ class LightOrganizationPageComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.lightObliotBG}>
-                <div className={this.props.classes.light_pageTestContraint}>
+                <div>
                     <img id="bg_img" alt="" className={this.props.classes.obliviot_light_bg_img}/>
                     <div className={this.props.classes.obliviot_light_bg_filter} style={this.props.obliviot_page_style}/>
                     <div className={this.props.classes.obliviot_lightContraint}>
