@@ -8,7 +8,7 @@ class DarkOrganizationPageComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.darkObliotBG}>
-                <div className={this.props.classes.dark_pageTestContraint}>
+                <div>
                     <img id="bg_img" alt="" className={this.props.classes.obliviot_dark_bg_img}/>
                     <div className={this.props.classes.obliviot_dark_bg_filter}/>
                     <div className={this.props.classes.obliviot_darkContraint}>

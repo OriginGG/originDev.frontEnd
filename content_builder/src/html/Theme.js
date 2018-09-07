@@ -627,7 +627,8 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_darkBlogContainer: {
         width: '100%',
         height: '600px',
-        marginTop: '20px'
+        marginTop: '20px',
+        display: 'table'
     },
 
     obliviot_darkBlogMiniContainer: {
@@ -1140,7 +1141,8 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_lightBlogContainer: {
         width: '100%',
         height: '600px',
-        marginTop: '20px'
+        marginTop: '20px',
+        display: 'table'
     },
 
     obliviot_lightBlogMiniContainer: {
