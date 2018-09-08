@@ -572,7 +572,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkHeader: {
         width: '100%',
-        height: '80px'
+        maxHeight: '90px'
     },
 
     obliviot_darkLogo: {
@@ -1087,7 +1087,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_lightHeader: {
         width: '100%',
-        height: '80px'
+        maxHeight: '90px'
     },
 
     obliviot_lightLogo: {
