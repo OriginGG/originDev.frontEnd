@@ -131,11 +131,11 @@ animation: darktheme 19s ease infinite;
 
 .bm-burger-button {
   position: fixed;
-  width: 12px;
+  width: 15px;
   color: white;
-  height: 12px;
-  right: 36px;
-  top: 86px;
+  height: 15px;
+  right: 15px;
+  top: 10px;
   z-index: 100000;
 }
 
