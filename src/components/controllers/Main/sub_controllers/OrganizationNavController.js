@@ -42,6 +42,7 @@ class OrganizationNavController extends Component {
         window.open(page, '_blank');
     }
     render() {
+        console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
         if (this.state.visible === false) {
             return null;
         }
@@ -69,7 +70,8 @@ class OrganizationNavController extends Component {
             social_links.push(<i key="social_item3" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.instaLink); }} className="fa fa-instagram" />);
         }
         if (this.props.uiStore.current_organisation.twitchLink) {
-            social_links.push(<i key="social_item4" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.twitchLink); }} className="fa fa-twitch" />);
+            const t_link = `https://www.twitch.tv/${this.props.uiStore.current_organisation.twitchLink}`;
+            social_links.push(<i key="social_item4" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(t_link); }} className="fa fa-twitch" />);
         }
         if (this.props.uiStore.current_organisation.youtubeLink) {
             social_links.push(<i key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fa fa-youtube" />);

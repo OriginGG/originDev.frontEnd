@@ -572,7 +572,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkHeader: {
         width: '100%',
-        height: '80px'
+        maxHeight: '90px'
     },
 
     obliviot_darkLogo: {
@@ -743,7 +743,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dark_twitch_container: {
         width: '100%',
-        overflow: 'auto',
+        overflowX: 'scroll',
+        overflowY: 'hidden',
         height: '150px',
         marginTop: '10px',
         whiteSpace: 'nowrap'
@@ -1086,7 +1087,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_lightHeader: {
         width: '100%',
-        height: '80px'
+        maxHeight: '90px'
     },
 
     obliviot_lightLogo: {
@@ -1257,7 +1258,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_light_twitch_container: {
         width: '100%',
-        overflow: 'auto',
+        overflowX: 'scroll',
+        overflowY: 'hidden',
         height: '150px',
         marginTop: '10px',
         whiteSpace: 'nowrap'
