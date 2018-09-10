@@ -51,7 +51,7 @@ class OrganizationSponsorController extends Component {
             autoPlayInterval: 6000,
             responsive: {
                 0: {
-                    items: 2
+                    items: 1
                 },
                 1024: {
                     items: 4
