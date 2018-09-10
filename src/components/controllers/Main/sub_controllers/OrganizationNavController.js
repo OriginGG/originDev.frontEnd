@@ -61,7 +61,7 @@ class OrganizationNavController extends Component {
                     const p_string = `https://twitter.com/${this.props.uiStore.current_organisation.twitterFeedUsername}`;
                     this.openPage(p_string);
                 }}
-                className="fa fa-twitter" />);
+                className="fab fa-twitter" />);
         }
         if (this.props.uiStore.current_organisation.fbLink) {
             social_links.push(<i key="social_item2" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.fbLink); }} className="fa fa-facebook" />);
