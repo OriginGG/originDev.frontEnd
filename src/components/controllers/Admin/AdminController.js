@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
+import { StripeProvider } from 'react-stripe-elements';
 import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
@@ -292,7 +293,9 @@ class AdminPageController extends Component {
         const nd = this.props.uiStore.current_organisation.usersByOrganisation.edges[0].node;
         const full_name = `${nd.firstName} ${nd.lastName}`;
         return (
+
             <div id="outer-container">
+                <StripeProvider apiKey="pk_test_12345">
                 <Sidebar.Pushable as={Segment}>
                     <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
                         <OrganizationAdminMenuComponentRender key={`admin_sidebar_key_${this.my_key}`} handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
@@ -304,8 +307,9 @@ class AdminPageController extends Component {
                             </div>
                         </Segment>
                     </Sidebar.Pusher>
-                </Sidebar.Pushable>
-            </div>
+                    </Sidebar.Pushable>
+                    </StripeProvider>
+                </div>
         );
     }
 }
