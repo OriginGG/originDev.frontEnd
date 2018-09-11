@@ -107,6 +107,7 @@ class _SplitForm extends React.Component {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 3000
                                 });
+                                this.props.callback();
                             }
                         }
                     }
@@ -185,7 +186,7 @@ class AdminSubscriptionController extends Component {
             <div className="Checkout">
                 <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
                 <Elements>
-                    <SplitForm user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
+                    <SplitForm callback={this.props.callback} user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
                 </Elements>
             </div>
         );
@@ -196,12 +197,14 @@ _SplitForm.propTypes = {
     user_id: PropTypes.number.isRequired,
     stripe: PropTypes.object.isRequired,
     fontSize: PropTypes.string.isRequired,
-    subscribed: PropTypes.bool.isRequired
+    subscribed: PropTypes.bool.isRequired,
+    callback: PropTypes.func.isRequired,
 };
 
 AdminSubscriptionController.propTypes = {
     user_id: PropTypes.number.isRequired,
-    subscribed: PropTypes.bool.isRequired
+    subscribed: PropTypes.bool.isRequired,
+    callback: PropTypes.func.isRequired
 };
 
 

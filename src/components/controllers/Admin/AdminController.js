@@ -221,7 +221,10 @@ class AdminPageController extends Component {
         const action = this.showSubscribeConfirm();
         console.log(action);
     }
-
+    hasSubscribed = () => {
+        this.subscribed = true;
+        this.setState({ page: 'company' });
+    }
     handleManageClick = async (v) => {
         if (v === 'add_custom_domain' && this.subscribed === false) {
             const action = await this.subscriptionClick();
@@ -237,7 +240,7 @@ class AdminPageController extends Component {
         let p_component = <span />;
         switch (this.state.page) {
             case 'subscription': {
-                p_component = <AdminSubscriptionController subscribed={this.subscribed} user_id={this.props.uiStore.user_id} />;
+                p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} user_id={this.props.uiStore.user_id} />;
                 break;
             }
             case 'company': {
