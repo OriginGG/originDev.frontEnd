@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
+import { StripeProvider } from 'react-stripe-elements';
 import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
@@ -13,7 +14,7 @@ import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminMembersController from './sub_controllers/AdminMembersController';
 import AdminAboutController from './sub_controllers/AdminAboutController';
-import AdminSubscriptionCheckoutController from './sub_controllers/AdminSubscriptionCheckoutController';
+import AdminSubscriptionController from './sub_controllers/AdminSubscriptionController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminRosterController from './sub_controllers/AdminRosterController';
@@ -23,6 +24,7 @@ import AdminCollaboratorController from './sub_controllers/AdminCollaboratorCont
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
 import AdminContentTeamController from './sub_controllers/AdminContentTeamController';
 import { getOrganisationQuery } from '../../../queries/organisation';
+import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
 
 
@@ -159,8 +161,10 @@ class MenuDrop extends Component {
 class AdminPageController extends Component {
     state = { page: 'company', isOpen: false, visible: false };
     componentDidMount = async () => {
-        this.subscribed = true;
         if (this.props.appManager.admin_logged_in) {
+            const { user_id } = this.props.uiStore;
+            const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: user_id });
+            this.subscribed = user.resultData.subscribed;
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
@@ -179,7 +183,6 @@ class AdminPageController extends Component {
                     }
                 });
             }
-            const { user_id } = this.props.uiStore;
             console.log(user_id);
             this.initialized = true;
         } else {
@@ -218,7 +221,10 @@ class AdminPageController extends Component {
         const action = this.showSubscribeConfirm();
         console.log(action);
     }
-
+    hasSubscribed = () => {
+        this.subscribed = true;
+        this.setState({ page: 'company' });
+    }
     handleManageClick = async (v) => {
         if (v === 'add_custom_domain' && this.subscribed === false) {
             const action = await this.subscriptionClick();
@@ -234,7 +240,7 @@ class AdminPageController extends Component {
         let p_component = <span />;
         switch (this.state.page) {
             case 'subscription': {
-                p_component = <AdminSubscriptionCheckoutController />;
+                p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} user_id={this.props.uiStore.user_id} />;
                 break;
             }
             case 'company': {
@@ -254,7 +260,7 @@ class AdminPageController extends Component {
                 break;
             }
             case 'sponsors': {
-                p_component = <AdminSponsorController />;
+                p_component = <AdminSponsorController subscribed={this.subscribed} />;
                 break;
             }
             case 'theme': {
@@ -292,7 +298,9 @@ class AdminPageController extends Component {
         const nd = this.props.uiStore.current_organisation.usersByOrganisation.edges[0].node;
         const full_name = `${nd.firstName} ${nd.lastName}`;
         return (
+
             <div id="outer-container">
+                <StripeProvider apiKey="pk_test_XI2VXHY0lSJmfCy7gedb4zK0">
                 <Sidebar.Pushable as={Segment}>
                     <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
                         <OrganizationAdminMenuComponentRender key={`admin_sidebar_key_${this.my_key}`} handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
@@ -304,8 +312,9 @@ class AdminPageController extends Component {
                             </div>
                         </Segment>
                     </Sidebar.Pusher>
-                </Sidebar.Pushable>
-            </div>
+                    </Sidebar.Pushable>
+                    </StripeProvider>
+                </div>
         );
     }
 }
