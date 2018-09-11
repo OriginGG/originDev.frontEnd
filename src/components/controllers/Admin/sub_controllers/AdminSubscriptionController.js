@@ -69,7 +69,7 @@ class _SplitForm extends React.Component {
                         });
                     } else {
                         const response = await axios.post(
-                            'http://127.0.0.1:3333/stripe/create_subscription',
+                            `${process.env.REACT_APP_API_SERVER}/stripe/create_subscription`,
                             {
                                 token: payload.token.id,
                                 customer_id: this.props.user_id,
