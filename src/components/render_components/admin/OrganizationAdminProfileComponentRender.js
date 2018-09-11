@@ -87,6 +87,14 @@ class OrganizationAdminProfileComponentRender extends Component {
                                     .handleChange( 'youtube_value', e );
                             }}/>
                         </div>
+                        <div className={this.props.classes.admin_social_box_divider}/>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Discord link" value={this.props.discord_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'discord_value', e );
+                            }}/>
+                        </div>
                     </div>
                 </div>
                 <div className={this.props.classes.admin_title_box}>
