@@ -64,17 +64,17 @@ class OrganizationNavController extends Component {
                 className="fab fa-twitter" />);
         }
         if (this.props.uiStore.current_organisation.fbLink) {
-            social_links.push(<i key="social_item2" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.fbLink); }} className="fa fa-facebook" />);
+            social_links.push(<i key="social_item2" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.fbLink); }} className="fab fa-facebook" />);
         }
         if (this.props.uiStore.current_organisation.instaLink) {
-            social_links.push(<i key="social_item3" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.instaLink); }} className="fa fa-instagram" />);
+            social_links.push(<i key="social_item3" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.instaLink); }} className="fab fa-instagram" />);
         }
         if (this.props.uiStore.current_organisation.twitchLink) {
             const t_link = `https://www.twitch.tv/${this.props.uiStore.current_organisation.twitchLink}`;
-            social_links.push(<i key="social_item4" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(t_link); }} className="fa fa-twitch" />);
+            social_links.push(<i key="social_item4" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(t_link); }} className="fab fa-twitch" />);
         }
         if (this.props.uiStore.current_organisation.youtubeLink) {
-            social_links.push(<i key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fa fa-youtube" />);
+            social_links.push(<i key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fab fa-youtube" />);
             social_links.push(<i key="social_item6" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fab fa-discord" />);
         }
         let social_link1 = <span />;
