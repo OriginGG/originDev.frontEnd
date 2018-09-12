@@ -41,6 +41,14 @@
                         <input data-component-props="value={this.props.company_store_value} onChange={(e)=>{this.props.handleChange('company_store_value', e);}}"  type="text" placeholder="Company Store">
                     </div>
                     <div class="classes.admin_main_logo_spacer"></div>
+                    <div class="ui fluid input">
+                        <input data-component-props="value={this.props.custom_domain_value} onChange={(e)=>{this.props.handleChange('custom_domain_value', e);}}"  type="text" placeholder="Custom Domain">
+                    </div>
+                    <div class="classes.admin_main_logo_spacer"></div>
+                    <div class="ui fluid input">
+                        <input data-component-props="value={this.props.dns_host_value} onChange={(e)=>{this.props.handleChange('dns_host_value', e);}}"  type="text" placeholder="DNS host (GoDaddy, AWS ETC)">
+                    </div>
+                    <div class="classes.admin_main_logo_spacer"></div>
                     <label class="classes.admin_color_label">Primary Color</label>
                     <input data-component-props="value={this.props.primary_color_value} onChange={(e)=>{this.props.handleChange('primary_color_value', e);}}" class="classes.admin_color_picker" type="color" id="primary_color" onchange="clickColor(0, -1, -1, 5)" value="#0a9ab4">
                 </div>
