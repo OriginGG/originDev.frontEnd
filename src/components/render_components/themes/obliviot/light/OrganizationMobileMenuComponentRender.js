@@ -25,6 +25,11 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                         </a>
                     </div>
                     <div className={this.props.classes.light_mobile_menu_item}>
+                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleBlogClick}>
+                            Blog
+                        </a>
+                    </div>
+                    <div className={this.props.classes.light_mobile_menu_item}>
                         <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleLoginClick}>
                             Login
                         </a>

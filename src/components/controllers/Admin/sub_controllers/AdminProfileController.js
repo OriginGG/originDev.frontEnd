@@ -24,7 +24,9 @@ class AdminProfileController extends Component {
             twitter_username_value: '',
             rss_value: '',
             primary_color_value: '',
-            logo_src: null
+            logo_src: null,
+            custom_domain: '',
+            dns_host: ''
         }
     };
     componentDidMount() {
