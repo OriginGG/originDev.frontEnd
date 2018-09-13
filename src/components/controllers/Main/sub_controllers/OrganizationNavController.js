@@ -28,8 +28,6 @@ class OrganizationNavController extends Component {
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }
-    handleBlogButtonClick = () => {
-    }
     handleRosterButtonClick = () => {
         console.log(`roster click ${this.p_array}`);
         this.setState({ dropdown: true });
@@ -137,6 +135,7 @@ class OrganizationNavController extends Component {
             roster_menu_style={sssss}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
+            handleBlogClick={this.props.handleBlogClick}
             handleCloseClick={this.handleCloseClick}
             handleSponsersClick={this.props.handleSponsersClick}
             handleAboutClick={this.props.handleAboutClick}
@@ -157,6 +156,7 @@ OrganizationNavController.propTypes = {
     handleSponsersClick: PropTypes.func.isRequired,
     handleRosterClick: PropTypes.func.isRequired,
     handleStoreClick: PropTypes.func.isRequired,
+    handleBlogClick: PropTypes.func.isRequired,
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,

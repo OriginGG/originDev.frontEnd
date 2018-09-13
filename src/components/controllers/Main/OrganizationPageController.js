@@ -100,6 +100,7 @@ class OrganizationPageController extends Component {
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
                 const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
+                const OrganizationBlogListController = await import('./sub_controllers/OrganizationBlogListController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 let OrganizationBlogController = null;
                 let OrganizationBlogControllerDefault = null;
@@ -170,6 +171,7 @@ class OrganizationPageController extends Component {
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
                     OrganizationSponserListController: OrganizationSponserListController.default,
+                    OrganizationBlogListController: OrganizationBlogListController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
@@ -208,6 +210,13 @@ class OrganizationPageController extends Component {
         }
         /* this.setState({ about_modal_open: true }); */
         this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_sponsers: true });
+    }
+    handleBlogClick = () => {
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blogs: true });
     }
     handleAboutClick = () => {
         if (this.isMobile() && this.state.menu_open) {
@@ -272,6 +281,9 @@ class OrganizationPageController extends Component {
     closeSponsers = () => {
         this.setState({ roster_style: { display: 'none' }, display_sponsers: false });
     }
+    closeBlogs = () => {
+        this.setState({ roster_style: { display: 'none' }, display_blogs: false });
+    }
     closeStaff = () => {
         this.setState({ roster_style: { display: 'none' }, display_staff: false });
     }
@@ -316,6 +328,7 @@ class OrganizationPageController extends Component {
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
         const { OrganizationSponserListController } = this.state;
+        const { OrganizationBlogListController } = this.state;
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
         const { OrganizationTwitchController } = this.state;
@@ -334,6 +347,7 @@ class OrganizationPageController extends Component {
             home_style={{ display: 'inherit' }}
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
+            handleBlogClick={this.handleBlogClick}
             handleLoginClick={this.handleLoginClick}
             handleRosterClick={this.handleRosterClick}
             handleSponsersClick={this.handleSponsersClick}
@@ -422,6 +436,31 @@ class OrganizationPageController extends Component {
                 obliviot_hidden_style={ob_none}
                 obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+        if (this.state.display_blogs) {
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
+                rosterContent={<OrganizationBlogListController closeBlogs={this.closeBlogs} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
