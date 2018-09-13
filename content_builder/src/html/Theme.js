@@ -738,7 +738,8 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'black',
         paddingLeft: '10px',
         position: 'absolute',
-        right: '0px'
+        right: '0px',
+        cursor: 'pointer'
     },
 
     obliviot_dark_twitch_container: {
@@ -1253,7 +1254,8 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'white',
         paddingLeft: '10px',
         position: 'absolute',
-        right: '0px'
+        right: '0px',
+        cursor: 'pointer'
     },
 
     obliviot_light_twitch_container: {
