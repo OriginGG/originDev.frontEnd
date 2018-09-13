@@ -33,7 +33,7 @@ class OrganizationBlogListController extends Component {
         this.setState({ visible: true });
     }
 
-    handleClick = (i) => {              // eslint-disable-line
+    handleNewsClick = (i) => {              // eslint-disable-line
         console.log(`i = ${i}`);
     }
 
