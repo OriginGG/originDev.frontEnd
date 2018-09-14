@@ -218,6 +218,14 @@ class OrganizationPageController extends Component {
         /* this.setState({ about_modal_open: true }); */
         this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blogs: true });
     }
+    handleViewBlogClick = () => {
+        console.log('view more blogs clicked');
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blogs: true });
+    }
     handleAboutClick = () => {
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
@@ -348,6 +356,7 @@ class OrganizationPageController extends Component {
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleBlogClick={this.handleBlogClick}
+            handleViewBlogClick={this.handleViewBlogClick}
             handleLoginClick={this.handleLoginClick}
             handleRosterClick={this.handleRosterClick}
             handleSponsersClick={this.handleSponsersClick}
@@ -390,6 +399,7 @@ class OrganizationPageController extends Component {
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
             rosterContent={<span />}
+            handleViewBlogClick={this.handleViewBlogClick}
             obliviot_hidden_style={ob_inherit}
             obliviot_page_style={ob_light}
             topSponsorContent={<OrganizationSponsorController />}

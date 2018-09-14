@@ -36,7 +36,7 @@ class DarkOrganizationPageComponentRender extends Component {
                                     <div className={this.props.classes.obliviot_dark_section_control_container}>
                                         <div className={this.props.classes.obliviot_dark_section_divider}/>
                                         <div className={this.props.classes.obliviot_dark_section_title}>NEWS</div>
-                                        <div className={this.props.classes.obliviot_dark_section_view_more}>VIEW MORE</div>
+                                        <div className={this.props.classes.obliviot_dark_section_view_more} onClick={this.props.handleViewBlogClick}>VIEW MORE</div>
                                     </div>
                                     <div id="news_div" className={this.props.classes.obliviot_dark_news_outer_constraint}>
                                         <div>
