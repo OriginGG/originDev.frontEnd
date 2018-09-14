@@ -73,7 +73,9 @@ class OrganizationNavController extends Component {
         }
         if (this.props.uiStore.current_organisation.youtubeLink) {
             social_links.push(<i key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fab fa-youtube" />);
-            social_links.push(<i key="social_item6" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.youtubeLink); }} className="fab fa-discord" />);
+        }
+        if (this.props.uiStore.current_organisation.discordUrl) {
+            social_links.push(<i key="social_item6" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(this.props.uiStore.current_organisation.discordUrl); }} className="fab fa-discord" />);
         }
         let social_link1 = <span />;
         let social_link2 = <span />;
@@ -82,9 +84,11 @@ class OrganizationNavController extends Component {
         let social_link5 = <span />;
         let social_link6 = <span />;
 
+        if (social_links.length > 5) {
+            social_link6 = social_links[5];          // eslint-disable-line
+        }
         if (social_links.length > 4) {
             social_link5 = social_links[4];          // eslint-disable-line
-            social_link6 = social_links[5];          // eslint-disable-line
         }
         if (social_links.length > 3) {
             social_link4 = social_links[3];           // eslint-disable-line

@@ -37,6 +37,7 @@ class AdminProfileController extends Component {
                 twitter_value: this.getInputValue(this.props.uiStore.current_organisation.twitterLink),
                 twitch_value: this.getInputValue(this.props.uiStore.current_organisation.twitchLink),
                 youtube_value: this.getInputValue(this.props.uiStore.current_organisation.youtubeLink),
+                discord_value: this.getInputValue(this.props.uiStore.current_organisation.discordUrl),
                 company_name_value: this.getInputValue(this.props.uiStore.current_organisation.name),
                 company_store_value: this.getInputValue(this.props.uiStore.current_organisation.companyStoreLink),
                 facebook_value: this.getInputValue(this.props.uiStore.current_organisation.fbLink),
@@ -85,8 +86,14 @@ class AdminProfileController extends Component {
             });
             return;
         }
-        if (!this.isURL(this.state.input_values.twitch_value) && this.state.input_values.twitch_value) {
-            toast.error('Twitch URL not Valid Format', {
+        if (this.isURL(this.state.input_values.twitch_value) && this.state.input_values.twitch_value) {
+            toast.error('Twitch is not Valid Format. Please use twitch handle', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isURL(this.state.input_values.discord_value) && this.state.input_values.discord_value) {
+            toast.error('Discord URL not Valid Format', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
@@ -111,6 +118,7 @@ class AdminProfileController extends Component {
                     name: this.state.input_values.company_name_value,
                     fbLink: this.state.input_values.facebook_value,
                     youtubeLink: this.state.input_values.youtube_value,
+                    discordUrl: this.state.input_values.discord_value,
                     twitterLink: this.state.input_values.twitter_value,
                     instaLink: this.state.input_values.insta_value,
                     twitterFeedUsername: this.state.input_values.twitter_username_value,
@@ -178,6 +186,7 @@ class AdminProfileController extends Component {
                     primary_color_value={this.state.input_values.primary_color_value}
                     handleChange={this.handleChange}
                     youtube_value={this.state.input_values.youtube_value}
+                    discord_value={this.state.input_values.discord_value}
                     twitter_value={this.state.input_values.twitter_value}
                     twitch_value={this.state.input_values.twitch_value}
                     insta_value={this.state.input_values.insta_value}
