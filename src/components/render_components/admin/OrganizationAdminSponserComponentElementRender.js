@@ -12,7 +12,7 @@ class OrganizationAdminSponserComponentElementRender extends Component {
                     <div style={this.props.element_style_disable} onClick={this.props.subscriptionClick}>
                         <img style={this.props.element_style_disable_image} src={this.props.element_disable_image_src}/>
                     </div>
-                    <div style={this.props.element_style_disable_under}>
+                    <div>
                         <div className={this.props.classes.admin_sponser_button} onClick={this.props.handleFileClick}>
                             <i className="cloud icon"/>
                             Upload Sponsor

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import OrganizationAdminSponsorComponentElementRender from '../../../render_components/admin/OrganizationAdminSponserComponentElementRender';
 import { getSponsorsQuery, updateSponsorsQuery } from '../../../../queries/sponsors';
 // import blankImage from '../../../../assets/images/imgPlaceholder1.png';
-// import disableImage from '../../../../assets/images/element-disabled.png';
+import disableImage from '../../../../assets/images/element-disabled.png';
 
 const { confirm } = Modal;
 
@@ -100,25 +100,45 @@ class SponsorBlock extends Component {
         if (this.state.visible === false) {
             return null;
         }
+        let hd = {
+            display: 'none'
+        };
+        if (!this.props.subscribed) {
+            hd = {
+                position: 'absolute',
+                zIndex: 1,
+                backgroundColor: 'grey',
+                opacity: '0.3',
+                width: 508,
+                height: 544,
+                marginLeft: -3
+            };
+        }
+
         return (
             <div>
-            <div>
-                <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
-            </div>
-            <OrganizationAdminSponsorComponentElementRender
-                upload_title={this.props.upload_title}
-                sponsor_image={this.state.sponsor_image}
-                http_link_value={this.state.input_http_link_value}
-                sponsor_desc_value={this.state.input_desc_value}
-                sponsor_name_value={this.state.input_name_value}
-                handleFileClick={this.handleFileClick}
-                uploadFile={this.uploadFile}
-                handleChangeName={this.handleChangeName}
-                handleChangeDesc={this.handleChangeDesc}
-                handleChangeLink={this.handleChangeLink}
-                handleSubmit={this.handleSubmit}
-                />
+                <div>
+                    <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                 </div>
+                <OrganizationAdminSponsorComponentElementRender
+                    upload_title={this.props.upload_title}
+                    element_disable_image_src={disableImage}
+                    element_style_disable_image={{
+                        marginLeft: 36, marginTop: 48, width: 440, height: 440
+                    }}
+                    element_style_disable={hd}
+                    sponsor_image={this.state.sponsor_image}
+                    http_link_value={this.state.input_http_link_value}
+                    sponsor_desc_value={this.state.input_desc_value}
+                    sponsor_name_value={this.state.input_name_value}
+                    handleFileClick={this.handleFileClick}
+                    uploadFile={this.uploadFile}
+                    handleChangeName={this.handleChangeName}
+                    handleChangeDesc={this.handleChangeDesc}
+                    handleChangeLink={this.handleChangeLink}
+                    handleSubmit={this.handleSubmit}
+                />
+            </div>
         );
     }
 }
@@ -127,14 +147,18 @@ class AdminSponsorController extends Component {
         element_array: [],
     };
     componentDidMount = async () => {
-        this.subscribed = true;
         this.logo_files = {};
         // let s_image = blankImage;
         const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
         const p_array = [];
         nodes.forEach((n, i) => {
+            let { subscribed } = this.props;
+            if (i < 2) {
+                subscribed = true;
+            }
             p_array.push(<SponsorBlock
+                subscribed={subscribed}
                 key={`sponsor_block_${n.id}`}
                 element_id={n.id}
                 upload_title={`Upload Sponsor ${i + 1}`}
@@ -185,12 +209,14 @@ SponsorBlock.propTypes = {
     upload_title: PropTypes.string.isRequired,
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    element_id: PropTypes.number.isRequired
+    element_id: PropTypes.number.isRequired,
+    subscribed: PropTypes.bool.isRequired
 };
 
 AdminSponsorController.propTypes = {
     uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+    appManager: PropTypes.object.isRequired,
+    subscribed: PropTypes.bool.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminSponsorController));

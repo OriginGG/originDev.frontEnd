@@ -4,7 +4,6 @@ import ReactGA from 'react-ga';
 import { Provider } from 'mobx-react';
 import { ApolloProvider } from 'react-apollo';
 import { Router } from 'react-router-dom';
-import { StripeProvider } from 'react-stripe-elements';
 import { ThemeProvider } from 'react-jss';
 import historyStore from './utils/stores/browserHistory';
 import uiStore from './utils/stores/uiStore';
@@ -16,11 +15,11 @@ import { GlobalTheme } from './utils/themes/Theme';
 
 export const initGA = () => {
     ReactGA.initialize('UA-119536253-1');
-  };
+};
 export const logPageView = () => {
     ReactGA.set({ page: window.location.pathname });
     ReactGA.pageview(window.location.pathname);
-  };
+};
 initGA();
 logPageView();
 
@@ -40,9 +39,8 @@ ReactDOM.render(
         <ThemeProvider theme={GlobalTheme}>
             <ApolloProvider client={appManager.apolloClient}>
                 <Provider {...stores}>
-                    <StripeProvider apiKey="pk_test_12345">
-                        <App />
-                        </StripeProvider>
+                    <App />
+
                 </Provider>
             </ApolloProvider>
         </ThemeProvider>
