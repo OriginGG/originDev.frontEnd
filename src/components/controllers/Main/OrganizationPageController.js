@@ -241,12 +241,22 @@ class OrganizationPageController extends Component {
             window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
         }
     }
+    inIframe = () => {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
+    }
     handleLoginClick = () => {
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
-        parent.postMessage({ command: 'link', id: 'admin'}, "*");             // eslint-disable-line
-        historyStore.push('/signup_org');
+        if (this.inIframe()) {
+            parent.postMessage({ command: 'link', id: 'login' }, "*");           // eslint-disable-line
+        } else {
+            historyStore.push('/signup_org');
+        }
     }
     isMenuOpen = (state) => {
         this.setState({ menu_open: state.isOpen });
