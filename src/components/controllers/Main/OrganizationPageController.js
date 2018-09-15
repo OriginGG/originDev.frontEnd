@@ -245,6 +245,7 @@ class OrganizationPageController extends Component {
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
+        parent.postMessage({ command: 'link', id: 'admin'}, "*");             // eslint-disable-line
         historyStore.push('/signup_org');
     }
     isMenuOpen = (state) => {
