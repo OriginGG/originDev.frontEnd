@@ -98,7 +98,11 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'youtubeChannel', e );
                             }}/>
+                            <button class='ui twitter button' role='button'><i aria-hidden='true' class='twitter icon' />Connect with Twitter</button>
+                            </div>
+                            <div>
                             <button role="button" className="ui instagram button"><i aria-hidden="true" className="instagram icon"/>Connect with Instagram</button>
+                            </div>
                             <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.closeModal}>
                                 <div className={this.props.classes.modal_individual_submit_button}>Cancel</div>
                             </div>
@@ -108,7 +112,6 @@ class IndividualEditModalComponentRender extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
         )
     }
 }
