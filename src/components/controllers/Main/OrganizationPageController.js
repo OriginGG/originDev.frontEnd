@@ -101,6 +101,7 @@ class OrganizationPageController extends Component {
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
                 const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
                 const OrganizationBlogListController = await import('./sub_controllers/OrganizationBlogListController');
+                const OrganizationBlogViewController = await import('./sub_controllers/OrganizationBlogViewController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 let OrganizationBlogController = null;
                 let OrganizationBlogControllerDefault = null;
@@ -172,6 +173,7 @@ class OrganizationPageController extends Component {
                     OrganizationRosterController: OrganizationRosterController.default,
                     OrganizationSponserListController: OrganizationSponserListController.default,
                     OrganizationBlogListController: OrganizationBlogListController.default,
+                    OrganizationBlogViewController: OrganizationBlogViewController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
@@ -240,6 +242,9 @@ class OrganizationPageController extends Component {
         if (this.props.uiStore.current_organisation.companyStoreLink) {
             window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
         }
+    }
+    handleNewsClick = (blog) => {
+        console.log(`blog = ${JSON.stringify(blog)}`);
     }
     inIframe = () => {
         try {
@@ -348,6 +353,7 @@ class OrganizationPageController extends Component {
         const { OrganizationRosterController } = this.state;
         const { OrganizationSponserListController } = this.state;
         const { OrganizationBlogListController } = this.state;
+        const { OrganizationBlogViewController } = this.state;
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
         const { OrganizationTwitchController } = this.state;
@@ -367,7 +373,6 @@ class OrganizationPageController extends Component {
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleBlogClick={this.handleBlogClick}
-            handleViewBlogClick={this.handleViewBlogClick}
             handleLoginClick={this.handleLoginClick}
             handleRosterClick={this.handleRosterClick}
             handleSponsersClick={this.handleSponsersClick}
@@ -432,6 +437,31 @@ class OrganizationPageController extends Component {
                 obliviot_hidden_style={ob_none}
                 obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
+                newsContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+        if (this.state.display_blog_view) {
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
+                rosterContent={<OrganizationBlogViewController closeRosters={this.closeRosters} roster_id={this.current_roster_id} blog_media={this.state.blog_media} blog_content={this.state.blog_content} handleNewsClick={this.handleNewsClick} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}

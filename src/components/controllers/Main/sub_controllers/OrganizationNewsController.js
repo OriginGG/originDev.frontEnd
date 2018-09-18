@@ -50,11 +50,11 @@ class OrganizationNewsController extends Component {
                 content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate
             });
             if (theme_type !== 'obliviot') {
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
             }
 
             if (theme_type === 'obliviot' && i > 2) {
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
             }
         });
         if (blog_data.resultData.edges.length > 0) {
@@ -68,10 +68,10 @@ class OrganizationNewsController extends Component {
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }
-    handleNewsClick = (blog) => {
-        const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-        this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
-    }
+    // handleNewsClick = (blog) => {
+    //     const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+    //     this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+    // }
     createMarkup = (content) => {
         return { __html: content };
     }
@@ -102,7 +102,8 @@ BlogModal.propTypes = {
 };
 OrganizationNewsController.propTypes = {
     uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+    appManager: PropTypes.object.isRequired,
+    handleNewsClick: PropTypes.object.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationNewsController));

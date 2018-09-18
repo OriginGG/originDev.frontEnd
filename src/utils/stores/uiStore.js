@@ -10,6 +10,7 @@ class UiStore {
     @observable origin_theme_structure = {}
     @observable user_id = 0;
     @observable individual_user_id = 0;
+    @observable current_blog = {}
     setOrganisation = (o) => {
         const { themeData } = o.themesByThemeName.edges[0].node;
         const { themeStructure } = o.themesByThemeName.edges[0].node;
@@ -33,6 +34,10 @@ class UiStore {
         const { themeStructure } = o;
         this.origin_theme_data = JSON.parse(themeData);
         this.origin_theme_structure = JSON.parse(themeStructure);
+    }
+    @action
+    setBlogStory = (o) => {
+        this.current_blog = o;
     }
 }
 
