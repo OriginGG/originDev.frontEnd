@@ -47,15 +47,16 @@ class OrganizationBlogListController extends Component {
             const { createdAt } = blog.node;
             const formattedDate = moment(createdAt).format('lll');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
-            this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.handleNewsClick} />);
+            this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
         });
         this.setState({ visible: true, OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default });
     }
 
-    handleNewsClick = (blog) => {
-        const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-        this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
-    }
+    // handleNewsClick = (blog) => {
+    //     const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+    //     this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+    //     // this.props.uiStore.setBlogStory(blog);
+    // }
 
     createMarkup = (content) => {
         return { __html: content };
@@ -148,6 +149,7 @@ BlogModal.propTypes = {
 OrganizationBlogListController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
+    handleNewsClick: PropTypes.object.isRequired,
     // roster_id: PropTypes.number.isRequired,
     closeBlogs: PropTypes.func.isRequired
 };
