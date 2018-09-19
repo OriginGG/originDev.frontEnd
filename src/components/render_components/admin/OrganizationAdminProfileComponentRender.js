@@ -34,6 +34,22 @@ class OrganizationAdminProfileComponentRender extends Component {
                             }}/>
                         </div>
                         <div className={this.props.classes.admin_main_logo_spacer}/>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Custom Domain" value={this.props.custom_domain_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'custom_domain_value', e );
+                            }}/>
+                        </div>
+                        <div className={this.props.classes.admin_main_logo_spacer}/>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="DNS host (GoDaddy, AWS ETC)" value={this.props.dns_host_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'dns_host_value', e );
+                            }}/>
+                        </div>
+                        <div className={this.props.classes.admin_main_logo_spacer}/>
                         <label className={this.props.classes.admin_color_label}>Primary Color</label>
                         <input type="color" id="primary_color" value="#0a9ab4" className={this.props.classes.admin_color_picker} value={this.props.primary_color_value} onChange={e => {
                             this

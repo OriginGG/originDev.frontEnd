@@ -154,7 +154,7 @@ class AdminSponsorController extends Component {
         const p_array = [];
         nodes.forEach((n, i) => {
             let { subscribed } = this.props;
-            if (i < 2) {
+            if (i < 4) {
                 subscribed = true;
             }
             p_array.push(<SponsorBlock

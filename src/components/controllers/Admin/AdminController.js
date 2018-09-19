@@ -23,6 +23,7 @@ import AdminThemeController from './sub_controllers/AdminNewThemeController';
 import AdminCollaboratorController from './sub_controllers/AdminCollaboratorController';
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
 import AdminContentTeamController from './sub_controllers/AdminContentTeamController';
+import AdminCustomDomainController from './sub_controllers/AdminCustomDomainController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -218,17 +219,18 @@ class AdminPageController extends Component {
         });
     };
     subscriptionClick = async () => {
-        const action = this.showSubscribeConfirm();
-        console.log(action);
+        const action = await this.showSubscribeConfirm();
+        if (action) {
+            this.setState({ page: 'subscription' });
+        }
     }
     hasSubscribed = () => {
         this.subscribed = true;
         this.setState({ page: 'company' });
     }
     handleManageClick = async (v) => {
-        if (v === 'add_custom_domain' && this.subscribed === false) {
-            const action = await this.subscriptionClick();
-            console.log(action);
+        if (v === 'add_custom_domain' && !this.subscribed) {
+            this.subscriptionClick();
         } else {
             this.setState({ page: v });
         }
@@ -240,7 +242,11 @@ class AdminPageController extends Component {
         let p_component = <span />;
         switch (this.state.page) {
             case 'subscription': {
-                p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} user_id={this.props.uiStore.user_id} />;
+                p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} domain={this.props.uiStore.current_organisation.subDomain} user_id={this.props.uiStore.user_id} />;
+                break;
+            }
+            case 'add_custom_domain': {
+                p_component = <AdminCustomDomainController />;
                 break;
             }
             case 'company': {
@@ -301,20 +307,20 @@ class AdminPageController extends Component {
 
             <div id="outer-container">
                 <StripeProvider apiKey="pk_test_XI2VXHY0lSJmfCy7gedb4zK0">
-                <Sidebar.Pushable as={Segment}>
-                    <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
-                        <OrganizationAdminMenuComponentRender key={`admin_sidebar_key_${this.my_key}`} handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-                    </Sidebar>
-                    <Sidebar.Pusher>
-                        <Segment basic>
-                            <div style={{ height: '100vh', overflowY: 'auto' }}>
-                                <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} />
-                            </div>
-                        </Segment>
-                    </Sidebar.Pusher>
+                    <Sidebar.Pushable as={Segment}>
+                        <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
+                            <OrganizationAdminMenuComponentRender key={`admin_sidebar_key_${this.my_key}`} handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+                        </Sidebar>
+                        <Sidebar.Pusher>
+                            <Segment basic>
+                                <div style={{ height: '100vh', overflowY: 'auto' }}>
+                                    <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} />
+                                </div>
+                            </Segment>
+                        </Sidebar.Pusher>
                     </Sidebar.Pushable>
-                    </StripeProvider>
-                </div>
+                </StripeProvider>
+            </div>
         );
     }
 }

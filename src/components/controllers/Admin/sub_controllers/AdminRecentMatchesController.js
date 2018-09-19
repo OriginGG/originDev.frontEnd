@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
 import { GlobalStyles } from 'Theme/Theme';
-import { Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
+import { Select, Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { inject } from 'mobx-react';
 import _ from 'lodash';
 import { Modal } from 'antd';
@@ -17,7 +17,7 @@ const { confirm } = Modal;
 
 class AdminRecentMatchesController extends Component {
     state = {
-        visible: false, add_match: false, logo_src: null, your_score: '', their_score: ''
+        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_league: '', your_event: ''
     };
     componentDidMount = async () => {
         this.upload_file = false;
@@ -103,6 +103,18 @@ class AdminRecentMatchesController extends Component {
             });
             return;
         }
+        if (!this.state.your_league) {
+            toast.error('Please enter your league', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.state.your_event) {
+            toast.error('Please enter your event', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (!this.state.logo_src) {
             toast.error('Please upload your opponents logo', {
                 position: toast.POSITION.TOP_LEFT
@@ -162,17 +174,19 @@ class AdminRecentMatchesController extends Component {
             return null;
         }
         if (this.state.add_match === true) {
+            const matchOptions = [{ key: 'rm', value: 'rm', text: 'Recent Matches' }, { key: 'um', value: 'um', text: 'Upcoming Matches' }];
             return (
                 <div style={{ height: '100vh', width: 'calc(100vw - 420px)' }}>
                     <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                     <div className="classes.admin_title_box">
                         Add New Recent Match
                     </div>
-                    <div className={this.props.classes.admin_main_logo_box_inner}>
+                    <div className={this.props.classes.admin_main_logo_box_inner} style={{ marginBottom: '10px' }}>
                         <img alt="" id="admin_main_logo" className={this.props.classes.admin_main_logo_image} src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
                     </div>
-                    <Dropdown onChange={this.handleDropDown} style={{ width: 200, clear: 'both' }} placeholder="Select Game Logo" fluid selection options={gameOptions} />
-                    <Button onClick={this.handleFileClick} style={{ marginTop: 4 }} primary>UPLOAD OPPOSITE TEAM LOGO</Button>
+                    <Select onChange={this.handleDropDownList} style={{ width: 200, clear: 'both', marginTop: '10px' }} placeholder="Select Match Type" fluid selection options={matchOptions} />
+                    <Dropdown onChange={this.handleDropDown} style={{ width: 200, clear: 'both', marginTop: '10px' }} placeholder="Select Game Logo" fluid selection options={gameOptions} />
+                    <Button onClick={this.handleFileClick} style={{ marginTop: '10px' }} primary>UPLOAD OPPOSITE TEAM LOGO</Button>
                     <img alt="" style={{ display: 'table' }} className={this.props.classes.admin_main_logo_image} src={this.state.logo_src} />
                     <div style={{ marginTop: 4 }}>
                         <Input
@@ -195,11 +209,33 @@ class AdminRecentMatchesController extends Component {
 
                         />
                     </div>
+                    <div style={{ marginTop: 15 }}>
+                        <Input
+                            action={{
+                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'The League'
+                            }}
+                            actionPosition="left"
+                            placeholder="League..."
+                            value={this.state.your_league}
+                            onChange={(e) => { this.handleInputChange(e, 'your_league'); }}
+                        />
+                        <Input
+                            action={{
+                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'The Event'
+                            }}
+                            actionPosition="left"
+                            placeholder="Event..."
+                            value={this.state.your_event}
+                            onChange={(e) => { this.handleInputChange(e, 'your_event'); }}
+
+                        />
+                    </div>
                     <Button style={{ marginTop: 16 }} onClick={this.handleSubmit} primary>SUBMIT</Button>
                 </div>
 
             );
         }
+
         const p_array = [];
         this.state.matches.forEach((res, i) => {
             const g_image = _.find(gameOptions, (o) => {

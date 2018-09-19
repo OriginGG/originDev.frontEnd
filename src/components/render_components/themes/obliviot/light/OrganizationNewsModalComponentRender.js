@@ -9,7 +9,6 @@ class LightOrganizationNewsModalComponentRender extends Component {
         return (
             <div className={this.props.classes.lightBG}>
                 <div id="about_modal" className="ui modal" style={this.props.extra_style}>
-                    <i className="close icon" onClick={this.props.closeModal}/>
                     <div className={this.props.classes.modal_inner}>
                         <div className="header">
                             <div className={this.props.classes.modal_news_header}>
