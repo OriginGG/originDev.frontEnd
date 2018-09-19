@@ -244,6 +244,7 @@ class OrganizationPageController extends Component {
         }
     }
     handleNewsClick = (blog) => {
+        this.setState({ roster_style: { display: 'none' }, display_blogs: false });
         console.log(`blog = ${JSON.stringify(blog)}`);
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
