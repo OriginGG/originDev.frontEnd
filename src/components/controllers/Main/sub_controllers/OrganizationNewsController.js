@@ -103,7 +103,7 @@ BlogModal.propTypes = {
 OrganizationNewsController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    handleNewsClick: PropTypes.object.isRequired
+    handleNewsClick: PropTypes.func.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationNewsController));

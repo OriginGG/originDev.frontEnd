@@ -86,8 +86,8 @@ class AdminProfileController extends Component {
             });
             return;
         }
-        if (this.isURL(this.state.input_values.twitch_value) && this.state.input_values.twitch_value) {
-            toast.error('Twitch is not Valid Format. Please use twitch handle', {
+        if (!this.isURL(this.state.input_values.twitch_value) && this.state.input_values.twitch_value) {
+            toast.error('Twitch is not Valid Format', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;

@@ -245,6 +245,14 @@ class OrganizationPageController extends Component {
     }
     handleNewsClick = (blog) => {
         console.log(`blog = ${JSON.stringify(blog)}`);
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blog_view: true, b_media: blog.node.blogMedia, b_content: bcontent
+        });
     }
     inIframe = () => {
         try {
@@ -307,6 +315,9 @@ class OrganizationPageController extends Component {
     }
     closeBlogs = () => {
         this.setState({ roster_style: { display: 'none' }, display_blogs: false });
+    }
+    closeBlogView = () => {
+        this.setState({ roster_style: { display: 'none' }, display_blog_view: false });
     }
     closeStaff = () => {
         this.setState({ roster_style: { display: 'none' }, display_staff: false });
@@ -408,8 +419,8 @@ class OrganizationPageController extends Component {
         let disp = <OrganizationPageComponentRender
             roster_style={this.state.roster_style}
             copyright={cp}
-            newsContent={<OrganizationNewsController />}
-            blogContent={<OrganizationBlogController />}
+            newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
+            blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
             twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
@@ -461,7 +472,7 @@ class OrganizationPageController extends Component {
                 copyright={cp}
                 obliviot_hidden_style={ob_none}
                 obliviot_page_style={ob_dark}
-                rosterContent={<OrganizationBlogViewController closeRosters={this.closeRosters} roster_id={this.current_roster_id} blog_media={this.state.blog_media} blog_content={this.state.blog_content} handleNewsClick={this.handleNewsClick} />}
+                rosterContent={<OrganizationBlogViewController closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
@@ -511,7 +522,7 @@ class OrganizationPageController extends Component {
                 copyright={cp}
                 obliviot_hidden_style={ob_none}
                 obliviot_page_style={ob_dark}
-                rosterContent={<OrganizationBlogListController closeBlogs={this.closeBlogs} roster_id={this.current_roster_id} />}
+                rosterContent={<OrganizationBlogListController closeBlogs={this.closeBlogs} roster_id={this.current_roster_id} handleNewsClick={this.handleNewsClick} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
