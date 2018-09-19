@@ -15,9 +15,8 @@ class OrganizationBlogViewController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         console.log(`them = ${theme}`);
-        const { current_blog } = this.props.uiStore.current_blog;
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
-        this.setState({ visible: true, OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default, c_blog: current_blog });
+        this.setState({ visible: true, OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default });
     }
 
     createMarkup = (content) => {
@@ -28,16 +27,39 @@ class OrganizationBlogViewController extends Component {
         if (this.state.visible === false) {
             return null;
         }
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let close_button = 'white';
+        if (theme === 'obliviot/light' || theme === 'enigma/light') {
+            close_button = 'black';
+        }
         const { OrganizationNewsModalComponentRender } = this.state;
 
-        return <OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.state.c_blog.node.blogMedia} blog_content={this.state.c_blog.node.blog_content} />;
+        const p_array = <OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} />;
+
+        return (<div>
+            <div
+                onClick={this.props.closeBlogView}
+                tabIndex={-2}
+                role="menuItem"
+                style={{
+                    cursor: 'pointer',
+                    fontSize: 28,
+                    position: 'absolute',
+                    right: 32,
+                    top: 94,
+                    zIndex: 10000,
+                    color: close_button,
+                }}><span className="fa fa-window-close" /></div>
+            {p_array}</div>);
     }
 }
 OrganizationBlogViewController.propTypes = {
     uiStore: PropTypes.object.isRequired,
+    blog_media: PropTypes.object.isRequired,
+    blog_content: PropTypes.object.isRequired,
     // appManager: PropTypes.object.isRequired,
     // roster_id: PropTypes.number.isRequired,
-    // closeBlogs: PropTypes.func.isRequired
+    closeBlogView: PropTypes.func.isRequired
 };
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,

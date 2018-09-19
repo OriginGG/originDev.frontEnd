@@ -149,7 +149,7 @@ BlogModal.propTypes = {
 OrganizationBlogListController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    handleNewsClick: PropTypes.object.isRequired,
+    handleNewsClick: PropTypes.func.isRequired,
     // roster_id: PropTypes.number.isRequired,
     closeBlogs: PropTypes.func.isRequired
 };

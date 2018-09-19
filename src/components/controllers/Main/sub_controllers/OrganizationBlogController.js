@@ -58,13 +58,13 @@ class OrganizationBlogController extends Component {
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }
-    handleNewsClick = (blog) => {
-         // console.log(`blog = ${JSON.stringify(blog)}`);
-         if (blog) {
-            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-            this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
-         }
-    }
+    // handleNewsClick = (blog) => {
+    //      // console.log(`blog = ${JSON.stringify(blog)}`);
+    //      if (blog) {
+    //         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+    //         this.setState({ blog_modal_open: true, blog_media: blog.node.blogMedia, blog_content: bcontent });
+    //      }
+    // }
     createMarkup = (content) => {
         return { __html: content };
     }
@@ -125,7 +125,7 @@ class OrganizationBlogController extends Component {
                     blog_content_3={b_content_3}
                     blog_title_3={b_title_3}
                     blog_3={b_3}
-                    handleNewsClick={this.handleNewsClick}
+                    handleNewsClick={this.props.handleNewsClick}
                 />
                 <BlogModal
                     modal_open={this.state.blog_modal_open}
@@ -142,7 +142,8 @@ BlogModal.propTypes = {
 };
 OrganizationBlogController.propTypes = {
     uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+    appManager: PropTypes.object.isRequired,
+    handleNewsClick: PropTypes.func.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationBlogController));
