@@ -41,7 +41,8 @@ export const getOrganisationQuery = gql`
     usersByOrganisation {
 			edges {
 				node {
-					id
+          id
+          email
 					firstName
 					lastName
 				}
