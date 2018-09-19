@@ -8,7 +8,10 @@ class LightOrganizationNewsModalComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.lightBG}>
-                <div id="about_modal" className="ui modal" style={this.props.extra_style}>
+                <div id="about_modal" style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto'
+                }} className="ui modal">
                     <div className={this.props.classes.modal_inner}>
                         <div className="header">
                             <div className={this.props.classes.modal_news_header}>
