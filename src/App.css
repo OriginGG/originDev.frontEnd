@@ -65,10 +65,10 @@ h1, h2, h3, h4, h5 {
  background: linear-gradient(91deg, #000000, #020202, #040404, #060606, #080808, #101010, #121212, #141414, #161616, #181818, #202020, #222222, #242424, #262626, #282828, #303030, #323232, #343434, #363636, #404040);
 background-size: 4000% 4000%;
 
--webkit-animation: darktheme 19s ease infinite;
--moz-animation: darktheme 19s ease infinite;
--o-animation: darktheme 19s ease infinite;
-animation: darktheme 19s ease infinite;
+/* -webkit-animation: darktheme 19s ease infinite; */
+/* -moz-animation: darktheme 19s ease infinite; */
+/* -o-animation: darktheme 19s ease infinite; */
+/* animation: darktheme 19s ease infinite; */
 
 
 }
