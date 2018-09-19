@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { Dimmer, Header, Segment } from 'semantic-ui-react';
+import Spinner from 'react-svg-spinner';
 
 import {
     CardNumberElement,
@@ -101,16 +103,17 @@ class _SplitForm extends React.Component {
     };
     componentDidMount = async () => {
         const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/retrieve_plans`);
+        this.p_array = [];
         if (plans.data) {
             const { data } = plans.data;
-
-            this.p_array = [];
             data.forEach(d => {
                 this.p_array.push(<PlanElement plan={d} handleClick={this.handleBuyClick} />);
             });
             console.log(data);
         }
-        this.setState({ subscribed: this.props.subscribed, show_plan: true, visible: true });
+        this.setState({
+            subscribed: this.props.subscribed, show_plan: true, visible: true
+        });
     }
     handleBuyClick = (plan) => {
         this.setState({ show_plan: false, actual_plan: plan });
@@ -118,10 +121,12 @@ class _SplitForm extends React.Component {
     handleSubmit = (ev) => {
         ev.preventDefault();
         if (this.props.stripe) {
+            this.props.setDimmer(true);
             this.props.stripe
                 .createToken()
                 .then(async (payload) => {
                     if (payload.error) {
+                        this.props.setDimmer(false);
                         toast.error(payload.error.message, {
                             position: toast.POSITION.TOP_LEFT,
                             autoClose: 3000
@@ -140,6 +145,7 @@ class _SplitForm extends React.Component {
                             }
                         );
                         if (response.data.status === 'error') {
+                            this.props.setDimmer(false);
                             let message = 'An error has occured processing your card';
                             switch (response.data.code) {
                                 case 'card_declined': {
@@ -160,6 +166,7 @@ class _SplitForm extends React.Component {
                             });
                         } else {
                             if (response.data.status === 'subscribed') {
+                                this.props.setDimmer(false);
                                 await appManager.executeQuery('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
                                 toast.success('Thanks - You have been successfully subscribed!', {
                                     position: toast.POSITION.TOP_LEFT,
@@ -193,7 +200,11 @@ class _SplitForm extends React.Component {
         if (this.state.visible === false) {
             return null;
         }
-        let disp = <p>We will tidy this up, but you are already subscribed!</p>;
+        const cp = this.p_array[0];
+        let disp = <div>
+            <h2>You are already subscribed to the following plan.</h2>
+            <PlanElement plan={cp.props.plan} /></div>;
+
         if (!this.state.subscribed) {
             if (this.state.show_plan === false) {
                 disp =
@@ -271,16 +282,33 @@ class _SplitForm extends React.Component {
 const SplitForm = injectStripe(_SplitForm);
 
 class AdminSubscriptionController extends Component {
+    state = { dimmer: false }
     componentDidMount = () => {
 
     }
+    setDimmer = f => {
+        this.setState({ dimmer: f });
+    }
     render() {
         return (
-            <div className="Checkout">
-                <Elements>
-                    <SplitForm callback={this.props.callback} domain={this.props.domain} user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
-                </Elements>
+            <div style={{ width: 'calc(100vw - 400px)' }} >
+                <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmer}>
+                    <div className="Checkout">
+                        <Elements>
+                            <SplitForm setDimmer={this.setDimmer} callback={this.props.callback} domain={this.props.domain} user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
+                        </Elements>
+                    </div>
+                    <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
+                        <Header as="h2" icon inverted>
+                            <div style={{ marginTop: 228 }}>
+                                <Spinner color="yellow" size="64px" />
+                            </div>
+                            Processing....
+            </Header>
+                    </Dimmer>
+                </Dimmer.Dimmable>
             </div>
+
         );
     }
 }
@@ -300,6 +328,7 @@ _SplitForm.propTypes = {
     fontSize: PropTypes.string.isRequired,
     subscribed: PropTypes.bool.isRequired,
     callback: PropTypes.func.isRequired,
+    setDimmer: PropTypes.func.isRequired,
     domain: PropTypes.string.isRequired
 };
 
