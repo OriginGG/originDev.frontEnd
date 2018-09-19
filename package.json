@@ -74,6 +74,7 @@
     "react-slick": "^0.23.1",
     "react-spinkit": "^3.0.0",
     "react-stripe-elements": "^2.0.1",
+    "react-svg-spinner": "^1.0.1",
     "react-toastify": "^3.4.3",
     "react-twitter-widgets": "^1.7.1",
     "reacterminator": "^0.15.1",
