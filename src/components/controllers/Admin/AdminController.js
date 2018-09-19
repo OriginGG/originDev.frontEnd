@@ -240,7 +240,7 @@ class AdminPageController extends Component {
         let p_component = <span />;
         switch (this.state.page) {
             case 'subscription': {
-                p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} user_id={this.props.uiStore.user_id} />;
+                p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} domain={this.props.uiStore.current_organisation.subDomain} user_id={this.props.uiStore.user_id} />;
                 break;
             }
             case 'company': {
