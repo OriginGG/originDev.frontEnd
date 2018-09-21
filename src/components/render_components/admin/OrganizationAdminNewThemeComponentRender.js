@@ -33,7 +33,42 @@ class OrganizationAdminThemeComponentRender extends Component {
                 <div className={this.props.classes.jumbotron_container}>
                     <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
                     <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editImage}>
-                        <div className={this.props.classes.jumbotron_model_switch}>Edit Jubotron Image</div>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
+                    </div>
+                </div>
+                <p>Change Sponsor Background (Felzec Theme)</p>
+                <div className={this.props.classes.jumbotron_container}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editSponsorImage}>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
+                    </div>
+                </div>
+                <p>Change News Background (Felzec Theme)</p>
+                <div className={this.props.classes.jumbotron_container}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editNewsImage}>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
+                    </div>
+                </div>
+                <p>Change Matches Background (Felzec Theme)</p>
+                <div className={this.props.classes.jumbotron_container}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editMatchessImage}>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
+                    </div>
+                </div>
+                <p>Change Rosters Background (Felzec Theme)</p>
+                <div className={this.props.classes.jumbotron_container}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editRostersImage}>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
+                    </div>
+                </div>
+                <p>Change Media Background (Felzec Theme)</p>
+                <div className={this.props.classes.jumbotron_container}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editMediaImage}>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
                     </div>
                 </div>
                 <div id="theme_modal" className="ui modal">

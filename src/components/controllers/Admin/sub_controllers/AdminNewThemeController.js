@@ -52,6 +52,21 @@ class AdminThemeController extends Component {
     editImage = () => {
         this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
     }
+    editSponsorImage = () => {
+        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+    }
+    editNewsImage = () => {
+        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+    }
+    editMatchessImage = () => {
+        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+    }
+    editRostersImage = () => {
+        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+    }
+    editMediaImage = () => {
+        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+    }
     handleImageClick = (u) => {
         this.setState({ preview_image_src: u });
         this.file_uploaded = false;
@@ -163,6 +178,11 @@ class AdminThemeController extends Component {
     render() {
         let md = <OrganizationAdminThemeComponentRender
             editImage={this.editImage}
+            editNewsImage={this.editNewsImage}
+            editSponsorImage={this.editSponsorImage}
+            editMatchessImage={this.editMatchessImage}
+            editMediaImage={this.editMediaImage}
+            editRostersImage={this.editRostersImage}
             image_src={this.state.image_src}
             handleSubmit={this.handleSubmit}
             handleObliviotLightClick={this.handleObliviotLightClick}
