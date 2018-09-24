@@ -36,6 +36,13 @@ class OrganizationAdminThemeComponentRender extends Component {
                         <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
                     </div>
                 </div>
+                <p>Change Main Background (Felzec Theme)</p>
+                <div className={this.props.classes.jumbotron_container}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_main_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editMainImage}>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
+                    </div>
+                </div>
                 <p>Change Sponsor Background (Felzec Theme)</p>
                 <div className={this.props.classes.jumbotron_container}>
                     <img className={this.props.classes.jumbotron_image} src={this.props.image_sponsor_src}/>

@@ -52,6 +52,9 @@ class AdminThemeController extends Component {
     editImage = () => {
         this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData, image_type: 'jumbo' });
     }
+    editMainImage = () => {
+        this.setState({ modal_open: true, sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMainData, image_type: 'main' });
+    }
     editSponsorImage = () => {
         this.setState({ modal_open: true, sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData, image_type: 'sponsor' });
     }
@@ -96,6 +99,10 @@ class AdminThemeController extends Component {
                     this.props.uiStore.current_theme_structure.main_section.background.imageData = this.state.preview_image_src;
                     this.setState({ image_src: i });
                 }
+                if (this.state.image_type === 'main') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.preview_image_src;
+                    this.setState({ main_image_src: i, modal_open: false });
+                }
                 if (this.state.image_type === 'sponsor') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.preview_image_src;
                     this.setState({ sponsor_image_src: i, modal_open: false });
@@ -117,6 +124,7 @@ class AdminThemeController extends Component {
                     this.setState({ media_image_src: i, modal_open: false });
                 }
                 const s = toJS(this.props.uiStore.current_theme_structure);
+                console.log(`const s = ${JSON.stringify(s)}`);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ modal_open: false });
                 toast.success('Jumbotron updated !', {
@@ -126,7 +134,27 @@ class AdminThemeController extends Component {
         } else {
             if (this.logo_files) {
                 const lf = await this.uploadtoS3();
-                this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
+                if (this.state.image_type === 'jumbo') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
+                }
+                if (this.state.image_type === 'sponsor') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = lf;
+                }
+                if (this.state.image_type === 'main') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMainData = lf;
+                }
+                if (this.state.image_type === 'news') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = lf;
+                }
+                if (this.state.image_type === 'roster') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = lf;
+                }
+                if (this.state.image_type === 'matches') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = lf;
+                }
+                if (this.state.image_type === 'media') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = lf;
+                }
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ image_src: lf, modal_open: false });
@@ -204,11 +232,13 @@ class AdminThemeController extends Component {
             editImage={this.editImage}
             editNewsImage={this.editNewsImage}
             editSponsorImage={this.editSponsorImage}
+            editMainImage={this.editMainImage}
             editMatchessImage={this.editMatchessImage}
             editMediaImage={this.editMediaImage}
             editRostersImage={this.editRostersImage}
             image_src={this.state.image_src}
             image_sponsor_src={this.state.sponsor_image_src}
+            image_main_src={this.state.main_image_src}
             image_news_src={this.state.news_image_src}
             image_rosters_src={this.state.roster_image_src}
             image_matches_src={this.state.matches_image_src}
