@@ -148,7 +148,6 @@ class _SplitForm extends React.Component {
                             this.props.setDimmer(false);
                             let message = 'An error has occured processing your card';
                             switch (response.data.code) {
-                                console.log('STRIPE ERROR CODE - response.data.code');
                                 case 'card_declined': {
                                     message = 'Your card has been declined, please try another card.';
                                     break;
@@ -158,6 +157,7 @@ class _SplitForm extends React.Component {
                                     break;
                                 }
                                 default: {
+                                    console.log('STRIPE ERROR CODE - response.data.code');
                                     break;
                                 }
                             }
