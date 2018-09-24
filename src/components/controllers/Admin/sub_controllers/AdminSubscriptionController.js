@@ -157,7 +157,7 @@ class _SplitForm extends React.Component {
                                     break;
                                 }
                                 default: {
-                                    console.log('STRIPE ERROR CODE - response.data.code');
+                                    console.log(`STRIPE ERROR CODE - ${response.data.code}`);
                                     break;
                                 }
                             }
