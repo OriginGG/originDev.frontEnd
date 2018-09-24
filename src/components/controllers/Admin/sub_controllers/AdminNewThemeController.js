@@ -50,22 +50,22 @@ class AdminThemeController extends Component {
         });
     }
     editImage = () => {
-        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData, image_type: 'jumbo' });
     }
     editSponsorImage = () => {
-        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+        this.setState({ modal_open: true, sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData, image_type: 'sponsor' });
     }
     editNewsImage = () => {
-        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+        this.setState({ modal_open: true, news_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageNewsData, image_type: 'news' });
     }
     editMatchessImage = () => {
-        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+        this.setState({ modal_open: true, matches_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData, image_type: 'matches' });
     }
     editRostersImage = () => {
-        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+        this.setState({ modal_open: true, roster_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageRostersData, image_type: 'roster' });
     }
     editMediaImage = () => {
-        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+        this.setState({ modal_open: true, media_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMediaData, image_type: 'media' });
     }
     handleImageClick = (u) => {
         this.setState({ preview_image_src: u });
@@ -90,11 +90,35 @@ class AdminThemeController extends Component {
     saveModal = async () => {
         if (!this.file_uploaded) {
             if (this.state.preview_image_src) {
-                this.props.uiStore.current_theme_structure.main_section.background.imageData = this.state.preview_image_src;
+                console.log(`image_type = ${this.state.image_type}`);
+                const i = this.state.preview_image_src;
+                if (this.state.image_type === 'jumbo') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageData = this.state.preview_image_src;
+                    this.setState({ image_src: i });
+                }
+                if (this.state.image_type === 'sponsor') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.preview_image_src;
+                    this.setState({ sponsor_image_src: i, modal_open: false });
+                }
+                if (this.state.image_type === 'news') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = this.state.preview_image_src;
+                    this.setState({ news_image_src: i, modal_open: false });
+                }
+                if (this.state.image_type === 'roster') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = this.state.preview_image_src;
+                    this.setState({ roster_image_src: i, modal_open: false });
+                }
+                if (this.state.image_type === 'matches') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = this.state.preview_image_src;
+                    this.setState({ matches_image_src: i, modal_open: false });
+                }
+                if (this.state.image_type === 'media') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = this.state.preview_image_src;
+                    this.setState({ media_image_src: i, modal_open: false });
+                }
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
-                const i = this.state.preview_image_src;
-                this.setState({ image_src: i, modal_open: false });
+                this.setState({ modal_open: false });
                 toast.success('Jumbotron updated !', {
                     position: toast.POSITION.TOP_LEFT
                 });
@@ -184,6 +208,11 @@ class AdminThemeController extends Component {
             editMediaImage={this.editMediaImage}
             editRostersImage={this.editRostersImage}
             image_src={this.state.image_src}
+            image_sponsor_src={this.state.sponsor_image_src}
+            image_news_src={this.state.news_image_src}
+            image_rosters_src={this.state.roster_image_src}
+            image_matches_src={this.state.matches_image_src}
+            image_media_src={this.state.media_image_src}
             handleSubmit={this.handleSubmit}
             handleObliviotLightClick={this.handleObliviotLightClick}
             handleObliviotDarkClick={this.handleObliviotDarkClick}
