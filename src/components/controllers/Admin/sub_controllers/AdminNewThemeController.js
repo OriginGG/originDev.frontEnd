@@ -117,6 +117,7 @@ class AdminThemeController extends Component {
                     this.setState({ media_image_src: i, modal_open: false });
                 }
                 const s = toJS(this.props.uiStore.current_theme_structure);
+                console.log(`const s = ${JSON.stringify(s)}`);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ modal_open: false });
                 toast.success('Jumbotron updated !', {
@@ -126,7 +127,24 @@ class AdminThemeController extends Component {
         } else {
             if (this.logo_files) {
                 const lf = await this.uploadtoS3();
-                this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
+                if (this.state.image_type === 'jumbo') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
+                }
+                if (this.state.image_type === 'sponsor') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = lf;
+                }
+                if (this.state.image_type === 'news') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = lf;
+                }
+                if (this.state.image_type === 'roster') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = lf;
+                }
+                if (this.state.image_type === 'matches') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = lf;
+                }
+                if (this.state.image_type === 'media') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = lf;
+                }
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ image_src: lf, modal_open: false });
