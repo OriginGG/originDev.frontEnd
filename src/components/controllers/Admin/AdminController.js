@@ -306,7 +306,7 @@ class AdminPageController extends Component {
         return (
 
             <div id="outer-container">
-                <StripeProvider apiKey="pk_test_XI2VXHY0lSJmfCy7gedb4zK0">
+                <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY} >
                     <Sidebar.Pushable as={Segment}>
                         <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
                             <OrganizationAdminMenuComponentRender key={`admin_sidebar_key_${this.my_key}`} handleMainMenuClick={this.handleManageClick} dropdown={<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />} fullname={full_name} image_src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
