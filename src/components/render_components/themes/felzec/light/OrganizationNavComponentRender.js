@@ -8,8 +8,12 @@ class LightOrganizationNavComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.felzec_nav_constraint}>
-                <div className="ui stackable two column grid">
-                    <div className="six wide column">
+                <div style={{
+                    padding: '0px'
+                }} className="ui stackable two column grid">
+                    <div style={{
+                        padding: '0px'
+                    }} className="six wide column">
                         <div className={this.props.classes.obliviot_light_social_menu_container}>
                             <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link1}</div>
                             <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link2}</div>

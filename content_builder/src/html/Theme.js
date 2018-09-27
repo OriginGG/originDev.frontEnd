@@ -1563,7 +1563,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightHeader: {
         width: '100%',
-        maxHeight: '80px',
+        maxHeight: '70px',
         backgroundColor: 'black'
     },
 
@@ -1574,7 +1574,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_light_social_menu_item: {
-        lineHeight: '80px',
+        lineHeight: '70px',
         float: 'left',
         color: 'white',
         fontSize: '18px',
@@ -1594,6 +1594,13 @@ export const GlobalStyles = GlobalTheme => ({
         height: '60px',
         position: 'absolute',
         bottom: '0px'
+    },
+
+    obliviot_light_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '0px'
     },
 
     // ***************************************************************
