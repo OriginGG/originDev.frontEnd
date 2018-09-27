@@ -1549,6 +1549,54 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // Felzec Theme
+    // ***************************************************************
+
+    felzec_lightBlogContainer: {
+        width: '80%',
+        height: '600px',
+        marginTop: '20px',
+        display: 'table',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_lightHeader: {
+        width: '100%',
+        maxHeight: '80px',
+        backgroundColor: 'black'
+    },
+
+    felzec_nav_constraint : {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_light_social_menu_item: {
+        lineHeight: '80px',
+        float: 'left',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    felzec_sponsor_box: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: '#cccccc',
+        position: 'relative'
+    },
+
+    felzec_sponsor_container: {
+        width: '100%',
+        height: '60px',
+        position: 'absolute',
+        bottom: '0px'
+    },
+
+    // ***************************************************************
     // New Dark Theme
     // ***************************************************************
 

@@ -21,6 +21,7 @@ class AdminThemeController extends Component {
         let obliviot_light = { borderWidth: '0px' };
         let enigma_dark = { borderWidth: '0px' };
         let enigma_light = { borderWidth: '0px' };
+        let felzec_light = { borderWidth: '0px' };
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
         this.file_uploaded = false;
         this.selected_theme = this.props.uiStore.current_organisation.themeId;
@@ -35,7 +36,7 @@ class AdminThemeController extends Component {
                 enigma_dark = { borderWidth: '4px' };
                 enigma_light = { borderWidth: '0px' };
             }
-        } else {
+        } else if (this.selected_base_theme === 'obliviot') {
             choosen_theme = 'obliviot';
             if (this.selected_theme === 'light') {
                 obliviot_dark = { borderWidth: '0px' };
@@ -44,9 +45,16 @@ class AdminThemeController extends Component {
                 obliviot_dark = { borderWidth: '4px' };
                 obliviot_light = { borderWidth: '0px' };
             }
+        } else {
+            choosen_theme = 'felzec';
+            if (this.selected_theme === 'light') {
+                felzec_light = { borderWidth: '4px' };
+            } else {
+                felzec_light = { borderWidth: '4px' };
+            }
         }
         this.setState({
-            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
+            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, felzec_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
         });
     }
     editImage = () => {
@@ -210,6 +218,7 @@ class AdminThemeController extends Component {
         console.log('obliviot dark clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '4px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'dark';
     }
@@ -217,6 +226,7 @@ class AdminThemeController extends Component {
         console.log('enigma dark clicked');
         this.setState({ enigma_dark: { borderWidth: '4px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'dark';
     }
@@ -224,7 +234,16 @@ class AdminThemeController extends Component {
         console.log('enigma light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '4px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'enigma' });
+        this.new_theme = 'light';
+    }
+    handleFelzecLightClick = () => {
+        console.log('felzec light clicked');
+        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
+        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '4px' } });
+        this.setState({ choosen_theme: 'felzec' });
         this.new_theme = 'light';
     }
     render() {
@@ -248,14 +267,17 @@ class AdminThemeController extends Component {
             handleObliviotDarkClick={this.handleObliviotDarkClick}
             handleEnigmaDarkClick={this.handleEnigmaDarkClick}
             handleEnigmaLightClick={this.handleEnigmaLightClick}
+            handleFelzecLightClick={this.handleFelzecLightClick}
             obliviot_light_style={this.state.obliviot_light}
             obliviot_dark_style={this.state.obliviot_dark}
             enigma_dark_style={this.state.enigma_dark}
             enigma_light_style={this.state.enigma_light}
+            felzec_light_style={this.state.felzec_light}
             enigma_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
             enigma_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
             obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/obliviot-dark-theme.jpg"
             obliviot_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
+            felzec_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
         />;
         if (this.state.modal_open) {
             md = <div>
