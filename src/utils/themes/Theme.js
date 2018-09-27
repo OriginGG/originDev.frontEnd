@@ -1591,9 +1591,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_sponsor_container: {
         width: '100%',
-        height: '70px',
+        height: '60px',
         position: 'absolute',
-        bottom: '30px'
+        bottom: '0px'
     },
 
     // ***************************************************************
