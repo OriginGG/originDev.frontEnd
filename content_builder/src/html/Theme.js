@@ -1582,6 +1582,15 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '0px 10px 0px 10px'
     },
 
+    felzec_light_navicon_menu_item: {
+        lineHeight: '70px',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
     felzec_sponsor_box: {
         width: '100%',
         height: '400px',
@@ -1601,6 +1610,18 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         paddingTop: '0px',
         paddingLeft: '0px'
+    },
+
+    felzec_menu_container: {
+        width: '100%',
+        height: '80px',
+        backgroundColor: 'red',
+        borderTop: '2px',
+        borderStyle: 'solid',
+        borderColor: 'blue',
+        position: 'absolute',
+        bottom: '-80px',
+        zIndex: '10'
     },
 
     // ***************************************************************
