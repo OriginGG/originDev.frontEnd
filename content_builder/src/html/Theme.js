@@ -1549,6 +1549,82 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // Felzec Theme
+    // ***************************************************************
+
+    felzec_lightBlogContainer: {
+        width: '80%',
+        height: '600px',
+        marginTop: '20px',
+        display: 'table',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_lightHeader: {
+        width: '100%',
+        maxHeight: '70px',
+        backgroundColor: 'black'
+    },
+
+    felzec_nav_constraint : {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_light_social_menu_item: {
+        lineHeight: '70px',
+        float: 'left',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    felzec_light_navicon_menu_item: {
+        lineHeight: '70px',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    felzec_sponsor_box: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: '#cccccc',
+        position: 'relative'
+    },
+
+    felzec_sponsor_container: {
+        width: '100%',
+        height: '60px',
+        position: 'absolute',
+        bottom: '0px'
+    },
+
+    obliviot_light_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '0px'
+    },
+
+    felzec_menu_container: {
+        width: '100%',
+        height: '80px',
+        backgroundColor: 'red',
+        borderTop: '2px',
+        borderStyle: 'solid',
+        borderColor: 'blue',
+        position: 'absolute',
+        bottom: '-80px',
+        zIndex: '10'
+    },
+
+    // ***************************************************************
     // New Dark Theme
     // ***************************************************************
 

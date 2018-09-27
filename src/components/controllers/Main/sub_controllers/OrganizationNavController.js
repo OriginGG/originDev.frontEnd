@@ -39,6 +39,9 @@ class OrganizationNavController extends Component {
     openPage = page => {
         window.open(page, '_blank');
     }
+    openMenu = () => {
+        console.log('open menu');
+    }
     render() {
         console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
         if (this.state.visible === false) {
@@ -82,6 +85,8 @@ class OrganizationNavController extends Component {
         let social_link4 = <span />;
         let social_link5 = <span />;
         let social_link6 = <span />;
+
+        const navicon = <i key="navicon" role="menuItem" tabIndex={-1} onClick={() => { this.openMenu(); }} className="fas fa-bars" />;
 
         if (social_links.length > 5) {
             social_link6 = social_links[5];          // eslint-disable-line
@@ -149,6 +154,7 @@ class OrganizationNavController extends Component {
             social_link4={social_link4}
             social_link5={social_link5}
             social_link6={social_link6}
+            navicon={navicon}
             image_src={this.image_src} />;
     }
 }

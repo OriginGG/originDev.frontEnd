@@ -107,7 +107,7 @@ class OrganizationPageController extends Component {
                 let OrganizationBlogControllerDefault = null;
                 let OrganizationTwitchController = null;
                 let OrganizationTwitchControllerDefault = null;
-                if (themeBase === 'obliviot') {
+                if (themeBase === 'obliviot' || themeBase === 'felzec') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
                     OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
