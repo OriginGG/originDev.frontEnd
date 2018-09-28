@@ -1615,19 +1615,19 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_menu_container: {
         width: '100%',
-        height: '80px',
+        height: '60px',
         backgroundColor: 'rgb(131,24,39)',
         borderWidth: '2px 0px 0px 0px',
         borderStyle: 'solid',
         borderColor: 'rgba(255,255,255,.5)',
         position: 'absolute',
-        bottom: '-66px',
+        bottom: '-48px',
         zIndex: '10'
     },
 
     org_menu_felzec_light_item : {
-        height: '80px',
-        lineHeight: '80px',
+        height: '60px',
+        lineHeight: '60px',
         float: 'right',
         color: '#fefefe',
         fontSize: '18px',
