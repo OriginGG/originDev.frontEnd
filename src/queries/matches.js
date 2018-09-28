@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
 export const createRecentMatchQuery = gql`mutation createRecentMatch($subDomain: String!, $oppositeTeamName: String, $gameName: String!,
-  $gameLogo:String!, $score: String!, $eventDescription: String) {
+  $gameLogo:String!, $score: String!, $eventDescription: String, $type: String) {
   createRecentmatch(input:{recentmatch:{organisation:$subDomain, oppositeTeamName: $oppositeTeamName,
-  gameName: $gameName, score: $score, gameLogo: $gameLogo, eventDescription: $eventDescription}}) {
+  gameName: $gameName, score: $score, gameLogo: $gameLogo, eventDescription: $eventDescription, type: $type}}) {
     recentmatch {
       id
     }
@@ -30,6 +30,7 @@ export const recentMatchesQuery = gql`
                  gameLogo
                  score
                  createdAt
+                 type
                  eventDescription
                }
              }
