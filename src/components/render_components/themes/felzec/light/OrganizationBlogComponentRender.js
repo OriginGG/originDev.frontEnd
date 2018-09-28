@@ -7,9 +7,9 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationBlogComponentRender extends Component {
     render( ) {
         return (
-            <div>
-                <div className="ui stackable two column grid">
-                    <div className="seven wide column">
+            <div className={this.props.classes.felzec_blog_container}>
+                <div className="ui stackable three column grid">
+                    <div className="column">
                         <div className={this.props.classes.obliviot_lightBlogMaxContainer} onClick={( ) => {
                             this
                                 .props
@@ -41,7 +41,7 @@ class LightOrganizationBlogComponentRender extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="nine wide column">
+                    <div className="column">
                         <div className={this.props.classes.obliviot_lightBlogMiniContainer} onClick={( ) => {
                             this
                                 .props
@@ -98,6 +98,68 @@ class LightOrganizationBlogComponentRender extends Component {
                                     textOverflow: 'ellipsis'
                                 }}>
                                     <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_3}</p>
+                                </div>
+                                <div className={this.props.classes.obliviot_light_news_decor}/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="column">
+                        <div className={this.props.classes.obliviot_lightBlogMiniContainer} onClick={( ) => {
+                            this
+                                .props
+                                .handleNewsClick( this.props.blog_4 );
+                        }}>
+                            <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_4}/>
+                            <div className={this.props.classes.obliviot_light_main_news_content_container}>
+                                <div>
+                                    <div style={{
+                                        width: '100%',
+                                        float: 'left',
+                                        paddingRight: '0px',
+                                        whiteSpace: 'nowrap',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis'
+                                    }}>
+                                        <span className={this.props.classes.obliviot_light_news_title}>{this.props.blog_title_4}</span>
+                                    </div>
+                                </div>
+                                <div style={{
+                                    width: '100%',
+                                    height: '0px',
+                                    overflowY: 'hidden',
+                                    textOverflow: 'ellipsis'
+                                }}>
+                                    <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_4}</p>
+                                </div>
+                                <div className={this.props.classes.obliviot_light_news_decor}/>
+                            </div>
+                        </div>
+                        <div className={this.props.classes.obliviot_lightBlogMiniContainer} onClick={( ) => {
+                            this
+                                .props
+                                .handleNewsClick( this.props.blog_5 );
+                        }}>
+                            <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_5}/>
+                            <div className={this.props.classes.obliviot_light_main_news_content_container}>
+                                <div>
+                                    <div style={{
+                                        width: '100%',
+                                        float: 'left',
+                                        paddingRight: '0px',
+                                        whiteSpace: 'nowrap',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis'
+                                    }}>
+                                        <span className={this.props.classes.obliviot_light_news_title}>{this.props.blog_title_5}</span>
+                                    </div>
+                                </div>
+                                <div style={{
+                                    width: '100%',
+                                    height: '0px',
+                                    overflowY: 'hidden',
+                                    textOverflow: 'ellipsis'
+                                }}>
+                                    <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_5}</p>
                                 </div>
                                 <div className={this.props.classes.obliviot_light_news_decor}/>
                             </div>

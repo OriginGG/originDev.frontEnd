@@ -1555,9 +1555,8 @@ export const GlobalStyles = GlobalTheme => ({
     // ***************************************************************
 
     felzec_lightBlogContainer: {
-        width: '80%',
+        width: '100%',
         height: '600px',
-        marginTop: '20px',
         display: 'table',
         marginLeft: 'auto',
         marginRight: 'auto'
@@ -1675,6 +1674,14 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute',
         top: '0px',
         left: '0px'
+    },
+
+    felzec_blog_container: {
+        width: '80%',
+        padding: '50px 0px 50px 0px',
+        backgroundColor: 'rgb(230,230,230)',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
 
     // ***************************************************************
