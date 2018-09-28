@@ -1677,8 +1677,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_blog_container: {
-        width: '80%',
-        padding: '50px 0px 50px 0px',
+        width: '100%',
+        padding: '50px 10% 50px 10%',
         backgroundColor: 'rgb(230,230,230)',
         marginLeft: 'auto',
         marginRight: 'auto'
