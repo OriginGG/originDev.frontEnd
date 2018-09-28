@@ -8,7 +8,7 @@ class LightOrganizationSponserComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.felzec_sponsor_box}>
+                <div className={this.props.classes.felzec_sponsor_box} style={this.props.felzec_sponsor_style}>
                     <div className={this.props.classes.felzec_sponsor_container}>
                         <div className="ui stackable four column grid">{this.props.sponsor_content}</div>
                     </div>
