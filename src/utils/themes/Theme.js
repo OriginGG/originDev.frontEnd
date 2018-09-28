@@ -1641,6 +1641,27 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'inline-block'
     },
 
+    felzec_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        padding: '30px 20% 30px 20%',
+        margin: '10px 0px 10px 0px',
+        backgroundColor: 'black'
+    },
+
+    felzec_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white',
+        wordBreak: 'break-all'
+    },
+
+    felzec_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'white'
+    },
+
     // ***************************************************************
     // New Dark Theme
     // ***************************************************************
