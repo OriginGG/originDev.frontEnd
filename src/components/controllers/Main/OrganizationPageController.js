@@ -488,27 +488,51 @@ class OrganizationPageController extends Component {
 
         if (this.state.display_sponsers) {
             console.log(`real_theme = ${real_theme}`);
-            if (real_theme === 'enigma/light') {
-                c_name = 'lightBG';
+            if (real_theme === 'felzec/light') {
+                if (real_theme === 'felzec/light') {
+                    c_name = 'lightBG';
+                } else {
+                    c_name = 'blackBG';
+                }
+                disp = <OrganizationPageComponentRender
+                    roster_style={this.state.roster_style}
+                    copyright={cp}
+                    obliviot_hidden_style={ob_none}
+                    obliviot_page_style={ob_dark}
+                    rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                    newsContent={<span />}
+                    twitterContent={<span />}
+                    matchesContent={<span />}
+                    videoContent={<span />}
+                    topSponsorContent={<OrganizationSponsorController />}
+                    bottomSponsorContent={<span />}
+                    navContent={nv_content}
+                    logoContent={<span />}
+                    footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+                />;
             } else {
-                c_name = 'blackBG';
+                if (real_theme === 'enigma/light') {
+                    c_name = 'lightBG';
+                } else {
+                    c_name = 'blackBG';
+                }
+                disp = <OrganizationPageComponentRender
+                    roster_style={this.state.roster_style}
+                    copyright={cp}
+                    obliviot_hidden_style={ob_none}
+                    obliviot_page_style={ob_dark}
+                    rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                    newsContent={<span />}
+                    twitterContent={<span />}
+                    matchesContent={<span />}
+                    videoContent={<span />}
+                    topSponsorContent={<OrganizationSponsorController />}
+                    bottomSponsorContent={<span />}
+                    navContent={<span />}
+                    logoContent={<span />}
+                    footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+                />;
             }
-            disp = <OrganizationPageComponentRender
-                roster_style={this.state.roster_style}
-                copyright={cp}
-                obliviot_hidden_style={ob_none}
-                obliviot_page_style={ob_dark}
-                rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
-                newsContent={<span />}
-                twitterContent={<span />}
-                matchesContent={<span />}
-                videoContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
-                bottomSponsorContent={<span />}
-                navContent={<span />}
-                logoContent={<span />}
-                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
-            />;
         }
 
         if (this.state.display_blogs) {

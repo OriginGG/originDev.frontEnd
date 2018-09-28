@@ -87,6 +87,14 @@ class OrganizationBlogController extends Component {
         let b_media_3 = default_image;
         let b_content_3 = 'Latest news coming soon';
         let b_3 = null;
+        let b_title_4 = 'Coming Soon';
+        let b_media_4 = default_image;
+        let b_content_4 = 'Latest news coming soon';
+        let b_4 = null;
+        let b_title_5 = 'Coming Soon';
+        let b_media_5 = default_image;
+        let b_content_5 = 'Latest news coming soon';
+        let b_5 = null;
 
         // console.log(`blog array = ${JSON.stringify(this.results_array)}`);
 
@@ -108,6 +116,18 @@ class OrganizationBlogController extends Component {
             b_content_3 = this.results_array[2].content;
             b_3 = this.results_array[2].blog;
         }
+        if (this.results_array[3]) {
+            b_title_4 = this.results_array[3].title;
+            b_media_4 = this.results_array[3].media;
+            b_content_4 = this.results_array[3].content;
+            b_4 = this.results_array[3].blog;
+        }
+        if (this.results_array[4]) {
+            b_title_5 = this.results_array[4].title;
+            b_media_5 = this.results_array[4].media;
+            b_content_5 = this.results_array[4].content;
+            b_5 = this.results_array[4].blog;
+        }
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
         return (
@@ -125,6 +145,14 @@ class OrganizationBlogController extends Component {
                     blog_content_3={b_content_3}
                     blog_title_3={b_title_3}
                     blog_3={b_3}
+                    blog_media_4={b_media_4}
+                    blog_content_4={b_content_4}
+                    blog_title_4={b_title_4}
+                    blog_4={b_4}
+                    blog_media_5={b_media_5}
+                    blog_content_5={b_content_5}
+                    blog_title_5={b_title_5}
+                    blog_5={b_5}
                     handleNewsClick={this.props.handleNewsClick}
                 />
                 <BlogModal

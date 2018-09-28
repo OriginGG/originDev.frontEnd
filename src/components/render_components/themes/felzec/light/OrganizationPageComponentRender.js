@@ -9,19 +9,19 @@ class LightOrganizationPageComponentRender extends Component {
         return (
             <div className={this.props.classes.lightObliotBG}>
                 <div>
-                    <img id="bg_img" alt="" className={this.props.classes.obliviot_light_bg_img}/>
+                    <img id="bg_img" alt="" className={this.props.classes.felzec_light_bg_img}/>
                     <div className={this.props.classes.obliviot_light_bg_filter} style={this.props.obliviot_page_style}/>
                     <div>
                         <header className={this.props.classes.felzec_lightHeader}>
                             <div >{this.props.navContent}</div>
                         </header>
                         <div id="sponsors">{this.props.topSponsorContent}</div>
-                        <div id="roster_component" style={{
-                            paddingTop: '30px'
-                        }}>{this.props.rosterContent}</div>
                         <div className={this.props.classes.felzec_lightBlogContainer}>
                             <div >{this.props.blogContent}</div>
                         </div>
+                        <div id="roster_component" style={{
+                            paddingTop: '30px'
+                        }}>{this.props.rosterContent}</div>
                         <div className={this.props.classes.obliviot_light_section_control_container} style={this.props.obliviot_hidden_style}>
                             <div className={this.props.classes.obliviot_light_section_divider}/>
                             <div className={this.props.classes.obliviot_light_section_title}>STREAMS</div>

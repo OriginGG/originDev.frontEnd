@@ -1548,14 +1548,15 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#FFF'
     },
 
+
+
     // ***************************************************************
     // Felzec Theme
     // ***************************************************************
 
     felzec_lightBlogContainer: {
-        width: '80%',
+        width: '100%',
         height: '600px',
-        marginTop: '20px',
         display: 'table',
         marginLeft: 'auto',
         marginRight: 'auto'
@@ -1570,7 +1571,8 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_nav_constraint : {
         width: '80%',
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
+        position: 'relative'
     },
 
     felzec_light_social_menu_item: {
@@ -1614,14 +1616,72 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_menu_container: {
         width: '100%',
-        height: '80px',
-        backgroundColor: 'red',
-        borderTop: '2px',
+        height: '60px',
+        backgroundColor: 'rgb(131,24,39)',
+        borderWidth: '2px 0px 0px 0px',
         borderStyle: 'solid',
-        borderColor: 'blue',
+        borderColor: 'rgba(255,255,255,.5)',
         position: 'absolute',
-        bottom: '-80px',
+        bottom: '-48px',
         zIndex: '10'
+    },
+
+    org_menu_felzec_light_item : {
+        height: '60px',
+        lineHeight: '60px',
+        float: 'right',
+        color: '#fefefe',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        position: 'relative',
+        display: 'inline-block'
+    },
+
+    felzec_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        padding: '30px 20% 30px 20%',
+        margin: '10px 0px 10px 0px',
+        backgroundColor: 'black'
+    },
+
+    felzec_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white',
+        wordBreak: 'break-all'
+    },
+
+    felzec_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'white'
+    },
+
+    felzec_roster_item_name_container: {
+        width: '100%',
+        display: 'table',
+        paddingBottom: '10px'
+    },
+
+    felzec_light_bg_img: {
+        width: '100%',
+        position: 'absolute',
+        top: '0px',
+        left: '0px'
+    },
+
+    felzec_blog_container: {
+        width: '100%',
+        padding: '50px 10% 50px 10%',
+        backgroundColor: 'rgb(230,230,230)',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
 
     // ***************************************************************

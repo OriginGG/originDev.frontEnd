@@ -8,7 +8,7 @@ class LightOrganizationSponsersItemComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.light_roster_item_container}>
+                <div className={this.props.classes.felzec_roster_item_container}>
                     <div className="ui stackable two column grid">
                         <div className="three wide column">
                             <div className={this.props.classes.sponser_item_img_container}>
@@ -21,11 +21,11 @@ class LightOrganizationSponsersItemComponentRender extends Component {
                                 paddingTop: '10px',
                                 paddingBottom: '10px'
                             }}>
-                                <div className={this.props.classes.roster_item_name_container}>
-                                    <span className={this.props.classes.light_roster_name}>{this.props.sponser_name}</span>
+                                <div className={this.props.classes.felzec_roster_item_name_container}>
+                                    <span className={this.props.classes.felzec_roster_name}>{this.props.sponser_name}</span>
                                 </div>
                                 <div className={this.props.classes.roster_item_about_container}>
-                                    <span className={this.props.classes.light_roster_about_text}>{this.props.sponser_desc}</span>
+                                    <span className={this.props.classes.felzec_roster_about_text}>{this.props.sponser_desc}</span>
                                 </div>
                             </div>
                         </div>
