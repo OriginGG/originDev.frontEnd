@@ -10,12 +10,12 @@ class LightOrganizationBlogComponentRender extends Component {
             <div className={this.props.classes.felzec_blog_container}>
                 <div className="ui stackable three column grid">
                     <div className="column">
-                        <div className={this.props.classes.obliviot_lightBlogMaxContainer} onClick={( ) => {
+                        <div className={this.props.classes.felzec_lightBlogMaxContainer} onClick={( ) => {
                             this
                                 .props
                                 .handleNewsClick( this.props.blog_1 );
                         }}>
-                            <img className={this.props.classes.obliviot_main_news_item_image} src={this.props.blog_media_1}/>
+                            <img className={this.props.classes.felzec_main_news_item_image} src={this.props.blog_media_1}/>
                             <div className={this.props.classes.obliviot_light_main_news_content_container}>
                                 <div>
                                     <div style={{
@@ -42,12 +42,12 @@ class LightOrganizationBlogComponentRender extends Component {
                         </div>
                     </div>
                     <div className="column">
-                        <div className={this.props.classes.obliviot_lightBlogMiniContainer} onClick={( ) => {
+                        <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
                             this
                                 .props
                                 .handleNewsClick( this.props.blog_2 );
                         }}>
-                            <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_2}/>
+                            <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_2}/>
                             <div className={this.props.classes.obliviot_light_main_news_content_container}>
                                 <div>
                                     <div style={{
@@ -72,12 +72,12 @@ class LightOrganizationBlogComponentRender extends Component {
                                 <div className={this.props.classes.obliviot_light_news_decor}/>
                             </div>
                         </div>
-                        <div className={this.props.classes.obliviot_lightBlogMiniContainer} onClick={( ) => {
+                        <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
                             this
                                 .props
                                 .handleNewsClick( this.props.blog_3 );
                         }}>
-                            <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_3}/>
+                            <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_3}/>
                             <div className={this.props.classes.obliviot_light_main_news_content_container}>
                                 <div>
                                     <div style={{
@@ -104,12 +104,12 @@ class LightOrganizationBlogComponentRender extends Component {
                         </div>
                     </div>
                     <div className="column">
-                        <div className={this.props.classes.obliviot_lightBlogMiniContainer} onClick={( ) => {
+                        <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
                             this
                                 .props
                                 .handleNewsClick( this.props.blog_4 );
                         }}>
-                            <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_4}/>
+                            <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_4}/>
                             <div className={this.props.classes.obliviot_light_main_news_content_container}>
                                 <div>
                                     <div style={{
@@ -134,12 +134,12 @@ class LightOrganizationBlogComponentRender extends Component {
                                 <div className={this.props.classes.obliviot_light_news_decor}/>
                             </div>
                         </div>
-                        <div className={this.props.classes.obliviot_lightBlogMiniContainer} onClick={( ) => {
+                        <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
                             this
                                 .props
                                 .handleNewsClick( this.props.blog_5 );
                         }}>
-                            <img className={this.props.classes.obliviot_main_news_item_mini_image} src={this.props.blog_media_5}/>
+                            <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_5}/>
                             <div className={this.props.classes.obliviot_light_main_news_content_container}>
                                 <div>
                                     <div style={{

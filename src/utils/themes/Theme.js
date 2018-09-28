@@ -1684,6 +1684,33 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
+    felzec_lightBlogMaxContainer: {
+        width: '100%',
+        height: '500px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_image: {
+        width: '100%',
+        height: '500px',
+        objectFit: 'cover'
+    },
+
+    felzec_lightBlogMiniContainer: {
+        width: '100%',
+        height: '245px',
+        marginBottom: '10px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_mini_image: {
+        width: '100%',
+        height: '245px',
+        objectFit: 'cover'
+    },
+
     // ***************************************************************
     // New Dark Theme
     // ***************************************************************
