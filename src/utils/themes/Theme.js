@@ -1570,7 +1570,8 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_nav_constraint : {
         width: '80%',
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
+        position: 'relative'
     },
 
     felzec_light_social_menu_item: {
@@ -1615,13 +1616,29 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_menu_container: {
         width: '100%',
         height: '80px',
-        backgroundColor: 'red',
-        borderTop: '2px',
+        backgroundColor: 'rgb(131,24,39)',
+        borderWidth: '2px 0px 0px 0px',
         borderStyle: 'solid',
-        borderColor: 'blue',
+        borderColor: 'rgba(255,255,255,.5)',
         position: 'absolute',
-        bottom: '-80px',
+        bottom: '-66px',
         zIndex: '10'
+    },
+
+    org_menu_felzec_light_item : {
+        height: '80px',
+        lineHeight: '80px',
+        float: 'right',
+        color: '#fefefe',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        position: 'relative',
+        display: 'inline-block'
     },
 
     // ***************************************************************

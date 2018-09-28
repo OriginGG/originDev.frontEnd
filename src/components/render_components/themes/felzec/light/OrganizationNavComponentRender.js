@@ -31,32 +31,25 @@ class LightOrganizationNavComponentRender extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={this.props.classes.felzec_menu_container}>
+                <div className={this.props.classes.felzec_menu_container} style={this.props.felzec_menu_style}>
                     <div className={this.props.classes.obliviot_org_menu_light_container}>
                         <a href="#">
-                            <div id="menu_login" className={this.props.classes.org_menu_obliviot_light_item} onClick={this.props.handleLoginClick}>Login</div>
+                            <div id="menu_login" className={this.props.classes.org_menu_felzec_light_item} onClick={this.props.handleLoginClick}>Login</div>
                         </a>
                         <a href="#">
-                            <div id="menu_news" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
+                            <div id="menu_news" className={this.props.classes.org_menu_felzec_light_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
                         </a>
                         <a href="#">
-                            <div id="menu_blog" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.blog_style} onClick={this.props.handleBlogClick}>Blog</div>
+                            <div id="menu_blog" className={this.props.classes.org_menu_felzec_light_item} style={this.props.blog_style} onClick={this.props.handleBlogClick}>Blog</div>
                         </a>
                         <a href="#">
-                            <div id="roster_button" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.roster_menu_style} onClick={this.props.handleRosterButtonClick}>Rosters</div>
-                            <div className={this.props.classes.obliviot_dropdown_container} style={this.props.roster_dropdown_style}>
-                                <div className={this.props.classes.obliviot_dropdown_container_close} onClick={this.props.handleCloseClick}>X</div>
-                                <div >{this.props.dropdown_item}</div>
-                            </div>
+                            <div id="sponsers_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>
                         </a>
                         <a href="#">
-                            <div id="sponsers_button" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>
-                        </a>
-                        <a href="#">
-                            <div id="about_button" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
+                            <div id="about_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
                         </a>
                         <a href="#home_cont">
-                            <div id="menu_home" className={this.props.classes.org_menu_obliviot_light_item} style={this.props.home_style}>Home</div>
+                            <div id="menu_home" className={this.props.classes.org_menu_felzec_light_item} style={this.props.home_style}>Home</div>
                         </a>
                     </div>
                 </div>

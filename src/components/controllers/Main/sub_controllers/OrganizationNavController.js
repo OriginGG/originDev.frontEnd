@@ -24,6 +24,8 @@ class OrganizationNavController extends Component {
         const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({ roster: p_array, visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
+        const nf_style = { display: 'none' };
+        this.setState({ felzec_menu: false, felzec_style: nf_style });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -41,6 +43,13 @@ class OrganizationNavController extends Component {
     }
     openMenu = () => {
         console.log('open menu');
+        if (this.state.felzec_menu) {
+            const st = { display: 'none' };
+            this.setState({ felzec_menu: false, felzec_style: st });
+        } else {
+            const st = { display: 'table' };
+            this.setState({ felzec_menu: true, felzec_style: st });
+        }
     }
     render() {
         console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
@@ -137,6 +146,7 @@ class OrganizationNavController extends Component {
             store_style={this.props.store_style}
             about_style={this.props.about_style}
             roster_dropdown_style={d_style}
+            felzec_menu_style={this.state.felzec_style}
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
