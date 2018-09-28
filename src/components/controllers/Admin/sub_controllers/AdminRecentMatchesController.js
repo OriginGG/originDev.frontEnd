@@ -43,16 +43,19 @@ class AdminRecentMatchesController extends Component {
     }
 
     uploadLogo = () => {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             const formData = new FormData();
             formData.append('images', this.logo_files);
-            axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((x) => {
+            try {
+                const x = await axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
                 resolve(x.data);
-            });
+            } catch (err) {
+                resolve(null);
+            }
         });
     }
     uploadFile = (e) => {
@@ -124,17 +127,21 @@ class AdminRecentMatchesController extends Component {
         if (this.is_saving === false && this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
             this.is_saving = true;
             const logo_data = await this.uploadLogo();
-            await this.props.appManager.executeQueryAuth(
-                'mutation', createRecentMatchQuery,
-                {
-                    subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, score: `${this.state.your_score} - ${this.state.their_score}`
-                }
-            );
-            toast.success('Match Added !', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            await this.calcMatches();
-            this.is_saving = false;
+            if (logo_data === null) {
+                this.is_saving = false;
+            } else {
+                await this.props.appManager.executeQueryAuth(
+                    'mutation', createRecentMatchQuery,
+                    {
+                        subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, score: `${this.state.your_score} - ${this.state.their_score}`
+                    }
+                );
+                toast.success('Match Added !', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                await this.calcMatches();
+                this.is_saving = false;
+            }
         }
     }
     showDeleteConfirm = () => {
