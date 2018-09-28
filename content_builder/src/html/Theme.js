@@ -1672,7 +1672,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_light_bg_img: {
         width: '100%',
-        minHeight: '100vh',
         position: 'absolute',
         top: '0px',
         left: '0px'
