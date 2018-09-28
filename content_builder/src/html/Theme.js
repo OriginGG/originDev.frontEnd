@@ -1548,6 +1548,8 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#FFF'
     },
 
+
+
     // ***************************************************************
     // Felzec Theme
     // ***************************************************************
@@ -1660,6 +1662,20 @@ export const GlobalStyles = GlobalTheme => ({
         lineHeight: '25px',
         fontWeight: '400',
         color: 'white'
+    },
+
+    felzec_roster_item_name_container: {
+        width: '100%',
+        display: 'table',
+        paddingBottom: '10px'
+    },
+
+    felzec_light_bg_img: {
+        width: '100%',
+        minHeight: '100vh',
+        position: 'absolute',
+        top: '0px',
+        left: '0px'
     },
 
     // ***************************************************************

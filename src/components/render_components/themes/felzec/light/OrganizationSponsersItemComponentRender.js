@@ -21,7 +21,7 @@ class LightOrganizationSponsersItemComponentRender extends Component {
                                 paddingTop: '10px',
                                 paddingBottom: '10px'
                             }}>
-                                <div className={this.props.classes.roster_item_name_container}>
+                                <div className={this.props.classes.felzec_roster_item_name_container}>
                                     <span className={this.props.classes.felzec_roster_name}>{this.props.sponser_name}</span>
                                 </div>
                                 <div className={this.props.classes.roster_item_about_container}>

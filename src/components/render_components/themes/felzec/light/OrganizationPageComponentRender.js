@@ -9,7 +9,7 @@ class LightOrganizationPageComponentRender extends Component {
         return (
             <div className={this.props.classes.lightObliotBG}>
                 <div>
-                    <img id="bg_img" alt="" className={this.props.classes.obliviot_light_bg_img}/>
+                    <img id="bg_img" alt="" className={this.props.classes.felzec_light_bg_img}/>
                     <div className={this.props.classes.obliviot_light_bg_filter} style={this.props.obliviot_page_style}/>
                     <div>
                         <header className={this.props.classes.felzec_lightHeader}>
