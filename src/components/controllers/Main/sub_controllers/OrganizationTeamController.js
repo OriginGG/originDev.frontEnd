@@ -40,7 +40,7 @@ class OrganizationTeamController extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        let s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2) sepia() saturate(10000%) hue-rotate(30deg)' };
+        let s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'contrast(.1) sepia(100%) hue-rotate(210deg) brightness(1.4) saturate(0.28)' };
         if (this.isMobile()) {
             s = { display: 'none' };
         }
