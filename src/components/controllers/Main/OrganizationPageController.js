@@ -107,6 +107,8 @@ class OrganizationPageController extends Component {
                 let OrganizationBlogControllerDefault = null;
                 let OrganizationTwitchController = null;
                 let OrganizationTwitchControllerDefault = null;
+                let OrganizationTeamController = null;
+                let OrganizationTeamControllerDefault = null;
                 if (themeBase === 'obliviot' || themeBase === 'felzec') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
@@ -114,6 +116,10 @@ class OrganizationPageController extends Component {
                     OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
                     // OrganizationTwitchController = null;
                     // OrganizationTwitchControllerDefault = null;
+                }
+                if (themeBase === 'felzec') {
+                    OrganizationTeamController = await import('./sub_controllers/OrganizationTeamController');
+                    OrganizationTeamControllerDefault = OrganizationTeamController.default;
                 }
                 this.roster_display = false;
                 if (this.isMobile()) {
@@ -176,6 +182,7 @@ class OrganizationPageController extends Component {
                     OrganizationBlogViewController: OrganizationBlogViewController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
+                    OrganizationTeamController: OrganizationTeamControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -368,6 +375,7 @@ class OrganizationPageController extends Component {
         const { OrganizationBlogViewController } = this.state;
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
+        const { OrganizationTeamController } = this.state;
         const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
@@ -422,6 +430,7 @@ class OrganizationPageController extends Component {
             copyright={cp}
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
             blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
+            teamContent={<OrganizationTeamController />}
             twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}

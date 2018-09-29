@@ -30,7 +30,7 @@ class OrganizationAdminThemeComponentRender extends Component {
                     </div>
                     <div className={this.props.classes.admin_theme_display_container} style={this.props.felzec_light_style} onClick={this.props.handleFelzecLightClick}>
                         <img className={this.props.classes.admin_theme_display_image} src={this.props.felzec_light_image}/>
-                        <div className={this.props.classes.admin_theme_display_text}>Felzec</div>
+                        <div className={this.props.classes.admin_theme_display_text}>Felzek</div>
                     </div>
                 </div>
                 <p>Change Jumbotron Images</p>
