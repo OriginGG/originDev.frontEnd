@@ -9,7 +9,11 @@ class LightOrganizationTeamComponentRender extends Component {
         return (
             <div className={this.props.classes.felzec_team_container}>
                 <div className={this.props.classes.felzec_team_container} style={this.props.bg_style}></div>
-                <div className={this.props.classes.felzec_team_inner_container}></div>
+                <div className={this.props.classes.felzec_team_filter_container} style={this.props.filter_style}/>
+                <div className={this.props.classes.felzec_team_inner_container}>
+                    <div className={this.props.classes.felzec_game_container}>{this.props.roster_games}</div>
+                    <div className={this.props.classes.felzec_teammate_container}>{this.props.roster_teams}</div>
+                </div>
             </div>
         )
     }

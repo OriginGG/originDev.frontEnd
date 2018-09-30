@@ -1711,11 +1711,43 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_inner_container: {
         width: '100%',
+        height: '600px',
         padding: '50px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
         top: '0',
         left: '0'
+    },
+
+    felzec_team_filter_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_game_container: {
+        width: '100%',
+        height: '70px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        paddingBottom: '-17px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_team_game_container: {
+        height: '70px',
+        marginRight: '80px',
+        marginLeft: '80px',
+        float: 'left',
+    },
+
+    felzec_team_game_media: {
+        height: '70px',
+        objectFit: 'fill'
     },
 
     felzec_lightBlogMaxContainer: {
