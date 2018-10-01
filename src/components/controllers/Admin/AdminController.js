@@ -33,7 +33,7 @@ const { confirm } = Modal;
 
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
-    state = { open: false };
+    state = { open: true };
 
     handleMenuClick = (v, e) => {
         console.log(v, e);

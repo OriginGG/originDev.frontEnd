@@ -133,6 +133,7 @@ class OrganizationMatchesController extends Component {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
+            // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             console.log(`i = ${i}`);
             // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');

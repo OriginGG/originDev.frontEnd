@@ -28,12 +28,12 @@ class OrganizationSponsorController extends Component {
         console.log(error, info);
     }
     handleClick = (link) => {
-        console.log(`link = ${link}`);
+        // console.log(`link = ${link}`);
         if (link && link.includes('http')) {
-            console.log(`link has http = ${link}`);
+            // console.log(`link has http = ${link}`);
             window.open(link, '_blank');
         } else if (link) {
-            console.log(`link not full ${link}`);
+            // console.log(`link not full ${link}`);
             const new_link = `http://${link}`;
             window.open(new_link, '_blank');
         }
@@ -97,11 +97,12 @@ class OrganizationSponsorController extends Component {
         const { OrganizationSponserComponentRender } = this.state;
         const { OrganizationSponserComponentElementRender } = this.state;
         const p_array = [];
+        const sponsor_style = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg2.jpg)', backgroundSize: 'cover' };
         this.sponsor_data.forEach((n, i) => {
             p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(n.hrefLink); }} key={`sponsor_${i}`} sponsor_image={n.imageUrl} />);
         });
         return (
-            <OrganizationSponserComponentRender sponsor_content={<AliceCarousel {...settings}>{p_array}</AliceCarousel>} />
+            <OrganizationSponserComponentRender felzec_sponsor_style={sponsor_style} sponsor_content={<AliceCarousel {...settings}>{p_array}</AliceCarousel>} />
         );
     }
 }

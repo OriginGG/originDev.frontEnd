@@ -28,11 +28,22 @@ class OrganizationAdminThemeComponentRender extends Component {
                         <img className={this.props.classes.admin_theme_display_image} src={this.props.obliviot_light_image}/>
                         <div className={this.props.classes.admin_theme_display_text}>Obliviot Light</div>
                     </div>
+                    <div className={this.props.classes.admin_theme_display_container} style={this.props.felzec_light_style} onClick={this.props.handleFelzecLightClick}>
+                        <img className={this.props.classes.admin_theme_display_image} src={this.props.felzec_light_image}/>
+                        <div className={this.props.classes.admin_theme_display_text}>Felzek</div>
+                    </div>
                 </div>
                 <p>Change Jumbotron Images</p>
                 <div className={this.props.classes.jumbotron_container}>
                     <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
                     <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editImage}>
+                        <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
+                    </div>
+                </div>
+                <p>Change Main Background (Felzec Theme)</p>
+                <div className={this.props.classes.jumbotron_container}>
+                    <img className={this.props.classes.jumbotron_image} src={this.props.image_main_src}/>
+                    <div id="theme_modal_button" className={this.props.classes.jumbotron_overlay} onClick={this.props.editMainImage}>
                         <div className={this.props.classes.jumbotron_model_switch}>Edit</div>
                     </div>
                 </div>

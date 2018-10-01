@@ -1548,6 +1548,235 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#FFF'
     },
 
+
+
+    // ***************************************************************
+    // Felzec Theme
+    // ***************************************************************
+
+    felzec_lightBlogContainer: {
+        width: '100%',
+        height: '600px',
+        display: 'table',
+        position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_lightTeamContainer: {
+        width: '100%',
+        height: '500px',
+        display: 'table',
+        position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_lightHeader: {
+        width: '100%',
+        maxHeight: '70px',
+        backgroundColor: 'black'
+    },
+
+    felzec_nav_constraint : {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        position: 'relative'
+    },
+
+    felzec_light_social_menu_item: {
+        lineHeight: '70px',
+        float: 'left',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    felzec_light_navicon_menu_item: {
+        lineHeight: '70px',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    felzec_sponsor_box: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: '#cccccc',
+        position: 'relative'
+    },
+
+    felzec_sponsor_container: {
+        width: '100%',
+        height: '60px',
+        position: 'absolute',
+        bottom: '0px'
+    },
+
+    obliviot_light_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '0px'
+    },
+
+    felzec_menu_container: {
+        width: '100%',
+        height: '60px',
+        backgroundColor: 'rgb(131,24,39)',
+        borderWidth: '2px 0px 0px 0px',
+        borderStyle: 'solid',
+        borderColor: 'rgba(255,255,255,.5)',
+        position: 'absolute',
+        bottom: '-48px',
+        zIndex: '10'
+    },
+
+    org_menu_felzec_light_item : {
+        height: '60px',
+        lineHeight: '60px',
+        float: 'right',
+        color: '#fefefe',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        position: 'relative',
+        display: 'inline-block'
+    },
+
+    felzec_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        padding: '30px 20% 30px 20%',
+        margin: '10px 0px 10px 0px',
+        backgroundColor: 'black'
+    },
+
+    felzec_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white',
+        wordBreak: 'break-all'
+    },
+
+    felzec_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'white'
+    },
+
+    felzec_roster_item_name_container: {
+        width: '100%',
+        display: 'table',
+        paddingBottom: '10px'
+    },
+
+    felzec_light_bg_img: {
+        width: '100%',
+        position: 'absolute',
+        top: '0px',
+        left: '0px'
+    },
+
+    felzec_blog_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_blog_inner_container: {
+        width: '100%',
+        padding: '50px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_team_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_team_inner_container: {
+        width: '100%',
+        height: '600px',
+        padding: '50px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_team_filter_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_game_container: {
+        width: '100%',
+        height: '70px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        paddingBottom: '-17px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_team_game_container: {
+        height: '70px',
+        marginRight: '80px',
+        marginLeft: '80px',
+        float: 'left',
+    },
+
+    felzec_team_game_media: {
+        height: '70px',
+        objectFit: 'fill'
+    },
+
+    felzec_lightBlogMaxContainer: {
+        width: '100%',
+        height: '500px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_image: {
+        width: '100%',
+        height: '500px',
+        objectFit: 'cover'
+    },
+
+    felzec_lightBlogMiniContainer: {
+        width: '100%',
+        height: '245px',
+        marginBottom: '10px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_mini_image: {
+        width: '100%',
+        height: '245px',
+        objectFit: 'cover'
+    },
+
     // ***************************************************************
     // New Dark Theme
     // ***************************************************************

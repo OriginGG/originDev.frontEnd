@@ -21,6 +21,7 @@ class AdminThemeController extends Component {
         let obliviot_light = { borderWidth: '0px' };
         let enigma_dark = { borderWidth: '0px' };
         let enigma_light = { borderWidth: '0px' };
+        let felzec_light = { borderWidth: '0px', display: 'none' };
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
         this.file_uploaded = false;
         this.selected_theme = this.props.uiStore.current_organisation.themeId;
@@ -35,7 +36,7 @@ class AdminThemeController extends Component {
                 enigma_dark = { borderWidth: '4px' };
                 enigma_light = { borderWidth: '0px' };
             }
-        } else {
+        } else if (this.selected_base_theme === 'obliviot') {
             choosen_theme = 'obliviot';
             if (this.selected_theme === 'light') {
                 obliviot_dark = { borderWidth: '0px' };
@@ -44,13 +45,23 @@ class AdminThemeController extends Component {
                 obliviot_dark = { borderWidth: '4px' };
                 obliviot_light = { borderWidth: '0px' };
             }
+        } else {
+            choosen_theme = 'felzec';
+            if (this.selected_theme === 'light') {
+                felzec_light = { borderWidth: '4px', display: 'none' };
+            } else {
+                felzec_light = { borderWidth: '4px', display: 'none' };
+            }
         }
         this.setState({
-            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
+            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, felzec_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
         });
     }
     editImage = () => {
         this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData, image_type: 'jumbo' });
+    }
+    editMainImage = () => {
+        this.setState({ modal_open: true, sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMainData, image_type: 'main' });
     }
     editSponsorImage = () => {
         this.setState({ modal_open: true, sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData, image_type: 'sponsor' });
@@ -96,6 +107,10 @@ class AdminThemeController extends Component {
                     this.props.uiStore.current_theme_structure.main_section.background.imageData = this.state.preview_image_src;
                     this.setState({ image_src: i });
                 }
+                if (this.state.image_type === 'main') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.preview_image_src;
+                    this.setState({ main_image_src: i, modal_open: false });
+                }
                 if (this.state.image_type === 'sponsor') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.preview_image_src;
                     this.setState({ sponsor_image_src: i, modal_open: false });
@@ -117,6 +132,7 @@ class AdminThemeController extends Component {
                     this.setState({ media_image_src: i, modal_open: false });
                 }
                 const s = toJS(this.props.uiStore.current_theme_structure);
+                console.log(`const s = ${JSON.stringify(s)}`);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ modal_open: false });
                 toast.success('Jumbotron updated !', {
@@ -125,8 +141,28 @@ class AdminThemeController extends Component {
             }
         } else {
             if (this.logo_files) {
-                const lf = await this.uploadtoS3();
-                this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
+                const lf = await this.uploadtoCloudinary();
+                if (this.state.image_type === 'jumbo') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
+                }
+                if (this.state.image_type === 'sponsor') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = lf;
+                }
+                if (this.state.image_type === 'main') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMainData = lf;
+                }
+                if (this.state.image_type === 'news') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = lf;
+                }
+                if (this.state.image_type === 'roster') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = lf;
+                }
+                if (this.state.image_type === 'matches') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = lf;
+                }
+                if (this.state.image_type === 'media') {
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = lf;
+                }
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ image_src: lf, modal_open: false });
@@ -137,6 +173,24 @@ class AdminThemeController extends Component {
             // upload to s3.
         }
     }
+    uploadtoCloudinary = () => {
+        return new Promise((resolve) => {
+            if (this.logo_files) {
+                const formData = new FormData();
+                formData.append('images', this.logo_files);
+                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${this.props.uiStore.current_organisation.subDomain}&theme=${this.selected_theme}&force_name=jumbotron`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((x) => {
+                    resolve(x.data.secure_url);
+                });
+            } else {
+                resolve(null);
+            }
+        });
+    }
+
     uploadtoS3 = () => {
         return new Promise((resolve) => {
             if (this.logo_files) {
@@ -182,6 +236,7 @@ class AdminThemeController extends Component {
         console.log('obliviot dark clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '4px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'dark';
     }
@@ -189,6 +244,7 @@ class AdminThemeController extends Component {
         console.log('enigma dark clicked');
         this.setState({ enigma_dark: { borderWidth: '4px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'dark';
     }
@@ -196,7 +252,16 @@ class AdminThemeController extends Component {
         console.log('enigma light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '4px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'enigma' });
+        this.new_theme = 'light';
+    }
+    handleFelzecLightClick = () => {
+        console.log('felzec light clicked');
+        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
+        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '4px' } });
+        this.setState({ choosen_theme: 'felzec' });
         this.new_theme = 'light';
     }
     render() {
@@ -204,11 +269,13 @@ class AdminThemeController extends Component {
             editImage={this.editImage}
             editNewsImage={this.editNewsImage}
             editSponsorImage={this.editSponsorImage}
+            editMainImage={this.editMainImage}
             editMatchessImage={this.editMatchessImage}
             editMediaImage={this.editMediaImage}
             editRostersImage={this.editRostersImage}
             image_src={this.state.image_src}
             image_sponsor_src={this.state.sponsor_image_src}
+            image_main_src={this.state.main_image_src}
             image_news_src={this.state.news_image_src}
             image_rosters_src={this.state.roster_image_src}
             image_matches_src={this.state.matches_image_src}
@@ -218,14 +285,17 @@ class AdminThemeController extends Component {
             handleObliviotDarkClick={this.handleObliviotDarkClick}
             handleEnigmaDarkClick={this.handleEnigmaDarkClick}
             handleEnigmaLightClick={this.handleEnigmaLightClick}
+            handleFelzecLightClick={this.handleFelzecLightClick}
             obliviot_light_style={this.state.obliviot_light}
             obliviot_dark_style={this.state.obliviot_dark}
             enigma_dark_style={this.state.enigma_dark}
             enigma_light_style={this.state.enigma_light}
+            felzec_light_style={this.state.felzec_light}
             enigma_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
             enigma_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
             obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/obliviot-dark-theme.jpg"
             obliviot_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
+            felzec_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
         />;
         if (this.state.modal_open) {
             md = <div>

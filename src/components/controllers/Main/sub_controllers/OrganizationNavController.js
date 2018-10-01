@@ -24,6 +24,8 @@ class OrganizationNavController extends Component {
         const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({ roster: p_array, visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
+        const nf_style = { display: 'none' };
+        this.setState({ felzec_menu: false, felzec_style: nf_style });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -33,14 +35,24 @@ class OrganizationNavController extends Component {
         this.setState({ dropdown: true });
     }
     handleCloseClick = () => {
-        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
+        // console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
         this.setState({ dropdown: false });
     }
     openPage = page => {
         window.open(page, '_blank');
     }
+    openMenu = () => {
+        // console.log('open menu');
+        if (this.state.felzec_menu) {
+            const st = { display: 'none' };
+            this.setState({ felzec_menu: false, felzec_style: st });
+        } else {
+            const st = { display: 'table' };
+            this.setState({ felzec_menu: true, felzec_style: st });
+        }
+    }
     render() {
-        console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
+        // console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
         if (this.state.visible === false) {
             return null;
         }
@@ -83,6 +95,8 @@ class OrganizationNavController extends Component {
         let social_link5 = <span />;
         let social_link6 = <span />;
 
+        const navicon = <i key="navicon" role="menuItem" tabIndex={-1} onClick={() => { this.openMenu(); }} className="fas fa-bars" />;
+
         if (social_links.length > 5) {
             social_link6 = social_links[5];          // eslint-disable-line
         }
@@ -104,7 +118,7 @@ class OrganizationNavController extends Component {
 
         const m_array = [];
         const p = this.state.roster;
-        console.log(` this.state.roster = ${JSON.stringify(p)}`);
+        // console.log(` this.state.roster = ${JSON.stringify(p)}`);
 
         this.roster_button_display = false;
         p.forEach((g, i) => {
@@ -122,7 +136,7 @@ class OrganizationNavController extends Component {
         });
         let sssss = { display: 'none' };
         if (this.roster_button_display) {
-            console.log('WWWWWWWWWWW there is roster data');
+            // console.log('WWWWWWWWWWW there is roster data');
             sssss = { display: 'inheret' };
         }
 
@@ -132,6 +146,7 @@ class OrganizationNavController extends Component {
             store_style={this.props.store_style}
             about_style={this.props.about_style}
             roster_dropdown_style={d_style}
+            felzec_menu_style={this.state.felzec_style}
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
@@ -149,6 +164,7 @@ class OrganizationNavController extends Component {
             social_link4={social_link4}
             social_link5={social_link5}
             social_link6={social_link6}
+            navicon={navicon}
             image_src={this.image_src} />;
     }
 }

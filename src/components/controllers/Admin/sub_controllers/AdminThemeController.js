@@ -69,7 +69,7 @@ class AdminThemeController extends Component {
             }
         } else {
             if (this.logo_files) {
-                const lf = await this.uploadtoS3();
+                const lf = await this.uploadtoCloudinary();
                 this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
@@ -81,6 +81,24 @@ class AdminThemeController extends Component {
             // upload to s3.
         }
     }
+    uploadtoCloudinary = () => {
+        return new Promise((resolve) => {
+            if (this.logo_files) {
+                const formData = new FormData();
+                formData.append('images', this.logo_files);
+                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${this.props.uiStore.current_organisation.subDomain}&theme=${this.selected_theme}&force_name=jumbotron`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((x) => {
+                    resolve(x.data.Location);
+                });
+            } else {
+                resolve(null);
+            }
+        });
+    }
+
     uploadtoS3 = () => {
         return new Promise((resolve) => {
             if (this.logo_files) {
