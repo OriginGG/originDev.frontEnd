@@ -50,11 +50,11 @@ class OrganizationTwitchController extends Component {
                 }
             }
         });
-        console.log(`twitch url = ${twitch_url}`);
-        console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
+        // console.log(`twitch url = ${twitch_url}`);
+        // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
         twitch_url = twitch_url.concat(twitch_url.length - 1);
         const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
-        console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
+        // console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
             live_list: td,
             roster_list: t_array,
@@ -87,21 +87,21 @@ class OrganizationTwitchController extends Component {
         const p_array = [];
         this.state.roster_list.forEach((r, i) => {
             let is_live = false;
-            console.log(`LIVE LIST ${JSON.stringify(this.state.live_list.data.success)} and i = ${i}`);
-            console.log(`user_id = ${r.twitchUserId}`);
+            // console.log(`LIVE LIST ${JSON.stringify(this.state.live_list.data.success)} and i = ${i}`);
+            // console.log(`user_id = ${r.twitchUserId}`);
             if (this.state.live_list.data.success) {
                 this.state.live_list.data.users.forEach((l) => {
-                    console.log(`r.twitchUserId = ${r.twitchUserId} and l.user_id = ${l.user_id}`);
+                    // console.log(`r.twitchUserId = ${r.twitchUserId} and l.user_id = ${l.user_id}`);
                     if (Number(l.user_id) === Number(r.twitchUserId)) {
                         is_live = true;
                         const d_style = { backgroundColor: 'green' };
                         const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
                         const t_thumb = l.thumbnail_url;
-                        console.log(`thumbnail is ${t_thumb}`);
+                        // console.log(`thumbnail is ${t_thumb}`);
                         const w_thumb = t_thumb.replace('{width}', '300');
                         const f_thumb = w_thumb.replace('{height}', '150');
-                        console.log(`final thumbnail is ${f_thumb}`);
-                        console.log('is_live');
+                        // console.log(`final thumbnail is ${f_thumb}`);
+                        // console.log('is_live');
                         p_array.unshift(<OrganizationTwitchComponentRender
                             key={`twitch_live_k_${i}`}
                             twitch_url={t_url}
@@ -114,7 +114,7 @@ class OrganizationTwitchController extends Component {
             }
 
             if (!is_live) {
-                console.log('is NOT live');
+                // console.log('is NOT live');
                 const t_url = `https://player.twitch.tv/?channel=${r.twitchUrl}`;
                 const t_thumb = offline_image;
                 p_array.push(<OrganizationTwitchComponentRender
@@ -124,7 +124,7 @@ class OrganizationTwitchController extends Component {
                     twitch_name={r.twitchUrl}
                 />);
             }
-            console.log(`testing what it sorts as ${p_array.toString}`);
+            // console.log(`testing what it sorts as ${p_array.toString}`);
         });
         return (<OrganizationTwitchHolderComponentRender
             handleLeftScroll={this.handleLeftScroll}

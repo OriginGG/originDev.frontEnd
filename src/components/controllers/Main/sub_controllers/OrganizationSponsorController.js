@@ -28,12 +28,12 @@ class OrganizationSponsorController extends Component {
         console.log(error, info);
     }
     handleClick = (link) => {
-        console.log(`link = ${link}`);
+        // console.log(`link = ${link}`);
         if (link && link.includes('http')) {
-            console.log(`link has http = ${link}`);
+            // console.log(`link has http = ${link}`);
             window.open(link, '_blank');
         } else if (link) {
-            console.log(`link not full ${link}`);
+            // console.log(`link not full ${link}`);
             const new_link = `http://${link}`;
             window.open(new_link, '_blank');
         }
