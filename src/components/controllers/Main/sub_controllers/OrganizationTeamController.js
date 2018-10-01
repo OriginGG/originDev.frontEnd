@@ -166,7 +166,7 @@ class OrganizationTeamController extends Component {
                 const currGame = _.find(gameOptions, (o) => {
                     return o.game_id === gameId;
                 });
-                console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
+                // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
                 p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
         }
@@ -205,7 +205,7 @@ class OrganizationTeamController extends Component {
         const m_array = [];
         const p = this.state.games;
         p.forEach((g, i) => {
-            console.log(`KKKKKKKKKKKKKKKKK = ${JSON.stringify(g)}`);
+            // console.log(`KKKKKKKKKKKKKKKKK = ${JSON.stringify(g)}`);
             m_array.push(<div
                 role="menuItem"
                 tabIndex={-1}

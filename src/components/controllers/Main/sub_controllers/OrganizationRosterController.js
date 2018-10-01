@@ -16,7 +16,7 @@ class OrganizationRosterController extends Component {
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
-        console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
+        // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
         this.setState({ roster_list: edges, visible: true, OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default });
     }
     // handleClick = (link) => {
@@ -63,7 +63,7 @@ class OrganizationRosterController extends Component {
                 break;
             }
         }
-        console.log(s);
+        // console.log(s);
     }
 
     render() {
@@ -83,7 +83,7 @@ class OrganizationRosterController extends Component {
         }
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
-            console.log(`each roster item = ${individualUserByIndividualId}`);
+            // console.log(`each roster item = ${individualUserByIndividualId}`);
             let im = blankProfileImage;
             if (individualUserByIndividualId.profileImageUrl) {
                 im = individualUserByIndividualId.profileImageUrl;
