@@ -35,14 +35,14 @@ class OrganizationNavController extends Component {
         this.setState({ dropdown: true });
     }
     handleCloseClick = () => {
-        console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
+        // console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
         this.setState({ dropdown: false });
     }
     openPage = page => {
         window.open(page, '_blank');
     }
     openMenu = () => {
-        console.log('open menu');
+        // console.log('open menu');
         if (this.state.felzec_menu) {
             const st = { display: 'none' };
             this.setState({ felzec_menu: false, felzec_style: st });
@@ -52,7 +52,7 @@ class OrganizationNavController extends Component {
         }
     }
     render() {
-        console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
+        // console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
         if (this.state.visible === false) {
             return null;
         }
@@ -118,7 +118,7 @@ class OrganizationNavController extends Component {
 
         const m_array = [];
         const p = this.state.roster;
-        console.log(` this.state.roster = ${JSON.stringify(p)}`);
+        // console.log(` this.state.roster = ${JSON.stringify(p)}`);
 
         this.roster_button_display = false;
         p.forEach((g, i) => {
@@ -136,7 +136,7 @@ class OrganizationNavController extends Component {
         });
         let sssss = { display: 'none' };
         if (this.roster_button_display) {
-            console.log('WWWWWWWWWWW there is roster data');
+            // console.log('WWWWWWWWWWW there is roster data');
             sssss = { display: 'inheret' };
         }
 

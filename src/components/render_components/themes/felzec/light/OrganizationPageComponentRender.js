@@ -19,9 +19,7 @@ class LightOrganizationPageComponentRender extends Component {
                         <div className={this.props.classes.felzec_lightBlogContainer}>
                             <div >{this.props.blogContent}</div>
                         </div>
-                        <div id="roster_component" style={{
-                            paddingTop: '30px'
-                        }}>{this.props.rosterContent}</div>
+                        <div id="team_component">{this.props.teamContent}</div>
                         <div className={this.props.classes.obliviot_light_section_control_container} style={this.props.obliviot_hidden_style}>
                             <div className={this.props.classes.obliviot_light_section_divider}/>
                             <div className={this.props.classes.obliviot_light_section_title}>STREAMS</div>
@@ -62,6 +60,9 @@ class LightOrganizationPageComponentRender extends Component {
                             <div className={this.props.classes.obliviot_light_section_view_more}>VIEW MORE</div>
                         </div>
                         <div id="matches_container">{this.props.matchesContent}</div>
+                        <div id="roster_component" style={{
+                            paddingTop: '30px'
+                        }}>{this.props.rosterContent}</div>
                         <footer className={this.props.classes.obliviot_darkHeader}>
                             <div >{this.props.navContent}</div>
                         </footer>

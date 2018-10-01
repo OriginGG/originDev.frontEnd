@@ -14,7 +14,7 @@ class OrganizationBlogViewController extends Component {
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        console.log(`them = ${theme}`);
+        // console.log(`them = ${theme}`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
         this.setState({ visible: true, OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default });
     }

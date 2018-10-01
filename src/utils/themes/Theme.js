@@ -1558,6 +1558,16 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '600px',
         display: 'table',
+        position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_lightTeamContainer: {
+        width: '100%',
+        height: '500px',
+        display: 'table',
+        position: 'relative',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
@@ -1678,10 +1688,93 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_container: {
         width: '100%',
-        padding: '50px 10% 50px 10%',
+        height: '600px',
         backgroundColor: 'rgb(230,230,230)',
-        marginLeft: 'auto',
-        marginRight: 'auto'
+        position: 'relative'
+    },
+
+    felzec_blog_inner_container: {
+        width: '100%',
+        padding: '50px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_team_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_team_inner_container: {
+        width: '100%',
+        height: '600px',
+        padding: '50px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_team_filter_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_game_container: {
+        width: '100%',
+        height: '70px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        paddingBottom: '-17px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_team_game_container: {
+        height: '70px',
+        marginRight: '80px',
+        marginLeft: '80px',
+        float: 'left',
+    },
+
+    felzec_team_game_media: {
+        height: '70px',
+        objectFit: 'fill'
+    },
+
+    felzec_lightBlogMaxContainer: {
+        width: '100%',
+        height: '500px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_image: {
+        width: '100%',
+        height: '500px',
+        objectFit: 'cover'
+    },
+
+    felzec_lightBlogMiniContainer: {
+        width: '100%',
+        height: '245px',
+        marginBottom: '10px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_mini_image: {
+        width: '100%',
+        height: '245px',
+        objectFit: 'cover'
     },
 
     // ***************************************************************

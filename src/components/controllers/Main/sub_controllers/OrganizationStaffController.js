@@ -26,7 +26,7 @@ class OrganizationStaffController extends Component {
             const p_type = outer_edges[outer].node.positionId;
             const tx = _.find(staffOptions, o => o.position_id === p_type).text;
             const ed_array = [];
-            console.log(`staff = ${JSON.stringify(edges)}`);
+            // console.log(`staff = ${JSON.stringify(edges)}`);
             edges.forEach((ed) => {
                 const pm = JSON.parse(JSON.stringify(ed));
                 pm.node.individualUserByIndividualId.position = tx;
@@ -63,7 +63,7 @@ class OrganizationStaffController extends Component {
     }
 
     handle_social = (s, ind_user) => {
-        console.log(`type = ${s}`);
+        // console.log(`type = ${s}`);
         switch (s) {
             case 'twitter': {
                 const p_string = `https://twitter.com/${ind_user.twitterHandle}`;
@@ -82,7 +82,7 @@ class OrganizationStaffController extends Component {
                 break;
             }
         }
-        console.log(s);
+        // console.log(s);
     }
 
     render() {

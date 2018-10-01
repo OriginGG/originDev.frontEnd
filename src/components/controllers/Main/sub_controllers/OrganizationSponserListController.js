@@ -13,7 +13,7 @@ class OrganizationSponserListController extends Component {
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        console.log(`them = ${theme}`);
+        // console.log(`them = ${theme}`);
         const subDomain = this.props.uiStore.current_subdomain;
         const OrganizationSponsersItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponsersItemComponentRender`);
         const sponser_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
@@ -29,7 +29,7 @@ class OrganizationSponserListController extends Component {
     // }
 
     handleClick = (i) => {              // eslint-disable-line
-        console.log(`i = ${i}`);
+        // console.log(`i = ${i}`);
         if (i) {
             window.open(i, '_blank');
         }
@@ -94,10 +94,10 @@ class OrganizationSponserListController extends Component {
         // sponser_array.push({ s_image: sponser_image3, s_link: sponser_link3, s_desc: sponser_desc3 });
         // sponser_array.push({ s_image: sponser_image4, s_link: sponser_link4, s_desc: sponser_desc4 });
 
-        console.log(`sponser_array = ${JSON.stringify(sponser_array)}`);
+        // console.log(`sponser_array = ${JSON.stringify(sponser_array)}`);
 
         sponser_array.forEach((r, i) => {
-            console.log(`r = ${JSON.stringify(r)}`);
+            // console.log(`r = ${JSON.stringify(r)}`);
             const individualSponserByIndividualId = r;
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualSponserByIndividualId.s_link); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender
                 sponser_image={individualSponserByIndividualId.s_image}
