@@ -120,6 +120,7 @@ const component_array = [
     { source_html: './src/html/themes/felzec/light/OrganizationBlogComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationTeamComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationTeamGameComponent.html', sub_dir: 'themes/felzec/light' },
+    { source_html: './src/html/themes/felzec/light/OrganizationTeamImageComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationBlogModuleComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationSponserComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationSponserComponentElement.html', sub_dir: 'themes/felzec/light' },

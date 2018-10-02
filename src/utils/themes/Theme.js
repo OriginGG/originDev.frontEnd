@@ -1709,6 +1709,60 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_team_image_container: {
+        width: '170px',
+        height: '170px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_team_image: {
+        width: '170px',
+        height: '170px',
+        objectFit: 'contain',
+        position: 'relative'
+    },
+
+    felzec_team_overlay: {
+        width: '170px',
+        height: '170px',
+        objectFit: 'contain',
+        position: 'absolute',
+        zIndex: '10',
+        top: '0px',
+        left: '0px',
+        backgroundColor: 'black'
+    },
+
+    felzec_team_overlay_name: {
+        lineHeight: '20px',
+        with: '100%',
+        fontSize: '18px',
+        fontWeight: '900',
+        textAlign: 'left',
+        color: 'white'
+    },
+
+    felzec_team_overlay_handle: {
+        width: '100%',
+        lineHeight: '18px',
+        fontSize: '16px',
+        fontWeight: '900',
+        textAlign: 'left',
+        color: 'red'
+    },
+
+    felzec_team_overlay_button: {
+        height: '30px',
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '16px',
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: '100',
+        cursor: 'pointer'
+    },
+
     felzec_team_inner_container: {
         width: '100%',
         height: '600px',
@@ -1731,6 +1785,16 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_game_container: {
         width: '100%',
         height: '70px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        paddingBottom: '-17px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_teammate_container: {
+        width: '100%',
+        height: '170px',
         overflowX: 'auto',
         overflowY: 'hidden',
         paddingBottom: '-17px',

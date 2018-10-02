@@ -236,7 +236,7 @@ class AdminThemeController extends Component {
         console.log('obliviot dark clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '4px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px', display: 'none' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'dark';
     }
@@ -244,7 +244,7 @@ class AdminThemeController extends Component {
         console.log('enigma dark clicked');
         this.setState({ enigma_dark: { borderWidth: '4px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px', display: 'none' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'dark';
     }
@@ -252,7 +252,7 @@ class AdminThemeController extends Component {
         console.log('enigma light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '4px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px' } });
+        this.setState({ felzec_light: { borderWidth: '0px', display: 'none' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'light';
     }
@@ -260,7 +260,7 @@ class AdminThemeController extends Component {
         console.log('felzec light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '4px' } });
+        this.setState({ felzec_light: { borderWidth: '4px', display: 'none' } });
         this.setState({ choosen_theme: 'felzec' });
         this.new_theme = 'light';
     }

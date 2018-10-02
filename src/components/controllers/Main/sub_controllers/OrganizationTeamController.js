@@ -160,8 +160,9 @@ class OrganizationTeamController extends Component {
         const p_array = [];
         if (!this.isMobile()) {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-            console.log(`team data = ${JSON.stringify(roster_data)}`);
+            // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allRosters.edges.forEach((r) => {
+                console.log(`r data = ${JSON.stringify(r)}`);
                 const { gameId } = r.node;
                 const currGame = _.find(gameOptions, (o) => {
                     return o.game_id === gameId;
@@ -174,12 +175,14 @@ class OrganizationTeamController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationTeamComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamComponentRender`);
         const OrganizationTeamGameComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamGameComponentRender`);
+        // const OrganizationTeamImageComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamImageComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         this.setState({
             games: p_array,
             visible: true,
             OrganizationTeamGameComponentRender: OrganizationTeamGameComponentRender.default,
-            OrganizationTeamComponentRender: OrganizationTeamComponentRender.default
+            OrganizationTeamComponentRender: OrganizationTeamComponentRender.default,
+            // OrganizationTeamImageComponentRender: OrganizationTeamImageComponentRender.default
         });
     }
     componentDidCatch = (error, info) => {
@@ -205,7 +208,6 @@ class OrganizationTeamController extends Component {
         const m_array = [];
         const p = this.state.games;
         p.forEach((g, i) => {
-            // console.log(`KKKKKKKKKKKKKKKKK = ${JSON.stringify(g)}`);
             m_array.push(<div
                 role="menuItem"
                 tabIndex={-1}
