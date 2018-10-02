@@ -21,13 +21,12 @@
       </script>    
    </head>
    <body>
-        <div data-component-name="light_OrganizationTeamComponent"  class="classes.felzec_team_container">
-            <div class="classes.felzec_team_container" data-component-props="style={this.props.bg_style}">
-            </div>
-            <div class="classes.felzec_team_filter_container" data-component-props="style={this.props.filter_style}"></div>
-            <div class="classes.felzec_team_inner_container">
-                <div class="classes.felzec_game_container" data-component-value="{this.props.roster_games}">game</div>
-                <div class="classes.felzec_teammate_container" data-component-value="{this.props.roster_teams}">game</div>
+        <div data-component-name="light_OrganizationTeamImageComponent"  class="classes.felzec_team_image_container">
+            <img class="classes.felzec_team_image" data-component-props="src={this.props.team_image}" />
+            <div class="classes.felzec_team_overlay" data-component-props="style={this.props.felzec_overlay_style}">
+                <span class="classes.felzec_team_overlay_name" data-component-value="{this.props.felzec_team_name}">John Doe</span>
+                <span class="classes.felzec_team_overlay_handle" data-component-value="{this.props.felzec_team_handle}">undertaker</span>
+                <div class="classes.felzec_team_overlay_button"></div>
             </div>
         </div>
    </body>
