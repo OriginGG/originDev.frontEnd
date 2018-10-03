@@ -297,6 +297,10 @@ class IndividualPageController extends Component {
             this.twitch_stats = td.data.user;
         }
     }
+    // redirectTwitterLogin = async (user) => {
+    //     const redirectURL = await axios.get(`${process.env.REACT_APP_API_SERVER}/auth/twitterCheck`);
+    //     windows.open(redirectURL);
+    // }
     getTwitterStats = async () => {
         if (this.user_details.twitterHandle) {
             const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('/') + 1);
