@@ -21,7 +21,7 @@ class AdminThemeController extends Component {
         let obliviot_light = { borderWidth: '0px' };
         let enigma_dark = { borderWidth: '0px' };
         let enigma_light = { borderWidth: '0px' };
-        let felzec_light = { borderWidth: '0px', display: 'none' };
+        let felzec_light = { borderWidth: '0px', };
         this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
         this.file_uploaded = false;
         this.selected_theme = this.props.uiStore.current_organisation.themeId;
@@ -48,9 +48,9 @@ class AdminThemeController extends Component {
         } else {
             choosen_theme = 'felzec';
             if (this.selected_theme === 'light') {
-                felzec_light = { borderWidth: '4px', display: 'none' };
+                felzec_light = { borderWidth: '4px' };
             } else {
-                felzec_light = { borderWidth: '4px', display: 'none' };
+                felzec_light = { borderWidth: '4px' };
             }
         }
         this.setState({
@@ -236,7 +236,7 @@ class AdminThemeController extends Component {
         console.log('obliviot dark clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '4px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px', display: 'none' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'dark';
     }
@@ -244,7 +244,7 @@ class AdminThemeController extends Component {
         console.log('enigma dark clicked');
         this.setState({ enigma_dark: { borderWidth: '4px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px', display: 'none' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'dark';
     }
@@ -252,7 +252,7 @@ class AdminThemeController extends Component {
         console.log('enigma light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '4px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px', display: 'none' } });
+        this.setState({ felzec_light: { borderWidth: '0px' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'light';
     }
@@ -260,7 +260,7 @@ class AdminThemeController extends Component {
         console.log('felzec light clicked');
         this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
         this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '4px', display: 'none' } });
+        this.setState({ felzec_light: { borderWidth: '4px' } });
         this.setState({ choosen_theme: 'felzec' });
         this.new_theme = 'light';
     }

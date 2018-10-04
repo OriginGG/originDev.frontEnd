@@ -162,7 +162,7 @@ class OrganizationTeamController extends Component {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allRosters.edges.forEach((r) => {
-                console.log(`r data = ${JSON.stringify(r)}`);
+                // console.log(`r data = ${JSON.stringify(r)}`);
                 const { gameId } = r.node;
                 const currGame = _.find(gameOptions, (o) => {
                     return o.game_id === gameId;
@@ -175,15 +175,18 @@ class OrganizationTeamController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationTeamComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamComponentRender`);
         const OrganizationTeamGameComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamGameComponentRender`);
-        // const OrganizationTeamImageComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamImageComponentRender`);
+        const OrganizationTeamMateController = await import('./OrganizationTeamMateController');
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         this.setState({
             games: p_array,
+            current_roster_id: 47,
             visible: true,
             OrganizationTeamGameComponentRender: OrganizationTeamGameComponentRender.default,
             OrganizationTeamComponentRender: OrganizationTeamComponentRender.default,
+            OrganizationTeamMateController: OrganizationTeamMateController.default,
             // OrganizationTeamImageComponentRender: OrganizationTeamImageComponentRender.default
         });
+        // console.log(`roster_array = ${JSON.stringify(this.state.rosters)}`);
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -193,12 +196,16 @@ class OrganizationTeamController extends Component {
     }
     handleTeamClick = (t) => {
         console.log(JSON.stringify(t));
+        // const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
+        // const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
+        this.setState({ current_roster_id: t });
     }
     render() {
         if (this.state.visible === false) {
             return null;
         }
         const { OrganizationTeamGameComponentRender } = this.state;
+        const { OrganizationTeamMateController } = this.state;
         const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
         const f = { backgroundColor: 'rgba(255,0,0,.7)' };
         // let s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'contrast(.1) sepia(100%) hue-rotate(210deg) brightness(1.4) saturate(0.28)' };
@@ -222,7 +229,7 @@ class OrganizationTeamController extends Component {
             </div>);
         });
         const { OrganizationTeamComponentRender } = this.state;
-        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} />;
+        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} roster_teams={<OrganizationTeamMateController closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
     }
 }
 

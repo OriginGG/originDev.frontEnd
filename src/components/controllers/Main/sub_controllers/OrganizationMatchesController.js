@@ -128,14 +128,18 @@ class OrganizationMatchesController extends Component {
         if (edges.length === 0) {
             return null;
         }
+        const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg1.jpg)', backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        const f = { backgroundColor: 'rgba(0,0,0,.5)' };
         const p_array = [];
         edges.forEach((res, i) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
+            const g_type = res.node.gameName;
+            const g_league = 'National League';
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             console.log(`i = ${i}`);
-            // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');
@@ -162,6 +166,8 @@ class OrganizationMatchesController extends Component {
                 matches_image_1={g_image.image}
                 matches_image_2={res.node.gameLogo}
                 matches_score={res.node.score}
+                matches_game={g_type}
+                matches_league={g_league}
                 matches_date={formattedDate}
                 win_style={ws}
             />);
@@ -202,6 +208,8 @@ class OrganizationMatchesController extends Component {
         handleLeftScroll={this.handleLeftScroll}
         handleRightScroll={this.handleRightScroll}
         recent_matches={p_array}
+        bg_style={s}
+        filter_style={f}
         storeRef={this.storeRef}
         />;
     }
