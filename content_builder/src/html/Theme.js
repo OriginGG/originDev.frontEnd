@@ -1702,6 +1702,22 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    felzec_matches_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_matches_inner_container: {
+        width: '100%',
+        padding: '10px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
     felzec_team_container: {
         width: '100%',
         height: '600px',
@@ -1719,7 +1735,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_image: {
         width: '170px',
         height: '170px',
-        objectFit: 'contain',
+        objectFit: 'cover',
         position: 'relative'
     },
 
@@ -1728,6 +1744,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '170px',
         objectFit: 'contain',
         position: 'absolute',
+        padding: '15px',
         zIndex: '10',
         top: '0px',
         left: '0px',
@@ -1735,9 +1752,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_overlay_name: {
-        lineHeight: '20px',
-        with: '100%',
-        fontSize: '18px',
+        lineHeight: '24px',
+        width: '100%',
+        fontSize: '20px',
         fontWeight: '900',
         textAlign: 'left',
         color: 'white'
@@ -1745,8 +1762,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_overlay_handle: {
         width: '100%',
-        lineHeight: '18px',
-        fontSize: '16px',
+        lineHeight: '22px',
+        fontSize: '18px',
         fontWeight: '900',
         textAlign: 'left',
         color: 'red'
@@ -1760,7 +1777,11 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'center',
         color: 'white',
         fontWeight: '100',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        position: 'absolute',
+        bottom: '30px',
+        left: '0',
+        backgroundColor: 'blue'
     },
 
     felzec_team_inner_container: {
@@ -1782,6 +1803,125 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    felzec_matches_inner_container: {
+        width: '100%',
+        height: '600px',
+        padding: '10px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_filter_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_match_element_container: {
+        width: '100%',
+        height: '500px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
+    felzec_match_info_container: {
+        width: '100%',
+        height: '100px',
+        lineHeight: '100px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    felzec_matches_game: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    felzec_matches_league: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center'
+    },
+
+    felzec_matches_date: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center'
+    },
+
+    felzec_switch_container: {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: '50px'
+    },
+
+    felzec_switch_upcoming_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '50px',
+        fontSize: '24px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '50px',
+        backgroundColor: 'black',
+        color: '#cccccc'
+    },
+
+    felzec_switch_recent_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '50px',
+        fontSize: '24px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '50px',
+        backgroundColor: 'red',
+        color: 'white'
+    },
+
+    felzec_light_match_container: {
+        width: '100%',
+        padding: '10px 0px 10px 0px',
+        borderBottom: '1px solid rgba(255,255,255,.5)'
+    },
+
+    felzec_light_match_vs_image: {
+        width: '70px',
+        height: '70px',
+        marginTop: '15px',
+        backgroundColor: 'rgba(0,0,0,0)',
+        float: 'left'
+    },
+
+    felzec_light_match_vs_score: {
+        width: '80px',
+        height: '100px',
+        lineHeight: '100px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900',
+        float: 'left'
+    },
+
     felzec_game_container: {
         width: '100%',
         height: '70px',
@@ -1798,6 +1938,7 @@ export const GlobalStyles = GlobalTheme => ({
         overflowX: 'auto',
         overflowY: 'hidden',
         paddingBottom: '-17px',
+        marginTop: '150px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
     },

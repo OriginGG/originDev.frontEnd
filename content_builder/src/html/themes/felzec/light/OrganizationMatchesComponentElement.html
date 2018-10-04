@@ -22,15 +22,23 @@
       </script>  
    </head>
    <body>
-        <div data-component-name="light_OrganizationMatchesComponentElement"  style="display:inline-block;">
-            <div class="classes.obliviot_light_match_container">
-                <div class="classes.obliviot_light_match_vs_container">
-                    <img class="classes.obliviot_light_match_vs_image" data-component-props="src={this.props.matches_image_1}" />
-                    <div class="classes.obliviot_light_match_vs_score" data-component-value="{this.props.matches_score}">10-8</div>
-                    <img class="classes.obliviot_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
+        <div data-component-name="light_OrganizationMatchesComponentElement">
+            <div class="classes.felzec_light_match_container">
+                <div class="ui stackable three column grid">
+                    <div class="column">
+                        <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_1}" />
+                        <div class="classes.felzec_light_match_vs_score" data-component-value="{this.props.matches_score}">10-8</div>
+                        <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
+                    </div>
+                    <div class="column">
+                        <div class="classes.felzec_matches_game" data-component-value="{this.props.matches_game}">Call of Duty</div>
+                        <div class="classes.felzec_matches_league" data-component-value="{this.props.matches_league}">National League</div>
+                        <div class="classes.felzec_matches_date" data-component-value="{this.props.matches_date}">22 AUG 2018</div>
+                    </div>
+                    <div class="column">
+                        <div class="classes.felzec_match_info_container">SEE MORE</div>
+                    </div>
                 </div>
-                <div class="classes.obliviot_light_match_vs_date" data-component-value="{this.props.matches_date}">22 AUG 2018</div>
-                <div data-component-props="style={this.props.win_style}" class="classes.obliviot_light_corner_win" ></div>
             </div>
         </div>
    </body>
