@@ -98,6 +98,9 @@ class OrganizationMatchesController extends Component {
         const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
+        this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
+        this.upcoming_style = { color: 'white', backgroundColor: 'red' };
+        this.setState({ recent_style: this.recent_style, upcoming_style: this.upcoming_style });
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
         this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default, OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default });
     }
@@ -116,12 +119,16 @@ class OrganizationMatchesController extends Component {
         }
     }
 
-    handleUpcomingClick = () => {
-        console.log('handle upccoing click');
+    handleRecentClick = () => {
+        const u_style = { color: '#cccccc', backgroundColor: 'black' };
+        const r_style = { color: 'white', backgroundColor: 'red' };
+        this.setState({ recent_style: r_style, upcoming_style: u_style });
     }
 
-    handleRecentClick = () => {
-        console.log('handle recent click');
+    handleUpcomingClick = () => {
+        const r_style = { color: '#cccccc', backgroundColor: 'black' };
+        const u_style = { color: 'white', backgroundColor: 'red' };
+        this.setState({ recent_style: r_style, upcoming_style: u_style });
     }
 
     storeRef = ref => {
@@ -218,6 +225,8 @@ class OrganizationMatchesController extends Component {
         handleRightScroll={this.handleRightScroll}
         handleUpcomingClick={this.handleUpcomingClick}
         handleRecentClick={this.handleRecentClick}
+        upcoming_style={this.state.upcoming_style}
+        recent_style={this.state.recent_style}
         recent_matches={p_array}
         bg_style={s}
         filter_style={f}
