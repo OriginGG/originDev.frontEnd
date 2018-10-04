@@ -115,6 +115,15 @@ class OrganizationMatchesController extends Component {
             this.scrollRef.scrollLeft += 100;
         }
     }
+
+    handleUpcomingClick = () => {
+        console.log('handle upccoing click');
+    }
+
+    handleRecentClick = () => {
+        console.log('handle recent click');
+    }
+
     storeRef = ref => {
         this.scrollRef = ref;
     }
@@ -207,6 +216,8 @@ class OrganizationMatchesController extends Component {
         return <OrganizationMatchesComponentRender
         handleLeftScroll={this.handleLeftScroll}
         handleRightScroll={this.handleRightScroll}
+        handleUpcomingClick={this.handleUpcomingClick}
+        handleRecentClick={this.handleRecentClick}
         recent_matches={p_array}
         bg_style={s}
         filter_style={f}

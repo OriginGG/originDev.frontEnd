@@ -12,8 +12,8 @@ class LightOrganizationMatchesComponentRender extends Component {
                 <div className={this.props.classes.felzec_matches_filter_container} style={this.props.filter_style}/>
                 <div className={this.props.classes.felzec_matches_inner_container}>
                     <div className={this.props.classes.felzec_switch_container}>
-                        <div className={this.props.classes.felzec_switch_upcoming_container}>UPCOMING MATCHES</div>
-                        <div className={this.props.classes.felzec_switch_recent_container}>LATEST RESULTS</div>
+                        <div className={this.props.classes.felzec_switch_upcoming_container} style={this.props.upcoming_style} onClick={this.props.handleUpcomingClick}>UPCOMING MATCHES</div>
+                        <div className={this.props.classes.felzec_switch_recent_container} style={this.props.recent_style} onClick={this.props.handleRecentClick}>LATEST RESULTS</div>
                     </div>
                     <div className={this.props.classes.felzec_match_element_container}>{this.props.recent_matches}</div>
                 </div>

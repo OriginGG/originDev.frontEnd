@@ -1882,7 +1882,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900',
         height: '50px',
         backgroundColor: 'black',
-        color: '#cccccc'
+        color: '#cccccc',
+        cursor: 'pointer'
     },
 
     felzec_switch_recent_container: {
@@ -1894,7 +1895,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900',
         height: '50px',
         backgroundColor: 'red',
-        color: 'white'
+        color: 'white',
+        cursor: 'pointer'
     },
 
     felzec_light_match_container: {
