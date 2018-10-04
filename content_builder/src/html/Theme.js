@@ -1704,7 +1704,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_matches_container: {
         width: '100%',
-        height: '600px',
+        height: '400px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
@@ -1805,7 +1805,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_matches_inner_container: {
         width: '100%',
-        height: '600px',
+        height: '400px',
         padding: '10px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1815,7 +1815,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_matches_filter_container: {
         width: '100%',
-        height: '600px',
+        height: '400px',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -1824,7 +1824,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_match_element_container: {
         width: '100%',
-        height: '500px',
+        height: '340px',
         overflowY: 'auto',
         overflowX: 'hidden',
     },

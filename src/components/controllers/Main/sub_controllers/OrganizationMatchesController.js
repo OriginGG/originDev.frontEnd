@@ -22,6 +22,11 @@ import splatoon_image from '../../../../assets/images/game_images/splatoon.png';
 import vainglory_image from '../../../../assets/images/game_images/vainglory.png';
 import wow_image from '../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../assets/images/game_images/r6.png';
+import gow_image from '../../../../assets/images/game_images/gow.png';
+import streetfighter_image from '../../../../assets/images/game_images/streetfighter.png';
+import ssb_image from '../../../../assets/images/game_images/ssb.png';
+import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
+import tekken_image from '../../../../assets/images/game_images/tekken.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -85,8 +90,36 @@ const gameOptions = [
         value: 'WOW',
         image: wow_image
     },
-
-
+    {
+        game_id: 16,
+        text: 'Gears Of War',
+        value: 'Gears Of War',
+        image: gow_image
+    },
+    {
+        game_id: 17,
+        text: 'Street Fighter',
+        value: 'Street Fighter',
+        image: streetfighter_image
+    },
+    {
+        game_id: 18,
+        text: 'DragonBall: FighterZ',
+        value: 'DragonBall: FighterZ',
+        image: dragonball_image
+    },
+    {
+        game_id: 19,
+        text: 'Super Smash Bros',
+        value: 'Super Smash Bros',
+        image: ssb_image
+    },
+    {
+        game_id: 20,
+        text: 'Tekken',
+        value: 'Tekken',
+        image: tekken_image
+    },
 ];
 class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }

@@ -17,7 +17,7 @@ const { confirm } = Modal;
 
 class AdminRecentMatchesController extends Component {
     state = {
-        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_league: '', your_event: ''
+        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_url: '', event_description: '', your_date: ''
     };
     componentDidMount = async () => {
         this.upload_file = false;
@@ -95,24 +95,24 @@ class AdminRecentMatchesController extends Component {
             return;
         }
         if (!this.state.your_score) {
-            toast.error('Please enter your score', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
+            // toast.error('Please enter your score', {
+            //     position: toast.POSITION.TOP_LEFT
+            // });
+            // return;
         }
         if (!this.state.their_score) {
-            toast.error('Please enter your opponents score', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
+            // toast.error('Please enter your opponents score', {
+            //     position: toast.POSITION.TOP_LEFT
+            // });
+            // return;
         }
-        if (!this.state.your_league) {
+        if (!this.state.your_url) {
             toast.error('Please enter your league', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
         }
-        if (!this.state.your_event) {
+        if (!this.state.event_description) {
             toast.error('Please enter your event', {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -133,7 +133,7 @@ class AdminRecentMatchesController extends Component {
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
-                        subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, score: `${this.state.your_score} - ${this.state.their_score}`
+                        subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, eventDescription: this.event_description, score: `${this.state.your_score} - ${this.state.their_score}`
                     }
                 );
                 toast.success('Match Added !', {
@@ -219,22 +219,33 @@ class AdminRecentMatchesController extends Component {
                     <div style={{ marginTop: 15 }}>
                         <Input
                             action={{
-                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'The League'
+                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Info URL'
                             }}
                             actionPosition="left"
-                            placeholder="League..."
-                            value={this.state.your_league}
-                            onChange={(e) => { this.handleInputChange(e, 'your_league'); }}
+                            placeholder="URL..."
+                            value={this.state.your_url}
+                            onChange={(e) => { this.handleInputChange(e, 'your_url'); }}
                         />
                         <Input
                             action={{
-                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'The Event'
+                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event/Description'
                             }}
                             actionPosition="left"
-                            placeholder="Event..."
-                            value={this.state.your_event}
-                            onChange={(e) => { this.handleInputChange(e, 'your_event'); }}
+                            placeholder="League..."
+                            value={this.state.event_description}
+                            onChange={(e) => { this.handleInputChange(e, 'event_description'); }}
 
+                        />
+                    </div>
+                    <div style={{ marginTop: 15 }}>
+                        <Input
+                            action={{
+                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event Date'
+                            }}
+                            actionPosition="left"
+                            placeholder="Date..."
+                            value={this.state.your_date}
+                            onChange={(e) => { this.handleInputChange(e, 'your_date'); }}
                         />
                     </div>
                     <Button style={{ marginTop: 16 }} onClick={this.handleSubmit} primary>SUBMIT</Button>
