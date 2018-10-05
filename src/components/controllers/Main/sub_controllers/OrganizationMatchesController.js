@@ -188,7 +188,7 @@ class OrganizationMatchesController extends Component {
             const g_league = 'National League';
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             console.log(`i = ${i}`);
-            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');

@@ -1435,6 +1435,13 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
+    felzec_light_video_container: {
+        width: '426px',
+        height: '240px',
+        backgroundColor: 'rgba(0,0,0,.1)',
+        float: 'left'
+    },
+
     obliviot_light_matches_holder: {
         width: '100%',
         overflow: 'auto',
@@ -1829,6 +1836,14 @@ export const GlobalStyles = GlobalTheme => ({
         overflowX: 'hidden',
     },
 
+    felzec_media_element_container: {
+        width: '100%',
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        whiteSpace: 'nowrap'
+    },
+
     felzec_match_info_container: {
         width: '100%',
         height: '100px',
@@ -1870,11 +1885,12 @@ export const GlobalStyles = GlobalTheme => ({
         width: '80%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        height: '50px'
+        height: '50px',
+        marginBottom: '35px'
     },
 
     felzec_switch_upcoming_container: {
-        width: '50%',
+        width: '49%',
         float: 'left',
         lineHeight: '50px',
         fontSize: '24px',
@@ -1882,12 +1898,13 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900',
         height: '50px',
         backgroundColor: 'black',
+        marginRight: '2%',
         color: '#cccccc',
         cursor: 'pointer'
     },
 
     felzec_switch_recent_container: {
-        width: '50%',
+        width: '49%',
         float: 'left',
         lineHeight: '50px',
         fontSize: '24px',
@@ -1982,6 +1999,110 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '245px',
         objectFit: 'cover'
+    },
+
+    felzec_light_twitch_feed_container: {
+        width: '426px',
+        height: '240px',
+        backgroundColor: 'rgba(0,0,0,.1)',
+        position: 'relative',
+        float: 'left',
+        marginRight: '6px'
+    },
+
+    felzec_twitch_thumbnail: {
+        width: '416px',
+        height: '240px',
+        objectFit: 'fill'
+    },
+
+    felzec_twitch_overlay: {
+        width: '426px',
+        height: '20px',
+        backgroundColor: 'rgba(0,0,0,.7)',
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        textAlign: 'left'
+    },
+
+    felzec_light_twitch_title_container: {
+        width: '100%',
+        padding: '0px 0px 10px 20px',
+        position: 'absolute',
+        bottom: '0px',
+        left: '0px',
+        textAlign: 'left'
+    },
+
+    felzec_twitch_overlay_text: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    felzec_twitch_overlay_status: {
+        width: '18px',
+        height: '18px',
+        position: 'absolute',
+        top: '2px',
+        right: '10px',
+        borderRadius: '9px',
+        backgroundColor: 'red'
+    },
+
+    felzec_light_twitch_title: {
+        color: 'black',
+        fontSize: '18px',
+        fontWeight: '900',
+        textAlign: 'left',
+        lineHeight: '22px',
+        width: '100%'
+    },
+
+    felzec_light_twitch_subtitle: {
+        color: 'black',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        lineHeight: '18px',
+        width: '100%'
+    },
+
+    felzec_dark_twitch_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '150px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    felzec_dark_twitch_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '150px',
+        right: '0px',
+        cursor: 'pointer'
     },
 
     // ***************************************************************

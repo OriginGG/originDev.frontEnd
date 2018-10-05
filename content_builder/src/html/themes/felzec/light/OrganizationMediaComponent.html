@@ -22,16 +22,24 @@
       </script>  
    </head>
    <body>
-      <div data-component-name="light_OrganizationTwitchComponent" style="display:inline-block;margin-right:15px">
-            <div class="classes.felzec_light_twitch_feed_container">
-                <a data-component-props="href={this.props.twitch_url}">
-                    <img class="classes.felzec_twitch_thumbnail" data-component-props="src={this.props.twitch_thumbnail}"/>
-                    <div class="classes.felzec_twitch_overlay">
-                        <div class="classes.felzec_twitch_overlay_text">{this.props.twitch_name}</div>
-                        <div class="classes.felzec_twitch_overlay_status" data-component-props="style={this.props.status_style}"></div>
-                    </div>
-                </a>
+        <div data-component-name="light_OrganizationMediaComponent"  class="classes.felzec_matches_container">
+            <div class="classes.felzec_matches_container" data-component-props="style={this.props.bg_style}">
             </div>
+            <div class="classes.felzec_matches_filter_container" data-component-props="style={this.props.filter_style}"></div>
+            <div class="classes.felzec_matches_inner_container">
+                <div class="classes.felzec_switch_container">
+                    <div class="classes.felzec_switch_upcoming_container" data-component-props="style={this.props.youtube_style} onClick={this.props.handleYoutubeClick}">YOUTUBE</div>
+                    <div class="classes.felzec_switch_recent_container" data-component-props="style={this.props.twitch_style} onClick={this.props.handleTwitchClick}">TWITCH</div>
+                </div>
+                <div data-component-props="style={this.props.yt_style}">
+                    <div class="classes.felzec_media_element_container" data-component-props="ref={c => {this.props.storeRef(c);}}" data-component-value="{this.props.youtube_videos}">youtube</div>
+                </div>
+                <div data-component-props="style={this.props.tw_style}">
+                    <div class="classes.felzec_media_element_container" data-component-props="ref={c => {this.props.storeRef(c);}}" data-component-value="{this.props.twitch_videos}">twitch</div>
+                </div>
+            </div>
+            <div class="classes.felzec_dark_twitch_left_arrow" data-component-props="onClick={this.props.handleLeftScroll}"><i class="fa fa-arrow-left"></i></div>
+            <div class="classes.felzec_dark_twitch_right_arrow" data-component-props="onClick={this.props.handleRightScroll}"><i class="fa fa-arrow-right"></i></div>
         </div>
    </body>
    <script>
