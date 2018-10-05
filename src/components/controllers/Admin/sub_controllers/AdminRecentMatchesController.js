@@ -87,6 +87,7 @@ class AdminRecentMatchesController extends Component {
     }
 
     handleSubmit = async () => {
+        console.log('submit pressed');
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         if (!this.current_game) {
             toast.error('Please pick a game', {
@@ -124,16 +125,17 @@ class AdminRecentMatchesController extends Component {
             });
             return;
         }
-        if (this.is_saving === false && this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
+        if (this.is_saving === false && this.current_game && this.state.logo_src) {
             this.is_saving = true;
             const logo_data = await this.uploadLogo();
             if (logo_data === null) {
                 this.is_saving = false;
             } else {
+                console.log(`event description = ${this.state.event_description}`);
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
-                        subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, eventDescription: this.event_description, score: `${this.state.your_score} - ${this.state.their_score}`
+                        subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, eventDescription: this.state.event_description, score: `${this.state.your_score} - ${this.state.their_score}`
                     }
                 );
                 toast.success('Match Added !', {

@@ -32,7 +32,7 @@ class OrganizationMediaController extends Component {
         });
         const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         if (youTubeChannels.resultData.edges.length !== 0) {
-            console.log(`youTubeChannels.resultData.edges.length = ${youTubeChannels.resultData.edges.length}`);
+            // console.log(`youTubeChannels.resultData.edges.length = ${youTubeChannels.resultData.edges.length}`);
             const v1 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo1);
             const v2 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo2);
             const v3 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo3);
@@ -52,21 +52,21 @@ class OrganizationMediaController extends Component {
         let twitch_url = '';
         users.allOrganisationMembers.edges.forEach(n => {
             // console.log(`users.allOrganisationMembers.edges = ${JSON.stringify(users.allOrganisationMembers.edges)}`);
-            console.log(`n.node.contentTeamsByMemberId.nodes.length = ${n.node.contentTeamsByMemberId.nodes.length}`);
-            console.log(`n.node.individualUserByIndividalUserId.twitchUrl = ${n.node.individualUserByIndividalUserId.twitchUrl}`);
+            // console.log(`n.node.contentTeamsByMemberId.nodes.length = ${n.node.contentTeamsByMemberId.nodes.length}`);
+            // console.log(`n.node.individualUserByIndividalUserId.twitchUrl = ${n.node.individualUserByIndividalUserId.twitchUrl}`);
             if (n.node.contentTeamsByMemberId.nodes.length > 0) {
                 if (n.node.individualUserByIndividalUserId.twitchUrl) {
                     t_array.push(n.node.individualUserByIndividalUserId);
                     twitch_url += `${n.node.individualUserByIndividalUserId.twitchUserId},`;
                 }
             }
-            console.log(`t_array.length = ${t_array.length}`);
+            // console.log(`t_array.length = ${t_array.length}`);
         });
         // console.log(`twitch url = ${twitch_url}`);
-        console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
+        // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
         twitch_url = twitch_url.concat(twitch_url.length - 1);
         const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
-        console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
+        // console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
             live_list: td,
             roster_list: t_array,
@@ -76,7 +76,7 @@ class OrganizationMediaController extends Component {
             OrganizationYouTubeComponentRender: OrganizationYouTubeComponentRender.default
         });
 
-        console.log(`ROSTER LIST XXXXXXXXXXXXXXXXX = ${JSON.stringify(this.state.roster_list)}`);
+        // console.log(`ROSTER LIST XXXXXXXXXXXXXXXXX = ${JSON.stringify(this.state.roster_list)}`);
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
