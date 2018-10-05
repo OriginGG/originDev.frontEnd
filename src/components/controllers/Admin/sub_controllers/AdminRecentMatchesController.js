@@ -22,6 +22,7 @@ class AdminRecentMatchesController extends Component {
     componentDidMount = async () => {
         this.upload_file = false;
         this.current_game = null;
+        this.match_type = null;
         this.is_saving = false;
         this.calcMatches();
     }
@@ -86,7 +87,14 @@ class AdminRecentMatchesController extends Component {
         this.current_game = data.value;
     }
 
+    handleDropDownList = (e, data) => {
+        console.log(`handleDropDownList ${data.value}`);
+        this.match_type = data.value;
+        console.log(`match type = ${this.match_type}`);
+    }
+
     handleSubmit = async () => {
+        console.log('submit pressed');
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         if (!this.current_game) {
             toast.error('Please pick a game', {
@@ -112,6 +120,18 @@ class AdminRecentMatchesController extends Component {
             });
             return;
         }
+        if (!this.state.your_date) {
+            toast.error('Please enter date', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.match_type) {
+            toast.error('Please choose Upcoming or Recent', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (!this.state.event_description) {
             toast.error('Please enter your event', {
                 position: toast.POSITION.TOP_LEFT
@@ -124,16 +144,24 @@ class AdminRecentMatchesController extends Component {
             });
             return;
         }
-        if (this.is_saving === false && this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
+        if (this.is_saving === false && this.current_game && this.state.logo_src) {
             this.is_saving = true;
             const logo_data = await this.uploadLogo();
             if (logo_data === null) {
                 this.is_saving = false;
             } else {
+                console.log(`event description = ${this.state.event_description}`);
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
-                        subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, eventDescription: this.event_description, score: `${this.state.your_score} - ${this.state.their_score}`
+                        subDomain: this.props.uiStore.current_organisation.subDomain,
+                        gameName: this.current_game,
+                        eventInfo: this.match_type,
+                        eventUrl: this.state.your_url,
+                        eventDate: this.state.your_date,
+                        gameLogo: logo_data.Location,
+                        eventDescription: this.state.event_description,
+                        score: `${this.state.your_score} - ${this.state.their_score}`
                     }
                 );
                 toast.success('Match Added !', {

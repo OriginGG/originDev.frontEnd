@@ -133,7 +133,14 @@ class OrganizationMatchesController extends Component {
         const subDomain = this.props.uiStore.current_subdomain;
         this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
         this.upcoming_style = { color: 'white', backgroundColor: 'red' };
-        this.setState({ recent_style: this.recent_style, upcoming_style: this.upcoming_style });
+        this.rm_style = { display: 'none' };
+        this.fm_style = { display: 'inherit' };
+        this.setState({
+            recent_style: this.recent_style,
+            upcoming_style: this.upcoming_style,
+            rm_style: this.rm_style,
+            fm_style: this.fm_style
+        });
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
         this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default, OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default });
     }
@@ -155,13 +162,27 @@ class OrganizationMatchesController extends Component {
     handleRecentClick = () => {
         const u_style = { color: '#cccccc', backgroundColor: 'black' };
         const r_style = { color: 'white', backgroundColor: 'red' };
-        this.setState({ recent_style: r_style, upcoming_style: u_style });
+        const fmt_style = { display: 'none' };
+        const rmt_style = { display: 'inherit' };
+        this.setState({
+            recent_style: r_style,
+            upcoming_style: u_style,
+            rm_style: rmt_style,
+            fm_style: fmt_style
+        });
     }
 
     handleUpcomingClick = () => {
         const r_style = { color: '#cccccc', backgroundColor: 'black' };
         const u_style = { color: 'white', backgroundColor: 'red' };
-        this.setState({ recent_style: r_style, upcoming_style: u_style });
+        const fmt_style = { display: 'inherit' };
+        const rmt_style = { display: 'none' };
+        this.setState({
+            recent_style: r_style,
+            upcoming_style: u_style,
+            rm_style: rmt_style,
+            fm_style: fmt_style
+        });
     }
 
     storeRef = ref => {
@@ -180,21 +201,32 @@ class OrganizationMatchesController extends Component {
         const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg1.jpg)', backgroundSize: 'cover', filter: 'grayscale(100%)' };
         const f = { backgroundColor: 'rgba(0,0,0,.5)' };
         const p_array = [];
+        const f_array = [];
         edges.forEach((res, i) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
             const g_type = res.node.gameName;
-            const g_league = 'National League';
+            let g_league = 'No League Listed';
+
+            if (res.node.eventDescription) {
+                g_league = res.node.eventDescription;
+            }
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             console.log(`i = ${i}`);
-            // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');
 
             const home_score = parseInt(score_array[0], 10);
             const away_score = parseInt(score_array[1], 10);
+
+            let date_exists = formattedDate;
+
+            if (res.node.eventDate) {
+                date_exists = res.node.eventDate;
+            }
 
             // console.log(`home = ${home_score} | away = ${away_score}`);
 
@@ -211,15 +243,28 @@ class OrganizationMatchesController extends Component {
                 // console.log(`home:${home_score} === away:${away_score}`);
                 ws = { borderColor: 'yellow transparent transparent transparent' };
             }
-            p_array.push(<OrganizationMatchesComponentElementRender
-                matches_image_1={g_image.image}
-                matches_image_2={res.node.gameLogo}
-                matches_score={res.node.score}
-                matches_game={g_type}
-                matches_league={g_league}
-                matches_date={formattedDate}
-                win_style={ws}
-            />);
+
+            if (res.node.eventInfo === 'um') {
+                f_array.push(<OrganizationMatchesComponentElementRender
+                    matches_image_1={g_image.image}
+                    matches_image_2={res.node.gameLogo}
+                    matches_score={res.node.score}
+                    matches_game={g_type}
+                    matches_league={g_league}
+                    matches_date={date_exists}
+                    win_style={ws}
+                />);
+            } else {
+                p_array.push(<OrganizationMatchesComponentElementRender
+                    matches_image_1={g_image.image}
+                    matches_image_2={res.node.gameLogo}
+                    matches_score={res.node.score}
+                    matches_game={g_type}
+                    matches_league={g_league}
+                    matches_date={date_exists}
+                    win_style={ws}
+                />);
+            }
             // p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
             //     <td style={{
             //         paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
@@ -260,7 +305,10 @@ class OrganizationMatchesController extends Component {
         handleRecentClick={this.handleRecentClick}
         upcoming_style={this.state.upcoming_style}
         recent_style={this.state.recent_style}
+        rm_style={this.state.rm_style}
+        fm_style={this.state.fm_style}
         recent_matches={p_array}
+        future_matches={f_array}
         bg_style={s}
         filter_style={f}
         storeRef={this.storeRef}
