@@ -22,7 +22,7 @@ export const recentMatchesQuery = gql`
            resultdata: allRecentmatches(orderBy: CREATED_AT_DESC, condition: { organisation: $organisation }) {
              edges {
                node {
-                 id
+                id
                  organisation
                  oppositeTeamName
                  oppositeTeamLogo
@@ -31,6 +31,11 @@ export const recentMatchesQuery = gql`
                  score
                  createdAt
                  eventDescription
+								type
+								eventUrl
+								eventLeague
+								eventDate
+								eventInfo
                }
              }
            }
