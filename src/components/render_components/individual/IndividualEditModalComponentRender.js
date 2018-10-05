@@ -100,7 +100,7 @@ class IndividualEditModalComponentRender extends Component {
                             }}/>
                             <button role="button" style={{
                                 marginBottom: '2em'
-                            }} className="ui instagram button"><i aria-hidden="true" className="instagram icon"/>Connect with Instagram</button>
+                            }} className="ui twitter button" onClick={this.props.redirectTwitterAuth}><i aria-hidden="true" className="twitter icon"/>Connect with Twitter</button>
                             <button role="button" className="ui instagram button"><i aria-hidden="true" className="instagram icon"/>Connect with Instagram</button>
                             <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.closeModal}>
                                 <div className={this.props.classes.modal_individual_submit_button}>Cancel</div>
