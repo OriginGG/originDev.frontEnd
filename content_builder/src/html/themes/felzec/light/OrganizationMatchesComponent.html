@@ -28,8 +28,8 @@
             <div class="classes.felzec_matches_filter_container" data-component-props="style={this.props.filter_style}"></div>
             <div class="classes.felzec_matches_inner_container">
                 <div class="classes.felzec_switch_container">
-                    <div class="classes.felzec_switch_upcoming_container">UPCOMING MATCHES</div>
-                    <div class="classes.felzec_switch_recent_container">LATEST RESULTS</div>
+                    <div class="classes.felzec_switch_upcoming_container" data-component-props="style={this.props.upcoming_style} onClick={this.props.handleUpcomingClick}">UPCOMING MATCHES</div>
+                    <div class="classes.felzec_switch_recent_container" data-component-props="style={this.props.recent_style} onClick={this.props.handleRecentClick}">LATEST RESULTS</div>
                 </div>
                 <div class="classes.felzec_match_element_container" data-component-value="{this.props.recent_matches}">matches</div>
             </div>

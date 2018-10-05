@@ -38,6 +38,7 @@ class OrganizationPageController extends Component {
         OrganizationMobileMenuComponentRender: null,
         OrganizationBlogController: null,
         OrganizationTwitchController: null,
+        OrganizationMediaController: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         display_rosters: false,
@@ -109,6 +110,8 @@ class OrganizationPageController extends Component {
                 let OrganizationTwitchControllerDefault = null;
                 let OrganizationTeamController = null;
                 let OrganizationTeamControllerDefault = null;
+                let OrganizationMediaController = null;
+                let OrganizationMediaControllerDefault = null;
                 if (themeBase === 'obliviot' || themeBase === 'felzec') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
@@ -120,6 +123,8 @@ class OrganizationPageController extends Component {
                 if (themeBase === 'felzec') {
                     OrganizationTeamController = await import('./sub_controllers/OrganizationTeamController');
                     OrganizationTeamControllerDefault = OrganizationTeamController.default;
+                    OrganizationMediaController = await import('./sub_controllers/OrganizationMediaController');
+                    OrganizationMediaControllerDefault = OrganizationMediaController.default;
                 }
                 this.roster_display = false;
                 if (this.isMobile()) {
@@ -183,6 +188,7 @@ class OrganizationPageController extends Component {
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
                     OrganizationTeamController: OrganizationTeamControllerDefault,
+                    OrganizationMediaController: OrganizationMediaControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -376,6 +382,7 @@ class OrganizationPageController extends Component {
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
         const { OrganizationTeamController } = this.state;
+        const { OrganizationMediaController } = this.state;
         const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
@@ -431,6 +438,7 @@ class OrganizationPageController extends Component {
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
             blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
             teamContent={<OrganizationTeamController />}
+            mediaContent={<OrganizationMediaController />}
             twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}

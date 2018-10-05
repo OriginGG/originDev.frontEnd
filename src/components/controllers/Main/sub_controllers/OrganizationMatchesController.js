@@ -22,6 +22,11 @@ import splatoon_image from '../../../../assets/images/game_images/splatoon.png';
 import vainglory_image from '../../../../assets/images/game_images/vainglory.png';
 import wow_image from '../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../assets/images/game_images/r6.png';
+import gow_image from '../../../../assets/images/game_images/gow.png';
+import streetfighter_image from '../../../../assets/images/game_images/streetfighter.png';
+import ssb_image from '../../../../assets/images/game_images/ssb.png';
+import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
+import tekken_image from '../../../../assets/images/game_images/tekken.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -85,8 +90,36 @@ const gameOptions = [
         value: 'WOW',
         image: wow_image
     },
-
-
+    {
+        game_id: 16,
+        text: 'Gears Of War',
+        value: 'Gears Of War',
+        image: gow_image
+    },
+    {
+        game_id: 17,
+        text: 'Street Fighter',
+        value: 'Street Fighter',
+        image: streetfighter_image
+    },
+    {
+        game_id: 18,
+        text: 'DragonBall: FighterZ',
+        value: 'DragonBall: FighterZ',
+        image: dragonball_image
+    },
+    {
+        game_id: 19,
+        text: 'Super Smash Bros',
+        value: 'Super Smash Bros',
+        image: ssb_image
+    },
+    {
+        game_id: 20,
+        text: 'Tekken',
+        value: 'Tekken',
+        image: tekken_image
+    },
 ];
 class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }
@@ -98,6 +131,9 @@ class OrganizationMatchesController extends Component {
         const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
+        this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
+        this.upcoming_style = { color: 'white', backgroundColor: 'red' };
+        this.setState({ recent_style: this.recent_style, upcoming_style: this.upcoming_style });
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
         this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default, OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default });
     }
@@ -115,6 +151,19 @@ class OrganizationMatchesController extends Component {
             this.scrollRef.scrollLeft += 100;
         }
     }
+
+    handleRecentClick = () => {
+        const u_style = { color: '#cccccc', backgroundColor: 'black' };
+        const r_style = { color: 'white', backgroundColor: 'red' };
+        this.setState({ recent_style: r_style, upcoming_style: u_style });
+    }
+
+    handleUpcomingClick = () => {
+        const r_style = { color: '#cccccc', backgroundColor: 'black' };
+        const u_style = { color: 'white', backgroundColor: 'red' };
+        this.setState({ recent_style: r_style, upcoming_style: u_style });
+    }
+
     storeRef = ref => {
         this.scrollRef = ref;
     }
@@ -139,7 +188,7 @@ class OrganizationMatchesController extends Component {
             const g_league = 'National League';
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             console.log(`i = ${i}`);
-            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');
@@ -207,6 +256,10 @@ class OrganizationMatchesController extends Component {
         return <OrganizationMatchesComponentRender
         handleLeftScroll={this.handleLeftScroll}
         handleRightScroll={this.handleRightScroll}
+        handleUpcomingClick={this.handleUpcomingClick}
+        handleRecentClick={this.handleRecentClick}
+        upcoming_style={this.state.upcoming_style}
+        recent_style={this.state.recent_style}
         recent_matches={p_array}
         bg_style={s}
         filter_style={f}

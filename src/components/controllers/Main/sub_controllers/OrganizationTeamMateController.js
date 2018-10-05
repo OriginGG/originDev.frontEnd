@@ -14,14 +14,14 @@ class OrganizationTeamMateController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationTeamImageComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamImageComponentRender`);
-        console.log(`roster ID = ${this.props.roster_id}`);
+        // console.log(`roster ID = ${this.props.roster_id}`);
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
-        console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
+        // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
         const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
         this.setState({ roster_list: edges, visible: true, OrganizationTeamImageComponentRender: OrganizationTeamImageComponentRender.default });
 
-        console.log(`this.state.roster_list = ${JSON.stringify(this.state.roster_list)}`);
+        // console.log(`this.state.roster_list = ${JSON.stringify(this.state.roster_list)}`);
     }
     // handleClick = (link) => {
     //     if (link) {
@@ -94,10 +94,10 @@ class OrganizationTeamMateController extends Component {
         //     no_items = 'No Players Are Currently On This Roster';
         // }
         const overlay_style = { display: 'none' };
-        console.log(`this.state.ropster_list size = ${this.state.roster_list.length}`);
+        // console.log(`this.state.ropster_list size = ${this.state.roster_list.length}`);
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
-            console.log(`each roster item = ${JSON.stringify(individualUserByIndividualId)} for item ${i}`);
+            console.log(`each roster item =  for item ${i}`);
             let im = blankProfileImage;
             if (individualUserByIndividualId.profileImageUrl) {
                 im = individualUserByIndividualId.profileImageUrl;
