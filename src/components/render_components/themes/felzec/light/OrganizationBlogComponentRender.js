@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationBlogComponentRender extends Component {
     render( ) {
         return (
-            <div>
+            <div className={this.props.classes.felzec_lightBlogContainer}>
                 <div className={this.props.classes.felzec_blog_container} style={this.props.bg_style}></div>
                 <div className={this.props.classes.felzec_blog_inner_container}>
                     <div className="ui stackable three column grid">

@@ -16,9 +16,7 @@ class LightOrganizationPageComponentRender extends Component {
                             <div >{this.props.navContent}</div>
                         </header>
                         <div id="sponsors">{this.props.topSponsorContent}</div>
-                        <div className={this.props.classes.felzec_lightBlogContainer}>
-                            <div >{this.props.blogContent}</div>
-                        </div>
+                        <div id="blog">{this.props.blogContent}</div>
                         <div id="team_component">{this.props.teamContent}</div>
                         <div id="matches_container">{this.props.matchesContent}</div>
                         <div id="media_container">{this.props.mediaContent}</div>
