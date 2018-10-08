@@ -1435,6 +1435,13 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
+    felzec_light_video_container: {
+        width: '426px',
+        height: '240px',
+        backgroundColor: 'rgba(0,0,0,.1)',
+        float: 'left'
+    },
+
     obliviot_light_matches_holder: {
         width: '100%',
         overflow: 'auto',
@@ -1702,6 +1709,22 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    felzec_matches_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_matches_inner_container: {
+        width: '100%',
+        padding: '10px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
     felzec_team_container: {
         width: '100%',
         height: '600px',
@@ -1719,7 +1742,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_image: {
         width: '170px',
         height: '170px',
-        objectFit: 'contain',
+        objectFit: 'cover',
         position: 'relative'
     },
 
@@ -1728,6 +1751,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '170px',
         objectFit: 'contain',
         position: 'absolute',
+        padding: '15px',
         zIndex: '10',
         top: '0px',
         left: '0px',
@@ -1735,9 +1759,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_overlay_name: {
-        lineHeight: '20px',
-        with: '100%',
-        fontSize: '18px',
+        lineHeight: '24px',
+        width: '100%',
+        fontSize: '20px',
         fontWeight: '900',
         textAlign: 'left',
         color: 'white'
@@ -1745,8 +1769,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_overlay_handle: {
         width: '100%',
-        lineHeight: '18px',
-        fontSize: '16px',
+        lineHeight: '22px',
+        fontSize: '18px',
         fontWeight: '900',
         textAlign: 'left',
         color: 'red'
@@ -1760,7 +1784,11 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'center',
         color: 'white',
         fontWeight: '100',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        position: 'absolute',
+        bottom: '30px',
+        left: '0',
+        backgroundColor: 'blue'
     },
 
     felzec_team_inner_container: {
@@ -1782,6 +1810,137 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    felzec_matches_inner_container: {
+        width: '100%',
+        height: '400px',
+        padding: '10px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_filter_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_match_element_container: {
+        width: '100%',
+        height: '340px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
+    felzec_media_element_container: {
+        width: '100%',
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        whiteSpace: 'nowrap'
+    },
+
+    felzec_match_info_container: {
+        width: '100%',
+        height: '100px',
+        lineHeight: '100px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    felzec_matches_game: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    felzec_matches_league: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center'
+    },
+
+    felzec_matches_date: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center'
+    },
+
+    felzec_switch_container: {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: '50px',
+        marginBottom: '35px'
+    },
+
+    felzec_switch_upcoming_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '50px',
+        fontSize: '24px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '50px',
+        backgroundColor: 'black',
+        marginRight: '2%',
+        color: '#cccccc',
+        cursor: 'pointer'
+    },
+
+    felzec_switch_recent_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '50px',
+        fontSize: '24px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '50px',
+        backgroundColor: 'red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    felzec_light_match_container: {
+        width: '100%',
+        padding: '10px 0px 10px 0px',
+        borderBottom: '1px solid rgba(255,255,255,.5)'
+    },
+
+    felzec_light_match_vs_image: {
+        width: '70px',
+        height: '70px',
+        marginTop: '15px',
+        backgroundColor: 'rgba(0,0,0,0)',
+        float: 'left'
+    },
+
+    felzec_light_match_vs_score: {
+        width: '80px',
+        height: '100px',
+        lineHeight: '100px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900',
+        float: 'left'
+    },
+
     felzec_game_container: {
         width: '100%',
         height: '70px',
@@ -1798,6 +1957,7 @@ export const GlobalStyles = GlobalTheme => ({
         overflowX: 'auto',
         overflowY: 'hidden',
         paddingBottom: '-17px',
+        marginTop: '150px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
     },
@@ -1839,6 +1999,110 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '245px',
         objectFit: 'cover'
+    },
+
+    felzec_light_twitch_feed_container: {
+        width: '426px',
+        height: '240px',
+        backgroundColor: 'rgba(0,0,0,.1)',
+        position: 'relative',
+        float: 'left',
+        marginRight: '6px'
+    },
+
+    felzec_twitch_thumbnail: {
+        width: '416px',
+        height: '240px',
+        objectFit: 'fill'
+    },
+
+    felzec_twitch_overlay: {
+        width: '426px',
+        height: '20px',
+        backgroundColor: 'rgba(0,0,0,.7)',
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        textAlign: 'left'
+    },
+
+    felzec_light_twitch_title_container: {
+        width: '100%',
+        padding: '0px 0px 10px 20px',
+        position: 'absolute',
+        bottom: '0px',
+        left: '0px',
+        textAlign: 'left'
+    },
+
+    felzec_twitch_overlay_text: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    felzec_twitch_overlay_status: {
+        width: '18px',
+        height: '18px',
+        position: 'absolute',
+        top: '2px',
+        right: '10px',
+        borderRadius: '9px',
+        backgroundColor: 'red'
+    },
+
+    felzec_light_twitch_title: {
+        color: 'black',
+        fontSize: '18px',
+        fontWeight: '900',
+        textAlign: 'left',
+        lineHeight: '22px',
+        width: '100%'
+    },
+
+    felzec_light_twitch_subtitle: {
+        color: 'black',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        lineHeight: '18px',
+        width: '100%'
+    },
+
+    felzec_dark_twitch_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '150px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    felzec_dark_twitch_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '150px',
+        right: '0px',
+        cursor: 'pointer'
     },
 
     // ***************************************************************
