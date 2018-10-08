@@ -30,6 +30,7 @@ export const recentMatchesQuery = gql`
                  gameLogo
                  score
                  createdAt
+                 type
                  eventDescription
 								type
 								eventUrl

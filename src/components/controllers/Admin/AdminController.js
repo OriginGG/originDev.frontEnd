@@ -24,6 +24,7 @@ import AdminCollaboratorController from './sub_controllers/AdminCollaboratorCont
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
 import AdminContentTeamController from './sub_controllers/AdminContentTeamController';
 import AdminCustomDomainController from './sub_controllers/AdminCustomDomainController';
+import AdminSocialStatsController from './sub_controllers/AdminSocialStatsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -153,6 +154,16 @@ class MenuDrop extends Component {
                                 </div>
                             </div>
                         </a>
+                        <a className="item" tabIndex={-1} role="menuitem" onClick={(e) => { this.handleMenuClick('social_stats', e); }}>
+                            <div className={this.props.classes.menu_item}>
+                                <div className={this.props.classes.menu_item_icon}>
+                                    <i className="chart line icon" />
+                                </div>
+                                <div className={this.props.classes.menu_item_label}>
+                                   Social Stats
+                                </div>
+                            </div>
+                        </a>
                     </Accordion.Content>
                 </Accordion>
             </div>
@@ -241,6 +252,10 @@ class AdminPageController extends Component {
         }
         let p_component = <span />;
         switch (this.state.page) {
+            case 'social_stats': {
+                p_component = <AdminSocialStatsController subscribed={this.subscribed} domain={this.props.uiStore.current_organisation.subDomain} user_id={this.props.uiStore.user_id} />;
+                break;
+            }
             case 'subscription': {
                 p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} domain={this.props.uiStore.current_organisation.subDomain} user_id={this.props.uiStore.user_id} />;
                 break;
