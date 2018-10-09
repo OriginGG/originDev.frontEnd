@@ -300,7 +300,6 @@ class SocialStats extends Component {
                 return new Promise(async (resolve, reject) => {
                     const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetYoutubeStats?rosterid=${this.props.roster.id}`;
                     // const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetYoutubeStats?rosterid=36`;
-                    debugger;
                     axios.get(full_url).then((x) => {
                         resolve(x.data);
                     }).catch((error) => {
@@ -324,7 +323,6 @@ class SocialStats extends Component {
                     const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitchStats?rosterid=${this.props.roster.id}`;
                     // const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitchStats?rosterid=36`;
                     axios.get(full_url).then((x) => {
-                        debugger;
                         resolve(x.data);
                     }).catch((error) => {
                         reject(error);
