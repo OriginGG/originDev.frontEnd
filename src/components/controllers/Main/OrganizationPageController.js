@@ -524,7 +524,7 @@ class OrganizationPageController extends Component {
                     blogContent={<span />}
                     matchesContent={<span />}
                     videoContent={<span />}
-                    topSponsorContent={<OrganizationSponsorController />}
+                    topSponsorContent={<span />}
                     bottomSponsorContent={<span />}
                     navContent={nv_content}
                     logoContent={<span />}
