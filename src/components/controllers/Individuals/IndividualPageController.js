@@ -258,9 +258,6 @@ class IndividualPageController extends Component {
             console.log('authPayload'+ authPayload); // eslint-disable-line
             this.key_index = 1;
             if (authPayload) {
-                const ss = Buffer.from(authPayload, 'hex').toString('utf8');
-                console.log(ss);
-                debugger;
                 let p;
                 try {
                     p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
