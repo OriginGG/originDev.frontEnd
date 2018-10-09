@@ -1612,7 +1612,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_sponsor_box: {
         width: '100%',
-        height: '400px',
+        paddingTop: '56.25%',
         backgroundColor: '#cccccc',
         position: 'relative'
     },
@@ -1661,10 +1661,75 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_roster_item_container: {
         width: '100%',
-        display: 'table',
-        padding: '30px 20% 30px 20%',
+        height: '300px',
+        position: 'relative',
         margin: '10px 0px 10px 0px',
         backgroundColor: 'black'
+    },
+
+    felzec_sponser_item_img_container: {
+        width: '125px',
+        height: '300px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_roster_filter_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'rgba(0,0,0,.5)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_roster_inner_container: {
+        width: '60%',
+        padding: '20px 0px 10px 0px',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '20%'
+    },
+
+    felzec_roster_nav_container: {
+        width: '40%',
+        height: '40px',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: '20px',
+        right: '20%'
+    },
+
+    felzec_sponsor_list_button: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        textAlign: 'center',
+        color: 'white',
+        backgroundColor: 'rgb(235,51,61)',
+        borderRadius: '5px'
+    },
+
+    felzec_sponsor_icon_container: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'white'
+    },
+    
+    felzec_roster_item_about_container: {
+        width: '100%',
+        height: '200px',
+        padding: '10px 30px 0px 10px',
+        textAlign: 'left',
+        overflowY: 'auto',
+        overflowX: 'none'
+    },
+
+    felzec_sponser_item_img: {
+        height: '150px',
+        marginTop: '70px'
     },
 
     felzec_roster_name: {
@@ -1675,7 +1740,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_roster_about_text: {
-        lineHeight: '25px',
+        lineHeight: '20px',
         fontWeight: '400',
         color: 'white'
     },
@@ -1851,7 +1916,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '24px',
         fontWeight: '900',
         color: 'red',
-        textAlign: 'center'
+        textAlign: 'center',
+        cursor: 'pointer'
     },
 
     felzec_matches_game: {

@@ -468,6 +468,7 @@ class OrganizationPageController extends Component {
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
+                blogContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
                 topSponsorContent={<OrganizationSponsorController />}
@@ -492,6 +493,7 @@ class OrganizationPageController extends Component {
                 obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationBlogViewController closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} />}
                 newsContent={<span />}
+                blogContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
@@ -519,9 +521,10 @@ class OrganizationPageController extends Component {
                     rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                     newsContent={<span />}
                     twitterContent={<span />}
+                    blogContent={<span />}
                     matchesContent={<span />}
                     videoContent={<span />}
-                    topSponsorContent={<OrganizationSponsorController />}
+                    topSponsorContent={<span />}
                     bottomSponsorContent={<span />}
                     navContent={nv_content}
                     logoContent={<span />}
@@ -569,6 +572,7 @@ class OrganizationPageController extends Component {
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
+                blogContent={<span />}
                 topSponsorContent={<OrganizationSponsorController />}
                 bottomSponsorContent={<span />}
                 navContent={<span />}
@@ -594,6 +598,7 @@ class OrganizationPageController extends Component {
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
+                blogContent={<span />}
                 topSponsorContent={<OrganizationSponsorController />}
                 bottomSponsorContent={<span />}
                 navContent={<span />}
