@@ -244,7 +244,15 @@ class OrganizationMatchesController extends Component {
                 ws = { borderColor: 'yellow transparent transparent transparent' };
             }
 
-            const more_url = 'http://www.google.com';
+            const more_url = res.node.eventUrl;
+
+            let formatted_url = more_url;
+
+            if (more_url.indexOf('http') >= 0) {
+                formatted_url = more_url;
+              } else {
+                  formatted_url = `http://${more_url}`;
+              }
 
             if (res.node.eventInfo === 'um') {
                 f_array.push(<OrganizationMatchesComponentElementRender
@@ -255,7 +263,7 @@ class OrganizationMatchesController extends Component {
                     matches_league={g_league}
                     matches_date={date_exists}
                     win_style={ws}
-                    more_url={more_url}
+                    more_url={formatted_url}
                 />);
             } else {
                 p_array.push(<OrganizationMatchesComponentElementRender
@@ -266,7 +274,7 @@ class OrganizationMatchesController extends Component {
                     matches_league={g_league}
                     matches_date={date_exists}
                     win_style={ws}
-                    more_url={more_url}
+                    more_url={formatted_url}
                 />);
             }
             // p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
