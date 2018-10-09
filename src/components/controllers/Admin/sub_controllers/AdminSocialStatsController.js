@@ -310,7 +310,7 @@ class SocialStats extends Component {
             }
             case 'twitter': {
                 return new Promise(async (resolve, reject) => {
-                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetYouTwitterStats?rosterid=${this.props.roster.id}`;
+                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitterStats?rosterid=${this.props.roster.id}`;
                     // const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitterStats?rosterid=36`;
                     axios.get(full_url).then((x) => {
                         resolve(x.data);
