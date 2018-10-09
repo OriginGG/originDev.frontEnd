@@ -21,7 +21,9 @@ class LightOrganizationMatchesComponentElementRender extends Component {
                             <div className={this.props.classes.felzec_matches_date}>{this.props.matches_date}</div>
                         </div>
                         <div className="column">
-                            <div className={this.props.classes.felzec_match_info_container}>SEE MORE</div>
+                            <div className={this.props.classes.felzec_match_info_container}>
+                                <a target="_blank" href={this.props.more_url}>SEE MORE</a>
+                            </div>
                         </div>
                     </div>
                 </div>

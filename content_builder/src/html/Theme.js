@@ -1916,7 +1916,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '24px',
         fontWeight: '900',
         color: 'red',
-        textAlign: 'center'
+        textAlign: 'center',
+        cursor: 'pointer'
     },
 
     felzec_matches_game: {
