@@ -2171,6 +2171,47 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
 
+    felzec_light_news_row: {
+        width: '100%',
+        height: '200px',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
+    felzec_light_news_container: {
+        width: '80%',
+        height: '200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'rgba(255,255,255,1)',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_micro_image: {
+        width: '100%',
+        height: '200px',
+        objectFit: 'cover'
+    },
+
+    felzec_light_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '30px',
+        color: 'black',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    felzec_light_news_body: {
+        textAlign: 'left',
+        fontSize: '14px',
+        color: 'black',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
     // ***************************************************************
     // New Dark Theme
     // ***************************************************************
