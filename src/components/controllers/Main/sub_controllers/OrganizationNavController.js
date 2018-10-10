@@ -157,6 +157,7 @@ class OrganizationNavController extends Component {
             handleCloseClick={this.handleCloseClick}
             handleSponsersClick={this.props.handleSponsersClick}
             handleAboutClick={this.props.handleAboutClick}
+            handleViewBlogClick={this.props.handleViewBlogClick}
             handleLoginClick={this.props.handleLoginClick}
             social_link1={social_link1}
             social_link2={social_link2}
@@ -176,6 +177,7 @@ OrganizationNavController.propTypes = {
     handleRosterClick: PropTypes.func.isRequired,
     handleStoreClick: PropTypes.func.isRequired,
     handleBlogClick: PropTypes.func.isRequired,
+    handleViewBlogClick: PropTypes.func.isRequired,
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,

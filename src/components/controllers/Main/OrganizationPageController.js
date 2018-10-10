@@ -400,6 +400,7 @@ class OrganizationPageController extends Component {
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleBlogClick={this.handleBlogClick}
+            handleViewBlogClick={this.handleViewBlogClick}
             handleLoginClick={this.handleLoginClick}
             handleRosterClick={this.handleRosterClick}
             handleSponsersClick={this.handleSponsersClick}
@@ -422,6 +423,7 @@ class OrganizationPageController extends Component {
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
+                                handleViewBlogClick={this.handleViewBlogClick}
                                 handleSponsersClick={this.handleSponsersClick}
                                 handleAboutClick={this.handleAboutClick} />
                         </div>
@@ -562,6 +564,16 @@ class OrganizationPageController extends Component {
             } else {
                 c_name = 'blackBG';
             }
+
+            let b_style = <span />;
+            let s_style = <OrganizationSponsorController />;
+            let n_style = <span />;
+
+            if (real_theme === 'felzec/light') {
+                b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
+                s_style = <span />;
+                n_style = nv_content;
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
@@ -572,10 +584,10 @@ class OrganizationPageController extends Component {
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
-                blogContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
+                blogContent={b_style}
+                topSponsorContent={s_style}
                 bottomSponsorContent={<span />}
-                navContent={<span />}
+                navContent={n_style}
                 logoContent={<span />}
                 footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
             />;
