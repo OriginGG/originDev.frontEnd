@@ -31,7 +31,7 @@ class LightOrganizationNewsComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '160px',
+                                    height: '140px',
                                     overflowY: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>
