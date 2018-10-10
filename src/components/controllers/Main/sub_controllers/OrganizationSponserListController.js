@@ -46,6 +46,11 @@ class OrganizationSponserListController extends Component {
         // }
     }
 
+    openPage = page => {
+        console.log(`open page ${page}`);
+        window.open(page, '_blank');
+    }
+
     render() {
         if (this.state.visible === false) {
             return null;
@@ -96,13 +101,36 @@ class OrganizationSponserListController extends Component {
 
         // console.log(`sponser_array = ${JSON.stringify(sponser_array)}`);
 
+        this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
+        const fbg_style = { background: `url(${this.image_src})`, backgroundSize: 'cover' };
+
+        if (theme === 'felzec/light') {
+            const nav_style = { display: 'none' };
+            p_array.push(<div role="menuItem" tabIndex={-1} key={`roster_gm_list_${theme}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender
+            bg_style={fbg_style}
+            nav_style={nav_style}
+        /></div>);
+        }
+
         sponser_array.forEach((r, i) => {
             // console.log(`r = ${JSON.stringify(r)}`);
+            const sl1 = <i key="social_item1" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.facebook.com'); }} className="fab fa-facebook" />;
+            const sl2 = <i key="social_item2" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.twitter.com'); }} className="fab fa-twitter" />;
+            const sl3 = <i key="social_item3" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.instagram.com'); }} className="fab fa-instagram" />;
+            const sl4 = <i key="social_item4" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.youtube.com'); }} className="fab fa-youtube" />;
+            const sl5 = <div key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.google.com'); }} >www.google.com</div>;
+            const bg_style = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover' };
             const individualSponserByIndividualId = r;
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualSponserByIndividualId.s_link); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender
                 sponser_image={individualSponserByIndividualId.s_image}
                 sponser_name={individualSponserByIndividualId.s_name}
                 sponser_desc={individualSponserByIndividualId.s_desc}
+                social_link1={sl1}
+                social_link2={sl2}
+                social_link3={sl3}
+                social_link4={sl4}
+                sponsor_link={sl5}
+                bg_style={bg_style}
             /></div>);
         });
         return (<div>

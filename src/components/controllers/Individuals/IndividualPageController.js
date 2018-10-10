@@ -193,6 +193,7 @@ class ModalContent extends Component {
                     instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
+                    redirectTwitterAuth={this.props.redirectTwitterAuth}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -247,12 +248,14 @@ class IndividualPageController extends Component {
         this.instagram_stats = null;
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
+        console.log('view_id'+ view_id); // eslint-disable-line
         if (view_id) {
             const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
             this.user_details = user.individualUserById;
             this.getStats();
         } else {
             const authPayload = this.props.appManager.GetQueryParams('p');
+            console.log('authPayload'+ authPayload); // eslint-disable-line
             this.key_index = 1;
             if (authPayload) {
                 const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
@@ -270,6 +273,7 @@ class IndividualPageController extends Component {
                     const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
                     const d = this.props.appManager.decodeJWT(token);
                     this.user_id = d.id;
+                    console.log('user_id' + this.user_id); // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
                     if (user.individualUserById !== null) {
                         this.is_admin = true;
@@ -297,6 +301,10 @@ class IndividualPageController extends Component {
             this.twitch_stats = td.data.user;
         }
     }
+    // redirectTwitterLogin = async (user) => {
+    //     const redirectURL = await axios.get(`${process.env.REACT_APP_API_SERVER}/auth/twitterCheck`);
+    //     windows.open(redirectURL);
+    // }
     getTwitterStats = async () => {
         if (this.user_details.twitterHandle) {
             const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('/') + 1);
@@ -311,6 +319,27 @@ class IndividualPageController extends Component {
             this.youtube_stats = td.data;
         }
     }
+    redirectTwitterAuth = async () => {
+        try {
+         await axios.get(
+             'http://0.0.0.0:8080/auth/twitter',
+             { mode: 'no-cors' },
+             {
+                  headers: {
+                'Access-Control-Allow-Origin': '*',
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+             );
+        } catch (e) {
+        console.log(e);
+        }
+    }
+    // AuthRedirect = async () =>
+    // {
+
+    // }
     handleRedirect = (s) => {
         switch (s) {
             case 'twitter': {
@@ -543,7 +572,7 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} {...this.props} user_id={this.user_id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit}  closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
                 />
             </div>
         );
@@ -558,8 +587,8 @@ ModalContent.propTypes = {
     appManager: PropTypes.object.isRequired,
     user_id: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-
+    handleSubmit: PropTypes.func.isRequired,
+    redirectTwitterAuth: PropTypes.func.isRequired
 };
 TwitchInfo.propTypes = {
     stats: PropTypes.object.isRequired

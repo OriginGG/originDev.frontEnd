@@ -38,6 +38,7 @@ class OrganizationPageController extends Component {
         OrganizationMobileMenuComponentRender: null,
         OrganizationBlogController: null,
         OrganizationTwitchController: null,
+        OrganizationMediaController: null,
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         display_rosters: false,
@@ -56,7 +57,8 @@ class OrganizationPageController extends Component {
                 email
             });
             const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
-                id: user.individualUserByEmail.id
+                id: user.individualUserByEmail.id,
+                subDomain: d.organisation
             });
             if (exists.allOrganisationMembers.edges.length > 0) {
                 toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
@@ -109,6 +111,8 @@ class OrganizationPageController extends Component {
                 let OrganizationTwitchControllerDefault = null;
                 let OrganizationTeamController = null;
                 let OrganizationTeamControllerDefault = null;
+                let OrganizationMediaController = null;
+                let OrganizationMediaControllerDefault = null;
                 if (themeBase === 'obliviot' || themeBase === 'felzec') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
@@ -120,6 +124,8 @@ class OrganizationPageController extends Component {
                 if (themeBase === 'felzec') {
                     OrganizationTeamController = await import('./sub_controllers/OrganizationTeamController');
                     OrganizationTeamControllerDefault = OrganizationTeamController.default;
+                    OrganizationMediaController = await import('./sub_controllers/OrganizationMediaController');
+                    OrganizationMediaControllerDefault = OrganizationMediaController.default;
                 }
                 this.roster_display = false;
                 if (this.isMobile()) {
@@ -183,6 +189,7 @@ class OrganizationPageController extends Component {
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
                     OrganizationTeamController: OrganizationTeamControllerDefault,
+                    OrganizationMediaController: OrganizationMediaControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -376,6 +383,7 @@ class OrganizationPageController extends Component {
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
         const { OrganizationTeamController } = this.state;
+        const { OrganizationMediaController } = this.state;
         const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
@@ -393,6 +401,7 @@ class OrganizationPageController extends Component {
             login_style={{ display: 'inherit' }}
             handleStoreClick={this.handleStoreClick}
             handleBlogClick={this.handleBlogClick}
+            handleViewBlogClick={this.handleViewBlogClick}
             handleLoginClick={this.handleLoginClick}
             handleRosterClick={this.handleRosterClick}
             handleSponsersClick={this.handleSponsersClick}
@@ -415,6 +424,7 @@ class OrganizationPageController extends Component {
                                 handleSocial={this.handleSocial}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
+                                handleViewBlogClick={this.handleViewBlogClick}
                                 handleSponsersClick={this.handleSponsersClick}
                                 handleAboutClick={this.handleAboutClick} />
                         </div>
@@ -431,6 +441,7 @@ class OrganizationPageController extends Component {
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
             blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
             teamContent={<OrganizationTeamController />}
+            mediaContent={<OrganizationMediaController />}
             twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
@@ -460,6 +471,7 @@ class OrganizationPageController extends Component {
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
+                blogContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
                 topSponsorContent={<OrganizationSponsorController />}
@@ -484,6 +496,7 @@ class OrganizationPageController extends Component {
                 obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationBlogViewController closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} />}
                 newsContent={<span />}
+                blogContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
@@ -511,9 +524,10 @@ class OrganizationPageController extends Component {
                     rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
                     newsContent={<span />}
                     twitterContent={<span />}
+                    blogContent={<span />}
                     matchesContent={<span />}
                     videoContent={<span />}
-                    topSponsorContent={<OrganizationSponsorController />}
+                    topSponsorContent={<span />}
                     bottomSponsorContent={<span />}
                     navContent={nv_content}
                     logoContent={<span />}
@@ -551,6 +565,16 @@ class OrganizationPageController extends Component {
             } else {
                 c_name = 'blackBG';
             }
+
+            let b_style = <span />;
+            let s_style = <OrganizationSponsorController />;
+            let n_style = <span />;
+
+            if (real_theme === 'felzec/light') {
+                b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
+                s_style = <span />;
+                n_style = nv_content;
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
@@ -561,9 +585,10 @@ class OrganizationPageController extends Component {
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
+                blogContent={b_style}
+                topSponsorContent={s_style}
                 bottomSponsorContent={<span />}
-                navContent={<span />}
+                navContent={n_style}
                 logoContent={<span />}
                 footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
             />;
@@ -586,6 +611,7 @@ class OrganizationPageController extends Component {
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
+                blogContent={<span />}
                 topSponsorContent={<OrganizationSponsorController />}
                 bottomSponsorContent={<span />}
                 navContent={<span />}

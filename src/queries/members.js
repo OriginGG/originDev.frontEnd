@@ -11,8 +11,8 @@ export const createOrganisationMemberQuery = gql`
 `;
 
 export const getOrganisationMemberByIDQuery = gql`
-query getMemberByEmail($id: Int!) {
-  allOrganisationMembers(condition: {individalUserId: $id}) {
+query getMemberByEmail($id: Int!, $subDomain: String!) {
+  allOrganisationMembers(condition: {individalUserId: $id, organisation: $subDomain}) {
     edges {
       node {
         id

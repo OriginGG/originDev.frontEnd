@@ -22,29 +22,10 @@
       </script>  
    </head>
    <body>
-      <div data-component-name="light_OrganizationTwitchComponent" style="display:inline-block;margin-right:15px">
-            <div class="classes.felzec_light_twitch_feed_container">
-                <a data-component-props="href={this.props.twitch_url}">
-                    <img class="classes.felzec_twitch_thumbnail" data-component-props="src={this.props.twitch_thumbnail}"/>
-                    <div class="classes.felzec_twitch_overlay">
-                        <div class="classes.felzec_twitch_overlay_text">{this.props.twitch_name}</div>
-                        <div class="classes.felzec_twitch_overlay_status" data-component-props="style={this.props.status_style}"></div>
-                    </div>
-                </a>
+        <div data-component-name="light_OrganizationYouTubeComponent"  style="display:inline-block;margin-right:15px">
+            <div class="classes.felzec_light_video_container">
+                <iframe title="ifr" width="426px" height="240pxpx" data-component-props="allowFullScreen src={this.props.video_url}" src="https://www.youtube.com/embed/rh8HEF63rx4" frameborder="0" allowfullscreen=""></iframe>
             </div>
         </div>
    </body>
-   <script>
-        $( document ).ready(function() {
-             console.log( "ready!" );
- 
-             $("#more_news_button").click(function(){
-                 $('#news_modal').modal('show');
-             });
-
-             $("#about_button").click(function(){
-                 $('#about_modal').modal('show');
-             });
-         });
-    </script>
 </html>

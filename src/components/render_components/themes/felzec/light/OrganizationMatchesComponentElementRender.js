@@ -7,17 +7,25 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationMatchesComponentElementRender extends Component {
     render( ) {
         return (
-            <div style={{
-                display: 'inline-block'
-            }}>
-                <div className={this.props.classes.obliviot_light_match_container}>
-                    <div className={this.props.classes.obliviot_light_match_vs_container}>
-                        <img className={this.props.classes.obliviot_light_match_vs_image} src={this.props.matches_image_1}/>
-                        <div className={this.props.classes.obliviot_light_match_vs_score}>{this.props.matches_score}</div>
-                        <img className={this.props.classes.obliviot_light_match_vs_image} src={this.props.matches_image_2}/>
+            <div>
+                <div className={this.props.classes.felzec_light_match_container}>
+                    <div className="ui stackable three column grid">
+                        <div className="column">
+                            <img className={this.props.classes.felzec_light_match_vs_image} src={this.props.matches_image_1}/>
+                            <div className={this.props.classes.felzec_light_match_vs_score}>{this.props.matches_score}</div>
+                            <img className={this.props.classes.felzec_light_match_vs_image} src={this.props.matches_image_2}/>
+                        </div>
+                        <div className="column">
+                            <div className={this.props.classes.felzec_matches_game}>{this.props.matches_game}</div>
+                            <div className={this.props.classes.felzec_matches_league}>{this.props.matches_league}</div>
+                            <div className={this.props.classes.felzec_matches_date}>{this.props.matches_date}</div>
+                        </div>
+                        <div className="column">
+                            <div className={this.props.classes.felzec_match_info_container}>
+                                <a target="_blank" href={this.props.more_url}>SEE MORE</a>
+                            </div>
+                        </div>
                     </div>
-                    <div className={this.props.classes.obliviot_light_match_vs_date}>{this.props.matches_date}</div>
-                    <div className={this.props.classes.obliviot_light_corner_win} style={this.props.win_style}/>
                 </div>
             </div>
         )

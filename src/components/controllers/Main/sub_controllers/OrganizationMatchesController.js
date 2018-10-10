@@ -22,6 +22,11 @@ import splatoon_image from '../../../../assets/images/game_images/splatoon.png';
 import vainglory_image from '../../../../assets/images/game_images/vainglory.png';
 import wow_image from '../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../assets/images/game_images/r6.png';
+import gow_image from '../../../../assets/images/game_images/gow.png';
+import streetfighter_image from '../../../../assets/images/game_images/streetfighter.png';
+import ssb_image from '../../../../assets/images/game_images/ssb.png';
+import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
+import tekken_image from '../../../../assets/images/game_images/tekken.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -85,8 +90,36 @@ const gameOptions = [
         value: 'WOW',
         image: wow_image
     },
-
-
+    {
+        game_id: 16,
+        text: 'Gears Of War',
+        value: 'Gears Of War',
+        image: gow_image
+    },
+    {
+        game_id: 17,
+        text: 'Street Fighter',
+        value: 'Street Fighter',
+        image: streetfighter_image
+    },
+    {
+        game_id: 18,
+        text: 'DragonBall: FighterZ',
+        value: 'DragonBall: FighterZ',
+        image: dragonball_image
+    },
+    {
+        game_id: 19,
+        text: 'Super Smash Bros',
+        value: 'Super Smash Bros',
+        image: ssb_image
+    },
+    {
+        game_id: 20,
+        text: 'Tekken',
+        value: 'Tekken',
+        image: tekken_image
+    },
 ];
 class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }
@@ -98,6 +131,16 @@ class OrganizationMatchesController extends Component {
         const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
+        this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
+        this.upcoming_style = { color: 'white', backgroundColor: 'red' };
+        this.rm_style = { display: 'none' };
+        this.fm_style = { display: 'inherit' };
+        this.setState({
+            recent_style: this.recent_style,
+            upcoming_style: this.upcoming_style,
+            rm_style: this.rm_style,
+            fm_style: this.fm_style
+        });
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
         this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default, OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default });
     }
@@ -115,6 +158,33 @@ class OrganizationMatchesController extends Component {
             this.scrollRef.scrollLeft += 100;
         }
     }
+
+    handleRecentClick = () => {
+        const u_style = { color: '#cccccc', backgroundColor: 'black' };
+        const r_style = { color: 'white', backgroundColor: 'red' };
+        const fmt_style = { display: 'none' };
+        const rmt_style = { display: 'inherit' };
+        this.setState({
+            recent_style: r_style,
+            upcoming_style: u_style,
+            rm_style: rmt_style,
+            fm_style: fmt_style
+        });
+    }
+
+    handleUpcomingClick = () => {
+        const r_style = { color: '#cccccc', backgroundColor: 'black' };
+        const u_style = { color: 'white', backgroundColor: 'red' };
+        const fmt_style = { display: 'inherit' };
+        const rmt_style = { display: 'none' };
+        this.setState({
+            recent_style: r_style,
+            upcoming_style: u_style,
+            rm_style: rmt_style,
+            fm_style: fmt_style
+        });
+    }
+
     storeRef = ref => {
         this.scrollRef = ref;
     }
@@ -128,20 +198,35 @@ class OrganizationMatchesController extends Component {
         if (edges.length === 0) {
             return null;
         }
+        const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg1.jpg)', backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        const f = { backgroundColor: 'rgba(0,0,0,.5)' };
         const p_array = [];
+        const f_array = [];
         edges.forEach((res, i) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
+            const g_type = res.node.gameName;
+            let g_league = 'No League Listed';
+
+            if (res.node.eventDescription) {
+                g_league = res.node.eventDescription;
+            }
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             console.log(`i = ${i}`);
-            // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');
 
             const home_score = parseInt(score_array[0], 10);
             const away_score = parseInt(score_array[1], 10);
+
+            let date_exists = formattedDate;
+
+            if (res.node.eventDate) {
+                date_exists = res.node.eventDate;
+            }
 
             // console.log(`home = ${home_score} | away = ${away_score}`);
 
@@ -158,13 +243,40 @@ class OrganizationMatchesController extends Component {
                 // console.log(`home:${home_score} === away:${away_score}`);
                 ws = { borderColor: 'yellow transparent transparent transparent' };
             }
-            p_array.push(<OrganizationMatchesComponentElementRender
-                matches_image_1={g_image.image}
-                matches_image_2={res.node.gameLogo}
-                matches_score={res.node.score}
-                matches_date={formattedDate}
-                win_style={ws}
-            />);
+
+            const more_url = res.node.eventUrl;
+
+            let formatted_url = more_url;
+
+            if (more_url.indexOf('http') >= 0) {
+                formatted_url = more_url;
+              } else {
+                  formatted_url = `http://${more_url}`;
+              }
+
+            if (res.node.eventInfo === 'um') {
+                f_array.push(<OrganizationMatchesComponentElementRender
+                    matches_image_1={g_image.image}
+                    matches_image_2={res.node.gameLogo}
+                    matches_score={res.node.score}
+                    matches_game={g_type}
+                    matches_league={g_league}
+                    matches_date={date_exists}
+                    win_style={ws}
+                    more_url={formatted_url}
+                />);
+            } else {
+                p_array.push(<OrganizationMatchesComponentElementRender
+                    matches_image_1={g_image.image}
+                    matches_image_2={res.node.gameLogo}
+                    matches_score={res.node.score}
+                    matches_game={g_type}
+                    matches_league={g_league}
+                    matches_date={date_exists}
+                    win_style={ws}
+                    more_url={formatted_url}
+                />);
+            }
             // p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
             //     <td style={{
             //         paddingLeft: 24, paddingRight: 24, height: 48, textAlign: 'left', fontSize: 13, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', backgroundColor: 'inherit'
@@ -201,7 +313,16 @@ class OrganizationMatchesController extends Component {
         return <OrganizationMatchesComponentRender
         handleLeftScroll={this.handleLeftScroll}
         handleRightScroll={this.handleRightScroll}
+        handleUpcomingClick={this.handleUpcomingClick}
+        handleRecentClick={this.handleRecentClick}
+        upcoming_style={this.state.upcoming_style}
+        recent_style={this.state.recent_style}
+        rm_style={this.state.rm_style}
+        fm_style={this.state.fm_style}
         recent_matches={p_array}
+        future_matches={f_array}
+        bg_style={s}
+        filter_style={f}
         storeRef={this.storeRef}
         />;
     }

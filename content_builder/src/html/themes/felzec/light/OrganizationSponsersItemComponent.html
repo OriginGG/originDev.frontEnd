@@ -23,21 +23,52 @@
    </head>
    <body id="gradient">
         <div data-component-name="light_OrganizationSponsersItemComponent">
-            <div class="classes.felzec_roster_item_container">
-                <div class="ui stackable two column grid">
-                    <div class="three wide column">
-                        <div class="classes.sponser_item_img_container">
-                            <img class="classes.sponser_item_img" data-component-props="src={this.props.sponser_image}" />
+            <div class="classes.felzec_roster_item_container" data-component-props="style={this.props.bg_style}">
+                <div class="classes.felzec_roster_filter_container" data-component-props="style={this.props.filter_style}"></div>
+                <div class="classes.felzec_roster_inner_container">
+                    <div class="ui stackable two column grid">
+                        <div class="four wide column">
+                            <div class="classes.felzec_ponser_item_img_container">
+                                <img class="classes.felzec_sponser_item_img" data-component-props="src={this.props.sponser_image}" />
+                            </div>
+                        </div>
+                        <div class="twelve wide column">
+                            <div style="display: table; padding-top: 10px; padding-bottom: 10px">
+                                <div class="classes.felzec_roster_item_about_container">
+                                    <span class="classes.felzec_roster_about_text">{this.props.sponser_desc}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="thirteen wide column">
-                        <div style="display: table; padding-top: 10px; padding-bottom: 10px">
-                            <div class="classes.felzec_roster_item_name_container">
-                                <span class="classes.felzec_roster_name">{this.props.sponser_name}</span>
+                </div>
+                <div class="classes.felzec_roster_nav_container" data-component-props="style={this.props.nav_style}">
+                    <div class="ui stackable two column grid">
+                        <div class="column">
+                            <div class="ui stackable four column grid">
+                                <div class="column">
+                                    <div class="classes.felzec_sponsor_icon_container" data-component-value="{this.props.social_link1}">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="classes.felzec_sponsor_icon_container" data-component-value="{this.props.social_link2}">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="classes.felzec_sponsor_icon_container" data-component-value="{this.props.social_link3}">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="classes.felzec_sponsor_icon_container" data-component-value="{this.props.social_link4}">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="classes.roster_item_about_container">
-                                <span class="classes.felzec_roster_about_text">{this.props.sponser_desc}</span>
-                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="classes.felzec_sponsor_list_button" data-component-value="{this.props.sponsor_link}">link</div>
                         </div>
                     </div>
                 </div>
