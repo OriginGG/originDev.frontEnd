@@ -2212,6 +2212,35 @@ export const GlobalStyles = GlobalTheme => ({
         textOverflow: 'ellipsis'
     },
 
+    felzec_modal_inner: {
+        width: '80%',
+        padding: '15px',
+        display: 'table',
+        background: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'black'
+    },
+    felzec_news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'black'
+    },
+
+    felzec_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'black',
+        overflowY: 'scroll'
+    },
+
     // ***************************************************************
     // New Dark Theme
     // ***************************************************************
