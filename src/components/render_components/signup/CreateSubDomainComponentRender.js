@@ -39,18 +39,6 @@ class CreateSubDomainComponentRender extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={this.props.classes.admin_file_button}>
-                                            <label className="class.admin_sponser_label" htmlFor="hidden-new-file">
-                                                <i className="cloud icon"/>
-                                                Company Logo
-                                            </label>
-                                            <input type="file" id="hidden-new-file" style={{
-                                                display: 'none'
-                                            }} onChange={this.props.uploadFile}/>
-                                        </div>
-                                        <div className={this.props.classes.subdomain_logo_upload_container}>
-                                            <img className={this.props.classes.subdomain_logo_upload} src={this.props.upload_img_src}/>
-                                        </div>
                                         <div style={{
                                             width: '304px',
                                             height: '78px',
