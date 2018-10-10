@@ -57,7 +57,8 @@ class OrganizationPageController extends Component {
                 email
             });
             const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
-                id: user.individualUserByEmail.id
+                id: user.individualUserByEmail.id,
+                subDomain: d.organisation
             });
             if (exists.allOrganisationMembers.edges.length > 0) {
                 toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
