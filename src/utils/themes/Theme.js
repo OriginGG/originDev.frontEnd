@@ -2309,6 +2309,46 @@ export const GlobalStyles = GlobalTheme => ({
         overflowY: 'scroll'
     },
 
+    felzec_about_header: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'blue'
+    },
+
+    felzec_about_container: {
+        width: '100%',
+        padding: '20px 15% 20px 15%'
+    },
+
+    felzec_about_container_inner: {
+        width: '100%',
+        minHeight: '400px',
+        backgroundColor: 'black',
+        padding: '20px'
+    },
+
+    felzec_about_container_lower: {
+        width: '100%',
+        height: '100px',
+        backgroundColor: 'red',
+        padding: '10px'
+    },
+
+    felzec_about_title: {
+        color: 'white',
+        width: '100%',
+        fontSize: '24px',
+        fontWeight: '900',
+        lineHeight: '35px'
+    },
+
+    felzec_about_text: {
+        color: 'white',
+        width: '100%',
+        fontSize: '16px',
+        fontWeight: '400',
+    },
+
     // ***************************************************************
     // New Dark Theme
     // ***************************************************************
