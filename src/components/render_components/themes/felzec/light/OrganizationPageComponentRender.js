@@ -23,8 +23,8 @@ class LightOrganizationPageComponentRender extends Component {
                         <div id="roster_component" style={{
                             paddingTop: '30px'
                         }}>{this.props.rosterContent}</div>
-                        <footer className={this.props.classes.obliviot_darkHeader}>
-                            <div >{this.props.navContent}</div>
+                        <footer className={this.props.classes.felzec_darkFooter}>
+                            <div >{this.props.footerContent}</div>
                         </footer>
                     </div>
                     <div className={this.props.classes.obliviot_orgFooter}>
