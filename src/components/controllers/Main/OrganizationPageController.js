@@ -30,6 +30,7 @@ class OrganizationPageController extends Component {
         OrganizationSponsorController: null,
         OrganizationMatchesController: null,
         OrganizationNavController: null,
+        OrganizationFooterController: null,
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
@@ -113,6 +114,8 @@ class OrganizationPageController extends Component {
                 let OrganizationTeamControllerDefault = null;
                 let OrganizationMediaController = null;
                 let OrganizationMediaControllerDefault = null;
+                let OrganizationFooterController = null;
+                let OrganizationFooterControllerDefault = null;
                 if (themeBase === 'obliviot' || themeBase === 'felzec') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
@@ -126,6 +129,8 @@ class OrganizationPageController extends Component {
                     OrganizationTeamControllerDefault = OrganizationTeamController.default;
                     OrganizationMediaController = await import('./sub_controllers/OrganizationMediaController');
                     OrganizationMediaControllerDefault = OrganizationMediaController.default;
+                    OrganizationFooterController = await import('./sub_controllers/OrganizationFooterController');
+                    OrganizationFooterControllerDefault = OrganizationFooterController.default;
                 }
                 this.roster_display = false;
                 if (this.isMobile()) {
@@ -190,6 +195,7 @@ class OrganizationPageController extends Component {
                     OrganizationBlogController: OrganizationBlogControllerDefault,
                     OrganizationTeamController: OrganizationTeamControllerDefault,
                     OrganizationMediaController: OrganizationMediaControllerDefault,
+                    OrganizationFooterController: OrganizationFooterControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -384,12 +390,16 @@ class OrganizationPageController extends Component {
         const { OrganizationBlogController } = this.state;
         const { OrganizationTeamController } = this.state;
         const { OrganizationMediaController } = this.state;
+        const { OrganizationFooterController } = this.state;
         const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
         if (this.isMobile()) {
             rosterComponent = this.mobile_roster_data;
         }
+
+        const theme = this.props.uiStore.current_organisation.themeId;
+        const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
 
         // let ml = -200;
         let SideBar = <div />;
@@ -431,8 +441,49 @@ class OrganizationPageController extends Component {
                     </div></Menu>;
             nv_content = <span />;
         }
-        const theme = this.props.uiStore.current_organisation.themeId;
-        const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let footer_content = <span />;
+        if (real_theme === 'felzec/light') {
+            console.log(`real theme = ${real_theme}`);
+            footer_content = <OrganizationFooterController
+                store_style={ss}
+                about_style={s}
+                sponsers_style={sss}
+                home_style={{ display: 'inherit' }}
+                login_style={{ display: 'inherit' }}
+                footer_about={this.bcontent}
+                handleStoreClick={this.handleStoreClick}
+                handleBlogClick={this.handleBlogClick}
+                handleViewBlogClick={this.handleViewBlogClick}
+                handleLoginClick={this.handleLoginClick}
+                handleRosterClick={this.handleRosterClick}
+                handleSponsersClick={this.handleSponsersClick}
+                handleAboutClick={this.handleAboutClick} />;
+            if (this.isMobile() && this.state.display_rosters === false) {
+                SideBar =
+                    <Menu
+                        pageWrapId="page-wrap"
+                        outerContainerId="outer-container"
+                        isOpen={this.state.menu_open}
+                        onStateChange={this.isMenuOpen}
+                        width="100%"
+                        height="100%"
+                        right
+                    ><div id="page-wrap">
+                            <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+                                <OrganizationMobileMenuComponentRender
+                                    rosterContent={rosterComponent}
+                                    mobile_roster_item={ssss}
+                                    handleSocial={this.handleSocial}
+                                    handleStoreClick={this.handleStoreClick}
+                                    handleLoginClick={this.handleLoginClick}
+                                    handleViewBlogClick={this.handleViewBlogClick}
+                                    handleSponsersClick={this.handleSponsersClick}
+                                    handleAboutClick={this.handleAboutClick} />
+                            </div>
+                        </div></Menu>;
+                footer_content = <span />;
+            }
+        }
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
@@ -453,6 +504,7 @@ class OrganizationPageController extends Component {
             topSponsorContent={<OrganizationSponsorController />}
             bottomSponsorContent={<OrganizationSponsorController />}
             navContent={nv_content}
+            footerContent={footer_content}
             logoContent={<OrganizationLogoController handleRosterClick={this.handleRosterClick} />}
             footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
         />;

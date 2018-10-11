@@ -1658,6 +1658,74 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative',
         display: 'inline-block'
     },
+    felzec_menu_felzec_light_item : {
+        height: '25px',
+        lineHeight: '25px',
+        width: '100%',
+        textAlign: 'right',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        position: 'relative'
+    },
+
+    felzec_footer_title_left: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_title_right: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_text_left : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'left',
+        paddingBottom: '20px'
+    },
+
+    felzec_footer_text_right : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'right',
+        paddingBottom: '20px'
+    },
+
+    footer_menu_felzec_light_item: {
+        width: '100%',
+        lineHeight: '1.2em',
+        textAlign: 'right',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400'
+    },
+
+    felzec_darkFooter: {
+        width: '100%',
+        backgroundColor: 'black'
+    },
 
     felzec_roster_item_container: {
         width: '100%',
