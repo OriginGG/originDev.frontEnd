@@ -13,7 +13,14 @@ import { updateOrganisationQuery } from '../../../../queries/organisation';
 
 class AdminThemeController extends Component {
     state = {
-        modal_open: false, preview_image_src: null, image_src: null
+        modal_open: false,
+        main_image_src: null,
+        reader_image_src: null,
+        jumbotron_image_src: null,
+        sponsor_image_src: null,
+        news_image_src: null,
+        roster_image_src: null,
+        media_image_src: null
     }
     componentDidMount = () => {
         let choosen_theme = 'enigma';
@@ -22,7 +29,16 @@ class AdminThemeController extends Component {
         let enigma_dark = { borderWidth: '0px' };
         let enigma_light = { borderWidth: '0px' };
         let felzec_light = { borderWidth: '0px', };
-        this.setState({ preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData });
+        this.setState({
+            reader_image_src: null,
+            jumbotron_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData,
+            main_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMainData,
+            sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData,
+            news_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageNewsData,
+            roster_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageRostersData,
+            matches_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData,
+            media_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMediaData,
+        });
         this.file_uploaded = false;
         this.selected_theme = this.props.uiStore.current_organisation.themeId;
         this.selected_base_theme = this.props.uiStore.current_organisation.themeBaseId;
@@ -54,32 +70,53 @@ class AdminThemeController extends Component {
             }
         }
         this.setState({
-            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, felzec_light, preview_image_src: null, image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData
+            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, felzec_light
         });
     }
     editImage = () => {
-        this.setState({ modal_open: true, preview_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData, image_type: 'jumbo' });
+        const im = this.props.uiStore.current_theme_structure.main_section.background.imageData;
+        this.setState({
+            modal_open: true, jumbotron_image_src: im, reader_image_src: im, image_type: 'jumbo'
+        });
     }
     editMainImage = () => {
-        this.setState({ modal_open: true, sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMainData, image_type: 'main' });
+        const im = this.props.uiStore.current_theme_structure.main_section.background.imageMainData;
+        this.setState({
+            modal_open: true, main_image_src: im, reader_image_src: im, image_type: 'main'
+        });
     }
     editSponsorImage = () => {
-        this.setState({ modal_open: true, sponsor_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData, image_type: 'sponsor' });
+        const im = this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData;
+        this.setState({
+            modal_open: true, sponsor_image_src: im, reader_image_src: im, image_type: 'sponsor'
+        });
     }
     editNewsImage = () => {
-        this.setState({ modal_open: true, news_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageNewsData, image_type: 'news' });
+        const im = this.props.uiStore.current_theme_structure.main_section.background.imageNewsData;
+        this.setState({
+            modal_open: true, news_image_src: im, reader_image_src: im, image_type: 'news'
+        });
     }
     editMatchessImage = () => {
-        this.setState({ modal_open: true, matches_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData, image_type: 'matches' });
+        const im = this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData;
+        this.setState({
+            modal_open: true, matches_image_src: im, reader_image_src: im, image_type: 'matches'
+        });
     }
     editRostersImage = () => {
-        this.setState({ modal_open: true, roster_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageRostersData, image_type: 'roster' });
+        const im = this.props.uiStore.current_theme_structure.main_section.background.imageRostersData;
+        this.setState({
+            modal_open: true, roster_image_src: im, reader_image_src: im, image_type: 'roster'
+        });
     }
     editMediaImage = () => {
-        this.setState({ modal_open: true, media_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageMediaData, image_type: 'media' });
+        const im = this.props.uiStore.current_theme_structure.main_section.background.imageMediaData;
+        this.setState({
+            modal_open: true, media_image_src: im, reader_image_src: im, image_type: 'media'
+        });
     }
     handleImageClick = (u) => {
-        this.setState({ preview_image_src: u });
+        this.setState({ reader_image_src: u });
         this.file_uploaded = false;
     }
     uploadFile = (e) => {
@@ -90,7 +127,7 @@ class AdminThemeController extends Component {
 
         reader.onloadend = () => {
             const x = reader.result;
-            this.setState({ preview_image_src: x });
+            this.setState({ reader_image_src: x });
             this.file_uploaded = true;
         };
     }
@@ -100,72 +137,79 @@ class AdminThemeController extends Component {
     }
     saveModal = async () => {
         if (!this.file_uploaded) {
-            if (this.state.preview_image_src) {
+            if (this.state.reader_image_src) {
                 console.log(`image_type = ${this.state.image_type}`);
-                const i = this.state.preview_image_src;
+                const i = this.state.reader_image_src;
                 if (this.state.image_type === 'jumbo') {
-                    this.props.uiStore.current_theme_structure.main_section.background.imageData = this.state.preview_image_src;
-                    this.setState({ image_src: i });
+                    this.props.uiStore.current_theme_structure.main_section.background.imageData = this.state.reader_image_src;
+                    this.setState({ jumbotron_image_src: i });
                 }
                 if (this.state.image_type === 'main') {
-                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.preview_image_src;
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.reader_image_src;
                     this.setState({ main_image_src: i, modal_open: false });
                 }
                 if (this.state.image_type === 'sponsor') {
-                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.preview_image_src;
+                    this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = this.state.reader_image_src;
                     this.setState({ sponsor_image_src: i, modal_open: false });
                 }
                 if (this.state.image_type === 'news') {
-                    this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = this.state.preview_image_src;
+                    this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = this.state.reader_image_src;
                     this.setState({ news_image_src: i, modal_open: false });
                 }
                 if (this.state.image_type === 'roster') {
-                    this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = this.state.preview_image_src;
+                    this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = this.state.reader_image_src;
                     this.setState({ roster_image_src: i, modal_open: false });
                 }
                 if (this.state.image_type === 'matches') {
-                    this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = this.state.preview_image_src;
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = this.state.reader_image_src;
                     this.setState({ matches_image_src: i, modal_open: false });
                 }
                 if (this.state.image_type === 'media') {
-                    this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = this.state.preview_image_src;
+                    this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = this.state.reader_image_src;
                     this.setState({ media_image_src: i, modal_open: false });
                 }
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 console.log(`const s = ${JSON.stringify(s)}`);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ modal_open: false });
-                toast.success('Jumbotron updated !', {
+                toast.success('Image(s) updated !', {
                     position: toast.POSITION.TOP_LEFT
                 });
             }
         } else {
             if (this.logo_files) {
-                const lf = await this.uploadtoCloudinary();
+                const lf = await this.uploadtoCloudinary(this.state.image_type);
                 if (this.state.image_type === 'jumbo') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
+                    this.setState({ jumbotron_image_src: lf });
                 }
                 if (this.state.image_type === 'sponsor') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = lf;
+                    this.setState({ sponsor_image_src: lf });
                 }
                 if (this.state.image_type === 'main') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageMainData = lf;
+                    this.setState({ main_image_src: lf });
                 }
                 if (this.state.image_type === 'news') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = lf;
+                    this.setState({ news_image_src: lf });
                 }
                 if (this.state.image_type === 'roster') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = lf;
+                    this.setState({ roster_image_src: lf });
                 }
                 if (this.state.image_type === 'matches') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = lf;
+                    this.setState({ matches_image_src: lf });
                 }
                 if (this.state.image_type === 'media') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = lf;
+                    this.setState({ media_image_src: lf });
                 }
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
-                this.setState({ image_src: lf, modal_open: false });
+                this.setState({ reader_image_src: lf, modal_open: false });
                 toast.success('Jumbotron updated !', {
                     position: toast.POSITION.TOP_LEFT
                 });
@@ -173,12 +217,12 @@ class AdminThemeController extends Component {
             // upload to s3.
         }
     }
-    uploadtoCloudinary = () => {
+    uploadtoCloudinary = (nm) => {
         return new Promise((resolve) => {
             if (this.logo_files) {
                 const formData = new FormData();
                 formData.append('images', this.logo_files);
-                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${this.props.uiStore.current_organisation.subDomain}&theme=${this.selected_theme}&force_name=jumbotron`, formData, {
+                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${this.props.uiStore.current_organisation.subDomain}&theme=${this.selected_theme}&force_name=${nm}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -209,20 +253,20 @@ class AdminThemeController extends Component {
         });
     }
     handleSubmit = async () => {
-       // if (this.new_theme !== this.selected_theme) {
-            await this.props.appManager.executeQuery(
-                'mutation', updateOrganisationQuery,
-                {
-                    subDomain: this.props.uiStore.current_organisation.subDomain,
-                    themeId: this.new_theme,
-                    themeBaseId: this.state.choosen_theme
-                }
-            );
-            this.props.uiStore.current_organisation.themeId = this.new_theme;
-            this.props.uiStore.current_organisation.themeBaseId = this.state.choosen_theme;
-            toast.success('Theme updated !', {
-                position: toast.POSITION.TOP_LEFT
-            });
+        // if (this.new_theme !== this.selected_theme) {
+        await this.props.appManager.executeQuery(
+            'mutation', updateOrganisationQuery,
+            {
+                subDomain: this.props.uiStore.current_organisation.subDomain,
+                themeId: this.new_theme,
+                themeBaseId: this.state.choosen_theme
+            }
+        );
+        this.props.uiStore.current_organisation.themeId = this.new_theme;
+        this.props.uiStore.current_organisation.themeBaseId = this.state.choosen_theme;
+        toast.success('Theme updated !', {
+            position: toast.POSITION.TOP_LEFT
+        });
         // }
     }
     handleObliviotLightClick = () => {
@@ -273,7 +317,7 @@ class AdminThemeController extends Component {
             editMatchessImage={this.editMatchessImage}
             editMediaImage={this.editMediaImage}
             editRostersImage={this.editRostersImage}
-            image_src={this.state.image_src}
+            image_src={this.state.jumbotron_image_src}
             image_sponsor_src={this.state.sponsor_image_src}
             image_main_src={this.state.main_image_src}
             image_news_src={this.state.news_image_src}
@@ -305,7 +349,7 @@ class AdminThemeController extends Component {
                     saveModal={this.saveModal}
                     uploadFile={this.uploadFile}
 
-                    preview_image={this.state.preview_image_src}
+                    preview_image={this.state.reader_image_src}
 
                     default_image1="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg1.jpg"
                     default_image2="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg2.jpg"

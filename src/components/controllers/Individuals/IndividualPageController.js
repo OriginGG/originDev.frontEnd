@@ -258,7 +258,19 @@ class IndividualPageController extends Component {
             console.log('authPayload'+ authPayload); // eslint-disable-line
             this.key_index = 1;
             if (authPayload) {
-                const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+                let p;
+                try {
+                    p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+                } catch (err) {
+                    toast.error('Error finding this individual - Redirecting you to login in 5 seconds', {
+                        position: toast.POSITION.TOP_LEFT,
+                        autoClose: 5000
+                    });
+                    setTimeout(() => {
+                        browserHistory.push('/signup');
+                    }, 5000);
+                    return;
+                }
                 console.log(`token - ${p}`);
                 if (p.authenticateIndividual.individualAuthPayload === null) {
                     toast.error('Wrong password for  - Redirecting you to login page in 5 seconds', {

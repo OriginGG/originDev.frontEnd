@@ -99,9 +99,10 @@ class AdminProfileController extends Component {
             return;
         }
         if (this.upload_file) {
-            const logo_data = await this.uploadLogo();
+            // const logo_data = await this.uploadLogo();
+            const logo_data = await this.uploadLogoToCloudinary();
             const s = toJS(this.props.uiStore.current_theme_structure);
-            s.header.logo.imageData = logo_data.Location;
+            s.header.logo.imageData = logo_data.secure_url;
             this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.Location;
             try {
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
@@ -140,6 +141,19 @@ class AdminProfileController extends Component {
             const formData = new FormData();
             formData.append('images', this.logo_files);
             axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((x) => {
+                resolve(x.data);
+            });
+        });
+    }
+    uploadLogoToCloudinary = () => {
+        return new Promise((resolve) => {
+            const formData = new FormData();
+            formData.append('images', this.logo_files);
+            axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload/?sub_domain=${this.props.uiStore.current_organisation.subDomain}&theme=${this.props.uiStore.current_organisation.themeId}&force_name=company_logo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
