@@ -1865,6 +1865,20 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_staff_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_staff_image_container: {
+        width: '170px',
+        height: '240px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
     felzec_team_image_container: {
         width: '170px',
         height: '170px',
@@ -1879,9 +1893,28 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_staff_image: {
+        width: '170px',
+        height: '240px',
+        objectFit: 'cover',
+        position: 'relative'
+    },
+
     felzec_team_overlay: {
         width: '170px',
         height: '170px',
+        objectFit: 'contain',
+        position: 'absolute',
+        padding: '15px',
+        zIndex: '10',
+        top: '0px',
+        left: '0px',
+        backgroundColor: 'black'
+    },
+
+    felzec_staff_overlay: {
+        width: '140px',
+        height: '240px',
         objectFit: 'contain',
         position: 'absolute',
         padding: '15px',
@@ -1937,6 +1970,25 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_filter_container: {
         width: '100%',
         height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_staff_inner_container: {
+        width: '100%',
+        height: '400px',
+        padding: '50px 15% 50px 15%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_staff_filter_container: {
+        width: '100%',
+        height: '400px',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2092,6 +2144,17 @@ export const GlobalStyles = GlobalTheme => ({
         overflowY: 'hidden',
         paddingBottom: '-17px',
         marginTop: '150px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_coworker_container: {
+        width: '100%',
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        paddingBottom: '-17px',
+        marginTop: '50px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
     },
@@ -2347,6 +2410,18 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         fontSize: '16px',
         fontWeight: '400',
+    },
+
+    light_roster_item_container: {
+        width: '70px',
+        height: '100px',
+        display: 'table',
+        borderColor: 'rgba(0,0,0,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
     },
 
     // ***************************************************************
