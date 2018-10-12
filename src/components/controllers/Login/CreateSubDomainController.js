@@ -38,7 +38,8 @@ class CreateSubDomainController extends Component {
                 borderColor: 'white',
             };
             this.current_theme = 'dark';
-            this.setState({ theme1_select_style: s, visible: true });
+            const logo_url = 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png';
+            this.setState({ theme1_select_style: s, visible: true, image_src: logo_url });
         }
     }
     handleDomainChange = e => {
@@ -84,9 +85,9 @@ class CreateSubDomainController extends Component {
 
                 console.log(`domain name = ${this.domain_name}`);
 
-                const logo_data = await this.uploadLogo();
+                // const logo_data = await this.uploadLogo();
                 const p = toJS(this.props.uiStore.origin_theme_structure);
-                p.header.logo.imageData = logo_data.Location;
+                p.header.logo.imageData = this.state.image_src;
                 const baseId = process.env.REACT_APP_DEFAULT_BASE_THEME;
                 const t = {
                     themeName: this.domain_name,

@@ -332,9 +332,21 @@ class IndividualPageController extends Component {
         }
     }
     redirectTwitterAuth = async () => {
-        const twitterAuthTokenResponse = 'oauth_token=Gm37ggAAAAAA3KowAAABZjhOuyg&oauth_token_secret=pxJ3UZSHFXrM5lB0ZYYPz0JB4ZYU72D5&oauth_callback_confirmed=true';
-        const twitterAuthUrl = `https://api.twitter.com/oauth/authorize?${twitterAuthTokenResponse}`;
-        window.open(twitterAuthUrl);
+        try {
+         await axios.get(
+             'http://0.0.0.0:8080/auth/twitter',
+             { mode: 'no-cors' },
+             {
+                  headers: {
+                'Access-Control-Allow-Origin': '*',
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+             );
+        } catch (e) {
+        console.log(e);
+        }
     }
     // AuthRedirect = async () =>
     // {

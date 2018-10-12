@@ -1658,6 +1658,74 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative',
         display: 'inline-block'
     },
+    felzec_menu_felzec_light_item : {
+        height: '25px',
+        lineHeight: '25px',
+        width: '100%',
+        textAlign: 'right',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        position: 'relative'
+    },
+
+    felzec_footer_title_left: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_title_right: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_text_left : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'left',
+        paddingBottom: '20px'
+    },
+
+    felzec_footer_text_right : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'right',
+        paddingBottom: '20px'
+    },
+
+    footer_menu_felzec_light_item: {
+        width: '100%',
+        lineHeight: '1.2em',
+        textAlign: 'right',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400'
+    },
+
+    felzec_darkFooter: {
+        width: '100%',
+        backgroundColor: 'black'
+    },
 
     felzec_roster_item_container: {
         width: '100%',
@@ -2169,6 +2237,76 @@ export const GlobalStyles = GlobalTheme => ({
         top: '150px',
         right: '0px',
         cursor: 'pointer'
+    },
+
+    felzec_light_news_row: {
+        width: '100%',
+        height: '200px',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
+    felzec_light_news_container: {
+        width: '80%',
+        height: '200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'rgba(255,255,255,1)',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_micro_image: {
+        width: '100%',
+        height: '200px',
+        objectFit: 'cover'
+    },
+
+    felzec_light_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '30px',
+        color: 'black',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    felzec_light_news_body: {
+        textAlign: 'left',
+        fontSize: '14px',
+        color: 'black',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    felzec_modal_inner: {
+        width: '80%',
+        padding: '15px',
+        display: 'table',
+        background: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'black'
+    },
+    felzec_news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'black'
+    },
+
+    felzec_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'black',
+        overflowY: 'scroll'
     },
 
     // ***************************************************************

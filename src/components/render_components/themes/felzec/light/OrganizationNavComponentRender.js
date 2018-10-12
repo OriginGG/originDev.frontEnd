@@ -46,6 +46,9 @@ class LightOrganizationNavComponentRender extends Component {
                             <div id="sponsers_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>
                         </a>
                         <a href="#">
+                            <div id="news_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.news_style} onClick={this.props.handleViewBlogClick}>News</div>
+                        </a>
+                        <a href="#">
                             <div id="about_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
                         </a>
                         <a href="#home_cont">

@@ -7,8 +7,8 @@ import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 
-class OrganizationNavController extends Component {
-    state = { visible: false, OrganizationNavComponentRender: null, dropdown: false };
+class OrganizationFooterController extends Component {
+    state = { visible: false, OrganizationFooterComponentRender: null, dropdown: false };
     componentDidMount = async () => {
         const p_array = [];
         // const theme = this.props.uiStore.current_organisation.themeId;
@@ -21,9 +21,9 @@ class OrganizationNavController extends Component {
             });
             p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
         });
-        const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);
+        const OrganizationFooterComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationFooterComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
-        this.setState({ roster: p_array, visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
+        this.setState({ roster: p_array, visible: true, OrganizationFooterComponentRender: OrganizationFooterComponentRender.default });
         const nf_style = { display: 'none' };
         this.setState({ felzec_menu: false, felzec_style: nf_style });
     }
@@ -60,7 +60,7 @@ class OrganizationNavController extends Component {
         if (this.state.dropdown) {
             d_style = { display: 'table' };
         }
-        const { OrganizationNavComponentRender } = this.state;
+        const { OrganizationFooterComponentRender } = this.state;
         const social_links = [];
         if (this.props.uiStore.current_organisation.twitterFeedUsername) {
             social_links.push(<i
@@ -140,11 +140,12 @@ class OrganizationNavController extends Component {
             sssss = { display: 'inheret' };
         }
 
-        return <OrganizationNavComponentRender
+        return <OrganizationFooterComponentRender
             login_style={this.props.login_style}
             home_style={this.props.home_style}
             store_style={this.props.store_style}
             about_style={this.props.about_style}
+            footer_about={this.props.footer_about}
             roster_dropdown_style={d_style}
             felzec_menu_style={this.state.felzec_style}
             dropdown_item={m_array}
@@ -171,7 +172,7 @@ class OrganizationNavController extends Component {
 }
 
 
-OrganizationNavController.propTypes = {
+OrganizationFooterController.propTypes = {
     handleAboutClick: PropTypes.func.isRequired,
     handleSponsersClick: PropTypes.func.isRequired,
     handleRosterClick: PropTypes.func.isRequired,
@@ -184,9 +185,10 @@ OrganizationNavController.propTypes = {
     sponsers_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,
+    footer_about: PropTypes.object.isRequired,
     login_style: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationNavController));
+export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationFooterController));
