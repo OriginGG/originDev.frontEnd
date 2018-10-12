@@ -2424,6 +2424,50 @@ export const GlobalStyles = GlobalTheme => ({
         margin: '10px 0px 10px 0px'
     },
 
+    felzec_lower_about_title: {
+        width: '100%',
+        lineHeight: '25px',
+        paddingLeft: '10px',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900'
+    },
+
+    felzec_lower_about_text: {
+        width: '100%',
+        lineHeight: '20px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        color: 'white',
+        fontSize: '16px'
+    },
+
+    felzec_about_email_title: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '18px',
+        color: 'white',
+        fontWeight: '900'
+    },
+
+    felzec_about_email_title: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '16px',
+        color: 'red',
+        fontWeight: '300'
+    },
+
+    felzec_lower_email_button: {
+        backgroundColor: 'black',
+        padding: '8px',
+        width: '180px',
+        height: '60px',
+        float: 'left',
+        marginRight: '20px',
+        marginTop: '10px'
+    },
+
     // ***************************************************************
     // New Dark Theme
     // ***************************************************************
