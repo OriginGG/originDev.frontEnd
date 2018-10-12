@@ -2469,6 +2469,22 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // admin_navigate_button
+    //****************************************************************
+
+    admin_navigate_button: {
+        position: 'absolute',
+        padding: '10px 20px 10px 20px',
+        top: '16px',
+        right: '370px',
+        backgroundColor: 'blue',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        cursor: 'pointer'
+    },
+
+    // ***************************************************************
     // New Dark Theme
     // ***************************************************************
 
