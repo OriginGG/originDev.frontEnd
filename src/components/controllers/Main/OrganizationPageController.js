@@ -653,6 +653,14 @@ class OrganizationPageController extends Component {
             } else {
                 c_name = 'blackBG';
             }
+
+            let n_cnt = <span />;
+            let s_cnt = <OrganizationSponsorController />;
+
+            if (real_theme === 'felzec/light') {
+                n_cnt = nv_content;
+                s_cnt = <span />;
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
@@ -664,10 +672,11 @@ class OrganizationPageController extends Component {
                 matchesContent={<span />}
                 videoContent={<span />}
                 blogContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
+                topSponsorContent={s_cnt}
                 bottomSponsorContent={<span />}
-                navContent={<span />}
+                navContent={n_cnt}
                 logoContent={<span />}
+                footerContent={footer_content}
                 footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
             />;
         }

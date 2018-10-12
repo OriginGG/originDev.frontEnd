@@ -1865,6 +1865,20 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_staff_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_staff_image_container: {
+        width: '170px',
+        height: '240px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
     felzec_team_image_container: {
         width: '170px',
         height: '170px',
@@ -1879,9 +1893,28 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_staff_image: {
+        width: '170px',
+        height: '240px',
+        objectFit: 'cover',
+        position: 'relative'
+    },
+
     felzec_team_overlay: {
         width: '170px',
         height: '170px',
+        objectFit: 'contain',
+        position: 'absolute',
+        padding: '15px',
+        zIndex: '10',
+        top: '0px',
+        left: '0px',
+        backgroundColor: 'black'
+    },
+
+    felzec_staff_overlay: {
+        width: '140px',
+        height: '240px',
         objectFit: 'contain',
         position: 'absolute',
         padding: '15px',
@@ -1937,6 +1970,25 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_filter_container: {
         width: '100%',
         height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_staff_inner_container: {
+        width: '100%',
+        height: '400px',
+        padding: '50px 15% 50px 15%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_staff_filter_container: {
+        width: '100%',
+        height: '400px',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2092,6 +2144,17 @@ export const GlobalStyles = GlobalTheme => ({
         overflowY: 'hidden',
         paddingBottom: '-17px',
         marginTop: '150px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_coworker_container: {
+        width: '100%',
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        paddingBottom: '-17px',
+        marginTop: '50px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
     },
@@ -2307,6 +2370,118 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100%',
         color: 'black',
         overflowY: 'scroll'
+    },
+
+    felzec_about_header: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'blue'
+    },
+
+    felzec_about_container: {
+        width: '100%',
+        padding: '20px 15% 20px 15%'
+    },
+
+    felzec_about_container_inner: {
+        width: '100%',
+        minHeight: '400px',
+        backgroundColor: 'black',
+        padding: '20px'
+    },
+
+    felzec_about_container_lower: {
+        width: '100%',
+        height: '100px',
+        backgroundColor: 'red',
+        padding: '10px'
+    },
+
+    felzec_about_title: {
+        color: 'white',
+        width: '100%',
+        fontSize: '24px',
+        fontWeight: '900',
+        lineHeight: '35px'
+    },
+
+    felzec_about_text: {
+        color: 'white',
+        width: '100%',
+        fontSize: '16px',
+        fontWeight: '400',
+    },
+
+    light_roster_item_container: {
+        width: '70px',
+        height: '100px',
+        display: 'table',
+        borderColor: 'rgba(0,0,0,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+
+    felzec_lower_about_title: {
+        width: '100%',
+        lineHeight: '25px',
+        paddingLeft: '10px',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900'
+    },
+
+    felzec_lower_about_text: {
+        width: '100%',
+        lineHeight: '20px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        color: 'white',
+        fontSize: '16px'
+    },
+
+    felzec_about_email_title: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '18px',
+        color: 'white',
+        fontWeight: '900'
+    },
+
+    felzec_about_email_title: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '16px',
+        color: 'red',
+        fontWeight: '300'
+    },
+
+    felzec_lower_email_button: {
+        backgroundColor: 'black',
+        padding: '8px',
+        width: '180px',
+        height: '60px',
+        float: 'left',
+        marginRight: '20px',
+        marginTop: '10px'
+    },
+
+    // ***************************************************************
+    // admin_navigate_button
+    //****************************************************************
+
+    admin_navigate_button: {
+        position: 'absolute',
+        padding: '10px 20px 10px 20px',
+        top: '16px',
+        right: '370px',
+        backgroundColor: 'blue',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        cursor: 'pointer'
     },
 
     // ***************************************************************
