@@ -2450,7 +2450,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900'
     },
 
-    felzec_about_email_title: {
+    felzec_about_email_text: {
         width: '100%',
         lineHeight: '20px',
         fontSize: '16px',
