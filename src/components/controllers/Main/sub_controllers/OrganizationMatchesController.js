@@ -198,7 +198,8 @@ class OrganizationMatchesController extends Component {
         if (edges.length === 0) {
             return null;
         }
-        const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg1.jpg)', backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        const test_bg = this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData;
+        const s = { background: `url(${test_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
         const f = { backgroundColor: 'rgba(0,0,0,.5)' };
         const p_array = [];
         const f_array = [];
