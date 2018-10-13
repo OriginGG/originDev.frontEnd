@@ -169,8 +169,11 @@ class OrganizationStaffController extends Component {
         if (theme === 'felzec/light') {
             f_array = [];
         }
+        console.log(`currennt_org = ${JSON.stringify(this.props.uiStore.current_organisation)}`);
+        const b_email = this.props.uiStore.current_organisation.businessContactEmail;
+        const s_email = this.props.uiStore.current_organisation.supportContactEmail;
         return (<div>
-            <OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} about_staff={p_array} staff_style={s} filter_style={f} bg_style={sponsor_style} about_title={this.props.about_title} about_content={this.props.about_content} />
+            <OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} about_support_email={s_email} about_business_email={b_email} about_staff={p_array} staff_style={s} filter_style={f} bg_style={sponsor_style} about_title={this.props.about_title} about_content={this.props.about_content} />
             <div
                 onClick={this.props.closeStaff}
                 tabIndex={-1}

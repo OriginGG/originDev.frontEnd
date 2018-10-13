@@ -85,6 +85,7 @@ class OrganizationPageController extends Component {
             historyStore.push('/signup');
         } else {
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
+            console.log(`RESULTS = ${JSON.stringify(o.resultData)}`);
             if (o.resultData === null) {
                 historyStore.push('/');
             } else {
@@ -444,6 +445,8 @@ class OrganizationPageController extends Component {
         let footer_content = <span />;
         if (real_theme === 'felzec/light') {
             console.log(`real theme = ${real_theme}`);
+            const s_email = this.props.uiStore.current_organisation.supportContactEmail;
+            const b_email = this.props.uiStore.current_organisation.businessContactEmail;
             footer_content = <OrganizationFooterController
                 store_style={ss}
                 about_style={s}
@@ -451,6 +454,8 @@ class OrganizationPageController extends Component {
                 home_style={{ display: 'inherit' }}
                 login_style={{ display: 'inherit' }}
                 footer_about={this.bcontent}
+                footer_support={s_email}
+                footer_business={b_email}
                 handleStoreClick={this.handleStoreClick}
                 handleBlogClick={this.handleBlogClick}
                 handleViewBlogClick={this.handleViewBlogClick}
