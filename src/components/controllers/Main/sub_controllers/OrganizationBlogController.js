@@ -75,7 +75,8 @@ class OrganizationBlogController extends Component {
         if (!this.state.visible) {
             return null;
         }
-        const bg_style = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
+        const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageNewsData;
+        const bg_style = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'opacity(.2)' };
         let b_title_1 = 'Coming Soon';
         let b_media_1 = default_image;
         let b_content_1 = 'Latest news coming soon';
