@@ -1726,7 +1726,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '400',
         textAlign: 'left',
-        paddingBottom: '20px'
+        paddingBottom: '20px',
+        cursor: 'pointer'
     },
 
     felzec_footer_text_right : {
@@ -1736,6 +1737,16 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '400',
         textAlign: 'right',
         paddingBottom: '20px'
+    },
+
+    felzec_footer_email_right : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'right',
+        paddingBottom: '20px',
+        cursor: 'pointer'
     },
 
     footer_menu_felzec_light_item: {

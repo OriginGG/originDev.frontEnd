@@ -460,6 +460,7 @@ class OrganizationPageController extends Component {
                 handleBlogClick={this.handleBlogClick}
                 handleViewBlogClick={this.handleViewBlogClick}
                 handleLoginClick={this.handleLoginClick}
+                handleNewsClick={this.handleNewsClick}
                 handleRosterClick={this.handleRosterClick}
                 handleSponsersClick={this.handleSponsersClick}
                 handleAboutClick={this.handleAboutClick} />;

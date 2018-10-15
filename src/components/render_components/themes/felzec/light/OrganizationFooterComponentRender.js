@@ -20,16 +20,18 @@ class LightOrganizationFooterComponentRender extends Component {
                             <div className="ui stackable two column grid">
                                 <div className="column">
                                     <div className={this.props.classes.felzec_footer_title_left}>Support</div>
-                                    <div className={this.props.classes.felzec_footer_email_left}>{this.props.footer_support}</div>
+                                    <div className={this.props.classes.felzec_footer_email_left} onClick={this.props.handleSupportClick}>{this.props.footer_support}</div>
                                 </div>
                                 <div className="column">
                                     <div className={this.props.classes.felzec_footer_title_right}>Business enquiries</div>
-                                    <div className={this.props.classes.felzec_footer_text_right}>{this.props.footer_business}</div>
+                                    <div className={this.props.classes.felzec_footer_email_right} onClick={this.props.handleBusinessClick}>{this.props.footer_business}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="five wide column">
+                    <div style={{
+                        padding: '0px'
+                    }} className="five wide column">
                         <div className={this.props.classes.felzec_footer_title_left}>Latest Posts</div>
                         <div >{this.props.blog_items}</div>
                     </div>
