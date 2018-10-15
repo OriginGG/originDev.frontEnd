@@ -23,6 +23,8 @@ export const getOrganisationQuery = gql`
     discordUrl
     logo
     subDomain
+    supportContactEmail
+    businessContactEmail
     primaryColor
     instaLink
     youtubeLink
@@ -54,7 +56,8 @@ export const getOrganisationQuery = gql`
 
 export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String!, $name: String, $instaLink: String
 		$fbLink: String, $twitterLink: String, $youtubeLink: String, $themeId: String, $themeBaseId: String, $twitterFeedUsername: String
-		$twitchLink: String, $description: String, $logo: String, $primaryColor: String, $companyStoreLink: String, $discordUrl: String) {
+    $twitchLink: String, $description: String, $logo: String, $primaryColor: String, $companyStoreLink: String, $discordUrl: String
+    $businessContactEmail: String, $supportContactEmail: String) {
   updateOrganisationAccountBySubDomain(input: {
 		subDomain: $subDomain
     organisationAccountPatch: {
@@ -66,6 +69,8 @@ export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String
       twitterLink: $twitterLink
       twitterFeedUsername: $twitterFeedUsername
       twitchLink: $twitchLink
+      supportContactEmail: $supportContactEmail
+      businessContactEmail: $businessContactEmail
       youtubeLink: $youtubeLink
       description: $description
       themeId: $themeId
@@ -86,7 +91,8 @@ export const createOrganisationQuery = gql`
 mutation createOrg($subDomain: String!, $name: String, $description: String,
 	$fbLink:String, $instaLink: String, $twitterLink: String, $youtubeLink: String
 	$twitchLink: String, $themeId: String, $themeBaseId: String, $logo: String, $primaryColor: String,
-	$twitterFeedUsername: String, $companyStoreLink: String, $discordUrl: String) {
+  $twitterFeedUsername: String, $companyStoreLink: String, $discordUrl: String
+  $businessContactEmail: String, $supportContactEmail: String) {
   resultData: createOrganisationAccount(input: {
     organisationAccount: {
       subDomain: $subDomain
@@ -99,6 +105,8 @@ mutation createOrg($subDomain: String!, $name: String, $description: String,
       discordUrl: $discordUrl
       twitterLink: $twitterLink
       twitchLink: $twitchLink
+      supportContactEmail: $supportContactEmail
+      businessContactEmail: $businessContactEmail
       themeId: $themeId
       themeBaseId: $themeBaseId
       logo: $logo

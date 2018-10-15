@@ -21,7 +21,8 @@ class LightOrganizationPageComponentRender extends Component {
                         <div id="matches_container">{this.props.matchesContent}</div>
                         <div id="media_container">{this.props.mediaContent}</div>
                         <div id="roster_component" style={{
-                            paddingTop: '30px'
+                            paddingTop: '0px',
+                            paddingBottom: '25px'
                         }}>{this.props.rosterContent}</div>
                         <footer className={this.props.classes.felzec_darkFooter}>
                             <div >{this.props.footerContent}</div>

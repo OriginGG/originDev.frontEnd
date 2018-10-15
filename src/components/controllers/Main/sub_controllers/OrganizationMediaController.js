@@ -133,7 +133,8 @@ class OrganizationMediaController extends Component {
         // if (edges.length === 0) {
         //     return null;
         // }
-        const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageMediaData;
+        const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
         const f = { backgroundColor: 'rgba(255,255,255,.8)' };
         const p_array = [];
         const y_array = [];

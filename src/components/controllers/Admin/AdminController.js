@@ -45,6 +45,7 @@ class MenuDrop extends Component {
         const f = this.state.open;
         this.setState({ open: !f });
     }
+
     render() {
         return (
             <div>
@@ -179,6 +180,10 @@ class AdminPageController extends Component {
             this.subscribed = user.resultData.subscribed;
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
+
+            console.log(`domainInfo = ${JSON.stringify(domainInfo)}`);
+            const url_string = `${domainInfo.protocol}//${domainInfo.hostname}${(domainInfo.port === 443 || domainInfo.port === 80 || domainInfo.port === '') ? '' : `:${domainInfo.port}`}`;
+            console.log(`domain info urlstring = ${url_string}`);
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
             if (o.resultData === null) {
                 console.log('sub domain does not exist!');
@@ -212,6 +217,14 @@ class AdminPageController extends Component {
     handleClick = () => {
         const f = this.state.isOpen;
         this.setState({ isOpen: !f });
+    }
+
+    handleNavClick = () => {
+        console.log('nav click');
+        const domainInfo = this.props.appManager.getDomainInfo();
+        const url_string = `${domainInfo.protocol}//${domainInfo.hostname}${(domainInfo.port === 443 || domainInfo.port === 80 || domainInfo.port === '') ? '' : `:${domainInfo.port}`}`;
+        console.log(`domain info urlstring = ${url_string}`);
+        window.open(url_string, '_blank');
     }
     showSubscribeConfirm = () => {
         return new Promise(resolve => {
@@ -329,7 +342,7 @@ class AdminPageController extends Component {
                         <Sidebar.Pusher>
                             <Segment basic>
                                 <div style={{ height: '100vh', overflowY: 'auto' }}>
-                                    <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} />
+                                    <OrganizationAdminPageComponentRender admin_content={p_component} handleClick={this.handleClick} handleNavClick={this.handleNavClick} />
                                 </div>
                             </Segment>
                         </Sidebar.Pusher>

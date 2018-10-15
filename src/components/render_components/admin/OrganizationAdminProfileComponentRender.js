@@ -127,6 +127,29 @@ class OrganizationAdminProfileComponentRender extends Component {
                         </div>
                     </div>
                 </div>
+                <div className={this.props.classes.admin_title_box}>
+                    <h2>Contact Emails</h2>
+                </div>
+                <div className={this.props.classes.admin_social_box}>
+                    <div className={this.props.classes.admin_social_box_inner}>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Support Email" value={this.props.support_email_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'support_email_value', e );
+                            }}/>
+                        </div>
+                    </div>
+                    <div className={this.props.classes.admin_social_box_inner}>
+                        <div className="ui fluid input">
+                            <input type="text" placeholder="Business Email" value={this.props.business_email_value} onChange={e => {
+                                this
+                                    .props
+                                    .handleChange( 'business_email_value', e );
+                            }}/>
+                        </div>
+                    </div>
+                </div>
                 <div className={this.props.classes.admin_submit_box}>
                     <div className={this.props.classes.admin_submit_button} onClick={this.props.handleSubmit}>Submit</div>
                 </div>
