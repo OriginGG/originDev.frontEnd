@@ -15,7 +15,7 @@ class OrganizationRosterController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
-        const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
+        const { edges } = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId;
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
         this.setState({ roster_list: edges, visible: true, OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default });
     }
