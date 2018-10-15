@@ -137,9 +137,9 @@ class OrganizationPageController extends Component {
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
-                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
                     this.mobile_roster_data = [];
-                    roster_data.allRosters.edges.forEach((r) => {
+                    roster_data.allCombinedRosters.edges.forEach((r) => {
                         this.roster_display = true;
                         const { gameId } = r.node;
                         const currGame = _.find(gameOptions, (or) => {          // eslint-disable-line
