@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const createRosterQuery = gql`mutation createRoster($subDomain: String!, $gameId: Int, $rosterType: String, $teamName: String, $positionId: String) {
+export const createRosterQuery = gql`mutation createRoster($subDomain: String!, $gameId: Int, $rosterType: String, $teamName: String, $positionId: Int) {
   createCombinedRoster(input: {
     combinedRoster: {
       subDomain: $subDomain

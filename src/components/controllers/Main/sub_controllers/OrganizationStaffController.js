@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
 import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
-import { getAllStaffQuery } from '../../../../queries/staff';
+import { getRosterQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 // import { getOrganisationQuery } from './queries/organisation'
@@ -18,11 +18,11 @@ class OrganizationStaffController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
-        const roster_data = await this.props.appManager.executeQuery('query', getAllStaffQuery, { subDomain });
-        const outer_edges = roster_data.allStaff.edges;
+        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain, rosterType: 'staff' });
+        const outer_edges = roster_data.allCombinedRosters.edges;
         let p_array = [];
         for (let outer in outer_edges) {                // eslint-disable-line
-            const { edges } = outer_edges[outer].node.staffIndividualsByStaffId;
+            const { edges } = outer_edges[outer].node.combinedRosterIndividualsByRosterId;
             const p_type = outer_edges[outer].node.positionId;
             const tx = _.find(staffOptions, o => o.position_id === p_type).text;
             const ed_array = [];
