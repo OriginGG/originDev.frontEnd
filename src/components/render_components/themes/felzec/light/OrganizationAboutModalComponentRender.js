@@ -23,11 +23,11 @@ class LightOrganizationAboutModalComponentRender extends Component {
                             <div className="column">
                                 <div className={this.props.classes.felzec_lower_email_button}>
                                     <div className={this.props.classes.felzec_about_email_title}>SUPPORT</div>
-                                    <div className={this.props.classes.felzec_about_email_text}>{this.props.about_support_email}</div>
+                                    <div className={this.props.classes.felzec_about_email_text} onClick={this.props.handleSupportClick}>{this.props.about_support_email}</div>
                                 </div>
                                 <div className={this.props.classes.felzec_lower_email_button}>
                                     <div className={this.props.classes.felzec_about_email_title}>MANAGEMENT</div>
-                                    <div className={this.props.classes.felzec_about_email_text}>{this.props.about_business_email}</div>
+                                    <div className={this.props.classes.felzec_about_email_text} onClick={this.props.handleBusinessClick}>{this.props.about_business_email}</div>
                                 </div>
                             </div>
                         </div>

@@ -30,10 +30,11 @@ class OrganizationFooterController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
+            const blog_d = blog;
             // console.log(`blogMain = ${blog}`);
             const formattedDate = moment(createdAt).format('lll');
             this.results_array.push({
-                media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
+                media: blogMedia, title: blogTitle, date: formattedDate, blog: blog_d, key: i
             });
         });
         const OrganizationFooterComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationFooterComponentRender`);
@@ -62,6 +63,16 @@ class OrganizationFooterController extends Component {
     openPage = page => {
         window.open(page, '_blank');
     }
+    handleSupportClick = () => {
+        console.log('handle support click');
+        const emailTo = this.props.uiStore.current_organisation.supportContactEmail;
+        window.open(`mailto:${emailTo}`, '_blank');
+    }
+    handleBusinessClick = () => {
+        console.log('handle business click');
+        const emailTo = this.props.uiStore.current_organisation.businessContactEmail;
+        window.open(`mailto:${emailTo}`, '_blank');
+    }
     openMenu = () => {
         // console.log('open menu');
         if (this.state.felzec_menu) {
@@ -86,7 +97,7 @@ class OrganizationFooterController extends Component {
 
         const news_array = [];
         for (let i = 0; i < 3; i += 1) {
-            news_array.push(<OrganizationFooterNewsComponentRender blog_media={this.results_array[i].media} blog_content={this.results_array[i].title} blog_title={this.results_array[i].date} />);
+            news_array.push(<OrganizationFooterNewsComponentRender handleNewsClick={this.props.handleNewsClick} blog={this.results_array[i].blog} blog_media={this.results_array[i].media} blog_content={this.results_array[i].title} blog_title={this.results_array[i].date} />);
         }
         const social_links = [];
         if (this.props.uiStore.current_organisation.twitterFeedUsername) {
@@ -181,6 +192,8 @@ class OrganizationFooterController extends Component {
             sponsers_style={this.props.sponsers_style}
             footer_support={this.props.footer_support}
             footer_business={this.props.footer_business}
+            handleBusinessClick={this.handleBusinessClick}
+            handleSupportClick={this.handleSupportClick}
             roster_menu_style={sssss}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
@@ -219,7 +232,8 @@ OrganizationFooterController.propTypes = {
     home_style: PropTypes.object.isRequired,
     footer_about: PropTypes.object.isRequired,
     login_style: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+    appManager: PropTypes.object.isRequired,
+    handleNewsClick: PropTypes.func.isRequired
 };
 
 

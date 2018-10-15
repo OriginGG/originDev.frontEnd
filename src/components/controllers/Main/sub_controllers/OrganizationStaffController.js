@@ -95,6 +95,17 @@ class OrganizationStaffController extends Component {
         // console.log(s);
     }
 
+    handleSupportClick = () => {
+        console.log('handle support click');
+        const emailTo = this.props.uiStore.current_organisation.supportContactEmail;
+        window.open(`mailto:${emailTo}`, '_blank');
+    }
+    handleBusinessClick = () => {
+        console.log('handle business click');
+        const emailTo = this.props.uiStore.current_organisation.businessContactEmail;
+        window.open(`mailto:${emailTo}`, '_blank');
+    }
+
     render() {
         if (this.state.visible === false) {
             return null;
@@ -173,7 +184,18 @@ class OrganizationStaffController extends Component {
         const b_email = this.props.uiStore.current_organisation.businessContactEmail;
         const s_email = this.props.uiStore.current_organisation.supportContactEmail;
         return (<div>
-            <OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} about_support_email={s_email} about_business_email={b_email} about_staff={p_array} staff_style={s} filter_style={f} bg_style={sponsor_style} about_title={this.props.about_title} about_content={this.props.about_content} />
+            <OrganizationAboutModalComponentRender
+            extra_style={{ display: 'inherit' }}
+            about_support_email={s_email}
+            about_business_email={b_email}
+            about_staff={p_array}
+            staff_style={s}
+            filter_style={f}
+            bg_style={sponsor_style}
+            about_title={this.props.about_title}
+            handleSupportClick={this.handleSupportClick}
+            handleBusinessClick={this.handleBusinessClick}
+            about_content={this.props.about_content} />
             <div
                 onClick={this.props.closeStaff}
                 tabIndex={-1}
