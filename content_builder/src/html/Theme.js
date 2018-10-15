@@ -2543,7 +2543,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '60px',
         float: 'left',
         marginRight: '20px',
-        marginTop: '10px'
+        marginTop: '10px',
+        cursor: 'pointer'
     },
 
     // ***************************************************************

@@ -1755,7 +1755,8 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'right',
         color: '#bbb',
         fontSize: '24px',
-        fontWeight: '400'
+        fontWeight: '400',
+        cursor: 'pointer'
     },
 
     felzec_darkFooter: {
@@ -2542,7 +2543,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '60px',
         float: 'left',
         marginRight: '20px',
-        marginTop: '10px'
+        marginTop: '10px',
+        cursor: 'pointer'
     },
 
     // ***************************************************************
