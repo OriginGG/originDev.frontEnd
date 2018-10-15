@@ -92,7 +92,6 @@ export class ModalContentAddUser extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        debugger;
         const currGame = _.find(staffOptions, (o) => {
             return o.position_id === parseInt(this.props.game_node.positionId, 10);
         });
@@ -191,7 +190,6 @@ class ModalContentAddGame extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        debugger;
         const currGame = _.find(staffOptions, (o) => {
             return o.value === parseInt(this.state.current_game.value, 10);
         });
@@ -261,7 +259,6 @@ class AdminStaffController extends Component {
                 const currGame = _.find(staffOptions, (o) => {
                     return o.position_id === parseInt(positionId, 10);
                 });
-                debugger;
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
             this.current_roster_users = staff_data.allCombinedRosters.edges;

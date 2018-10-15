@@ -201,16 +201,16 @@ class AppManager {
     executeApolloQuery = async (type, query, payload, client) => {
         return new Promise(async (resolve, reject) => {
             if (type === 'mutation') {
-                try {
+                // try {
                     const data = await client
                         .mutate({
                             mutation: query,
                             variables: payload
                         });
                     resolve(data.data);
-                } catch (err) {
-                    reject(new Error('Network Error'));
-                }
+                // } catch (err) {
+                    // reject(new Error('Network Error'));
+                // }
             } else {
                 try {
                     const data = await client
