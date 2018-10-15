@@ -24,28 +24,33 @@
    <body>
         <div data-component-name="light_OrganizationFooterComponent" class="classes.felzec_nav_constraint">
             <div class="ui stackable three column grid" style="padding:0px">
-                <div class="six wide column" style="padding:0px">
-                    <div class="classes.felzec_footer_title_left">About</div>
-                    <div class="classes.felzec_footer_text_left" data-component-value="{this.props.footer_about}">
-                        about
-                    </div>
-                    <div class="ui stackable two column grid">
-                        <div class="column">
-                            <div class="classes.felzec_footer_title_left">Support</div>
-                            <div class="classes.felzec_footer_text_left" data-component-value="{this.props.footer_support}">
-                                support email
-                            </div>
+                <div class="eight wide column" style="padding:0px">
+                    <div class="classes.felzec_footer_inner">
+                        <div class="classes.felzec_footer_title_left">About</div>
+                        <div class="classes.felzec_footer_text_left" data-component-value="{this.props.footer_about}">
+                            about
                         </div>
-                        <div class="column">
-                            <div class="classes.felzec_footer_title_right">Business enquiries</div>
-                            <div class="classes.felzec_footer_text_right" data-component-value="{this.props.footer_business}">
-                                support email
+                        <div class="ui stackable two column grid">
+                            <div class="column">
+                                <div class="classes.felzec_footer_title_left">Support</div>
+                                <div class="classes.felzec_footer_email_left" data-component-value="{this.props.footer_support}">
+                                    support email
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="classes.felzec_footer_title_right">Business enquiries</div>
+                                <div class="classes.felzec_footer_text_right" data-component-value="{this.props.footer_business}">
+                                    support email
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="four wide column"></div>
-                <div class="six wide column" style="padding:0px">
+                <div class="five wide column">
+                    <div class="classes.felzec_footer_title_left">Latest Posts</div>
+                    <div data-component-value={this.props.blog_items}>blog intems</div>
+                </div>
+                <div class="three wide column" style="padding:0px">
                     <div class="classes.felzec_footer_title_right">Menu</div>
                     <div id="menu_home" data-component-props="style={this.props.home_style}"  class="classes.footer_menu_felzec_light_item">Home</div>
                     <div id="about_button" data-component-props="style={this.props.about_style} onClick={this.props.handleAboutClick}" class="classes.footer_menu_felzec_light_item">About</div>
