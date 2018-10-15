@@ -13,24 +13,29 @@ class LightOrganizationFooterComponentRender extends Component {
                 }} className="ui stackable three column grid">
                     <div style={{
                         padding: '0px'
-                    }} className="six wide column">
-                        <div className={this.props.classes.felzec_footer_title_left}>About</div>
-                        <div className={this.props.classes.felzec_footer_text_left}>{this.props.footer_about}</div>
-                        <div className="ui stackable two column grid">
-                            <div className="column">
-                                <div className={this.props.classes.felzec_footer_title_left}>Support</div>
-                                <div className={this.props.classes.felzec_footer_text_left}>{this.props.footer_support}</div>
-                            </div>
-                            <div className="column">
-                                <div className={this.props.classes.felzec_footer_title_right}>Business enquiries</div>
-                                <div className={this.props.classes.felzec_footer_text_right}>{this.props.footer_business}</div>
+                    }} className="eight wide column">
+                        <div className={this.props.classes.felzec_footer_inner}>
+                            <div className={this.props.classes.felzec_footer_title_left}>About</div>
+                            <div className={this.props.classes.felzec_footer_text_left}>{this.props.footer_about}</div>
+                            <div className="ui stackable two column grid">
+                                <div className="column">
+                                    <div className={this.props.classes.felzec_footer_title_left}>Support</div>
+                                    <div className={this.props.classes.felzec_footer_email_left}>{this.props.footer_support}</div>
+                                </div>
+                                <div className="column">
+                                    <div className={this.props.classes.felzec_footer_title_right}>Business enquiries</div>
+                                    <div className={this.props.classes.felzec_footer_text_right}>{this.props.footer_business}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="four wide column"/>
+                    <div className="five wide column">
+                        <div className={this.props.classes.felzec_footer_title_left}>Latest Posts</div>
+                        <div >{this.props.blog_items}</div>
+                    </div>
                     <div style={{
                         padding: '0px'
-                    }} className="six wide column">
+                    }} className="three wide column">
                         <div className={this.props.classes.felzec_footer_title_right}>Menu</div>
                         <div id="menu_home" className={this.props.classes.footer_menu_felzec_light_item} style={this.props.home_style}>Home</div>
                         <div id="about_button" className={this.props.classes.footer_menu_felzec_light_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>

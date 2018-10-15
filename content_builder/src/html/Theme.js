@@ -1685,6 +1685,20 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900'
     },
 
+    felzec_footer_title_center: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_inner: {
+        width: '90%'
+    },
+
     felzec_footer_title_right: {
         width: '100%',
         lineHeight: '30px',
@@ -1696,6 +1710,17 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_footer_text_left : {
+        width: '100%',
+        height: '290px',
+        overflow: 'hidden',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'left',
+        paddingBottom: '20px'
+    },
+
+    felzec_footer_email_left : {
         width: '100%',
         color: '#cdcdcd',
         fontSize: '16px',
@@ -1715,10 +1740,10 @@ export const GlobalStyles = GlobalTheme => ({
 
     footer_menu_felzec_light_item: {
         width: '100%',
-        lineHeight: '1.2em',
+        lineHeight: '1.3em',
         textAlign: 'right',
-        color: '#cdcdcd',
-        fontSize: '16px',
+        color: '#bbb',
+        fontSize: '24px',
         fontWeight: '400'
     },
 
@@ -2309,6 +2334,14 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_light_footer_news_row: {
+        width: '100%',
+        height: '100px',
+        marginTop: '15px',
+        position: 'relative',
+        display: 'table'
+    },
+
     felzec_light_news_container: {
         width: '80%',
         height: '200px',
@@ -2319,9 +2352,23 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
 
+    felzec_light_news_footercontainer: {
+        width: '100%',
+        height: '100px',
+        backgroundColor: 'transparent',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
     felzec_main_news_item_micro_image: {
         width: '100%',
         height: '200px',
+        objectFit: 'cover'
+    },
+
+    felzec_main_footer_news_item_micro_image: {
+        width: '100%',
+        height: '100px',
         objectFit: 'cover'
     },
 
@@ -2334,10 +2381,29 @@ export const GlobalStyles = GlobalTheme => ({
         textTransform: 'uppercase'
     },
 
+    felzec_light_footer_news_title: {
+        textAlign: 'left',
+        fontSize: '14px',
+        lineHeight: '20px',
+        marginTop: '10px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
     felzec_light_news_body: {
         textAlign: 'left',
         fontSize: '14px',
         color: 'black',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    felzec_light_footer_news_body: {
+        textAlign: 'left',
+        fontSize: '12px',
+        color: 'red',
         fontWeight: 'bold',
         overflow: 'hidden',
         textOverflow: 'ellipsis'
