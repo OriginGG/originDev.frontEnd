@@ -13,7 +13,7 @@ import { getPagesQuery, updatePageQuery } from '../../../../queries/pages';
 
 class AdminAboutController extends Component {
     state = {
-        page_content: '', about_title: '', about_sub_title: '', visible: false, edit_page: false, row_array: []
+        submitting: false, page_content: '', about_title: '', about_sub_title: '', visible: false, edit_page: false, row_array: []
     };
     componentDidMount = () => {
         this.calcRows();
@@ -51,6 +51,7 @@ class AdminAboutController extends Component {
         this.setState({ page_content: value });
     }
     handleSubmit = async () => {
+        this.setState({ submitting: true });
         await this.props.appManager.executeQuery('mutation', updatePageQuery, {
             id: this.current_id,
             pageContent: this.state.page_content,
@@ -61,6 +62,7 @@ class AdminAboutController extends Component {
         toast.success('Blog post added !', {
             position: toast.POSITION.TOP_LEFT
         });
+        this.setState({ submitting: false });
         this.calcRows();
     }
     render() {
@@ -92,7 +94,7 @@ class AdminAboutController extends Component {
                                     value={this.state.page_content}
                                     onChange={this.handleQuillChange} />
                             </Segment>
-                            <Button primary onClick={this.handleSubmit}>SUBMIT</Button>
+                            <Button disabled={this.state.submitting} primary onClick={this.handleSubmit}>SUBMIT</Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>
