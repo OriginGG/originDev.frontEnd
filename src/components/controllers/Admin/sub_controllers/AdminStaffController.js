@@ -191,7 +191,7 @@ class ModalContentAddGame extends Component {
             return null;
         }
         const currGame = _.find(staffOptions, (o) => {
-            return o.value === parseInt(this.state.current_game.value, 10);
+            return o.value === this.state.current_game.value;
         });
         return (
             <div style={{ width: 500, backgroundColor: 'black' }}>
