@@ -19,7 +19,7 @@ class AdminAddBlogController extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false, blog_image: null, blog_title: '', text: ''
+            submitting: false, visible: false, blog_image: null, blog_title: '', text: ''
         }; // You can also pass a Quill Delta here
     }
     componentDidMount = () => {
@@ -37,6 +37,7 @@ class AdminAddBlogController extends Component {
         this.setState(p);
     }
     handleSubmit = async () => {
+        this.setState({ submitting: true });
         const f_name = await this.uploadBlogMedia();
         const f_title = this.state.blog_title;
         const f_text = this.state.text;
@@ -45,6 +46,7 @@ class AdminAddBlogController extends Component {
             toast.error('Not all Blog fields filled out or an image has nott been uploaded', {
                 position: toast.POSITION.TOP_LEFT
             });
+            this.setState({ submitting: false });
             return;
         }
         if (this.create_blog) {
@@ -61,6 +63,7 @@ class AdminAddBlogController extends Component {
                 toast.success('Blog post added !', {
                     position: toast.POSITION.TOP_LEFT
                 });
+                this.setState({ submitting: false });
                 this.props.handleCancel();
             }
         } else {
@@ -76,10 +79,12 @@ class AdminAddBlogController extends Component {
             toast.success('Blog post updated !', {
                 position: toast.POSITION.TOP_LEFT
             });
+            this.setState({ submitting: false });
             this.props.handleCancel();
         }
     }
     handleCancel = () => {
+        this.setState({ submitting: false });
         this.props.handleCancel();
     }
     handleChange = (value) => {
@@ -186,7 +191,7 @@ class AdminAddBlogController extends Component {
                                 }}
                                 value={this.state.text}
                                 onChange={this.handleChange} />
-                            <Button onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
+                            <Button disabled={this.state.submitting} onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
                                 SUBMIT
                         </Button> {!this.create_blog &&
                                 <Button onClick={this.handleDelete} style={{ float: 'right', marginTop: 12 }} negative>

@@ -9,7 +9,7 @@ import OrganizationAdminCollaboratorComponentRender from '../../../render_compon
 
 class AdminCollaboratorController extends Component {
     state = {
-        visible: false, modal_open: false, firstname_value: '', lastname_value: '', email_value: '', password_value: ''
+        submitting: false, visible: false, modal_open: false, firstname_value: '', lastname_value: '', email_value: '', password_value: ''
     }
 
     componentDidMount = async () => {
@@ -33,7 +33,7 @@ class AdminCollaboratorController extends Component {
         });
     }
     cancelModal = () => {
-        this.setState({ modal_open: false });
+        this.setState({ modal_open: false, submitting: false });
     }
     handleInputChange = (e, field) => {
         const v = e.target.value;
@@ -48,6 +48,7 @@ class AdminCollaboratorController extends Component {
     }
 
     handleSubmit = async () => {
+        this.setState({ submitting: true });
         const payload = {
             firstName: this.state.firstname_value,
             lastName: this.state.firstname_value,
@@ -60,7 +61,7 @@ class AdminCollaboratorController extends Component {
         const actual_id = my_id.registerUser.user.id;
         await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         await this.updateTable();
-        this.setState({ modal_open: false });
+        this.setState({ modal_open: false, submitting: false });
     }
     render() {
         if (!this.state.visible) {
@@ -94,7 +95,7 @@ class AdminCollaboratorController extends Component {
                         </div>
                     </div>
                 </div >
-                <Button onClick={this.handleSubmit} primary>Submit</Button>
+                <Button disabled={this.state.submitting} onClick={this.handleSubmit} primary>Submit</Button>
                 <Button onClick={this.cancelModal} negative>Cancel</Button>
 
             </Segment >;
