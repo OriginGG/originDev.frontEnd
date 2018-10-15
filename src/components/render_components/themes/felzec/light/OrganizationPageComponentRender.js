@@ -4,41 +4,51 @@ import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 
-class LightOrganizationPageComponentRender extends Component {
+class DarkOrganizationPageComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.lightObliotBG}>
-                <div>
-                    <img id="bg_img" alt="" className={this.props.classes.felzec_light_bg_img}/>
-                    <div className={this.props.classes.obliviot_light_bg_filter} style={this.props.obliviot_page_style}/>
-                    <div>
-                        <header className={this.props.classes.felzec_lightHeader}>
+            <div className={this.props.classes.darkMainBG}>
+                <div className={this.props.classes.dark_pageTestContraint}>
+                    <header className={this.props.classes.darkHeader}>
+                        <div id="dark_header">
+                            <div >{this.props.topSponsorContent}</div>
+                        </div>
+                    </header>
+                    <div className={this.props.classes.body_container}>
+                        <div id="home_cont" className={this.props.classes.dark_nav_container}>
                             <div >{this.props.navContent}</div>
-                        </header>
-                        <div id="sponsors">{this.props.topSponsorContent}</div>
-                        <div id="blog">{this.props.blogContent}</div>
-                        <div id="team_component">{this.props.teamContent}</div>
-                        <div id="matches_container">{this.props.matchesContent}</div>
-                        <div id="media_container">{this.props.mediaContent}</div>
-                        <div id="roster_component" style={{
-                            paddingTop: '0px',
-                            paddingBottom: '25px'
-                        }}>{this.props.rosterContent}</div>
-                        <footer className={this.props.classes.felzec_darkFooter}>
-                            <div >{this.props.footerContent}</div>
-                        </footer>
+                        </div>
+                        <div id="logo_cont" className={this.props.classes.dark_main_image_container}>
+                            <div >{this.props.logoContent}</div>
+                        </div>
+                        <div id="theme_about_modal"></div>
+                        <div id="roster_component">{this.props.rosterContent}</div>
+                        <div id="#news_cont" className="ui stackable three column grid">
+                            <div id="news_component" className="column">
+                                <div >{this.props.newsContent}</div>
+                            </div>
+                            <div id="twitter_compontent" className="column">
+                                <div >{this.props.twitterContent}</div>
+                            </div>
+                            <div id="matches_component" className="column">
+                                <div >{this.props.matchesContent}</div>
+                            </div>
+                        </div>
+                        <div id="video_cont" className={this.props.classes.dark_media_container}>
+                            <div >{this.props.videoContent}</div>
+                        </div>
                     </div>
-                    <div className={this.props.classes.obliviot_orgFooter}>
-                        <p className={this.props.classes.obliviot_orgFooterText}>© Origin. All rights reserved.</p>
-                    </div>
+                </div>
+                <div className={this.props.classes.orgFooter} style={this.props.footer_style}>
+                    <p className={this.props.classes.orgFooterText}>{this.props.copyright}</p>
                 </div>
             </div>
         )
     }
 }
 
-LightOrganizationPageComponentRender.propTypes = {
+DarkOrganizationPageComponentRender.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default injectSheet( GlobalStyles )( LightOrganizationPageComponentRender )
+export default injectSheet( GlobalStyles )( DarkOrganizationPageComponentRender )
