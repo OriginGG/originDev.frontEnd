@@ -235,16 +235,18 @@ class SocialStats extends Component {
                     this.individualData_agg = <Table.Row />;
                     break;
                 }
-                this.individualData = stats.individual_user_info.map(m => {
-                    this.totalFollowers += parseInt(m.Followers, 10);
-                    this.totalViews += parseInt(m.Views, 10);
-                    return (
-                        <Table.Row>
-                            <Table.Cell />
-                            <Table.Cell>{m.Display_Name}</Table.Cell>
-                            <Table.Cell>{m.Followers}</Table.Cell>
-                            <Table.Cell>{m.Views}</Table.Cell>
-                        </Table.Row>);
+                this.individualData = [];
+                stats.individual_user_info.forEach((m, i) => {
+                    if (m) {
+                        this.totalFollowers += parseInt(m.Followers, 10);
+                        this.totalViews += parseInt(m.Views, 10);
+                        this.individualData.push(<Table.Row key={`agg_twit_stat_${i}`}>
+                                <Table.Cell />
+                                <Table.Cell>{m.Display_Name}</Table.Cell>
+                                <Table.Cell>{m.Followers}</Table.Cell>
+                                <Table.Cell>{m.Views}</Table.Cell>
+                            </Table.Row>);
+                    }
                 });
                 this.individualData_agg =
                     <Table.Row>
