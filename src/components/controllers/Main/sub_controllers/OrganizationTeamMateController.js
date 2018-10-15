@@ -17,7 +17,10 @@ class OrganizationTeamMateController extends Component {
         // console.log(`roster ID = ${this.props.roster_id}`);
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
-        const { edges } = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId;
+        let edges = [];
+        if (roster_data.combinedRosterById) {
+            edges = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId.edges;                   // eslint-disable-line
+        }
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
         this.setState({ roster_list: edges, visible: true, OrganizationTeamImageComponentRender: OrganizationTeamImageComponentRender.default });
 
