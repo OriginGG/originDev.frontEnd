@@ -3,7 +3,9 @@ import injectSheet from 'react-jss';
 import _ from 'lodash';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { GlobalStyles } from 'Theme/Theme';
+import { getBlogsQuery } from '../../../../queries/blogs';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 
@@ -21,9 +23,28 @@ class OrganizationFooterController extends Component {
             });
             p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
         });
+        const subDomain = this.props.uiStore.current_subdomain;
+        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
+        this.results_array = [];
+        blog_data.resultData.edges.forEach((blog, i) => {
+            const { blogMedia } = blog.node;
+            const { blogTitle } = blog.node;
+            const { createdAt } = blog.node;
+            // console.log(`blogMain = ${blog}`);
+            const formattedDate = moment(createdAt).format('lll');
+            this.results_array.push({
+                media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
+            });
+        });
         const OrganizationFooterComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationFooterComponentRender`);
+        const OrganizationFooterNewsComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationFooterNewsComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
-        this.setState({ roster: p_array, visible: true, OrganizationFooterComponentRender: OrganizationFooterComponentRender.default });
+        this.setState({
+            roster: p_array,
+            visible: true,
+            OrganizationFooterComponentRender: OrganizationFooterComponentRender.default,
+            OrganizationFooterNewsComponentRender: OrganizationFooterNewsComponentRender.default
+        });
         const nf_style = { display: 'none' };
         this.setState({ felzec_menu: false, felzec_style: nf_style });
     }
@@ -61,6 +82,12 @@ class OrganizationFooterController extends Component {
             d_style = { display: 'table' };
         }
         const { OrganizationFooterComponentRender } = this.state;
+        const { OrganizationFooterNewsComponentRender } = this.state;
+
+        const news_array = [];
+        for (let i = 0; i < 3; i += 1) {
+            news_array.push(<OrganizationFooterNewsComponentRender blog_media={this.results_array[i].media} blog_content={this.results_array[i].title} blog_title={this.results_array[i].date} />);
+        }
         const social_links = [];
         if (this.props.uiStore.current_organisation.twitterFeedUsername) {
             social_links.push(<i
@@ -147,6 +174,7 @@ class OrganizationFooterController extends Component {
             about_style={this.props.about_style}
             footer_about={this.props.footer_about}
             roster_dropdown_style={d_style}
+            blog_items={news_array}
             felzec_menu_style={this.state.felzec_style}
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
