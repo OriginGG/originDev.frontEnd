@@ -20,6 +20,8 @@ class AdminProfileController extends Component {
             youtube_value: '',
             company_store_value: '',
             company_name_value: '',
+            support_email_value: '',
+            business_email_value: '',
             facebook_value: '',
             twitter_username_value: '',
             rss_value: '',
@@ -38,6 +40,8 @@ class AdminProfileController extends Component {
                 twitch_value: this.getInputValue(this.props.uiStore.current_organisation.twitchLink),
                 youtube_value: this.getInputValue(this.props.uiStore.current_organisation.youtubeLink),
                 discord_value: this.getInputValue(this.props.uiStore.current_organisation.discordUrl),
+                business_email_value: this.getInputValue(this.props.uiStore.current_organisation.businessContactEmail),
+                support_email_value: this.getInputValue(this.props.uiStore.current_organisation.supportContactEmail),
                 company_name_value: this.getInputValue(this.props.uiStore.current_organisation.name),
                 company_store_value: this.getInputValue(this.props.uiStore.current_organisation.companyStoreLink),
                 facebook_value: this.getInputValue(this.props.uiStore.current_organisation.fbLink),
@@ -120,7 +124,11 @@ class AdminProfileController extends Component {
                     fbLink: this.state.input_values.facebook_value,
                     youtubeLink: this.state.input_values.youtube_value,
                     discordUrl: this.state.input_values.discord_value,
+                    businessContactEmail: this.state.input_values.business_email_value,
+                    supportContactEmail: this.state.input_values.support_email_value,
                     twitterLink: this.state.input_values.twitter_value,
+                    business_email_value: this.state.input_values.business_email_value,
+                    support_email_value: this.state.input_values.support_email_value,
                     instaLink: this.state.input_values.insta_value,
                     twitterFeedUsername: this.state.input_values.twitter_username_value,
                     twitchLink: this.state.input_values.twitch_value,
@@ -129,6 +137,7 @@ class AdminProfileController extends Component {
             );
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
             this.props.uiStore.setOrganisation(o.resultData);
+            console.log(`result data = ${JSON.stringify(o.resultData)}`);
             toast.success('Company Details updated !', {
                 position: toast.POSITION.TOP_LEFT
             });

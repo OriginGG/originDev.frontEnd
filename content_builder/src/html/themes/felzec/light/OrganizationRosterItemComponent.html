@@ -22,34 +22,13 @@
       </script>  
    </head>
    <body id="gradient">
-        <div data-component-name="light_OrganizationRosterItemComponent">
-            <div class="classes.light_roster_item_container">
-                <div class="ui stackable two column grid">
-                    <div class="three wide column">
-                        <div class="classes.roster_item_img_container">
-                            <img data-component-props="src={this.props.roster_image}" class="classes.roster_item_img" src="./images/matthew.png" />
-                        </div>
-                    </div>
-                    <div class="thirteen wide column">
-                        <div style="display: table; padding-top: 10px; padding-bottom: 10px">
-                            <div class="classes.roster_item_name_container">
-                                <span data-component-value="{this.props.roster_name}" class="classes.light_roster_name">Bobby Jones</span>
-                                <span class="classes.light_roster_divider">|</span>
-                                <span data-component-value="{this.props.roster_nickname}" class="classes.light_roster_name">ThunderDude</span>
-                            </div>
-                            <div class="classes.roster_item_about_container">
-                                <span data-component-value="{this.props.roster_about}" class="classes.light_roster_about_text">Bobby Jones is is a player for Ascendant Gaming. He is most known for playing for Team Kaliber for over 2.5 years. Bobby Jones is is a player for Ascendant Gaming. He is most known for playing for Team Kaliber for over 2.5 years. Bobby Jones is is a player for Ascendant Gaming. He is most known for playing for Team Kaliber for over 2.5 years. Bobby Jones is is a player for Ascendant Gaming. He is most known for playing for Team Kaliber for over 2.5 years.</span>
-                            </div>
-                            <div class="classes.roster_item_social_container">
-                                <div data-component-props="onClick={()=>{this.props.handle_social('twitter', this.props.ind_user)}} style={this.props.twitter_style}" class="classes.light_roster_item_social_icon"><i class="fa fa-twitter"></i></div>
-                                <div data-component-props="onClick={()=>{this.props.handle_social('facebook', this.props.ind_user)}} style={this.props.facebook_style}" class="classes.light_roster_item_social_icon"><i class="fa fa-facebook"></i></div>
-                                <div data-component-props="onClick={()=>{this.props.handle_social('instagram', this.props.ind_user)}} style={this.props.instagram_style}" class="classes.light_roster_item_social_icon"><i class="fa fa-instagram"></i></div>
-                                <div data-component-props="onClick={()=>{this.props.handle_social('youtube', this.props.ind_user)}} style={this.props.youtube_style}" class="classes.light_roster_item_social_icon"><i class="fa fa-youtube"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div data-component-name="light_OrganizationRosterItemComponent" class="classes.felzec_staff_image_container">
+            <img class="classes.felzec_staff_image" data-component-props="src={this.props.roster_image}" />
+            <div class="classes.felzec_staff_overlay" data-component-props="style={this.props.felzec_overlay_style}">
+                <div class="classes.felzec_team_overlay_name" data-component-value="{this.props.roster_name}">John Doe</div>
+                <div class="classes.felzec_team_overlay_handle" data-component-value="{this.props.roster_nickname}">undertaker</div>
+                <div class="classes.felzec_team_overlay_button" data-component-props="onClick={()=>{this.props.handleIndividualClick(this)}}">PROFILE</div>
             </div>
-        </div>
+        </div>>
    </body>
 </html>

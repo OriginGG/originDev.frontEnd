@@ -151,6 +151,8 @@ class OrganizationFooterController extends Component {
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
+            footer_support={this.props.footer_support}
+            footer_business={this.props.footer_business}
             roster_menu_style={sssss}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
@@ -182,6 +184,8 @@ OrganizationFooterController.propTypes = {
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,
+    footer_support: PropTypes.object.isRequired,
+    footer_business: PropTypes.object.isRequired,
     sponsers_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,

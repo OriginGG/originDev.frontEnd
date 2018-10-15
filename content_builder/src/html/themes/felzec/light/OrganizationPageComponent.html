@@ -6,7 +6,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
       <!-- Site Properties -->
-      <title>Organization light Demo</title>
+      <title>Organization Dark Demo</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" integrity="sha256-oDCP2dNW17Y1QhBwQ+u2kLaKxoauWvIGks3a4as9QKs= sha384-vQPhfJdJkfTCHP7ouiqoAojjcDFuU346yP8z/pRpSn0xsWOfkMd+DkNmxns9jy4l sha512-P6CxF6LlmmWe4kVo37D5SJGcvXhesfQO2T2XU0f3EWmslkSg0Rbu8qxUyX9rMX4dle+J71Fl3acSHM+S33OQtg==" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <script
@@ -21,71 +21,52 @@
          attach_styles(GlobalTheme, GlobalStyles, 'classes');
       </script>  
    </head>
-   <body>
-      <div data-component-name="light_OrganizationPageComponent"  class="classes.lightObliotBG">
-            <div>
-                <img id="bg_img" class="classes.felzec_light_bg_img" src="../images/light_main.jpeg" alt=""/>
-                <div class="classes.obliviot_light_bg_filter" data-component-props="style={this.props.obliviot_page_style}"></div>
-                <div>
-                    <header class="classes.felzec_lightHeader">
-                        <div data-component-value="{this.props.navContent}">Nav</div>
-                    </header>
-                    <div  id="sponsors" data-component-value="{this.props.topSponsorContent}">Nav</div>
-                    <div id="blog" data-component-value="{this.props.blogContent}">Nav</div>
-                    <div data-component-value="{this.props.teamContent}" id="team_component">
-                            
+   <body id="gradient">
+        <div class="classes.fixed_div">
+                <div data-component-name="dark_OrganizationPageComponent" class="classes.darkMainBG">
+                        <div class="classes.dark_pageTestContraint">
+                            <header class='classes.darkHeader'>
+                                <div id="dark_header">
+                                    <div data-component-value="{this.props.topSponsorContent}">News</div>
+                                </div>
+                            </header>
+                            <div class="classes.body_container">
+                                <div id="home_cont" class="classes.dark_nav_container">
+                                    <div data-component-value="{this.props.navContent}">Nav</div>
+                                </div>
+                                <div id="logo_cont" class=classes.dark_main_image_container>
+                                    <div data-component-value="{this.props.logoContent}">Logo</div>
+                                </div>
+                                <div id="theme_about_modal">
+                    
+                                </div>
+                                 <div data-component-value="{this.props.rosterContent}" id="roster_component">
+                                
+                                </div>
+                                <div id="#news_cont" class="ui stackable three column grid">
+                                    <div id="news_component" class="column">
+                                        <div data-component-value="{this.props.newsContent}">News</div>
+                                    </div>
+                                    <div id="twitter_compontent" class="column">
+                                        <div data-component-value="{this.props.twitterContent}">News</div>
+                                    </div>
+                                    <div id="matches_component" class="column">
+                                        <div data-component-value="{this.props.matchesContent}">News</div>
+                                    </div>
+                                </div>
+                                <div id="video_cont" class="classes.dark_media_container">
+                                        <div data-component-value="{this.props.videoContent}">News</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="classes.orgFooter" data-component-props="style={this.props.footer_style}">
+                                <p  data-component-value="{this.props.copyright}" class="classes.orgFooterText">© Origin. All rights reserved.</p>
+                        </div>
                     </div>
-                    <div id="matches_container" data-component-value="{this.props.matchesContent}">MATCHES</div>
-                    <div id="media_container" data-component-value="{this.props.mediaContent}">MEDIA</div>
-                    <div data-component-value="{this.props.rosterContent}" id="roster_component" style="padding-top:30px;padding-bottom:25px;">
-                            
-                    </div>
-                    <footer class="classes.felzec_darkFooter">
-                        <div data-component-value="{this.props.footerContent}">Nav</div>
-                    </footer>
-                </div>
-                <div class="classes.obliviot_orgFooter">
-                    <p class="classes.obliviot_orgFooterText">© Origin. All rights reserved.</p>
-                </div>
-            </div>
         </div>
    </body>
    <script>
         $( document ).ready(function() {
-             console.log( "ready!" );
- 
-             $("#more_news_button").click(function(){
-                 $('#news_modal').modal('show');
-             });
-
-             $("#about_button").click(function(){
-                 $('#about_modal').modal('show');
-             });
-
-            $("#menu_login").hover(function(){
-                $(this).css("border-color", "white");
-                }, function(){
-                $(this).css("border-color", "transparent");
-            });
-
-            $("#menu_news").hover(function(){
-                $(this).css("border-color", "white");
-                }, function(){
-                $(this).css("border-color", "transparent");
-            });
-
-            $("#about_button").hover(function(){
-                $(this).css("border-color", "white");
-                }, function(){
-                $(this).css("border-color", "transparent");
-            });
-
-            $("#menu_home").hover(function(){
-                $(this).css("border-color", "white");
-                }, function(){
-                $(this).css("border-color", "transparent");
-            });
-
             var colors = new Array(
                 [0,0,0],
                 [20,20,20],
