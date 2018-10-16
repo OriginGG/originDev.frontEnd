@@ -10,7 +10,41 @@ export const createRosterQuery = gql`mutation createRoster($subDomain: String!, 
       rosterType: $rosterType
   }}) {
      combinedRoster{
-      id
+     id
+      createdAt
+      updatedAt
+      subDomain
+      gameId
+      teamName
+    	positionId
+    	rosterType
+      combinedRosterIndividualsByRosterId {
+        edges {
+          node {
+            id
+            individualUserByIndividualId {
+              firstName
+              lastName
+              email
+              about
+              contactNumber
+              id
+              accomplishments
+              createdAt
+              updatedAt
+              twitchUrl
+              twitterHandle
+              youtubeChannel
+              youtubeVideo1Url
+              youtubeVideo2Url
+              youtubeVideo3Url
+              bannerImageUrl
+              profileImageUrl
+              username
+            }
+          }
+        }
+      }
     }
   }
 }`;
