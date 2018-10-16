@@ -52,7 +52,7 @@ class AdminSocialStatsControllerr extends Component {
                 });
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
-            this.current_roster_users = roster_data.allRosters.edges;
+            this.current_roster_users = roster_data.allCombinedRosters.edges;
             this.setState({ visible: true, games: p_array });
             resolve(true);
         });
