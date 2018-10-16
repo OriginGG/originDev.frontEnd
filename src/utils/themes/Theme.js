@@ -1619,9 +1619,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_sponsor_container: {
         width: '100%',
-        height: '60px',
+        height: '75px',
         position: 'absolute',
-        bottom: '0px'
+        bottom: '10px'
     },
 
     obliviot_light_social_menu_container: {

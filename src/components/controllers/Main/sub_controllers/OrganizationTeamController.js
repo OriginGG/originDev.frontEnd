@@ -158,12 +158,15 @@ class OrganizationTeamController extends Component {
 
     componentDidMount = async () => {
         const p_array = [];
+        let ros_id = 0;
         if (!this.isMobile()) {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allCombinedRosters.edges.forEach((r) => {
-                // console.log(`r data = ${JSON.stringify(r)}`);
+                console.log(`r data = ${JSON.stringify(r)}`);
                 const { gameId } = r.node;
+                const { id } = r.node;
+                ros_id = id;
                 const currGame = _.find(gameOptions, (o) => {
                     return o.game_id === gameId;
                 });
@@ -179,7 +182,7 @@ class OrganizationTeamController extends Component {
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         this.setState({
             games: p_array,
-            current_roster_id: 47,
+            current_roster_id: ros_id,
             visible: true,
             OrganizationTeamGameComponentRender: OrganizationTeamGameComponentRender.default,
             OrganizationTeamComponentRender: OrganizationTeamComponentRender.default,
