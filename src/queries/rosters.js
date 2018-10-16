@@ -40,6 +40,7 @@ export const createRosterQuery = gql`mutation createRoster($subDomain: String!, 
               youtubeVideo3Url
               bannerImageUrl
               profileImageUrl
+              twitchUserId
               username
             }
           }
@@ -93,6 +94,7 @@ query getRosterById($id: Int!) {
               youtubeVideo2Url
               youtubeVideo3Url
               bannerImageUrl
+              twitchUserId
               profileImageUrl
               username
             }
@@ -231,6 +233,7 @@ export const getRosterQuery = gql`query getRosters($subDomain: String!, $rosterT
                                 youtubeVideo3Url
                                 bannerImageUrl
                                 profileImageUrl
+                                twitchUserId
                                 username
                             }
 
