@@ -71,11 +71,22 @@ class CreateSubDomainController extends Component {
             });
         });
     }
+    isValid = (str) => {
+        if (/^[a-zA-Z]*$/.test(str) === false) {
+            return false;
+        }
+        return true;
+    }
     handleSubmit = async () => {
         if (this.domain_name) {
             this.current_theme = 'dark';
             if (this.domain_name.indexOf(' ') > -1) {
                 toast.error('Domain name cannot contain spaces!', {
+                    position: toast.POSITION.TOP_LEFT,
+                    autoClose: 5000
+                });
+            } else if (!this.isValid(this.domain_name.toLowerCase())) {
+                toast.error('Domain name cannot special characters', {
                     position: toast.POSITION.TOP_LEFT,
                     autoClose: 5000
                 });
