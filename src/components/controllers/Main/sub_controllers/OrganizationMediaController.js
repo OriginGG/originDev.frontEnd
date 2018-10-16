@@ -60,12 +60,12 @@ class OrganizationMediaController extends Component {
             // console.log(`users.allOrganisationMembers.edges = ${JSON.stringify(users.allOrganisationMembers.edges)}`);
             // console.log(`n.node.contentTeamsByMemberId.nodes.length = ${n.node.contentTeamsByMemberId.nodes.length}`);
             // console.log(`n.node.individualUserByIndividalUserId.twitchUrl = ${n.node.individualUserByIndividalUserId.twitchUrl}`);
-            if (n.length > 0) {
-                if (n.node.individualUserByIndividalUserId.twitchUrl) {
-                    t_array.push(n.node.individualUserByIndividalUserId);
-                    twitch_url += `${n.node.individualUserByIndividalUserId.twitchUserId},`;
+            // if (n.length > 0) {
+                if (n.node.individualUserByIndividualId.twitchUrl) {
+                    t_array.push(n.node.individualUserByIndividualId);
+                    twitch_url += `${n.node.individualUserByIndividualId.twitchUserId},`;
                 }
-            }
+            // }
             // console.log(`t_array.length = ${t_array.length}`);
         });
         // console.log(`twitch url = ${twitch_url}`);
