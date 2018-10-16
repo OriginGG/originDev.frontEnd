@@ -6,7 +6,7 @@ import axios from 'axios';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { getYouTubeChannelsQuery } from '../../../../queries/youtube_channels';
-import { getOrganisationMembersQuery } from '../../../../queries/members.js';
+// import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import { getRosterQuery } from '../../../../queries/rosters.js';
 import offline_image from '../../../../assets/images/game_images/twitch_offline.png';
 
@@ -48,9 +48,9 @@ class OrganizationMediaController extends Component {
             this.setState(p);
         }
         const users = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, rosterType: 'content_team' });
-        console.log(`test_users = ${JSON.stringify(users)}`);
-        const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        console.log(`old_users = ${JSON.stringify(old_users)}`);
+        // console.log(`test_users = ${JSON.stringify(users)}`);
+        // const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        // console.log(`old_users = ${JSON.stringify(old_users)}`);
         const t_array = [];
         this.current_game_node = users.allCombinedRosters.edges;
         let twitch_url = '';
