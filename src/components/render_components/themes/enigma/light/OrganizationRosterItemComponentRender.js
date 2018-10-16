@@ -30,10 +30,10 @@ class ObliviotOrganizationRosterItemComponentRender extends Component {
                                     <span className={this.props.classes.light_roster_about_text}>{this.props.roster_about}</span>
                                 </div>
                                 <div className={this.props.classes.roster_item_social_container}>
-                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fa fa-twitter"/></div>
-                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fa fa-facebook"/></div>
-                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fa fa-instagram"/></div>
-                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fa fa-youtube"/></div>
+                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fab fa-twitter"/></div>
+                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fab fa-facebook"/></div>
+                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fab fa-instagram"/></div>
+                                    <div className={this.props.classes.light_roster_item_social_icon}><i className="fab fa-youtube"/></div>
                                 </div>
                             </div>
                         </div>

@@ -34,22 +34,22 @@ class LightOrganizationRosterItemComponentRender extends Component {
                                         this
                                             .props
                                             .handle_social( 'twitter', this.props.ind_user );
-                                    }} style={this.props.twitter_style}><i className="fa fa-twitter"/></div>
+                                    }} style={this.props.twitter_style}><i className="fab fa-twitter"/></div>
                                     <div className={this.props.classes.light_roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
                                             .handle_social( 'facebook', this.props.ind_user );
-                                    }} style={this.props.facebook_style}><i className="fa fa-facebook"/></div>
+                                    }} style={this.props.facebook_style}><i className="fab fa-facebook"/></div>
                                     <div className={this.props.classes.light_roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
                                             .handle_social( 'instagram', this.props.ind_user );
-                                    }} style={this.props.instagram_style}><i className="fa fa-instagram"/></div>
+                                    }} style={this.props.instagram_style}><i className="fab fa-instagram"/></div>
                                     <div className={this.props.classes.light_roster_item_social_icon} onClick={( ) => {
                                         this
                                             .props
                                             .handle_social( 'youtube', this.props.ind_user );
-                                    }} style={this.props.youtube_style}><i className="fa fa-youtube"/></div>
+                                    }} style={this.props.youtube_style}><i className="fab fa-youtube"/></div>
                                 </div>
                             </div>
                         </div>
