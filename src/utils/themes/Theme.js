@@ -1563,7 +1563,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogContainer: {
         width: '100%',
-        height: '600px',
         display: 'table',
         position: 'relative',
         marginLeft: 'auto',
@@ -1619,8 +1618,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_sponsor_container: {
         width: '100%',
-        height: '75px',
+        height: '15%',
         position: 'absolute',
+        paddingLeft: '10%',
         bottom: '10px'
     },
 
@@ -1865,13 +1865,14 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_container: {
         width: '100%',
-        height: '600px',
+        paddingTop: '49%',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_blog_inner_container: {
         width: '100%',
+        height: '100%',
         padding: '50px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1897,7 +1898,14 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_container: {
         width: '100%',
-        height: '600px',
+        paddingTop: '49%',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_team_main_container: {
+        width: '100%',
+        display: 'table',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
@@ -1998,18 +2006,17 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_inner_container: {
-        width: '100%',
-        height: '600px',
-        padding: '50px 10% 50px 10%',
+        width: '80%',
+        maxWidth: '1600px',
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: '0',
-        left: '0'
+        top: '10%',
+        left: '10%'
     },
 
     felzec_team_filter_container: {
         width: '100%',
-        height: '600px',
+        paddingTop: '49%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2213,28 +2220,28 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMaxContainer: {
         width: '100%',
-        height: '500px',
+        height: '100%',
         position: 'relative',
         cursor: 'pointer'
     },
 
     felzec_main_news_item_image: {
         width: '100%',
-        height: '500px',
+        height: '100%',
         objectFit: 'cover'
     },
 
     felzec_lightBlogMiniContainer: {
         width: '100%',
-        height: '245px',
-        marginBottom: '10px',
+        height: '49%',
+        marginBottom: '3%',
         position: 'relative',
         cursor: 'pointer'
     },
 
     felzec_main_news_item_mini_image: {
         width: '100%',
-        height: '245px',
+        height: '100%',
         objectFit: 'cover'
     },
 
