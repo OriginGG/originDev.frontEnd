@@ -17,9 +17,19 @@ class OrganizationTeamMateController extends Component {
         // console.log(`roster ID = ${this.props.roster_id}`);
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
-        const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
+        let edges = [];
+        if (roster_data.combinedRosterById) {
+            edges = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId.edges;                   // eslint-disable-line
+        }
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
-        this.setState({ roster_list: edges, visible: true, OrganizationTeamImageComponentRender: OrganizationTeamImageComponentRender.default });
+        const overlay_style = { display: 'none' };
+        this.setState({
+            roster_list: edges,
+            visible: true,
+            OrganizationTeamImageComponentRender:
+            OrganizationTeamImageComponentRender.default,
+            o_style: overlay_style
+        });
 
         // console.log(`this.state.roster_list = ${JSON.stringify(this.state.roster_list)}`);
     }
@@ -30,7 +40,7 @@ class OrganizationTeamMateController extends Component {
     // }
 
     handleImageClick = (i) => {              // eslint-disable-line
-        console.log(`handle click ${i}`);
+        console.log(`handle click ${JSON.stringify(i)}`);
         const x = this.props.appManager.getDomainInfo();
         let p = x.hostname;
         if (p.indexOf(x.subDomain) > -1) {
@@ -72,10 +82,14 @@ class OrganizationTeamMateController extends Component {
     }
 
     handleTeamClick = (t) => {
-        console.log(JSON.stringify(t));
-        // const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
-        // const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
-        // this.setState({ current_roster_id: t });
+        console.log(JSON.stringify(t.display));
+        if (t.display === 'none') {
+            const overlay_style = { display: 'inherit' };
+            this.setState({ o_style: overlay_style });
+        } else {
+            const overlay_style = { display: 'none' };
+            this.setState({ o_style: overlay_style });
+        }
     }
 
     render() {
@@ -93,7 +107,6 @@ class OrganizationTeamMateController extends Component {
         // if (this.state.roster_list.length < 1) {
         //     no_items = 'No Players Are Currently On This Roster';
         // }
-        const overlay_style = { display: 'none' };
         // console.log(`this.state.ropster_list size = ${this.state.roster_list.length}`);
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
@@ -105,17 +118,19 @@ class OrganizationTeamMateController extends Component {
             const c_name = `${individualUserByIndividualId.firstName} ${individualUserByIndividualId.lastName}`;
             p_array.push(<div style={{
                 cursor: 'pointer',
-                width: '200px',
-                height: '170px',
+                width: '170px',
+                height: '240px',
                 float: 'left',
                 position: 'relative',
                 marginRight: '75px'
             }}><OrganizationTeamImageComponentRender
                 felzec_team_handle={individualUserByIndividualId.username}
                 felzec_team_name={c_name}
-                felzec_overlay_style={overlay_style}
+                felzec_overlay_style={this.state.o_style}
                 team_image={im}
-                handleImageClick={this.handleTeamClick(individualUserByIndividualId.id)}
+                individual_id={individualUserByIndividualId.id}
+                handleImageClick={this.handleTeamClick}
+                handleIndividualClick={this.handleImageClick}
             /></div>);
         });
         return (<div>

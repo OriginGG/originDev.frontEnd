@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
-import { deleteStaffQuery, deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
+// import { deleteStaffQuery, deleteStaffUserQuery, createStaffUserQuery, getStaffQuery, createStaffQuery } from '../../../../queries/staff.js';
+import { deleteRosterUserQuery, deleteRosterQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminStaffComponentRender from '../../../render_components/admin/OrganizationAdminStaffComponentRender.js';
 import { staffOptions } from './data/AllPositions.js';
 import AdminPickListController from './AdminPickList.js';
@@ -21,7 +22,7 @@ export class ModalContentAddUser extends Component {
         const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
-        this.props.game_node.staffIndividualsByStaffId.edges.forEach((x) => {
+        this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((x) => {
             const f = _.findIndex(edges, (o) => {
                 return o.node.individualUserByIndividalUserId.id === x.node.individualUserByIndividualId.id;
             });
@@ -33,7 +34,7 @@ export class ModalContentAddUser extends Component {
             s_array.push({ node: x1.node.individualUserByIndividalUserId });
         });
         const t_array = [];
-        this.props.game_node.staffIndividualsByStaffId.edges.forEach((p) => {
+        this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((p) => {
             t_array.push({ node: p.node.individualUserByIndividualId });
         });
         this.setState({
@@ -71,7 +72,7 @@ export class ModalContentAddUser extends Component {
         const action = await this.showDeleteConfirm();
         if (action) {
             await this.props.appManager.executeQuery(
-                'mutation', deleteStaffQuery,
+                'mutation', deleteRosterQuery,
                 {
                     id: p.id
                 }
@@ -92,7 +93,7 @@ export class ModalContentAddUser extends Component {
             return null;
         }
         const currGame = _.find(staffOptions, (o) => {
-            return o.position_id === this.props.game_node.positionId;
+            return o.position_id === parseInt(this.props.game_node.positionId, 10);
         });
         return (
             <div style={{
@@ -252,15 +253,15 @@ class AdminStaffController extends Component {
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const staff_data = await this.props.appManager.executeQuery('query', getStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-            staff_data.allStaff.edges.forEach((r, i) => {
+            const staff_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain });
+            staff_data.allCombinedRosters.edges.forEach((r, i) => {
                 const { positionId } = r.node;
                 const currGame = _.find(staffOptions, (o) => {
-                    return o.position_id === positionId;
+                    return o.position_id === parseInt(positionId, 10);
                 });
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
-            this.current_roster_users = staff_data.allStaff.edges;
+            this.current_roster_users = staff_data.allCombinedRosters.edges;
             this.setState({ visible: true, games: p_array });
             resolve(true);
         });
@@ -270,16 +271,16 @@ class AdminStaffController extends Component {
         const add_array = [];
         const delete_array = [];
         t.forEach((u) => {
-            const p = _.findIndex(this.current_game_node.staffIndividualsByStaffId.edges, (o) => {
+            const p = _.findIndex(this.current_game_node.combinedRosterIndividualsByRosterId.edges, (o) => {
                 return o.node.individualUserByIndividualId.id === u.node.id;
             });
             if (p === -1) {
                 add_array.push(u.node);
             }
         });
-        this.current_game_node.staffIndividualsByStaffId.edges.forEach((u) => {
+        this.current_game_node.combinedRosterIndividualsByRosterId.edges.forEach((u) => {
             const p = _.findIndex(t, (o) => {
-                return o.node.id === u.node.individualUserByIndividualId.id;
+                return o.node.id === u.node.combinedRosterIndividualsByRosterId.id;
             });
             if (p === -1) {
                 // make sure its not in add array
@@ -293,11 +294,11 @@ class AdminStaffController extends Component {
         });
         for (let a in add_array) {          // eslint-disable-line
             const x = add_array[a];
-            await this.props.appManager.executeQuery('mutation', createStaffUserQuery, { staffId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
+            await this.props.appManager.executeQuery('mutation', createRosterUserQuery, { rosterId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
         }
         for (let a in delete_array) {          // eslint-disable-line
             const x = delete_array[a];
-            await this.props.appManager.executeQuery('mutation', deleteStaffUserQuery, { id: x.id });         // eslint-disable-line
+            await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
         }
         if (add_array.length > 0 && delete_array.length === 0) {
             toast.success(`${add_array.length} User(s) added..`, {
@@ -331,7 +332,7 @@ class AdminStaffController extends Component {
     }
     handleSubmit = async (game) => {
         this.closeModal();
-        await this.props.appManager.executeQuery('mutation', createStaffQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, positionId: game.position_id });
+        await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain, positionId: game.position_id });
         toast.success(`Staff Position ${game.text} added!`, {
             position: toast.POSITION.TOP_LEFT
         });

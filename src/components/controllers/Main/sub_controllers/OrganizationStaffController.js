@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
 import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
-import { getAllStaffQuery } from '../../../../queries/staff';
+import { getRosterQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationStaffController extends Component {
-    state = { visible: false };
+    state = { visible: false, overlay_showing: false };
     componentDidMount = async () => {
         const subDomain = this.props.uiStore.current_subdomain;
 
@@ -18,11 +18,11 @@ class OrganizationStaffController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
-        const roster_data = await this.props.appManager.executeQuery('query', getAllStaffQuery, { subDomain });
-        const outer_edges = roster_data.allStaff.edges;
+        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain, rosterType: 'staff' });
+        const outer_edges = roster_data.allCombinedRosters.edges;
         let p_array = [];
         for (let outer in outer_edges) {                // eslint-disable-line
-            const { edges } = outer_edges[outer].node.staffIndividualsByStaffId;
+            const { edges } = outer_edges[outer].node.combinedRosterIndividualsByRosterId;
             const p_type = outer_edges[outer].node.positionId;
             const tx = _.find(staffOptions, o => o.position_id === p_type).text;
             const ed_array = [];
@@ -34,8 +34,11 @@ class OrganizationStaffController extends Component {
             });
             p_array = p_array.concat(ed_array);
         }
+        const temp_style = { display: 'none' };
         this.setState({
             roster_list: p_array,
+            felzec_overlay_style: temp_style,
+            overlay_showing: false,
             visible: true,
             OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
             OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
@@ -49,16 +52,23 @@ class OrganizationStaffController extends Component {
 
     handleClick = (i) => {              // eslint-disable-line
         // this.handle_social('twitter', i);
-        const x = this.props.appManager.getDomainInfo();
-        let p = x.hostname;
-        if (p.indexOf(x.subDomain) > -1) {
-            p = p.substr(x.subDomain.length + 1, p.length);
-            let pt = '';
-            if (x.port) {
-                pt = `:${x.port}`;
+        if (this.state.overlay_showing) {
+            const temp_style = { display: 'none' };
+            this.setState({ overlay_showing: false, felzec_overlay_style: temp_style });
+            const x = this.props.appManager.getDomainInfo();
+            let p = x.hostname;
+            if (p.indexOf(x.subDomain) > -1) {
+                p = p.substr(x.subDomain.length + 1, p.length);
+                let pt = '';
+                if (x.port) {
+                    pt = `:${x.port}`;
+                }
+                const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+                window.open(url, '_blank');
             }
-            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
-            window.open(url, '_blank');
+        } else {
+            const temp_style = { display: 'inherit' };
+            this.setState({ overlay_showing: true, felzec_overlay_style: temp_style });
         }
     }
 
@@ -83,6 +93,17 @@ class OrganizationStaffController extends Component {
             }
         }
         // console.log(s);
+    }
+
+    handleSupportClick = () => {
+        console.log('handle support click');
+        const emailTo = this.props.uiStore.current_organisation.supportContactEmail;
+        window.open(`mailto:${emailTo}`, '_blank');
+    }
+    handleBusinessClick = () => {
+        console.log('handle business click');
+        const emailTo = this.props.uiStore.current_organisation.businessContactEmail;
+        window.open(`mailto:${emailTo}`, '_blank');
     }
 
     render() {
@@ -115,6 +136,8 @@ class OrganizationStaffController extends Component {
         if (theme === 'obliviot/light' || theme === 'enigma/light') {
             close_button = 'black';
         }
+        this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
+        const sponsor_style = { background: `url(${this.image_src})`, backgroundSize: 'cover' };
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
             let im = blankProfileImage;
@@ -141,6 +164,7 @@ class OrganizationStaffController extends Component {
                 roster_nickname={individualUserByIndividualId.position}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
+                felzec_overlay_style={this.state.felzec_overlay_style}
                 roster_image={im}
                 ind_user={individualUserByIndividualId}
                 handle_social={this.handle_social}
@@ -150,8 +174,28 @@ class OrganizationStaffController extends Component {
                 instagram_style={instagram_style}
             /></div>);
         });
+        const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
+        const f = { backgroundColor: 'rgba(255,0,0,.7)' };
+        let f_array = p_array;
+        if (theme === 'felzec/light') {
+            f_array = [];
+        }
+        console.log(`currennt_org = ${JSON.stringify(this.props.uiStore.current_organisation)}`);
+        const b_email = this.props.uiStore.current_organisation.businessContactEmail;
+        const s_email = this.props.uiStore.current_organisation.supportContactEmail;
         return (<div>
-            <OrganizationAboutModalComponentRender extra_style={{ display: 'inherit' }} about_title={this.props.about_title} about_content={this.props.about_content} />
+            <OrganizationAboutModalComponentRender
+            extra_style={{ display: 'inherit' }}
+            about_support_email={s_email}
+            about_business_email={b_email}
+            about_staff={p_array}
+            staff_style={s}
+            filter_style={f}
+            bg_style={sponsor_style}
+            about_title={this.props.about_title}
+            handleSupportClick={this.handleSupportClick}
+            handleBusinessClick={this.handleBusinessClick}
+            about_content={this.props.about_content} />
             <div
                 onClick={this.props.closeStaff}
                 tabIndex={-1}
@@ -165,7 +209,7 @@ class OrganizationStaffController extends Component {
                     zIndex: 10000,
                     color: close_button,
                 }}><span className="fa fa-window-close" /></div>
-            {p_array}</div>);
+            {f_array}</div>);
     }
 }
 OrganizationStaffController.propTypes = {

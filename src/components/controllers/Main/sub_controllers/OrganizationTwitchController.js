@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 // mport _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
-import { getOrganisationMembersQuery } from '../../../../queries/members.js';
+import { getRosterQuery } from '../../../../queries/rosters.js';
+// import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import offline_image from '../../../../assets/images/game_images/twitch_offline.png';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 // import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
@@ -38,17 +39,26 @@ class OrganizationTwitchController extends Component {
         //     p_array = p_array.concat(ed_array);
         // }
 
-        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, rosterType: 'content_team' });
+        // console.log(`test_users = ${JSON.stringify(users)}`);
+        // const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        // console.log(`old_users = ${JSON.stringify(old_users)}`);
         const t_array = [];
-        this.current_game_node = users.allOrganisationMembers.edges;
+        this.current_game_node = users.allCombinedRosters.edges;
         let twitch_url = '';
-        users.allOrganisationMembers.edges.forEach(n => {
-            if (n.node.contentTeamsByMemberId.nodes.length > 0) {
-                if (n.node.individualUserByIndividalUserId.twitchUrl) {
-                    t_array.push(n.node.individualUserByIndividalUserId);
-                    twitch_url += `${n.node.individualUserByIndividalUserId.twitchUserId},`;
+        const from_list = users.allCombinedRosters.edges[0];
+        from_list.node.combinedRosterIndividualsByRosterId.edges.forEach(n => {
+            // console.log(`INSIDE TWITCH LOOP = ${JSON.stringify(n)}`);
+            // console.log(`users.allOrganisationMembers.edges = ${JSON.stringify(users.allOrganisationMembers.edges)}`);
+            // console.log(`n.node.contentTeamsByMemberId.nodes.length = ${n.node.contentTeamsByMemberId.nodes.length}`);
+            // console.log(`n.node.individualUserByIndividalUserId.twitchUrl = ${n.node.individualUserByIndividalUserId.twitchUrl}`);
+            // if (n.length > 0) {
+                if (n.node.individualUserByIndividualId.twitchUrl) {
+                    t_array.push(n.node.individualUserByIndividualId);
+                    twitch_url += `${n.node.individualUserByIndividualId.twitchUserId},`;
                 }
-            }
+            // }
+            // console.log(`t_array.length = ${t_array.length}`);
         });
         // console.log(`twitch url = ${twitch_url}`);
         // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
