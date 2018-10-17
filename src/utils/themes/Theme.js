@@ -1912,20 +1912,22 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_staff_image_container: {
         width: '170px',
         height: '240px',
+        float: 'left',
+        marginRight: '40px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_team_image_container: {
         width: '170px',
-        height: '170px',
+        height: '240px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_team_image: {
         width: '170px',
-        height: '170px',
+        height: '240px',
         objectFit: 'cover',
         position: 'relative'
     },
@@ -1939,10 +1941,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_overlay: {
         width: '170px',
-        height: '170px',
+        height: '240px',
         objectFit: 'contain',
         position: 'absolute',
-        padding: '15px',
         zIndex: '10',
         top: '0px',
         left: '0px',
@@ -1963,6 +1964,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_overlay_name: {
         lineHeight: '24px',
+        padding: '15px 0px 0px 15px',
         width: '100%',
         fontSize: '20px',
         fontWeight: '900',
@@ -1973,6 +1975,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_overlay_handle: {
         width: '100%',
         lineHeight: '22px',
+        paddingLeft: '15px',
         fontSize: '18px',
         fontWeight: '900',
         textAlign: 'left',
@@ -1989,7 +1992,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '100',
         cursor: 'pointer',
         position: 'absolute',
-        bottom: '30px',
+        bottom: '0px',
         left: '0',
         backgroundColor: 'blue'
     },
@@ -2176,7 +2179,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_teammate_container: {
         width: '100%',
-        height: '170px',
+        height: '240px',
         overflowX: 'auto',
         overflowY: 'hidden',
         paddingBottom: '-17px',

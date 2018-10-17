@@ -13,13 +13,17 @@ class LightOrganizationTeamImageComponentRender extends Component {
                         .props
                         .handleImageClick( this.props.felzec_overlay_style );
                 }} src={this.props.team_image}/>
-                <div className={this.props.classes.felzec_team_overlay} style={this.props.felzec_overlay_style}>
+                <div className={this.props.classes.felzec_team_overlay} onClick={( ) => {
+                    this
+                        .props
+                        .handleImageClick( this.props.felzec_overlay_style );
+                }} style={this.props.felzec_overlay_style}>
                     <div className={this.props.classes.felzec_team_overlay_name}>{this.props.felzec_team_name}</div>
                     <div className={this.props.classes.felzec_team_overlay_handle}>{this.props.felzec_team_handle}</div>
-                    <div className={this.props.classes.felzec_team_overlay_button} onClick={( ) => {
+                    <div className={this.props.classes.felzec_team_overlay_button} key={this.props.individual_id} onClick={( ) => {
                         this
                             .props
-                            .handleIndividualClick( this );
+                            .handleIndividualClick( this.props.individual_id );
                     }}>PROFILE</div>
                 </div>
             </div>
