@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
+import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import axios from 'axios';
 import _ from 'lodash';
@@ -50,6 +51,12 @@ class AdminSocialStatsControllerr extends Component {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: this.aggregation_type, subDomain: this.props.uiStore.current_organisation.subDomain });
             let currGame;
             if (this.aggregation_type === 'content_team') {
+                if (roster_data.allCombinedRosters.edges.length === 0) {
+                    toast.error('Content Team not available/setup', {
+                        position: toast.POSITION.TOP_LEFT
+                    });
+                    return;
+                }
                 this.setState({ social_stats: roster_data.allCombinedRosters.edges[0].node });
             } else {
                 roster_data.allCombinedRosters.edges.forEach((r, i) => {
