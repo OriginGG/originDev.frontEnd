@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
+import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import axios from 'axios';
 import _ from 'lodash';
 import { inject } from 'mobx-react';
 import { Select } from 'antd';
-import { Table, Button } from 'semantic-ui-react';
+import { Table, Button, Card } from 'semantic-ui-react';
 
 
 // import { toast } from 'react-toastify';
@@ -15,6 +16,7 @@ import { Table, Button } from 'semantic-ui-react';
 import { getRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterSocialStatsComponentRender from '../../../render_components/admin/OrganizationAdminRosterSocialStatsComponentRender.js';
 import { gameOptions } from './data/AllGames.js';
+import { staffOptions } from './data/AllPositions';
 
 const { Option } = Select;
 
@@ -39,22 +41,43 @@ class AdminSocialStatsControllerr extends Component {
         games: [], visible: false, social_stats: null
     };
     componentDidMount = () => {
+        this.aggregation_type = 'roster';
+        this.roster_type = 'Game Rosters';
         this.getRosterData();
     }
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
-            roster_data.allCombinedRosters.edges.forEach((r, i) => {
-                const { gameId } = r.node;
-                const currGame = _.find(gameOptions, (o) => {
-                    return o.game_id === gameId;
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: this.aggregation_type, subDomain: this.props.uiStore.current_organisation.subDomain });
+            let currGame;
+            if (this.aggregation_type === 'content_team') {
+                if (roster_data.allCombinedRosters.edges.length === 0) {
+                    toast.error('Content Team not available/setup', {
+                        position: toast.POSITION.TOP_LEFT
+                    });
+                    return;
+                }
+                this.setState({ social_stats: roster_data.allCombinedRosters.edges[0].node });
+            } else {
+                roster_data.allCombinedRosters.edges.forEach((r, i) => {
+                    if (this.aggregation_type === 'roster') {
+                        const { gameId } = r.node;
+                        currGame = _.find(gameOptions, (o) => {
+                            return o.game_id === gameId;
+                        });
+                    }
+                    if (this.aggregation_type === 'staff') {
+                        const { positionId } = r.node;
+                        currGame = _.find(staffOptions, (o) => {
+                            return o.position_id === parseInt(positionId, 10);
+                        });
+                    }
+                    p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
                 });
-                p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
-            });
-            this.current_roster_users = roster_data.allCombinedRosters.edges;
-            this.setState({ visible: true, games: p_array });
-            resolve(true);
+                this.current_roster_users = roster_data.allCombinedRosters.edges;
+                this.setState({ visible: true, games: p_array });
+                resolve(true);
+            }
         });
     }
 
@@ -64,6 +87,30 @@ class AdminSocialStatsControllerr extends Component {
 
     handleBack = () => {
         this.setState({ social_stats: null });
+        this.aggregation_type = 'roster';
+        this.roster_type = 'Game Rosters';
+        this.getRosterData();
+    }
+    handleChange = (v) => {
+        this.aggregation_type = v;
+        switch (v) {
+            case 'roster': {
+                this.roster_type = 'Game Roster Stats';
+                break;
+            }
+            case 'staff': {
+                this.roster_type = 'Staff Positions';
+                break;
+            }
+            case 'content_team': {
+                this.roster_type = 'Content Team';
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        this.getRosterData();
     }
 
     render() {
@@ -75,15 +122,34 @@ class AdminSocialStatsControllerr extends Component {
                 <div style={{
                     width: 'calc(100vw - 416px)'
                 }}>
-                    <SocialStats handleBack={this.handleBack} roster={this.state.social_stats} />
+                    <SocialStats handleBack={this.handleBack} roster={this.state.social_stats} rosterType={this.roster_type} />
                 </div>
             );
         }
+        let ag_type = 'Game Rosters';
+        if (this.aggregation_type === 'staff') {
+            ag_type = 'Staff Positions';
+        }
         return (
-            <div style={{
-                width: 'calc(100vw - 416px)'
-            }}>
-                <OrganizationAdminRosterSocialStatsComponentRender game_list={this.state.games} handleAddNewGame={this.handleAddNewGame} />
+            <div>
+                <h4 style={{ marginTop: 7, marginRight: 8 }}>Select Aggregation statistics</h4>
+                <Select defaultValue="roster" style={{ width: 180 }} onChange={this.handleChange}>
+                    <Option value="roster">Game Rosters</Option>
+                    <Option value="staff">Staff</Option>
+                    <Option value="content_team">Content Team</Option>
+                </Select>
+                <div style={{
+                    width: 'calc(100vw - 416px)'
+                }}>
+                    <Card style={{ marginTop: 32, width: 600 }}>
+                        <Card.Content>
+                            <Card.Header>{ag_type}</Card.Header>
+                        </Card.Content>
+                        <Card.Content>
+                            <OrganizationAdminRosterSocialStatsComponentRender social_stats_header="test" game_list={this.state.games} handleAddNewGame={this.handleAddNewGame} />
+                        </Card.Content>
+                    </Card>
+                </div>
             </div>
         );
     }
@@ -241,11 +307,11 @@ class SocialStats extends Component {
                         this.totalFollowers += parseInt(m.Followers, 10);
                         this.totalViews += parseInt(m.Views, 10);
                         this.individualData.push(<Table.Row key={`agg_twit_stat_${i}`}>
-                                <Table.Cell />
-                                <Table.Cell>{m.Display_Name}</Table.Cell>
-                                <Table.Cell>{m.Followers}</Table.Cell>
-                                <Table.Cell>{m.Views}</Table.Cell>
-                            </Table.Row>);
+                            <Table.Cell />
+                            <Table.Cell>{m.Display_Name}</Table.Cell>
+                            <Table.Cell>{m.Followers}</Table.Cell>
+                            <Table.Cell>{m.Views}</Table.Cell>
+                        </Table.Row>);
                     }
                 });
                 this.individualData_agg =
@@ -362,7 +428,7 @@ class SocialStats extends Component {
                 width: 'calc(100vw - 416px)'
             }}>
                 <div style={{ display: 'flex' }}>
-                    <h4 style={{ marginTop: 7, marginRight: 8 }}>Select Stats</h4>
+                    <h4 style={{ marginTop: 7, marginRight: 8 }}>Select Stats for {this.props.rosterType}</h4>
                     <Select defaultValue="youtube" style={{ width: 180 }} onChange={this.handleChange}>
                         <Option value="youtube">YouTube Stats</Option>
                         <Option value="twitch">Twitch Stats</Option>
@@ -384,7 +450,8 @@ RosterGame.propTypes = {
     handleClick: PropTypes.func.isRequired
 };
 SocialStats.propTypes = {
-    handleBack: PropTypes.func.isRequired
+    handleBack: PropTypes.func.isRequired,
+    rosterType: PropTypes.string.isRequired
 };
 AdminSocialStatsControllerr.propTypes = {
     // uiStore: PropTypes.object.isRequired,
