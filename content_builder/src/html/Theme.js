@@ -1833,7 +1833,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_sponser_item_img: {
-        height: '150px',
+        maxHeight: '150px',
+        maxWidth: '100%',
         marginTop: '70px'
     },
 
