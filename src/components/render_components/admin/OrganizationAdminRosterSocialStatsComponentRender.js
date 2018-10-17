@@ -8,9 +8,6 @@ class OrganizationAdminRosterSocialStatsComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.admin_title_box}>
-                    <h2>Social Stats - Choose Roster</h2>
-                </div>
                 <div id="game_modal" className="ui modal">
                     <i className="close icon"/>
                     <div className={this.props.classes.modal_inner}>
