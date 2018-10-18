@@ -17,6 +17,22 @@ class LightOrganizationFooterComponentRender extends Component {
                         <div className={this.props.classes.felzec_footer_inner}>
                             <div className={this.props.classes.felzec_footer_title_left}>About</div>
                             <div className={this.props.classes.felzec_footer_text_left}>{this.props.footer_about}</div>
+                            <div className={this.props.classes.felzec_footer_sponsor_container}>
+                                <div className="ui stackable four column grid">
+                                    <div className="column">
+                                        <img className={this.props.classes.felzec_footer_sponsor_image} src={this.props.sponsor_image_1}/>
+                                    </div>
+                                    <div className="column">
+                                        <img className={this.props.classes.felzec_footer_sponsor_image} src={this.props.sponsor_image_2}/>
+                                    </div>
+                                    <div className="column">
+                                        <img className={this.props.classes.felzec_footer_sponsor_image} src={this.props.sponsor_image_3}/>
+                                    </div>
+                                    <div className="column">
+                                        <img className={this.props.classes.felzec_footer_sponsor_image} src={this.props.sponsor_image_4}/>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="ui stackable two column grid">
                                 <div className="column">
                                     <div className={this.props.classes.felzec_footer_title_left}>Support</div>

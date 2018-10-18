@@ -1643,6 +1643,20 @@ export const GlobalStyles = GlobalTheme => ({
         zIndex: '10'
     },
 
+    felzec_footer_sponsor_container: {
+        width: '100%',
+        height: '60px',
+        marginBottom: '19px',
+        marginTop: '19px'
+    },
+
+    felzec_footer_sponsor_image: {
+        maxHeight: '60px',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
     org_menu_felzec_light_item : {
         height: '60px',
         lineHeight: '60px',
@@ -1711,7 +1725,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_footer_text_left : {
         width: '100%',
-        height: '290px',
+        height: '200px',
         overflow: 'hidden',
         color: '#cdcdcd',
         fontSize: '16px',
@@ -1751,7 +1765,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     footer_menu_felzec_light_item: {
         width: '100%',
-        lineHeight: '1.3em',
+        lineHeight: '2.0em',
         textAlign: 'right',
         color: '#bbb',
         fontSize: '24px',
