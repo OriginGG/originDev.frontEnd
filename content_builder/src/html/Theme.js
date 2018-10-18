@@ -2028,11 +2028,22 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_staff_inner_container: {
         width: '100%',
         height: '400px',
-        padding: '50px 15% 50px 15%',
+        padding: '0px 15% 50px 15%',
         backgroundColor: 'transparent',
         position: 'absolute',
         top: '0',
         left: '0'
+    },
+
+    felzec_staff_title: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: 'black'
     },
 
     felzec_staff_filter_container: {
