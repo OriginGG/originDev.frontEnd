@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationTeamComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.felzec_team_container}>
+            <div className={this.props.classes.felzec_team_main_container}>
                 <div className={this.props.classes.felzec_team_container} style={this.props.bg_style}></div>
                 <div className={this.props.classes.felzec_team_filter_container} style={this.props.filter_style}/>
                 <div className={this.props.classes.felzec_team_inner_container}>

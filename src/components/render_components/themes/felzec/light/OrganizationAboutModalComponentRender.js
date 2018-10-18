@@ -37,6 +37,7 @@ class LightOrganizationAboutModalComponentRender extends Component {
                     <div className={this.props.classes.felzec_staff_container} style={this.props.staff_style}></div>
                     <div className={this.props.classes.felzec_staff_filter_container} style={this.props.filter_style}/>
                     <div className={this.props.classes.felzec_staff_inner_container}>
+                        <div className={this.props.classes.felzec_staff_title}>STAFF</div>
                         <div className={this.props.classes.felzec_coworker_container}>{this.props.about_staff}</div>
                     </div>
                 </div>
