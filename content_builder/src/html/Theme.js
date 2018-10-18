@@ -2043,7 +2043,7 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900',
         color: 'white',
         textAlign: 'center',
-        backgroundColor: 'black'
+        backgroundColor: 'transparent'
     },
 
     felzec_staff_filter_container: {
