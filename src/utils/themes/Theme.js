@@ -1621,7 +1621,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '15%',
         position: 'absolute',
         paddingLeft: '10%',
-        bottom: '10px'
+        bottom: '20px'
     },
 
     obliviot_light_social_menu_container: {
@@ -1922,7 +1922,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '170px',
         height: '240px',
         float: 'left',
-        marginRight: '40px',
+        marginLeft: '25px',
+        marginRight: '25px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
@@ -2189,6 +2190,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '240px',
         overflowX: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
         overflowY: 'hidden',
         paddingBottom: '-17px',
         marginTop: '150px',
@@ -2201,6 +2204,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '240px',
         overflowX: 'auto',
         overflowY: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
         paddingBottom: '-17px',
         marginTop: '50px',
         whiteSpace: 'nowrap',

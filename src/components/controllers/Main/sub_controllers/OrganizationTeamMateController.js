@@ -83,13 +83,24 @@ class OrganizationTeamMateController extends Component {
 
     handleTeamClick = (t) => {
         console.log(JSON.stringify(t.display));
-        if (t.display === 'none') {
+        // if (t.display === 'none') {
             const overlay_style = { display: 'inherit' };
             this.setState({ o_style: overlay_style });
-        } else {
+        // } else {
+        //    const overlay_style = { display: 'none' };
+        //    this.setState({ o_style: overlay_style });
+        // }
+    }
+
+    handleTeamUnClick = (t) => {
+        console.log(JSON.stringify(t.display));
+        // if (t.display === 'none') {
+        //    const overlay_style = { display: 'inherit' };
+        //    this.setState({ o_style: overlay_style });
+        // } else {
             const overlay_style = { display: 'none' };
             this.setState({ o_style: overlay_style });
-        }
+        // }
     }
 
     render() {
@@ -122,7 +133,8 @@ class OrganizationTeamMateController extends Component {
                 height: '240px',
                 float: 'left',
                 position: 'relative',
-                marginRight: '75px'
+                marginRight: '35px',
+                marginLeft: '35px'
             }}><OrganizationTeamImageComponentRender
                 felzec_team_handle={individualUserByIndividualId.username}
                 felzec_team_name={c_name}
@@ -130,6 +142,7 @@ class OrganizationTeamMateController extends Component {
                 team_image={im}
                 individual_id={individualUserByIndividualId.id}
                 handleImageClick={this.handleTeamClick}
+                handleImageUnClick={this.handleTeamUnClick}
                 handleIndividualClick={this.handleImageClick}
             /></div>);
         });

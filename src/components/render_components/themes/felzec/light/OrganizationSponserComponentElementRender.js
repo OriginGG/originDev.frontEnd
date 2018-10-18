@@ -13,7 +13,7 @@ class LightOrganizationSponserComponentElementRender extends Component {
                     float: 'left'
                 }} className="container col-sm-4" onClick={this.props.handleClick}>
                     <img alt="Change Logo" style={{
-                        width: '80%',
+                        width: '100%',
                         height: '100%'
                     }} className={this.props.classes.header_logo} src={this.props.sponsor_image}/>
                 </div>
