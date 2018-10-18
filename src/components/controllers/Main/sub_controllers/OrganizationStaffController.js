@@ -10,7 +10,7 @@ import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationStaffController extends Component {
-    state = { visible: false, overlay_showing: false };
+    state = { visible: false/* , overlay_showing: false */ };
     componentDidMount = async () => {
         const subDomain = this.props.uiStore.current_subdomain;
 
@@ -38,7 +38,8 @@ class OrganizationStaffController extends Component {
         this.setState({
             roster_list: p_array,
             felzec_overlay_style: temp_style,
-            overlay_showing: false,
+            // theme_name: theme,
+            // overlay_showing: false,
             visible: true,
             OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
             OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
@@ -52,24 +53,50 @@ class OrganizationStaffController extends Component {
 
     handleClick = (i) => {              // eslint-disable-line
         // this.handle_social('twitter', i);
-        if (this.state.overlay_showing) {
-            const temp_style = { display: 'none' };
-            this.setState({ overlay_showing: false, felzec_overlay_style: temp_style });
-            const x = this.props.appManager.getDomainInfo();
-            let p = x.hostname;
-            if (p.indexOf(x.subDomain) > -1) {
-                p = p.substr(x.subDomain.length + 1, p.length);
-                let pt = '';
-                if (x.port) {
-                    pt = `:${x.port}`;
-                }
-                const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
-                window.open(url, '_blank');
+        // if (this.state.theme_name === 'felzec/light') {
+        //     if (this.state.overlay_showing) {
+        //         const temp_style = { display: 'none' };
+        //         this.setState({ overlay_showing: false, felzec_overlay_style: temp_style });
+        //         const x = this.props.appManager.getDomainInfo();
+        //         let p = x.hostname;
+        //         if (p.indexOf(x.subDomain) > -1) {
+        //             p = p.substr(x.subDomain.length + 1, p.length);
+        //             let pt = '';
+        //             if (x.port) {
+        //                 pt = `:${x.port}`;
+        //             }
+        //             const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+        //             window.open(url, '_blank');
+        //         }
+        //     } else {
+        //         const temp_style = { display: 'inherit' };
+        //         this.setState({ overlay_showing: true, felzec_overlay_style: temp_style });
+        //     }
+        // }
+
+        const x = this.props.appManager.getDomainInfo();
+        let p = x.hostname;
+        if (p.indexOf(x.subDomain) > -1) {
+            p = p.substr(x.subDomain.length + 1, p.length);
+            let pt = '';
+            if (x.port) {
+                pt = `:${x.port}`;
             }
-        } else {
-            const temp_style = { display: 'inherit' };
-            this.setState({ overlay_showing: true, felzec_overlay_style: temp_style });
+            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+            window.open(url, '_blank');
         }
+    }
+
+    handleMouseOver = (i) => {
+        console.log(JSON.stringify(i.display));
+        const overlay_style = { display: 'inherit' };
+        this.setState({ felzec_overlay_style: overlay_style });
+    }
+
+    handleMouseOut = (i) => {
+        console.log(JSON.stringify(i.display));
+        const overlay_style = { display: 'none' };
+        this.setState({ felzec_overlay_style: overlay_style });
     }
 
     handle_social = (s, ind_user) => {
@@ -167,6 +194,8 @@ class OrganizationStaffController extends Component {
                 felzec_overlay_style={this.state.felzec_overlay_style}
                 roster_image={im}
                 ind_user={individualUserByIndividualId}
+                handle_mouseover={this.handleMouseOver}
+                handle_mouseout={this.handleMouseOut}
                 handle_social={this.handle_social}
                 twitter_style={twitter_style}
                 facebook_style={facebook_style}

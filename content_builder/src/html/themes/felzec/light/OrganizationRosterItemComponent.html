@@ -23,8 +23,8 @@
    </head>
    <body id="gradient">
         <div data-component-name="light_OrganizationRosterItemComponent" class="classes.felzec_staff_image_container">
-            <img class="classes.felzec_staff_image" data-component-props="src={this.props.roster_image}" />
-            <div class="classes.felzec_staff_overlay" data-component-props="style={this.props.felzec_overlay_style}">
+            <img class="classes.felzec_staff_image" data-component-props="onMouseOver={()=>{this.props.handle_mouseover(this.props.felzec_overlay_style)}} src={this.props.roster_image}" />
+            <div class="classes.felzec_staff_overlay" data-component-props="onMouseOut={()=>{this.props.handle_mouseout(this.props.felzec_overlay_style)}} style={this.props.felzec_overlay_style}">
                 <div class="classes.felzec_team_overlay_name" data-component-value="{this.props.roster_name}">John Doe</div>
                 <div class="classes.felzec_team_overlay_handle" data-component-value="{this.props.roster_nickname}">undertaker</div>
                 <div class="classes.felzec_team_overlay_button" data-component-props="onClick={()=>{this.props.handleIndividualClick(this)}}">PROFILE</div>
