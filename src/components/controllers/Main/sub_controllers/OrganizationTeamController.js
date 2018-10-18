@@ -211,7 +211,9 @@ class OrganizationTeamController extends Component {
         const { OrganizationTeamMateController } = this.state;
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageRostersData;
         const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'opacity(.2)' };
-        const f = { backgroundColor: 'rgba(255,0,0,.7)' };
+        const m_color = this.props.uiStore.current_organisation.primaryColor;
+        const menu_color = `${m_color}b3`;
+        const f = { backgroundColor: `${menu_color}` };
         // let s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'contrast(.1) sepia(100%) hue-rotate(210deg) brightness(1.4) saturate(0.28)' };
         // if (this.isMobile()) {
         //     s = { display: 'none' };

@@ -24,7 +24,9 @@ class OrganizationNavController extends Component {
         const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({ roster: p_array, visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
-        const nf_style = { display: 'none' };
+        const menu_color = this.props.uiStore.current_organisation.primaryColor;
+        console.log(`MENU COLOR = ${menu_color}`);
+        const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
         this.setState({ felzec_menu: false, felzec_style: nf_style });
     }
     componentDidCatch = (error, info) => {
@@ -44,10 +46,12 @@ class OrganizationNavController extends Component {
     openMenu = () => {
         // console.log('open menu');
         if (this.state.felzec_menu) {
-            const st = { display: 'none' };
+            const menu_color = this.props.uiStore.current_organisation.primaryColor;
+            const st = { display: 'none', backgroundColor: `${menu_color}` };
             this.setState({ felzec_menu: false, felzec_style: st });
         } else {
-            const st = { display: 'table' };
+            const menu_color = this.props.uiStore.current_organisation.primaryColor;
+            const st = { display: 'table', backgroundColor: `${menu_color}` };
             this.setState({ felzec_menu: true, felzec_style: st });
         }
     }
