@@ -337,7 +337,7 @@ class IndividualPageController extends Component {
         }
     }
     redirectTwitterAuth = async () => {
-        const authURL = new URL('http://localhost:8080/auth/twitter');
+        const authURL = new URL(`${process.env.REACT_APP_API_SERVER}/auth/twitter`);
         [...new URL(window.location).searchParams.entries()]
             .forEach(([k, v]) => authURL.searchParams.append(k, v));
         console.log(authURL);
