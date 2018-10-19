@@ -1943,15 +1943,15 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_image_container: {
-        width: '170px',
-        height: '240px',
+        width: '100%',
+        height: '100%',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_team_image: {
-        width: '170px',
-        height: '240px',
+        width: '100%',
+        height: '100%',
         objectFit: 'cover',
         position: 'relative'
     },
@@ -1964,8 +1964,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_overlay: {
-        width: '170px',
-        height: '240px',
+        width: '100%',
+        height: '100%',
         objectFit: 'contain',
         position: 'absolute',
         zIndex: '10',
@@ -2022,12 +2022,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_inner_container: {
-        width: '80%',
-        maxWidth: '1600px',
+        width: '100%',
+        height: '100%',
         backgroundColor: 'transparent',
+        padding: '5% 10% 10% 10%',
         position: 'absolute',
-        top: '10%',
-        left: '10%'
+        top: '0%',
+        left: '0%'
     },
 
     felzec_team_filter_container: {
@@ -2203,9 +2204,10 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_game_container: {
         width: '100%',
-        height: '70px',
+        height: '20%',
         overflowX: 'auto',
         overflowY: 'hidden',
+        display: 'flex',
         paddingBottom: '-17px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
@@ -2213,7 +2215,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_teammate_container: {
         width: '100%',
-        height: '240px',
+        height: '50%',
         overflowX: 'auto',
         display: 'flex',
         justifyContent: 'center',
@@ -2238,14 +2240,14 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_game_container: {
-        height: '70px',
+        height: '100%',
         marginRight: '80px',
         marginLeft: '80px',
         float: 'left',
     },
 
     felzec_team_game_media: {
-        height: '70px',
+        height: '100%',
         objectFit: 'fill'
     },
 
@@ -2586,6 +2588,22 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: '20px',
         marginTop: '10px',
         cursor: 'pointer'
+    },
+
+    felzec_orgFooter: {
+        textAlign: 'center',
+        width: '100%',
+        background: '#000000',
+        padding: '20px',
+    },
+    felzec_orgFooterText: {
+        width: '100%',
+        height: '20px',
+        textAlign: 'right',
+        lightHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: '#FFF'
     },
 
     // ***************************************************************
