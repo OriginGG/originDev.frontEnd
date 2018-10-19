@@ -159,6 +159,7 @@ class OrganizationTeamController extends Component {
     componentDidMount = async () => {
         const p_array = [];
         let ros_id = 0;
+        this.my_index = 1;
         if (!this.isMobile()) {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
@@ -202,6 +203,7 @@ class OrganizationTeamController extends Component {
         // const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         // const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
         this.setState({ current_roster_id: t });
+        this.my_index += 1;
     }
     render() {
         if (this.state.visible === false) {
@@ -235,7 +237,7 @@ class OrganizationTeamController extends Component {
             </div>);
         });
         const { OrganizationTeamComponentRender } = this.state;
-        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} roster_teams={<OrganizationTeamMateController closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
+        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
     }
 }
 
