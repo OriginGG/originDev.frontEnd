@@ -1989,11 +1989,14 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_overlay_name: {
         lineHeight: '24px',
         padding: '15px 0px 0px 15px',
-        width: '100%',
+        width: '80%',
         fontSize: '20px',
         fontWeight: '900',
         textAlign: 'left',
-        color: 'white'
+        color: 'white',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipses'
     },
 
     felzec_team_overlay_handle: {
