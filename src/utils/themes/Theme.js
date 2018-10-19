@@ -1996,7 +1996,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        textOverflow: 'ellipses'
+        textOverflow: 'ellipsis'
     },
 
     felzec_team_overlay_handle: {
