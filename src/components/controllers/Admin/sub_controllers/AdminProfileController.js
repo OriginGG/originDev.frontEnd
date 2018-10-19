@@ -187,6 +187,7 @@ class AdminProfileController extends Component {
     handleChange = (field, e) => {
         const v = e.target.value;
         const p = this.state.input_values;
+        console.log(`admin testing on change ${field} value ${v} input ${p}`);
         p[field] = v;
         this.setState({
             input_values: p

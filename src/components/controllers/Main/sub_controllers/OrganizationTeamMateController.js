@@ -129,12 +129,12 @@ class OrganizationTeamMateController extends Component {
             const c_name = `${individualUserByIndividualId.firstName} ${individualUserByIndividualId.lastName}`;
             p_array.push(<div style={{
                 cursor: 'pointer',
-                width: '170px',
-                height: '240px',
+                width: '15%',
+                height: '100%',
                 float: 'left',
                 position: 'relative',
-                marginRight: '35px',
-                marginLeft: '35px'
+                marginRight: '5%',
+                marginLeft: '5%'
             }}><OrganizationTeamImageComponentRender
                 felzec_team_handle={individualUserByIndividualId.username}
                 felzec_team_name={c_name}
@@ -146,7 +146,10 @@ class OrganizationTeamMateController extends Component {
                 handleIndividualClick={this.handleImageClick}
             /></div>);
         });
-        return (<div>
+        return (<div style={{
+                display: 'flex',
+                justifyContent: 'center'
+            }}>
             {p_array}</div>);
     }
 }
