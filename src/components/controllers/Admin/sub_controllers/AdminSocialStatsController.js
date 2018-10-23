@@ -171,7 +171,7 @@ const YouTubeIndividualTable = ({ tb, tb_agg }) => (
                 <Table.Row>
                     <Table.HeaderCell />
                     <Table.HeaderCell>Channel URL</Table.HeaderCell>
-                    <Table.HeaderCell>Comment Count</Table.HeaderCell>
+                    {/* <Table.HeaderCell>Comment Count</Table.HeaderCell> */}
                     <Table.HeaderCell>Subscriber Count</Table.HeaderCell>
                     <Table.HeaderCell>Video Count</Table.HeaderCell>
                     <Table.HeaderCell>View Count</Table.HeaderCell>
@@ -184,7 +184,7 @@ const YouTubeIndividualTable = ({ tb, tb_agg }) => (
                 <Table.Row>
                     <Table.HeaderCell />
                     <Table.HeaderCell style={bg_c_style} />
-                    <Table.HeaderCell style={bg_c_style} >Total Comment Count</Table.HeaderCell>
+                    {/* <Table.HeaderCell style={bg_c_style} >Total Comment Count</Table.HeaderCell> */}
                     <Table.HeaderCell style={bg_c_style} >Total Subscriber Count</Table.HeaderCell>
                     <Table.HeaderCell style={bg_c_style} >Total Video Count</Table.HeaderCell>
                     <Table.HeaderCell style={bg_c_style} >Total View Count</Table.HeaderCell>
@@ -330,7 +330,7 @@ class SocialStats extends Component {
         }
         switch (t) {
             case 'youtube': {
-                this.totalcommentCount = 0;
+                // this.totalcommentCount = 0;
                 this.totalsubscriberCount = 0;
                 this.totalvideoCount = 0;
                 this.totalviewCount = 0;
@@ -340,7 +340,7 @@ class SocialStats extends Component {
                     break;
                 }
                 this.individualData = stats.individualData.map(m => {
-                    this.totalcommentCount += parseInt(m.commentCount, 10);
+                    // this.totalcommentCount += parseInt(m.commentCount, 10);
                     this.totalsubscriberCount += parseInt(m.subscriberCount, 10);
                     this.totalvideoCount += parseInt(m.videoCount, 10);
                     this.totalviewCount += parseInt(m.viewCount, 10);
@@ -348,7 +348,7 @@ class SocialStats extends Component {
                         <Table.Row>
                             <Table.Cell />
                             <Table.Cell>{m.channel_url}</Table.Cell>
-                            <Table.Cell>{m.commentCount}</Table.Cell>
+                            {/* <Table.Cell>{m.commentCount}</Table.Cell> */}
                             <Table.Cell>{m.subscriberCount}</Table.Cell>
                             <Table.Cell>{m.videoCount}</Table.Cell>
                             <Table.Cell>{m.viewCount}</Table.Cell>
@@ -358,7 +358,7 @@ class SocialStats extends Component {
                     <Table.Row>
                         <Table.Cell />
                         <Table.Cell />
-                        <Table.Cell >{this.totalcommentCount}</Table.Cell>
+                        {/* <Table.Cell >{this.totalcommentCount}</Table.Cell> */}
                         <Table.Cell >{this.totalsubscriberCount}</Table.Cell>
                         <Table.Cell >{this.totalvideoCount}</Table.Cell>
                         <Table.Cell >{this.totalviewCount}</Table.Cell>
