@@ -16,7 +16,6 @@ import { Table, Button, Card } from 'semantic-ui-react';
 import { getRosterQuery } from '../../../../queries/rosters.js';
 import OrganizationAdminRosterSocialStatsComponentRender from '../../../render_components/admin/OrganizationAdminRosterSocialStatsComponentRender.js';
 import { gameOptions } from './data/AllGames.js';
-import { staffOptions } from './data/AllPositions';
 
 const { Option } = Select;
 
@@ -50,34 +49,44 @@ class AdminSocialStatsControllerr extends Component {
             const p_array = [];
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: this.aggregation_type, subDomain: this.props.uiStore.current_organisation.subDomain });
             let currGame;
-            if (this.aggregation_type === 'content_team') {
-                if (roster_data.allCombinedRosters.edges.length === 0) {
-                    toast.error('Content Team not available/setup', {
-                        position: toast.POSITION.TOP_LEFT
-                    });
-                    return;
+            switch (this.aggregation_type) {
+                case 'content_team': {
+                    if (roster_data.allCombinedRosters.edges.length === 0) {
+                        toast.error('Content Team not available/setup', {
+                            position: toast.POSITION.TOP_LEFT
+                        });
+                        resolve(true);
+                    }
+                    this.setState({ social_stats: roster_data.allCombinedRosters.edges[0].node });
+                    break;
                 }
-                this.setState({ social_stats: roster_data.allCombinedRosters.edges[0].node });
-            } else {
-                roster_data.allCombinedRosters.edges.forEach((r, i) => {
-                    if (this.aggregation_type === 'roster') {
+                case 'staff': {
+                    if (roster_data.allCombinedRosters.edges.length === 0) {
+                        toast.error('Staff not available/setup', {
+                            position: toast.POSITION.TOP_LEFT
+                        });
+                        resolve(true);
+                    }
+                    this.setState({ social_stats: roster_data.allCombinedRosters.edges });
+                    break;
+                }
+                case 'roster': {
+                    roster_data.allCombinedRosters.edges.forEach((r, i) => {
                         const { gameId } = r.node;
                         currGame = _.find(gameOptions, (o) => {
                             return o.game_id === gameId;
                         });
-                    }
-                    if (this.aggregation_type === 'staff') {
-                        const { positionId } = r.node;
-                        currGame = _.find(staffOptions, (o) => {
-                            return o.position_id === parseInt(positionId, 10);
-                        });
-                    }
-                    p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
-                });
-                this.current_roster_users = roster_data.allCombinedRosters.edges;
-                this.setState({ visible: true, games: p_array });
-                resolve(true);
+                        p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
+                    });
+                    this.current_roster_users = roster_data.allCombinedRosters.edges;
+                    this.setState({ visible: true, games: p_array });
+                    break;
+                }
+                default: {
+                    break;
+                }
             }
+            resolve(true);
         });
     }
 
@@ -122,7 +131,7 @@ class AdminSocialStatsControllerr extends Component {
                 <div style={{
                     width: 'calc(100vw - 416px)'
                 }}>
-                    <SocialStats handleBack={this.handleBack} roster={this.state.social_stats} rosterType={this.roster_type} />
+                    <SocialStats aggType={this.aggregation_type} handleBack={this.handleBack} roster={this.state.social_stats} rosterType={this.roster_type} />
                 </div>
             );
         }
@@ -255,7 +264,70 @@ class SocialStats extends Component {
     }
 
     getSocialStats = async (t) => {
-        const stats = await this.getSocialService(t);
+        const my_stats = await this.getSocialService(t);
+        let stats = my_stats[0];
+        if (this.props.aggType === 'staff') {
+            switch (t) {
+                case 'youtube': {
+                    stats = {
+                        aggregatedData: {
+                            totalSubscriberCount: 0,
+                            totalVideoCount: 0,
+                            totalViewCount: 0,
+                        },
+                        individualData: []
+                    };
+                    my_stats.forEach(s => {
+                        if (s.success) {
+                            stats.aggregatedData.totalSubscriberCount += parseInt(s.aggregatedData.totalSubscriberCount, 10);
+                            stats.aggregatedData.totalVideoCount += parseInt(s.aggregatedData.totalVideoCount, 10);
+                            stats.aggregatedData.totalViewCount += parseInt(s.aggregatedData.totalViewCount, 10);
+                            stats.individualData.push(s.individualData[0]);
+                        }
+                    });
+                    break;
+                }
+                case 'twitch': {
+                    stats = {
+                        aggregatedData: {
+                            totalFollowersCount: 0,
+                            totalViewsCount: 0,
+                        },
+                        individualData: []
+                    };
+                    my_stats.forEach(s => {
+                        if (s.success) {
+                            stats.aggregatedData.totalFollowersCount += parseInt(s.aggregatedData.totalFollowersCount, 10);
+                            stats.aggregatedData.totalViewsCount += parseInt(s.aggregatedData.totalViewsCount, 10);
+                            stats.individualData.push(s.individualData[0]);
+                        }
+                    });
+                    break;
+                }
+                case 'twitter': {
+                    stats = {
+                        aggregatedData: {
+                            totalFavouriteCounts: 0,
+                            totalFollowerCounts: 0,
+                            totalStatusesCount: 0
+                        },
+                        individualData: []
+                    };
+                    my_stats.forEach(s => {
+                        if (s.success) {
+                            stats.aggregatedData.totalFavouriteCounts += parseInt(s.aggregatedData.totalFavouriteCounts, 10);
+                            stats.aggregatedData.totalFollowerCounts += parseInt(s.aggregatedData.totalFollowerCounts, 10);
+                            stats.aggregatedData.totalStatusesCount += parseInt(s.aggregatedData.totalStatusesCount, 10);
+                            stats.individualData.push(s.individualData[0]);
+                        }
+                    });
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        }
         switch (t) {
             case 'youtube': {
                 this.totalcommentCount = 0;
@@ -302,7 +374,7 @@ class SocialStats extends Component {
                     break;
                 }
                 this.individualData = [];
-                stats.individual_user_info.forEach((m, i) => {
+                stats.individualData.forEach((m, i) => {
                     if (m) {
                         this.totalFollowers += parseInt(m.Followers, 10);
                         this.totalViews += parseInt(m.Views, 10);
@@ -332,7 +404,7 @@ class SocialStats extends Component {
                     this.individualData_agg = <Table.Row />;
                     break;
                 }
-                this.individualData = stats.individual_user_info.map(m => {
+                this.individualData = stats.individualData.map(m => {
                     this.total_favourites_count += parseInt(m.favourites_count, 10);
                     this.total_followers_count += parseInt(m.followers_count, 10);
                     this.total_statuses_count += parseInt(m.statuses_count, 10);
@@ -363,10 +435,18 @@ class SocialStats extends Component {
         // eslint-disable-line
     }
     getSocialService = async (t) => {
+        let r_id = this.props.roster.id;
+        if (Array.isArray(this.props.roster)) {
+            const r_array = [];
+            this.props.roster.forEach(r => {
+                r_array.push(r.node.id);
+            });
+            r_id = r_array.join();
+        }
         switch (t) {
             case 'youtube': {
                 return new Promise(async (resolve, reject) => {
-                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetYoutubeStats?rosterid=${this.props.roster.id}`;
+                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetYoutubeStats?rosterid=${r_id}`;
                     // const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetYoutubeStats?rosterid=36`;
                     axios.get(full_url).then((x) => {
                         resolve(x.data);
@@ -377,7 +457,7 @@ class SocialStats extends Component {
             }
             case 'twitter': {
                 return new Promise(async (resolve, reject) => {
-                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitterStats?rosterid=${this.props.roster.id}`;
+                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitterStats?rosterid=${r_id}`;
                     // const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitterStats?rosterid=36`;
                     axios.get(full_url).then((x) => {
                         resolve(x.data);
@@ -388,7 +468,7 @@ class SocialStats extends Component {
             }
             case 'twitch': {
                 return new Promise(async (resolve, reject) => {
-                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitchStats?rosterid=${this.props.roster.id}`;
+                    const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitchStats?rosterid=${r_id}`;
                     // const full_url = `${process.env.REACT_APP_SOCIAL_STATS_SERVER}/GetTwitchStats?rosterid=36`;
                     axios.get(full_url).then((x) => {
                         resolve(x.data);
@@ -451,7 +531,12 @@ RosterGame.propTypes = {
 };
 SocialStats.propTypes = {
     handleBack: PropTypes.func.isRequired,
-    rosterType: PropTypes.string.isRequired
+    rosterType: PropTypes.string.isRequired,
+    roster: PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.number
+    ]).isRequired,
+    aggType: PropTypes.string.isRequired
 };
 AdminSocialStatsControllerr.propTypes = {
     // uiStore: PropTypes.object.isRequired,
