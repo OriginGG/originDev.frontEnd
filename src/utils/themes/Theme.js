@@ -1913,7 +1913,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_container: {
         width: '100%',
-        paddingTop: '49%',
+        paddingTop: '30%',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
@@ -2028,7 +2028,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100%',
         backgroundColor: 'transparent',
-        padding: '5% 10% 10% 10%',
+        padding: '1% 10% 1% 10%',
         position: 'absolute',
         top: '0%',
         left: '0%'
@@ -2036,7 +2036,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_filter_container: {
         width: '100%',
-        paddingTop: '49%',
+        paddingTop: '30%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2218,13 +2218,13 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_teammate_container: {
         width: '100%',
-        height: '50%',
+        height: '65%',
         overflowX: 'auto',
         display: 'flex',
         justifyContent: 'center',
         overflowY: 'hidden',
         paddingBottom: '-17px',
-        marginTop: '150px',
+        marginTop: '40px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
     },
