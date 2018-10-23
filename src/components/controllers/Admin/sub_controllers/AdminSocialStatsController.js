@@ -288,7 +288,6 @@ class SocialStats extends Component {
                     break;
                 }
                 case 'twitch': {
-                    debugger;
                     stats = {
                         aggregatedData: {
                             totalFollowersCount: 0,
@@ -369,7 +368,7 @@ class SocialStats extends Component {
             case 'twitch': {
                 this.totalFollowers = 0;
                 this.totalViews = 0;
-                if (!stats.individual_user_info) {
+                if (!stats.individualData) {
                     this.individualData = <Table.Row />;
                     this.individualData_agg = <Table.Row />;
                     break;
@@ -400,7 +399,7 @@ class SocialStats extends Component {
                 this.total_favourites_count = 0;
                 this.total_followers_count = 0;
                 this.total_statuses_count = 0;
-                if (!stats.individual_user_info) {
+                if (!stats.individualData) {
                     this.individualData = <Table.Row />;
                     this.individualData_agg = <Table.Row />;
                     break;
