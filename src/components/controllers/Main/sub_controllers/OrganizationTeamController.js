@@ -159,6 +159,7 @@ class OrganizationTeamController extends Component {
     componentDidMount = async () => {
         const p_array = [];
         let ros_id = 0;
+        this.my_index = 1;
         if (!this.isMobile()) {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
@@ -202,6 +203,7 @@ class OrganizationTeamController extends Component {
         // const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         // const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
         this.setState({ current_roster_id: t });
+        this.my_index += 1;
     }
     render() {
         if (this.state.visible === false) {
@@ -211,7 +213,9 @@ class OrganizationTeamController extends Component {
         const { OrganizationTeamMateController } = this.state;
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageRostersData;
         const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'opacity(.2)' };
-        const f = { backgroundColor: 'rgba(255,0,0,.7)' };
+        const m_color = this.props.uiStore.current_organisation.primaryColor;
+        const menu_color = `${m_color}b3`;
+        const f = { backgroundColor: `${menu_color}` };
         // let s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'contrast(.1) sepia(100%) hue-rotate(210deg) brightness(1.4) saturate(0.28)' };
         // if (this.isMobile()) {
         //     s = { display: 'none' };
@@ -233,7 +237,7 @@ class OrganizationTeamController extends Component {
             </div>);
         });
         const { OrganizationTeamComponentRender } = this.state;
-        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} roster_teams={<OrganizationTeamMateController closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
+        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
     }
 }
 

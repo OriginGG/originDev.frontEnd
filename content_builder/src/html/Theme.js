@@ -1563,7 +1563,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogContainer: {
         width: '100%',
-        height: '600px',
         display: 'table',
         position: 'relative',
         marginLeft: 'auto',
@@ -1619,9 +1618,10 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_sponsor_container: {
         width: '100%',
-        height: '75px',
+        height: '15%',
         position: 'absolute',
-        bottom: '10px'
+        paddingLeft: '10%',
+        bottom: '20px'
     },
 
     obliviot_light_social_menu_container: {
@@ -1641,6 +1641,20 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute',
         bottom: '-48px',
         zIndex: '10'
+    },
+
+    felzec_footer_sponsor_container: {
+        width: '100%',
+        height: '60px',
+        marginBottom: '19px',
+        marginTop: '19px'
+    },
+
+    felzec_footer_sponsor_image: {
+        maxHeight: '60px',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
 
     org_menu_felzec_light_item : {
@@ -1711,7 +1725,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_footer_text_left : {
         width: '100%',
-        height: '290px',
+        height: '200px',
         overflow: 'hidden',
         color: '#cdcdcd',
         fontSize: '16px',
@@ -1751,7 +1765,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     footer_menu_felzec_light_item: {
         width: '100%',
-        lineHeight: '1.3em',
+        lineHeight: '2.0em',
         textAlign: 'right',
         color: '#bbb',
         fontSize: '24px',
@@ -1833,7 +1847,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_sponser_item_img: {
-        height: '150px',
+        maxHeight: '150px',
+        maxWidth: '100%',
         marginTop: '70px'
     },
 
@@ -1865,13 +1880,14 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_container: {
         width: '100%',
-        height: '600px',
+        paddingTop: '49%',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_blog_inner_container: {
         width: '100%',
+        height: '100%',
         padding: '50px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1897,7 +1913,14 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_container: {
         width: '100%',
-        height: '600px',
+        paddingTop: '30%',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_team_main_container: {
+        width: '100%',
+        display: 'table',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
@@ -1913,21 +1936,22 @@ export const GlobalStyles = GlobalTheme => ({
         width: '170px',
         height: '240px',
         float: 'left',
-        marginRight: '40px',
+        marginLeft: '25px',
+        marginRight: '25px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_team_image_container: {
-        width: '170px',
-        height: '240px',
+        width: '100%',
+        height: '100%',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_team_image: {
-        width: '170px',
-        height: '240px',
+        width: '100%',
+        height: '100%',
         objectFit: 'cover',
         position: 'relative'
     },
@@ -1940,8 +1964,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_overlay: {
-        width: '170px',
-        height: '240px',
+        width: '100%',
+        height: '100%',
         objectFit: 'contain',
         position: 'absolute',
         zIndex: '10',
@@ -1965,11 +1989,14 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_overlay_name: {
         lineHeight: '24px',
         padding: '15px 0px 0px 15px',
-        width: '100%',
+        width: '80%',
         fontSize: '20px',
         fontWeight: '900',
         textAlign: 'left',
-        color: 'white'
+        color: 'white',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     },
 
     felzec_team_overlay_handle: {
@@ -1999,17 +2026,17 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_inner_container: {
         width: '100%',
-        height: '600px',
-        padding: '50px 10% 50px 10%',
+        height: '100%',
         backgroundColor: 'transparent',
+        padding: '1% 10% 1% 10%',
         position: 'absolute',
-        top: '0',
-        left: '0'
+        top: '0%',
+        left: '0%'
     },
 
     felzec_team_filter_container: {
         width: '100%',
-        height: '600px',
+        paddingTop: '30%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2019,11 +2046,22 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_staff_inner_container: {
         width: '100%',
         height: '400px',
-        padding: '50px 15% 50px 15%',
+        padding: '0px 15% 50px 15%',
         backgroundColor: 'transparent',
         position: 'absolute',
         top: '0',
         left: '0'
+    },
+
+    felzec_staff_title: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: 'transparent'
     },
 
     felzec_staff_filter_container: {
@@ -2169,9 +2207,10 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_game_container: {
         width: '100%',
-        height: '70px',
+        height: '20%',
         overflowX: 'auto',
         overflowY: 'hidden',
+        display: 'flex',
         paddingBottom: '-17px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
@@ -2179,11 +2218,13 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_teammate_container: {
         width: '100%',
-        height: '240px',
+        height: '65%',
         overflowX: 'auto',
+        display: 'flex',
+        justifyContent: 'center',
         overflowY: 'hidden',
         paddingBottom: '-17px',
-        marginTop: '150px',
+        marginTop: '40px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
     },
@@ -2193,6 +2234,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '240px',
         overflowX: 'auto',
         overflowY: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
         paddingBottom: '-17px',
         marginTop: '50px',
         whiteSpace: 'nowrap',
@@ -2200,41 +2243,41 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     felzec_team_game_container: {
-        height: '70px',
+        height: '100%',
         marginRight: '80px',
         marginLeft: '80px',
         float: 'left',
     },
 
     felzec_team_game_media: {
-        height: '70px',
+        height: '100%',
         objectFit: 'fill'
     },
 
     felzec_lightBlogMaxContainer: {
         width: '100%',
-        height: '500px',
+        height: '100%',
         position: 'relative',
         cursor: 'pointer'
     },
 
     felzec_main_news_item_image: {
         width: '100%',
-        height: '500px',
+        height: '100%',
         objectFit: 'cover'
     },
 
     felzec_lightBlogMiniContainer: {
         width: '100%',
-        height: '245px',
-        marginBottom: '10px',
+        height: '49%',
+        marginBottom: '3%',
         position: 'relative',
         cursor: 'pointer'
     },
 
     felzec_main_news_item_mini_image: {
         width: '100%',
-        height: '245px',
+        height: '100%',
         objectFit: 'cover'
     },
 
@@ -2548,6 +2591,22 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: '20px',
         marginTop: '10px',
         cursor: 'pointer'
+    },
+
+    felzec_orgFooter: {
+        textAlign: 'center',
+        width: '100%',
+        background: '#000000',
+        padding: '20px',
+    },
+    felzec_orgFooterText: {
+        width: '100%',
+        height: '20px',
+        textAlign: 'right',
+        lightHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: '#FFF'
     },
 
     // ***************************************************************

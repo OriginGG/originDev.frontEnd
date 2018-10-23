@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
+import { getSponsorsQuery } from '../../../../queries/sponsors';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 
@@ -25,6 +26,9 @@ class OrganizationFooterController extends Component {
         });
         const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
+        const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
+        const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+        this.sponsor_data = nodes;
         this.results_array = [];
         blog_data.resultData.edges.forEach((blog, i) => {
             const { blogMedia } = blog.node;
@@ -178,6 +182,13 @@ class OrganizationFooterController extends Component {
             sssss = { display: 'inheret' };
         }
 
+        const sp_array = [];
+
+        this.sponsor_data.forEach((n, i) => {
+            console.log(i);
+            sp_array.push(n.imageUrl);
+        });
+
         return <OrganizationFooterComponentRender
             login_style={this.props.login_style}
             home_style={this.props.home_style}
@@ -185,6 +196,10 @@ class OrganizationFooterController extends Component {
             about_style={this.props.about_style}
             footer_about={this.props.footer_about}
             roster_dropdown_style={d_style}
+            sponsor_image_1={sp_array[0]}
+            sponsor_image_2={sp_array[1]}
+            sponsor_image_3={sp_array[2]}
+            sponsor_image_4={sp_array[3]}
             blog_items={news_array}
             felzec_menu_style={this.state.felzec_style}
             dropdown_item={m_array}
