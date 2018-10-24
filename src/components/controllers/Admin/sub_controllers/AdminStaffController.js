@@ -19,7 +19,7 @@ const { confirm } = Modal;
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQueryAuth('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
         this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((x) => {
@@ -253,7 +253,7 @@ class AdminStaffController extends Component {
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const staff_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain });
+            const staff_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain });
             staff_data.allCombinedRosters.edges.forEach((r, i) => {
                 const { positionId } = r.node;
                 const currGame = _.find(staffOptions, (o) => {
