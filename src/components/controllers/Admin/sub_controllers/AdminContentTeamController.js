@@ -16,7 +16,7 @@ import AdminPickListController from './AdminPickList.js';
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQueryAuth('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
         this.props.users.forEach((x) => {
@@ -160,7 +160,7 @@ class AdminContentTeamController extends Component {
         });
         this.current_roster_users.forEach((u) => {
             const p = _.findIndex(t, (o) => {
-                return o.node.id === u.node.combinedRosterIndividualsByRosterId.id;
+                return o.node.id === u.node.individualUserByIndividualId.id;
             });
             if (p === -1) {
                 // make sure its not in add array
@@ -180,18 +180,27 @@ class AdminContentTeamController extends Component {
             const x = delete_array[a];
             await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
         }
+        let f = false;
         if (add_array.length > 0 && delete_array.length === 0) {
+            f = true;
             toast.success(`${add_array.length} User(s) added..`, {
                 position: toast.POSITION.TOP_LEFT
             });
         }
         if (add_array.length === 0 && delete_array.length > 0) {
+            f = true;
             toast.success(`${delete_array.length} User(s) removed..`, {
                 position: toast.POSITION.TOP_LEFT
             });
         }
         if (add_array.length > 0 && delete_array.length > 0) {
+            f = true;
             toast.success(`${add_array.length} User(s) added, and ${delete_array.length} User(s) removed...`, {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        if (!f) {
+            toast.success('No Changes made!', {
                 position: toast.POSITION.TOP_LEFT
             });
         }
