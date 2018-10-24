@@ -156,6 +156,8 @@ class LoginController extends Component {
                             if (authPayload.authenticate.resultData !== null) {
                                 console.log('submitting2....');
                                 const token = authPayload.authenticate.resultData.jwtToken;
+                                debugger;
+                                this.props.appManager.authToken = token;
                                 const d = this.props.appManager.decodeJWT(token);
                                 console.log(`d:-${d}`);
                                 this.props.uiStore.setUserID(d.id);
