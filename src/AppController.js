@@ -108,6 +108,7 @@ class AppController extends Component {
                             const new_token = this.props.appManager.encodeJWT(d);
                             this.props.uiStore.setUserID(d.id);
                             this.props.appManager.authToken = new_token;
+                            debugger;
                             this.props.appManager.admin_logged_in = true;
                             historyStore.push('/admin_page');
                         } else {

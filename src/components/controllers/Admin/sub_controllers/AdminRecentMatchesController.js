@@ -95,12 +95,14 @@ class AdminRecentMatchesController extends Component {
 
     handleSubmit = async () => {
         console.log('submit pressed');
+        let is_filled = true;
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         if (!this.current_game) {
             toast.error('Please pick a game', {
                 position: toast.POSITION.TOP_LEFT
             });
-            return;
+            is_filled = false;
+            // return;
         }
         if (!this.state.your_score) {
             // toast.error('Please enter your score', {
@@ -118,30 +120,38 @@ class AdminRecentMatchesController extends Component {
             toast.error('Please enter your league', {
                 position: toast.POSITION.TOP_LEFT
             });
-            return;
+            is_filled = false;
+            // return;
         }
         if (!this.state.your_date) {
             toast.error('Please enter date', {
                 position: toast.POSITION.TOP_LEFT
             });
-            return;
+            is_filled = false;
+            // return;
         }
         if (!this.match_type) {
             toast.error('Please choose Upcoming or Recent', {
                 position: toast.POSITION.TOP_LEFT
             });
-            return;
+            is_filled = false;
+            // return;
         }
         if (!this.state.event_description) {
             toast.error('Please enter your event', {
                 position: toast.POSITION.TOP_LEFT
             });
-            return;
+            is_filled = false;
+            // return;
         }
         if (!this.state.logo_src) {
             toast.error('Please upload your opponents logo', {
                 position: toast.POSITION.TOP_LEFT
             });
+            is_filled = false;
+            // return;
+        }
+        if (!is_filled) {
             return;
         }
         if (this.is_saving === false && this.current_game && this.state.logo_src) {
