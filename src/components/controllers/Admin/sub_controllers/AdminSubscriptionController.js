@@ -168,7 +168,7 @@ class _SplitForm extends React.Component {
                         } else {
                             if (response.data.status === 'subscribed') {
                                 this.props.setDimmer(false);
-                                await appManager.executeQuery('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
+                                await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
                                 toast.success('Thanks - You have been successfully subscribed!', {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 3000

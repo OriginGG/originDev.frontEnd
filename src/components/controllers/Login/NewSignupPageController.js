@@ -6,15 +6,19 @@ import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import historyStore from '../../../utils/stores/browserHistory';
 
-import { getUserQuery, updateUserQuery } from '../../../queries/users';
+import { getUserQuery } from '../../../queries/users';
+// import { getUserQuery, updateUserQuery } from '../../../queries/users';
 import { authenticateQuery } from '../../../queries/login';
-import { deleteEmailRegistrationQuery } from '../../../queries/registrations';
+// import { deleteEmailRegistrationQuery } from '../../../queries/registrations';
 
 class NewSignupPageController extends Component {
     componentDidMount = async () => {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
-        const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: d.id });
+        const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
+        const my_token = authPayload.authenticate.resultData.jwtToken;
+        this.props.appManager.authToken = my_token;
+        const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: d.id });
         const u = user.resultData;
         if (u.authenticated === true) {
             toast.error(`${d.organisation} is already registered - Redirecting you to login page in 5 seconds`, {
@@ -25,13 +29,12 @@ class NewSignupPageController extends Component {
                 historyStore.push('/signup');
             }, 5000);
         } else {
-            const payload = {
-                authenticated: true,
-                id: d.id,
-            };
-            await this.props.appManager.executeQuery('mutation', updateUserQuery, payload);
-            await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
-            const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
+            // const payload = {
+            //     authenticated: true,
+            //     id: d.id,
+            // };
+            // await this.props.appManager.executeQuery('mutation', updateUserQuery, payload);
+            // await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
             const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
             historyStore.push(`/createsubdomain?p=${new_payload}`);
         }
