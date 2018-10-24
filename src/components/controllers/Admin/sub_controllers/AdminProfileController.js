@@ -115,7 +115,7 @@ class AdminProfileController extends Component {
             }
         }
         try {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', updateOrganisationQuery,
                 {
                     subDomain: this.props.uiStore.current_organisation.subDomain,

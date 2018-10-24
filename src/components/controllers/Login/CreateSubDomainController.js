@@ -118,7 +118,7 @@ class CreateSubDomainController extends Component {
                         autoClose: 5000
                     });
                 } else {
-                    await this.props.appManager.executeQuery('mutation', createOrganisationQuery, {
+                    await this.props.appManager.executeQueryAuth('mutation', createOrganisationQuery, {
                         themeBaseId: baseId, themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name
                     });
                     await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
