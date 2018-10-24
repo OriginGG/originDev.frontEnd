@@ -57,7 +57,7 @@ class SponsorBlock extends Component {
                 return;
             }
         }
-        await this.props.appManager.executeQuery(
+        await this.props.appManager.executeQueryAuth(
             'mutation', updateSponsorsQuery,
             {
                 id: this.props.element_id,

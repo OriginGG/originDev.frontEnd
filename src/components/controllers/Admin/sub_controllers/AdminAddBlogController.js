@@ -51,7 +51,7 @@ class AdminAddBlogController extends Component {
         }
         if (this.create_blog) {
             if (this.state.blog_title && this.state.text) {
-                await this.props.appManager.executeQuery(
+                await this.props.appManager.executeQueryAuth(
                     'mutation', createBlogPostQuery,
                     {
                         organisation: this.props.uiStore.current_organisation.subDomain,
@@ -67,7 +67,7 @@ class AdminAddBlogController extends Component {
                 this.props.handleCancel();
             }
         } else {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', updateBlogPostQuery,
                 {
                     id: this.props.blogId,
@@ -145,7 +145,7 @@ class AdminAddBlogController extends Component {
     handleDelete = async () => {
         const action = await this.showDeleteConfirm();
         if (action) {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', deleteBlogQuery,
                 {
                     id: this.props.blogId,
