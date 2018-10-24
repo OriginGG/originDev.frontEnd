@@ -13,6 +13,7 @@ import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
 import { createSponsorsQuery } from '../../../queries/sponsors';
 import { createPageQuery } from '../../../queries/pages';
 
+
 class CreateSubDomainController extends Component {
     state = {
         visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}
@@ -28,7 +29,9 @@ class CreateSubDomainController extends Component {
             const d = this.props.appManager.decodeJWT(token);
             const { id } = d;
             this.user_id = id;
-            const user = await this.props.appManager.executeQuery('query', getUserQuery, { id });
+            const my_token = p.authenticate.resultData.jwtToken;
+            this.props.appManager.authToken = my_token;
+            const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id });
             this.name = user.resultData.firstName;
             // this.props.uiStore.setCurrentUser(user.resultData);
             this.logo_files = null;
@@ -118,7 +121,7 @@ class CreateSubDomainController extends Component {
                     await this.props.appManager.executeQuery('mutation', createOrganisationQuery, {
                         themeBaseId: baseId, themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name
                     });
-                    await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
+                    await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
                     await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
                     await this.props.appManager.executeQuery('mutation', createPageQuery, {
                         pageTitle: '',
