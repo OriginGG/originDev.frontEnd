@@ -179,7 +179,7 @@ class _SplitForm extends React.Component {
                                 const num_sponsors = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation.nodes.length;
                                 const num_to_create = 8 - num_sponsors;
                                 for (let p = 0; p < num_to_create; p += 1) {
-                                    await appManager.executeQuery('mutation', createSponsorsQuery, {                // eslint-disable-line
+                                    await appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
                                         subDomain: this.props.domain,
                                         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                                         hrefLink: 'http://origin.gg',
