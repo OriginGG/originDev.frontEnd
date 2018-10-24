@@ -71,7 +71,7 @@ export class ModalContentAddUser extends Component {
         console.log(p);
         const action = await this.showDeleteConfirm();
         if (action) {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', deleteRosterQuery,
                 {
                     id: p.id
@@ -280,7 +280,7 @@ class AdminStaffController extends Component {
         });
         this.current_game_node.combinedRosterIndividualsByRosterId.edges.forEach((u) => {
             const p = _.findIndex(t, (o) => {
-                return o.node.id === u.node.combinedRosterIndividualsByRosterId.id;
+                return o.node.id === u.node.individualUserByIndividualId.id;
             });
             if (p === -1) {
                 // make sure its not in add array
@@ -294,11 +294,11 @@ class AdminStaffController extends Component {
         });
         for (let a in add_array) {          // eslint-disable-line
             const x = add_array[a];
-            await this.props.appManager.executeQuery('mutation', createRosterUserQuery, { rosterId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
+            await this.props.appManager.executeQueryAuth('mutation', createRosterUserQuery, { rosterId: this.current_game_node.id, individualId: x.id });         // eslint-disable-line
         }
         for (let a in delete_array) {          // eslint-disable-line
             const x = delete_array[a];
-            await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
+            await this.props.appManager.executeQueryAuth('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
         }
         if (add_array.length > 0 && delete_array.length === 0) {
             toast.success(`${add_array.length} User(s) added..`, {
@@ -332,7 +332,7 @@ class AdminStaffController extends Component {
     }
     handleSubmit = async (game) => {
         this.closeModal();
-        await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain, positionId: game.position_id });
+        await this.props.appManager.executeQueryAuth('mutation', createRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain, positionId: game.position_id });
         toast.success(`Staff Position ${game.text} added!`, {
             position: toast.POSITION.TOP_LEFT
         });

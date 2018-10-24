@@ -133,7 +133,7 @@ class AdminContentTeamController extends Component {
     }
     getRosterData = async () => {
         return new Promise(async (resolve) => {
-            let ContentTeam_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'content_team', subDomain: this.props.uiStore.current_organisation.subDomain });
+            let ContentTeam_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'content_team', subDomain: this.props.uiStore.current_organisation.subDomain });
             if (ContentTeam_data.allCombinedRosters.edges.length === 0) {
                 ContentTeam_data = await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'content_team', subDomain: this.props.uiStore.current_organisation.subDomain });
                 this.current_roster_users = ContentTeam_data.createCombinedRoster.combinedRoster.combinedRosterIndividualsByRosterId.edges;
