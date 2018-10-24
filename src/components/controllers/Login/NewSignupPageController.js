@@ -14,10 +14,15 @@ class NewSignupPageController extends Component {
     componentDidMount = async () => {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
-        const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: d.id });
+        const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
+        const my_token = authPayload.authenticate.resultData.jwtToken;
+        const ar = this.props.appManager.decodeJWT(my_token);
+
+        this.props.appManager.authToken = my_token;
+        const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: d.id });
         const u = user.resultData;
-        if (u.authenticated === true) {
-            toast.error(`${d.organisation} is already registered - Redirecting you to login page in 5 seconds`, {
+        if (u.authenticated === true && ar.organisation !== null) {
+            toast.error(`${ar.organisation} is already registered - Redirecting you to login page in 5 seconds`, {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 5000
             });
@@ -29,9 +34,8 @@ class NewSignupPageController extends Component {
                 authenticated: true,
                 id: d.id,
             };
-            await this.props.appManager.executeQuery('mutation', updateUserQuery, payload);
+            await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, payload);
             await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
-            const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
             const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
             historyStore.push(`/createsubdomain?p=${new_payload}`);
         }
