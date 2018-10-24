@@ -115,7 +115,7 @@ class AdminProfileController extends Component {
             }
         }
         try {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', updateOrganisationQuery,
                 {
                     subDomain: this.props.uiStore.current_organisation.subDomain,
@@ -135,7 +135,7 @@ class AdminProfileController extends Component {
                     primaryColor: this.state.input_values.primary_color_value
                 }
             );
-            const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
             this.props.uiStore.setOrganisation(o.resultData);
             console.log(`result data = ${JSON.stringify(o.resultData)}`);
             toast.success('Company Details updated !', {

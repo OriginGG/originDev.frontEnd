@@ -254,7 +254,7 @@ class AdminThemeController extends Component {
     }
     handleSubmit = async () => {
         // if (this.new_theme !== this.selected_theme) {
-        await this.props.appManager.executeQuery(
+        await this.props.appManager.executeQueryAuth(
             'mutation', updateOrganisationQuery,
             {
                 subDomain: this.props.uiStore.current_organisation.subDomain,
