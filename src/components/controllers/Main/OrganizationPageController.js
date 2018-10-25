@@ -232,6 +232,7 @@ class OrganizationPageController extends Component {
         return { __html: content };
     }
     handleSponsersClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -240,6 +241,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleBlogClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -248,6 +250,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleViewBlogClick = () => {
+        this.closeAll();
         // console.log('view more blogs clicked');
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
@@ -257,6 +260,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleAboutClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -265,6 +269,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleStoreClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -274,6 +279,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleNewsClick = (blog) => {
+        this.closeAll();
         this.setState({ roster_style: { display: 'none' }, display_blogs: false });
         // console.log(`blog = ${JSON.stringify(blog)}`);
         if (this.isMobile() && this.state.menu_open) {
@@ -293,6 +299,7 @@ class OrganizationPageController extends Component {
         }
     }
     handleLoginClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -337,6 +344,16 @@ class OrganizationPageController extends Component {
         }
         this.current_roster_id = r;
         this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_rosters: true });
+    }
+    closeAll = () => {
+        this.setState({
+            roster_style: { display: 'none' },
+            display_rosters: false,
+            display_sponsers: false,
+            display_blogs: false,
+            display_blog_view: false,
+            display_staff: false
+        });
     }
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
