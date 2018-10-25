@@ -1880,14 +1880,14 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_container: {
         width: '100%',
-        paddingTop: '49%',
+        height: '600px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
     felzec_blog_inner_container: {
         width: '100%',
-        height: '100%',
+        height: '600px',
         padding: '50px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -2256,7 +2256,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMaxContainer: {
         width: '100%',
-        height: '100%',
+        height: '500px',
         position: 'relative',
         cursor: 'pointer'
     },
@@ -2269,8 +2269,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMiniContainer: {
         width: '100%',
-        height: '49%',
-        marginBottom: '3%',
+        height: '245px',
+        marginBottom: '10px',
         position: 'relative',
         cursor: 'pointer'
     },
