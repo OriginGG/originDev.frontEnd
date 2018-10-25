@@ -9,6 +9,7 @@ import { getBlogsQuery } from '../../../../queries/blogs';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
+import default_image from '../../../../assets/images/game_images/blog_default_image.jpg';
 
 class OrganizationFooterController extends Component {
     state = { visible: false, OrganizationFooterComponentRender: null, dropdown: false };
@@ -101,7 +102,15 @@ class OrganizationFooterController extends Component {
 
         const news_array = [];
         for (let i = 0; i < 3; i += 1) {
-            news_array.push(<OrganizationFooterNewsComponentRender handleNewsClick={this.props.handleNewsClick} blog={this.results_array[i].blog} blog_media={this.results_array[i].media} blog_content={this.results_array[i].title} blog_title={this.results_array[i].date} />);
+            if (this.results_array[i]) {
+                news_array.push(<OrganizationFooterNewsComponentRender handleNewsClick={this.props.handleNewsClick} blog={this.results_array[i].blog} blog_media={this.results_array[i].media} blog_content={this.results_array[i].title} blog_title={this.results_array[i].date} />);
+            } else {
+                const b_title_1 = 'Coming Soon';
+                const b_media_1 = default_image;
+                const b_content_1 = '';
+                const b_1 = null;
+                news_array.push(<OrganizationFooterNewsComponentRender handleNewsClick={this.props.handleNewsClick} blog={b_1} blog_media={b_media_1} blog_content={b_title_1} blog_title={b_content_1} />);
+            }
         }
         const social_links = [];
         if (this.props.uiStore.current_organisation.twitterFeedUsername) {
