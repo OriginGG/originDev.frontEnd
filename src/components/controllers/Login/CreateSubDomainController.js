@@ -123,7 +123,7 @@ class CreateSubDomainController extends Component {
                     });
                     await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
                     await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
-                    await this.props.appManager.executeQuery('mutation', createPageQuery, {
+                    await this.props.appManager.executeQueryAuth('mutation', createPageQuery, {
                         pageTitle: '',
                         pageContent: '',
                         pageSubtitle: '',
