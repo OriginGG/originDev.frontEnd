@@ -424,7 +424,7 @@ class IndividualPageController extends Component {
             return;
         }
         const r = await this.props.appManager.executeQueryAuth('query', getIndividualUserByHandleQuery, { handle: state.username });
-        if (r.getinduserbyusername.edges.length > 0 && r.getinduserbyusername.edges[0].node.id !== this.user_id) {
+        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_id) {
             toast.error('That Username is taken!', {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -434,7 +434,7 @@ class IndividualPageController extends Component {
             this.user_details = state;
             await this.getTwitchStats();
             let t_id = null;
-            if (this.twitch_stats.id) {
+            if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
             await this.props.appManager.executeQueryAuth(
