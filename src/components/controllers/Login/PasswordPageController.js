@@ -139,7 +139,6 @@ class PasswordPageController extends Component {
     handleSubmitEmail = async (v) => {
         // find out if email exists.
         // for org or ind.
-        debugger;
         let q = getIndividualUserByEmailQuery;
         if (!this.ind) {
             q = getUserByEmailQuery2;
