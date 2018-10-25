@@ -52,7 +52,7 @@ class AdminAboutController extends Component {
     }
     handleSubmit = async () => {
         this.setState({ submitting: true });
-        await this.props.appManager.executeQuery('mutation', updatePageQuery, {
+        await this.props.appManager.executeQueryAuth('mutation', updatePageQuery, {
             id: this.current_id,
             pageContent: this.state.page_content,
             organisation: this.props.uiStore.current_organisation.subDomain,

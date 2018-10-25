@@ -286,7 +286,6 @@ class IndividualPageController extends Component {
                     this.props.appManager.authToken = token;
                     const d = this.props.appManager.decodeJWT(token);
                     this.user_id = d.id;
-                    debugger;
                     console.log('user_id' + this.user_id); // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
                     if (user.individualUserById !== null) {
@@ -438,7 +437,6 @@ class IndividualPageController extends Component {
             if (this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
-            debugger;
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateIndividualUserQuery,
                 {
