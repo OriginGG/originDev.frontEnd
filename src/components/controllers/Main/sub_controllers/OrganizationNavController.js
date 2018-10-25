@@ -26,8 +26,8 @@ class OrganizationNavController extends Component {
         this.setState({ roster: p_array, visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
         const menu_color = this.props.uiStore.current_organisation.primaryColor;
         console.log(`MENU COLOR = ${menu_color}`);
-        const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
-        this.setState({ felzec_menu: false, felzec_style: nf_style });
+        // const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
+        // this.setState({ felzec_menu: false, felzec_style: nf_style });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -43,18 +43,18 @@ class OrganizationNavController extends Component {
     openPage = page => {
         window.open(page, '_blank');
     }
-    openMenu = () => {
-        // console.log('open menu');
-        if (this.state.felzec_menu) {
-            const menu_color = this.props.uiStore.current_organisation.primaryColor;
-            const st = { display: 'none', backgroundColor: `${menu_color}` };
-            this.setState({ felzec_menu: false, felzec_style: st });
-        } else {
-            const menu_color = this.props.uiStore.current_organisation.primaryColor;
-            const st = { display: 'table', backgroundColor: `${menu_color}` };
-            this.setState({ felzec_menu: true, felzec_style: st });
-        }
-    }
+    // openMenu = () => {
+    //     // console.log('open menu');
+    //     if (this.state.felzec_menu) {
+    //         const menu_color = this.props.uiStore.current_organisation.primaryColor;
+    //         const st = { display: 'none', backgroundColor: `${menu_color}` };
+    //         this.setState({ felzec_menu: false, felzec_style: st });
+    //     } else {
+    //         const menu_color = this.props.uiStore.current_organisation.primaryColor;
+    //         const st = { display: 'table', backgroundColor: `${menu_color}` };
+    //         this.setState({ felzec_menu: true, felzec_style: st });
+    //     }
+    // }
     render() {
         // console.log(`twitch link = ${this.props.uiStore.current_organisation.twitchLink}`);
         if (this.state.visible === false) {
@@ -99,7 +99,7 @@ class OrganizationNavController extends Component {
         let social_link5 = <span />;
         let social_link6 = <span />;
 
-        const navicon = <i key="navicon" role="menuItem" tabIndex={-1} onClick={() => { this.openMenu(); }} className="fas fa-bars" />;
+        const navicon = <i key="navicon" role="menuItem" tabIndex={-1} onClick={() => { this.props.openMenu(); }} className="fas fa-bars" />;
 
         if (social_links.length > 5) {
             social_link6 = social_links[5];          // eslint-disable-line
@@ -150,7 +150,7 @@ class OrganizationNavController extends Component {
             store_style={this.props.store_style}
             about_style={this.props.about_style}
             roster_dropdown_style={d_style}
-            felzec_menu_style={this.state.felzec_style}
+            felzec_menu_style={this.props.felzec_style}
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
@@ -182,9 +182,11 @@ OrganizationNavController.propTypes = {
     handleStoreClick: PropTypes.func.isRequired,
     handleBlogClick: PropTypes.func.isRequired,
     handleViewBlogClick: PropTypes.func.isRequired,
+    openMenu: PropTypes.func.isRequired,
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,
+    felzec_style: PropTypes.object.isRequired,
     sponsers_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,
