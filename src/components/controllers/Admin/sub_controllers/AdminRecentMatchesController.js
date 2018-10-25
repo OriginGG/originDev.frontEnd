@@ -202,7 +202,7 @@ class AdminRecentMatchesController extends Component {
     deleteMatch = async (id) => {
         const action = await this.showDeleteConfirm();
         if (action) {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', deleteRecentMatchQuery,
                 {
                     id
