@@ -1775,7 +1775,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_darkFooter: {
         width: '100%',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        overflow: 'hidden',
+        paddingTop: '10px'
     },
 
     felzec_roster_item_container: {
