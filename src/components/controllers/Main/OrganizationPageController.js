@@ -177,7 +177,7 @@ class OrganizationPageController extends Component {
                 // if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
                 //     this.sponser_display = false;
                 // }
-                const menu_color = this.props.uiStore.current_organisation.primaryColor;
+                const menu_color = 'black';// this.props.uiStore.current_organisation.primaryColor;
                 const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
                 this.setState({
                     visible: true,
@@ -373,11 +373,11 @@ class OrganizationPageController extends Component {
     openMenu = () => {
         // console.log('open menu');
         if (this.state.felzec_menu) {
-            const menu_color = this.props.uiStore.current_organisation.primaryColor;
+            const menu_color = 'black';
             const st = { display: 'none', backgroundColor: `${menu_color}` };
             this.setState({ felzec_menu: false, felzec_style: st });
         } else {
-            const menu_color = this.props.uiStore.current_organisation.primaryColor;
+            const menu_color = 'black';
             const st = { display: 'table', backgroundColor: `${menu_color}` };
             this.setState({ felzec_menu: true, felzec_style: st });
         }
