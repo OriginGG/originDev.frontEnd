@@ -1588,6 +1588,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '80%',
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginTop: '20px',
+        marginBottom: '20px',
         position: 'relative'
     },
 
@@ -1776,8 +1778,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_darkFooter: {
         width: '100%',
         backgroundColor: 'black',
-        overflow: 'hidden',
-        paddingTop: '10px'
+        overflow: 'hidden'
     },
 
     felzec_roster_item_container: {
