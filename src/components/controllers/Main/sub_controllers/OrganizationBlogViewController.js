@@ -29,12 +29,12 @@ class OrganizationBlogViewController extends Component {
         }
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         let close_button = 'white';
-        if (theme === 'obliviot/light' || theme === 'enigma/light') {
+        if (theme === 'obliviot/light' || theme === 'enigma/light' || theme === 'felzec/light') {
             close_button = 'black';
         }
         const { OrganizationNewsModalComponentRender } = this.state;
 
-        const p_array = <OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} />;
+        const p_array = <OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
 
         return (<div>
             <div
@@ -57,6 +57,8 @@ OrganizationBlogViewController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     blog_media: PropTypes.object.isRequired,
     blog_content: PropTypes.object.isRequired,
+    blog_title: PropTypes.object.isRequired,
+    blog_date: PropTypes.object.isRequired,
     // appManager: PropTypes.object.isRequired,
     // roster_id: PropTypes.number.isRequired,
     closeBlogView: PropTypes.func.isRequired

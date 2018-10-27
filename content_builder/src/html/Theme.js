@@ -1588,6 +1588,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '80%',
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginTop: '20px',
+        marginBottom: '20px',
         position: 'relative'
     },
 
@@ -1775,7 +1777,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_darkFooter: {
         width: '100%',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        overflow: 'hidden'
     },
 
     felzec_roster_item_container: {
@@ -1883,6 +1886,15 @@ export const GlobalStyles = GlobalTheme => ({
         height: '600px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
+    },
+
+    felzec_blog_filter_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     felzec_blog_inner_container: {
@@ -2211,6 +2223,7 @@ export const GlobalStyles = GlobalTheme => ({
         overflowX: 'auto',
         overflowY: 'hidden',
         display: 'flex',
+        justifyContent: 'center',
         paddingBottom: '-17px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
@@ -2244,8 +2257,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_game_container: {
         height: '100%',
-        marginRight: '80px',
-        marginLeft: '80px',
+        marginRight: '30px',
+        marginLeft: '30px',
         float: 'left',
     },
 
