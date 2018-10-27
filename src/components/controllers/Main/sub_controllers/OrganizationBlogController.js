@@ -76,7 +76,8 @@ class OrganizationBlogController extends Component {
             return null;
         }
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageNewsData;
-        const bg_style = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'opacity(.2)' };
+        const bg_style = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        const f_style = { backgroundColor: 'rgba(255,255,255,.8)' };
         let b_title_1 = 'Coming Soon';
         let b_media_1 = default_image;
         let b_content_1 = 'Latest news coming soon';
@@ -136,6 +137,7 @@ class OrganizationBlogController extends Component {
             <div>
                 <OrganizationBlogComponentRender
                     bg_style={bg_style}
+                    filter_style={f_style}
                     blog_media_1={b_media_1}
                     blog_content_1={b_content_1}
                     blog_title_1={b_title_1}
