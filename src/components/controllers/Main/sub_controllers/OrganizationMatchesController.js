@@ -131,10 +131,10 @@ class OrganizationMatchesController extends Component {
         const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
-        this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
-        this.upcoming_style = { color: 'white', backgroundColor: 'red' };
-        this.rm_style = { display: 'none' };
-        this.fm_style = { display: 'inherit' };
+        this.recent_style = { color: '#cccccc', backgroundColor: 'red' };
+        this.upcoming_style = { color: 'white', backgroundColor: 'black' };
+        this.rm_style = { display: 'inherit' };
+        this.fm_style = { display: 'none' };
         this.setState({
             recent_style: this.recent_style,
             upcoming_style: this.upcoming_style,
