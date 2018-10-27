@@ -28,7 +28,6 @@ class LightOrganizationPageComponentRender extends Component {
                             <div >{this.props.footerContent}</div>
                         </footer>
                     </div>
-                    <div className={this.props.classes.obliviot_orgFooter}></div>
                 </div>
             </div>
         )
