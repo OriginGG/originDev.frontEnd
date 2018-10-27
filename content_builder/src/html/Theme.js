@@ -2222,6 +2222,7 @@ export const GlobalStyles = GlobalTheme => ({
         overflowX: 'auto',
         overflowY: 'hidden',
         display: 'flex',
+        justifyContent: 'center',
         paddingBottom: '-17px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
@@ -2255,8 +2256,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_game_container: {
         height: '100%',
-        marginRight: '80px',
-        marginLeft: '80px',
+        marginRight: '30px',
+        marginLeft: '30px',
         float: 'left',
     },
 
