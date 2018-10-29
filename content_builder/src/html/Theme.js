@@ -2520,17 +2520,24 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '20px 15% 20px 15%'
     },
 
+    felzec_about_desc_conatiner: {
+        width: '100%',
+        minHeight: '500px',
+        backgroundColor: 'black',
+        position: 'relative'
+    },
+
     felzec_about_container_inner: {
         width: '100%',
         minHeight: '400px',
-        backgroundColor: 'black',
+        backgroundColor: 'rgba(0,0,0,.85)',
         padding: '20px'
     },
 
     felzec_about_container_lower: {
         width: '100%',
         height: '100px',
-        backgroundColor: 'red',
+        backgroundColor: 'rgba(211,45,54,.85)',
         padding: '10px'
     },
 

@@ -204,6 +204,7 @@ class OrganizationStaffController extends Component {
             /></div>);
         });
         const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
+        const d = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover' };
         const f = { backgroundColor: 'rgba(255,0,0,.7)' };
         let f_array = p_array;
         if (theme === 'felzec/light') {
@@ -217,6 +218,7 @@ class OrganizationStaffController extends Component {
             extra_style={{ display: 'inherit' }}
             about_support_email={s_email}
             about_business_email={b_email}
+            about_desc_style={d}
             about_staff={p_array}
             staff_style={s}
             filter_style={f}
