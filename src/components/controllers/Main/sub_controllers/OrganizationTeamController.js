@@ -212,7 +212,7 @@ class OrganizationTeamController extends Component {
         const { OrganizationTeamGameComponentRender } = this.state;
         const { OrganizationTeamMateController } = this.state;
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageRostersData;
-        const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'opacity(.2)' };
+        const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100)' };
         const m_color = this.props.uiStore.current_organisation.primaryColor;
         const menu_color = `${m_color}b3`;
         const f = { backgroundColor: `${menu_color}` };
@@ -237,7 +237,7 @@ class OrganizationTeamController extends Component {
             </div>);
         });
         const { OrganizationTeamComponentRender } = this.state;
-        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
+        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={m_array} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
     }
 }
 
