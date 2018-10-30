@@ -2233,8 +2233,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '65%',
         overflowX: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
         overflowY: 'hidden',
         paddingBottom: '-17px',
         marginTop: '40px',
