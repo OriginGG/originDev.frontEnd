@@ -11,12 +11,16 @@ class UiStore {
     @observable user_id = 0;
     @observable individual_user_id = 0;
     @observable current_blog = {}
+    @observable submitting_content = false;
     setOrganisation = (o) => {
         const { themeData } = o.themesByThemeName.edges[0].node;
         const { themeStructure } = o.themesByThemeName.edges[0].node;
         this.current_theme_data = JSON.parse(themeData);
         this.current_theme_structure = JSON.parse(themeStructure);
         this.current_organisation = o;
+    }
+    @action setSubmittingContent = f => {
+        this.submitting_content = f;
     }
     @action setUserID = (id) => {
         this.user_id = id;
