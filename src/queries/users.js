@@ -56,6 +56,8 @@ export const getIndividualUserByEmailQuery = gql`query getIndividualUserByEmail(
     }
   }
 }`;
+
+
 export const getIndividualUserByIdQuery = gql`query getIndividualUserByEmail($id:Int!) {
   allIndividualUsers(condition:{id:$id}) {
     edges {
