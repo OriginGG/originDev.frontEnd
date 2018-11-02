@@ -226,6 +226,7 @@ class OrganizationPageController extends Component {
     }
     isMobile = () => {
         // return true;
+        console.log(`page isMObile ${isMobile}`);
         return isMobile;
     }
 
