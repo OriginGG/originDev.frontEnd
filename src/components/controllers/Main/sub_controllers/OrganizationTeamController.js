@@ -174,6 +174,20 @@ class OrganizationTeamController extends Component {
                 // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
                 p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
+        } else {
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+            // console.log(`team data = ${JSON.stringify(roster_data)}`);
+            roster_data.allCombinedRosters.edges.forEach((r) => {
+                console.log(`r data = ${JSON.stringify(r)}`);
+                const { gameId } = r.node;
+                const { id } = r.node;
+                ros_id = id;
+                const currGame = _.find(gameOptions, (o) => {
+                    return o.game_id === gameId;
+                });
+                // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
+                p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
+            });
         }
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         // const theme = this.props.uiStore.current_organisation.themeId;
