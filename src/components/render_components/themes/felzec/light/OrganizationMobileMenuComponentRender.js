@@ -61,12 +61,7 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                             Youtube
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item} style={this.props.mobile_roster_item}>
-                        <div className={this.props.classes.light_mobile_menu_item_box}>
-                            Rosters
-                        </div>
-                        <div >{this.props.rosterContent}</div>
-                    </div>
+                    <div id="rosters" className={this.props.classes.light_mobile_menu_item}></div>
                 </div>
             </div>
         )
