@@ -39,8 +39,6 @@ const EditModal = (props) => {
             </div>
         </Modal >);
 };
-
-
 class ModalContent extends Component {
     state = {
         input_values: {
@@ -194,6 +192,7 @@ class ModalContent extends Component {
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
                     redirectTwitterAuth={this.props.redirectTwitterAuth}
+                    redirectTwitchAuth={this.props.redirectTwitchAuth}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -312,6 +311,16 @@ class IndividualPageController extends Component {
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchUserInfo?name=${tu}`);
             this.twitch_stats = td.data.user;
         }
+    }
+    redirectTwitchAuth = async () => {
+        const authURL = new URL('http://0.0.0.0:8080/auth/twitch');
+        [...new URL(window.location).searchParams.entries()]
+            .forEach(([k, v]) => authURL.searchParams.append(k, v));
+        console.log(authURL);
+        window.location.assign(authURL.href);
+    }
+    getTwitchStatsTwo = async () => {
+
     }
     // redirectTwitterLogin = async (user) => {
     //     const redirectURL = await axios.get(`${process.env.REACT_APP_API_SERVER}/auth/twitterCheck`);
@@ -579,7 +588,7 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit}  closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit}  closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  redirectTwitchAuth={this.redirectTwitchAuth} {...this.props} user_id={this.user_id} />}
                 />
             </div>
         );
@@ -595,7 +604,8 @@ ModalContent.propTypes = {
     user_id: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    redirectTwitterAuth: PropTypes.func.isRequired
+    redirectTwitterAuth: PropTypes.func.isRequired,
+    redirectTwitchAuth: PropTypes.func.isRequired
 };
 TwitchInfo.propTypes = {
     stats: PropTypes.object.isRequired
