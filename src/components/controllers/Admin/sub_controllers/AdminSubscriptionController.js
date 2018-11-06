@@ -168,7 +168,7 @@ class _SplitForm extends React.Component {
                         } else {
                             if (response.data.status === 'subscribed') {
                                 this.props.setDimmer(false);
-                                await appManager.executeQuery('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
+                                await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
                                 toast.success('Thanks - You have been successfully subscribed!', {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 3000
@@ -179,7 +179,7 @@ class _SplitForm extends React.Component {
                                 const num_sponsors = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation.nodes.length;
                                 const num_to_create = 8 - num_sponsors;
                                 for (let p = 0; p < num_to_create; p += 1) {
-                                    await appManager.executeQuery('mutation', createSponsorsQuery, {                // eslint-disable-line
+                                    await appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
                                         subDomain: this.props.domain,
                                         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                                         hrefLink: 'http://origin.gg',

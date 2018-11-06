@@ -1,14 +1,14 @@
 import gql from 'graphql-tag';
 
 export const getIndividualUserByHandleQuery = gql`
-  query getuserbyusername($handle: String!) {
-  getinduserbyusername(username: $handle) {
-    edges {
-      node {
-        id
-      }
-    }
-  }
+ query getindbyhandle($handle: String!) {
+	allIndividualUsers(condition: {username: $handle}) {
+		nodes {
+      id
+      email
+      authenticated
+		}
+	}
 }
 `;
 

@@ -156,6 +156,7 @@ class LoginController extends Component {
                             if (authPayload.authenticate.resultData !== null) {
                                 console.log('submitting2....');
                                 const token = authPayload.authenticate.resultData.jwtToken;
+                                this.props.appManager.authToken = token;
                                 const d = this.props.appManager.decodeJWT(token);
                                 console.log(`d:-${d}`);
                                 this.props.uiStore.setUserID(d.id);
@@ -279,7 +280,7 @@ class LoginController extends Component {
                                         if (this.props.ind) {
                                             // test if individual user already exists!
                                             const exists = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle: payload.userName });
-                                            if (exists.getinduserbyusername && exists.getinduserbyusername.edges.length > 0) {
+                                            if (exists.allIndividualUsers.nodes.length > 0) {
                                                 toast.error(`The username ${payload.userName} is unavailable/already taken, please choose another.`, {
                                                     position: toast.POSITION.TOP_LEFT,
                                                     autoClose: 5000

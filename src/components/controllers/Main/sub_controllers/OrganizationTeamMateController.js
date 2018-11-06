@@ -114,6 +114,7 @@ class OrganizationTeamMateController extends Component {
         // }
         const { OrganizationTeamImageComponentRender } = this.state;
         const p_array = [];
+        this.button_style = { backgroundColor: `${this.props.uiStore.current_organisation.primaryColor}` };
         // let no_items = '';
         // if (this.state.roster_list.length < 1) {
         //     no_items = 'No Players Are Currently On This Roster';
@@ -130,7 +131,6 @@ class OrganizationTeamMateController extends Component {
             p_array.push(<div style={{
                 cursor: 'pointer',
                 width: '15%',
-                height: '100%',
                 float: 'left',
                 position: 'relative',
                 marginRight: '5%',
@@ -139,6 +139,7 @@ class OrganizationTeamMateController extends Component {
                 felzec_team_handle={individualUserByIndividualId.username}
                 felzec_team_name={c_name}
                 felzec_overlay_style={this.state.o_style}
+                felzec_button_style={this.button_style}
                 team_image={im}
                 individual_id={individualUserByIndividualId.id}
                 handleImageClick={this.handleTeamClick}
@@ -148,7 +149,8 @@ class OrganizationTeamMateController extends Component {
         });
         return (<div style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                height: '100%'
             }}>
             {p_array}</div>);
     }

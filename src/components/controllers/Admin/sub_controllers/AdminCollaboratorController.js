@@ -19,7 +19,7 @@ class AdminCollaboratorController extends Component {
 
     updateTable = async () => {
         return new Promise(async (resolve) => {
-            const users = await this.props.appManager.executeQuery('query', getAllNonAdminUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            const users = await this.props.appManager.executeQueryAuth('query', getAllNonAdminUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
             this.table_data = [];
             users.allUsers.edges.forEach((u) => {
                 this.table_data.push(<tr>
@@ -56,10 +56,10 @@ class AdminCollaboratorController extends Component {
             email: this.state.email_value,
             adminUser: false
         };
-        const my_id = await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
+        const my_id = await this.props.appManager.executeQueryAuth('mutation', createUserQuery, payload);
         console.log(my_id);
         const actual_id = my_id.registerUser.user.id;
-        await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
+        await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         await this.updateTable();
         this.setState({ modal_open: false, submitting: false });
     }

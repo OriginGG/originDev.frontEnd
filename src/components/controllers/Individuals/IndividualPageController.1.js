@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
-import { autorun } from 'mobx';
 import { GlobalStyles } from 'Theme/Theme';
-import { Card, Icon, Image, Button } from 'semantic-ui-react/dist/commonjs';
+import { Card, Icon, Image } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import uiStore from '../../../utils/stores/uiStore';
 import blankImage from '../../../assets/images/blank_person.png';
-import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
+import { getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
@@ -41,6 +39,8 @@ const EditModal = (props) => {
             </div>
         </Modal >);
 };
+
+
 class ModalContent extends Component {
     state = {
         input_values: {
@@ -63,26 +63,31 @@ class ModalContent extends Component {
         }
     };
     componentDidMount = async () => {
-        const user = await this.props.appManager.executeQueryAuth('query', getIndividualUserQuery, { id: this.props.user_id });
-        console.log(`user = ${JSON.stringify(user)}`);
+        const user = await axios.post(
+            `${process.env.REACT_APP_API_SERVER}/user/getIndividualInformation`,
+            {
+                id: this.props.user_id
+            }
+        );
+        console.log(`user = ${JSON.stringify(user.data)}`);
         this.setState({
             input_values: {
-                firstName: this.getInputValue(user.individualUserById.firstName),
-                lastName: this.getInputValue(user.individualUserById.lastName),
-                email: this.getInputValue(user.individualUserById.email),
-                about: this.getInputValue(user.individualUserById.about),
-                username: this.getInputValue(user.individualUserById.username),
-                contactNumber: this.getInputValue(user.individualUserById.contactNumber),
-                youtubeChannel: this.getInputValue(user.individualUserById.youtubeChannel),
-                twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
-                twitchUrl: this.getInputValue(user.individualUserById.twitchUrl),
-                accomplishments: this.getInputValue(user.individualUserById.accomplishments),
-                instagramLink: this.getInputValue(user.individualUserById.instagramLink),
+                firstName: this.getInputValue(user.data.individualUserById.firstName),
+                lastName: this.getInputValue(user.data.individualUserById.lastName),
+                email: this.getInputValue(user.data.individualUserById.email),
+                about: this.getInputValue(user.data.individualUserById.about),
+                username: this.getInputValue(user.data.individualUserById.username),
+                contactNumber: this.getInputValue(user.data.individualUserById.contactNumber),
+                youtubeChannel: this.getInputValue(user.data.individualUserById.youtubeChannel),
+                twitterHandle: this.getInputValue(user.data.individualUserById.twitterHandle),
+                twitchUrl: this.getInputValue(user.data.individualUserById.twitchUrl),
+                accomplishments: this.getInputValue(user.data.individualUserById.accomplishments),
+                instagramLink: this.getInputValue(user.data.individualUserById.instagramLink),
                 // youtubeVideo1Url: this.getInputValue(user.individualUserById.youtubeVideo1Url),
                 // youtubeVideo2Url: this.getInputValue(user.individualUserById.youtubeVideo2Url),
                 // youtubeVideo3Url: this.getInputValue(user.individualUserById.youtubeVideo3Url),
-                bannerImageUrl: this.getInputValue(user.individualUserById.bannerImageUrl),
-                profileImageUrl: this.getInputValue(user.individualUserById.profileImageUrl),
+                bannerImageUrl: this.getInputValue(user.data.individualUserById.bannerImageUrl),
+                profileImageUrl: this.getInputValue(user.data.individualUserById.profileImageUrl),
             },
         });
         this.profile_files = null;
@@ -127,22 +132,17 @@ class ModalContent extends Component {
     handleSubmit = async () => {
         let bn = this.state.input_values.bannerImageUrl;
         let pn = this.state.input_values.profileImageUrl;
-        uiStore.setSubmittingContent(true);
         // upload files to s3 if they've changed.
-        try {
-            if (this.profile_files) {
-                pn = await this.uploadtoS3(this.profile_files);
-            }
-            if (this.banner_files) {
-                bn = await this.uploadtoS3(this.banner_files);
-            }
-            const p = Object.assign(this.state, {});
-            p.input_values.bannerImageUrl = bn;
-            p.input_values.profileImageUrl = pn;
-            this.props.handleSubmit(p.input_values);
-        } catch (err) {
-            uiStore.setSubmittingContent(false);
+        if (this.profile_files) {
+            pn = await this.uploadtoS3(this.profile_files);
         }
+        if (this.banner_files) {
+            bn = await this.uploadtoS3(this.banner_files);
+        }
+        const p = Object.assign(this.state, {});
+        p.input_values.bannerImageUrl = bn;
+        p.input_values.profileImageUrl = pn;
+        this.props.handleSubmit(p.input_values);
     }
 
     uploadtoS3 = (f) => {
@@ -176,12 +176,12 @@ class ModalContent extends Component {
     //     });
     // }
 
+
     render() {
         return (
             <div>
                 <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                 <IndividualEditComponentRender
-                    renderButtons={<RenderButtons handleSubmit={this.handleSubmit} closeModal={this.props.closeModal} />}
                     key={`edit_ind_key_${this.key_index}`}
                     handleChange={this.handleChange}
                     handleFileClick={this.handleFileClick}
@@ -199,7 +199,6 @@ class ModalContent extends Component {
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
                     redirectTwitterAuth={this.props.redirectTwitterAuth}
-                    redirectTwitchAuth={this.props.redirectTwitchAuth}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -241,24 +240,6 @@ const TwitchInfo = ({ stats }) => {
 
     );
 };
-
-class RenderButtons extends Component {
-    state = { submitting: false };
-
-    componentDidMount = () => {
-        this.autorun_tracker = autorun(() => {
-            this.setState({ submitting: uiStore.submitting_content });
-        });
-    }
-    render() {
-        return (<div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button.Group>
-                <Button disabled={this.state.submitting} onClick={this.props.closeModal} negative>Cancel</Button>
-                <Button.Or />
-                <Button disabled={this.state.submitting} onClick={this.props.handleSubmit} primary>Submit</Button>
-            </Button.Group></div>);
-    }
-}
 
 class IndividualPageController extends Component {
     state = {
@@ -311,11 +292,16 @@ class IndividualPageController extends Component {
                     const d = this.props.appManager.decodeJWT(token);
                     this.user_id = d.id;
                     console.log('user_id' + this.user_id); // eslint-disable-line
-                    const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
-                    if (user.individualUserById !== null) {
+                    const user = await axios.post(
+                        `${process.env.REACT_APP_API_SERVER}/user/getIndividualInformation`,
+                        {
+                            id: this.user_id
+                        }
+                    );
+                    if (user.data.individualUserById !== null) {
                         this.is_admin = true;
                     }
-                    this.user_details = user.individualUserById;
+                    this.user_details = user.data.individualUserById;
                     this.getStats();
                 }
             } else {
@@ -337,16 +323,6 @@ class IndividualPageController extends Component {
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchUserInfo?name=${tu}`);
             this.twitch_stats = td.data.user;
         }
-    }
-    redirectTwitchAuth = async () => {
-        const authURL = new URL('http://0.0.0.0:8080/auth/twitch');
-        [...new URL(window.location).searchParams.entries()]
-            .forEach(([k, v]) => authURL.searchParams.append(k, v));
-        console.log(authURL);
-        window.location.assign(authURL.href);
-    }
-    getTwitchStatsTwo = async () => {
-
     }
     // redirectTwitterLogin = async (user) => {
     //     const redirectURL = await axios.get(`${process.env.REACT_APP_API_SERVER}/auth/twitterCheck`);
@@ -428,53 +404,52 @@ class IndividualPageController extends Component {
     }
     handleSubmit = async (state) => {
         if (state.username.indexOf(' ') > -1) {
-            toast.error('Username cannot contain spaces!', {
+            toast.error('Username cannot containt spaces!', {
                 position: toast.POSITION.TOP_LEFT
             });
-            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.twitchUrl.includes('http')) {
             toast.error('Twitch handle required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
-            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.youtubeChannel.includes('http')) {
             toast.error('Youtube Channel ID required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
-            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.twitterHandle.includes('http')) {
             toast.error('Twitter Handle required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
-            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.instagramLink.includes('http')) {
             toast.error('Instagram ID required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
-            uiStore.setSubmittingContent(false);
             return;
         }
-        const r = await this.props.appManager.executeQueryAuth('query', getIndividualUserByHandleQuery, { handle: state.username });
-        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_id) {
+        const r = await axios.post(
+            `${process.env.REACT_APP_API_SERVER}/user/getIndividualInformationHandle`,
+            {
+                handle: state.username
+            }
+        );
+        if (r.data.getinduserbyusername.edges.length > 0 && r.data.getinduserbyusername.edges[0].node.id !== this.user_id) {
             toast.error('That Username is taken!', {
                 position: toast.POSITION.TOP_LEFT
             });
-            uiStore.setSubmittingContent(false);
         } else {
             // get the twitch user_id if there is one.
 
             this.user_details = state;
             await this.getTwitchStats();
             let t_id = null;
-            if (this.twitch_stats && this.twitch_stats.id) {
+            if (this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
             await this.props.appManager.executeQueryAuth(
@@ -502,7 +477,6 @@ class IndividualPageController extends Component {
             toast.success('Profile Updated!', {
                 position: toast.POSITION.TOP_LEFT
             });
-            uiStore.setSubmittingContent(false);
             this.closeModal();
         }
     }
@@ -621,8 +595,7 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit}  closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  redirectTwitchAuth={this.redirectTwitchAuth} {...this.props} user_id={this.user_id} />}
-
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
                 />
             </div>
         );
@@ -632,19 +605,13 @@ IndividualPageController.propTypes = {
     appManager: PropTypes.object.isRequired,
 };
 
-RenderButtons.propTypes = {
-    closeModal: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired
-};
-
 ModalContent.propTypes = {
     // uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired,
+    // appManager: PropTypes.object.isRequired,
     user_id: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    redirectTwitterAuth: PropTypes.func.isRequired,
-    redirectTwitchAuth: PropTypes.func.isRequired
+    redirectTwitterAuth: PropTypes.func.isRequired
 };
 TwitchInfo.propTypes = {
     stats: PropTypes.object.isRequired

@@ -110,6 +110,7 @@ class IndividualEditModalComponentRender extends Component {
                             <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.handleSubmit}>
                                 <div className={this.props.classes.modal_individual_submit_button}>Submit</div>
                             </div>
+                            <div >{this.props.renderButtons}</div>
                         </div>
                     </div>
                 </div>

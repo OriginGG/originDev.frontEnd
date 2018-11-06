@@ -176,7 +176,7 @@ class AdminPageController extends Component {
     componentDidMount = async () => {
         if (this.props.appManager.admin_logged_in) {
             const { user_id } = this.props.uiStore;
-            const user = await this.props.appManager.executeQuery('query', getUserQuery, { id: user_id });
+            const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
             this.subscribed = user.resultData.subscribed;
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
@@ -184,7 +184,7 @@ class AdminPageController extends Component {
             console.log(`domainInfo = ${JSON.stringify(domainInfo)}`);
             const url_string = `${domainInfo.protocol}//${domainInfo.hostname}${(domainInfo.port === 443 || domainInfo.port === 80 || domainInfo.port === '') ? '' : `:${domainInfo.port}`}`;
             console.log(`domain info urlstring = ${url_string}`);
-            const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
+            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain });
             if (o.resultData === null) {
                 console.log('sub domain does not exist!');
             } else {
@@ -252,6 +252,9 @@ class AdminPageController extends Component {
         this.subscribed = true;
         this.setState({ page: 'company' });
     }
+    closeModal = () => {
+        this.setState({ page: 'company' });
+    }
     handleManageClick = async (v) => {
         if (v === 'add_custom_domain' && !this.subscribed) {
             this.subscriptionClick();
@@ -314,7 +317,7 @@ class AdminPageController extends Component {
                 break;
             }
             case 'content_team': {
-                p_component = <AdminContentTeamController />;
+                p_component = <AdminContentTeamController closeModal={this.closeModal} />;
                 break;
             }
             case 'about': {
