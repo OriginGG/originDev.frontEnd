@@ -130,8 +130,13 @@ class OrganizationMatchesController extends Component {
 
         const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentRender`);
         const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
-        const OrganizationMatchesMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentRender`);
-        const OrganizationMatchesMobileComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentElementRender`);
+
+        let OrganizationMatchesMobileComponentRender = null;
+        let OrganizationMatchesMobileComponentElementRender = null;
+        if (theme === 'felzec/light') {
+            OrganizationMatchesMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentRender`);
+            OrganizationMatchesMobileComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentElementRender`);
+        }
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
         this.recent_style = { color: '#cccccc', backgroundColor: 'red' };
@@ -145,13 +150,21 @@ class OrganizationMatchesController extends Component {
             fm_style: this.fm_style
         });
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
-        this.setState({
-            visible: true,
-            OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default,
-            OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default,
-            OrganizationMatchesMobileComponentRender: OrganizationMatchesMobileComponentRender.default,
-            OrganizationMatchesMobileComponentElementRender: OrganizationMatchesMobileComponentElementRender.default
-        });
+        if (theme === 'felzec/light') {
+            this.setState({
+                visible: true,
+                OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default,
+                OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default,
+                OrganizationMatchesMobileComponentRender: OrganizationMatchesMobileComponentRender.default,
+                OrganizationMatchesMobileComponentElementRender: OrganizationMatchesMobileComponentElementRender.default
+            });
+        } else {
+            this.setState({
+                visible: true,
+                OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default,
+                OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default,
+            });
+        }
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -203,8 +216,6 @@ class OrganizationMatchesController extends Component {
         }
         const { OrganizationMatchesComponentRender } = this.state;
         const { OrganizationMatchesComponentElementRender } = this.state;
-        const { OrganizationMatchesMobileComponentRender } = this.state;
-        const { OrganizationMatchesMobileComponentElementRender } = this.state;
         const { edges } = this.match_data.resultdata;
         if (edges.length === 0) {
             return null;
@@ -270,6 +281,7 @@ class OrganizationMatchesController extends Component {
 
             if (res.node.eventInfo === 'um') {
                 if (isMobile && r_theme === 'felzec') {
+                    const { OrganizationMatchesMobileComponentElementRender } = this.state;
                     f_array.push(<OrganizationMatchesMobileComponentElementRender
                         matches_image_1={o_logo}
                         matches_image_2={res.node.gameLogo}
@@ -294,6 +306,7 @@ class OrganizationMatchesController extends Component {
                 }
             } else {
                 if (isMobile && r_theme === 'felzec') {
+                    const { OrganizationMatchesMobileComponentElementRender } = this.state;
                     p_array.push(<OrganizationMatchesMobileComponentElementRender
                         matches_image_1={o_logo}
                         matches_image_2={res.node.gameLogo}
@@ -351,6 +364,7 @@ class OrganizationMatchesController extends Component {
             // </tr>);
         });
         if (isMobile && r_theme === 'felzec') {
+            const { OrganizationMatchesMobileComponentRender } = this.state;
             return <OrganizationMatchesMobileComponentRender
             handleLeftScroll={this.handleLeftScroll}
             handleRightScroll={this.handleRightScroll}

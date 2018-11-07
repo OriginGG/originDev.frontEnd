@@ -30,8 +30,12 @@ class OrganizationBlogController extends Component {
     };
     componentDidMount = async () => {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+
+        let OrganizationBlogMobileComponentRender = null;
+        if (theme === 'felzec/light') {
+            OrganizationBlogMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogMobileComponentRender`);
+        }
         const OrganizationBlogComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogComponentRender`);
-        const OrganizationBlogMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogMobileComponentRender`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
         // const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogModuleComponentRender`);
         const subDomain = this.props.uiStore.current_subdomain;
@@ -50,12 +54,20 @@ class OrganizationBlogController extends Component {
             });
         });
         if (blog_data.resultData.edges.length > 0) {
-            this.setState({
-                OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
-                OrganizationBlogMobileComponentRender: OrganizationBlogMobileComponentRender.default,
-                OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
-                visible: true
-            });
+            if (theme === 'felzec/light') {
+                this.setState({
+                    OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
+                    OrganizationBlogMobileComponentRender: OrganizationBlogMobileComponentRender.default,
+                    OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                    visible: true
+                });
+            } else {
+                this.setState({
+                    OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
+                    OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                    visible: true
+                });
+            }
         }
     }
     componentDidCatch = (error, info) => {
@@ -141,8 +153,9 @@ class OrganizationBlogController extends Component {
         }
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
-        const { OrganizationBlogMobileComponentRender } = this.state;
-        if (isMobile) {
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (isMobile && theme === 'felzec/light') {
+            const { OrganizationBlogMobileComponentRender } = this.state;
             console.log(`isMobile so retunr corrwct blog style    ${this.isMobile}`);
             return (
                 <div>
