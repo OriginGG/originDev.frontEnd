@@ -461,6 +461,22 @@ class OrganizationPageController extends Component {
             handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
+            let fb_style = { display: 'none' };
+            let tw_style = { display: 'none' };
+            let yt_style = { display: 'none' };
+
+            if (this.props.uiStore.current_organisation.fbLink) {
+                fb_style = { display: 'inherit' };
+            }
+
+            if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+                tw_style = { display: 'inherit' };
+            }
+
+            if (this.props.uiStore.current_organisation.youtubeLink) {
+                yt_style = { display: 'inherit' };
+            }
+
             SideBar =
                 <Menu
                     pageWrapId="page-wrap"
@@ -476,6 +492,9 @@ class OrganizationPageController extends Component {
                                 rosterContent={rosterComponent}
                                 mobile_roster_item={ssss}
                                 handleSocial={this.handleSocial}
+                                facebook_style={fb_style}
+                                twiiter_style={tw_style}
+                                youtube_style={yt_style}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
                                 handleViewBlogClick={this.handleViewBlogClick}
@@ -508,6 +527,18 @@ class OrganizationPageController extends Component {
                 handleSponsersClick={this.handleSponsersClick}
                 handleAboutClick={this.handleAboutClick} />;
             if (this.isMobile() && this.state.display_rosters === false) {
+                let fb_style = { display: 'none' };
+                let tw_style = { display: 'none' };
+                let yt_style = { display: 'none' };
+                if (this.props.uiStore.current_organisation.fbLink) {
+                    fb_style = { display: 'inherit' };
+                }
+                if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+                    tw_style = { display: 'inherit' };
+                }
+                if (this.props.uiStore.current_organisation.youtubeLink) {
+                    yt_style = { display: 'inherit' };
+                }
                 SideBar =
                     <Menu
                         pageWrapId="page-wrap"
@@ -522,6 +553,9 @@ class OrganizationPageController extends Component {
                                 <OrganizationMobileMenuComponentRender
                                     rosterContent={rosterComponent}
                                     mobile_roster_item={ssss}
+                                    facebook_style={fb_style}
+                                    twiiter_style={tw_style}
+                                    youtube_style={yt_style}
                                     handleSocial={this.handleSocial}
                                     handleStoreClick={this.handleStoreClick}
                                     handleLoginClick={this.handleLoginClick}
