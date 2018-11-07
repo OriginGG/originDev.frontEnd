@@ -1569,6 +1569,16 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
+    felzec_lightBlogMobileContainer: {
+        width: '90%',
+        height: '100px',
+        display: 'table',
+        position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '10px'
+    },
+
     felzec_lightTeamContainer: {
         width: '100%',
         height: '500px',
@@ -1588,6 +1598,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '80%',
         marginLeft: 'auto',
         marginRight: 'auto',
+        marginTop: '20px',
+        marginBottom: '20px',
         position: 'relative'
     },
 
@@ -1775,7 +1787,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_darkFooter: {
         width: '100%',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        overflow: 'hidden'
     },
 
     felzec_roster_item_container: {
@@ -1880,15 +1893,41 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_container: {
         width: '100%',
-        paddingTop: '49%',
+        height: '600px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
+    felzec_blog_mobile_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_blog_filter_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
     felzec_blog_inner_container: {
         width: '100%',
-        height: '100%',
+        height: '600px',
         padding: '50px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_blog_mobile_inner_container: {
+        width: '100%',
+        height: '600px',
+        padding: '20px 10px 20px 10px',
         backgroundColor: 'transparent',
         position: 'absolute',
         top: '0',
@@ -2053,6 +2092,15 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    felzec_staff_inner_mobile_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
     felzec_staff_title: {
         width: '100%',
         height: '50px',
@@ -2077,6 +2125,15 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '400px',
         padding: '10px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_mobile_inner_container: {
+        width: '100%',
+        padding: '10px 0% 30px 0%',
         backgroundColor: 'transparent',
         position: 'absolute',
         top: '0',
@@ -2118,9 +2175,29 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
 
+    felzec_match_mobile_info_container: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center',
+        cursor: 'pointer'
+    },
+
     felzec_matches_game: {
         width: '100%',
         lineHeight: '30px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    felzec_matches_mobile_game: {
+        width: '100%',
+        lineHeight: '20px',
         fontSize: '18px',
         fontWeight: '900',
         color: 'red',
@@ -2153,6 +2230,13 @@ export const GlobalStyles = GlobalTheme => ({
         marginBottom: '35px'
     },
 
+    felzec_mobile_switch_container: {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: '30px'
+    },
+
     felzec_switch_upcoming_container: {
         width: '49%',
         float: 'left',
@@ -2180,6 +2264,33 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
 
+    felzec_mobile_switch_upcoming_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '30px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '30px',
+        backgroundColor: 'black',
+        marginRight: '2%',
+        color: '#cccccc',
+        cursor: 'pointer'
+    },
+
+    felzec_mobile_switch_recent_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '30px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '30px',
+        backgroundColor: 'red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
     felzec_light_match_container: {
         width: '100%',
         padding: '10px 0px 10px 0px',
@@ -2190,6 +2301,13 @@ export const GlobalStyles = GlobalTheme => ({
         width: '70px',
         height: '70px',
         marginTop: '15px',
+        backgroundColor: 'rgba(0,0,0,0)',
+        float: 'left'
+    },
+
+    felzec_light_mobile_match_vs_image: {
+        width: '70px',
+        height: '70px',
         backgroundColor: 'rgba(0,0,0,0)',
         float: 'left'
     },
@@ -2205,12 +2323,24 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'left'
     },
 
+    felzec_light_mobile_match_vs_score: {
+        width: '80px',
+        height: '70px',
+        lineHeight: '70px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900',
+        float: 'left'
+    },
+
     felzec_game_container: {
         width: '100%',
         height: '20%',
         overflowX: 'auto',
         overflowY: 'hidden',
         display: 'flex',
+        justifyContent: 'center',
         paddingBottom: '-17px',
         whiteSpace: 'nowrap',
         boxSizing: 'content-box'
@@ -2220,8 +2350,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '65%',
         overflowX: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
         overflowY: 'hidden',
         paddingBottom: '-17px',
         marginTop: '40px',
@@ -2244,8 +2372,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_game_container: {
         height: '100%',
-        marginRight: '80px',
-        marginLeft: '80px',
+        marginRight: '30px',
+        marginLeft: '30px',
         float: 'left',
     },
 
@@ -2256,7 +2384,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMaxContainer: {
         width: '100%',
-        height: '100%',
+        height: '500px',
         position: 'relative',
         cursor: 'pointer'
     },
@@ -2269,8 +2397,8 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMiniContainer: {
         width: '100%',
-        height: '49%',
-        marginBottom: '3%',
+        height: '245px',
+        marginBottom: '10px',
         position: 'relative',
         cursor: 'pointer'
     },
@@ -2507,17 +2635,29 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '20px 15% 20px 15%'
     },
 
+    felzec_about_mobile_container: {
+        width: '100%',
+        padding: '0px 0% 0px 0%'
+    },
+
+    felzec_about_desc_conatiner: {
+        width: '100%',
+        minHeight: '500px',
+        backgroundColor: 'black',
+        position: 'relative'
+    },
+
     felzec_about_container_inner: {
         width: '100%',
         minHeight: '400px',
-        backgroundColor: 'black',
+        backgroundColor: 'rgba(0,0,0,.85)',
         padding: '20px'
     },
 
     felzec_about_container_lower: {
         width: '100%',
         height: '100px',
-        backgroundColor: 'red',
+        backgroundColor: 'rgba(211,45,54,.85)',
         padding: '10px'
     },
 
@@ -2574,10 +2714,27 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900'
     },
 
+    felzec_about_email_title: {
+        width: '100%',
+        lineHeight: '6px',
+        fontSize: '14px',
+        color: 'white',
+        fontWeight: '900'
+    },
+
     felzec_about_email_text: {
         width: '100%',
         lineHeight: '20px',
         fontSize: '16px',
+        color: 'red',
+        fontWeight: '300'
+    },
+
+    felzec_about_mobile_email_text: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        marginTop: '3px',
         color: 'red',
         fontWeight: '300'
     },
@@ -2590,6 +2747,16 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'left',
         marginRight: '20px',
         marginTop: '10px',
+        cursor: 'pointer'
+    },
+
+    felzec_lower_mobile_email_button: {
+        backgroundColor: 'black',
+        padding: '8px',
+        width: '180px',
+        height: '35px',
+        float: 'left',
+        marginBottom: '10px',
         cursor: 'pointer'
     },
 

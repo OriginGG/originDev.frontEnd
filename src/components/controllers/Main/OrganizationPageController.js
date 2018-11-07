@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 import Favicon from 'react-favicon';
+import moment from 'moment';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import _ from 'lodash';
@@ -177,7 +178,7 @@ class OrganizationPageController extends Component {
                 // if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
                 //     this.sponser_display = false;
                 // }
-                const menu_color = this.props.uiStore.current_organisation.primaryColor;
+                const menu_color = 'black';// this.props.uiStore.current_organisation.primaryColor;
                 const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
                 this.setState({
                     visible: true,
@@ -225,6 +226,7 @@ class OrganizationPageController extends Component {
     }
     isMobile = () => {
         // return true;
+        console.log(`page isMObile ${isMobile}`);
         return isMobile;
     }
 
@@ -232,6 +234,7 @@ class OrganizationPageController extends Component {
         return { __html: content };
     }
     handleSponsersClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -240,6 +243,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleBlogClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -248,6 +252,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleViewBlogClick = () => {
+        this.closeAll();
         // console.log('view more blogs clicked');
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
@@ -257,6 +262,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleAboutClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -265,6 +271,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleStoreClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -274,15 +281,17 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleNewsClick = (blog) => {
+        this.closeAll();
         this.setState({ roster_style: { display: 'none' }, display_blogs: false });
-        // console.log(`blog = ${JSON.stringify(blog)}`);
+        console.log(`blog = ${JSON.stringify(blog)}`);
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+        const formattedDate = moment(blog.node.createdAt).format('lll');
         this.setState({
-            roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blog_view: true, b_media: blog.node.blogMedia, b_content: bcontent
+            roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blog_view: true, b_media: blog.node.blogMedia, b_content: bcontent, b_title: blog.node.blogTitle, b_date: formattedDate
         });
     }
     inIframe = () => {
@@ -293,6 +302,7 @@ class OrganizationPageController extends Component {
         }
     }
     handleLoginClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -338,6 +348,16 @@ class OrganizationPageController extends Component {
         this.current_roster_id = r;
         this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_rosters: true });
     }
+    closeAll = () => {
+        this.setState({
+            roster_style: { display: 'none' },
+            display_rosters: false,
+            display_sponsers: false,
+            display_blogs: false,
+            display_blog_view: false,
+            display_staff: false
+        });
+    }
     closeRosters = () => {
         this.setState({ roster_style: { display: 'none' }, display_rosters: false });
     }
@@ -356,11 +376,11 @@ class OrganizationPageController extends Component {
     openMenu = () => {
         // console.log('open menu');
         if (this.state.felzec_menu) {
-            const menu_color = this.props.uiStore.current_organisation.primaryColor;
+            const menu_color = 'black';
             const st = { display: 'none', backgroundColor: `${menu_color}` };
             this.setState({ felzec_menu: false, felzec_style: st });
         } else {
-            const menu_color = this.props.uiStore.current_organisation.primaryColor;
+            const menu_color = 'black';
             const st = { display: 'table', backgroundColor: `${menu_color}` };
             this.setState({ felzec_menu: true, felzec_style: st });
         }
@@ -441,6 +461,22 @@ class OrganizationPageController extends Component {
             handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
+            let fb_style = { display: 'none' };
+            let tw_style = { display: 'none' };
+            let yt_style = { display: 'none' };
+
+            if (this.props.uiStore.current_organisation.fbLink) {
+                fb_style = { display: 'inherit' };
+            }
+
+            if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+                tw_style = { display: 'inherit' };
+            }
+
+            if (this.props.uiStore.current_organisation.youtubeLink) {
+                yt_style = { display: 'inherit' };
+            }
+
             SideBar =
                 <Menu
                     pageWrapId="page-wrap"
@@ -456,6 +492,9 @@ class OrganizationPageController extends Component {
                                 rosterContent={rosterComponent}
                                 mobile_roster_item={ssss}
                                 handleSocial={this.handleSocial}
+                                facebook_style={fb_style}
+                                twiiter_style={tw_style}
+                                youtube_style={yt_style}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
                                 handleViewBlogClick={this.handleViewBlogClick}
@@ -488,6 +527,18 @@ class OrganizationPageController extends Component {
                 handleSponsersClick={this.handleSponsersClick}
                 handleAboutClick={this.handleAboutClick} />;
             if (this.isMobile() && this.state.display_rosters === false) {
+                let fb_style = { display: 'none' };
+                let tw_style = { display: 'none' };
+                let yt_style = { display: 'none' };
+                if (this.props.uiStore.current_organisation.fbLink) {
+                    fb_style = { display: 'inherit' };
+                }
+                if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+                    tw_style = { display: 'inherit' };
+                }
+                if (this.props.uiStore.current_organisation.youtubeLink) {
+                    yt_style = { display: 'inherit' };
+                }
                 SideBar =
                     <Menu
                         pageWrapId="page-wrap"
@@ -502,6 +553,9 @@ class OrganizationPageController extends Component {
                                 <OrganizationMobileMenuComponentRender
                                     rosterContent={rosterComponent}
                                     mobile_roster_item={ssss}
+                                    facebook_style={fb_style}
+                                    twiiter_style={tw_style}
+                                    youtube_style={yt_style}
                                     handleSocial={this.handleSocial}
                                     handleStoreClick={this.handleStoreClick}
                                     handleLoginClick={this.handleLoginClick}
@@ -575,13 +629,13 @@ class OrganizationPageController extends Component {
                 copyright={cp}
                 obliviot_hidden_style={ob_none}
                 obliviot_page_style={ob_dark}
-                rosterContent={<OrganizationBlogViewController closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} />}
+                rosterContent={<OrganizationBlogViewController closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} blog_title={this.state.b_title} blog_date={this.state.b_date} />}
                 newsContent={<span />}
                 blogContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
+                topSponsorContent={<span />}
                 bottomSponsorContent={<span />}
                 navContent={<span />}
                 logoContent={<span />}

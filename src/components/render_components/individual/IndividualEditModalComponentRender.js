@@ -98,12 +98,7 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'youtubeChannel', e );
                             }}/>
-                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.closeModal}>
-                                <div className={this.props.classes.modal_individual_submit_button}>Cancel</div>
-                            </div>
-                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.handleSubmit}>
-                                <div className={this.props.classes.modal_individual_submit_button}>Submit</div>
-                            </div>
+                            <div >{this.props.renderButtons}</div>
                         </div>
                     </div>
                 </div>

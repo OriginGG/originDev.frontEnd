@@ -9,6 +9,7 @@ class LightOrganizationBlogComponentRender extends Component {
         return (
             <div className={this.props.classes.felzec_lightBlogContainer}>
                 <div className={this.props.classes.felzec_blog_container} style={this.props.bg_style}></div>
+                <div className={this.props.classes.felzec_blog_filter_container} style={this.props.filter_style}/>
                 <div className={this.props.classes.felzec_blog_inner_container}>
                     <div className="ui stackable three column grid">
                         <div className="column">
