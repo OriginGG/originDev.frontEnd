@@ -4,7 +4,6 @@ import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { GlobalStyles } from 'Theme/Theme';
-import { isMobile } from 'react-device-detect';
 import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
 import { getRosterQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -19,7 +18,6 @@ class OrganizationStaffController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
-        const OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain, rosterType: 'staff' });
         const outer_edges = roster_data.allCombinedRosters.edges;
         let p_array = [];
@@ -44,7 +42,6 @@ class OrganizationStaffController extends Component {
             // overlay_showing: false,
             visible: true,
             OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
-            OrganizationAboutModalMobileComponentRender: OrganizationAboutModalMobileComponentRender.default,
             OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
         });
     }
@@ -142,7 +139,6 @@ class OrganizationStaffController extends Component {
         }
         const { OrganizationRosterItemComponentRender } = this.state;
         const { OrganizationAboutModalComponentRender } = this.state;
-        const { OrganizationAboutModalMobileComponentRender } = this.state;
         const p_array = [];
         let no_items = '';
         if (this.state.roster_list.length < 1) {
@@ -208,7 +204,6 @@ class OrganizationStaffController extends Component {
             /></div>);
         });
         const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
-        const d = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover' };
         const f = { backgroundColor: 'rgba(255,0,0,.7)' };
         let f_array = p_array;
         if (theme === 'felzec/light') {
@@ -217,42 +212,11 @@ class OrganizationStaffController extends Component {
         console.log(`currennt_org = ${JSON.stringify(this.props.uiStore.current_organisation)}`);
         const b_email = this.props.uiStore.current_organisation.businessContactEmail;
         const s_email = this.props.uiStore.current_organisation.supportContactEmail;
-        if (isMobile && theme === 'felzec/light') {
-            return (<div>
-                <OrganizationAboutModalMobileComponentRender
-                extra_style={{ display: 'inherit' }}
-                about_support_email={s_email}
-                about_business_email={b_email}
-                about_desc_style={d}
-                about_staff={p_array}
-                staff_style={s}
-                filter_style={f}
-                bg_style={sponsor_style}
-                about_title={this.props.about_title}
-                handleSupportClick={this.handleSupportClick}
-                handleBusinessClick={this.handleBusinessClick}
-                about_content={this.props.about_content} />
-                <div
-                    onClick={this.props.closeStaff}
-                    tabIndex={-1}
-                    role="menuItem"
-                    style={{
-                        cursor: 'pointer',
-                        fontSize: 28,
-                        position: 'absolute',
-                        right: 32,
-                        top: 94,
-                        zIndex: 10000,
-                        color: close_button,
-                    }}><span className="fa fa-window-close" /></div>
-                {f_array}</div>);
-        }
         return (<div>
             <OrganizationAboutModalComponentRender
             extra_style={{ display: 'inherit' }}
             about_support_email={s_email}
             about_business_email={b_email}
-            about_desc_style={d}
             about_staff={p_array}
             staff_style={s}
             filter_style={f}

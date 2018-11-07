@@ -3,7 +3,6 @@ import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import moment from 'moment';
-import { isMobile } from 'react-device-detect';
 // import _ from 'lodash';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
@@ -130,14 +129,12 @@ class OrganizationMatchesController extends Component {
 
         const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentRender`);
         const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
-        const OrganizationMatchesMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentRender`);
-        const OrganizationMatchesMobileComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentElementRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
-        this.recent_style = { color: '#cccccc', backgroundColor: 'red' };
-        this.upcoming_style = { color: 'white', backgroundColor: 'black' };
-        this.rm_style = { display: 'inherit' };
-        this.fm_style = { display: 'none' };
+        this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
+        this.upcoming_style = { color: 'white', backgroundColor: 'red' };
+        this.rm_style = { display: 'none' };
+        this.fm_style = { display: 'inherit' };
         this.setState({
             recent_style: this.recent_style,
             upcoming_style: this.upcoming_style,
@@ -145,13 +142,7 @@ class OrganizationMatchesController extends Component {
             fm_style: this.fm_style
         });
         this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
-        this.setState({
-            visible: true,
-            OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default,
-            OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default,
-            OrganizationMatchesMobileComponentRender: OrganizationMatchesMobileComponentRender.default,
-            OrganizationMatchesMobileComponentElementRender: OrganizationMatchesMobileComponentElementRender.default
-        });
+        this.setState({ visible: true, OrganizationMatchesComponentRender: OrganizationMatchesComponentRender.default, OrganizationMatchesComponentElementRender: OrganizationMatchesComponentElementRender.default });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -203,8 +194,6 @@ class OrganizationMatchesController extends Component {
         }
         const { OrganizationMatchesComponentRender } = this.state;
         const { OrganizationMatchesComponentElementRender } = this.state;
-        const { OrganizationMatchesMobileComponentRender } = this.state;
-        const { OrganizationMatchesMobileComponentElementRender } = this.state;
         const { edges } = this.match_data.resultdata;
         if (edges.length === 0) {
             return null;
@@ -214,7 +203,6 @@ class OrganizationMatchesController extends Component {
         const f = { backgroundColor: 'rgba(0,0,0,.5)' };
         const p_array = [];
         const f_array = [];
-        const r_theme =     `${this.props.uiStore.current_organisation.themeBaseId}`;
         edges.forEach((res, i) => {
             // const g_image = _.find(gameOptions, (o) => {
             //     return o.value === res.node.gameName;
@@ -269,53 +257,27 @@ class OrganizationMatchesController extends Component {
             const o_logo = this.props.uiStore.current_theme_structure.header.logo.imageData;
 
             if (res.node.eventInfo === 'um') {
-                if (isMobile && r_theme === 'felzec') {
-                    f_array.push(<OrganizationMatchesMobileComponentElementRender
-                        matches_image_1={o_logo}
-                        matches_image_2={res.node.gameLogo}
-                        matches_score={res.node.score}
-                        matches_game={g_type}
-                        matches_league={g_league}
-                        matches_date={date_exists}
-                        win_style={ws}
-                        more_url={formatted_url}
-                    />);
-                } else {
-                    f_array.push(<OrganizationMatchesComponentElementRender
-                        matches_image_1={o_logo}
-                        matches_image_2={res.node.gameLogo}
-                        matches_score={res.node.score}
-                        matches_game={g_type}
-                        matches_league={g_league}
-                        matches_date={date_exists}
-                        win_style={ws}
-                        more_url={formatted_url}
-                    />);
-                }
+                f_array.push(<OrganizationMatchesComponentElementRender
+                    matches_image_1={o_logo}
+                    matches_image_2={res.node.gameLogo}
+                    matches_score={res.node.score}
+                    matches_game={g_type}
+                    matches_league={g_league}
+                    matches_date={date_exists}
+                    win_style={ws}
+                    more_url={formatted_url}
+                />);
             } else {
-                if (isMobile && r_theme === 'felzec') {
-                    p_array.push(<OrganizationMatchesMobileComponentElementRender
-                        matches_image_1={o_logo}
-                        matches_image_2={res.node.gameLogo}
-                        matches_score={res.node.score}
-                        matches_game={g_type}
-                        matches_league={g_league}
-                        matches_date={date_exists}
-                        win_style={ws}
-                        more_url={formatted_url}
-                    />);
-                } else {
-                    p_array.push(<OrganizationMatchesComponentElementRender
-                        matches_image_1={o_logo}
-                        matches_image_2={res.node.gameLogo}
-                        matches_score={res.node.score}
-                        matches_game={g_type}
-                        matches_league={g_league}
-                        matches_date={date_exists}
-                        win_style={ws}
-                        more_url={formatted_url}
-                    />);
-                }
+                p_array.push(<OrganizationMatchesComponentElementRender
+                    matches_image_1={o_logo}
+                    matches_image_2={res.node.gameLogo}
+                    matches_score={res.node.score}
+                    matches_game={g_type}
+                    matches_league={g_league}
+                    matches_date={date_exists}
+                    win_style={ws}
+                    more_url={formatted_url}
+                />);
             }
             // p_array.push(<tr key={`md_key_rm_${i}`} style={{ color: 'rgba(0, 0, 0, 0.87)', height: 48 }}>
             //     <td style={{
@@ -350,23 +312,6 @@ class OrganizationMatchesController extends Component {
             //     </td>
             // </tr>);
         });
-        if (isMobile && r_theme === 'felzec') {
-            return <OrganizationMatchesMobileComponentRender
-            handleLeftScroll={this.handleLeftScroll}
-            handleRightScroll={this.handleRightScroll}
-            handleUpcomingClick={this.handleUpcomingClick}
-            handleRecentClick={this.handleRecentClick}
-            upcoming_style={this.state.upcoming_style}
-            recent_style={this.state.recent_style}
-            rm_style={this.state.rm_style}
-            fm_style={this.state.fm_style}
-            recent_matches={p_array}
-            future_matches={f_array}
-            bg_style={s}
-            filter_style={f}
-            storeRef={this.storeRef}
-            />;
-        }
         return <OrganizationMatchesComponentRender
         handleLeftScroll={this.handleLeftScroll}
         handleRightScroll={this.handleRightScroll}

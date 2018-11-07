@@ -25,17 +25,17 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                         </a>
                     </div>
                     <div className={this.props.classes.dark_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleViewBlogClick}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleBlogClick}>
                             Blog
                         </a>
                     </div>
                     <div className={this.props.classes.dark_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleLoginClick}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleLoginClick}>
                             Login
                         </a>
                     </div>
-                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.facebook_style}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
                                 .handleSocial( 'fb' );
@@ -43,8 +43,8 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                             Facebook
                         </a>
                     </div>
-                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.twiiter_style}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
                                 .handleSocial( 'twitter' );
@@ -52,8 +52,8 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                             Twitter
                         </a>
                     </div>
-                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.youtube_style}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
                                 .handleSocial( 'youtube' );
