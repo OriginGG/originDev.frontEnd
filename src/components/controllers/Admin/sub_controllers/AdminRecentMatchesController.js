@@ -235,6 +235,7 @@ class AdminRecentMatchesController extends Component {
                     <img alt="" style={{ display: 'table' }} className={this.props.classes.admin_main_logo_image} src={this.state.logo_src} />
                     <div style={{ marginTop: 4 }}>
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Your Score'
                             }}
@@ -244,6 +245,7 @@ class AdminRecentMatchesController extends Component {
                             onChange={(e) => { this.handleInputChange(e, 'your_score'); }}
                         />
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Their Score'
                             }}
@@ -256,6 +258,7 @@ class AdminRecentMatchesController extends Component {
                     </div>
                     <div style={{ marginTop: 15 }}>
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Info URL'
                             }}
@@ -265,6 +268,7 @@ class AdminRecentMatchesController extends Component {
                             onChange={(e) => { this.handleInputChange(e, 'your_url'); }}
                         />
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event/Description'
                             }}
@@ -277,6 +281,7 @@ class AdminRecentMatchesController extends Component {
                     </div>
                     <div style={{ marginTop: 15 }}>
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event Date'
                             }}
