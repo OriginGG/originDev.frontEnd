@@ -19,7 +19,10 @@ class OrganizationStaffController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
-        const OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
+        let OrganizationAboutModalMobileComponentRender = null;
+        if (theme === 'felzec/light') {
+            OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
+        }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain, rosterType: 'staff' });
         const outer_edges = roster_data.allCombinedRosters.edges;
         let p_array = [];
@@ -37,16 +40,28 @@ class OrganizationStaffController extends Component {
             p_array = p_array.concat(ed_array);
         }
         const temp_style = { display: 'none' };
-        this.setState({
-            roster_list: p_array,
-            felzec_overlay_style: temp_style,
-            // theme_name: theme,
-            // overlay_showing: false,
-            visible: true,
-            OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
-            OrganizationAboutModalMobileComponentRender: OrganizationAboutModalMobileComponentRender.default,
-            OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
-        });
+        if (theme === 'feklec/light') {
+            this.setState({
+                roster_list: p_array,
+                felzec_overlay_style: temp_style,
+                // theme_name: theme,
+                // overlay_showing: false,
+                visible: true,
+                OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
+                OrganizationAboutModalMobileComponentRender: OrganizationAboutModalMobileComponentRender.default,
+                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+            });
+        } else {
+            this.setState({
+                roster_list: p_array,
+                felzec_overlay_style: temp_style,
+                // theme_name: theme,
+                // overlay_showing: false,
+                visible: true,
+                OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
+                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+            });
+        }
     }
     // handleClick = (link) => {
     //     if (link) {
@@ -142,7 +157,6 @@ class OrganizationStaffController extends Component {
         }
         const { OrganizationRosterItemComponentRender } = this.state;
         const { OrganizationAboutModalComponentRender } = this.state;
-        const { OrganizationAboutModalMobileComponentRender } = this.state;
         const p_array = [];
         let no_items = '';
         if (this.state.roster_list.length < 1) {
@@ -218,6 +232,7 @@ class OrganizationStaffController extends Component {
         const b_email = this.props.uiStore.current_organisation.businessContactEmail;
         const s_email = this.props.uiStore.current_organisation.supportContactEmail;
         if (isMobile && theme === 'felzec/light') {
+            const { OrganizationAboutModalMobileComponentRender } = this.state;
             return (<div>
                 <OrganizationAboutModalMobileComponentRender
                 extra_style={{ display: 'inherit' }}
