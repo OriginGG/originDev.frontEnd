@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';         // eslint-disable-line
 import injectSheet from 'react-jss';
 import axios from 'axios';
-import _ from 'lodash';
 import { Modal } from 'antd';
 import { Table, Image, Icon, Card, Input, Segment, Button, Header } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
-import { getIndividualUserByHandleQuery } from '../../../../queries/individuals';
+import { getIndividualUserByEmailQuery } from '../../../../queries/individuals';
 import { getOrganisationMembersQuery, deleteOrganisaionMemberQuery } from '../../../../queries/members';
 
 const { confirm } = Modal;
@@ -18,9 +17,7 @@ const { confirm } = Modal;
 class AdminMembersController extends Component {
     state = {
         visible: false,
-        disabled: false,
         members: [],
-        handle: '',                         // eslint-disable-line
         email: ''                           // eslint-disable-line
     };
     componentDidMount = () => {
@@ -32,7 +29,6 @@ class AdminMembersController extends Component {
         const members = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, {
             subDomain
         });
-        this.current_members = members.allOrganisationMembers.edges;
         const m_array = [];
         members.allOrganisationMembers.edges.forEach((m) => {
             m_array.push(<Table.Row>
@@ -101,46 +97,29 @@ class AdminMembersController extends Component {
         });
     }
     handleSubmit = async () => {
-        const { handle } = this.state;
-        this.setState({ disabled: true });
-        const fnd = _.findIndex(this.current_members, m => {
-            return (m.node.individualUserByIndividalUserId.username.toLowerCase() === handle.toLowerCase());
-        });
-        if (fnd > -1) {
-            toast.error('That user is already a member of your organzation!', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            this.setState({ disabled: false });
-            return;
-        }
-        const user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, {
-            handle
-        });
+        const { email } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
-        // const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
-        //     email
-        // });
-        if (user.allIndividualUsers.nodes.length === 0) {
-            toast.error("This user hasn't signed up for an individual account yet!", {
-                position: toast.POSITION.TOP_LEFT
-            });
-            this.setState({ disabled: false });
-            return;
-        }
-        if (user.allIndividualUsers.nodes[0].authenticated) {
-            const { email } = user.allIndividualUsers.nodes[0];
+        console.log(email);
+        const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
+            email
+        });
+        if (user.individualUserByEmail && user.individualUserByEmail.authenticated) {
             const host = window.location.origin;
             const url = `/emails/invite_ind?host=${host}&email=${email}&organisation=${subDomain}`;
             await this.sendEmail(url);
-            toast.success(`Invitation e-mail sent to ${handle}!`, {
+            toast.success(`Invitation e-mail sent to ${email}!`, {
                 position: toast.POSITION.TOP_LEFT
             });
-        } else {
+            // valid users.
+        } else if (user.individualUserByEmail && user.individualUserByEmail.authenticated === false) {
             toast.error("This user exists, but they haven't autheticate their account yet!", {
                 position: toast.POSITION.TOP_LEFT
             });
+        } else if (!user.individualUserByEmail) {
+            toast.error("This user hasn't signed up for an individual account yet!", {
+                position: toast.POSITION.TOP_LEFT
+            });
         }
-        this.setState({ disabled: false });
     }
     render() {
         if (this.state.visible === false) {
@@ -155,10 +134,10 @@ class AdminMembersController extends Component {
                     </Card.Header>
                         <Card.Description>
                             <Segment>
-                                <Header as="h5">Enter Users Handle, and click SUBMIT</Header>
-                                <Input value={this.state.about_title} onChange={(e) => { this.handleInputChange(e, 'handle'); }} style={{ width: 'calc(100vw - 478px)' }} label="Handle:" placeholder="Handle" />
+                                <Header as="h5">Enter a valid email below, and click SUBMIT</Header>
+                                <Input value={this.state.about_title} onChange={(e) => { this.handleInputChange(e, 'email'); }} style={{ width: 'calc(100vw - 478px)' }} label="Email:" placeholder="Email" />
                             </Segment>
-                            <Button disabled={this.state.disabled} primary onClick={this.handleSubmit}>SUBMIT</Button>
+                            <Button primary onClick={this.handleSubmit}>SUBMIT</Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>

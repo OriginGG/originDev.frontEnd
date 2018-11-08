@@ -5,8 +5,6 @@ export const getIndividualUserByHandleQuery = gql`
 	allIndividualUsers(condition: {username: $handle}) {
 		nodes {
       id
-      email
-      authenticated
 		}
 	}
 }

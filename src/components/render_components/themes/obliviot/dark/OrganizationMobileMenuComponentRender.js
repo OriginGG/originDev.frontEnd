@@ -25,7 +25,7 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                         </a>
                     </div>
                     <div className={this.props.classes.dark_mobile_menu_item}>
-                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleViewBlogClick}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleBlogClick}>
                             Blog
                         </a>
                     </div>
@@ -34,7 +34,7 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                             Login
                         </a>
                     </div>
-                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.facebook_style}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
                         <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
@@ -43,7 +43,7 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                             Facebook
                         </a>
                     </div>
-                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.twiiter_style}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
                         <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
@@ -52,7 +52,7 @@ class DarkOrganizationMobileMenuComponentRender extends Component {
                             Twitter
                         </a>
                     </div>
-                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.youtube_style}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
                         <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
