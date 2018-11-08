@@ -24,11 +24,11 @@ class AdminThemeController extends Component {
     }
     componentDidMount = () => {
         let choosen_theme = 'enigma';
-        let obliviot_dark = { borderWidth: '0px' };
-        let obliviot_light = { borderWidth: '0px' };
-        let enigma_dark = { borderWidth: '0px' };
-        let enigma_light = { borderWidth: '0px' };
-        let felzec_light = { borderWidth: '0px', };
+        let obliviot_dark = { borderColor: 'transparent' };
+        let obliviot_light = { borderColor: 'transparent' };
+        let enigma_dark = { borderColor: 'transparent' };
+        let enigma_light = { borderColor: 'transparent' };
+        let felzec_light = { borderColor: 'transparent', };
         this.setState({
             reader_image_src: null,
             jumbotron_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData,
@@ -46,27 +46,27 @@ class AdminThemeController extends Component {
         if (this.selected_base_theme === 'enigma') {
             choosen_theme = 'enigma';
             if (this.selected_theme === 'light') {
-                enigma_dark = { borderWidth: '0px' };
-                enigma_light = { borderWidth: '4px' };
+                enigma_dark = { borderColor: 'transparent' };
+                enigma_light = { borderColor: 'blue' };
             } else {
-                enigma_dark = { borderWidth: '4px' };
-                enigma_light = { borderWidth: '0px' };
+                enigma_dark = { borderColor: 'blue' };
+                enigma_light = { borderColor: 'transparent' };
             }
         } else if (this.selected_base_theme === 'obliviot') {
             choosen_theme = 'obliviot';
             if (this.selected_theme === 'light') {
-                obliviot_dark = { borderWidth: '0px' };
-                obliviot_light = { borderWidth: '4px' };
+                obliviot_dark = { borderColor: 'transparent' };
+                obliviot_light = { borderColor: 'blue' };
             } else {
-                obliviot_dark = { borderWidth: '4px' };
-                obliviot_light = { borderWidth: '0px' };
+                obliviot_dark = { borderColor: 'blue' };
+                obliviot_light = { borderColor: 'transparent' };
             }
         } else {
             choosen_theme = 'felzec';
             if (this.selected_theme === 'light') {
-                felzec_light = { borderWidth: '4px' };
+                felzec_light = { borderColor: 'blue' };
             } else {
-                felzec_light = { borderWidth: '4px' };
+                felzec_light = { borderColor: 'blue' };
             }
         }
         this.setState({
@@ -271,41 +271,41 @@ class AdminThemeController extends Component {
     }
     handleObliviotLightClick = () => {
         console.log('obliviot light clicked');
-        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
-        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '4px' } });
-        this.setState({ felzec_light: { borderWidth: '0px' } });
+        this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
+        this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'blue' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'light';
     }
     handleObliviotDarkClick = () => {
         console.log('obliviot dark clicked');
-        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '4px' } });
-        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px' } });
+        this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'blue' } });
+        this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'dark';
     }
     handleEnigmaDarkClick = () => {
         console.log('enigma dark clicked');
-        this.setState({ enigma_dark: { borderWidth: '4px' }, obliviot_dark: { borderWidth: '0px' } });
-        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px' } });
+        this.setState({ enigma_dark: { borderColor: 'blue' }, obliviot_dark: { borderColor: 'transparent' } });
+        this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'dark';
     }
     handleEnigmaLightClick = () => {
         console.log('enigma light clicked');
-        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
-        this.setState({ enigma_light: { borderWidth: '4px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '0px' } });
+        this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
+        this.setState({ enigma_light: { borderColor: 'blue' }, obliviot_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'light';
     }
     handleFelzecLightClick = () => {
         console.log('felzec light clicked');
-        this.setState({ enigma_dark: { borderWidth: '0px' }, obliviot_dark: { borderWidth: '0px' } });
-        this.setState({ enigma_light: { borderWidth: '0px' }, obliviot_light: { borderWidth: '0px' } });
-        this.setState({ felzec_light: { borderWidth: '4px' } });
+        this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
+        this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'blue' } });
         this.setState({ choosen_theme: 'felzec' });
         this.new_theme = 'light';
     }
