@@ -29,6 +29,11 @@ class OrganizationBlogController extends Component {
     };
     componentDidMount = async () => {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+
+        let OrganizationBlogMobileComponentRender = null;
+        if (theme === 'felzec/light') {
+            OrganizationBlogMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogMobileComponentRender`);
+        }
         const OrganizationBlogComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogComponentRender`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
         // const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogModuleComponentRender`);
@@ -48,11 +53,20 @@ class OrganizationBlogController extends Component {
             });
         });
         if (blog_data.resultData.edges.length > 0) {
-            this.setState({
-                OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
-                OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
-                visible: true
-            });
+            if (theme === 'felzec/light') {
+                this.setState({
+                    OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
+                    OrganizationBlogMobileComponentRender: OrganizationBlogMobileComponentRender.default,
+                    OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                    visible: true
+                });
+            } else {
+                this.setState({
+                    OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
+                    OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                    visible: true
+                });
+            }
         }
     }
     componentDidCatch = (error, info) => {
@@ -132,6 +146,44 @@ class OrganizationBlogController extends Component {
         }
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (isMobile && theme === 'felzec/light') {
+            const { OrganizationBlogMobileComponentRender } = this.state;
+            console.log(`isMobile so retunr corrwct blog style    ${this.isMobile}`);
+            return (
+                <div>
+                    <OrganizationBlogMobileComponentRender
+                        bg_style={bg_style}
+                        filter_style={f_style}
+                        blog_media_1={b_media_1}
+                        blog_content_1={b_content_1}
+                        blog_title_1={b_title_1}
+                        blog_1={b_1}
+                        blog_media_2={b_media_2}
+                        blog_content_2={b_content_2}
+                        blog_title_2={b_title_2}
+                        blog_2={b_2}
+                        blog_media_3={b_media_3}
+                        blog_content_3={b_content_3}
+                        blog_title_3={b_title_3}
+                        blog_3={b_3}
+                        blog_media_4={b_media_4}
+                        blog_content_4={b_content_4}
+                        blog_title_4={b_title_4}
+                        blog_4={b_4}
+                        blog_media_5={b_media_5}
+                        blog_content_5={b_content_5}
+                        blog_title_5={b_title_5}
+                        blog_5={b_5}
+                        handleNewsClick={this.props.handleNewsClick}
+                    />
+                    <BlogModal
+                        modal_open={this.state.blog_modal_open}
+                        content={<OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.state.blog_media} blog_content={this.state.blog_content} />}
+                    />
+                </div>
+            );
+        }
         return (
             <div>
                 <OrganizationBlogComponentRender
