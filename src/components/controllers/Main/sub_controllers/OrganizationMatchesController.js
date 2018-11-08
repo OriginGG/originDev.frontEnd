@@ -4,124 +4,124 @@ import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
-// import _ from 'lodash';
+import _ from 'lodash';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { recentMatchesQuery } from '../../../../queries/matches';
-// import coc_image from '../../../../assets/images/game_images/clashofclans.png';
-// import cod_image from '../../../../assets/images/game_images/cod.png';
-// import dota_image from '../../../../assets/images/game_images/dota2.png';
-// import csgo_image from '../../../../assets/images/game_images/csgo.png';
-// import fortnite_image from '../../../../assets/images/game_images/fortnite.jpg';
-// import hearthstone_image from '../../../../assets/images/game_images/hearthstone.png';
-// import lol_image from '../../../../assets/images/game_images/lol.jpg';
-// import paladins_image from '../../../../assets/images/game_images/paladins.jpg';
-// import ow_image from '../../../../assets/images/game_images/ow.png';
-// import pubg_image from '../../../../assets/images/game_images/pubg.png';
-// import smite_image from '../../../../assets/images/game_images/smite.png';
-// import splatoon_image from '../../../../assets/images/game_images/splatoon.png';
-// import vainglory_image from '../../../../assets/images/game_images/vainglory.png';
-// import wow_image from '../../../../assets/images/game_images/wow.png';
-// import r6_image from '../../../../assets/images/game_images/r6.png';
-// import gow_image from '../../../../assets/images/game_images/gow.png';
-// import streetfighter_image from '../../../../assets/images/game_images/streetfighter.png';
-// import ssb_image from '../../../../assets/images/game_images/ssb.png';
-// import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
-// import tekken_image from '../../../../assets/images/game_images/tekken.png';
+import coc_image from '../../../../assets/images/game_images/clashofclans.png';
+import cod_image from '../../../../assets/images/game_images/cod.png';
+import dota_image from '../../../../assets/images/game_images/dota2.png';
+import csgo_image from '../../../../assets/images/game_images/csgo.png';
+import fortnite_image from '../../../../assets/images/game_images/fortnite.jpg';
+import hearthstone_image from '../../../../assets/images/game_images/hearthstone.png';
+import lol_image from '../../../../assets/images/game_images/lol.jpg';
+import paladins_image from '../../../../assets/images/game_images/paladins.jpg';
+import ow_image from '../../../../assets/images/game_images/ow.png';
+import pubg_image from '../../../../assets/images/game_images/pubg.png';
+import smite_image from '../../../../assets/images/game_images/smite.png';
+import splatoon_image from '../../../../assets/images/game_images/splatoon.png';
+import vainglory_image from '../../../../assets/images/game_images/vainglory.png';
+import wow_image from '../../../../assets/images/game_images/wow.png';
+import r6_image from '../../../../assets/images/game_images/r6.png';
+import gow_image from '../../../../assets/images/game_images/gow.png';
+import streetfighter_image from '../../../../assets/images/game_images/streetfighter.png';
+import ssb_image from '../../../../assets/images/game_images/ssb.png';
+import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
+import tekken_image from '../../../../assets/images/game_images/tekken.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
-// const gameOptions = [
-//     {
-//         value: 'Clash of Clans',
-//         image: coc_image
-//     },
-//     {
-//         value: 'Call of Duty',
-//         image: cod_image
-//     },
-//     {
-//         value: 'Dota 2',
-//         image: dota_image
-//     },
-//     {
-//         value: 'CS GO',
-//         image: csgo_image
-//     },
-//     {
-//         value: 'Fortnite',
-//         image: fortnite_image
-//     },
-//     {
-//         value: 'Hearthstone',
-//         image: hearthstone_image
-//     },
-//     {
-//         value: 'Lol',
-//         image: lol_image
-//     },
-//     {
-//         value: 'OW',
-//         image: ow_image
-//     },
-//     {
-//         value: 'Paladins',
-//         image: paladins_image
-//     },
-//     {
-//         value: 'Pubg',
-//         image: pubg_image
-//     },
-//     {
-//         value: 'Rainbow Six: Siege',
-//         image: r6_image
-//     },
-//     {
-//         value: 'Smite',
-//         image: smite_image
-//     },
-//     {
-//         value: 'Splatoon',
-//         image: splatoon_image
-//     },
-//     {
-//         value: 'Vainglory',
-//         image: vainglory_image
-//     },
-//     {
-//         value: 'WOW',
-//         image: wow_image
-//     },
-//     {
-//         game_id: 16,
-//         text: 'Gears Of War',
-//         value: 'Gears Of War',
-//         image: gow_image
-//     },
-//     {
-//         game_id: 17,
-//         text: 'Street Fighter',
-//         value: 'Street Fighter',
-//         image: streetfighter_image
-//     },
-//     {
-//         game_id: 18,
-//         text: 'DragonBall: FighterZ',
-//         value: 'DragonBall: FighterZ',
-//         image: dragonball_image
-//     },
-//     {
-//         game_id: 19,
-//         text: 'Super Smash Bros',
-//         value: 'Super Smash Bros',
-//         image: ssb_image
-//     },
-//     {
-//         game_id: 20,
-//         text: 'Tekken',
-//         value: 'Tekken',
-//         image: tekken_image
-//     },
-// ];
+const gameOptions = [
+    {
+        value: 'Clash of Clans',
+        image: coc_image
+    },
+    {
+        value: 'Call of Duty',
+        image: cod_image
+    },
+    {
+        value: 'Dota 2',
+        image: dota_image
+    },
+    {
+        value: 'CS GO',
+        image: csgo_image
+    },
+    {
+        value: 'Fortnite',
+        image: fortnite_image
+    },
+    {
+        value: 'Hearthstone',
+        image: hearthstone_image
+    },
+    {
+        value: 'Lol',
+        image: lol_image
+    },
+    {
+        value: 'OW',
+        image: ow_image
+    },
+    {
+        value: 'Paladins',
+        image: paladins_image
+    },
+    {
+        value: 'Pubg',
+        image: pubg_image
+    },
+    {
+        value: 'Rainbow Six: Siege',
+        image: r6_image
+    },
+    {
+        value: 'Smite',
+        image: smite_image
+    },
+    {
+        value: 'Splatoon',
+        image: splatoon_image
+    },
+    {
+        value: 'Vainglory',
+        image: vainglory_image
+    },
+    {
+        value: 'WOW',
+        image: wow_image
+    },
+    {
+        game_id: 16,
+        text: 'Gears Of War',
+        value: 'Gears Of War',
+        image: gow_image
+    },
+    {
+        game_id: 17,
+        text: 'Street Fighter',
+        value: 'Street Fighter',
+        image: streetfighter_image
+    },
+    {
+        game_id: 18,
+        text: 'DragonBall: FighterZ',
+        value: 'DragonBall: FighterZ',
+        image: dragonball_image
+    },
+    {
+        game_id: 19,
+        text: 'Super Smash Bros',
+        value: 'Super Smash Bros',
+        image: ssb_image
+    },
+    {
+        game_id: 20,
+        text: 'Tekken',
+        value: 'Tekken',
+        image: tekken_image
+    },
+];
 class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }
     componentDidMount = async () => {
@@ -227,9 +227,9 @@ class OrganizationMatchesController extends Component {
         const f_array = [];
         const r_theme =     `${this.props.uiStore.current_organisation.themeBaseId}`;
         edges.forEach((res, i) => {
-            // const g_image = _.find(gameOptions, (o) => {
-            //     return o.value === res.node.gameName;
-            // });
+            const g_image = _.find(gameOptions, (o) => {
+                return o.value === res.node.gameName;
+            });
             const g_type = res.node.gameName;
             let g_league = 'No League Listed';
 
@@ -277,7 +277,11 @@ class OrganizationMatchesController extends Component {
             } else {
                 formatted_url = `http://${more_url}`;
             }
-            const o_logo = this.props.uiStore.current_theme_structure.header.logo.imageData;
+            let o_logo = this.props.uiStore.current_theme_structure.header.logo.imageData;
+
+            if (r_theme !== 'felzec') {
+                o_logo = g_image.image;
+            }
 
             if (res.node.eventInfo === 'um') {
                 if (isMobile && r_theme === 'felzec') {
