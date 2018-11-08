@@ -172,7 +172,7 @@ class MenuDrop extends Component {
     }
 }
 class AdminPageController extends Component {
-    state = { page: 'company', isOpen: true, visible: false };
+    state = { page: 'company', isOpen: false, visible: false };
     componentDidMount = async () => {
         if (this.props.appManager.admin_logged_in) {
             const { user_id } = this.props.uiStore;
