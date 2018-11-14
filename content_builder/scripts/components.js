@@ -122,6 +122,7 @@ const component_array = [
     { source_html: './src/html/themes/felzec/light/OrganizationTwitchComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationTwitchHolderComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationNewsComponent.html', sub_dir: 'themes/felzec/light' },
+    { source_html: './src/html/themes/felzec/light/OrganizationNewsMobileComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationFooterNewsComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationFooterComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationFooterMobileComponent.html', sub_dir: 'themes/felzec/light' },

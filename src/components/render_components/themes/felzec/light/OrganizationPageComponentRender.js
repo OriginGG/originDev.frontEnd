@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class LightOrganizationPageComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.darkObliotBG}>
+            <div className={this.props.classes.lightObliotBG}>
                 <div>
                     <img id="bg_img" alt="" className={this.props.classes.felzec_light_bg_img}/>
                     <div className={this.props.classes.obliviot_light_bg_filter} style={this.props.obliviot_page_style}/>
