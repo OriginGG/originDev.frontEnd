@@ -2588,6 +2588,13 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_light_mobile_news_row: {
+        width: '100%',
+        height: '100px',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
     felzec_light_footer_news_row: {
         width: '100%',
         height: '100px',

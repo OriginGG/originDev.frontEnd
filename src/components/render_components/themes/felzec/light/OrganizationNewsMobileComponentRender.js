@@ -8,7 +8,7 @@ class LightOrganizationNewsMobileComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.felzec_light_news_row}>
+                <div className={this.props.classes.felzec_light_mobile_news_row}>
                     <div className={this.props.classes.felzec_light_news_mobile_container} onClick={( ) => {
                         this
                             .props
