@@ -1669,6 +1669,13 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
+    felzec_footer_mobile_sponsor_image: {
+        maxHeight: '30px',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
     org_menu_felzec_light_item : {
         height: '60px',
         lineHeight: '60px',

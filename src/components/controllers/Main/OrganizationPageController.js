@@ -564,7 +564,7 @@ class OrganizationPageController extends Component {
                                     handleAboutClick={this.handleAboutClick} />
                             </div>
                         </div></Menu>;
-                footer_content = <span />;
+                // footer_content = <span />;
             }
         }
         let t_content = <OrganizationTeamController />;
