@@ -27,7 +27,7 @@ class LightOrganizationNewsMobileComponentRender extends Component {
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>
-                                    <span className={this.props.classes.felzec_light_news_title}>{this.props.blog_title}</span>
+                                    <span className={this.props.classes.felzec_light_mobile_news_title}>{this.props.blog_title}</span>
                                 </div>
                                 <div style={{
                                     width: '100%',

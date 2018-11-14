@@ -2658,6 +2658,15 @@ export const GlobalStyles = GlobalTheme => ({
         textTransform: 'uppercase'
     },
 
+    felzec_light_mobile_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '25px',
+        color: 'black',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
     felzec_light_footer_news_title: {
         textAlign: 'left',
         fontSize: '14px',
