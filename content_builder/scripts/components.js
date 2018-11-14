@@ -139,6 +139,7 @@ const component_array = [
     { source_html: './src/html/themes/felzec/light/OrganizationSponsersItemComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationSponsersPageComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationRosterItemComponent.html', sub_dir: 'themes/felzec/light' },
+    { source_html: './src/html/themes/felzec/light/OrganizationRosterItemMobileComponent.html', sub_dir: 'themes/felzec/light' },
 
     { source_html: './src/html/themes/admin/OrganizationAdminPageComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminProfileComponent.html', sub_dir: 'admin' },

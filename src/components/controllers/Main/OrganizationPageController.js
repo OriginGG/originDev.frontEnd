@@ -567,6 +567,11 @@ class OrganizationPageController extends Component {
                 footer_content = <span />;
             }
         }
+        let t_content = <OrganizationTeamController />;
+        if (this.isMobile()) {
+            t_content = <span />;
+        }
+
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
@@ -574,7 +579,7 @@ class OrganizationPageController extends Component {
             copyright={cp}
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
             blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
-            teamContent={<OrganizationTeamController />}
+            teamContent={t_content}
             mediaContent={<OrganizationMediaController />}
             twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}

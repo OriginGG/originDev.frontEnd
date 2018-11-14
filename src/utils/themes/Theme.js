@@ -1571,7 +1571,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMobileContainer: {
         width: '90%',
-        height: '100px',
+        height: '200px',
         display: 'table',
         position: 'relative',
         marginLeft: 'auto',
@@ -1898,6 +1898,14 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_blog_m_container: {
+        width: '100%',
+        height: '240px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+
     felzec_blog_mobile_container: {
         width: '100%',
         display: 'table',
@@ -1908,6 +1916,15 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_blog_filter_container: {
         width: '100%',
         height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_blog_m_filter_container: {
+        width: '100%',
+        height: '240px',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -1926,7 +1943,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_mobile_inner_container: {
         width: '100%',
-        height: '600px',
+        height: '240px',
         padding: '20px 10px 20px 10px',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1937,6 +1954,13 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_matches_container: {
         width: '100%',
         height: '400px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_matches_mobile_container: {
+        width: '100%',
+        height: '300px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
@@ -2149,10 +2173,26 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    felzec_matches_mobile_filter_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
     felzec_match_element_container: {
         width: '100%',
         height: '340px',
         overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
+    felzec_match_mobile_element_container: {
+        width: '100%',
+        height: '340px',
+        overflowY: 'hidden',
         overflowX: 'hidden',
     },
 
