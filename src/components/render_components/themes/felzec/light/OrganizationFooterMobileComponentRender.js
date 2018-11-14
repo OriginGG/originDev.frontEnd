@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 
-class LightOrganizationFooterComponentRender extends Component {
+class LightOrganizationFooterMobileComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.felzec_nav_constraint}>
@@ -35,11 +35,11 @@ class LightOrganizationFooterComponentRender extends Component {
                             </div>
                             <div className="ui two column grid">
                                 <div className="column">
-                                    <div className={this.props.classes.felzec_footer_title_left}>Support</div>
+                                    <div className={this.props.classes.felzec_footer_title_mobile_left}>Support</div>
                                     <div className={this.props.classes.felzec_footer_email_left} onClick={this.props.handleSupportClick}>{this.props.footer_support}</div>
                                 </div>
                                 <div className="column">
-                                    <div className={this.props.classes.felzec_footer_title_right}>Business enquiries</div>
+                                    <div className={this.props.classes.felzec_footer_title_mobile_right}>Business enquiries</div>
                                     <div className={this.props.classes.felzec_footer_email_right} onClick={this.props.handleBusinessClick}>{this.props.footer_business}</div>
                                 </div>
                             </div>
@@ -51,8 +51,8 @@ class LightOrganizationFooterComponentRender extends Component {
     }
 }
 
-LightOrganizationFooterComponentRender.propTypes = {
+LightOrganizationFooterMobileComponentRender.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default injectSheet( GlobalStyles )( LightOrganizationFooterComponentRender )
+export default injectSheet( GlobalStyles )( LightOrganizationFooterMobileComponentRender )

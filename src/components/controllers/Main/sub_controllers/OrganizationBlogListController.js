@@ -4,6 +4,7 @@ import { inject } from 'mobx-react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getBlogsQuery } from '../../../../queries/blogs';
@@ -37,6 +38,12 @@ class OrganizationBlogListController extends Component {
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
         const comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsComponentRender`);
         const OrganizationNewsComponentRender = comp.default;
+        let m_comp = null;
+        let  OrganizationNewsMobileComponentRender = null;
+        if (this.isMobile() && theme === 'felzec/light') {
+            m_comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsMobileComponentRender`);
+            OrganizationNewsMobileComponentRender = m_comp.default;
+        }
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
         this.blog_array = [];
         blog_data.resultData.edges.forEach((blog, i) => {
@@ -47,7 +54,11 @@ class OrganizationBlogListController extends Component {
             const { createdAt } = blog.node;
             const formattedDate = moment(createdAt).format('lll');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
-            this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
+            if (this.isMobile() && theme === 'felzec/light') {
+                this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
+            } else {
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
+            }
         });
         this.setState({ visible: true, OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default });
     }
@@ -60,6 +71,12 @@ class OrganizationBlogListController extends Component {
 
     createMarkup = (content) => {
         return { __html: content };
+    }
+
+    isMobile = () => {
+        // return true;
+        console.log(`page isMObile ${isMobile}`);
+        return isMobile;
     }
 
     closeModal = () => {

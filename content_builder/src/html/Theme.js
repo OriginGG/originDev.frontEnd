@@ -1591,7 +1591,8 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_lightHeader: {
         width: '100%',
         maxHeight: '70px',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        marginBottom: '-20px'
     },
 
     felzec_nav_constraint : {
@@ -1718,6 +1719,16 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900'
     },
 
+    felzec_footer_title_mobile_left: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: '900'
+    },
+
     felzec_footer_title_center: {
         width: '100%',
         lineHeight: '30px',
@@ -1739,6 +1750,16 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'right',
         color: 'white',
         fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_title_mobile_right: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '16px',
         fontWeight: '900'
     },
 
@@ -2567,6 +2588,13 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_light_mobile_news_row: {
+        width: '100%',
+        height: '100px',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
     felzec_light_footer_news_row: {
         width: '100%',
         height: '100px',
@@ -2585,6 +2613,16 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
 
+    felzec_light_news_mobile_container: {
+        width: '90%',
+        height: '100px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'rgba(255,255,255,1)',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
     felzec_light_news_footercontainer: {
         width: '100%',
         height: '100px',
@@ -2596,6 +2634,12 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_main_news_item_micro_image: {
         width: '100%',
         height: '200px',
+        objectFit: 'cover'
+    },
+
+    felzec_main_news_item_micro_mobile_image: {
+        width: '100%',
+        height: '100px',
         objectFit: 'cover'
     },
 
