@@ -40,7 +40,7 @@ class OrganizationStaffController extends Component {
             p_array = p_array.concat(ed_array);
         }
         const temp_style = { display: 'none' };
-        if (theme === 'feklec/light') {
+        if (theme === 'felzec/light') {
             this.setState({
                 roster_list: p_array,
                 felzec_overlay_style: temp_style,
