@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
@@ -43,12 +44,14 @@ class OrganizationFooterController extends Component {
             });
         });
         const OrganizationFooterComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationFooterComponentRender`);
+        const OrganizationFooterMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationFooterMobileComponentRender`);
         const OrganizationFooterNewsComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationFooterNewsComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({
             roster: p_array,
             visible: true,
             OrganizationFooterComponentRender: OrganizationFooterComponentRender.default,
+            OrganizationFooterMobileComponentRender: OrganizationFooterMobileComponentRender.default,
             OrganizationFooterNewsComponentRender: OrganizationFooterNewsComponentRender.default
         });
         const nf_style = { display: 'none' };
@@ -60,6 +63,11 @@ class OrganizationFooterController extends Component {
     handleRosterButtonClick = () => {
         console.log(`roster click ${this.p_array}`);
         this.setState({ dropdown: true });
+    }
+    isMobile = () => {
+        // return true;
+        console.log(`page isMObile ${isMobile}`);
+        return isMobile;
     }
     handleCloseClick = () => {
         // console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
@@ -98,6 +106,7 @@ class OrganizationFooterController extends Component {
             d_style = { display: 'table' };
         }
         const { OrganizationFooterComponentRender } = this.state;
+        const { OrganizationFooterMobileComponentRender } = this.state;
         const { OrganizationFooterNewsComponentRender } = this.state;
 
         const news_array = [];
@@ -197,6 +206,46 @@ class OrganizationFooterController extends Component {
             console.log(i);
             sp_array.push(n.imageUrl);
         });
+
+        if (this.isMobile()) {
+            return <OrganizationFooterMobileComponentRender
+            login_style={this.props.login_style}
+            home_style={this.props.home_style}
+            store_style={this.props.store_style}
+            about_style={this.props.about_style}
+            footer_about={this.props.footer_about}
+            roster_dropdown_style={d_style}
+            sponsor_image_1={sp_array[0]}
+            sponsor_image_2={sp_array[1]}
+            sponsor_image_3={sp_array[2]}
+            sponsor_image_4={sp_array[3]}
+            blog_items={news_array}
+            felzec_menu_style={this.state.felzec_style}
+            dropdown_item={m_array}
+            handleRosterButtonClick={this.handleRosterButtonClick}
+            sponsers_style={this.props.sponsers_style}
+            footer_support={this.props.footer_support}
+            footer_business={this.props.footer_business}
+            handleBusinessClick={this.handleBusinessClick}
+            handleSupportClick={this.handleSupportClick}
+            roster_menu_style={sssss}
+            handleBlogButtonClick={this.handleBlogButtonClick}
+            handleStoreClick={this.props.handleStoreClick}
+            handleBlogClick={this.props.handleBlogClick}
+            handleCloseClick={this.handleCloseClick}
+            handleSponsersClick={this.props.handleSponsersClick}
+            handleAboutClick={this.props.handleAboutClick}
+            handleViewBlogClick={this.props.handleViewBlogClick}
+            handleLoginClick={this.props.handleLoginClick}
+            social_link1={social_link1}
+            social_link2={social_link2}
+            social_link3={social_link3}
+            social_link4={social_link4}
+            social_link5={social_link5}
+            social_link6={social_link6}
+            navicon={navicon}
+            image_src={this.image_src} />;
+        }
 
         return <OrganizationFooterComponentRender
             login_style={this.props.login_style}

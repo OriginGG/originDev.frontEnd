@@ -124,6 +124,7 @@ const component_array = [
     { source_html: './src/html/themes/felzec/light/OrganizationNewsComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationFooterNewsComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationFooterComponent.html', sub_dir: 'themes/felzec/light' },
+    { source_html: './src/html/themes/felzec/light/OrganizationFooterMobileComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationBlogComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationBlogMobileComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationTeamComponent.html', sub_dir: 'themes/felzec/light' },
@@ -139,6 +140,7 @@ const component_array = [
     { source_html: './src/html/themes/felzec/light/OrganizationSponsersItemComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationSponsersPageComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationRosterItemComponent.html', sub_dir: 'themes/felzec/light' },
+    { source_html: './src/html/themes/felzec/light/OrganizationRosterItemMobileComponent.html', sub_dir: 'themes/felzec/light' },
 
     { source_html: './src/html/themes/admin/OrganizationAdminPageComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminProfileComponent.html', sub_dir: 'admin' },
