@@ -175,6 +175,15 @@ class OrganizationMatchesController extends Component {
         }
     }
 
+    isMobile = () => {
+        // return true;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    }
+
     handleRightScroll = () => {
         if (this.scrollRef) {
             this.scrollRef.scrollLeft += 100;
@@ -284,7 +293,7 @@ class OrganizationMatchesController extends Component {
             }
 
             if (res.node.eventInfo === 'um') {
-                if (isMobile && r_theme === 'felzec') {
+                if (this.isMobile() && r_theme === 'felzec') {
                     const { OrganizationMatchesMobileComponentElementRender } = this.state;
                     f_array.push(<OrganizationMatchesMobileComponentElementRender
                         matches_image_1={o_logo}
@@ -309,7 +318,7 @@ class OrganizationMatchesController extends Component {
                     />);
                 }
             } else {
-                if (isMobile && r_theme === 'felzec') {
+                if (this.isMobile() && r_theme === 'felzec') {
                     const { OrganizationMatchesMobileComponentElementRender } = this.state;
                     p_array.push(<OrganizationMatchesMobileComponentElementRender
                         matches_image_1={o_logo}
@@ -367,7 +376,7 @@ class OrganizationMatchesController extends Component {
             //     </td>
             // </tr>);
         });
-        if (isMobile && r_theme === 'felzec') {
+        if (this.isMobile() && r_theme === 'felzec') {
             const { OrganizationMatchesMobileComponentRender } = this.state;
             return <OrganizationMatchesMobileComponentRender
             handleLeftScroll={this.handleLeftScroll}

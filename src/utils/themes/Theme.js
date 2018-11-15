@@ -1571,7 +1571,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMobileContainer: {
         width: '90%',
-        height: '100px',
+        height: '200px',
         display: 'table',
         position: 'relative',
         marginLeft: 'auto',
@@ -1591,7 +1591,8 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_lightHeader: {
         width: '100%',
         maxHeight: '70px',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        marginBottom: '-20px'
     },
 
     felzec_nav_constraint : {
@@ -1669,6 +1670,13 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
+    felzec_footer_mobile_sponsor_image: {
+        maxHeight: '30px',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
     org_menu_felzec_light_item : {
         height: '60px',
         lineHeight: '60px',
@@ -1711,6 +1719,16 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900'
     },
 
+    felzec_footer_title_mobile_left: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: '900'
+    },
+
     felzec_footer_title_center: {
         width: '100%',
         lineHeight: '30px',
@@ -1732,6 +1750,16 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'right',
         color: 'white',
         fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_title_mobile_right: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '16px',
         fontWeight: '900'
     },
 
@@ -1898,6 +1926,14 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_blog_m_container: {
+        width: '100%',
+        height: '240px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+
     felzec_blog_mobile_container: {
         width: '100%',
         display: 'table',
@@ -1908,6 +1944,15 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_blog_filter_container: {
         width: '100%',
         height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_blog_m_filter_container: {
+        width: '100%',
+        height: '240px',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -1926,7 +1971,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_mobile_inner_container: {
         width: '100%',
-        height: '600px',
+        height: '240px',
         padding: '20px 10px 20px 10px',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1937,6 +1982,13 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_matches_container: {
         width: '100%',
         height: '400px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_matches_mobile_container: {
+        width: '100%',
+        height: '300px',
         backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
@@ -2149,10 +2201,26 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    felzec_matches_mobile_filter_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
     felzec_match_element_container: {
         width: '100%',
         height: '340px',
         overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
+    felzec_match_mobile_element_container: {
+        width: '100%',
+        height: '340px',
+        overflowY: 'hidden',
         overflowX: 'hidden',
     },
 
@@ -2520,6 +2588,13 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_light_mobile_news_row: {
+        width: '100%',
+        height: '100px',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
     felzec_light_footer_news_row: {
         width: '100%',
         height: '100px',
@@ -2531,6 +2606,16 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_light_news_container: {
         width: '80%',
         height: '200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'rgba(255,255,255,1)',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_light_news_mobile_container: {
+        width: '90%',
+        height: '100px',
         marginLeft: 'auto',
         marginRight: 'auto',
         backgroundColor: 'rgba(255,255,255,1)',
@@ -2552,6 +2637,12 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
 
+    felzec_main_news_item_micro_mobile_image: {
+        width: '100%',
+        height: '100px',
+        objectFit: 'cover'
+    },
+
     felzec_main_footer_news_item_micro_image: {
         width: '100%',
         height: '100px',
@@ -2562,6 +2653,15 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'left',
         fontSize: '20px',
         lineHeight: '30px',
+        color: 'black',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    felzec_light_mobile_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '25px',
         color: 'black',
         fontWeight: '900',
         textTransform: 'uppercase'

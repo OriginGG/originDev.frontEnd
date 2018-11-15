@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
+import { isMobile } from 'react-device-detect';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getRosterByIDQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -14,16 +15,42 @@ class OrganizationRosterController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
+        let OrganizationRosterItemMobileComponentRender = null;
+        if (theme === 'felzec/light') {
+            OrganizationRosterItemMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemMobileComponentRender`);
+        }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         const { edges } = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId;
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
-        this.setState({ roster_list: edges, visible: true, OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default });
+        if (theme === 'felzec/light') {
+            this.setState({
+                roster_list: edges,
+                visible: true,
+                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default,
+                OrganizationRosterItemMobileComponentRender: OrganizationRosterItemMobileComponentRender.default
+            });
+        } else {
+            this.setState({
+                roster_list: edges,
+                visible: true,
+                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+            });
+        }
     }
     // handleClick = (link) => {
     //     if (link) {
     //         window.open(link, '_blank');
     //     }
     // }
+
+    isMobile = () => {
+        // return true;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    }
 
     handleClick = (i) => {              // eslint-disable-line
         const x = this.props.appManager.getDomainInfo();
@@ -104,7 +131,9 @@ class OrganizationRosterController extends Component {
             if (!individualUserByIndividualId.instagramLink) {
                 instagram_style = { display: 'none' };
             }
-            p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
+            if (theme === 'felzec/light' && this.isMobile()) {
+                const { OrganizationRosterItemMobileComponentRender } = this.state;
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemMobileComponentRender
                 roster_nickname={individualUserByIndividualId.username}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
@@ -116,6 +145,20 @@ class OrganizationRosterController extends Component {
                 youtube_style={youtube_style}
                 instagram_style={instagram_style}
             /></div>);
+            } else {
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
+                roster_nickname={individualUserByIndividualId.username}
+                roster_about={individualUserByIndividualId.about}
+                roster_name={individualUserByIndividualId.firstName}
+                roster_image={im}
+                ind_user={individualUserByIndividualId}
+                handle_social={this.handle_social}
+                twitter_style={twitter_style}
+                facebook_style={facebook_style}
+                youtube_style={youtube_style}
+                instagram_style={instagram_style}
+            /></div>);
+            }
         });
         return (<div>
             <div

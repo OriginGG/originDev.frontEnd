@@ -226,8 +226,13 @@ class OrganizationPageController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile}`);
-        return isMobile;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            console.log('isMobile true');
+            return true;
+        }
+        console.log('isMobile false');
+        return false;
     }
 
     createMarkup = (content) => {
@@ -564,9 +569,14 @@ class OrganizationPageController extends Component {
                                     handleAboutClick={this.handleAboutClick} />
                             </div>
                         </div></Menu>;
-                footer_content = <span />;
+                // footer_content = <span />;
             }
         }
+        let t_content = <OrganizationTeamController />;
+        if (this.isMobile()) {
+            t_content = <span />;
+        }
+
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
@@ -574,7 +584,7 @@ class OrganizationPageController extends Component {
             copyright={cp}
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
             blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
-            teamContent={<OrganizationTeamController />}
+            teamContent={t_content}
             mediaContent={<OrganizationMediaController />}
             twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
