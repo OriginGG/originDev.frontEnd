@@ -88,8 +88,11 @@ class OrganizationBlogController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`isMobile = ${isMobile}`);
-        return isMobile;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
     render() {
         if (!this.state.visible) {
@@ -154,7 +157,7 @@ class OrganizationBlogController extends Component {
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        if (isMobile && theme === 'felzec/light') {
+        if (this.isMobile() && theme === 'felzec/light') {
             const { OrganizationBlogMobileComponentRender } = this.state;
             console.log(`isMobile so retunr corrwct blog style    ${this.isMobile}`);
             return (

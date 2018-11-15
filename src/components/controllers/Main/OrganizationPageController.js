@@ -226,8 +226,13 @@ class OrganizationPageController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile}`);
-        return isMobile;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            console.log('isMobile true');
+            return true;
+        }
+        console.log('isMobile false');
+        return false;
     }
 
     createMarkup = (content) => {

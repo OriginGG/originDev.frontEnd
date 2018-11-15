@@ -66,8 +66,11 @@ class OrganizationFooterController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile}`);
-        return isMobile;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
     handleCloseClick = () => {
         // console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX handle close click');
