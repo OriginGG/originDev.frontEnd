@@ -210,7 +210,12 @@ class OrganizationTeamController extends Component {
         console.log(error, info);
     }
     isMobile = () => {
-        return isMobile;
+        // return true;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
     handleTeamClick = (t) => {
         console.log(JSON.stringify(t));
