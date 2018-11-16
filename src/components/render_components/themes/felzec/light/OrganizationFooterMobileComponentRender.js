@@ -33,14 +33,18 @@ class LightOrganizationFooterMobileComponentRender extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ui two column grid">
-                                <div className="column">
+                            <div>
+                                <div style={{
+                                    width: '100%'
+                                }}>
                                     <div className={this.props.classes.felzec_footer_title_mobile_left}>Support</div>
                                     <div className={this.props.classes.felzec_footer_email_left} onClick={this.props.handleSupportClick}>{this.props.footer_support}</div>
                                 </div>
-                                <div className="column">
-                                    <div className={this.props.classes.felzec_footer_title_mobile_right}>Business enquiries</div>
-                                    <div className={this.props.classes.felzec_footer_email_right} onClick={this.props.handleBusinessClick}>{this.props.footer_business}</div>
+                                <div style={{
+                                    width: '100%'
+                                }}>
+                                    <div className={this.props.classes.felzec_footer_title_mobile_left}>Business enquiries</div>
+                                    <div className={this.props.classes.felzec_footer_email_left} onClick={this.props.handleBusinessClick}>{this.props.footer_business}</div>
                                 </div>
                             </div>
                         </div>
