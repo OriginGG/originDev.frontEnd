@@ -16,7 +16,7 @@ class NewSignupIndividualPageController extends Component {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
         const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: d.id });
-        debugger;
+        // debugger;
         const u = pre_user.allIndividualUsers.edges[0].node;
         // if (u == null) {
         //     const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: d.organisation });
@@ -54,10 +54,10 @@ class NewSignupIndividualPageController extends Component {
                     authenticated: true
                 };
                 const authPayload = await this.props.appManager.executeQuery('mutation', authenticateIndividualQuery, { email: u.email, password: d.password });
-                debugger;
+                // debugger;
                 const u_token = authPayload.authenticateIndividual.individualAuthPayload.jwtToken;
                 this.props.appManager.authToken = u_token;
-                debugger;
+                // debugger;
                 await this.props.appManager.executeQueryAuth('mutation', updateIndividualUserQuery, payload);
                 await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
                 const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
