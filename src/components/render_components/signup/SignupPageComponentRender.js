@@ -10,7 +10,7 @@ class SignupPageComponentRender extends Component {
             <div className={this.props.classes.signupBGImage}>
                 <header className={this.props.classes.signupHeader}>
                     <div className="ui container">
-                        <a href="#" className="header item">{this.props.headerComponent}</a>
+                        <a href="/" className="header item">{this.props.headerComponent}</a>
                     </div>
                 </header>
                 <div id="modal_container" className="container">
