@@ -160,7 +160,14 @@ class AdminRecentMatchesController extends Component {
             if (logo_data === null) {
                 this.is_saving = false;
             } else {
-                console.log(`event description = ${this.state.event_description}`);
+                console.log(`event description = ${this.state.event_description}
+                subDomain =${this.props.uiStore.current_organisation.subDomain}
+                gameName=${this.current_game} 
+                eventInfo= ${this.match_type}
+                eventUrl= ${this.state.your_url}
+                eventDate= ${this.state.your_date}
+                gameLogo= ${logo_data.Location}
+                score= ${this.state.your_score} - ${this.state.their_score}`);
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
