@@ -20,7 +20,7 @@ const { confirm } = Modal;
 
 // import { getOrganisationQuery } from './queries/organisation'
 class LoginController extends Component {
-    state = { button_disabled: false, content_display: 'login' };
+    state = { button_disabled: false, content_display: 'signup' };
     handleClick = () => {
         const p = this.state.content_display;
         if (p === 'login') {
