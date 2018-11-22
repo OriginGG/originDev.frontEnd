@@ -274,12 +274,14 @@ class IndividualPageController extends Component {
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
         console.log('view_id' + view_id); // eslint-disable-line
-        if (view_id) {
+        const authPayload = this.props.appManager.pouchGet('ind_authenticate');
+        if (!authPayload) {
             const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
             this.user_details = user.individualUserById;
             this.getStats();
         } else {
-            const authPayload = this.props.appManager.GetQueryParams('p');
+            this.props.appManager.pouchStore('ind_authenticate', null);
+            // const authPayload = this.props.appManager.GetQueryParams('p');
             console.log('authPayload' + authPayload); // eslint-disable-line
             this.key_index = 1;
             if (authPayload) {
@@ -310,6 +312,8 @@ class IndividualPageController extends Component {
                     const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
                     this.props.appManager.authToken = token;
                     const d = this.props.appManager.decodeJWT(token);
+                    browserHistory.push(`/individual?u=${d.id}`);
+//
                     this.user_id = d.id;
                     console.log('user_id' + this.user_id); // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
