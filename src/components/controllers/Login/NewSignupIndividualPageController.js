@@ -61,7 +61,8 @@ class NewSignupIndividualPageController extends Component {
                 await this.props.appManager.executeQueryAuth('mutation', updateIndividualUserQuery, payload);
                 await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
                 const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
-                historyStore.push(`/individual?p=${new_payload}`);
+                this.props.appManager.pouchStore('ind_authenticate', new_payload);
+                historyStore.push(`/individual?u=${d.id}`);
             }
         }
     }
