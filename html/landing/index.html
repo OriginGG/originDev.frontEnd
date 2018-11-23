@@ -17,9 +17,17 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jss/9.8.1/jss.min.js"></script>   
       <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>    
       <script type="module">
+
          import { GlobalTheme, GlobalStyles } from './Theme.js'
+         import { GlobalMobileTheme, GlobalMobileStyles } from './ThemeMobile.js'
          import {attach_styles} from './attach-styles.js';
-         attach_styles(GlobalTheme, GlobalStyles, 'classes');
+         if (window.outerWidth > 1100) {
+            console.log (`window.outerWidth = ${window.outerWidth}`);
+            attach_styles(GlobalTheme, GlobalStyles, 'classes');
+         } else {
+            console.log (`window.outerWidth = ${window.outerWidth}`);
+            attach_styles(GlobalMobileTheme, GlobalMobileStyles, 'classes');
+         }
       </script>    
     </head>
     <body>
@@ -31,132 +39,206 @@
                 <div id="landing_welcome" class="classes.landing_outer_welcome_container">
                         <div class=classes.landing_welcome_container>
                             <div class="classes.landing_welcome_lines_container">
-                                <img class="classes.landing_welcome_lines_image" src="./images/origin_logo.png" />
+                                <div class="ui stackable two column grid" style="display:flex;align-items:center;">
+                                    <div class="seven wide column">
+                                        <div class="classes.landing_header_title">
+                                            Build your customized Esports website in 10 minutes or less.
+                                        </div>
+                                        <div class="classes.landing_header_sub_title">
+                                            We created OriginGG to make it easy.
+                                        </div>
+                                        <div class="classes.landing_goodbye_cta" href="/signup_org">
+                                            Create Your Free Organization
+                                        </div>
+                                    </div>
+                                    <div class="nine wide column">
+                                        <img class="classes.landing_header_image" src="./images/header_image.png" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                 </div>
+                <div id="landing_isp" class="classes.landing_isp_container">
+                    <div id="isp_title" class="classes.landing_isp_title">
+                        150 + Organizations use OriginGG to to manage their teams
+                    </div>
+                    <div id="landing_isp_companies_container" class="classes.landing_isp_companies_container">
+                        <img class="classes.landing_isp_company_image" src="https://res.cloudinary.com/origingg/image/upload/v1540850226/nebula_dark_company_logo.png" />
+                        <img class="classes.landing_isp_company_image" src="https://res.cloudinary.com/origingg/image/upload/v1541616405/timoresports_dark_company_logo.png" />
+                        <img class="classes.landing_isp_company_image" src="https://origin-images.s3.amazonaws.com/resurgence/Badge.png" />
+                        <img class="classes.landing_isp_company_image" src="https://res.cloudinary.com/origingg/image/upload/v1540057759/loyaltyheadquarters_dark_company_logo.png" />
+                        <img class="classes.landing_isp_company_image" src="https://origin-images.s3.amazonaws.com/disrupt/goldLogoTransparent.png" />
+                    </div>
+                </div>
                 <div id="landing_organization" class="classes.landing_content_container">
-                    <div class="ui stackable two column grid">
-                        <div class="column">
-                            <div id="org_title" class="classes.landing_org_header_text">
-                                Your Team <span class="classes.landing_org_header_text_blue">Origin</span>ates Here
-                            </div>
-                            <div id="org_body" class="classes.landing_org_body">
-                                    <p><!-- react-text: 83 -->Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.<!-- /react-text --><br><br><!-- react-text: 86 -->After choosing your domain name, you'll have the opportunity to fill out your basic details and choose one of our beautiful themes. From there, upload your own custom graphics or choose some of our in-house images. <!-- /react-text --><br><br><!-- react-text: 89 -->You'll be able to keep your fans updated with news, match updates, and rosters quickly and easily through our in-house CMS system.<!-- /react-text --><br><br><!-- react-text: 92 -->What are you waiting on? Spawn your team now!<!-- /react-text --></p>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div id="org_create" class="classes.landing_org_diagram">
-                                <div class="classes.landing_org_arrow_box">
-                                    Create Your Domain
+                    <div id="landing_problem_title" class="classes.landing_problem_title">
+                        OriginGG allows you to focus on running your Org, not dealing with web designers.
+                    </div>
+                    <div id="landing_statistics_title" class="classes.landing_statistics_title">10 Minutes</div>
+                    <div id="landing_statistics_subtitle" class="classes.landing_statistics_subtitle">average update time</div>
+                    <div id="problem_container" class="classes.problem_container">
+                        <div class="ui stackable two column grid">
+                            <div class="column">
+                                <img id="org_title" class="classes.landing_problem_before_image" src="./images/old_way.png" />
+                                <div id="prob_before_title" class="classes.landing_prob_before_title">
+                                    The old way
                                 </div>
-                                <div class="classes.landing_org_line"></div>
-                                <div class="classes.landing_org_arrow"></div>
-                            </div>
-                            <div id="org_add" class="classes.landing_org_diagram">
-                                <div class="classes.landing_org_arrow_box">
-                                    Add Your Details
+                                <div id="prob_before_definition" class="classes.landing_prob_before_definition">
+                                    Hiring Designers and Coders
                                 </div>
-                                <div class="classes.landing_org_line"></div>
-                                <div class="classes.landing_org_arrow"></div>
+                                <div id="prob_before_body" class="classes.landing_prob_before_body">
+                                    Working through the design process and then coding your site is expensive and time consuming.
+                                </div>
+                                <div id="prob_before_point_1" class="classes.landing_prob_before_point">
+                                    Takes too Much Time
+                                </div>
+                                <div id="prob_before_point_2" class="classes.landing_prob_before_point">
+                                    Expensive
+                                </div>
+                                <div id="prob_before_point_3" class="classes.landing_prob_before_point">
+                                    Difficult to keep updated
+                                </div>
                             </div>
-                            <div id="org_grow" class="classes.landing_org_diagram">
-                                <div class="classes.landing_org_arrow_box">
-                                    Grow Your Empire
+                            <div class="column">
+                                <img id="org_title" class="classes.landing_problem_before_image" src="./images/asset_3.png" />
+                                <div id="prob_before_title" class="classes.landing_prob_after_title">
+                                    Our way (the right way)
+                                </div>
+                                <div id="prob_before_definition" class="classes.landing_prob_after_definition">
+                                    Instantly Create Your Unique Website
+                                </div>
+                                <div id="prob_before_body" class="classes.landing_prob_after_body">
+                                    In no time at all, create your own unique site. You can easily update your audience, add to your stream team, and post new media.
+                                </div>
+                                <div id="prob_before_point_1" class="classes.landing_prob_after_point">
+                                    Customized Domains
+                                </div>
+                                <div id="prob_before_point_2" class="classes.landing_prob_after_point">
+                                    SSL Secured
+                                </div>
+                                <div id="prob_before_point_3" class="classes.landing_prob_after_point">
+                                    Easy Admin Access
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="landing_individual" class="classes.landing_individual_container">
-                    <div class="ui stackable two column grid">
-                        <div class="column">
-                            <div class="ui three column grid">
-                                <div class="column">
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
+                    <div class="ui stackable two column grid" style="display:flex;align-items:center;">
+                        <div class="seven wide column">
+                            <div id="landing_how_title" class="classes.landing_how_title">Built For Orgs</div>
+                            <div id="landing_how_text" class="classes.landing_how_text">
+                                We built OriginGG based off the needs of today's esports organizations.
+                            </div>
+                            <div id="landing_how_point_container_1" class="classes.landing_how_point_container">
+                                <div class="classes.landing_how_point_title">Keep Your Fans Updated</div>
+                                <div class="classes.landing_how_point_text">
+                                    An easy to use CMS (Content Management System) allows you to post updates quickly and easily.
                                 </div>
-                                <div class="column">
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
+                            </div>
+                            <div id="landing_how_point_container_2" class="classes.landing_how_point_container">
+                                <div class="classes.landing_how_point_title">Feature Your Rosters</div>
+                                <div class="classes.landing_how_point_text">
+                                    Our individual profile system means you can add members to your organization and move them to staff, competitive rosters, or content teams.
                                 </div>
-                                <div class="column">
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
-                                    <div class="classes.landing_individual_image_container">
-                                        <img class="classes.landing_individual_image" src="./images/human.jpg" />
-                                    </div>
+                            </div>
+                            <div id="landing_how_point_container_3" class="classes.landing_how_point_container">
+                                <div class="classes.landing_how_point_title">Add Value for Your Sponsors</div>
+                                <div class="classes.landing_how_point_text">
+                                    Sponsors are the lifeline for your Org. Make them proud by prominently displaying their logos and information about where to buy their products.
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
-                            <div id="indie_text" class="classes.landing_individual_body">
-                                <div class="classes.landing_individual_header">
-                                    Individuals
-                                </div>
-                                <div class="classes.landing_individual_text">
-                                        <p><!-- react-text: 150 -->Our aim with Individual profiles is to help players and streamers create and build their personal brand. If you are a player looking for a team, you will easily be able to display your accomplishments. When you are picked up by one of our teams, they'll simply be able to add your profile to their roster! <!-- /react-text --><br><!-- react-text: 152 -->  <!-- /react-text --><br><!-- react-text: 154 -->Likewise, if you are a streamer, your brand is important. No matter what streaming service you use, people need access to your brand outside of your social media channels. We want to make it easy for sponsors to find you, get the information they need, and pay you!<!-- /react-text --><br><br><!-- react-text: 157 -->We are currently building our Individual's platform. We'll let you know as soon as we launch.<!-- /react-text --></p>
-                                </div>
-                            </div>
+                        <div class="nine wide column">
+                            <img id="point_image_1" class="classes.landing_point_image" src="./images/new_way.png" />
                         </div>
-                    </div>
-                    <div class="classes.coming_soon_div">
-                        Coming Soon
                     </div>
                 </div>
-                <div id="landing_why" class="classes.landing_content_container">
-                    <div id="why_content" class="classes.landing_why_content">
-                        <div class="classes.landing_why_header">WHY ORIGIN.GG</div>
-                        <div class="classes.landing_why_body">
-                            <p><!-- react-text: 113 -->Our belief at Origin.gg is that if our teams and players don't succeed, then we don't succeed. It is our daily mission to make sure that YOUR FANS love your team and your brand.<!-- /react-text --><br id="the-individuals"><!-- react-text: 115 -->We will continually build and implement things that will improve your fan retention, increase your sponsorships, and ultimately build your team into a SUCCESS.<!-- /react-text --></p>
-                        </div>  
+                <div id="landing_rb" class="classes.landing_isp_container">
+                    <div id="rb_title" class="classes.landing_rb_title">
+                        Integrates with tools your team already uses
+                    </div>
+                    <div id="landing_rb_companies_container" class="classes.landing_rb_companies_container">
+                        <img class="classes.landing_isp_company_image" src="./images/twitch.png" />
+                        <img class="classes.landing_isp_company_image" src="./images/twitter.png" />
+                        <img class="classes.landing_isp_company_image" src="./images/youtube.png" />
+                        <img class="classes.landing_isp_company_image" src="./images/instagram.png" />
+                    </div>
+                </div>
+                <div id="landing_why" class="classes.landing_use_content_container">
+                    <div id="landing_use_title" class="classes.landing_use_title">3 Beautiful Themes</div>
+                    <div id="landing_use_subtitle" class="classes.landing_use_subtitle">
+                        Custom content allows you to give your site it's own look and feel
+                    </div>
+                    <div class="ui stackable three column grid">
+                        <div class="column">
+                            <img id="use_image_1" class="classes.landing_use_point_image" src="./images/enigma.png" />
+                            <div id="use_point_title_1" class="classes.landing_use_point_title">Enigma Theme</div>
+                            <div id="use_point_text_1" class="classes.landing_use_point_text">
+                                Our first theme is the most simple to use and is recommended for new Orgs.
+                            </div>
+                        </div>
+                        <div class="column">
+                            <img id="use_image_2" class="classes.landing_use_point_image" src="./images/obliviot.png" />
+                            <div id="use_point_title_2" class="classes.landing_use_point_title">Obliviot Theme</div>
+                            <div id="use_point_text_2" class="classes.landing_use_point_text">
+                                Professionally designed, this theme is more advanced than enigma and highlights your stream team and updates.
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="classes.landing_use_point_image_container">
+                                <img id="use_image_3" class="classes.landing_use_point_coming_image" src="./images/felzek.png" />
+                                <div class="classes.landing_use_point_coming_text">Coming Soon</div>
+                            </div>
+                            <div id="use_point_title_3" class="classes.landing_use_point_title">Felzek Theme</div>
+                            <div id="use_point_text_3" class="classes.landing_use_point_text">
+                                Our most sophisticated theme only for organizations who have the ability to produce a lot of content.                                    
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="landing_upcoming" class="classes.landing_upcoming_content_container">
+                    <div id="landing_msp_title" class="classes.landing_msp_title">Built For Teams Just Like Yours</div>
+                    <div id="landing_msp_subtitle" class="classes.landing_msp_subtitle">
+                    </div>
                     <div class="ui stackable two column grid">
                         <div class="column">
-                            <div class="classes.upcoming_header">Upcoming Features</div>
-                            <div id="up_rosters" class="classes.upcoming_opacity">
-                                <div class="classes.upcoming_title">Team Rosters</div>
-                                <div class="classes.upcoming_body">
-                                    Showcase the talented players your organization represents with our new option to display your teams & rosters on your website.
-                                </div>
+                            <img id="landing_msp_image_1" class="classes.landing_msp_image" src="./images/team_1.png" />
+                            <div id="landing_msp_quote_1" class="classes.landing_msp_quote">
+                                "We've been using OriginGG since we started our Org almost 8 months ago. It's been great not having to worry about making sure we have a professional site. Our sponsors and investors really like it." 
                             </div>
-                            <div id="up_blogs" class="classes.upcoming_opacity">
-                                <div class="classes.upcoming_title">Blog Posts</div>
-                                <div class="classes.upcoming_body">
-                                    Keep your fans up to date with your successes by creating content to share to the world. Our blogging platform allows you to create content quickly & easily.
-                                </div>
-                            </div>
-                            <div id="up_custom" class="classes.upcoming_opacity">
-                                <div class="classes.upcoming_title">Customize Elements</div>
-                                <div class="classes.upcoming_body">
-                                    Customize every feature, colors, images, and more with our deeply integrated customization platform. Make your brand unique and looking like no others.
-                                </div>
+                            <div id="landing_msp_author_1" class="classes.landing_msp_author">
+                                Tanner Stark - Vice President of Operations, Disrupt Gaming
                             </div>
                         </div>
                         <div class="column">
-                            <div class="classes.landing_upcoming_video">
-                                <div class="classes.landing_upcoming_video_container">
-                                    <iframe title="ifr" class="classes.landing_upcoming_video_iframe" src="https://www.youtube.com/embed/eXzSeGxjPCs" frameborder="0" allowfullscreen="" style="border-width: 1px; border-color: white; border-style: solid; margin-left:auto;margin-right:auto;"></iframe>
+                            <img id="landing_msp_image_2" class="classes.landing_msp_image" src="./images/team_2.png" />
+                            <div id="landing_msp_quote_2" class="classes.landing_msp_quote">
+                                "Radiant used to run on SquareSpace. That was fine, but it wasn’t made for Esports. OriginGG is built for exactly what we need and you can’t beat the price."
+                            </div>
+                            <div id="landing_msp_author_2" class="classes.landing_msp_author">
+                                Nathan Edmonds - CEO, Radiant Esports
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="landing_goodbye" class="classes.landing_outer_goodbye_container">
+                    <div class=classes.landing_goodbye_container>
+                        <div class="classes.landing_welcome_lines_container">
+                            <div class="ui stackable two column grid" style="display:flex;align-items:center;">
+                                <div class="seven wide column">
+                                    <div class="classes.landing_header_title">
+                                        Ready to build your Esports Empire?
+                                    </div>
+                                    <div class="classes.landing_goodbye_sub_title">
+                                        OriginGG is always free on our subdomains so you can test our platform. If you'd like to upgrade to our paid platform to unlock additional features, you can do so for as little as $24.99/month.
+                                    </div>
+                                    <div class="classes.landing_goodbye_cta" href="/signup_org">
+                                        Create Your Free Organization
+                                    </div>
+                                </div>
+                                <div class="nine wide column">
+                                    <img class="classes.landing_header_image" src="./images/header_image.png" />
                                 </div>
                             </div>
                         </div>
@@ -167,10 +249,9 @@
                         <div id="menu_close" class="classes.menu_close">X</div>
                     </div>
                     <div id="menu_welcome" class="classes.menu_modal_item_container">Welcome</div>
-                    <div id="menu_organization" class="classes.menu_modal_item_container">Organization</div>
-                    <div id="menu_individual" class="classes.menu_modal_item_container">Individual</div>
-                    <div id="menu_why" class="classes.menu_modal_item_container">Why Origin?</div>
-                    <div id="menu_upcoming" class="classes.menu_modal_item_container">Upcoming Features</div>
+                    <div id="menu_organization" class="classes.menu_modal_item_container">Why OriginGG</div>
+                    <div id="menu_individual" class="classes.menu_modal_item_container">Features</div>
+                    <div id="menu_why" class="classes.menu_modal_item_container">Themes</div>
                 </div>
                 <div class="classes.landing_page_button_container">
                     <div class="ui stackable two column grid">
@@ -187,7 +268,10 @@
                     </div>
                 </div>
                 <div class="classes.landing_footer">
-                    <p class="classes.landing_footer_text">© Origin. All rights reserved.</p>
+                    <div class="classes.landing_footer_text">© Origin. All rights reserved.</div>
+                    <a class="classes.landing_footer_text" style="cursor:pointer;">Terms of Service</a>
+                    <div class="classes.landing_footer_text">|</div>
+                    <a class="classes.landing_footer_text" style="cursor:pointer;">Privacy Policy</a>
                 </div>
             </div>
         </div>
@@ -198,6 +282,10 @@
         });
 
         $(window).scroll(function() {
+
+            var top_of_isp = $("#landing_isp").offset().top + $("#landing_isp").outerHeight() / 2;
+            var bottom_of_isp = $("#landing_isp").offset().top + $("#landing_isp").outerHeight();
+
             var top_of_individual = $("#landing_individual").offset().top + $("#landing_individual").outerHeight() / 2;
             var bottom_of_individual = $("#landing_individual").offset().top + $("#landing_individual").outerHeight();
 
@@ -207,34 +295,60 @@
             var top_of_why = $("#landing_why").offset().top + $("#landing_why").outerHeight() / 2;
             var bottom_of_why = $("#landing_why").offset().top + $("#landing_why").outerHeight();
 
+            var top_of_rb = $("#landing_rb").offset().top + $("#landing_rb").outerHeight() / 2;
+            var bottom_of_rb = $("#landing_rb").offset().top + $("#landing_rb").outerHeight();
+
             var top_of_upcoming = $("#landing_upcoming").offset().top + $("#landing_upcoming").outerHeight() / 2;
             var bottom_of_upcoming = $("#landing_upcoming").offset().top + $("#landing_upcoming").outerHeight();
+
+            var top_of_goodbye = $("#landing_goodbye").offset().top + $("#landing_goodbye").outerHeight() / 2;
+            var bottom_of_goodbye = $("#landing_goodbye").offset().top + $("#landing_goodbye").outerHeight();
 
 
             var bottom_of_screen = $(window).scrollTop() + window.innerHeight;
             var top_of_screen = $(window).scrollTop();
 
             if((bottom_of_screen > top_of_individual) && (top_of_screen < bottom_of_individual)){
-                $('#indie_text').animate({'opacity':'1'},1500);
+                $('#landing_how_title').animate({'opacity':'1'},1500);
+                $('#landing_how_text').delay(250).animate({'opacity':'1'},1500);
+                $('#landing_how_point_container_1').delay(500).animate({'opacity':'1'},1500);
+                $('#landing_how_point_container_2').delay(500).animate({'opacity':'1'},1500);
+                $('#landing_how_point_container_3').delay(500).animate({'opacity':'1'},1500);
+                $('#point_image_1').delay(750).animate({'opacity':'1'},1500);
             }
 
             if((bottom_of_screen > top_of_organization) && (top_of_screen < bottom_of_organization)){
-                $('#org_title').animate({'opacity':'1'},1500);
-                $('#org_body').animate({'opacity':'1'},1500);
-                $('#org_create').delay(250).animate({'opacity':'1'},1500);
-                $('#org_add').delay(500).animate({'opacity':'1'},1500);
-                $('#org_grow').delay(750).animate({'opacity':'1'},1500);
+                $('#landing_problem_title').animate({'opacity':'1'},1500);
+                $('#landing_statistics_title').delay(250).animate({'opacity':'1'},1500);
+                $('#landing_statistics_subtitle').delay(500).animate({'opacity':'1'},1500);
+                $('#problem_container').delay(750).animate({'opacity':'1'},1500);
             }
 
             if((bottom_of_screen > top_of_why) && (top_of_screen < bottom_of_why)){
-                $('#why_content').animate({'opacity':'1'},1500);
+                $('#landing_why').animate({'opacity':'1'},1500);
+                $('#landing_use_title').animate({'opacity':'1'},1500);
+                $('#landing_use_subtitle').animate({'opacity':'1'},1500);
+            }
+
+            if((bottom_of_screen > top_of_isp) && (top_of_screen < bottom_of_isp)){
+                $('#isp_title').animate({'opacity':'1'},1500);
+                $('#landing_isp_companies_container').delay(250).animate({'opacity':'1'},1500);
+            }
+
+            if((bottom_of_screen > top_of_rb) && (top_of_screen < bottom_of_rb)){
+                $('#rb_title').animate({'opacity':'1'},1500);
+                $('#landing_rb_companies_container').delay(250).animate({'opacity':'1'},1500);
             }
 
             if((bottom_of_screen > top_of_upcoming) && (top_of_screen < bottom_of_upcoming)){
-                $('#up_rosters').animate({'opacity':'1'},1500);
-                $('#up_blogs').delay(250).animate({'opacity':'1'},1500);
-                $('#up_custom').delay(500).animate({'opacity':'1'},1500);
-
+                $('#landing_msp_title').animate({'opacity':'1'},1500);
+                $('#landing_msp_subtitle').delay(250).animate({'opacity':'1'},1500);
+                $('#landing_msp_image_1').delay(500).animate({'opacity':'1'},1500);
+                $('#landing_msp_quote_1').delay(750).animate({'opacity':'1'},1500);
+                $('#landing_msp_author_1').delay(1000).animate({'opacity':'1'},1500);
+                $('#landing_msp_image_2').delay(500).animate({'opacity':'1'},1500);
+                $('#landing_msp_quote_2').delay(750).animate({'opacity':'1'},1500);
+                $('#landing_msp_author_2').delay(1000).animate({'opacity':'1'},1500);
             }
         });
 
@@ -334,15 +448,6 @@
         $('#menu_why').on( "click", function() {
             $('#menu_modal_container').hide();
             window.location.hash = '#landing_why';
-            $('#menu_welcome').delay(500).animate({ opacity: 0 }, 700)
-            $('#menu_organization').delay(750).animate({ opacity: 0 }, 700)
-            $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
-            $('#menu_why').delay(1250).animate({ opacity: 0 }, 700)
-            $('#menu_upcoming').delay(2000).animate({ opacity: 0 }, 700)
-        });
-        $('#menu_upcoming').on( "click", function() {
-            $('#menu_modal_container').hide();
-            window.location.hash = '#landing_upcoming';
             $('#menu_welcome').delay(500).animate({ opacity: 0 }, 700)
             $('#menu_organization').delay(750).animate({ opacity: 0 }, 700)
             $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
