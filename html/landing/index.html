@@ -47,7 +47,7 @@
                                         <div class="classes.landing_header_sub_title">
                                             We created OriginGG to make it easy.
                                         </div>
-                                        <div class="classes.landing_goodbye_cta" href="/signup_org">
+                                        <div id="landing_cta_button" class="classes.landing_goodbye_cta" href="/signup_org">
                                             Create Your Free Organization
                                         </div>
                                     </div>
@@ -214,7 +214,7 @@
                         <div class="column">
                             <img id="landing_msp_image_2" class="classes.landing_msp_image" src="./images/team_2.png" />
                             <div id="landing_msp_quote_2" class="classes.landing_msp_quote">
-                                "Radiant used to run on SquareSpace. That was fine, but it wasn’t made for Esports. OriginGG is built for exactly what we need and you can’t beat the price."
+                                "Radiant used to run on Squarespace which was limited and did not meet all our requirements as an esports team. However, OriginGG was built for esports by those involved in the industry and it serves our purpose correctly with all the right tools we need."
                             </div>
                             <div id="landing_msp_author_2" class="classes.landing_msp_author">
                                 Nathan Edmonds - CEO, Radiant Esports
@@ -233,7 +233,7 @@
                                     <div class="classes.landing_goodbye_sub_title">
                                         OriginGG is always free on our subdomains so you can test our platform. If you'd like to upgrade to our paid platform to unlock additional features, you can do so for as little as $24.99/month.
                                     </div>
-                                    <div class="classes.landing_goodbye_cta" href="/signup_org">
+                                    <div id="landing_cta_button_2" class="classes.landing_goodbye_cta" href="/signup_org">
                                         Create Your Free Organization
                                     </div>
                                 </div>
@@ -453,6 +453,12 @@
             $('#menu_individual').delay(100).animate({ opacity: 0 }, 700)
             $('#menu_why').delay(1250).animate({ opacity: 0 }, 700)
             $('#menu_upcoming').delay(2000).animate({ opacity: 0 }, 700)
+        });
+        $('#landing_cta_button').on( "click", function() {
+            window.open('/signup_org');
+        });
+        $('#landing_cta_button_2').on( "click", function() {
+            window.open('/signup_org');
         });
     </script>
      <script>

@@ -204,6 +204,48 @@ export const GlobalStyles = GlobalTheme => ({
     // New Obliviot Theme
     // ***************************************************************
 
+    obliviot_dark_info_container: {
+        width: '100%',
+        height: '35px'
+    },
+
+    obliviot_dark_info_image: {
+        height: '35px',
+        marginLeft: '20px',
+        marginRight: '20px',
+        float: 'left'
+    },
+
+    obliviot_dark_info_content_container: {
+        height: '35px',
+        textAlign: 'left',
+        lineHeight: '35px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    obliviot_light_info_container: {
+        width: '100%',
+        height: '35px'
+    },
+
+    obliviot_light_info_image: {
+        height: '35px',
+        marginLeft: '20px',
+        marginRight: '20px',
+        float: 'left'
+    },
+
+    obliviot_light_info_content_container: {
+        height: '35px',
+        textAlign: 'left',
+        lineHeight: '35px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
     obliviot_mobile_menu: {
         position: 'absolute',
         width: '100%',

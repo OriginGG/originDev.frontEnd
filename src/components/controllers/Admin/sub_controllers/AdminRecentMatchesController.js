@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
+import DateTime from 'react-datetime';
 import { GlobalStyles } from 'Theme/Theme';
 import { Select, Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { inject } from 'mobx-react';
@@ -12,12 +13,13 @@ import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
 import { createRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
 import { gameOptions } from './data/AllGames';
+import '../../../../../node_modules/react-datetime/css/react-datetime.css';
 
 const { confirm } = Modal;
 
 class AdminRecentMatchesController extends Component {
     state = {
-        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_url: '', event_description: '', your_date: ''
+        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_url: '', event_description: '', your_date: new Date()
     };
     componentDidMount = async () => {
         this.upload_file = false;
@@ -79,8 +81,15 @@ class AdminRecentMatchesController extends Component {
         this.setState({ add_match: true });
     }
     handleInputChange = (e, field) => {
+        console.log(JSON.stringify(e));
         const p = this.state;
         p[field] = e.target.value;
+        this.setState(p);
+    }
+    handleDateInputChange = (e, field) => {
+        console.log(JSON.stringify(e));
+        const p = this.state;
+        p[field] = e;
         this.setState(p);
     }
     handleDropDown = (e, data) => {
@@ -287,15 +296,10 @@ class AdminRecentMatchesController extends Component {
                         />
                     </div>
                     <div style={{ marginTop: 15 }}>
-                        <Input
+                        <DateTime
                             style={{ marginTop: 4 }}
-                            action={{
-                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event Date'
-                            }}
-                            actionPosition="left"
-                            placeholder="Date..."
-                            value={this.state.your_date}
-                            onChange={(e) => { this.handleInputChange(e, 'your_date'); }}
+                            defaultValue={new Date()}
+                            onChange={(e) => { this.handleDateInputChange(e, 'your_date'); }}
                         />
                     </div>
                     <Button style={{ marginTop: 16 }} onClick={this.handleSubmit} primary>SUBMIT</Button>

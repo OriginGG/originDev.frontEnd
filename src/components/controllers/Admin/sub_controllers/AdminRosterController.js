@@ -51,6 +51,10 @@ export class ModalContentAddUser extends Component {
         this.props.closeModal();
     }
 
+    handleUserCancel = () => {
+        this.handleUserDeleteRoster();
+    }
+
     userTemplate = (user) => {
         let im = blankProfileImage;
         if (user.node.profileImageUrl) {
@@ -80,6 +84,23 @@ export class ModalContentAddUser extends Component {
             });
         });
     };
+    showUserDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this Roster',
+                content: 'Not adding Users will delete this roster. Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
     handleDeleteRoster = async () => {
         const p = this.props.game_node;
         console.log(p);
@@ -94,6 +115,30 @@ export class ModalContentAddUser extends Component {
             toast.success('Roster deleted !', {
                 position: toast.POSITION.TOP_LEFT
             });
+            this.props.closeModal();
+        }
+    }
+    handleUserDeleteRoster = async () => {
+        const p = this.props.game_node;
+        const u_count = this.props.game_node.combinedRosterIndividualsByRosterId.edges.length;
+        console.log(p);
+        console.log(`important stuff = ${JSON.stringify(u_count)}`);
+
+        if (u_count < 1) {
+            const action = await this.showUserDeleteConfirm();
+            if (action) {
+                await this.props.appManager.executeQuery(
+                    'mutation', deleteRosterQuery,
+                    {
+                        id: p.id
+                    }
+                );
+                toast.success('Roster deleted !', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                this.props.closeModal();
+            }
+        } else {
             this.props.closeModal();
         }
     }
@@ -135,7 +180,7 @@ export class ModalContentAddUser extends Component {
                 </div>
                 <div style={{ padding: 24 }}>
                     <Button onClick={this.handleOk} primary>Ok</Button>
-                    <Button onClick={this.handleCancel} style={{ float: 'right' }} secondary>Cancel</Button>
+                    <Button onClick={this.handleUserCancel} style={{ float: 'right' }} secondary>Cancel</Button>
                 </div>
                 <div style={{ padding: 24 }}>
                     <Button onClick={this.handleDeleteRoster} color="red" >Delete This Roster</Button>
