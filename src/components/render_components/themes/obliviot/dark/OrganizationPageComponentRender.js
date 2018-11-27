@@ -19,6 +19,14 @@ class DarkOrganizationPageComponentRender extends Component {
                         <div id="roster_component" style={{
                             paddingTop: '30px'
                         }}>{this.props.rosterContent}</div>
+                        <div style={this.props.obliviot_info_style}>
+                            <div className={this.props.classes.obliviot_dark_info_container}>
+                                <img className={this.props.classes.obliviot_dark_info_image} src={this.props.info_image}/>
+                                <div className={this.props.classes.obliviot_dark_info_content_container}>
+                                    <span >{this.props.info_name}</span>
+                                </div>
+                            </div>
+                        </div>
                         <div className={this.props.classes.obliviot_darkBlogContainer}>
                             <div >{this.props.blogContent}</div>
                         </div>
