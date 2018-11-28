@@ -48,7 +48,7 @@ class OrganizationMediaController extends Component {
             this.setState(p);
         }
         const users = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, rosterType: 'content_team' });
-        // console.log(`test_users = ${JSON.stringify(users)}`);
+        console.log(`TEST TEST = ${JSON.stringify(users)}`);
         // const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         // console.log(`old_users = ${JSON.stringify(old_users)}`);
         const t_array = [];
@@ -72,7 +72,7 @@ class OrganizationMediaController extends Component {
         // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
         twitch_url = twitch_url.concat(twitch_url.length - 1);
         const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
-        // console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
+        console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
             live_list: td,
             roster_list: t_array,

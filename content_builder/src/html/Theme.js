@@ -3382,6 +3382,12 @@ export const GlobalStyles = GlobalTheme => ({
         height: '35px',
         cursor: 'pointer'
     },
+    felzec_header_logo: {
+        display: 'block',
+        margin: 'auto',
+        height: '50px',
+        cursor: 'pointer'
+    },
     body_container: {
         width: '100%',
         display: 'table',
