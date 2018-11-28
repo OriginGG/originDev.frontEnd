@@ -16,6 +16,7 @@ class AdminProfileController extends Component {
         input_values: {
             insta_value: '',
             twitch_value: '',
+            twitch_team_value: '',
             twitter_value: '',
             youtube_value: '',
             company_store_value: '',
@@ -38,6 +39,7 @@ class AdminProfileController extends Component {
                 insta_value: this.getInputValue(this.props.uiStore.current_organisation.instaLink),
                 twitter_value: this.getInputValue(this.props.uiStore.current_organisation.twitterLink),
                 twitch_value: this.getInputValue(this.props.uiStore.current_organisation.twitchLink),
+                twitch_team_value: this.getInputValue(this.props.uiStore.current_organisation.twitchTeamLink),
                 youtube_value: this.getInputValue(this.props.uiStore.current_organisation.youtubeLink),
                 discord_value: this.getInputValue(this.props.uiStore.current_organisation.discordUrl),
                 business_email_value: this.getInputValue(this.props.uiStore.current_organisation.businessContactEmail),
@@ -58,6 +60,10 @@ class AdminProfileController extends Component {
     isURL = (str) => {
         // console.log(`string is ${str}`);
         return str.includes('http');
+    }
+    isTwitchURL = (str) => {
+        console.log(`WWWWWWWWWWWWWWWWWWWWWWWWWWWWW string is ${str}`);
+        return str.includes('https://www.twitch.tv/team/');
     }
     handleSubmit = async () => {
         if (!this.isURL(this.state.input_values.facebook_value) && this.state.input_values.facebook_value) {
@@ -92,6 +98,12 @@ class AdminProfileController extends Component {
         }
         if (!this.isURL(this.state.input_values.twitch_value) && this.state.input_values.twitch_value) {
             toast.error('Twitch is not Valid Format', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (!this.isTwitchURL(this.state.input_values.twitch_team_value) && this.state.input_values.twitch_team_value) {
+            toast.error('Twitch Team is not Valid Format, Should be formatted https://www.twitch.tv/team/your_team_name', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
@@ -132,6 +144,7 @@ class AdminProfileController extends Component {
                     instaLink: this.state.input_values.insta_value,
                     twitterFeedUsername: this.state.input_values.twitter_username_value,
                     twitchLink: this.state.input_values.twitch_value,
+                    twitchTeamLink: this.state.input_values.twitch_team_value,
                     primaryColor: this.state.input_values.primary_color_value
                 }
             );
@@ -213,6 +226,7 @@ class AdminProfileController extends Component {
                     discord_value={this.state.input_values.discord_value}
                     twitter_value={this.state.input_values.twitter_value}
                     twitch_value={this.state.input_values.twitch_value}
+                    twitch_team_value={this.state.input_values.twitch_team_value}
                     insta_value={this.state.input_values.insta_value}
                     facebook_value={this.state.input_values.facebook_value}
                     twitter_username_value={this.state.input_values.twitter_username_value}
