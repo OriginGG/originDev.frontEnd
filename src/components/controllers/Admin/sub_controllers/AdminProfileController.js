@@ -39,7 +39,7 @@ class AdminProfileController extends Component {
                 insta_value: this.getInputValue(this.props.uiStore.current_organisation.instaLink),
                 twitter_value: this.getInputValue(this.props.uiStore.current_organisation.twitterLink),
                 twitch_value: this.getInputValue(this.props.uiStore.current_organisation.twitchLink),
-                twitch_team_value: this.getInputValue(this.props.uiStore.current_organisation.twitchTeamLink),
+                twitch_team_value: this.getInputValue(this.props.uiStore.current_organisation.streamTeamUrl),
                 youtube_value: this.getInputValue(this.props.uiStore.current_organisation.youtubeLink),
                 discord_value: this.getInputValue(this.props.uiStore.current_organisation.discordUrl),
                 business_email_value: this.getInputValue(this.props.uiStore.current_organisation.businessContactEmail),
@@ -144,7 +144,7 @@ class AdminProfileController extends Component {
                     instaLink: this.state.input_values.insta_value,
                     twitterFeedUsername: this.state.input_values.twitter_username_value,
                     twitchLink: this.state.input_values.twitch_value,
-                    twitchTeamLink: this.state.input_values.twitch_team_value,
+                    streamTeamUrl: this.state.input_values.twitch_team_value,
                     primaryColor: this.state.input_values.primary_color_value
                 }
             );
