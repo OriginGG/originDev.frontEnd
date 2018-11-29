@@ -53,7 +53,7 @@ class OrganizationBlogController extends Component {
                 content: bcontent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
             });
         });
-        if (blog_data.resultData.edges.length > 0) {
+        // if (blog_data.resultData.edges.length > 0) {
             if (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light') {
                 this.setState({
                     OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
@@ -68,7 +68,7 @@ class OrganizationBlogController extends Component {
                     visible: true
                 });
             }
-        }
+        // }
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);

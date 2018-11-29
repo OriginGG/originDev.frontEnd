@@ -81,13 +81,13 @@ class AdminRecentMatchesController extends Component {
         this.setState({ add_match: true });
     }
     handleInputChange = (e, field) => {
-        console.log(JSON.stringify(e));
+        // console.log(JSON.stringify(e));
         const p = this.state;
         p[field] = e.target.value;
         this.setState(p);
     }
     handleDateInputChange = (e, field) => {
-        console.log(JSON.stringify(e));
+        // console.log(JSON.stringify(e));
         const p = this.state;
         p[field] = e;
         this.setState(p);
@@ -97,13 +97,13 @@ class AdminRecentMatchesController extends Component {
     }
 
     handleDropDownList = (e, data) => {
-        console.log(`handleDropDownList ${data.value}`);
+        // console.log(`handleDropDownList ${data.value}`);
         this.match_type = data.value;
         console.log(`match type = ${this.match_type}`);
     }
 
     handleSubmit = async () => {
-        console.log('submit pressed');
+        // console.log('submit pressed');
         let is_filled = true;
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         if (!this.current_game) {
@@ -170,7 +170,7 @@ class AdminRecentMatchesController extends Component {
                 this.is_saving = false;
             } else {
                 console.log(`event description = ${this.state.event_description}
-                subDomain =${this.props.uiStore.current_organisation.subDomain}
+                subDomain=${this.props.uiStore.current_organisation.subDomain}
                 gameName=${this.current_game} 
                 eventInfo= ${this.match_type}
                 eventUrl= ${this.state.your_url}
