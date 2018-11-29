@@ -225,9 +225,20 @@ class OrganizationMatchesController extends Component {
         }
         const { OrganizationMatchesComponentRender } = this.state;
         const { OrganizationMatchesComponentElementRender } = this.state;
-        const { edges } = this.match_data.resultdata;
+        let { edges } = this.match_data.resultdata;
         if (edges.length === 0) {
-            return null;
+            edges = [{
+                node: {
+                    createdAt: '2018-11-01T12:00:00+00:00',
+                    gameName: 'Call of Duty',
+                    eventDescription: 'Enter a Match',
+                    score: '0 - 0',
+                    eventUrl: 'https://origin.gg',
+                    eventInfo: 'Enter a match',
+                    gameLogo: this.props.uiStore.current_theme_structure.header.logo.imageData
+                }
+            }];
+            // return null;
         }
         const test_bg = this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData;
         const s = { background: `url(${test_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };

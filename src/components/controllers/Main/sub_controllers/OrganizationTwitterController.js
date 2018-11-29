@@ -33,9 +33,9 @@ class OrganizationTwitterController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
 
         const OrganizationTwitterComponenRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitterComponentRender`);
-        if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+        // if (this.props.uiStore.current_organisation.twitterFeedUsername) {
             this.setState({ visible: true, OrganizationTwitterComponenRender: OrganizationTwitterComponenRender.default });
-        }
+        // }
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -44,8 +44,13 @@ class OrganizationTwitterController extends Component {
         if (this.state.visible === false) {
             return null;
         }
+        let twitter_name = this.props.uiStore.current_organisation.twitterFeedUsername;
+
+        if (!twitter_name) {
+            twitter_name = 'or1g1n_gg';
+        }
         const { OrganizationTwitterComponenRender } = this.state;
-        return <OrganizationTwitterComponenRender feed={<TwitterFeed theme={this.props.uiStore.current_organisation.themeId} feedName={this.props.uiStore.current_organisation.twitterFeedUsername} />} />;
+        return <OrganizationTwitterComponenRender feed={<TwitterFeed theme={this.props.uiStore.current_organisation.themeId} feedName={twitter_name} />} />;
     }
 }
 
