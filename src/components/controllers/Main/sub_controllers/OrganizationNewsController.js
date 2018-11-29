@@ -56,6 +56,10 @@ class OrganizationNewsController extends Component {
                     this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                 }
             }
+
+            if (theme_type === 'obliviot') {
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+            }
         }
         blog_data.resultData.edges.forEach((blog, i) => {
             console.log(`i ========= ${i}`);
