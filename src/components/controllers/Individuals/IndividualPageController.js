@@ -50,8 +50,7 @@ class ModalContent extends Component {
             lastName: '',
             username: '',
             about: '',
-            email: '',
-            contactNumber: '',
+            contactEmail: '',
             youtubeChannel: '',
             twitchUrl: '',
             instagramLink: '',
@@ -71,10 +70,9 @@ class ModalContent extends Component {
             input_values: {
                 firstName: this.getInputValue(user.individualUserById.firstName),
                 lastName: this.getInputValue(user.individualUserById.lastName),
-                email: this.getInputValue(user.individualUserById.email),
                 about: this.getInputValue(user.individualUserById.about),
                 username: this.getInputValue(user.individualUserById.username),
-                contactNumber: this.getInputValue(user.individualUserById.contactNumber),
+                contactEmail: this.getInputValue(user.individualUserById.contactNumber),
                 youtubeChannel: this.getInputValue(user.individualUserById.youtubeChannel),
                 twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
                 twitchUrl: this.getInputValue(user.individualUserById.twitchUrl),
@@ -193,9 +191,8 @@ class ModalContent extends Component {
                     lastName={this.state.input_values.lastName}
                     username={this.state.input_values.username}
                     about={this.state.input_values.about}
-                    email={this.state.input_values.email}
                     accomplishments={this.state.input_values.accomplishments}
-                    contactNumber={this.state.input_values.contactNumber}
+                    contactEmail={this.state.input_values.contactEmail}
                     youtubeChannel={this.state.input_values.youtubeChannel}
                     instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
@@ -479,7 +476,7 @@ class IndividualPageController extends Component {
                     about: state.about,
                     firstName: state.firstName,
                     lastName: state.lastName,
-                    contactNumber: state.contactNumber,
+                    contactNumber: state.contactEmail,
                     twitchUserId: t_id,
                     bannerImageUrl: state.bannerImageUrl,
                     profileImageUrl: state.profileImageUrl,
@@ -604,8 +601,7 @@ class IndividualPageController extends Component {
                             about={this.user_details.about}
                             username={this.user_details.username}
                             name={`${this.user_details.firstName} ${this.user_details.lastName}`}
-                            email={this.user_details.email}
-                            contactNumber={this.user_details.contactNumber}
+                            contactEmail={this.user_details.contactEmail}
                             accomplishments={this.user_details.accomplishments}
                         />
                     }
