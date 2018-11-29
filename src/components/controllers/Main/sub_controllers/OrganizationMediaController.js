@@ -55,19 +55,21 @@ class OrganizationMediaController extends Component {
         this.current_game_node = users.allCombinedRosters.edges;
         let twitch_url = '';
         const from_list = users.allCombinedRosters.edges[0];
-        from_list.node.combinedRosterIndividualsByRosterId.edges.forEach(n => {
-            console.log(`INSIDE TWITCH LOOP = ${JSON.stringify(n)}`);
-            // console.log(`users.allOrganisationMembers.edges = ${JSON.stringify(users.allOrganisationMembers.edges)}`);
-            // console.log(`n.node.contentTeamsByMemberId.nodes.length = ${n.node.contentTeamsByMemberId.nodes.length}`);
-            // console.log(`n.node.individualUserByIndividalUserId.twitchUrl = ${n.node.individualUserByIndividalUserId.twitchUrl}`);
-            // if (n.length > 0) {
-                if (n.node.individualUserByIndividualId.twitchUrl) {
-                    t_array.push(n.node.individualUserByIndividualId);
-                    twitch_url += `${n.node.individualUserByIndividualId.twitchUserId},`;
-                }
-            // }
-            // console.log(`t_array.length = ${t_array.length}`);
-        });
+        if (from_list) {
+            from_list.node.combinedRosterIndividualsByRosterId.edges.forEach(n => {
+                console.log(`INSIDE TWITCH LOOP = ${JSON.stringify(n)}`);
+                // console.log(`users.allOrganisationMembers.edges = ${JSON.stringify(users.allOrganisationMembers.edges)}`);
+                // console.log(`n.node.contentTeamsByMemberId.nodes.length = ${n.node.contentTeamsByMemberId.nodes.length}`);
+                // console.log(`n.node.individualUserByIndividalUserId.twitchUrl = ${n.node.individualUserByIndividalUserId.twitchUrl}`);
+                // if (n.length > 0) {
+                    if (n.node.individualUserByIndividualId.twitchUrl) {
+                        t_array.push(n.node.individualUserByIndividualId);
+                        twitch_url += `${n.node.individualUserByIndividualId.twitchUserId},`;
+                    }
+                // }
+                // console.log(`t_array.length = ${t_array.length}`);
+            });
+        }
         // console.log(`twitch url = ${twitch_url}`);
         // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
         twitch_url = twitch_url.concat(twitch_url.length - 1);

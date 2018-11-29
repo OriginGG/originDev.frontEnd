@@ -7,6 +7,7 @@ import { isMobile } from 'react-device-detect';
 import moment from 'moment';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
+import default_image from '../../../../assets/images/game_images/blog_default_image.jpg';
 
 const BlogModal = (props) => {
     return (
@@ -45,6 +46,17 @@ class OrganizationNewsController extends Component {
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
         this.blog_array = [];
         this.results_array = [];
+        if (blog_data.resultData.edges.length < 1) {
+            const bcontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
+            if (theme_type !== 'obliviot') {
+                console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
+                if (theme_type === 'felzec' && this.isMobile()) {
+                    this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                } else {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+            }
+        }
         blog_data.resultData.edges.forEach((blog, i) => {
             console.log(`i ========= ${i}`);
             const { blogContent } = blog.node;
@@ -70,7 +82,7 @@ class OrganizationNewsController extends Component {
                 this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
             }
         });
-        if (blog_data.resultData.edges.length > 0) {
+        if (blog_data.resultData.edges.length > -1) {
             this.setState({
                 OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,
                 OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
