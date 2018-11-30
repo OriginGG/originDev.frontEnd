@@ -345,16 +345,11 @@ class IndividualPageController extends Component {
     //     windows.open(redirectURL);
     // }
     getTwitterStats = async () => {
-        if ([...new URL(window.location).searchParams.keys()].includes('token')) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const twitterAuthToken = urlParams.get('token');
-            const twitterTokenSecret = urlParams.get('oauth_token_secret');
-            const twitterScreenName = urlParams.get('screen_name');
-            const td = await axios.post(`${process.env.REACT_APP_API_SERVER}/auth/twitter/data?${twitterAuthToken}&tokensecret=${twitterTokenSecret}&screenname=${twitterScreenName}`);
-            this.twitter_stats = td.data[0];// eslint-disable-line        
-            toast.success('Your Twitter Account is now connected', {
-                position: toast.POSITION.TOP_LEFT
-            });
+        if (this.user_details.twitterHandle) {
+            const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('@') + 1);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitter/getTwitterUserInfo?user=${tu}`);
+            console.log(td.data[0]);
+            this.twitter_stats = td.data[0]; // eslint-disable-line
         }
     }
     getYouTubeStats = async () => {
