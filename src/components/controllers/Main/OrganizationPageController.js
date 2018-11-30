@@ -573,8 +573,10 @@ class OrganizationPageController extends Component {
             }
         }
         let t_content = <OrganizationTeamController />;
+        let info_style = { display: 'none' };
         if (this.isMobile()) {
             t_content = <span />;
+            info_style = { display: 'inherit' };
         }
 
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
@@ -591,6 +593,9 @@ class OrganizationPageController extends Component {
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
             rosterContent={<span />}
+            info_image={this.props.uiStore.current_theme_structure.header.logo.imageData}
+            info_name={this.props.uiStore.current_organisation.name}
+            obliviot_info_style={info_style}
             handleViewBlogClick={this.handleViewBlogClick}
             obliviot_hidden_style={ob_inherit}
             obliviot_page_style={ob_light}

@@ -50,8 +50,7 @@ class ModalContent extends Component {
             lastName: '',
             username: '',
             about: '',
-            email: '',
-            contactNumber: '',
+            contactEmail: '',
             youtubeChannel: '',
             twitchUrl: '',
             instagramLink: '',
@@ -71,10 +70,9 @@ class ModalContent extends Component {
             input_values: {
                 firstName: this.getInputValue(user.individualUserById.firstName),
                 lastName: this.getInputValue(user.individualUserById.lastName),
-                email: this.getInputValue(user.individualUserById.email),
                 about: this.getInputValue(user.individualUserById.about),
                 username: this.getInputValue(user.individualUserById.username),
-                contactNumber: this.getInputValue(user.individualUserById.contactNumber),
+                contactEmail: this.getInputValue(user.individualUserById.contactEmail),
                 youtubeChannel: this.getInputValue(user.individualUserById.youtubeChannel),
                 twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
                 twitchUrl: this.getInputValue(user.individualUserById.twitchUrl),
@@ -193,9 +191,8 @@ class ModalContent extends Component {
                     lastName={this.state.input_values.lastName}
                     username={this.state.input_values.username}
                     about={this.state.input_values.about}
-                    email={this.state.input_values.email}
                     accomplishments={this.state.input_values.accomplishments}
-                    contactNumber={this.state.input_values.contactNumber}
+                    contactEmail={this.state.input_values.contactEmail}
                     youtubeChannel={this.state.input_values.youtubeChannel}
                     instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
@@ -274,12 +271,14 @@ class IndividualPageController extends Component {
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
         console.log('view_id' + view_id); // eslint-disable-line
-        if (view_id) {
+        const authPayload = this.props.appManager.pouchGet('ind_authenticate');
+        if (!authPayload) {
             const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
             this.user_details = user.individualUserById;
             this.getStats();
         } else {
-            const authPayload = this.props.appManager.GetQueryParams('p');
+            this.props.appManager.pouchStore('ind_authenticate', null);
+            // const authPayload = this.props.appManager.GetQueryParams('p');
             console.log('authPayload' + authPayload); // eslint-disable-line
             this.key_index = 1;
             if (authPayload) {
@@ -310,6 +309,8 @@ class IndividualPageController extends Component {
                     const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
                     this.props.appManager.authToken = token;
                     const d = this.props.appManager.decodeJWT(token);
+                    browserHistory.push(`/individual?u=${d.id}`);
+//
                     this.user_id = d.id;
                     console.log('user_id' + this.user_id); // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
@@ -344,16 +345,11 @@ class IndividualPageController extends Component {
     //     windows.open(redirectURL);
     // }
     getTwitterStats = async () => {
-        if ([...new URL(window.location).searchParams.keys()].includes('token')) {
-            const urlParams = new URLSearchParams(window.location.search);
-            const twitterAuthToken = urlParams.get('token');
-            const twitterTokenSecret = urlParams.get('oauth_token_secret');
-            const twitterScreenName = urlParams.get('screen_name');
-            const td = await axios.post(`${process.env.REACT_APP_API_SERVER}/auth/twitter/data?${twitterAuthToken}&tokensecret=${twitterTokenSecret}&screenname=${twitterScreenName}`);
-            this.twitter_stats = td.data[0];// eslint-disable-line        
-            toast.success('Your Twitter Account is now connected', {
-                position: toast.POSITION.TOP_LEFT
-            });
+        if (this.user_details.twitterHandle) {
+            const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('@') + 1);
+            const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitter/getTwitterUserInfo?user=${tu}`);
+            console.log(td.data[0]);
+            this.twitter_stats = td.data[0]; // eslint-disable-line
         }
     }
     getYouTubeStats = async () => {
@@ -475,7 +471,7 @@ class IndividualPageController extends Component {
                     about: state.about,
                     firstName: state.firstName,
                     lastName: state.lastName,
-                    contactNumber: state.contactNumber,
+                    contactEmail: state.contactEmail,
                     twitchUserId: t_id,
                     bannerImageUrl: state.bannerImageUrl,
                     profileImageUrl: state.profileImageUrl,
@@ -600,8 +596,7 @@ class IndividualPageController extends Component {
                             about={this.user_details.about}
                             username={this.user_details.username}
                             name={`${this.user_details.firstName} ${this.user_details.lastName}`}
-                            email={this.user_details.email}
-                            contactNumber={this.user_details.contactNumber}
+                            contactEmail={this.user_details.contactEmail}
                             accomplishments={this.user_details.accomplishments}
                         />
                     }

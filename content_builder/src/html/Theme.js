@@ -204,6 +204,48 @@ export const GlobalStyles = GlobalTheme => ({
     // New Obliviot Theme
     // ***************************************************************
 
+    obliviot_dark_info_container: {
+        width: '100%',
+        height: '35px'
+    },
+
+    obliviot_dark_info_image: {
+        height: '35px',
+        marginLeft: '20px',
+        marginRight: '20px',
+        float: 'left'
+    },
+
+    obliviot_dark_info_content_container: {
+        height: '35px',
+        textAlign: 'left',
+        lineHeight: '35px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    obliviot_light_info_container: {
+        width: '100%',
+        height: '35px'
+    },
+
+    obliviot_light_info_image: {
+        height: '35px',
+        marginLeft: '20px',
+        marginRight: '20px',
+        float: 'left'
+    },
+
+    obliviot_light_info_content_container: {
+        height: '35px',
+        textAlign: 'left',
+        lineHeight: '35px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
     obliviot_mobile_menu: {
         position: 'absolute',
         width: '100%',
@@ -3340,6 +3382,12 @@ export const GlobalStyles = GlobalTheme => ({
         height: '35px',
         cursor: 'pointer'
     },
+    felzec_header_logo: {
+        display: 'block',
+        margin: 'auto',
+        height: '50px',
+        cursor: 'pointer'
+    },
     body_container: {
         width: '100%',
         display: 'table',
@@ -3908,7 +3956,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_main_logo_spacer: {
         width: '100%',
-        height: '50px'
+        height: '20px'
     },
     admin_color_label: {
     },
@@ -3968,7 +4016,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_social_box_divider: {
         width: '100%',
-        height: '50px'
+        height: '20px'
     },
     admin_submit_box: {
         width: '100%',

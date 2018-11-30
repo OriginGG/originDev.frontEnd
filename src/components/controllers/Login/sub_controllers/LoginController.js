@@ -20,7 +20,7 @@ const { confirm } = Modal;
 
 // import { getOrganisationQuery } from './queries/organisation'
 class LoginController extends Component {
-    state = { button_disabled: false, content_display: 'login' };
+    state = { button_disabled: false, content_display: 'signup' };
     handleClick = () => {
         const p = this.state.content_display;
         if (p === 'login') {
@@ -140,7 +140,15 @@ class LoginController extends Component {
                         }
                         const authPayload = await this.props.appManager.executeQuery('mutation', authenticateIndividualQuery, v);
                         const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
-                        historyStore.push(`/individual?p=${payload}`);
+                        if (!authPayload.authenticateIndividual.individualAuthPayload) {
+                            toast.error("User doesn't exist, or password is incorrect!", {
+                                position: toast.POSITION.TOP_LEFT,
+                                autoClose: 5000
+                            });
+                            return;
+                        }
+                        this.props.appManager.pouchStore('ind_authenticate', payload);
+                        historyStore.push(`/individual?u=${authPayload.authenticateIndividual.individualAuthPayload.userId}`);
                     } else {
                         if (this.state.content_display === 'login') {
                             console.log('submitting....');
@@ -177,7 +185,8 @@ class LoginController extends Component {
                                 if (subDomain === 'origin' && organisation === null) {
                                     if (authPayload.authenticate.resultData.isAdmin === false) {
                                         // it's an individual users, go to ind page.
-                                        historyStore.push(`/individual?p=${payload}`);
+                                        this.props.appManager.pouchStore('ind_authenticate', payload);
+                                        historyStore.push(`/individual?u=${d.id}`);
                                     } else {
                                         historyStore.push(`/createsubdomain?p=${payload}`);
                                     }
