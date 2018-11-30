@@ -52,13 +52,28 @@ class OrganizationNewsController extends Component {
                 console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
                 if (theme_type === 'felzec' && this.isMobile()) {
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${2}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${3}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${4}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${5}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                 } else {
                     this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${2}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${3}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${4}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${5}`} blog={null} blog_date="1-30-2018" blog_title="Yout Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                 }
             }
 
             if (theme_type === 'obliviot') {
                 this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${2}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${3}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${4}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${5}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
             }
         }
         blog_data.resultData.edges.forEach((blog, i) => {
