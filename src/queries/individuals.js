@@ -5,6 +5,8 @@ export const getIndividualUserByHandleQuery = gql`
 	allIndividualUsers(condition: {username: $handle}) {
 		nodes {
       id
+      email
+      authenticated
 		}
 	}
 }
@@ -24,7 +26,7 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
     lastName
     about
     email
-    contactNumber
+    contactEmail
     updatedAt
     createdAt
 		youtubeChannel
@@ -46,7 +48,7 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
 `;
 
 export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: Int!, $firstName: String, $lastName: String, $about: String,
-	$contactNumber: String, $accomplishments: String, $twitchUrl: String, 
+	$contactEmail: String, $accomplishments: String, $twitchUrl: String, 
   $twitterHandle: String, $youtubeChannel: String,
   $youtubeVideo1Url: String,
   $youtubeVideo2Url: String,
@@ -65,7 +67,7 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
       about: $about
       bannerImageUrl: $bannerImageUrl
       profileImageUrl: $profileImageUrl
-      contactNumber: $contactNumber
+      contactEmail: $contactEmail
       accomplishments: $accomplishments
       twitchUrl: $twitchUrl
       twitterHandle: $twitterHandle

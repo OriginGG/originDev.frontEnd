@@ -29,6 +29,20 @@ class OrganizationVideoController extends Component {
             // console.log(`youtube before: ${youTubeChannels.resultData.edges[0].node.youtubeVideo1} asnd youtube after ${v1}`);
             this.setState(p);
             this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
+        } else {
+            const v1 = this.props.appManager.convertYoutubeURL('https://www.youtube.com/watch?v=eXzSeGxjPCs');
+            const v2 = this.props.appManager.convertYoutubeURL('https://www.youtube.com/watch?v=eXzSeGxjPCs');
+            const v3 = this.props.appManager.convertYoutubeURL('https://www.youtube.com/watch?v=eXzSeGxjPCs');
+            const v4 = this.props.appManager.convertYoutubeURL('https://www.youtube.com/watch?v=eXzSeGxjPCs');
+            const p = {
+                video1_url: v1,
+                video2_url: v2,
+                video3_url: v3,
+                video4_url: v4
+            };
+            // console.log(`youtube before: ${youTubeChannels.resultData.edges[0].node.youtubeVideo1} asnd youtube after ${v1}`);
+            this.setState(p);
+            this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
         }
     }
     componentDidCatch = (error, info) => {

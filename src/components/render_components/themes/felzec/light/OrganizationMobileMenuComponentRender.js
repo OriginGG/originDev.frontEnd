@@ -8,34 +8,34 @@ class LightOrganizationMobileMenuComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.light_mobile_menu}>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box}>
+                <div className={this.props.classes.dark_mobile_menu}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box}>
                             Home
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleAboutClick}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleAboutClick}>
                             About
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleStoreClick}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleStoreClick}>
                             Store
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleBlogClick}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleViewBlogClick}>
                             Blog
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleLoginClick}>
+                    <div className={this.props.classes.dark_mobile_menu_item}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={this.props.handleLoginClick}>
                             Login
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
+                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.facebook_style}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
                                 .handleSocial( 'fb' );
@@ -43,8 +43,8 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                             Facebook
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
+                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.twiiter_style}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
                                 .handleSocial( 'twitter' );
@@ -52,8 +52,8 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                             Twitter
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
-                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
+                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.youtube_style}>
+                        <a className={this.props.classes.dark_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
                                 .handleSocial( 'youtube' );
@@ -61,8 +61,8 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                             Youtube
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item} style={this.props.mobile_roster_item}>
-                        <div className={this.props.classes.light_mobile_menu_item_box}>
+                    <div className={this.props.classes.dark_mobile_menu_item} style={this.props.mobile_roster_item}>
+                        <div className={this.props.classes.dark_mobile_menu_item_box}>
                             Rosters
                         </div>
                         <div >{this.props.rosterContent}</div>

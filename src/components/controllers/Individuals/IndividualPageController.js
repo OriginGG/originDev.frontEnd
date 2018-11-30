@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
+import { autorun } from 'mobx';
 import { GlobalStyles } from 'Theme/Theme';
-import { Card, Icon, Image } from 'semantic-ui-react/dist/commonjs';
+import { Card, Icon, Image, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import uiStore from '../../../utils/stores/uiStore';
 import blankImage from '../../../assets/images/blank_person.png';
 import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
@@ -48,8 +50,7 @@ class ModalContent extends Component {
             lastName: '',
             username: '',
             about: '',
-            email: '',
-            contactNumber: '',
+            contactEmail: '',
             youtubeChannel: '',
             twitchUrl: '',
             instagramLink: '',
@@ -69,10 +70,9 @@ class ModalContent extends Component {
             input_values: {
                 firstName: this.getInputValue(user.individualUserById.firstName),
                 lastName: this.getInputValue(user.individualUserById.lastName),
-                email: this.getInputValue(user.individualUserById.email),
                 about: this.getInputValue(user.individualUserById.about),
                 username: this.getInputValue(user.individualUserById.username),
-                contactNumber: this.getInputValue(user.individualUserById.contactNumber),
+                contactEmail: this.getInputValue(user.individualUserById.contactEmail),
                 youtubeChannel: this.getInputValue(user.individualUserById.youtubeChannel),
                 twitterHandle: this.getInputValue(user.individualUserById.twitterHandle),
                 twitchUrl: this.getInputValue(user.individualUserById.twitchUrl),
@@ -127,17 +127,22 @@ class ModalContent extends Component {
     handleSubmit = async () => {
         let bn = this.state.input_values.bannerImageUrl;
         let pn = this.state.input_values.profileImageUrl;
+        uiStore.setSubmittingContent(true);
         // upload files to s3 if they've changed.
-        if (this.profile_files) {
-            pn = await this.uploadtoS3(this.profile_files);
+        try {
+            if (this.profile_files) {
+                pn = await this.uploadtoS3(this.profile_files);
+            }
+            if (this.banner_files) {
+                bn = await this.uploadtoS3(this.banner_files);
+            }
+            const p = Object.assign(this.state, {});
+            p.input_values.bannerImageUrl = bn;
+            p.input_values.profileImageUrl = pn;
+            this.props.handleSubmit(p.input_values);
+        } catch (err) {
+            uiStore.setSubmittingContent(false);
         }
-        if (this.banner_files) {
-            bn = await this.uploadtoS3(this.banner_files);
-        }
-        const p = Object.assign(this.state, {});
-        p.input_values.bannerImageUrl = bn;
-        p.input_values.profileImageUrl = pn;
-        this.props.handleSubmit(p.input_values);
     }
 
     uploadtoS3 = (f) => {
@@ -171,12 +176,12 @@ class ModalContent extends Component {
     //     });
     // }
 
-
     render() {
         return (
             <div>
                 <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                 <IndividualEditComponentRender
+                    renderButtons={<RenderButtons handleSubmit={this.handleSubmit} closeModal={this.props.closeModal} />}
                     key={`edit_ind_key_${this.key_index}`}
                     handleChange={this.handleChange}
                     handleFileClick={this.handleFileClick}
@@ -186,9 +191,8 @@ class ModalContent extends Component {
                     lastName={this.state.input_values.lastName}
                     username={this.state.input_values.username}
                     about={this.state.input_values.about}
-                    email={this.state.input_values.email}
                     accomplishments={this.state.input_values.accomplishments}
-                    contactNumber={this.state.input_values.contactNumber}
+                    contactEmail={this.state.input_values.contactEmail}
                     youtubeChannel={this.state.input_values.youtubeChannel}
                     instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
@@ -236,6 +240,24 @@ const TwitchInfo = ({ stats }) => {
     );
 };
 
+class RenderButtons extends Component {
+    state = { submitting: false };
+
+    componentDidMount = () => {
+        this.autorun_tracker = autorun(() => {
+            this.setState({ submitting: uiStore.submitting_content });
+        });
+    }
+    render() {
+        return (<div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button.Group>
+                <Button disabled={this.state.submitting} onClick={this.props.closeModal} negative>Cancel</Button>
+                <Button.Or />
+                <Button disabled={this.state.submitting} onClick={this.props.handleSubmit} primary>Submit</Button>
+            </Button.Group></div>);
+    }
+}
+
 class IndividualPageController extends Component {
     state = {
         visible: false,
@@ -248,14 +270,16 @@ class IndividualPageController extends Component {
         this.instagram_stats = null;
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
-        console.log('view_id'+ view_id); // eslint-disable-line
-        if (view_id) {
+        console.log('view_id' + view_id); // eslint-disable-line
+        const authPayload = this.props.appManager.pouchGet('ind_authenticate');
+        if (!authPayload) {
             const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
             this.user_details = user.individualUserById;
             this.getStats();
         } else {
-            const authPayload = this.props.appManager.GetQueryParams('p');
-            console.log('authPayload'+ authPayload); // eslint-disable-line
+            this.props.appManager.pouchStore('ind_authenticate', null);
+            // const authPayload = this.props.appManager.GetQueryParams('p');
+            console.log('authPayload' + authPayload); // eslint-disable-line
             this.key_index = 1;
             if (authPayload) {
                 let p;
@@ -285,6 +309,8 @@ class IndividualPageController extends Component {
                     const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
                     this.props.appManager.authToken = token;
                     const d = this.props.appManager.decodeJWT(token);
+                    browserHistory.push(`/individual?u=${d.id}`);
+//
                     this.user_id = d.id;
                     console.log('user_id' + this.user_id); // eslint-disable-line
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
@@ -392,30 +418,35 @@ class IndividualPageController extends Component {
             toast.error('Username cannot contain spaces!', {
                 position: toast.POSITION.TOP_LEFT
             });
+            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.twitchUrl.includes('http')) {
             toast.error('Twitch handle required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
+            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.youtubeChannel.includes('http')) {
             toast.error('Youtube Channel ID required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
+            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.twitterHandle.includes('http')) {
             toast.error('Twitter Handle required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
+            uiStore.setSubmittingContent(false);
             return;
         }
         if (state.instagramLink.includes('http')) {
             toast.error('Instagram ID required not full URL', {
                 position: toast.POSITION.TOP_LEFT
             });
+            uiStore.setSubmittingContent(false);
             return;
         }
         const r = await this.props.appManager.executeQueryAuth('query', getIndividualUserByHandleQuery, { handle: state.username });
@@ -423,6 +454,7 @@ class IndividualPageController extends Component {
             toast.error('That Username is taken!', {
                 position: toast.POSITION.TOP_LEFT
             });
+            uiStore.setSubmittingContent(false);
         } else {
             // get the twitch user_id if there is one.
 
@@ -439,7 +471,7 @@ class IndividualPageController extends Component {
                     about: state.about,
                     firstName: state.firstName,
                     lastName: state.lastName,
-                    contactNumber: state.contactNumber,
+                    contactEmail: state.contactEmail,
                     twitchUserId: t_id,
                     bannerImageUrl: state.bannerImageUrl,
                     profileImageUrl: state.profileImageUrl,
@@ -457,6 +489,7 @@ class IndividualPageController extends Component {
             toast.success('Profile Updated!', {
                 position: toast.POSITION.TOP_LEFT
             });
+            uiStore.setSubmittingContent(false);
             this.closeModal();
         }
     }
@@ -563,8 +596,7 @@ class IndividualPageController extends Component {
                             about={this.user_details.about}
                             username={this.user_details.username}
                             name={`${this.user_details.firstName} ${this.user_details.lastName}`}
-                            email={this.user_details.email}
-                            contactNumber={this.user_details.contactNumber}
+                            contactEmail={this.user_details.contactEmail}
                             accomplishments={this.user_details.accomplishments}
                         />
                     }
@@ -575,7 +607,7 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit}  closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
                 />
             </div>
         );
@@ -583,6 +615,11 @@ class IndividualPageController extends Component {
 }
 IndividualPageController.propTypes = {
     appManager: PropTypes.object.isRequired,
+};
+
+RenderButtons.propTypes = {
+    closeModal: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired
 };
 
 ModalContent.propTypes = {

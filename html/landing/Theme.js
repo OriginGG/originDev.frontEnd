@@ -1980,7 +1980,7 @@ export const GlobalStyles = GlobalTheme => ({
     //*********************************** */
     landing_body: {
         width: '100%',
-        background: 'linear-gradient(#061216, #3d4344)'
+        background: 'linear-gradient(#061216, #0b222a)'
     },
     landing_header: {
         width: '100%',
@@ -2032,17 +2032,41 @@ export const GlobalStyles = GlobalTheme => ({
         height: '100vh',
         color: '#fff',
         padding: '30px',
-        display: 'table'
+        display: 'table',
+        background: 'linear-gradient(#061216, #0b222a)'
+    },
+    landing_use_content_container: {
+        width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingLeft: '10%',
+        paddingRight: '10%',
+        color: '#fff',
+        paddingTop: '80px',
+        paddingBottom: '100px',
+        display: 'table',
+        background: 'linear-gradient(#061216, #0b222a)',
+        opacity: '0'
     },
     landing_upcoming_content_container: {
         width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingLeft: '10%',
+        paddingRight: '10%',
         color: '#fff',
-        padding: '30px',
-        display: 'table'
+        paddingTop: '80px',
+        paddingBottom: '20px',
+        display: 'table',
+        background: 'linear-gradient(#061216, #0b222a)'
     },
     landing_outer_welcome_container: {
         width: '100%',
         height: '100vh',
+        color: '#fff'
+    },
+    landing_outer_goodbye_container: {
+        width: '100%',
         color: '#fff'
     },
     landing_individual_body: {
@@ -2051,26 +2075,441 @@ export const GlobalStyles = GlobalTheme => ({
     landing_individual_container: {
         width: '100%',
         color: '#fff',
-        position: 'relative'
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        paddingTop: '60px',
+        paddingLeft: '10%',
+        paddingRight: '10%',
+        position: 'relative',
+        background: 'linear-gradient(#061216, #0b222a)'
     },
     landing_welcome_container: {
         width: '100%',
         height: '100vh',
-        paddingTop: '250px',
+        paddingTop: '150px',
         backgroundImage: 'url("./images/banner-bg.jpg")',
         backgroundRepeat: 'auto',
         backgroundSize: 'auto'
     },
+    landing_goodbye_container: {
+        width: '100%',
+        display: 'table',
+        paddingBottom: '30px',
+        paddingTop: '120px',
+        background: 'linear-gradient(#061216, #0b222a)'
+    },
     landing_welcome_lines_container: {
         width: '100%',
         display: 'table',
-        backgroundImage: 'url("./images/title-bg.png")',
+        // backgroundImage: 'url("./images/title-bg.png")',
         objectFit: 'fill'
     },
     landing_welcome_lines_image: {
         width: '80%',
         marginLeft: '10%',
         marginRight: '10%'
+    },
+    landing_header_title: {
+        fontSize: '48px',
+        fontWeight: '900',
+        color: '#fff',
+        textAlign: 'left',
+        paddingLeft: '150px',
+        lineHeight: '52px'
+    },
+    landing_header_sub_title: {
+        fontSize: '18px',
+        fontWeight: '300',
+        color: '#fff',
+        textAlign: 'left',
+        paddingLeft: '150px',
+        lineHeight: '50px',
+        marginTop: '10px',
+        marginBottom: '20px'
+    },
+    landing_goodbye_sub_title: {
+        fontSize: '18px',
+        fontWeight: '300',
+        color: '#fff',
+        textAlign: 'left',
+        paddingLeft: '150px',
+        lineHeight: '25px',
+        marginTop: '10px',
+        marginBottom: '30px'
+    },
+    landing_header_cta: {
+        fontSize: '24px',
+        fontWeight: '900',
+        color: '#fff',
+        textAlign: 'center',
+        paddingLeft: '150px',
+        lineHeight: '50px',
+        marginTop: '10px',
+        cursor: 'pointer',
+        marginTop: '30px'
+    },
+    landing_goodbye_cta: {
+        fontSize: '24px',
+        fontWeight: '900',
+        padding: '20px 30px 20px 30px',
+        backgroundColor: '#0a9ab4',
+        color: '#fff',
+        textAlign: 'center',
+        marginLeft: '150px',
+        lineHeight: '50px',
+        marginTop: '10px',
+        cursor: 'pointer',
+        marginTop: '30px',
+        borderRadius: '5px'
+    },
+    landing_header_image: {
+        width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+    landing_isp_container: {
+        width: '100%',
+        padding: '20px 100px 20px 100px',
+        display: 'table',
+        background: 'linear-gradient(#061216, #0b222a)'
+    },
+    landing_isp_title: {
+        width: '100%',
+        height: '75px',
+        lineHeight: '75px',
+        fontSize: '24px',
+        fontWeight: '900',
+        textAlign: 'center',
+        color: '#fff',
+        opacity: '0'
+    },
+    landing_rb_title: {
+        width: '100%',
+        height: '75px',
+        lineHeight: '75px',
+        fontSize: '24px',
+        fontWeight: '900',
+        textAlign: 'center',
+        color: '#fff',
+        opacity: '0'
+    },
+    landing_isp_companies_container: {
+        width: '100%',
+        height: '50px',
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '20px',
+        opacity: '0'
+    },
+    landing_rb_companies_container: {
+        width: '100%',
+        height: '50px',
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '20px',
+        opacity: '0'
+    },
+    landing_isp_company_image: {
+        height: '50px',
+        float: 'left',
+        marginLeft: '20px',
+        marginRight: '20px'
+    },
+    landing_problem_title: {
+        width: '70%',
+        lineHeight: '28px',
+        fontSize: '24px',
+        color: '#fff',
+        textAlign: 'center',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontWeight: '900',
+        opacity: '0'
+    },
+    landing_statistics_title: {
+        width: '70%',
+        marginTop: '30px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '28px',
+        color: 'rgb(101,191,147)',
+        fontWeight: '100',
+        textAlign: 'center',
+        opacity: '0'
+    },
+    landing_statistics_subtitle: {
+        width: '70%',
+        marginTop: '10px',
+        marginBottom: '10px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '14px',
+        color: 'rgb(101,191,147)',
+        fontWeight: '100',
+        textAlign: 'center',
+        opacity: '0'
+    },
+    problem_container: {
+        width: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        display: 'table',
+        opacity: '0'
+    },
+    landing_problem_before_image: {
+        width: '100%',
+        marginTop: '10px',
+        marginBottom: '10px'
+    },
+    landing_problem_after_image: {
+        width: '100%',
+        marginTop: '10px',
+        marginBottom: '10px'
+    },
+    landing_prob_before_title: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '14px',
+        lineHeight: '30px',
+        color: 'rgb(215,148,158)',
+        textAlign: 'left'
+    },
+    landing_prob_after_title: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '14px',
+        lineHeight: '30px',
+        color: 'rgb(101,191,147)',
+        textAlign: 'left'
+    },
+    landing_prob_before_definition: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '24px',
+        lineHeight: '40px',
+        color: '#fff',
+        textAlign: 'left'
+    },
+    landing_prob_after_definition: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '24px',
+        lineHeight: '40px',
+        color: '#fff',
+        textAlign: 'left'
+    },
+    landing_prob_before_body: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        lineHeight: '24px',
+        fontSize: '18px',
+        color: '#fff',
+        textAlign: 'left',
+        height: '80px'
+    },
+    landing_prob_after_body: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '18px',
+        lineHeight: '24px',
+        color: '#fff',
+        textAlign: 'left',
+        height: '80px'
+    },
+    landing_prob_before_point: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '16px',
+        lineHeight: '24px',
+        color: '#fff',
+        textAlign: 'left',
+        marginTop: '5px'
+    },
+    landing_prob_after_point: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        fontSize: '16px',
+        lineHeight: '24px',
+        color: '#fff',
+        textAlign: 'left',
+        marginTop: '5px'
+    },
+    landing_how_title: {
+        textAlign: 'left',
+        width: '100%',
+        fontSize: '24px',
+        color: '#fff',
+        lineHeight: '40px',
+        fontWeight: '900',
+        opacity: '0'
+    },
+    landing_how_text: {
+        textAlign: 'left',
+        width: '100%',
+        fontSize: '20px',
+        color: '#fff',
+        lineHeight: '25px',
+        fontWeight: '100',
+        opacity: '0'
+    },
+    landing_how_point_container: {
+        width: '100%',
+        height: '100px',
+        borderWidth: '2px',
+        borderColor: '#ccc',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        padding: '5px 10px 5px 10px',
+        marginTop: '10px',
+        opacity: '0'
+    },
+    landing_how_point_title: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '20px',
+        fontWeight: '900',
+        color: '#fff',
+        textAlign: 'left'
+    },
+    landing_how_point_text: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: '#fff',
+        textAlign: 'left'
+    },
+    landing_point_image: {
+        width: '95%',
+        marginTop: '70px',
+        marginLeft: '5%',
+        opacity: '0'
+    },
+    landing_use_title: {
+        width: '100%',
+        lineHeight: '40px',
+        fontSize: '24px',
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '900',
+        opacity: '0'
+    },
+    landing_use_subtitle: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        lineHeight: '24px',
+        fontSize: '18px',
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '100',
+        opacity: '0'
+    },
+    landing_msp_title: {
+        width: '100%',
+        lineHeight: '40px',
+        fontSize: '24px',
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '900',
+        opacity: '0'
+    },
+    landing_msp_subtitle: {
+        width: '70%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        lineHeight: '24px',
+        fontSize: '18px',
+        color: '#fff',
+        textAlign: 'center',
+        fontWeight: '100',
+        opacity: '0'
+    },
+    landing_use_point_image: {
+        width: '100%',
+        marginTop: '50px',
+        marginBottom: '20px'
+    },
+    landing_use_point_image_container: {
+        width: '100%',
+        height: '225px',
+        marginTop: '50px',
+        marginBottom: '20px',
+        position: 'relative',
+        display: 'table'
+    },
+    landing_use_point_coming_image: {
+        width: '100%',
+        filter: 'opacity(.4)'
+    },
+    landing_use_point_coming_filter: {
+        width: '100%',
+        height: '225px',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        backgroundColor: 'rgba(100,100,100,.5)'
+    },
+    landing_use_point_coming_text: {
+        width: '100%',
+        height: '50px',
+        position: 'absolute',
+        bottom: '45px',
+        left: '0',
+        textAlign: 'center',
+        fontSize: '36px',
+        fontWeight: '900',
+        lineHeight: '50px',
+        color: '#fff'  
+    },
+    landing_use_point_title: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: '#fff',
+        textAlign: 'left',
+        fontWeight: '900'
+    },
+    landing_use_point_text: {
+        width: '100%',
+        lineHeight: '24px',
+        fontSize: '16px',
+        color: '#fff',
+        textAlign: 'left',
+        fontWeight: '100'
+    },
+    landing_msp_image: {
+        width: '100%',
+        height: '300px',
+        objectFit: 'cover',
+        marginTop: '50px',
+        marginBottom: '50px',
+        opacity: '0'
+    },
+    landing_msp_quote: {
+        width: '100%',
+        fontSize: '18px',
+        height: '60px',
+        color: '#fff',
+        fontWeight: '300',
+        fontStyle: 'italic',
+        opacity: '0',
+    },
+    landing_msp_author: {
+        width: '100%',
+        fontSize: '18px',
+        color: '#fff',
+        fontWeight: '600',
+        marginTop: '30px',
+        author: '0'
     },
     landing_page_button_container: {
         width: '100%',
@@ -2252,14 +2691,18 @@ export const GlobalStyles = GlobalTheme => ({
     landing_footer: {
         width: '100%',
         height: '80px',
-        textAlign: 'center'
+        marginTop: '90px',
+        display: 'flex',
+        justifyContent: 'center',
     },
     landing_footer_text: {
         height: '80px',
         lineHeight: '80px',
         textAlign: 'center',
         color: '#fff',
-        fontSize: '18px'
+        fontSize: '18px',
+        marginRight: '10px',
+        float: 'left'
     }
 });
 

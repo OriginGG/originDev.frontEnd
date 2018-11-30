@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
+import DateTime from 'react-datetime';
 import { GlobalStyles } from 'Theme/Theme';
 import { Select, Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { inject } from 'mobx-react';
@@ -12,12 +13,13 @@ import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
 import { createRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
 import { gameOptions } from './data/AllGames';
+import '../../../../../node_modules/react-datetime/css/react-datetime.css';
 
 const { confirm } = Modal;
 
 class AdminRecentMatchesController extends Component {
     state = {
-        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_url: '', event_description: '', your_date: ''
+        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_url: '', event_description: '', your_date: new Date()
     };
     componentDidMount = async () => {
         this.upload_file = false;
@@ -79,8 +81,15 @@ class AdminRecentMatchesController extends Component {
         this.setState({ add_match: true });
     }
     handleInputChange = (e, field) => {
+        // console.log(JSON.stringify(e));
         const p = this.state;
         p[field] = e.target.value;
+        this.setState(p);
+    }
+    handleDateInputChange = (e, field) => {
+        // console.log(JSON.stringify(e));
+        const p = this.state;
+        p[field] = e;
         this.setState(p);
     }
     handleDropDown = (e, data) => {
@@ -88,13 +97,13 @@ class AdminRecentMatchesController extends Component {
     }
 
     handleDropDownList = (e, data) => {
-        console.log(`handleDropDownList ${data.value}`);
+        // console.log(`handleDropDownList ${data.value}`);
         this.match_type = data.value;
         console.log(`match type = ${this.match_type}`);
     }
 
     handleSubmit = async () => {
-        console.log('submit pressed');
+        // console.log('submit pressed');
         let is_filled = true;
         // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         if (!this.current_game) {
@@ -160,7 +169,14 @@ class AdminRecentMatchesController extends Component {
             if (logo_data === null) {
                 this.is_saving = false;
             } else {
-                console.log(`event description = ${this.state.event_description}`);
+                console.log(`event description = ${this.state.event_description}
+                subDomain=${this.props.uiStore.current_organisation.subDomain}
+                gameName=${this.current_game} 
+                eventInfo= ${this.match_type}
+                eventUrl= ${this.state.your_url}
+                eventDate= ${this.state.your_date}
+                gameLogo= ${logo_data.Location}
+                score= ${this.state.your_score} - ${this.state.their_score}`);
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
@@ -235,6 +251,7 @@ class AdminRecentMatchesController extends Component {
                     <img alt="" style={{ display: 'table' }} className={this.props.classes.admin_main_logo_image} src={this.state.logo_src} />
                     <div style={{ marginTop: 4 }}>
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Your Score'
                             }}
@@ -244,6 +261,7 @@ class AdminRecentMatchesController extends Component {
                             onChange={(e) => { this.handleInputChange(e, 'your_score'); }}
                         />
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Their Score'
                             }}
@@ -256,6 +274,7 @@ class AdminRecentMatchesController extends Component {
                     </div>
                     <div style={{ marginTop: 15 }}>
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Info URL'
                             }}
@@ -265,6 +284,7 @@ class AdminRecentMatchesController extends Component {
                             onChange={(e) => { this.handleInputChange(e, 'your_url'); }}
                         />
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event/Description'
                             }}
@@ -276,14 +296,10 @@ class AdminRecentMatchesController extends Component {
                         />
                     </div>
                     <div style={{ marginTop: 15 }}>
-                        <Input
-                            action={{
-                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event Date'
-                            }}
-                            actionPosition="left"
-                            placeholder="Date..."
-                            value={this.state.your_date}
-                            onChange={(e) => { this.handleInputChange(e, 'your_date'); }}
+                        <DateTime
+                            style={{ marginTop: 4 }}
+                            defaultValue={new Date()}
+                            onChange={(e) => { this.handleDateInputChange(e, 'your_date'); }}
                         />
                     </div>
                     <Button style={{ marginTop: 16 }} onClick={this.handleSubmit} primary>SUBMIT</Button>

@@ -10,7 +10,7 @@ class CreateSubDomainComponentRender extends Component {
             <div className={this.props.classes.signupBGImage}>
                 <header className={this.props.classes.signupHeader}>
                     <div className="ui container">
-                        <a href="#" className="header item">
+                        <a href="/" className="header item">
                             <img className="logo" src={this.props.header_image_src}/>
                         </a>
                     </div>

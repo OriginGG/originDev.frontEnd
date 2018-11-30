@@ -131,7 +131,6 @@ class OrganizationTeamMateController extends Component {
             p_array.push(<div style={{
                 cursor: 'pointer',
                 width: '15%',
-                height: '100%',
                 float: 'left',
                 position: 'relative',
                 marginRight: '5%',
@@ -150,7 +149,8 @@ class OrganizationTeamMateController extends Component {
         });
         return (<div style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                height: '100%'
             }}>
             {p_array}</div>);
     }

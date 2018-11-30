@@ -174,6 +174,20 @@ class OrganizationTeamController extends Component {
                 // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
                 p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
+        } else {
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+            // console.log(`team data = ${JSON.stringify(roster_data)}`);
+            roster_data.allCombinedRosters.edges.forEach((r) => {
+                console.log(`r data = ${JSON.stringify(r)}`);
+                const { gameId } = r.node;
+                const { id } = r.node;
+                ros_id = id;
+                const currGame = _.find(gameOptions, (o) => {
+                    return o.game_id === gameId;
+                });
+                // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
+                p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
+            });
         }
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         // const theme = this.props.uiStore.current_organisation.themeId;
@@ -196,7 +210,12 @@ class OrganizationTeamController extends Component {
         console.log(error, info);
     }
     isMobile = () => {
-        return isMobile;
+        // return true;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
     handleTeamClick = (t) => {
         console.log(JSON.stringify(t));
@@ -212,7 +231,7 @@ class OrganizationTeamController extends Component {
         const { OrganizationTeamGameComponentRender } = this.state;
         const { OrganizationTeamMateController } = this.state;
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageRostersData;
-        const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'opacity(.2)' };
+        const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100)' };
         const m_color = this.props.uiStore.current_organisation.primaryColor;
         const menu_color = `${m_color}b3`;
         const f = { backgroundColor: `${menu_color}` };
@@ -237,7 +256,7 @@ class OrganizationTeamController extends Component {
             </div>);
         });
         const { OrganizationTeamComponentRender } = this.state;
-        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
+        return <OrganizationTeamComponentRender filter_style={f} bg_style={s} roster_games={m_array} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
     }
 }
 

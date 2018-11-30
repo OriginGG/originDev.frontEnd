@@ -68,11 +68,11 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'twitterHandle', e );
                             }}/>
-                            <div className={this.props.classes.individual_label}>Contact Number</div>
-                            <input placeholder="Contact Number" className={this.props.classes.modal_individual_edit_input} value={this.props.contactNumber} onChange={e => {
+                            <div className={this.props.classes.individual_label}>Contact Email</div>
+                            <input placeholder="Contact Email" className={this.props.classes.modal_individual_edit_input} value={this.props.contactEmail} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'contactNumber', e );
+                                    .handleChange( 'contactEmail', e );
                             }}/>
                             <div className={this.props.classes.individual_label}>About</div>
                             <textarea rows="10" placeholder="About" className={this.props.classes.modal_individual_edit_about} value={this.props.about} onChange={e => {
@@ -98,12 +98,7 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'youtubeChannel', e );
                             }}/>
-                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.closeModal}>
-                                <div className={this.props.classes.modal_individual_submit_button}>Cancel</div>
-                            </div>
-                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.handleSubmit}>
-                                <div className={this.props.classes.modal_individual_submit_button}>Submit</div>
-                            </div>
+                            <div >{this.props.renderButtons}</div>
                         </div>
                     </div>
                 </div>
