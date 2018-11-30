@@ -3956,7 +3956,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_main_logo_spacer: {
         width: '100%',
-        height: '30px'
+        height: '20px'
     },
     admin_color_label: {
     },
@@ -4016,7 +4016,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_social_box_divider: {
         width: '100%',
-        height: '30px'
+        height: '20px'
     },
     admin_submit_box: {
         width: '100%',
