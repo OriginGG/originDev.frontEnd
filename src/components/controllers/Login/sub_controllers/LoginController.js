@@ -140,6 +140,13 @@ class LoginController extends Component {
                         }
                         const authPayload = await this.props.appManager.executeQuery('mutation', authenticateIndividualQuery, v);
                         const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
+                        if (!authPayload.authenticateIndividual.individualAuthPayload) {
+                            toast.error("User doesn't exist, or password is incorrect!", {
+                                position: toast.POSITION.TOP_LEFT,
+                                autoClose: 5000
+                            });
+                            return;
+                        }
                         this.props.appManager.pouchStore('ind_authenticate', payload);
                         historyStore.push(`/individual?u=${authPayload.authenticateIndividual.individualAuthPayload.userId}`);
                     } else {
