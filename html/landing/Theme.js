@@ -2516,7 +2516,8 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         position: 'fixed',
         bottom: '75px',
-        zIndex: '100'
+        zIndex: '100',
+        display: 'none'
     },
     landing_page_join_button: {
         width: '300px',
