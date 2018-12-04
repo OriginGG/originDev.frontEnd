@@ -4258,7 +4258,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100px',
         height: '200px',
         borderStyle: 'solid',
-        borderWidth: '2px',
+        borderWidth: '4px',
         borderColor: 'blue',
         cursor: 'pointer',
         marginRight: '10px',
@@ -4336,6 +4336,23 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
     individual_edit_button: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 20px 0px 20px',
+        fontSize: '18px',
+        fontWeight: '900',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: '20px',
+        right: '120px'
+    },
+    individual_login_button: {
         height: '40px',
         lineHeight: '40px',
         padding: '0px 20px 0px 20px',

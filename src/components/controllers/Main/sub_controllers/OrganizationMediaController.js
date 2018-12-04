@@ -179,34 +179,36 @@ class OrganizationMediaController extends Component {
         console.log(`NEW TEAM LIST = ${JSON.stringify(this.state.team_list)}`);
 
         if (this.state.team_list) {
-            this.state.team_list.data.data.users.forEach((l, i) => {
-                if (l.live) {
-                    const d_style = { backgroundColor: 'green' };
-                    const t_url = `https://player.twitch.tv/?channel=${l.name}`;
-                    const t_thumb = l.thumbnail_url;
-                    // console.log(`thumbnail is ${t_thumb}`);
-                    const w_thumb = t_thumb.replace('{width}', '300');
-                    const f_thumb = w_thumb.replace('{height}', '150');
-                    // console.log(`final thumbnail is ${f_thumb}`);
-                    // console.log('is_live');
-                    p_array.unshift(<OrganizationTwitchComponentRender
-                        key={`twitch_live_k_${i}`}
-                        twitch_url={t_url}
-                        twitch_thumbnail={f_thumb}
-                        twitch_name={l.display_name}
-                        status_style={d_style}
-                    />);
-                } else {
-                    const t_url = `https://player.twitch.tv/?channel=${l.name}`;
-                    const t_thumb = offline_image;
-                    p_array.push(<OrganizationTwitchComponentRender
-                        key={`twitch_live_k_${i}`}
-                        twitch_url={t_url}
-                        twitch_thumbnail={t_thumb}
-                        twitch_name={l.display_name}
-                    />);
-                }
-            });
+            if (this.state.team_list.data.success) {
+                this.state.team_list.data.data.users.forEach((l, i) => {
+                    if (l.live) {
+                        const d_style = { backgroundColor: 'green' };
+                        const t_url = `https://player.twitch.tv/?channel=${l.name}`;
+                        const t_thumb = l.thumbnail_url;
+                        // console.log(`thumbnail is ${t_thumb}`);
+                        const w_thumb = t_thumb.replace('{width}', '300');
+                        const f_thumb = w_thumb.replace('{height}', '150');
+                        // console.log(`final thumbnail is ${f_thumb}`);
+                        // console.log('is_live');
+                        p_array.unshift(<OrganizationTwitchComponentRender
+                            key={`twitch_live_k_${i}`}
+                            twitch_url={t_url}
+                            twitch_thumbnail={f_thumb}
+                            twitch_name={l.display_name}
+                            status_style={d_style}
+                        />);
+                    } else {
+                        const t_url = `https://player.twitch.tv/?channel=${l.name}`;
+                        const t_thumb = offline_image;
+                        p_array.push(<OrganizationTwitchComponentRender
+                            key={`twitch_live_k_${i}`}
+                            twitch_url={t_url}
+                            twitch_thumbnail={t_thumb}
+                            twitch_name={l.display_name}
+                        />);
+                    }
+                });
+            }
         } else {
             this.state.roster_list.forEach((r, i) => {
                 let is_live = false;
