@@ -410,6 +410,10 @@ class IndividualPageController extends Component {
     handleEditClick = () => {
         this.setState({ modal_open: true });
     }
+    handleLoginClick = () => {
+        console.log('clickd login');
+        browserHistory.push('/signup_ind');
+    }
     closeModal = () => {
         this.setState({ modal_open: false });
     }
@@ -588,6 +592,7 @@ class IndividualPageController extends Component {
                 <IndividualPageComponentRender
                     bannerImageUrl={bi}
                     handleEditClick={this.handleEditClick}
+                    handleLoginClick={this.handleLoginClick}
                     button_style={s}
                     ColumnOne={
                         <IndividualBasicInfoComponentRender

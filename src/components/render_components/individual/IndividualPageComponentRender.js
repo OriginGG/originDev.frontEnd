@@ -15,6 +15,9 @@ class IndividualPageComponentRender extends Component {
                             <div id="edit_button" className={this.props.classes.individual_edit_button} onClick={this.props.handleEditClick} style={this.props.button_style}>
                                 Edit
                             </div>
+                            <div id="login_button" className={this.props.classes.individual_login_button} onClick={this.props.handleLoginClick} style={this.props.login_button_style}>
+                                Login
+                            </div>
                         </div>
                         <div className="ui stackable two column grid">
                             <div className="six wide column">

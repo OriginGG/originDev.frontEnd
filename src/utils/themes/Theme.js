@@ -4350,6 +4350,23 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'transparent',
         position: 'absolute',
         bottom: '20px',
+        right: '120px'
+    },
+    individual_login_button: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 20px 0px 20px',
+        fontSize: '18px',
+        fontWeight: '900',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: '20px',
         right: '20px'
     },
     individual_basic_container: {
