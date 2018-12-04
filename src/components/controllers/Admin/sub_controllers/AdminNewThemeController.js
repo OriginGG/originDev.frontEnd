@@ -47,26 +47,26 @@ class AdminThemeController extends Component {
             choosen_theme = 'enigma';
             if (this.selected_theme === 'light') {
                 enigma_dark = { borderColor: 'transparent' };
-                enigma_light = { borderColor: 'blue' };
+                enigma_light = { borderColor: '#0a9ab4' };
             } else {
-                enigma_dark = { borderColor: 'blue' };
+                enigma_dark = { borderColor: '#0a9ab4' };
                 enigma_light = { borderColor: 'transparent' };
             }
         } else if (this.selected_base_theme === 'obliviot') {
             choosen_theme = 'obliviot';
             if (this.selected_theme === 'light') {
                 obliviot_dark = { borderColor: 'transparent' };
-                obliviot_light = { borderColor: 'blue' };
+                obliviot_light = { borderColor: '#0a9ab4' };
             } else {
-                obliviot_dark = { borderColor: 'blue' };
+                obliviot_dark = { borderColor: '#0a9ab4' };
                 obliviot_light = { borderColor: 'transparent' };
             }
         } else {
             choosen_theme = 'felzec';
             if (this.selected_theme === 'light') {
-                felzec_light = { borderColor: 'blue' };
+                felzec_light = { borderColor: '#0a9ab4' };
             } else {
-                felzec_light = { borderColor: 'blue' };
+                felzec_light = { borderColor: '#0a9ab4' };
             }
         }
         this.setState({
@@ -272,14 +272,14 @@ class AdminThemeController extends Component {
     handleObliviotLightClick = () => {
         console.log('obliviot light clicked');
         this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
-        this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'blue' } });
+        this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: '#0a9ab4' } });
         this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'light';
     }
     handleObliviotDarkClick = () => {
         console.log('obliviot dark clicked');
-        this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'blue' } });
+        this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: '#0a9ab4' } });
         this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
         this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'obliviot' });
@@ -287,7 +287,7 @@ class AdminThemeController extends Component {
     }
     handleEnigmaDarkClick = () => {
         console.log('enigma dark clicked');
-        this.setState({ enigma_dark: { borderColor: 'blue' }, obliviot_dark: { borderColor: 'transparent' } });
+        this.setState({ enigma_dark: { borderColor: '#0a9ab4' }, obliviot_dark: { borderColor: 'transparent' } });
         this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
         this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'enigma' });
@@ -296,7 +296,7 @@ class AdminThemeController extends Component {
     handleEnigmaLightClick = () => {
         console.log('enigma light clicked');
         this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
-        this.setState({ enigma_light: { borderColor: 'blue' }, obliviot_light: { borderColor: 'transparent' } });
+        this.setState({ enigma_light: { borderColor: '#0a9ab4' }, obliviot_light: { borderColor: 'transparent' } });
         this.setState({ felzec_light: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'light';
@@ -305,7 +305,7 @@ class AdminThemeController extends Component {
         console.log('felzec light clicked');
         this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
         this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
-        this.setState({ felzec_light: { borderColor: 'blue' } });
+        this.setState({ felzec_light: { borderColor: '#0a9ab4' } });
         this.setState({ choosen_theme: 'felzec' });
         this.new_theme = 'light';
     }

@@ -33,6 +33,9 @@ class OrganizationAdminThemeComponentRender extends Component {
                         <div className={this.props.classes.admin_theme_display_text}>Felzek</div>
                     </div>
                 </div>
+                <div className={this.props.classes.admin_submit_box} onClick={this.props.handleSubmit}>
+                    <div className={this.props.classes.admin_submit_button}>Save</div>
+                </div>
                 <p>Change Jumbotron Images</p>
                 <div className={this.props.classes.jumbotron_container}>
                     <img className={this.props.classes.jumbotron_image} src={this.props.image_src}/>
