@@ -314,7 +314,7 @@ class OrganizationPageController extends Component {
         if (this.inIframe()) {
             parent.postMessage({ command: 'link', id: 'login' }, "*");           // eslint-disable-line
         } else {
-            historyStore.push('/signup_org');
+            historyStore.push('/login_org');
         }
     }
     isMenuOpen = (state) => {

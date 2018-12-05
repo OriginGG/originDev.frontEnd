@@ -17,6 +17,8 @@ const pathsToIgnore = [
     '/landing',
     '/signup_org',
     '/signup_ind',
+    '/login_org',
+    '/login_ind',
     '/new_signup',
     '/new_signup_ind',
     '/main',
