@@ -999,7 +999,6 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_match_vs_image: {
-        width: '70px',
         height: '70px',
         backgroundColor: 'rgba(0,0,0,0)',
         float: 'left'
@@ -1507,7 +1506,6 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_light_match_vs_image: {
-        width: '70px',
         height: '70px',
         backgroundColor: 'rgba(0,0,0,0)',
         float: 'left'
