@@ -4,9 +4,28 @@ export const getIndividualUserByHandleQuery = gql`
  query getindbyhandle($handle: String!) {
 	allIndividualUsers(condition: {username: $handle}) {
 		nodes {
-      id
-      email
-      authenticated
+    firstName
+    lastName
+    about
+    email
+    contactEmail
+    updatedAt
+    createdAt
+		youtubeChannel
+    twitchUrl
+    twitchUserId
+		twitterHandle
+		accomplishments
+		youtubeVideo1Url
+		youtubeVideo2Url
+		youtubeVideo3Url
+    bannerImageUrl
+		profileImageUrl
+    facebookLink
+    instagramLink
+    username
+    id
+    authenticated
 		}
 	}
 }
