@@ -270,58 +270,78 @@ class IndividualPageController extends Component {
         this.instagram_stats = null;
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
-        console.log('view_id' + view_id); // eslint-disable-line
-        const authPayload = this.props.appManager.pouchGet('ind_authenticate');
-        if (!authPayload) {
-            const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
-            this.user_details = user.individualUserById;
+        const handle = (location.pathname).replace('/individual/', '');            // eslint-disable-line
+        // console.log('view_id' + view_id); // eslint-disable-line
+        const loginPayload = this.props.appManager.pouchGet('ind_login');
+        if (loginPayload) {
+            const p = JSON.parse(Buffer.from(loginPayload, 'hex').toString('utf8'));
+            this.props.appManager.pouchStore('ind_login', null);
+            this.user_details = p;           // eslint-disable-line
+            this.is_admin = true;
             this.getStats();
         } else {
-            this.props.appManager.pouchStore('ind_authenticate', null);
-            // const authPayload = this.props.appManager.GetQueryParams('p');
-            console.log('authPayload' + authPayload); // eslint-disable-line
-            this.key_index = 1;
-            if (authPayload) {
-                let p;
-                try {
-                    p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
-                } catch (err) {
-                    toast.error('Error finding this individual - Redirecting you to login in 5 seconds', {
-                        position: toast.POSITION.TOP_LEFT,
-                        autoClose: 5000
-                    });
-                    setTimeout(() => {
-                        browserHistory.push('/signup');
-                    }, 5000);
-                    return;
-                }
-                console.log(`token - ${p}`);
-                if (p.authenticateIndividual.individualAuthPayload === null) {
-                    toast.error('Wrong password for  - Redirecting you to login page in 5 seconds', {
-                        position: toast.POSITION.TOP_LEFT,
-                        autoClose: 5000
-                    });
-                    setTimeout(() => {
-                        browserHistory.push('/signup');
-                    }, 5000);
-                } else {
-                    this.authPayload = p;
-                    const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
-                    this.props.appManager.authToken = token;
-                    const d = this.props.appManager.decodeJWT(token);
-                    browserHistory.push(`/individual?u=${d.id}`);
-//
-                    this.user_id = d.id;
-                    console.log('user_id' + this.user_id); // eslint-disable-line
-                    const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
-                    if (user.individualUserById !== null) {
-                        this.is_admin = true;
-                    }
+            const authPayload = this.props.appManager.pouchGet('ind_authenticate');
+            if (!authPayload) {
+                let user;
+                if (view_id) {
+                    user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
                     this.user_details = user.individualUserById;
-                    this.getStats();
+                } else {
+                    user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
+                    if (user.allIndividualUsers.nodes.length === 0) {
+                        toast.error('That individual user does not exist!', {
+                            position: toast.POSITION.TOP_LEFT,
+                            autoClose: 5000
+                        });
+                        return;
+                    }
+                    this.user_details = user.allIndividualUsers.nodes[0];           // eslint-disable-line
                 }
+                this.getStats();
             } else {
-                browserHistory.push('/signup');
+                this.props.appManager.pouchStore('ind_authenticate', null);
+                // const authPayload = this.props.appManager.GetQueryParams('p');
+                console.log('authPayload' + authPayload); // eslint-disable-line
+                this.key_index = 1;
+                if (authPayload) {
+                    let p;
+                    try {
+                        p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+                    } catch (err) {
+                        toast.error('Error finding this individual - Redirecting you to login in 5 seconds', {
+                            position: toast.POSITION.TOP_LEFT,
+                            autoClose: 5000
+                        });
+                        setTimeout(() => {
+                            browserHistory.push('/signup');
+                        }, 5000);
+                        return;
+                    }
+                    console.log(`token - ${p}`);
+                    if (p.authenticateIndividual.individualAuthPayload === null) {
+                        toast.error('Wrong password for  - Redirecting you to login page in 5 seconds', {
+                            position: toast.POSITION.TOP_LEFT,
+                            autoClose: 5000
+                        });
+                        setTimeout(() => {
+                            browserHistory.push('/signup');
+                        }, 5000);
+                    } else {
+                        this.authPayload = p;
+                        const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
+                        this.props.appManager.authToken = token;
+                        const d = this.props.appManager.decodeJWT(token);
+                        // browserHistory.push(`/individual?u=${d.id}`);
+                        this.user_id = d.id;
+                        console.log('user_id' + this.user_id); // eslint-disable-line
+                        const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
+                        const new_payload = Buffer.from(JSON.stringify(user.individualUserById), 'utf8').toString('hex');
+                        this.props.appManager.pouchStore('ind_login', new_payload);
+                        browserHistory.push(`/individual/${user.individualUserById.username}`);
+                    }
+                } else {
+                    browserHistory.push('/signup');
+                }
             }
         }
     }

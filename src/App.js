@@ -45,6 +45,7 @@ class App extends Component {
                 <Route exact path="/main" component={OrganizationPageController} />
                 <Route exact path="/ind_invite" component={OrganizationPageController} />
                 <Route exact path="/individual" component={IndividualPageController} />
+                <Route exact path="/individual/*" component={IndividualPageController} />
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
                 <Route exact path="/createsubdomain" component={CreateSubDomainController} />
