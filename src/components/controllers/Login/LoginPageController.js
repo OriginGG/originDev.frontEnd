@@ -5,27 +5,29 @@ import { inject } from 'mobx-react';
 import { Header } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
 import SignupPageComponentRender from '../../render_components/signup/SignupPageComponentRender';
-import SignupController from './sub_controllers/SignupController';
+import LoginController from './sub_controllers/LoginController';
 import logoTop from '../../../assets/images/logo-top.png';
 
 
 const HeaderComp = () => {
     return (
-        <div style={{ display: 'inline' }}><img alt="" src={logoTop} /><Header as="h1" style={{ float: 'right', marginTop: 12 }}>INDIVIDUAL</Header></div>
+        <div style={{ display: 'inline' }}><img alt="" src={logoTop} /><Header as="h1" style={{ float: 'right', marginTop: 12 }}>ORGANIZATION</Header></div>
     );
 };
-class SignupIndividualController extends Component {
+class SignupPageController extends Component {
     render() {
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
-                <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={<SignupController ind />} />
+                <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={<LoginController />} />
             </ThemeProvider>
         );
     }
 }
 
-SignupIndividualController.propTypes = {
+SignupPageController.propTypes = {
     uiStore: PropTypes.object.isRequired,
 };
-export default inject('uiStore')(injectSheet(GlobalStyles)(SignupIndividualController));
+
+
+export default inject('uiStore')(injectSheet(GlobalStyles)(SignupPageController));
 

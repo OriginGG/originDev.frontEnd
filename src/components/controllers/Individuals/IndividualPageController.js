@@ -412,7 +412,7 @@ class IndividualPageController extends Component {
     }
     handleLoginClick = () => {
         console.log('clickd login');
-        browserHistory.push('/signup_ind');
+        browserHistory.push('/login_ind');
     }
     closeModal = () => {
         this.setState({ modal_open: false });
