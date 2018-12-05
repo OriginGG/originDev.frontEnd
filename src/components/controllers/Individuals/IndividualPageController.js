@@ -274,8 +274,9 @@ class IndividualPageController extends Component {
         // console.log('view_id' + view_id); // eslint-disable-line
         const loginPayload = this.props.appManager.pouchGet('ind_login');
         if (loginPayload) {
+            const p = JSON.parse(Buffer.from(loginPayload, 'hex').toString('utf8'));
             this.props.appManager.pouchStore('ind_login', null);
-            this.user_details = loginPayload;           // eslint-disable-line
+            this.user_details = p;           // eslint-disable-line
             this.is_admin = true;
             this.getStats();
         } else {
@@ -334,7 +335,8 @@ class IndividualPageController extends Component {
                         this.user_id = d.id;
                         console.log('user_id' + this.user_id); // eslint-disable-line
                         const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
-                        this.props.appManager.pouchStore('ind_login', user.individualUserById);
+                        const new_payload = Buffer.from(JSON.stringify(user.individualUserById), 'utf8').toString('hex');
+                        this.props.appManager.pouchStore('ind_login', new_payload);
                         browserHistory.push(`/individual/${user.individualUserById.username}`);
                     }
                 } else {
