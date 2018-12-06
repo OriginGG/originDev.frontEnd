@@ -641,7 +641,7 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_details.id} />}
                 />
             </div>
         );
