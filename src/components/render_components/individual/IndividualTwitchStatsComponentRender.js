@@ -14,7 +14,7 @@ class IndividualTwitchStatsComponentRender extends Component {
                             .props
                             .handle_redirect( 'youtube' );
                     }}>
-                        YouTube Stats
+                        Twitch Stats
                     </h2>
                     <div className={this.props.classes.individual_twitch_image_holder}>
                         <img className={this.props.classes.individual_twitch_image} src={this.props.twitch_image}/>

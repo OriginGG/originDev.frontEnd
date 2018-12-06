@@ -4130,15 +4130,15 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
     individual_twitch_image_holder: {
-        width: '100px',
-        marginTop: '20px',
-        marginBottom: '20px',
+        width: '100%',
+        marginTop: '10px',
+        marginBottom: '10px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
     },
     individual_twitch_image: {
-        width: '50px',
+        width: '80px',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
