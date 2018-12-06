@@ -13,12 +13,13 @@ import uiStore from '../../../utils/stores/uiStore';
 import blankImage from '../../../assets/images/blank_person.png';
 import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
-import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
+// import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
 import IndividualInstagramStatsComponentRender from '../../render_components/individual/IndividualInstagramStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
 // import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
 import IndividualYoutubeStatsComponentRender from '../../render_components/individual/IndividualYoutubeStatsComponentRender';
+import IndividualTwitchStatsComponentRender from '../../render_components/individual/IndividualTwitchStatsComponentRender';
 
 import IndividualEditComponentRender from '../../render_components/individual/IndividualEditModalComponentRender';
 import browserHistory from '../../../utils/stores/browserHistory';
@@ -528,7 +529,15 @@ class IndividualPageController extends Component {
             }}>No Data Found</h2>;
 
         if (this.twitch_stats) {
-            twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
+            console.log(`TWITCH STATS = ${JSON.stringify(this.twitch_stats)}`);
+            // twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
+            twitch_stats = <IndividualTwitchStatsComponentRender
+                twitch_image={this.twitch_stats.profile_image_url}
+                twitch_name={this.twitch_stats.display_name}
+                twitch_type={this.twitch_stats.broadcaster_type}
+                twitch_description={this.twitch_stats.description}
+                twitch_views={this.twitch_stats.view_count}
+            />;
         }
         if (this.state.visible === false) {
             return null;
@@ -625,7 +634,7 @@ class IndividualPageController extends Component {
                             accomplishments={this.user_details.accomplishments}
                         />
                     }
-                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
+                    ColumnTwo={twitch_stats}
                     ColumnThree={youTubeComp}
                     ColumnFour={twitterComp}
                     ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} handle_redirect={this.handleRedirect} />}

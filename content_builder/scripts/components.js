@@ -169,6 +169,7 @@ const component_array = [
     { source_html: './src/html/themes/individual/IndividualBasicInfoComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualSocialStatsComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualYoutubeStatsComponent.html', sub_dir: 'individual' },
+    { source_html: './src/html/themes/individual/IndividualTwitchStatsComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualTwitterStatsComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualInstagramStatsComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualEditModalComponent.html', sub_dir: 'individual' },
