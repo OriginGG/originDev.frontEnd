@@ -4129,6 +4129,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px',
         cursor: 'pointer'
     },
+    individual_twitch_image_holder: {
+        width: '100%',
+        marginTop: '10px',
+        marginBottom: '10px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    individual_twitch_image: {
+        width: '80px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
     admin_sponser_image_box: {
         width: '150px',
         height: '100px',
@@ -4487,14 +4500,22 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '20px 10px 20px 10px',
         borderBottom: "1px rgba(255,255,255,.1) solid"
     },
+    indiviual_stats_description_container: {
+        width: '100%',
+        display: 'table',
+        padding: '20px 10px 20px 10px',
+        borderBottom: "1px rgba(255,255,255,.1) solid"
+    },
     individual_stats_title: {
         color: 'white',
         fontSize: '16px',
+        lineHeight: '30px',
         fontWeight: '900'
     },
     individual_stats_data: {
         color: 'rgba(255,255,255,.9)',
         fontSize: '24px',
+        lineHeight: '30px',
         fontWeight: '300',
         float: 'right'
     },
