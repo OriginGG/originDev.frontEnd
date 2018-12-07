@@ -5,7 +5,7 @@ import { inject } from 'mobx-react';
 import { Header } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
 import SignupPageComponentRender from '../../render_components/signup/SignupPageComponentRender';
-import LoginController from './sub_controllers/LoginController';
+import SignupController from './sub_controllers/SignupController';
 import logoTop from '../../../assets/images/logo-top.png';
 
 
@@ -18,7 +18,7 @@ class SignupPageController extends Component {
     render() {
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
-                <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={<LoginController />} />
+                <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={<SignupController />} />
             </ThemeProvider>
         );
     }

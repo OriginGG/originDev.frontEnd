@@ -13,12 +13,13 @@ import uiStore from '../../../utils/stores/uiStore';
 import blankImage from '../../../assets/images/blank_person.png';
 import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
-import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
+// import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
 import IndividualInstagramStatsComponentRender from '../../render_components/individual/IndividualInstagramStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
 // import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
 import IndividualYoutubeStatsComponentRender from '../../render_components/individual/IndividualYoutubeStatsComponentRender';
+import IndividualTwitchStatsComponentRender from '../../render_components/individual/IndividualTwitchStatsComponentRender';
 
 import IndividualEditComponentRender from '../../render_components/individual/IndividualEditModalComponentRender';
 import browserHistory from '../../../utils/stores/browserHistory';
@@ -270,58 +271,78 @@ class IndividualPageController extends Component {
         this.instagram_stats = null;
         this.youtube_stats = null;
         const view_id = this.props.appManager.GetQueryParams('u');
-        console.log('view_id' + view_id); // eslint-disable-line
-        const authPayload = this.props.appManager.pouchGet('ind_authenticate');
-        if (!authPayload) {
-            const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
-            this.user_details = user.individualUserById;
+        const handle = (location.pathname).replace('/individual/', '');            // eslint-disable-line
+        // console.log('view_id' + view_id); // eslint-disable-line
+        const loginPayload = this.props.appManager.pouchGet('ind_login');
+        if (loginPayload) {
+            const p = JSON.parse(Buffer.from(loginPayload, 'hex').toString('utf8'));
+            this.props.appManager.pouchStore('ind_login', null);
+            this.user_details = p;           // eslint-disable-line
+            this.is_admin = true;
             this.getStats();
         } else {
-            this.props.appManager.pouchStore('ind_authenticate', null);
-            // const authPayload = this.props.appManager.GetQueryParams('p');
-            console.log('authPayload' + authPayload); // eslint-disable-line
-            this.key_index = 1;
-            if (authPayload) {
-                let p;
-                try {
-                    p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
-                } catch (err) {
-                    toast.error('Error finding this individual - Redirecting you to login in 5 seconds', {
-                        position: toast.POSITION.TOP_LEFT,
-                        autoClose: 5000
-                    });
-                    setTimeout(() => {
-                        browserHistory.push('/signup');
-                    }, 5000);
-                    return;
-                }
-                console.log(`token - ${p}`);
-                if (p.authenticateIndividual.individualAuthPayload === null) {
-                    toast.error('Wrong password for  - Redirecting you to login page in 5 seconds', {
-                        position: toast.POSITION.TOP_LEFT,
-                        autoClose: 5000
-                    });
-                    setTimeout(() => {
-                        browserHistory.push('/signup');
-                    }, 5000);
-                } else {
-                    this.authPayload = p;
-                    const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
-                    this.props.appManager.authToken = token;
-                    const d = this.props.appManager.decodeJWT(token);
-                    browserHistory.push(`/individual?u=${d.id}`);
-//
-                    this.user_id = d.id;
-                    console.log('user_id' + this.user_id); // eslint-disable-line
-                    const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
-                    if (user.individualUserById !== null) {
-                        this.is_admin = true;
-                    }
+            const authPayload = this.props.appManager.pouchGet('ind_authenticate');
+            if (!authPayload) {
+                let user;
+                if (view_id) {
+                    user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
                     this.user_details = user.individualUserById;
-                    this.getStats();
+                } else {
+                    user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
+                    if (user.allIndividualUsers.nodes.length === 0) {
+                        toast.error('That individual user does not exist!', {
+                            position: toast.POSITION.TOP_LEFT,
+                            autoClose: 5000
+                        });
+                        return;
+                    }
+                    this.user_details = user.allIndividualUsers.nodes[0];           // eslint-disable-line
                 }
+                this.getStats();
             } else {
-                browserHistory.push('/signup');
+                this.props.appManager.pouchStore('ind_authenticate', null);
+                // const authPayload = this.props.appManager.GetQueryParams('p');
+                console.log('authPayload' + authPayload); // eslint-disable-line
+                this.key_index = 1;
+                if (authPayload) {
+                    let p;
+                    try {
+                        p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
+                    } catch (err) {
+                        toast.error('Error finding this individual - Redirecting you to login in 5 seconds', {
+                            position: toast.POSITION.TOP_LEFT,
+                            autoClose: 5000
+                        });
+                        setTimeout(() => {
+                            browserHistory.push('/signup');
+                        }, 5000);
+                        return;
+                    }
+                    console.log(`token - ${p}`);
+                    if (p.authenticateIndividual.individualAuthPayload === null) {
+                        toast.error('Wrong password for  - Redirecting you to login page in 5 seconds', {
+                            position: toast.POSITION.TOP_LEFT,
+                            autoClose: 5000
+                        });
+                        setTimeout(() => {
+                            browserHistory.push('/signup');
+                        }, 5000);
+                    } else {
+                        this.authPayload = p;
+                        const token = p.authenticateIndividual.individualAuthPayload.jwtToken;
+                        this.props.appManager.authToken = token;
+                        const d = this.props.appManager.decodeJWT(token);
+                        // browserHistory.push(`/individual?u=${d.id}`);
+                        this.user_id = d.id;
+                        console.log('user_id' + this.user_id); // eslint-disable-line
+                        const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
+                        const new_payload = Buffer.from(JSON.stringify(user.individualUserById), 'utf8').toString('hex');
+                        this.props.appManager.pouchStore('ind_login', new_payload);
+                        browserHistory.push(`/individual/${user.individualUserById.username}`);
+                    }
+                } else {
+                    browserHistory.push('/signup');
+                }
             }
         }
     }
@@ -412,12 +433,13 @@ class IndividualPageController extends Component {
     }
     handleLoginClick = () => {
         console.log('clickd login');
-        browserHistory.push('/signup_ind');
+        browserHistory.push('/login_ind');
     }
     closeModal = () => {
         this.setState({ modal_open: false });
     }
     handleSubmit = async (state) => {
+        console.log(`STATE = ${JSON.stringify(state)}`);
         if (state.username.indexOf(' ') > -1) {
             toast.error('Username cannot contain spaces!', {
                 position: toast.POSITION.TOP_LEFT
@@ -453,8 +475,10 @@ class IndividualPageController extends Component {
             uiStore.setSubmittingContent(false);
             return;
         }
+        console.log(`IDIDID = ${this.user_details.id}`);
+        const user_id_being_reset = this.user_details.id;
         const r = await this.props.appManager.executeQueryAuth('query', getIndividualUserByHandleQuery, { handle: state.username });
-        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_id) {
+        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_details.id) {
             toast.error('That Username is taken!', {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -463,15 +487,17 @@ class IndividualPageController extends Component {
             // get the twitch user_id if there is one.
 
             this.user_details = state;
+            this.user_details.id = user_id_being_reset;
             await this.getTwitchStats();
             let t_id = null;
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
+            console.log(`check if id is there ${this.user_details.id}`);
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateIndividualUserQuery,
                 {
-                    id: this.user_id,
+                    id: user_id_being_reset,
                     about: state.about,
                     firstName: state.firstName,
                     lastName: state.lastName,
@@ -483,8 +509,7 @@ class IndividualPageController extends Component {
                     twitchUrl: state.twitchUrl,
                     twitterHandle: state.twitterHandle,
                     youtubeChannel: state.youtubeChannel,
-                    instagramLink: state.instagramLink,
-                    username: state.username
+                    instagramLink: state.instagramLink
                     // youtubeVideo1Url: state.youtubeVideo1Url,
                     // youtubeVideo2Url: state.youtubeVideo2Url,
                     // youtubeVideo3Url: state.youtubeVideo3Url,
@@ -508,7 +533,15 @@ class IndividualPageController extends Component {
             }}>No Data Found</h2>;
 
         if (this.twitch_stats) {
-            twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
+            console.log(`TWITCH STATS = ${JSON.stringify(this.twitch_stats)}`);
+            // twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
+            twitch_stats = <IndividualTwitchStatsComponentRender
+                twitch_image={this.twitch_stats.profile_image_url}
+                twitch_name={this.twitch_stats.display_name}
+                twitch_type={this.twitch_stats.broadcaster_type}
+                twitch_description={this.twitch_stats.description}
+                twitch_views={this.twitch_stats.view_count}
+            />;
         }
         if (this.state.visible === false) {
             return null;
@@ -605,14 +638,14 @@ class IndividualPageController extends Component {
                             accomplishments={this.user_details.accomplishments}
                         />
                     }
-                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
+                    ColumnTwo={twitch_stats}
                     ColumnThree={youTubeComp}
                     ColumnFour={twitterComp}
                     ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} handle_redirect={this.handleRedirect} />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_details.id} />}
                 />
             </div>
         );

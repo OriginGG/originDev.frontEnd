@@ -9,6 +9,8 @@ import AppController from './AppController';
 import SignupChoiceController from './components/controllers/Login/SignupChoiceController';
 import SignupPageController from './components/controllers/Login/SignupPageController';
 import SignupIndividualController from './components/controllers/Login/SignupIndividualController';
+import LoginPageController from './components/controllers/Login/LoginPageController';
+import LoginIndividualController from './components/controllers/Login/LoginIndividualController';
 import NewSignupPageController from './components/controllers/Login/NewSignupPageController';
 import PasswordPageController from './components/controllers/Login/PasswordPageController';
 import NewSignupIndividualPageController from './components/controllers/Login/NewSignupIndividualPageController';
@@ -35,12 +37,15 @@ class App extends Component {
                 <Route exact path="/signup" component={SignupChoiceController} />
                 <Route exact path="/signup_org" component={SignupPageController} />
                 <Route exact path="/signup_ind" component={SignupIndividualController} />
+                <Route exact path="/login_org" component={LoginPageController} />
+                <Route exact path="/login_ind" component={LoginIndividualController} />
                 <Route exact path="/new_signup" component={NewSignupPageController} />
                 <Route exact path="/password" component={PasswordPageController} />
                 <Route exact path="/new_signup_ind" component={NewSignupIndividualPageController} />
                 <Route exact path="/main" component={OrganizationPageController} />
                 <Route exact path="/ind_invite" component={OrganizationPageController} />
                 <Route exact path="/individual" component={IndividualPageController} />
+                <Route exact path="/individual/*" component={IndividualPageController} />
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
                 <Route exact path="/createsubdomain" component={CreateSubDomainController} />

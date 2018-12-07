@@ -1,12 +1,30 @@
 import gql from 'graphql-tag';
 
-export const getIndividualUserByHandleQuery = gql`
- query getindbyhandle($handle: String!) {
+export const getIndividualUserByHandleQuery = gql`query getIndbyhandle($handle: String!) {
 	allIndividualUsers(condition: {username: $handle}) {
 		nodes {
-      id
-      email
-      authenticated
+    firstName
+    lastName
+    about
+    email
+    contactEmail
+    updatedAt
+    createdAt
+		youtubeChannel
+    twitchUrl
+    twitchUserId
+		twitterHandle
+		accomplishments
+		youtubeVideo1Url
+		youtubeVideo2Url
+		youtubeVideo3Url
+    bannerImageUrl
+		profileImageUrl
+    facebookLink
+    instagramLink
+    username
+    id
+    authenticated
 		}
 	}
 }
@@ -42,7 +60,8 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
     facebookLink
     instagramLink
     username
-		id
+    id
+    authenticated
   }
 }
 `;

@@ -27,6 +27,7 @@ import AdminCustomDomainController from './sub_controllers/AdminCustomDomainCont
 import AdminSocialStatsController from './sub_controllers/AdminSocialStatsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
+import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 
 
@@ -161,7 +162,7 @@ class MenuDrop extends Component {
                                     <i className="chart line icon" />
                                 </div>
                                 <div className={this.props.classes.menu_item_label}>
-                                   Social Stats
+                                    Social Stats
                                 </div>
                             </div>
                         </a>
@@ -180,15 +181,15 @@ class AdminPageController extends Component {
             this.subscribed = user.resultData.subscribed;
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
-
-            console.log(`domainInfo = ${JSON.stringify(domainInfo)}`);
-            const url_string = `${domainInfo.protocol}//${domainInfo.hostname}${(domainInfo.port === 443 || domainInfo.port === 80 || domainInfo.port === '') ? '' : `:${domainInfo.port}`}`;
-            console.log(`domain info urlstring = ${url_string}`);
+            // console.log(`domainInfo = ${JSON.stringify(domainInfo)}`);
+            // const url_string = `${domainInfo.protocol}//${domainInfo.hostname}${(domainInfo.port === 443 || domainInfo.port === 80 || domainInfo.port === '') ? '' : `:${domainInfo.port}`}`;
+            // console.log(`domain info urlstring = ${url_string}`);
             const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain });
             if (o.resultData === null) {
                 console.log('sub domain does not exist!');
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
+                await this.sponsorCheck();
                 this.props.uiStore.setSubDomain(subDomain);
                 this.setState({ visible: true });
                 this.autorun_tracker = autorun(() => {
@@ -217,6 +218,23 @@ class AdminPageController extends Component {
     handleClick = () => {
         const f = this.state.isOpen;
         this.setState({ isOpen: !f });
+    }
+
+    sponsorCheck = async () => {
+        if (this.subscribed) {
+            const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            const num_sponsors = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation.nodes.length;
+            const num_to_create = 8 - num_sponsors;
+            for (let p = 0; p < num_to_create; p += 1) {
+                await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
+                    subDomain: this.props.uiStore.current_organisation.subDomain,
+                    imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                    hrefLink: 'http://origin.gg',
+                    name: 'Origin.GG',
+                    description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
+                });
+            }
+        }
     }
 
     handleNavClick = () => {

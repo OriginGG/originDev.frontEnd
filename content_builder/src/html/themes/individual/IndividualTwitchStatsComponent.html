@@ -23,34 +23,29 @@
       </script>  
    </head>
    <body>
-        <div data-component-name="IndividualYoutubeStatsComponent" class="">
+        <div data-component-name="IndividualTwitchStatsComponent" class="">
             <div class="classes.individual_social_box">
                     <h2 class="classes.individual_social_header" data-component-props="onClick={()=>{this.props.handle_redirect('youtube')}}">
-                            YouTube Stats
+                            Twitch Stats
                     </h2>
-                    <div id="yt_name" class="classes.indiviual_stats_container">
-                            <span class="classes.individual_stats_title">Channel: </span>
-                            <span data-component-value="{this.props.channel_name}" class="classes.individual_stats_data">12345</span>
-                        </div>
-                    <div id="yt_views" class="classes.indiviual_stats_container">
+                    <div class="classes.individual_twitch_image_holder">
+                        <img class="classes.individual_twitch_image" data-component-props="src={this.props.twitch_image}" />
+                    </div>
+                    <div id="tw_name" class="classes.indiviual_stats_container">
+                        <span class="classes.individual_stats_title">Name: </span>
+                        <span data-component-value="{this.props.twitch_name}" class="classes.individual_stats_data">10</span>
+                    </div>
+                    <div id="tw_type" class="classes.indiviual_stats_container">
+                        <span class="classes.individual_stats_title">Broadcst Type: </span>
+                        <span data-component-value="{this.props.twitch_type}" class="classes.individual_stats_data">12345</span>
+                    </div>
+                    <div id="tw_description" class="classes.indiviual_stats_description_container">
+                        <span class="classes.individual_stats_title">Description: </span>
+                        <span data-component-value="{this.props.twitch_description}" class="classes.individual_stats_data">150</span>
+                    </div>
+                    <div id="tw_views" class="classes.indiviual_stats_container">
                         <span class="classes.individual_stats_title">Views: </span>
-                        <span data-component-value="{this.props.channel_views}" class="classes.individual_stats_data">12345</span>
-                    </div>
-                    <div id="yt_subscribers" class="classes.indiviual_stats_container">
-                        <span class="classes.individual_stats_title">Subscribers: </span>
-                        <span data-component-value="{this.props.channel_subscribers}" class="classes.individual_stats_data">150</span>
-                    </div>
-                    <div id="yt_comments" class="classes.indiviual_stats_container">
-                        <span class="classes.individual_stats_title">Comments: </span>
-                        <span data-component-value="{this.props.channel_comments}" class="classes.individual_stats_data">0</span>
-                    </div>
-                    <div id="yt_videos" class="classes.indiviual_stats_container">
-                        <span class="classes.individual_stats_title">Videos: </span>
-                        <span data-component-value="{this.props.channel_videos}" class="classes.individual_stats_data">10</span>
-                    </div>
-                    <div id="yt_vpv" class="classes.indiviual_stats_container">
-                        <span class="classes.individual_stats_title">Views Per Video: </span>
-                        <span data-component-value="{this.props.channel_views_per_video}" class="classes.individual_stats_data">1234</span>
+                        <span data-component-value="{this.props.twitch_views}" class="classes.individual_stats_data">0</span>
                     </div>
             </div>               
         </div>
