@@ -376,6 +376,7 @@ class IndividualPageController extends Component {
     getYouTubeStats = async () => {
         if (this.user_details.youtubeChannel) {
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?channel=${this.user_details.youtubeChannel}`);
+            console.log(`YOUtube nSTATS = ${JSON.stringify(td.data)}`);
             this.youtube_stats = td.data;
         }
     }
