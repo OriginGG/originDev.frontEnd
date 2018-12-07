@@ -439,6 +439,7 @@ class IndividualPageController extends Component {
         this.setState({ modal_open: false });
     }
     handleSubmit = async (state) => {
+        console.log(`STATE = ${JSON.stringify(state)}`);
         if (state.username.indexOf(' ') > -1) {
             toast.error('Username cannot contain spaces!', {
                 position: toast.POSITION.TOP_LEFT
@@ -474,8 +475,10 @@ class IndividualPageController extends Component {
             uiStore.setSubmittingContent(false);
             return;
         }
+        console.log(`IDIDID = ${this.user_details.id}`);
+        const user_id_being_reset = this.user_details.id;
         const r = await this.props.appManager.executeQueryAuth('query', getIndividualUserByHandleQuery, { handle: state.username });
-        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_id) {
+        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_details.id) {
             toast.error('That Username is taken!', {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -489,10 +492,11 @@ class IndividualPageController extends Component {
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
+            console.log(`check if id is there ${this.user_details.id}`);
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateIndividualUserQuery,
                 {
-                    id: this.user_id,
+                    id: user_id_being_reset,
                     about: state.about,
                     firstName: state.firstName,
                     lastName: state.lastName,
@@ -504,8 +508,7 @@ class IndividualPageController extends Component {
                     twitchUrl: state.twitchUrl,
                     twitterHandle: state.twitterHandle,
                     youtubeChannel: state.youtubeChannel,
-                    instagramLink: state.instagramLink,
-                    username: state.username
+                    instagramLink: state.instagramLink
                     // youtubeVideo1Url: state.youtubeVideo1Url,
                     // youtubeVideo2Url: state.youtubeVideo2Url,
                     // youtubeVideo3Url: state.youtubeVideo3Url,

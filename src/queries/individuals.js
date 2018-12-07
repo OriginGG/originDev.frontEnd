@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 
-export const getIndividualUserByHandleQuery = gql`
- query getindbyhandle($handle: String!) {
+export const getIndividualUserByHandleQuery = gql`query getIndbyhandle($handle: String!) {
 	allIndividualUsers(condition: {username: $handle}) {
 		nodes {
     firstName
@@ -61,7 +60,8 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
     facebookLink
     instagramLink
     username
-		id
+    id
+    authenticated
   }
 }
 `;

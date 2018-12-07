@@ -16,8 +16,10 @@ class IndividualYoutubeStatsComponentRender extends Component {
                     }}>
                         YouTube Stats
                     </h2>
-                    <div id="channel_name" className={this.props.classes.individual_social_content}>
-                        <h2 className={this.props.classes.individual_social_empty}>{this.props.channel_name}</h2>
+                    <div id="yt_name" className={this.props.classes.indiviual_stats_container}>
+                        <span className={this.props.classes.individual_stats_title}>Channel:
+                        </span>
+                        <span className={this.props.classes.individual_stats_data}>{this.props.channel_name}</span>
                     </div>
                     <div id="yt_views" className={this.props.classes.indiviual_stats_container}>
                         <span className={this.props.classes.individual_stats_title}>Views:
