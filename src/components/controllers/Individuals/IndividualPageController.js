@@ -487,6 +487,7 @@ class IndividualPageController extends Component {
             // get the twitch user_id if there is one.
 
             this.user_details = state;
+            this.user_details.id = user_id_being_reset;
             await this.getTwitchStats();
             let t_id = null;
             if (this.twitch_stats && this.twitch_stats.id) {
