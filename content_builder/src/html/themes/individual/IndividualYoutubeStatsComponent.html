@@ -28,9 +28,10 @@
                     <h2 class="classes.individual_social_header" data-component-props="onClick={()=>{this.props.handle_redirect('youtube')}}">
                             YouTube Stats
                     </h2>
-                    <div id="channel_name" class="classes.individual_social_content">
-                        <h2 data-component-value="{this.props.channel_name}" class="classes.individual_social_empty">My Youtube Channel</h2>
-                    </div>
+                    <div id="yt_name" class="classes.indiviual_stats_container">
+                            <span class="classes.individual_stats_title">Channel: </span>
+                            <span data-component-value="{this.props.channel_name}" class="classes.individual_stats_data">12345</span>
+                        </div>
                     <div id="yt_views" class="classes.indiviual_stats_container">
                         <span class="classes.individual_stats_title">Views: </span>
                         <span data-component-value="{this.props.channel_views}" class="classes.individual_stats_data">12345</span>
