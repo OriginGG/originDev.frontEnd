@@ -198,7 +198,7 @@ class ModalContent extends Component {
                     instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
-                    redirectTwitterAuth={this.props.redirectTwitterAuth}
+                    redirectAuth={this.props.redirectAuth}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -376,20 +376,33 @@ class IndividualPageController extends Component {
     getYouTubeStats = async () => {
         if (this.user_details.youtubeChannel) {
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?channel=${this.user_details.youtubeChannel}`);
+            console.log(`YOUtube nSTATS = ${JSON.stringify(td.data)}`);
             this.youtube_stats = td.data;
         }
     }
-    redirectTwitterAuth = async () => {
-        const authURL = new URL(`${process.env.REACT_APP_API_SERVER}/auth/twitter`);
-        [...new URL(window.location).searchParams.entries()]
-            .forEach(([k, v]) => authURL.searchParams.append(k, v));
-        console.log(authURL);
-        window.location.assign(authURL.href);
+    redirectAuth = (s) => {
+        switch (s) {
+            case 'twitter': {
+                const authURL = new URL(`${process.env.REACT_APP_API_SERVER}/auth/twitter`);
+                [...new URL(window.location).searchParams.entries()]
+                    .forEach(([k, v]) => authURL.searchParams.append(k, v));
+                console.log(authURL);
+                window.location.assign(authURL.href);
+            }
+            break;
+            case 'youtube': // eslint-disable-line
+            const youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank');  // eslint-disable-line
+            youtubeAuthWindow.addEventListener('onmessage', event => {
+                console.log(event);
+                alert( "received: " + event ); // eslint-disable-line
+              });
+            break; // eslint-disable-line
+            default: {
+                window.open('http://www.google.com', '_blank');
+                break;
+            }
+        }
     }
-    // AuthRedirect = async () =>
-    // {
-
-    // }
     handleRedirect = (s) => {
         switch (s) {
             case 'twitter': {
@@ -645,7 +658,7 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_details.id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectAuth={this.redirectAuth}  {...this.props} user_id={this.user_details.id} />}
                 />
             </div>
         );
@@ -666,7 +679,7 @@ ModalContent.propTypes = {
     user_id: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    redirectTwitterAuth: PropTypes.func.isRequired
+    redirectAuth: PropTypes.func.isRequired
 };
 TwitchInfo.propTypes = {
     stats: PropTypes.object.isRequired
