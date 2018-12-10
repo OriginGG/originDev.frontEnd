@@ -98,6 +98,11 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'youtubeChannel', e );
                             }}/>
+                            <button role="button" style={{
+                                marginBottom: '2em'
+                            }} className="ui youtube button" onClick={this
+                                .props
+                                .handle_redirect( 'youtubeAuth' )}><i aria-hidden="true" className="youtube icon"/>Connect with Youtube</button>
                             <div >{this.props.renderButtons}</div>
                         </div>
                     </div>

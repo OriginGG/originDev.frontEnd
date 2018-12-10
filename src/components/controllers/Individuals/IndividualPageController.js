@@ -13,13 +13,12 @@ import uiStore from '../../../utils/stores/uiStore';
 import blankImage from '../../../assets/images/blank_person.png';
 import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
 import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
-// import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
+import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
 import IndividualInstagramStatsComponentRender from '../../render_components/individual/IndividualInstagramStatsComponentRender';
 import IndividualBasicInfoComponentRender from '../../render_components/individual/IndividualBasicInfoComponentRender';
 // import IndividualVideosComponentRender from '../../render_components/individual/IndividualVideosComponentRender';
 import IndividualYoutubeStatsComponentRender from '../../render_components/individual/IndividualYoutubeStatsComponentRender';
-import IndividualTwitchStatsComponentRender from '../../render_components/individual/IndividualTwitchStatsComponentRender';
 
 import IndividualEditComponentRender from '../../render_components/individual/IndividualEditModalComponentRender';
 import browserHistory from '../../../utils/stores/browserHistory';
@@ -376,7 +375,6 @@ class IndividualPageController extends Component {
     getYouTubeStats = async () => {
         if (this.user_details.youtubeChannel) {
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?channel=${this.user_details.youtubeChannel}`);
-            console.log(`YOUtube nSTATS = ${JSON.stringify(td.data)}`);
             this.youtube_stats = td.data;
         }
     }
@@ -422,6 +420,9 @@ class IndividualPageController extends Component {
                 }
                 break;
             }
+            case 'youtubeAuth':
+                window.open('http://0.0.0.0:8080/auth/youtube', '_blank');
+                break;
             default: {
                 window.open('http://www.google.com', '_blank');
                 break;
@@ -440,7 +441,6 @@ class IndividualPageController extends Component {
         this.setState({ modal_open: false });
     }
     handleSubmit = async (state) => {
-        console.log(`STATE = ${JSON.stringify(state)}`);
         if (state.username.indexOf(' ') > -1) {
             toast.error('Username cannot contain spaces!', {
                 position: toast.POSITION.TOP_LEFT
@@ -476,10 +476,9 @@ class IndividualPageController extends Component {
             uiStore.setSubmittingContent(false);
             return;
         }
-        console.log(`IDIDID = ${this.user_details.id}`);
-        const user_id_being_reset = this.user_details.id;
         const r = await this.props.appManager.executeQueryAuth('query', getIndividualUserByHandleQuery, { handle: state.username });
-        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_details.id) {
+        console.log(this.user_id);
+        if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_id) {
             toast.error('That Username is taken!', {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -488,17 +487,16 @@ class IndividualPageController extends Component {
             // get the twitch user_id if there is one.
 
             this.user_details = state;
-            this.user_details.id = user_id_being_reset;
             await this.getTwitchStats();
             let t_id = null;
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
-            console.log(`check if id is there ${this.user_details.id}`);
+            console.log(parseInt(this.user_id)); // eslint-disable-line
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateIndividualUserQuery,
                 {
-                    id: user_id_being_reset,
+                    id: parseInt(this.user_id),  // eslint-disable-line
                     about: state.about,
                     firstName: state.firstName,
                     lastName: state.lastName,
@@ -510,7 +508,8 @@ class IndividualPageController extends Component {
                     twitchUrl: state.twitchUrl,
                     twitterHandle: state.twitterHandle,
                     youtubeChannel: state.youtubeChannel,
-                    instagramLink: state.instagramLink
+                    instagramLink: state.instagramLink,
+                    username: state.username
                     // youtubeVideo1Url: state.youtubeVideo1Url,
                     // youtubeVideo2Url: state.youtubeVideo2Url,
                     // youtubeVideo3Url: state.youtubeVideo3Url,
@@ -534,15 +533,7 @@ class IndividualPageController extends Component {
             }}>No Data Found</h2>;
 
         if (this.twitch_stats) {
-            console.log(`TWITCH STATS = ${JSON.stringify(this.twitch_stats)}`);
-            // twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
-            twitch_stats = <IndividualTwitchStatsComponentRender
-                twitch_image={this.twitch_stats.profile_image_url}
-                twitch_name={this.twitch_stats.display_name}
-                twitch_type={this.twitch_stats.broadcaster_type}
-                twitch_description={this.twitch_stats.description}
-                twitch_views={this.twitch_stats.view_count}
-            />;
+            twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
         }
         if (this.state.visible === false) {
             return null;
@@ -639,14 +630,14 @@ class IndividualPageController extends Component {
                             accomplishments={this.user_details.accomplishments}
                         />
                     }
-                    ColumnTwo={twitch_stats}
+                    ColumnTwo={<IndividualSocialStatsComponentRender twitch_stats={twitch_stats} handle_redirect={this.handleRedirect} />}
                     ColumnThree={youTubeComp}
                     ColumnFour={twitterComp}
                     ColumnFive={<IndividualInstagramStatsComponentRender instagram_stats={instagram_stats} handle_redirect={this.handleRedirect} />}
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_details.id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
                 />
             </div>
         );
