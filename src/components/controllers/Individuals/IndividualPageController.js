@@ -390,9 +390,9 @@ class IndividualPageController extends Component {
                 window.location.assign(authURL.href);
             }
             break;
-            case 'youtube':
-                window.open('http://0.0.0.0:8080/auth/youtube', '_blank');
-                break;
+            case 'youtube': // eslint-disable-line
+            const youtubeAuthPage = window.open('http://0.0.0.0:8080/auth/youtube', '_blank');  // eslint-disable-line
+            break; // eslint-disable-line
             default: {
                 window.open('http://www.google.com', '_blank');
                 break;
