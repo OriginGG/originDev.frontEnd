@@ -198,7 +198,7 @@ class ModalContent extends Component {
                     instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
-                    redirectTwitterAuth={this.props.redirectTwitterAuth}
+                    redirectTAuth={this.props.redirectAuth}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -324,10 +324,7 @@ class IndividualPageController extends Component {
             this.twitch_stats = td.data.user;
         }
     }
-    // redirectTwitterLogin = async (user) => {
-    //     const redirectURL = await axios.get(`${process.env.REACT_APP_API_SERVER}/auth/twitterCheck`);
-    //     windows.open(redirectURL);
-    // }
+
     getTwitterStats = async () => {
         if ([...new URL(window.location).searchParams.keys()].includes('token')) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -347,17 +344,25 @@ class IndividualPageController extends Component {
             this.youtube_stats = td.data;
         }
     }
-    redirectTwitterAuth = async () => {
-        const authURL = new URL(`${process.env.REACT_APP_API_SERVER}/auth/twitter`);
-        [...new URL(window.location).searchParams.entries()]
-            .forEach(([k, v]) => authURL.searchParams.append(k, v));
-        console.log(authURL);
-        window.location.assign(authURL.href);
+    redirectAuth = (s) => {
+        switch (s) {
+            case 'twitter': {
+                const authURL = new URL(`${process.env.REACT_APP_API_SERVER}/auth/twitter`);
+                [...new URL(window.location).searchParams.entries()]
+                    .forEach(([k, v]) => authURL.searchParams.append(k, v));
+                console.log(authURL);
+                window.location.assign(authURL.href);
+            }
+            break;
+            case 'youtube':
+                window.open('http://0.0.0.0:8080/auth/youtube', '_blank');
+                break;
+            default: {
+                window.open('http://www.google.com', '_blank');
+                break;
+            }
+        }
     }
-    // AuthRedirect = async () =>
-    // {
-
-    // }
     handleRedirect = (s) => {
         switch (s) {
             case 'twitter': {
@@ -595,7 +600,7 @@ class IndividualPageController extends Component {
                 />
                 <EditModal
                     modal_open={this.state.modal_open}
-                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectTwitterAuth={this.redirectTwitterAuth}  {...this.props} user_id={this.user_id} />}
+                    content={<ModalContent handleSubmit={this.handleSubmit} closeModal={this.closeModal} redirectAuth={this.redirectAuth}  {...this.props} user_id={this.user_id} />}
                 />
             </div>
         );
@@ -611,7 +616,7 @@ ModalContent.propTypes = {
     user_id: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    redirectTwitterAuth: PropTypes.func.isRequired
+    redirectAuth: PropTypes.func.isRequired
 };
 TwitchInfo.propTypes = {
     stats: PropTypes.object.isRequired
