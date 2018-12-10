@@ -391,7 +391,11 @@ class IndividualPageController extends Component {
             }
             break;
             case 'youtube': // eslint-disable-line
-            const youtubeAuthPage = window.open('http://0.0.0.0:8080/auth/youtube', '_blank');  // eslint-disable-line
+            const youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank');  // eslint-disable-line
+            youtubeAuthWindow.addEventListener('onmessage', event => {
+                console.log(event);
+                alert( "received: " + event ); // eslint-disable-line
+              });
             break; // eslint-disable-line
             default: {
                 window.open('http://www.google.com', '_blank');
@@ -430,9 +434,6 @@ class IndividualPageController extends Component {
                 }
                 break;
             }
-            case 'youtubeAuth':
-                window.open('http://0.0.0.0:8080/auth/youtube', '_blank');
-                break;
             default: {
                 window.open('http://www.google.com', '_blank');
                 break;
