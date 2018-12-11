@@ -998,10 +998,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
-    obliviot_dark_match_vs_image: {
+    obliviot_dark_match_vs_image_holder: {
+        width: '70px',
         height: '70px',
-        backgroundColor: 'rgba(0,0,0,0)',
+        lineHeight: '70px',
         float: 'left'
+    },
+
+    obliviot_dark_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     obliviot_dark_match_vs_score: {
@@ -1505,10 +1514,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
-    obliviot_light_match_vs_image: {
+    obliviot_light_match_vs_image_holder: {
+        width: '70px',
         height: '70px',
-        backgroundColor: 'rgba(0,0,0,0)',
+        lineHeight: '70px',
         float: 'left'
+    },
+
+    obliviot_light_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     obliviot_light_match_vs_score: {
