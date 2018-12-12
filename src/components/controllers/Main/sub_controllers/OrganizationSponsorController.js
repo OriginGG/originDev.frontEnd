@@ -99,6 +99,7 @@ class OrganizationSponsorController extends Component {
         const p_array = [];
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const sponsor_style = { background: `url(${this.image_src})`, backgroundSize: 'cover' };
+        // const sponsor_style = { backgroundColor: '#040404' };
         this.sponsor_data.forEach((n, i) => {
             p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(n.hrefLink); }} key={`sponsor_${i}`} sponsor_image={n.imageUrl} />);
         });
