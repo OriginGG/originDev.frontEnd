@@ -11,9 +11,13 @@ class LightOrganizationMatchesComponentElementRender extends Component {
                 <div className={this.props.classes.felzec_light_match_container}>
                     <div className="ui stackable three column grid">
                         <div className="column">
-                            <img className={this.props.classes.felzec_light_match_vs_image} src={this.props.matches_image_1}/>
+                            <div className={this.props.classes.felzec_light_match_vs_image_container}>
+                                <img className={this.props.classes.felzec_light_match_vs_image} src={this.props.matches_image_1}/>
+                            </div>
                             <div className={this.props.classes.felzec_light_match_vs_score}>{this.props.matches_score}</div>
-                            <img className={this.props.classes.felzec_light_match_vs_image} src={this.props.matches_image_2}/>
+                            <div className={this.props.classes.felzec_light_match_vs_image_container}>
+                                <img className={this.props.classes.felzec_light_match_vs_image} src={this.props.matches_image_2}/>
+                            </div>
                         </div>
                         <div className="column">
                             <div className={this.props.classes.felzec_matches_game}>{this.props.matches_game}</div>
