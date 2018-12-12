@@ -285,7 +285,7 @@ class IndividualPageController extends Component {
             if (!authPayload) {
                 let user;
                 if (view_id) {
-                    user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
+                    user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: parseInt(view_id, 10) });
                     this.user_details = user.individualUserById;
                 } else {
                     user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
