@@ -53,6 +53,7 @@ class OrganizationRosterController extends Component {
     }
 
     handleClick = (i) => {              // eslint-disable-line
+        console.log(`individidual = ${JSON.stringify(i)}`);
         const x = this.props.appManager.getDomainInfo();
         let p = x.hostname;
         if (p.indexOf(x.subDomain) > -1) {
@@ -61,7 +62,7 @@ class OrganizationRosterController extends Component {
             if (x.port) {
                 pt = `:${x.port}`;
             }
-            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+            const url = `${x.protocol}//${p}${pt}/individual/${i.username}`;
             window.open(url, '_blank');
         }
     }
@@ -133,7 +134,7 @@ class OrganizationRosterController extends Component {
             }
             if (theme === 'felzec/light' && this.isMobile()) {
                 const { OrganizationRosterItemMobileComponentRender } = this.state;
-                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemMobileComponentRender
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemMobileComponentRender
                 roster_nickname={individualUserByIndividualId.username}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
@@ -146,7 +147,7 @@ class OrganizationRosterController extends Component {
                 instagram_style={instagram_style}
             /></div>);
             } else {
-                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
                 roster_nickname={individualUserByIndividualId.username}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
