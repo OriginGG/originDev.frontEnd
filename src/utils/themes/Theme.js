@@ -1662,6 +1662,22 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    felzec_light_nav_logo_holder: {
+        height: '70px',
+        width: '50px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        lineHeight: '70px'
+    },
+
+    felzec_light_nav_logo: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
+    },
+
     felzec_light_social_menu_item: {
         lineHeight: '70px',
         float: 'left',

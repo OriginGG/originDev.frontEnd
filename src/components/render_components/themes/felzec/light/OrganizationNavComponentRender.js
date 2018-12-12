@@ -10,10 +10,10 @@ class LightOrganizationNavComponentRender extends Component {
             <div className={this.props.classes.felzec_nav_constraint}>
                 <div style={{
                     padding: '0px'
-                }} className="ui stackable two column grid">
+                }} className="ui stackable three column grid">
                     <div style={{
                         padding: '0px'
-                    }} className="six wide column">
+                    }} className="seven wide column">
                         <div className={this.props.classes.obliviot_light_social_menu_container}>
                             <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link1}</div>
                             <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link2}</div>
@@ -25,7 +25,14 @@ class LightOrganizationNavComponentRender extends Component {
                     </div>
                     <div style={{
                         padding: '0px'
-                    }} className="ten wide column">
+                    }} className="two wide column">
+                        <div className={this.props.classes.felzec_light_nav_logo_holder}>
+                            <img className={this.props.classes.felzec_light_nav_logo} src={this.props.nav_logo}/>
+                        </div>
+                    </div>
+                    <div style={{
+                        padding: '0px'
+                    }} className="seven wide column">
                         <div className={this.props.classes.obliviot_nav_right}>
                             <div className={this.props.classes.felzec_light_navicon_menu_item}>{this.props.navicon}</div>
                         </div>
