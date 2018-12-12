@@ -394,13 +394,14 @@ class IndividualPageController extends Component {
             let res = null;
             let youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
             window.addEventListener('message', event => {
-                    console.log(event);
                     res = event.data;
+                    youtubeAuthWindow.close();
                     console.log(res);
                 if (res.success === true) {
                     toast.success('Authorization Sucessful!', {
                         position: toast.POSITION.TOP_LEFT
                     });
+                this.user_details.youtubeChannel = res.channel;
                 }
             });
             }
