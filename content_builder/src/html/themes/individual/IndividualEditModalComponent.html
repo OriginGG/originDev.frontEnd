@@ -65,7 +65,8 @@
                         <div class="classes.individual_label">Twitch Handle</div>
                         <input data-component-props="value={this.props.twitchUrl} onChange={(e)=>{this.props.handleChange('twitchUrl', e);}}" class="classes.modal_individual_edit_input" placeholder="Twitch Handle not full URL" />
                         <div class="classes.individual_label">YouTube Channel ID</div>
-                        <input data-component-props="value={this.props.youtubeChannel} onChange={(e)=>{this.props.handleChange('youtubeChannel', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Channel ID not full URL" /> 
+                        <input data-component-props="value={this.props.youtubeChannel} onChange={(e)=>{this.props.handleChange('youtubeChannel', e);}}" class="classes.modal_individual_edit_input" placeholder="Youtube Channel ID not full URL" />
+                        <button data-component-props="onClick={()=>{this.props.redirectAuth('youtube')}}" class='ui youtube button' role='button' style="margin-bottom:2em"><i aria-hidden='true' class='youtube icon'></i>Connect with Youtube</button>
                         <div data-component-value="{this.props.renderButtons}">BUTTONS</div>    
                     </div>
                 </div>        
