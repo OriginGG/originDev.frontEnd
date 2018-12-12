@@ -125,7 +125,10 @@ class AppController extends Component {
                 if (_.findIndex(pathsToIgnore, (o) => {
                     return o === l;
                 }) === -1) {
-                    const handle = (location.pathname).replace('/', '');            // eslint-disable-line
+                    let handle = (location.pathname).replace('/', '');            // eslint-disable-line
+                    if (handle.indexOf('individual/') > -1) {
+                        handle = (location.pathname).replace('/individual/', '');            // eslint-disable-line
+                    }
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
                     if (user.allIndividualUsers.nodes.length > 0) {
                         // const user_id = user.allIndividualUsers.nodes[0].id;
