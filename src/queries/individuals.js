@@ -73,7 +73,7 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
   $youtubeVideo2Url: String,
   $youtubeVideo3Url: String,
   $bannerImageUrl: String,
-  $twitchUserId: Int,
+  $twitchUserId: String,
   $profileImageUrl: String,
   $facebookLink: String,
   $instagramLink: String,

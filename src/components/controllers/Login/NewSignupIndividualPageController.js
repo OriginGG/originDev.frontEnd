@@ -9,13 +9,13 @@ import historyStore from '../../../utils/stores/browserHistory';
 import { getIndividualUserByIdQuery } from '../../../queries/users';
 import { authenticateIndividualQuery } from '../../../queries/login';
 import { updateIndividualUserQuery } from '../../../queries/individuals';
-import { deleteEmailRegistrationQuery } from '../../../queries/registrations';
+import { deleteEmailRegistrationQuery, getEmailRegistrationQuery } from '../../../queries/registrations';
 
 class NewSignupIndividualPageController extends Component {
     componentDidMount = async () => {
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
-        const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: d.id });
+        const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: parseInt(d.id, 10) });
         // debugger;
         const u = pre_user.allIndividualUsers.edges[0].node;
         // if (u == null) {
@@ -46,7 +46,7 @@ class NewSignupIndividualPageController extends Component {
                 }, 5000);
             } else {
                 const payload = {
-                    id: d.id,
+                    id: parseInt(d.id, 10),
                     firstName: u.firstName,
                     lastName: u.lastName,
                     userName: u.username,
@@ -59,10 +59,13 @@ class NewSignupIndividualPageController extends Component {
                 this.props.appManager.authToken = u_token;
                 // debugger;
                 await this.props.appManager.executeQueryAuth('mutation', updateIndividualUserQuery, payload);
-                await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
+                const exists = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, { email: u.email });
+                if (exists.registrationEmailByEmail) {
+                    await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
+                }
                 const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
                 this.props.appManager.pouchStore('ind_authenticate', new_payload);
-                historyStore.push(`/individual?u=${d.id}`);
+                historyStore.push(`/individual?u=${parseInt(d.id, 10)}`);
             }
         }
     }
