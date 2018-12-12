@@ -513,7 +513,6 @@ class IndividualPageController extends Component {
             let t_id = null;
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
-                debugger;
             }
             console.log(`check if id is there ${this.user_details.id}`);
             await this.props.appManager.executeQueryAuth(
