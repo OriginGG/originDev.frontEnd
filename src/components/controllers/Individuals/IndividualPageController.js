@@ -390,12 +390,20 @@ class IndividualPageController extends Component {
                 window.location.assign(authURL.href);
             }
             break;
-            case 'youtube': // eslint-disable-line
-            const youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank');  // eslint-disable-line
-            youtubeAuthWindow.addEventListener('onmessage', event => {
-                console.log(event);
-                alert( "received: " + event ); // eslint-disable-line
-              });
+            case 'youtube': {
+            let res = null;
+            let youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
+            window.addEventListener('message', event => {
+                    console.log(event);
+                    res = event.data;
+                    console.log(res);
+                if (res.success === true) {
+                    toast.success('Authorization Sucessful!', {
+                        position: toast.POSITION.TOP_LEFT
+                    });
+                }
+            });
+            }
             break; // eslint-disable-line
             default: {
                 window.open('http://www.google.com', '_blank');
