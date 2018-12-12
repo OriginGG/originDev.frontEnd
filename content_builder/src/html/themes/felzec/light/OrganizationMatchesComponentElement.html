@@ -26,9 +26,13 @@
             <div class="classes.felzec_light_match_container">
                 <div class="ui stackable three column grid">
                     <div class="column">
-                        <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_1}" />
+                        <div class="classes.felzec_light_match_vs_image_container">
+                            <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_1}" />
+                        </div>
                         <div class="classes.felzec_light_match_vs_score" data-component-value="{this.props.matches_score}">10-8</div>
-                        <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
+                        <div class="classes.felzec_light_match_vs_image_container">
+                            <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
+                        </div>
                     </div>
                     <div class="column">
                         <div class="classes.felzec_matches_game" data-component-value="{this.props.matches_game}">Call of Duty</div>

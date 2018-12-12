@@ -390,12 +390,21 @@ class IndividualPageController extends Component {
                 window.location.assign(authURL.href);
             }
             break;
-            case 'youtube': // eslint-disable-line
-            const youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank');  // eslint-disable-line
-            youtubeAuthWindow.addEventListener('onmessage', event => {
-                console.log(event);
-                alert( "received: " + event ); // eslint-disable-line
-              });
+            case 'youtube': {
+            let res = null;
+            let youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
+            window.addEventListener('message', event => {
+                    res = event.data;
+                    youtubeAuthWindow.close();
+                    console.log(res);
+                if (res.success === true) {
+                    toast.success('Authorization Sucessful!', {
+                        position: toast.POSITION.TOP_LEFT
+                    });
+                this.user_details.youtubeChannel = res.channel;
+                }
+            });
+            }
             break; // eslint-disable-line
             default: {
                 window.open('http://www.google.com', '_blank');
@@ -505,6 +514,7 @@ class IndividualPageController extends Component {
             let t_id = null;
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
+                debugger;
             }
             console.log(`check if id is there ${this.user_details.id}`);
             await this.props.appManager.executeQueryAuth(

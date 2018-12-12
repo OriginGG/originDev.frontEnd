@@ -998,10 +998,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
-    obliviot_dark_match_vs_image: {
+    obliviot_dark_match_vs_image_holder: {
+        width: '70px',
         height: '70px',
-        backgroundColor: 'rgba(0,0,0,0)',
+        lineHeight: '70px',
         float: 'left'
+    },
+
+    obliviot_dark_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     obliviot_dark_match_vs_score: {
@@ -1505,10 +1514,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
-    obliviot_light_match_vs_image: {
+    obliviot_light_match_vs_image_holder: {
+        width: '70px',
         height: '70px',
-        backgroundColor: 'rgba(0,0,0,0)',
+        lineHeight: '70px',
         float: 'left'
+    },
+
+    obliviot_light_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     obliviot_light_match_vs_score: {
@@ -1642,6 +1660,22 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '20px',
         marginBottom: '20px',
         position: 'relative'
+    },
+
+    felzec_light_nav_logo_holder: {
+        height: '70px',
+        width: '50px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        lineHeight: '70px'
+    },
+
+    felzec_light_nav_logo: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     felzec_light_social_menu_item: {
@@ -2405,12 +2439,20 @@ export const GlobalStyles = GlobalTheme => ({
         borderBottom: '1px solid rgba(255,255,255,.5)'
     },
 
-    felzec_light_match_vs_image: {
+    felzec_light_match_vs_image_container: {
         width: '70px',
         height: '70px',
+        lineHeight: '70px',
         marginTop: '15px',
-        backgroundColor: 'rgba(0,0,0,0)',
         float: 'left'
+    },
+
+    felzec_light_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     felzec_light_mobile_match_vs_image: {

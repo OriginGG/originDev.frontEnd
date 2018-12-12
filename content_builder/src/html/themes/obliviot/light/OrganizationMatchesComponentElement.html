@@ -25,9 +25,13 @@
         <div data-component-name="light_OrganizationMatchesComponentElement"  style="display:inline-block;">
             <div class="classes.obliviot_light_match_container">
                 <div class="classes.obliviot_light_match_vs_container">
-                    <img class="classes.obliviot_light_match_vs_image" data-component-props="src={this.props.matches_image_1}" />
+                    <div class="classes.obliviot_light_match_vs_image_holder">
+                        <img class="classes.obliviot_light_match_vs_image" data-component-props="src={this.props.matches_image_1}" />
+                    </div>
                     <div class="classes.obliviot_light_match_vs_score" data-component-value="{this.props.matches_score}">10-8</div>
-                    <img class="classes.obliviot_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
+                    <div class="classes.obliviot_light_match_vs_image_holder">
+                        <img class="classes.obliviot_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
+                    </div>
                 </div>
                 <div class="classes.obliviot_light_match_vs_date" data-component-value="{this.props.matches_date}">22 AUG 2018</div>
                 <div data-component-props="style={this.props.win_style}" class="classes.obliviot_light_corner_win" ></div>

@@ -170,6 +170,7 @@ class OrganizationNavController extends Component {
             social_link5={social_link5}
             social_link6={social_link6}
             navicon={navicon}
+            nav_logo={this.image_src}
             image_src={this.image_src} />;
     }
 }
