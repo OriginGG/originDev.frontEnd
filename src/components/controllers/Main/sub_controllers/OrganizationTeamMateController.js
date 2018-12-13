@@ -49,7 +49,7 @@ class OrganizationTeamMateController extends Component {
             if (x.port) {
                 pt = `:${x.port}`;
             }
-            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+            const url = `${x.protocol}//${p}${pt}/individual/${i.username}`;
             window.open(url, '_blank');
         }
     }
@@ -130,18 +130,18 @@ class OrganizationTeamMateController extends Component {
             const c_name = `${individualUserByIndividualId.firstName} ${individualUserByIndividualId.lastName}`;
             p_array.push(<div style={{
                 cursor: 'pointer',
-                width: '15%',
+                width: '180px',
                 float: 'left',
                 position: 'relative',
-                marginRight: '5%',
-                marginLeft: '5%'
+                marginRight: '5px',
+                marginLeft: '5px'
             }}><OrganizationTeamImageComponentRender
                 felzec_team_handle={individualUserByIndividualId.username}
                 felzec_team_name={c_name}
                 felzec_overlay_style={this.state.o_style}
                 felzec_button_style={this.button_style}
                 team_image={im}
-                individual_id={individualUserByIndividualId.id}
+                individual_id={individualUserByIndividualId}
                 handleImageClick={this.handleTeamClick}
                 handleImageUnClick={this.handleTeamUnClick}
                 handleIndividualClick={this.handleImageClick}

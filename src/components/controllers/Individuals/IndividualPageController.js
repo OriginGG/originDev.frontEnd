@@ -285,7 +285,7 @@ class IndividualPageController extends Component {
             if (!authPayload) {
                 let user;
                 if (view_id) {
-                    user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: view_id });
+                    user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: parseInt(view_id, 10) });
                     this.user_details = user.individualUserById;
                 } else {
                     user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
@@ -514,7 +514,6 @@ class IndividualPageController extends Component {
             let t_id = null;
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
-                debugger;
             }
             console.log(`check if id is there ${this.user_details.id}`);
             await this.props.appManager.executeQueryAuth(

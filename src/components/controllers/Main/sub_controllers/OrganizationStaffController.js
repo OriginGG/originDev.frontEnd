@@ -100,7 +100,7 @@ class OrganizationStaffController extends Component {
             if (x.port) {
                 pt = `:${x.port}`;
             }
-            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+            const url = `${x.protocol}//${p}${pt}/individual/${i.username}`;
             window.open(url, '_blank');
         }
     }
@@ -205,7 +205,7 @@ class OrganizationStaffController extends Component {
             if (!individualUserByIndividualId.instagramLink) {
                 instagram_style = { display: 'none' };
             }
-            p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
+            p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
                 roster_nickname={individualUserByIndividualId.position}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}

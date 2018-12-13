@@ -1699,8 +1699,18 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_sponsor_box: {
         width: '100%',
         paddingTop: '56.25%',
-        backgroundColor: '#cccccc',
+        backgroundColor: '#040404',
         position: 'relative'
+    },
+
+    felzec_jumbotron_layer: {
+       width: '100%',  
+       paddingTop: '56.25%',
+       position: 'absolute',
+       bottom: '0px',
+       height: '35%',
+       background: 'rgb(4,4,4)',
+       background: 'linear-gradient(0deg, rgba(4,4,4,1) 0%, rgba(4,4,4,.9) 20%, rgba(4,4,4,.6) 40%, rgba(4,4,4,0) 60%, rgba(4,4,4,0) 100%)'
     },
 
     felzec_sponsor_container: {
@@ -4544,7 +4554,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
     indiviual_stats_description_container: {
         width: '100%',
-        display: 'table',
+        maxHeight: '222px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
         padding: '20px 10px 20px 10px',
         borderBottom: "1px rgba(255,255,255,.1) solid"
     },

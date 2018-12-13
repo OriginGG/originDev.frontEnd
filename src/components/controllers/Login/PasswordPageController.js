@@ -105,7 +105,7 @@ class PasswordPageController extends Component {
     state = { visible: false, rsComponent: null };
     componentDidMount = () => {
         const t = this.props.appManager.GetQueryParams('t');
-        this.current_id = this.props.appManager.GetQueryParams('id');
+        this.current_id = parseInt(this.props.appManager.GetQueryParams('id'), 10);
         let rsComponent = <span />;
         this.ind = false;
         switch (t) {
