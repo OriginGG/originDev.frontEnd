@@ -2120,7 +2120,6 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_image_container: {
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
