@@ -49,7 +49,7 @@ class OrganizationPageController extends Component {
     };
 
     componentDidMount = async () => {
-        Pace.start();                           // eslint-disable-line
+        Pace.restart();                           // eslint-disable-line
         const token = this.props.appManager.GetQueryParams('ipl');
         this.invite_details = null;
         // console.log(token);
@@ -181,7 +181,9 @@ class OrganizationPageController extends Component {
                 // }
                 const menu_color = 'black';// this.props.uiStore.current_organisation.primaryColor;
                 const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
-                Pace.stop();                           // eslint-disable-line
+                setTimeout(() => {
+                    Pace.stop();                           // eslint-disable-line
+                }, 5000);
                 this.setState({
                     visible: true,
                     felzec_menu: false,
