@@ -130,11 +130,11 @@ class OrganizationTeamMateController extends Component {
             const c_name = `${individualUserByIndividualId.firstName} ${individualUserByIndividualId.lastName}`;
             p_array.push(<div style={{
                 cursor: 'pointer',
-                width: '15%',
+                width: '180px',
                 float: 'left',
                 position: 'relative',
-                marginRight: '5%',
-                marginLeft: '5%'
+                marginRight: '5px',
+                marginLeft: '5px'
             }}><OrganizationTeamImageComponentRender
                 felzec_team_handle={individualUserByIndividualId.username}
                 felzec_team_name={c_name}
