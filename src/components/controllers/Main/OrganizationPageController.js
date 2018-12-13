@@ -49,6 +49,7 @@ class OrganizationPageController extends Component {
     };
 
     componentDidMount = async () => {
+        // Pace.restart();                           // eslint-disable-line
         const token = this.props.appManager.GetQueryParams('ipl');
         this.invite_details = null;
         // console.log(token);
