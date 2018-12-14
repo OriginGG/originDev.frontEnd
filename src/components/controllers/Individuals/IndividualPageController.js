@@ -383,28 +383,22 @@ class IndividualPageController extends Component {
     redirectAuth = (s) => {
         switch (s) {
             case 'twitter': {
-                const authURL = new URL(`${process.env.REACT_APP_API_SERVER}/auth/twitter`);
-                [...new URL(window.location).searchParams.entries()]
-                    .forEach(([k, v]) => authURL.searchParams.append(k, v));
-                console.log(authURL);
-                window.location.assign(authURL.href);
+                let twitterAuthWindow = window.open('http://0.0.0.0:8080/auth/twitter', '_blank'); // eslint-disable-line   
             }
             break;
-            case 'youtube': {
-            let res = null;
+            case 'youtube': { // eslint-disable-line
+            let res = '';
             let youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
             window.addEventListener('message', event => {
                     res = event.data;
-                    youtubeAuthWindow.close();
-                    console.log(res);
+                    this.user_details.youtubeChannel = res.channel;
                 if (res.success === true) {
                     toast.success('Authorization Sucessful!', {
                         position: toast.POSITION.TOP_LEFT
                     });
-                this.user_details.youtubeChannel = res.channel;
                 }
-            });
-            }
+        });
+          }
             break; // eslint-disable-line
             default: {
                 window.open('http://www.google.com', '_blank');
