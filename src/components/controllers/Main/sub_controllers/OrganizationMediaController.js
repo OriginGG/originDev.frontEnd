@@ -95,7 +95,8 @@ class OrganizationMediaController extends Component {
         }
         // console.log(`twitch url = ${twitch_url}`);
         // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
-        twitch_url = twitch_url.concat(twitch_url.length - 1);
+        // twitch_url = twitch_url.concat(twitch_url.length - 1);
+        // const td = [];
         const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
         console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
