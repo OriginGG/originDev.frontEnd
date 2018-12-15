@@ -118,11 +118,17 @@ class OrganizationMediaController extends Component {
         if (this.scrollRef) {
             this.scrollRef.scrollLeft -= 100;
         }
+        if (this.scrollRef2) {
+            this.scrollRef2.scrollLeft -= 100;
+        }
     }
 
     handleRightScroll = () => {
         if (this.scrollRef) {
             this.scrollRef.scrollLeft += 100;
+        }
+        if (this.scrollRef2) {
+            this.scrollRef2.scrollLeft += 100;
         }
     }
 
@@ -154,6 +160,9 @@ class OrganizationMediaController extends Component {
 
     storeRef = ref => {
         this.scrollRef = ref;
+    }
+    storeRef2 = ref => {
+        this.scrollRef2 = ref;
     }
     render() {
         if (this.state.visible === false) {
@@ -266,6 +275,7 @@ class OrganizationMediaController extends Component {
         bg_style={s}
         filter_style={f}
         storeRef={this.storeRef}
+        storeRef2={this.storeRef2}
         />;
     }
 }
