@@ -98,6 +98,27 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'youtubeChannel', e );
                             }}/>
+                            <button role="button" style={{
+                                marginBottom: '2em'
+                            }} className="ui youtube button" onClick={( ) => {
+                                this
+                                    .props
+                                    .redirectAuth( 'youtube' );
+                            }}><i aria-hidden="true" className="youtube icon"/>Connect with Youtube</button>
+                            <button role="button" style={{
+                                marginBottom: '2em'
+                            }} className="ui twitter button" onClick={( ) => {
+                                this
+                                    .props
+                                    .redirectAuth( 'twitter' );
+                            }}><i aria-hidden="true" className="twitter icon"/>Connect with Twitter</button>
+                            <button role="button" style={{
+                                marginBottom: '2em'
+                            }} className="ui twitch button" onClick={( ) => {
+                                this
+                                    .props
+                                    .redirectAuth( 'twitch' );
+                            }}><i aria-hidden="true" className="twitch icon"/>Connect with Twitch</button>
                             <div >{this.props.renderButtons}</div>
                         </div>
                     </div>
