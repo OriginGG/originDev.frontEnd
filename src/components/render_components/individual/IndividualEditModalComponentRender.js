@@ -93,11 +93,7 @@ class IndividualEditModalComponentRender extends Component {
                                     .handleChange( 'twitchUrl', e );
                             }}/>
                             <div className={this.props.classes.individual_label}>YouTube Channel ID</div>
-                            <input placeholder="Youtube Channel ID not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeChannel} onChange={e => {
-                                this
-                                    .props
-                                    .handleChange( 'youtubeChannel', e );
-                            }}/>
+
                             <button role="button" style={{
                                 marginBottom: '2em'
                             }} className="ui youtube button" onClick={( ) => {
