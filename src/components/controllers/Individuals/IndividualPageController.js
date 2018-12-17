@@ -88,11 +88,13 @@ class ModalContent extends Component {
         });
         this.profile_files = null;
         this.banner_files = null;
+        this.redirectAuth = this.redirectAuth.bind(this);
     }
     handleChange = (field, e) => {
         const v = e.target.value;
         const p = this.state.input_values;
         console.log(`e = ${v} and p = ${p}`);
+        console.log(p);
         p[field] = v;
         this.setState({
             input_values: p
@@ -124,6 +126,64 @@ class ModalContent extends Component {
     handleFileClick = (f) => {
         this.file_upload_type = f;
         this.dropzoneRef.open();
+    }
+    redirectAuth = (s) => {
+        switch (s) {
+            case 'twitter': {
+                let twitterAuthWindow = window.open('http://0.0.0.0:8080/auth/twitter', '_blank'); // eslint-disable-line   
+                window.addEventListener('message', message => {
+                    this.state.input_values.youtubeChannel = message.data.channel;
+                    if (message.data.sucess === true) {
+                        toast.sucess('Authorization Sucessful!', {
+                            position: toast.POSITION.TOP_LEFT
+                        });
+                    }
+                    console.log(this.user_details);
+                });
+            }
+            break;
+            case 'youtube': { // eslint-disable-line
+            let resAr = []; // eslint-disable-line
+            window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
+            window.addEventListener('message', (e) => {
+                console.log(e.data);
+                resAr.push(e.data);
+                //    this.handleChange('youtubeChannel', e.data.channel);
+                if (e.data.success === true) {
+                    toast.success('Authorization Sucessful!', {
+                        position: toast.POSITION.TOP_LEFT
+                    });
+                    console.log(e.data.channel);
+                    this.setState({ input_values: { youtubeChannel: e.data.channel } }); // eslint-disable-line
+                    this.user_details.youtubeChannel = e.data.channel;
+                    const p = this.state.input_values;
+                    console.log(p);
+                    // this.handleChange('youtubeChannel', e.data.channel);
+                }
+            });
+                if (resAr.length > 0) {
+                    console.log(resAr);
+                }
+          }
+          break;
+            case 'twitch': {
+                let res;
+                let twitchAuthWindow = window.open('http://0.0.0.0:8080/auth/twitch', '_blank'); // eslint-disable-line   
+                window.addEventListener('message', message => {
+                    res = message.data;
+                    if (res.sucess === true) {
+                        toast.sucess('Authorization Sucessful!', {
+                            position: toast.POSITION.TOP_LEFT
+                        });
+                    }
+                });
+            }
+            break; // eslint-disable-line
+            default: {
+                window.open('http://www.google.com', '_blank');
+                break;
+            }
+        }
     }
     handleSubmit = async () => {
         let bn = this.state.input_values.bannerImageUrl;
@@ -198,7 +258,7 @@ class ModalContent extends Component {
                     instagramLink={this.state.input_values.instagramLink}
                     twitchUrl={this.state.input_values.twitchUrl}
                     twitterHandle={this.state.input_values.twitterHandle}
-                    redirectAuth={this.props.redirectAuth}
+                    redirectAuth={this.redirectAuth}
                     // youtubeVideo1Url={this.state.input_values.youtubeVideo1Url}
                     // youtubeVideo2Url={this.state.input_values.youtubeVideo2Url}
                     // youtubeVideo3Url={this.state.input_values.youtubeVideo3Url}
@@ -378,32 +438,6 @@ class IndividualPageController extends Component {
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?channel=${this.user_details.youtubeChannel}`);
             console.log(`YOUtube nSTATS = ${JSON.stringify(td.data)}`);
             this.youtube_stats = td.data;
-        }
-    }
-    redirectAuth = (s) => {
-        switch (s) {
-            case 'twitter': {
-                let twitterAuthWindow = window.open('http://0.0.0.0:8080/auth/twitter', '_blank'); // eslint-disable-line   
-            }
-            break;
-            case 'youtube': { // eslint-disable-line
-            let res = '';
-            let youtubeAuthWindow = window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
-            window.addEventListener('message', event => {
-                    res = event.data;
-                    this.user_details.youtubeChannel = res.channel;
-                if (res.success === true) {
-                    toast.success('Authorization Sucessful!', {
-                        position: toast.POSITION.TOP_LEFT
-                    });
-                }
-        });
-          }
-            break; // eslint-disable-line
-            default: {
-                window.open('http://www.google.com', '_blank');
-                break;
-            }
         }
     }
     handleRedirect = (s) => {
@@ -681,8 +715,7 @@ ModalContent.propTypes = {
     appManager: PropTypes.object.isRequired,
     user_id: PropTypes.number.isRequired,
     closeModal: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    redirectAuth: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired
 };
 TwitchInfo.propTypes = {
     stats: PropTypes.object.isRequired
