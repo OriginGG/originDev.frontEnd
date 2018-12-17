@@ -130,7 +130,7 @@ class ModalContent extends Component {
     redirectAuth = (s) => {
         switch (s) {
             case 'twitter': {
-                let twitterAuthWindow = window.open('http://0.0.0.0:8080/auth/twitter', '_blank'); // eslint-disable-line   
+                let twitterAuthWindow = window.open(`${Env.get(process.env.REACT_APP_SOCIAL_STATS_SERVER)}/auth/twitter`, '_blank'); // eslint-disable-line   
                 window.addEventListener('message', e => {
                     if (e.data.success === true) {
                         toast.success('Authorization Sucessful!', {
@@ -145,7 +145,7 @@ class ModalContent extends Component {
             }
             break;
             case 'youtube': { // eslint-disable-line
-            window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
+            window.open(`${Env.get(process.env.REACT_APP_SOCIAL_STATS_SERVER)}/auth/youtube`, '_blank'); // eslint-disable-line   
             window.addEventListener('message', (e) => {
                 if (e.data.success === true) {
                     toast.success('Authorization Sucessful!', {
@@ -162,7 +162,7 @@ class ModalContent extends Component {
           }
           break;
             case 'twitch': {
-                let twitchAuthWindow = window.open('http://0.0.0.0:8080/auth/twitch', '_blank'); // eslint-disable-line   
+                let twitchAuthWindow = window.open(`${Env.get(process.env.REACT_APP_SOCIAL_STATS_SERVER)}/auth/twitch`, '_blank'); // eslint-disable-line   
                 window.addEventListener('message', (e) => {
                     if (e.data.success === true) {
                         toast.success('Authorization Sucessful!', {
@@ -176,7 +176,7 @@ class ModalContent extends Component {
             }
             break; // eslint-disable-line
             default: {
-                window.open('http://www.google.com', '_blank');
+                window.open('/', '_blank');
                 break;
             }
         }
