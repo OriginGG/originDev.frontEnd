@@ -86,30 +86,30 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'accomplishments', e );
                             }}/>
-                            <div className={this.props.classes.individual_label}>Twitch Handle</div>
-                            <input placeholder="Twitch Handle not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.twitchUrl} onChange={e => {
+                            <input placeholder="Youtube Channel ID not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeChannel} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'twitchUrl', e );
+                                    .handleChange( 'youtubeChannel', e );
                             }}/>
-                            <div className={this.props.classes.individual_label}>YouTube Channel ID</div>
-
                             <button role="button" style={{
-                                marginBottom: '2em'
+                                marginBottom: '2em',
+                                display: 'block'
                             }} className="ui youtube button" onClick={( ) => {
                                 this
                                     .props
                                     .redirectAuth( 'youtube' );
                             }}><i aria-hidden="true" className="youtube icon"/>Connect with Youtube</button>
                             <button role="button" style={{
-                                marginBottom: '2em'
+                                marginBottom: '2em',
+                                display: 'block'
                             }} className="ui twitter button" onClick={( ) => {
                                 this
                                     .props
                                     .redirectAuth( 'twitter' );
                             }}><i aria-hidden="true" className="twitter icon"/>Connect with Twitter</button>
                             <button role="button" style={{
-                                marginBottom: '2em'
+                                marginBottom: '2em',
+                                display: 'block'
                             }} className="ui twitch button" onClick={( ) => {
                                 this
                                     .props
