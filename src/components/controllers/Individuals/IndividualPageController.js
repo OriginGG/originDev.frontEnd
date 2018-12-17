@@ -131,50 +131,46 @@ class ModalContent extends Component {
         switch (s) {
             case 'twitter': {
                 let twitterAuthWindow = window.open('http://0.0.0.0:8080/auth/twitter', '_blank'); // eslint-disable-line   
-                window.addEventListener('message', message => {
-                    this.state.input_values.youtubeChannel = message.data.channel;
-                    if (message.data.sucess === true) {
-                        toast.sucess('Authorization Sucessful!', {
+                window.addEventListener('message', e => {
+                    if (e.data.success === true) {
+                        toast.success('Authorization Sucessful!', {
                             position: toast.POSITION.TOP_LEFT
                         });
+                        console.log(e.data);
+                        const p = this.state.input_values;
+                        p['twitterHandle'] = e.data.twitterHandle; // eslint-disable-line
+                        this.setState({ input_values: p });
                     }
-                    console.log(this.user_details);
                 });
             }
             break;
             case 'youtube': { // eslint-disable-line
-            let resAr = []; // eslint-disable-line
             window.open('http://0.0.0.0:8080/auth/youtube', '_blank'); // eslint-disable-line   
             window.addEventListener('message', (e) => {
-                console.log(e.data);
-                resAr.push(e.data);
-                //    this.handleChange('youtubeChannel', e.data.channel);
                 if (e.data.success === true) {
                     toast.success('Authorization Sucessful!', {
                         position: toast.POSITION.TOP_LEFT
                     });
                     console.log(e.data.channel);
-                    this.setState({ input_values: { youtubeChannel: e.data.channel } }); // eslint-disable-line
-                    this.user_details.youtubeChannel = e.data.channel;
                     const p = this.state.input_values;
+                    p['youtubeChannel'] = e.data.channel; // eslint-disable-line
+                    this.setState({ input_values: p}); // eslint-disable-line
                     console.log(p);
                     // this.handleChange('youtubeChannel', e.data.channel);
                 }
             });
-                if (resAr.length > 0) {
-                    console.log(resAr);
-                }
           }
           break;
             case 'twitch': {
-                let res;
                 let twitchAuthWindow = window.open('http://0.0.0.0:8080/auth/twitch', '_blank'); // eslint-disable-line   
-                window.addEventListener('message', message => {
-                    res = message.data;
-                    if (res.sucess === true) {
-                        toast.sucess('Authorization Sucessful!', {
+                window.addEventListener('message', (e) => {
+                    if (e.data.success === true) {
+                        toast.success('Authorization Sucessful!', {
                             position: toast.POSITION.TOP_LEFT
                         });
+                        const p = this.state.input_values;
+                        p['twitchUrl'] = e.data.id; // eslint-disable-line
+                        this.setState({ input_values: p}); // eslint-disable-line
                     }
                 });
             }
@@ -429,7 +425,6 @@ class IndividualPageController extends Component {
         if (this.user_details.twitterHandle) {
             const tu = this.user_details.twitterHandle.substring(this.user_details.twitterHandle.lastIndexOf('@') + 1);
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitter/getTwitterUserInfo?user=${tu}`);
-            console.log(td.data[0]);
             this.twitter_stats = td.data[0]; // eslint-disable-line
         }
     }
