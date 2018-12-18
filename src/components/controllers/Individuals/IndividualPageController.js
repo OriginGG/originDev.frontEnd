@@ -322,7 +322,6 @@ class IndividualPageController extends Component {
         modal_open: false,
     };
     componentDidMount = async () => {
-        document.getElementById('origin_loader').style.display = 'none';
         this.is_admin = false;
         this.twitch_stats = null;
         this.twitter_stats = null;
@@ -409,6 +408,7 @@ class IndividualPageController extends Component {
         await this.getTwitchStats();
         await this.getYouTubeStats();
         await this.getTwitterStats();
+        document.getElementById('origin_loader').style.display = 'none';
         this.setState({ visible: true });
     }
 
