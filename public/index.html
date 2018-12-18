@@ -7,13 +7,11 @@
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-     <script type="text/javascript"> window.paceOptions = { restartOnPushState: false, restartOnRequestAfter: false, eventLag: true, elements: false, ajax: true }; Pace.start(); </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-loading-bar.min.css">
-    
+   
     -->
     <script src="https://js.stripe.com/v3/"></script>
    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+   <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/loader.css">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -30,6 +28,12 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <div class="parent_spinner">
+      <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+      </div>
+    </div>
     <div id="root"></div>
     <!--
       This HTML file is a template.
