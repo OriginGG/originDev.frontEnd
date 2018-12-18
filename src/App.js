@@ -49,6 +49,7 @@ class App extends Component {
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
                 <Route exact path="/createsubdomain" component={CreateSubDomainController} />
+                <Route exact path="/blog" component={AppController} />
                 <Route path="/landing" onEnter={reload} />
                 <Route path="/landing/index/html" onEnter={reload} />
                 <Route path="*" component={AppController} />

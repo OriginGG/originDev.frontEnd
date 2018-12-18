@@ -171,8 +171,9 @@ OrganizationBlogListController.propTypes = {
     appManager: PropTypes.object.isRequired,
     handleNewsClick: PropTypes.func.isRequired,
     // roster_id: PropTypes.number.isRequired,
-    closeBlogs: PropTypes.func.isRequired
+    closeBlogs: PropTypes.func.isRequired,
 };
+
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,
 //     appManager: PropTypes.object.isRequired
