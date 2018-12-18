@@ -13,6 +13,7 @@ import { deleteEmailRegistrationQuery, getEmailRegistrationQuery } from '../../.
 
 class NewSignupIndividualPageController extends Component {
     componentDidMount = async () => {
+        document.getElementById('origin_loader').style.display = 'none';
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
         const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: parseInt(d.id, 10) });

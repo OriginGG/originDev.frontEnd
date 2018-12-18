@@ -94,6 +94,7 @@ class AppManager {
             // return null;
         // }
     }
+
     getDomainInfo = () => {
         const regex = /[.:]/g;
         const { hostname, port, protocol } = window.location;

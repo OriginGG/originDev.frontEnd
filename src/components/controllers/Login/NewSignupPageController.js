@@ -12,6 +12,7 @@ import { deleteEmailRegistrationQuery, getEmailRegistrationQuery } from '../../.
 
 class NewSignupPageController extends Component {
     componentDidMount = async () => {
+        document.getElementById('origin_loader').style.display = 'none';
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
         const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });

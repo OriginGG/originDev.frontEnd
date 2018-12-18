@@ -86,6 +86,7 @@ class ModalContent extends Component {
                 profileImageUrl: this.getInputValue(user.individualUserById.profileImageUrl),
             },
         });
+        document.getElementById('origin_loader').style.display = 'none';
         this.profile_files = null;
         this.banner_files = null;
         this.redirectAuth = this.redirectAuth.bind(this);

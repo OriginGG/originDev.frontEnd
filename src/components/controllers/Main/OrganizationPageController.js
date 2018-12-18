@@ -219,6 +219,7 @@ class OrganizationPageController extends Component {
                         autoClose: false
                     });
                 }
+                document.getElementById('origin_loader').style.display = 'none';
                 if (this.show_blog) {
                     const mc = {
                         node: this.show_blog
