@@ -65,7 +65,6 @@ class ModalContent extends Component {
         }
     };
     componentDidMount = async () => {
-        document.getElementById('origin_loader').style.display = 'none';
         const user = await this.props.appManager.executeQueryAuth('query', getIndividualUserQuery, { id: this.props.user_id });
         console.log(`user = ${JSON.stringify(user)}`);
         this.setState({
@@ -323,6 +322,7 @@ class IndividualPageController extends Component {
         modal_open: false,
     };
     componentDidMount = async () => {
+        document.getElementById('origin_loader').style.display = 'none';
         this.is_admin = false;
         this.twitch_stats = null;
         this.twitter_stats = null;
