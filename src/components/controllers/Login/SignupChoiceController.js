@@ -15,6 +15,9 @@ const Header = () => {
 };
 
 class SignupChoiceController extends Component {
+    componentDidMount = () => {
+        document.getElementById('origin_loader').style.display = 'none';
+    }
     handleClick = (field) => {
         if (field === 'org') {
             document.getElementById('origin_loader').style.display = 'none';
