@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
+import { getSingleBlogQuery } from '../../../queries/blogs';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
 import { getSponsorsQuery } from '../../../queries/sponsors';
@@ -49,7 +50,9 @@ class OrganizationPageController extends Component {
     };
 
     componentDidMount = async () => {
-        // Pace.restart();                           // eslint-disable-line
+        // Pace.restart();
+        // eslint-disable-line
+
         const token = this.props.appManager.GetQueryParams('ipl');
         this.invite_details = null;
         // console.log(token);
@@ -83,6 +86,11 @@ class OrganizationPageController extends Component {
         }
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
+        this.show_blog = null;
+        if (this.props.appManager.blog_id !== -1) {
+            const b = await this.props.appManager.executeQuery('query', getSingleBlogQuery, { id: this.props.appManager.blog_id });
+            this.show_blog = b.resultData;
+        }
         if (subDomain === 'origin') {
             historyStore.push('/signup');
         } else {
@@ -211,6 +219,12 @@ class OrganizationPageController extends Component {
                         autoClose: false
                     });
                 }
+                if (this.show_blog) {
+                    const mc = {
+                        node: this.show_blog
+                    };
+                    this.handleNewsClick(mc);
+                }
             }
         }
         // } else {
@@ -287,6 +301,7 @@ class OrganizationPageController extends Component {
         this.openMenu();
     }
     handleNewsClick = (blog) => {
+        this.current_blog_id = blog.node.id;
         this.closeAll();
         this.setState({ roster_style: { display: 'none' }, display_blogs: false });
         console.log(`blog = ${JSON.stringify(blog)}`);
@@ -362,6 +377,15 @@ class OrganizationPageController extends Component {
             display_blogs: false,
             display_blog_view: false,
             display_staff: false
+        });
+    }
+    shareBlogs = () => {
+        const { hostname, port, protocol } = window.location;
+        console.log(hostname, port, protocol);
+        const blog_url = `${protocol}//${hostname}:${port}/blog?b=${this.current_blog_id}`;
+        navigator.clipboard.writeText(blog_url);
+        toast.success('Blog link copied to clipboard!', {
+            autoClose: true
         });
     }
     closeRosters = () => {
@@ -645,7 +669,7 @@ class OrganizationPageController extends Component {
                 copyright={cp}
                 obliviot_hidden_style={ob_none}
                 obliviot_page_style={ob_dark}
-                rosterContent={<OrganizationBlogViewController closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} blog_title={this.state.b_title} blog_date={this.state.b_date} />}
+                rosterContent={<OrganizationBlogViewController shareBlog={this.shareBlogs} closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} blog_title={this.state.b_title} blog_date={this.state.b_date} />}
                 newsContent={<span />}
                 blogContent={<span />}
                 twitterContent={<span />}

@@ -37,6 +37,20 @@ class OrganizationBlogViewController extends Component {
         const p_array = <OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
 
         return (<div>
+            {this.props.shareBlog && <div
+                onClick={this.props.shareBlog}
+                tabIndex={-2}
+                role="menuItem"
+                style={{
+                    cursor: 'pointer',
+                    fontSize: 28,
+                    position: 'absolute',
+                    right: 72,
+                    top: 94,
+                    zIndex: 10000,
+                    color: close_button,
+                }}><span className="fa fa-share-alt" /></div>
+            }
             <div
                 onClick={this.props.closeBlogView}
                 tabIndex={-2}
@@ -61,7 +75,12 @@ OrganizationBlogViewController.propTypes = {
     blog_date: PropTypes.object.isRequired,
     // appManager: PropTypes.object.isRequired,
     // roster_id: PropTypes.number.isRequired,
-    closeBlogView: PropTypes.func.isRequired
+    closeBlogView: PropTypes.func.isRequired,
+    shareBlog: PropTypes.func
+};
+
+OrganizationBlogViewController.defaultProps = {
+    shareBlog: null
 };
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,
