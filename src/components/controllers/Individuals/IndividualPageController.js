@@ -65,6 +65,7 @@ class ModalContent extends Component {
         }
     };
     componentDidMount = async () => {
+        document.getElementById('origin_loader').style.display = 'none';
         const user = await this.props.appManager.executeQueryAuth('query', getIndividualUserQuery, { id: this.props.user_id });
         console.log(`user = ${JSON.stringify(user)}`);
         this.setState({
