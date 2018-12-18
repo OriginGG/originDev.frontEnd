@@ -61,13 +61,29 @@ class AdminProfileController extends Component {
         // console.log(`string is ${str}`);
         return str.includes('http');
     }
+    tooLong = (str) => {
+        console.log(`str.length = ${str.length}`);
+        return str.length > 255;
+    }
     isTwitchURL = (str) => {
         console.log(`WWWWWWWWWWWWWWWWWWWWWWWWWWWWW string is ${str}`);
         return str.includes('https://www.twitch.tv/team/');
     }
     handleSubmit = async () => {
+        if (this.tooLong(this.state.input_values.facebook_value)) {
+            toast.error('Facebook URL exceeds 255 char limit', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (!this.isURL(this.state.input_values.facebook_value) && this.state.input_values.facebook_value) {
             toast.error('Facebook URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (this.tooLong(this.state.input_values.youtube_value)) {
+            toast.error('YouTube URL exceeds 255 char limit', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
@@ -78,8 +94,20 @@ class AdminProfileController extends Component {
             });
             return;
         }
+        if (this.tooLong(this.state.input_values.twitter_value)) {
+            toast.error('Twitter URL exceeds 255 char limit', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (!this.isURL(this.state.input_values.twitter_value) && this.state.input_values.twitter_value) {
             toast.error('Twitter URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (this.tooLong(this.state.input_values.insta_value)) {
+            toast.error('Instagram URL exceeds 255 char limit', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
@@ -90,8 +118,20 @@ class AdminProfileController extends Component {
             });
             return;
         }
+        if (this.tooLong(this.state.input_values.company_store_value)) {
+            toast.error('Company Store URL exceeds 255 char limit', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (!this.isURL(this.state.input_values.company_store_value) && this.state.input_values.company_store_value) {
             toast.error('Company Store URL is not valid', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (this.tooLong(this.state.input_values.twitch_value)) {
+            toast.error('Twitch URL exceeds 255 char limit', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
@@ -102,8 +142,20 @@ class AdminProfileController extends Component {
             });
             return;
         }
+        if (this.tooLong(this.state.input_values.twitch_team_value)) {
+            toast.error('Twitch Team URL exceeds 255 char limit', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
         if (!this.isTwitchURL(this.state.input_values.twitch_team_value) && this.state.input_values.twitch_team_value) {
             toast.error('Twitch Team is not Valid Format, Should be formatted https://www.twitch.tv/team/your_team_name', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        if (this.tooLong(this.state.input_values.discord_value)) {
+            toast.error('Discord URL exceeds 255 char limit', {
                 position: toast.POSITION.TOP_LEFT
             });
             return;
