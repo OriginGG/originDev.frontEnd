@@ -23,10 +23,10 @@ class LightOrganizationMediaComponentRender extends Component {
                         }}>{this.props.youtube_videos}</div>
                     </div>
                     <div style={this.props.tw_style}>
-                        <div className={this.props.classes.felzec_media_element_container} ref={c => {
+                        <div className={this.props.classes.felzec_media_element_container} ref={t => {
                             this
                                 .props
-                                .storeRef( c );
+                                .storeRef2( t );
                         }}>{this.props.twitch_videos}</div>
                     </div>
                 </div>

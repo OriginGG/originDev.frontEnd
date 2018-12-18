@@ -1899,7 +1899,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_darkFooter: {
         width: '100%',
-        backgroundColor: 'black',
+        backgroundColor: '#040404',
         overflow: 'hidden'
     },
 
@@ -1908,7 +1908,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '300px',
         position: 'relative',
         margin: '10px 0px 10px 0px',
-        backgroundColor: 'black'
+        backgroundColor: '#040404'
     },
 
     felzec_sponser_item_img_container: {
@@ -2006,14 +2006,14 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_blog_container: {
         width: '100%',
         height: '600px',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
     felzec_blog_m_container: {
         width: '100%',
         height: '240px',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
@@ -2021,7 +2021,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_blog_mobile_container: {
         width: '100%',
         display: 'table',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
@@ -2066,14 +2066,14 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_matches_container: {
         width: '100%',
         height: '400px',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
     felzec_matches_mobile_container: {
         width: '100%',
         height: '300px',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
@@ -2089,21 +2089,21 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_container: {
         width: '100%',
         paddingTop: '30%',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
     felzec_team_main_container: {
         width: '100%',
         display: 'table',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
     felzec_staff_container: {
         width: '100%',
         height: '400px',
-        backgroundColor: 'rgb(230,230,230)',
+        backgroundColor: '#040404',
         position: 'relative'
     },
 
@@ -2120,7 +2120,6 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_image_container: {
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgb(230,230,230)',
         position: 'relative'
     },
 
@@ -2146,7 +2145,7 @@ export const GlobalStyles = GlobalTheme => ({
         zIndex: '10',
         top: '0px',
         left: '0px',
-        backgroundColor: 'black'
+        backgroundColor: '#040404'
     },
 
     felzec_staff_overlay: {
@@ -2158,7 +2157,7 @@ export const GlobalStyles = GlobalTheme => ({
         zIndex: '10',
         top: '0px',
         left: '0px',
-        backgroundColor: 'black'
+        backgroundColor: '#040404'
     },
 
     felzec_team_overlay_name: {

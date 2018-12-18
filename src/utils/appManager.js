@@ -28,6 +28,7 @@ class AppManager {
             this.logged_in = false;
             this.serveDomain = null;
             this.admin_logged_in = false;
+            this.blog_id = -1;
             // this.localDB = new PouchDB('user', { adapter: 'idb', revs_limit: 1, auto_compaction: true });
         }
 

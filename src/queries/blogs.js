@@ -29,7 +29,20 @@ export const getBlogsQuery = gql`
             }
         }
     }
-}
+}`;
+
+export const getSingleBlogQuery = gql`
+query getBlog($id: Int!) {
+  resultData: blogById(id: $id) {
+        id
+        blogTitle
+        blogContent
+        blogMedia
+        createdAt
+        updatedAt
+        featured
+      }
+    }
 `;
 
 export const updateBlogPostQuery = gql`

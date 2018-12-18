@@ -95,7 +95,8 @@ class OrganizationMediaController extends Component {
         }
         // console.log(`twitch url = ${twitch_url}`);
         // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
-        twitch_url = twitch_url.concat(twitch_url.length - 1);
+        // twitch_url = twitch_url.concat(twitch_url.length - 1);
+        // const td = [];
         const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
         console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
@@ -117,11 +118,17 @@ class OrganizationMediaController extends Component {
         if (this.scrollRef) {
             this.scrollRef.scrollLeft -= 100;
         }
+        if (this.scrollRef2) {
+            this.scrollRef2.scrollLeft -= 100;
+        }
     }
 
     handleRightScroll = () => {
         if (this.scrollRef) {
             this.scrollRef.scrollLeft += 100;
+        }
+        if (this.scrollRef2) {
+            this.scrollRef2.scrollLeft += 100;
         }
     }
 
@@ -153,6 +160,9 @@ class OrganizationMediaController extends Component {
 
     storeRef = ref => {
         this.scrollRef = ref;
+    }
+    storeRef2 = ref => {
+        this.scrollRef2 = ref;
     }
     render() {
         if (this.state.visible === false) {
@@ -265,6 +275,7 @@ class OrganizationMediaController extends Component {
         bg_style={s}
         filter_style={f}
         storeRef={this.storeRef}
+        storeRef2={this.storeRef2}
         />;
     }
 }

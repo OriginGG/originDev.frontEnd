@@ -88,6 +88,11 @@ class AppController extends Component {
                 }
             }
         } else {
+            if (location.pathname === '/blog') {  // eslint-disable-line
+                const b_id = this.props.appManager.GetQueryParams('b');
+                this.props.appManager.blog_id = parseInt(b_id, 10);
+                historyStore.push('/main');
+            }
             if (location.pathname === '/admin') {  // eslint-disable-line
                 const domainInfo = this.props.appManager.getDomainInfo();
                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
