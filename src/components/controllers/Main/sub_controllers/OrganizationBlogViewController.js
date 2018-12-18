@@ -38,17 +38,18 @@ class OrganizationBlogViewController extends Component {
 
         return (<div>
             {this.props.shareBlog && <div
+                className="button_pulse_anim"
                 onClick={this.props.shareBlog}
                 tabIndex={-2}
                 role="menuItem"
                 style={{
+                    color: 'lightskyblue',
                     cursor: 'pointer',
                     fontSize: 28,
                     position: 'absolute',
                     right: 72,
                     top: 94,
                     zIndex: 10000,
-                    color: close_button,
                 }}><span className="fa fa-share-alt" /></div>
             }
             <div
