@@ -17,8 +17,10 @@ const Header = () => {
 class SignupChoiceController extends Component {
     handleClick = (field) => {
         if (field === 'org') {
+            document.getElementById('origin_loader').style.display = 'none';
             historyStore.push('/signup_org');
         } else {
+            document.getElementById('origin_loader').style.display = 'none';
             historyStore.push('/signup_ind');
         }
     }
