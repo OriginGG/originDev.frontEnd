@@ -86,6 +86,7 @@ class ModalContent extends Component {
                 profileImageUrl: this.getInputValue(user.individualUserById.profileImageUrl),
             },
         });
+        document.getElementById('origin_loader').style.display = 'none';
         this.profile_files = null;
         this.banner_files = null;
         this.redirectAuth = this.redirectAuth.bind(this);
@@ -407,6 +408,7 @@ class IndividualPageController extends Component {
         await this.getTwitchStats();
         await this.getYouTubeStats();
         await this.getTwitterStats();
+        document.getElementById('origin_loader').style.display = 'none';
         this.setState({ visible: true });
     }
 

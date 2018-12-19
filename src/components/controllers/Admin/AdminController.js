@@ -175,6 +175,7 @@ class MenuDrop extends Component {
 class AdminPageController extends Component {
     state = { page: 'company', isOpen: true, visible: false };
     componentDidMount = async () => {
+        document.getElementById('origin_loader').style.display = 'none';
         if (this.props.appManager.admin_logged_in) {
             const { user_id } = this.props.uiStore;
             const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });

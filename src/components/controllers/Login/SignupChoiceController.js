@@ -15,10 +15,15 @@ const Header = () => {
 };
 
 class SignupChoiceController extends Component {
+    componentDidMount = () => {
+        document.getElementById('origin_loader').style.display = 'none';
+    }
     handleClick = (field) => {
         if (field === 'org') {
+            document.getElementById('origin_loader').style.display = 'none';
             historyStore.push('/signup_org');
         } else {
+            document.getElementById('origin_loader').style.display = 'none';
             historyStore.push('/signup_ind');
         }
     }
