@@ -387,6 +387,10 @@ class OrganizationMatchesController extends Component {
             //     </td>
             // </tr>);
         });
+        let combined_array = p_array;
+        if (r_theme !== 'felzec') {
+            combined_array = f_array.concat(p_array);
+        }
         if (this.isMobile() && r_theme === 'felzec') {
             const { OrganizationMatchesMobileComponentRender } = this.state;
             return <OrganizationMatchesMobileComponentRender
@@ -414,7 +418,7 @@ class OrganizationMatchesController extends Component {
         recent_style={this.state.recent_style}
         rm_style={this.state.rm_style}
         fm_style={this.state.fm_style}
-        recent_matches={p_array}
+        recent_matches={combined_array}
         future_matches={f_array}
         bg_style={s}
         filter_style={f}
