@@ -1278,7 +1278,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_light_section_divider: {
         width: '100%',
         height: '2px',
-        backgroundColor: 'rgba(255,255,255,.5)',
+        backgroundColor: 'rgba(0,0,0,.5)',
         marginTop: '9px',
         position: 'absolute'
     },
