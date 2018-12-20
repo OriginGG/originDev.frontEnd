@@ -4551,6 +4551,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     indiviual_stats_container: {
         width: '100%',
+        maxHeight: '100px',
+        overflowY: 'auto',
         padding: '20px 10px 20px 10px',
         borderBottom: "1px rgba(255,255,255,.1) solid"
     },
