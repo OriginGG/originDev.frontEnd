@@ -4376,11 +4376,14 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         backgroundColor: 'black',
-        padding: '0px 10% 0px 10%',
+        padding: '0px 0% 0px 0%',
         display: 'table'
     },
     individual_inner_bg: {
-        width: '100%',
+        width: '80%',
+        minWidth: '400px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
         minHeight: '100vh',
         backgroundColor: 'rgb(35,35,35)',
         display: 'table',
@@ -4411,7 +4414,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         backgroundColor: 'transparent',
         position: 'absolute',
-        bottom: '20px',
+        top: '20px',
         right: '120px'
     },
     individual_login_button: {
@@ -4428,7 +4431,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         backgroundColor: 'transparent',
         position: 'absolute',
-        bottom: '20px',
+        top: '20px',
         right: '20px'
     },
     individual_basic_container: {
