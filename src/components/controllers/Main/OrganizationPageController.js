@@ -800,7 +800,7 @@ class OrganizationPageController extends Component {
                 bottomSponsorContent={<span />}
                 navContent={n_cnt}
                 logoContent={<span />}
-                footerContent={footer_content}
+                footerContent={<span />}
                 footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
             />;
         }

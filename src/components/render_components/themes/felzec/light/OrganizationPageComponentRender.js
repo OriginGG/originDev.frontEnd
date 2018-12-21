@@ -24,7 +24,7 @@ class LightOrganizationPageComponentRender extends Component {
                             paddingTop: '0px',
                             paddingBottom: '0px'
                         }}>{this.props.rosterContent}</div>
-                        <footer className={this.props.classes.felzec_darkFooter}>
+                        <footer className={this.props.classes.felzec_darkFooter} style={this.props.felzec_footer_style}>
                             <div >{this.props.footerContent}</div>
                         </footer>
                     </div>
