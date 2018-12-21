@@ -1109,6 +1109,14 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute'
     },
 
+    lightFelzecBG: {
+        width: '100%',
+        minHeight: '100vh',
+        padding: '0px 0px 0px 0px',
+        backgroundColor: '#000',
+        position: 'absolute'
+    },
+
     obliviot_lightContraint: {
         width: '100%',
         maxWidth: '1200px',
