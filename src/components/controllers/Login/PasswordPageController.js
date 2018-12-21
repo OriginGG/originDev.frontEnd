@@ -50,7 +50,7 @@ class InputBoxEmail extends Component {
                             <h4>Enter email address to receive a password reset email:</h4>
                             <Input value={this.state.email} onChange={(e) => { this.handleInputChange(e, 'email'); }} style={{ width: '50%' }} placeholder="Email..." />
                             <Row>
-                                <Button disabled={this.state.button_disabled} onClick={() => { this.props.handleSubmit(this.state.email); }} style={{ marginTop: 12 }} primary size="mini">SUBMIT</Button>
+                                <Button disabled={this.state.button_disabled} onClick={() => { this.setState({ button_disabled: true }); this.props.handleSubmit(this.state.email); }} style={{ marginTop: 12 }} primary size="mini">SUBMIT</Button>
                             </Row>
                         </Segment>
                     </div>
