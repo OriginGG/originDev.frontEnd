@@ -75,7 +75,7 @@ class CreateSubDomainController extends Component {
         });
     }
     isValid = (str) => {
-        if (/^[a-zA-Z0-9]*$/.test(str) === false) {
+        if (/^[a-zA-Z]*$/.test(str) === false) {
             return false;
         }
         return true;
