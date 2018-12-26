@@ -91,7 +91,7 @@ class OrganizationSponserListController extends Component {
         this.state.sponser_data.forEach(n => {
             if (n.description && n.description.length > 0) {
                 sponser_array.push({
-                    s_image: n.imageUrl, s_link: n.hrefLink, s_desc: n.description, s_name: n.name
+                    s_image: n.imageUrl, s_bg_image: n.bgImages, s_link: n.hrefLink, s_desc: n.description, s_name: n.name
                 });
             }
         });
@@ -119,8 +119,8 @@ class OrganizationSponserListController extends Component {
             const sl3 = <i key="social_item3" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.instagram.com'); }} className="fab fa-instagram" />;
             const sl4 = <i key="social_item4" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.youtube.com'); }} className="fab fa-youtube" />;
             const sl5 = <div key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.google.com'); }} >{r.s_link}</div>;
-            const bg_style = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover' };
             const individualSponserByIndividualId = r;
+            const bg_style = { background: `url(${individualSponserByIndividualId.s_bg_image})`, backgroundSize: 'cover' };
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualSponserByIndividualId.s_link); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender
                 sponser_image={individualSponserByIndividualId.s_image}
                 sponser_name={individualSponserByIndividualId.s_name}
