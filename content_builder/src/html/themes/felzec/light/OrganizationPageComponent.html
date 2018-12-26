@@ -22,7 +22,7 @@
       </script>  
    </head>
    <body>
-        <div data-component-name="light_OrganizationPageComponent"  class="classes.lightObliotBG">
+        <div data-component-name="light_OrganizationPageComponent"  class="classes.lightFelzecBG">
               <div>
                   <img id="bg_img" class="classes.felzec_light_bg_img" src="../images/light_main.jpeg" alt=""/>
                   <div class="classes.obliviot_light_bg_filter" data-component-props="style={this.props.obliviot_page_style}"></div>
@@ -38,10 +38,10 @@
                       <div id="matches_container" data-component-value="{this.props.matchesContent}">MATCHES</div>
                       <div id="media_container" data-component-value="{this.props.mediaContent}">MEDIA</div>
                       <div data-component-value="{this.props.rosterContent}" id="roster_component" style="padding-top:0px;padding-bottom:0px;">
-                    </div>
-                    <footer class="classes.felzec_darkFooter">
+                      </div>
+                      <footer class="classes.felzec_darkFooter" data-component-props="style={this.props.felzec_footer_style}">
                         <div data-component-value="{this.props.footerContent}">Nav</div>
-                    </footer>
+                      </footer>
                 </div>
             </div>
         </div>
