@@ -15,6 +15,7 @@ export const getSponsorsQuery = gql`query getOrganisationSponsors($subDomain: St
         organisation
         id
         imageUrl
+        bgImages
         hrefLink
         name
         description
@@ -57,9 +58,10 @@ export const getSponsorsQuery = gql`query getOrganisationSponsors($subDomain: St
 // }
 // `;
 
-export const updateSponsorsQuery = gql`mutation updateSponsor($id: Int!, $imageUrl: String, $hrefLink: String, $description: String, $name: String) {
+export const updateSponsorsQuery = gql`mutation updateSponsor($id: Int!, $imageUrl: String, $bgImages: String, $hrefLink: String, $description: String, $name: String) {
   updateOrgSponsorById(input: {id: $id, orgSponsorPatch: {
     imageUrl: $imageUrl
+    bgImages: $bgImages
     hrefLink: $hrefLink
     description: $description
     name: $name
@@ -70,9 +72,10 @@ export const updateSponsorsQuery = gql`mutation updateSponsor($id: Int!, $imageU
   }
 }`;
 
-export const createSponsorsQuery = gql`mutation createSponsorQuery($subDomain: String!, $imageUrl: String, $hrefLink: String, $description: String, $name: String) {
+export const createSponsorsQuery = gql`mutation createSponsorQuery($subDomain: String!, $imageUrl: String, $bgImages: String, $hrefLink: String, $description: String, $name: String) {
   createOrgSponsor(input: {orgSponsor: {
     imageUrl: $imageUrl
+    bgImages: $bgImages
     organisation: $subDomain
     hrefLink: $hrefLink
     name: $name

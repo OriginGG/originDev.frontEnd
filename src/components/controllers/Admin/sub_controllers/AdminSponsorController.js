@@ -18,12 +18,13 @@ const { confirm } = Modal;
 
 class SponsorBlock extends Component {
     state = {
-        sponsor_image: null, input_http_link_value: '', input_name_value: '', input_desc_value: '', visible: false
+        sponsor_image: null, sponsor_bg_image: null, input_http_link_value: '', input_name_value: '', input_desc_value: '', visible: false
     };
     componentDidMount = () => {
         this.sponsor_image_old = this.props.sponsor_image;
+        this.sponsor_bg_image_old = this.props.sponsor_bg_image;
         this.setState({
-            input_http_link_value: this.props.http_link_value, sponsor_image: this.props.sponsor_image, input_name_value: this.props.sponsor_name_value, input_desc_value: this.props.sponsor_desc_value, visible: true
+            input_http_link_value: this.props.http_link_value, sponsor_image: this.props.sponsor_image, sponsor_bg_image: this.props.sponsor_bg_image, input_name_value: this.props.sponsor_name_value, input_desc_value: this.props.sponsor_desc_value, visible: true
         });
     }
     isURL = (str) => {
@@ -49,6 +50,10 @@ class SponsorBlock extends Component {
         if (this.sponsor_image_old !== this.state.sponsor_image) {
             sponsor_image = await this.uploadSponsorMedia(this.state.sponsor_image);
         }
+        let sponsor_bg_image = this.sponsor_bg_image_old;
+        if (this.sponsor_bg_image_old !== this.state.sponsor_bg_image) {
+            sponsor_bg_image = await this.uploadSponsorMedia(this.state.sponsor_bg_image);
+        }
         if (this.state.input_http_link_value) {
             if (!this.isURL(this.state.input_http_link_value)) {
                 toast.error('Sponsor URL Not Valid', {
@@ -62,6 +67,7 @@ class SponsorBlock extends Component {
             {
                 id: this.props.element_id,
                 imageUrl: sponsor_image,
+                bgImages: sponsor_bg_image,
                 hrefLink: this.state.input_http_link_value,
                 description: this.state.input_desc_value,
                 name: this.state.input_name_value
@@ -93,8 +99,20 @@ class SponsorBlock extends Component {
             this.setState({ sponsor_image: x });
         };
     }
+    uploadBGFile = (e) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e[0]);
+        this.logo_file = e[0];              // eslint-disable-line
+        reader.onloadend = () => {
+            const x = reader.result;
+            this.setState({ sponsor_bg_image: x });
+        };
+    }
     handleFileClick = () => {
         this.dropzoneRef.open();
+    }
+    handleBGFileClick = () => {
+        this.dropzoneBGRef.open();
     }
     render() {
         if (this.state.visible === false) {
@@ -119,6 +137,7 @@ class SponsorBlock extends Component {
             <div>
                 <div>
                     <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
+                    <Dropzone onDrop={this.uploadBGFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneBGRef = node; }} />
                 </div>
                 <OrganizationAdminSponsorComponentElementRender
                     upload_title={this.props.upload_title}
@@ -128,11 +147,14 @@ class SponsorBlock extends Component {
                     }}
                     element_style_disable={hd}
                     sponsor_image={this.state.sponsor_image}
+                    sponsor_bg_image={this.state.sponsor_bg_image}
                     http_link_value={this.state.input_http_link_value}
                     sponsor_desc_value={this.state.input_desc_value}
                     sponsor_name_value={this.state.input_name_value}
                     handleFileClick={this.handleFileClick}
+                    handleBGFileClick={this.handleBGFileClick}
                     uploadFile={this.uploadFile}
+                    uploadBGFile={this.uploadBGFile}
                     handleChangeName={this.handleChangeName}
                     handleChangeDesc={this.handleChangeDesc}
                     handleChangeLink={this.handleChangeLink}
@@ -163,6 +185,7 @@ class AdminSponsorController extends Component {
                 element_id={n.id}
                 upload_title={`Upload Sponsor ${i + 1}`}
                 sponsor_image={n.imageUrl}
+                sponsor_bg_image={n.bgImages}
                 for={`hidden-new-file${n.id}`}
                 http_link_value={n.hrefLink}
                 sponsor_desc_value={n.description}
@@ -204,6 +227,7 @@ class AdminSponsorController extends Component {
 SponsorBlock.propTypes = {
     http_link_value: PropTypes.string.isRequired,
     sponsor_image: PropTypes.string.isRequired,
+    sponsor_bg_image: PropTypes.string.isRequired,
     sponsor_name_value: PropTypes.string.isRequired,
     sponsor_desc_value: PropTypes.string.isRequired,
     upload_title: PropTypes.string.isRequired,
