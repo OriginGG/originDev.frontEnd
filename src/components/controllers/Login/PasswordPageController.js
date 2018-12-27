@@ -179,7 +179,7 @@ class PasswordPageController extends Component {
                 historyStore.push('/signup');
             }, 5000);
         }
-        console.log(r);
+        // console.log(r);
     }
 
     handleSubmitPassword = async (v) => {

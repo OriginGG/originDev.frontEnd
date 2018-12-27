@@ -62,11 +62,11 @@ class AdminProfileController extends Component {
         return str.includes('http');
     }
     tooLong = (str) => {
-        console.log(`str.length = ${str.length}`);
+        // console.log(`str.length = ${str.length}`);
         return str.length > 255;
     }
     isTwitchURL = (str) => {
-        console.log(`WWWWWWWWWWWWWWWWWWWWWWWWWWWWW string is ${str}`);
+        // console.log(`WWWWWWWWWWWWWWWWWWWWWWWWWWWWW string is ${str}`);
         return str.includes('https://www.twitch.tv/team/');
     }
     handleSubmit = async () => {
@@ -202,7 +202,7 @@ class AdminProfileController extends Component {
             );
             const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
             this.props.uiStore.setOrganisation(o.resultData);
-            console.log(`result data = ${JSON.stringify(o.resultData)}`);
+            // console.log(`result data = ${JSON.stringify(o.resultData)}`);
             toast.success('Company Details updated !', {
                 position: toast.POSITION.TOP_LEFT
             });
@@ -252,7 +252,7 @@ class AdminProfileController extends Component {
     handleChange = (field, e) => {
         const v = e.target.value;
         const p = this.state.input_values;
-        console.log(`admin testing on change ${field} value ${v} input ${p}`);
+        // console.log(`admin testing on change ${field} value ${v} input ${p}`);
         p[field] = v;
         this.setState({
             input_values: p

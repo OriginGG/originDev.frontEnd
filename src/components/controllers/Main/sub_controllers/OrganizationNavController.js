@@ -24,8 +24,8 @@ class OrganizationNavController extends Component {
         const OrganizationNavComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNavComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.header.logo.imageData;
         this.setState({ roster: p_array, visible: true, OrganizationNavComponentRender: OrganizationNavComponentRender.default });
-        const menu_color = this.props.uiStore.current_organisation.primaryColor;
-        console.log(`MENU COLOR = ${menu_color}`);
+        // const menu_color = this.props.uiStore.current_organisation.primaryColor;
+        // console.log(`MENU COLOR = ${menu_color}`);
         // const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
         // this.setState({ felzec_menu: false, felzec_style: nf_style });
     }
@@ -33,7 +33,7 @@ class OrganizationNavController extends Component {
         console.log(error, info);
     }
     handleRosterButtonClick = () => {
-        console.log(`roster click ${this.p_array}`);
+        // console.log(`roster click ${this.p_array}`);
         this.setState({ dropdown: true });
     }
     handleCloseClick = () => {

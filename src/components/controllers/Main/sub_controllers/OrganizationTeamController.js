@@ -164,7 +164,7 @@ class OrganizationTeamController extends Component {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allCombinedRosters.edges.forEach((r) => {
-                console.log(`r data = ${JSON.stringify(r)}`);
+                // console.log(`r data = ${JSON.stringify(r)}`);
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
@@ -178,7 +178,7 @@ class OrganizationTeamController extends Component {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allCombinedRosters.edges.forEach((r) => {
-                console.log(`r data = ${JSON.stringify(r)}`);
+                // console.log(`r data = ${JSON.stringify(r)}`);
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
@@ -211,14 +211,14 @@ class OrganizationTeamController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
             return true;
         }
         return false;
     }
     handleTeamClick = (t) => {
-        console.log(JSON.stringify(t));
+        // console.log(JSON.stringify(t));
         // const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         // const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
         this.setState({ current_roster_id: t });

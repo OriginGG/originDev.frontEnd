@@ -88,7 +88,7 @@ class OrganizationBlogController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
             return true;
         }
@@ -159,7 +159,7 @@ class OrganizationBlogController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         if (this.isMobile() && (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light')) {
             const { OrganizationBlogMobileComponentRender } = this.state;
-            console.log(`isMobile so retunr corrwct blog style    ${this.isMobile}`);
+            // console.log(`isMobile so retunr corrwct blog style    ${this.isMobile}`);
             return (
                 <div>
                     <OrganizationBlogMobileComponentRender

@@ -45,7 +45,7 @@ class OrganizationRosterController extends Component {
 
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
             return true;
         }
@@ -53,7 +53,7 @@ class OrganizationRosterController extends Component {
     }
 
     handleClick = (i) => {              // eslint-disable-line
-        console.log(`individidual = ${JSON.stringify(i)}`);
+        // console.log(`individidual = ${JSON.stringify(i)}`);
         const x = this.props.appManager.getDomainInfo();
         let p = x.hostname;
         if (p.indexOf(x.subDomain) > -1) {

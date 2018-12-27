@@ -95,7 +95,7 @@ class OrganizationPageController extends Component {
             historyStore.push('/signup');
         } else {
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
-            console.log(`RESULTS = ${JSON.stringify(o.resultData)}`);
+            // console.log(`RESULTS = ${JSON.stringify(o.resultData)}`);
             if (o.resultData === null) {
                 historyStore.push('/');
             } else {
@@ -242,12 +242,12 @@ class OrganizationPageController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
-            console.log('isMobile true');
+            // console.log('isMobile true');
             return true;
         }
-        console.log('isMobile false');
+        // console.log('isMobile false');
         return false;
     }
 
@@ -305,7 +305,7 @@ class OrganizationPageController extends Component {
         this.current_blog_id = blog.node.id;
         this.closeAll();
         this.setState({ roster_style: { display: 'none' }, display_blogs: false });
-        console.log(`blog = ${JSON.stringify(blog)}`);
+        // console.log(`blog = ${JSON.stringify(blog)}`);
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
@@ -382,7 +382,7 @@ class OrganizationPageController extends Component {
     }
     shareBlogs = () => {
         const { hostname, port, protocol } = window.location;
-        console.log(hostname, port, protocol);
+        // console.log(hostname, port, protocol);
         const blog_url = `${protocol}//${hostname}:${port}/blog?b=${this.current_blog_id}`;
         navigator.clipboard.writeText(blog_url);
         toast.success('Blog link copied to clipboard!', {
@@ -537,7 +537,7 @@ class OrganizationPageController extends Component {
         }
         let footer_content = <span />;
         if (real_theme === 'felzec/light') {
-            console.log(`real theme = ${real_theme}`);
+            // console.log(`real theme = ${real_theme}`);
             const s_email = this.props.uiStore.current_organisation.supportContactEmail;
             const b_email = this.props.uiStore.current_organisation.businessContactEmail;
             footer_content = <OrganizationFooterController
