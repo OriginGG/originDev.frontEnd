@@ -66,7 +66,7 @@ class ModalContent extends Component {
     };
     componentDidMount = async () => {
         const user = await this.props.appManager.executeQueryAuth('query', getIndividualUserQuery, { id: this.props.user_id });
-        console.log(`user = ${JSON.stringify(user)}`);
+        // console.log(`user = ${JSON.stringify(user)}`);
         this.setState({
             input_values: {
                 firstName: this.getInputValue(user.individualUserById.firstName),
@@ -94,8 +94,8 @@ class ModalContent extends Component {
     handleChange = (field, e) => {
         const v = e.target.value;
         const p = this.state.input_values;
-        console.log(`e = ${v} and p = ${p}`);
-        console.log(p);
+        // console.log(`e = ${v} and p = ${p}`);
+        // console.log(p);
         p[field] = v;
         this.setState({
             input_values: p
@@ -137,7 +137,7 @@ class ModalContent extends Component {
                         toast.success('Authorization Sucessful!', {
                             position: toast.POSITION.TOP_LEFT
                         });
-                        console.log(e.data);
+                        // console.log(e.data);
                         const p = this.state.input_values;
                         p['twitterHandle'] = e.data.twitterHandle; // eslint-disable-line
                         this.setState({ input_values: p });
@@ -152,11 +152,11 @@ class ModalContent extends Component {
                     toast.success('Authorization Sucessful!', {
                         position: toast.POSITION.TOP_LEFT
                     });
-                    console.log(e.data.channel);
+                    // console.log(e.data.channel);
                     const p = this.state.input_values;
                     p['youtubeChannel'] = e.data.channel; // eslint-disable-line
                     this.setState({ input_values: p}); // eslint-disable-line
-                    console.log(p);
+                    // console.log(p);
                     // this.handleChange('youtubeChannel', e.data.channel);
                 }
             });
@@ -359,7 +359,7 @@ class IndividualPageController extends Component {
             } else {
                 this.props.appManager.pouchStore('ind_authenticate', null);
                 // const authPayload = this.props.appManager.GetQueryParams('p');
-                console.log('authPayload' + authPayload); // eslint-disable-line
+                // console.log('authPayload' + authPayload); // eslint-disable-line
                 this.key_index = 1;
                 if (authPayload) {
                     let p;
@@ -375,7 +375,7 @@ class IndividualPageController extends Component {
                         }, 5000);
                         return;
                     }
-                    console.log(`token - ${p}`);
+                    // console.log(`token - ${p}`);
                     if (p.authenticateIndividual.individualAuthPayload === null) {
                         toast.error('Wrong password for  - Redirecting you to login page in 5 seconds', {
                             position: toast.POSITION.TOP_LEFT,
@@ -391,7 +391,7 @@ class IndividualPageController extends Component {
                         const d = this.props.appManager.decodeJWT(token);
                         // browserHistory.push(`/individual?u=${d.id}`);
                         this.user_id = d.id;
-                        console.log('user_id' + this.user_id); // eslint-disable-line
+                        // console.log('user_id' + this.user_id); // eslint-disable-line
                         const user = await this.props.appManager.executeQuery('query', getIndividualUserQuery, { id: this.user_id });
                         const new_payload = Buffer.from(JSON.stringify(user.individualUserById), 'utf8').toString('hex');
                         this.props.appManager.pouchStore('ind_login', new_payload);
@@ -433,7 +433,7 @@ class IndividualPageController extends Component {
     getYouTubeStats = async () => {
         if (this.user_details.youtubeChannel) {
             const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/youtube/getchannels?channel=${this.user_details.youtubeChannel}`);
-            console.log(`YOUtube nSTATS = ${JSON.stringify(td.data)}`);
+            // console.log(`YOUtube nSTATS = ${JSON.stringify(td.data)}`);
             this.youtube_stats = td.data;
         }
     }
@@ -473,20 +473,20 @@ class IndividualPageController extends Component {
                 break;
             }
         }
-        console.log(s);
+        // console.log(s);
     }
     handleEditClick = () => {
         this.setState({ modal_open: true });
     }
     handleLoginClick = () => {
-        console.log('clickd login');
+        // console.log('clickd login');
         browserHistory.push('/login_ind');
     }
     closeModal = () => {
         this.setState({ modal_open: false });
     }
     handleSubmit = async (state) => {
-        console.log(`STATE = ${JSON.stringify(state)}`);
+        // console.log(`STATE = ${JSON.stringify(state)}`);
         if (state.username.indexOf(' ') > -1) {
             toast.error('Username cannot contain spaces!', {
                 position: toast.POSITION.TOP_LEFT
@@ -522,7 +522,7 @@ class IndividualPageController extends Component {
             uiStore.setSubmittingContent(false);
             return;
         }
-        console.log(`IDIDID = ${this.user_details.id}`);
+        // console.log(`IDIDID = ${this.user_details.id}`);
         const user_id_being_reset = this.user_details.id;
         const r = await this.props.appManager.executeQueryAuth('query', getIndividualUserByHandleQuery, { handle: state.username });
         if (r.allIndividualUsers.nodes.length > 0 && r.allIndividualUsers.nodes[0].id !== this.user_details.id) {
@@ -540,7 +540,7 @@ class IndividualPageController extends Component {
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
-            console.log(`check if id is there ${this.user_details.id}`);
+            // console.log(`check if id is there ${this.user_details.id}`);
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateIndividualUserQuery,
                 {
@@ -580,7 +580,7 @@ class IndividualPageController extends Component {
             }}>No Data Found</h2>;
 
         if (this.twitch_stats) {
-            console.log(`TWITCH STATS = ${JSON.stringify(this.twitch_stats)}`);
+            // console.log(`TWITCH STATS = ${JSON.stringify(this.twitch_stats)}`);
             // twitch_stats = <TwitchInfo stats={this.twitch_stats} />;           // eslint-disable-line
             twitch_stats = <IndividualTwitchStatsComponentRender
                 twitch_image={this.twitch_stats.profile_image_url}

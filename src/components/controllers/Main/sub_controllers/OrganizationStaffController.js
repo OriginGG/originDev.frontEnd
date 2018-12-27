@@ -105,14 +105,14 @@ class OrganizationStaffController extends Component {
         }
     }
 
-    handleMouseOver = (i) => {
-        console.log(JSON.stringify(i.display));
+    handleMouseOver = () => {
+        // console.log(JSON.stringify(i.display));
         const overlay_style = { display: 'inherit' };
         this.setState({ felzec_overlay_style: overlay_style });
     }
 
-    handleMouseOut = (i) => {
-        console.log(JSON.stringify(i.display));
+    handleMouseOut = () => {
+        // console.log(JSON.stringify(i.display));
         const overlay_style = { display: 'none' };
         this.setState({ felzec_overlay_style: overlay_style });
     }
@@ -141,12 +141,12 @@ class OrganizationStaffController extends Component {
     }
 
     handleSupportClick = () => {
-        console.log('handle support click');
+        // console.log('handle support click');
         const emailTo = this.props.uiStore.current_organisation.supportContactEmail;
         window.open(`mailto:${emailTo}`, '_blank');
     }
     handleBusinessClick = () => {
-        console.log('handle business click');
+        // console.log('handle business click');
         const emailTo = this.props.uiStore.current_organisation.businessContactEmail;
         window.open(`mailto:${emailTo}`, '_blank');
     }
@@ -228,7 +228,7 @@ class OrganizationStaffController extends Component {
         if (theme === 'felzec/light') {
             f_array = [];
         }
-        console.log(`currennt_org = ${JSON.stringify(this.props.uiStore.current_organisation)}`);
+        // console.log(`currennt_org = ${JSON.stringify(this.props.uiStore.current_organisation)}`);
         const b_email = this.props.uiStore.current_organisation.businessContactEmail;
         const s_email = this.props.uiStore.current_organisation.supportContactEmail;
         if (isMobile && theme === 'felzec/light') {

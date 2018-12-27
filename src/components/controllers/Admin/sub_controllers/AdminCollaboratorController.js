@@ -57,7 +57,7 @@ class AdminCollaboratorController extends Component {
             adminUser: false
         };
         const my_id = await this.props.appManager.executeQueryAuth('mutation', createUserQuery, payload);
-        console.log(my_id);
+        // console.log(my_id);
         const actual_id = my_id.registerUser.user.id;
         await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         await this.updateTable();

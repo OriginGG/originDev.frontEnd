@@ -71,7 +71,7 @@ class OrganizationMediaController extends Component {
             console.log('no team name');
         }
         const users = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, rosterType: 'content_team' });
-        console.log(`TEST TEST = ${JSON.stringify(users)}`);
+        // console.log(`TEST TEST = ${JSON.stringify(users)}`);
         // const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         // console.log(`old_users = ${JSON.stringify(old_users)}`);
         const t_array = [];
@@ -80,7 +80,7 @@ class OrganizationMediaController extends Component {
         const from_list = users.allCombinedRosters.edges[0];
         if (from_list) {
             from_list.node.combinedRosterIndividualsByRosterId.edges.forEach(n => {
-                console.log(`INSIDE TWITCH LOOP = ${JSON.stringify(n)}`);
+                // console.log(`INSIDE TWITCH LOOP = ${JSON.stringify(n)}`);
                 // console.log(`users.allOrganisationMembers.edges = ${JSON.stringify(users.allOrganisationMembers.edges)}`);
                 // console.log(`n.node.contentTeamsByMemberId.nodes.length = ${n.node.contentTeamsByMemberId.nodes.length}`);
                 // console.log(`n.node.individualUserByIndividalUserId.twitchUrl = ${n.node.individualUserByIndividalUserId.twitchUrl}`);
@@ -98,7 +98,7 @@ class OrganizationMediaController extends Component {
         // twitch_url = twitch_url.concat(twitch_url.length - 1);
         // const td = [];
         const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
-        console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
+        // console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
             live_list: td,
             team_list: team_l,
@@ -186,7 +186,7 @@ class OrganizationMediaController extends Component {
         y_array.push(<OrganizationYouTubeComponentRender video_url={this.state.video3_url} />);
         y_array.push(<OrganizationYouTubeComponentRender video_url={this.state.video4_url} />);
 
-        console.log(`NEW TEAM LIST = ${JSON.stringify(this.state.team_list)}`);
+        // console.log(`NEW TEAM LIST = ${JSON.stringify(this.state.team_list)}`);
 
         if (this.state.team_list) {
             if (this.state.team_list.data.success) {

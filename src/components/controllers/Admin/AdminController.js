@@ -38,7 +38,7 @@ class MenuDrop extends Component {
     state = { open: true };
 
     handleMenuClick = (v, e) => {
-        console.log(v, e);
+        console.log(e);
         this.props.handleManageClick(v);
     }
 
@@ -202,7 +202,7 @@ class AdminPageController extends Component {
                     }
                 });
             }
-            console.log(user_id);
+            // console.log(user_id);
             this.initialized = true;
         } else {
             historyStore.push('/admin');
@@ -239,10 +239,10 @@ class AdminPageController extends Component {
     }
 
     handleNavClick = () => {
-        console.log('nav click');
+        // console.log('nav click');
         const domainInfo = this.props.appManager.getDomainInfo();
         const url_string = `${domainInfo.protocol}//${domainInfo.hostname}${(domainInfo.port === 443 || domainInfo.port === 80 || domainInfo.port === '') ? '' : `:${domainInfo.port}`}`;
-        console.log(`domain info urlstring = ${url_string}`);
+        // console.log(`domain info urlstring = ${url_string}`);
         window.open(url_string, '_blank');
     }
     showSubscribeConfirm = () => {
