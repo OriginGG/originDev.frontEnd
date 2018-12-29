@@ -128,19 +128,24 @@ class ModalContent extends Component {
         this.file_upload_type = f;
         this.dropzoneRef.open();
     }
-    redirectAuth = (s) => {
+    redirectAuth = async (s) => {
         switch (s) {
             case 'twitter': {
                 let twitterAuthWindow = window.open(`${process.env.REACT_APP_SOCIAL_STATS_SERVER}/auth/twitter`, '_blank'); // eslint-disable-line   
                 window.addEventListener('message', e => {
                     if (e.data.success === true) {
-                        toast.success('Authorization Sucessful!', {
-                            position: toast.POSITION.TOP_LEFT
-                        });
-                        // console.log(e.data);
-                        const p = this.state.input_values;
-                        p['twitterHandle'] = e.data.twitterHandle; // eslint-disable-line
-                        this.setState({ input_values: p });
+                        if (e.data.twitterHandle) {
+                            toast.success('Authorization Sucessful!', {
+                                position: toast.POSITION.TOP_LEFT
+                            });
+                        this.props.appManager.executeQueryAuth(  // eslint-disable-line
+                                'mutation', updateIndividualUserQuery,
+                                {
+                                    id: this.props.user_id,
+                                    twitterHandle: e.data.twitterHandle
+                                }
+                            );
+                            }
                     }
                 });
             }
@@ -149,16 +154,20 @@ class ModalContent extends Component {
             window.open(`${process.env.REACT_APP_SOCIAL_STATS_SERVER}/auth/youtube`, '_blank'); // eslint-disable-line   
             window.addEventListener('message', (e) => {
                 if (e.data.success === true) {
-                    toast.success('Authorization Sucessful!', {
-                        position: toast.POSITION.TOP_LEFT
-                    });
-                    // console.log(e.data.channel);
-                    const p = this.state.input_values;
-                    p['youtubeChannel'] = e.data.channel; // eslint-disable-line
-                    this.setState({ input_values: p}); // eslint-disable-line
-                    // console.log(p);
-                    // this.handleChange('youtubeChannel', e.data.channel);
+                    console.log(e.data);
+                    if (e.data.youtubeURL) {
+                        toast.success('Authorization Sucessful!', {
+                            position: toast.POSITION.TOP_LEFT
+                        });
+                        this.props.appManager.executeQueryAuth(  // eslint-disable-line
+                        'mutation', updateIndividualUserQuery,
+                        {
+                            id: this.props.user_id,
+                            youtubeChannel: e.data.youtubeURL
+                        }
+                    );
                 }
+            }
             });
           }
           break;
@@ -166,13 +175,19 @@ class ModalContent extends Component {
                 let twitchAuthWindow = window.open(`${process.env.REACT_APP_SOCIAL_STATS_SERVER}/auth/twitch`, '_blank'); // eslint-disable-line   
                 window.addEventListener('message', (e) => {
                     if (e.data.success === true) {
-                        toast.success('Authorization Sucessful!', {
-                            position: toast.POSITION.TOP_LEFT
-                        });
-                        const p = this.state.input_values;
-                        p['twitchUrl'] = e.data.id; // eslint-disable-line
-                        this.setState({ input_values: p}); // eslint-disable-line
+                        if (e.data.twitchUrl) {
+                            toast.success('Authorization Sucessful!', {
+                                position: toast.POSITION.TOP_LEFT
+                            });
+                        this.props.appManager.executeQueryAuth(  // eslint-disable-line
+                            'mutation', updateIndividualUserQuery,
+                            {
+                                id: this.props.user_id,
+                                twitchUrl: e.data.twitchUrl
+                            }
+                        );
                     }
+                }
                 });
             }
             break; // eslint-disable-line
@@ -536,7 +551,7 @@ class IndividualPageController extends Component {
             this.user_details = state;
             this.user_details.id = user_id_being_reset;
             await this.getTwitchStats();
-            let t_id = null;
+            let t_id = null; // eslint-disable-line
             if (this.twitch_stats && this.twitch_stats.id) {
                 t_id = this.twitch_stats.id;
             }
@@ -549,13 +564,9 @@ class IndividualPageController extends Component {
                     firstName: state.firstName,
                     lastName: state.lastName,
                     contactEmail: state.contactEmail,
-                    twitchUserId: t_id,
                     bannerImageUrl: state.bannerImageUrl,
                     profileImageUrl: state.profileImageUrl,
                     accomplishments: state.accomplishments,
-                    twitchUrl: state.twitchUrl,
-                    twitterHandle: state.twitterHandle,
-                    youtubeChannel: state.youtubeChannel,
                     instagramLink: state.instagramLink
                     // youtubeVideo1Url: state.youtubeVideo1Url,
                     // youtubeVideo2Url: state.youtubeVideo2Url,
