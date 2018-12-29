@@ -35,6 +35,13 @@
                             <div class="classes.admin_sponser_image_box">
                                 <img class="classes.admin_sponser_image" data-component-props="src={this.props.sponsor_image}" src="http://api.originbeta.net/sponsor/sponsor-logo1.png" />
                             </div>
+                            <div data-component-props="onClick={this.props.handleBGFileClick}" class="classes.admin_sponser_button">
+                                    <i class="cloud icon"></i>
+                                    Upload Sponsor BG
+                            </div>
+                            <div class="classes.admin_sponser_bg_image_box">
+                                <img class="classes.admin_sponser_bg_image" data-component-props="src={this.props.sponsor_bg_image}" src="http://api.originbeta.net/sponsor/sponsor-logo1.png" />
+                            </div>
                             <div class="ui fluid input">
                                 <input data-component-props="value={this.props.sponsor_name_value} onChange={(e)=>{this.props.handleChangeName(e);}}"  type="text" placeholder="Sponsor Name">
                             </div>
@@ -53,7 +60,7 @@
    </body>
    <script>
        $( document ).ready(function() {
-            console.log( "ready!" );
+            // console.log( "ready!" );
         });
 
         // $('.ui.sidebar').sidebar({

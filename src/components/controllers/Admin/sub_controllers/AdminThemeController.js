@@ -133,7 +133,7 @@ class AdminThemeController extends Component {
     }
     checkBoxChanged = (e) => {
         const { value } = e.target;
-        console.log(value);
+        // console.log(value);
         this.new_theme = value;
         if (value === 'dark') {
             this.setState({ checked_dark: 'checked', checked_light: '' });

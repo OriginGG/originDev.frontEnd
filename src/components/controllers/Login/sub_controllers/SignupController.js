@@ -154,7 +154,7 @@ class LoginController extends Component {
                         historyStore.push(`/individual?u=${authPayload.authenticateIndividual.individualAuthPayload.userId}`);
                     } else {
                         if (this.state.content_display === 'login') {
-                            console.log('submitting....');
+                            // console.log('submitting....');
                             const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
                             if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
                                 toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
@@ -165,21 +165,21 @@ class LoginController extends Component {
                             }
                             const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                             if (authPayload.authenticate.resultData !== null) {
-                                console.log('submitting2....');
+                                // console.log('submitting2....');
                                 const token = authPayload.authenticate.resultData.jwtToken;
                                 this.props.appManager.authToken = token;
                                 const d = this.props.appManager.decodeJWT(token);
-                                console.log(`d:-${d}`);
+                                // console.log(`d:-${d}`);
                                 this.props.uiStore.setUserID(d.id);
 
                                 const { organisation } = authPayload.authenticate.resultData;
                                 const domainInfo = this.props.appManager.getDomainInfo();
-                                console.log(`domain info:-${domainInfo}`);
+                                // console.log(`domain info:-${domainInfo}`);
                                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
-                                console.log(`subDomain-${subDomain}`);
+                                // console.log(`subDomain-${subDomain}`);
                                 // we might have a valid user somewhere, but is he part of this domain?
                                 const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
-                                console.log(`payload:-${d}`);
+                                // console.log(`payload:-${d}`);
 
                                 if (subDomain === 'origin' && organisation !== null) {
                                     const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
@@ -212,7 +212,7 @@ class LoginController extends Component {
                                     autoClose: 5000
                                 });
                             }
-                            console.log('submitting3....');
+                            // console.log('submitting3....');
                         } else {
                             if (process.env.REACT_APP_SIGNUP_PROCESS === 'SIGNUP_FUZZY') {
                                 const payload = {
@@ -310,7 +310,7 @@ class LoginController extends Component {
                                         await this.sendEmail(url);
                                         const payload_email = Buffer.from(url, 'utf8').toString('hex');
                                         const r_email = await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email, payload: payload_email });
-                                        console.log(pre_user, r_email);
+                                        console.log(r_email);
                                         toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
                                             position: toast.POSITION.TOP_LEFT,
                                             autoClose: 15000

@@ -99,7 +99,7 @@ class AdminRecentMatchesController extends Component {
     handleDropDownList = (e, data) => {
         // console.log(`handleDropDownList ${data.value}`);
         this.match_type = data.value;
-        console.log(`match type = ${this.match_type}`);
+        // console.log(`match type = ${this.match_type}`);
     }
 
     handleSubmit = async () => {
@@ -169,14 +169,14 @@ class AdminRecentMatchesController extends Component {
             if (logo_data === null) {
                 this.is_saving = false;
             } else {
-                console.log(`event description = ${this.state.event_description}
-                subDomain=${this.props.uiStore.current_organisation.subDomain}
-                gameName=${this.current_game} 
-                eventInfo= ${this.match_type}
-                eventUrl= ${this.state.your_url}
-                eventDate= ${this.state.your_date}
-                gameLogo= ${logo_data.Location}
-                score= ${this.state.your_score} - ${this.state.their_score}`);
+                // console.log(`event description = ${this.state.event_description}
+                // subDomain=${this.props.uiStore.current_organisation.subDomain}
+                // gameName=${this.current_game}
+                // eventInfo= ${this.match_type}
+                // eventUrl= ${this.state.your_url}
+                // eventDate= ${this.state.your_date}
+                // gameLogo= ${logo_data.Location}
+                // score= ${this.state.your_score} - ${this.state.their_score}`);
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
