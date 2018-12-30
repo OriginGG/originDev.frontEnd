@@ -97,7 +97,7 @@ class CreateSubDomainController extends Component {
                 // check domain name has n
                 this.domain_name = this.domain_name.toLowerCase();
 
-                console.log(`domain name = ${this.domain_name}`);
+                // console.log(`domain name = ${this.domain_name}`);
 
                 // const logo_data = await this.uploadLogo();
                 const p = toJS(this.props.uiStore.origin_theme_structure);

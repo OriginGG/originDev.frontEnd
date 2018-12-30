@@ -20,6 +20,13 @@ class OrganizationAdminSponserComponentElementRender extends Component {
                         <div className={this.props.classes.admin_sponser_image_box}>
                             <img className={this.props.classes.admin_sponser_image} src={this.props.sponsor_image}/>
                         </div>
+                        <div className={this.props.classes.admin_sponser_button} onClick={this.props.handleBGFileClick}>
+                            <i className="cloud icon"/>
+                            Upload Sponsor BG
+                        </div>
+                        <div className={this.props.classes.admin_sponser_bg_image_box}>
+                            <img className={this.props.classes.admin_sponser_bg_image} src={this.props.sponsor_bg_image}/>
+                        </div>
                         <div className="ui fluid input">
                             <input type="text" placeholder="Sponsor Name" value={this.props.sponsor_name_value} onChange={e => {
                                 this

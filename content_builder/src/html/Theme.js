@@ -1726,7 +1726,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '15%',
         position: 'absolute',
         paddingLeft: '10%',
-        bottom: '20px'
+        bottom: '80px'
     },
 
     obliviot_light_social_menu_container: {
@@ -3442,7 +3442,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_header_logo: {
         display: 'block',
         margin: 'auto',
-        height: '50px',
+        height: '80px',
         cursor: 'pointer'
     },
     body_container: {
@@ -4209,6 +4209,14 @@ export const GlobalStyles = GlobalTheme => ({
         marginBottom: '20px',
         backgroundColor: '#ccc'
     },
+    admin_sponser_bg_image_box: {
+        width: '300px',
+        height: '100px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '20px',
+        backgroundColor: '#ccc'
+    },
     admin_sponser_description: {
         width: '100%',
         height: '150px',
@@ -4216,6 +4224,10 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_sponser_image: {
         width: '150px',
+        height: '100px'
+    },
+    admin_sponser_bg_image: {
+        width: '300px',
         height: '100px'
     },
     modal_news_header: {

@@ -29,7 +29,7 @@ class OrganizationNewsController extends Component {
         blog_modal_open: false, blog_media: null, blog_content: null, OrganizationNewsModalComponentRender: null, visible: false
     };
     componentDidMount = async () => {
-        console.log('organizationnews controller called');
+        // console.log('organizationnews controller called');
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const theme_type = this.props.uiStore.current_organisation.themeBaseId;
         const comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsComponentRender`);
@@ -49,7 +49,7 @@ class OrganizationNewsController extends Component {
         if (blog_data.resultData.edges.length < 1) {
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
             if (theme_type !== 'obliviot') {
-                console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
+                // console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
                 if (theme_type === 'felzec' && this.isMobile()) {
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
@@ -77,7 +77,7 @@ class OrganizationNewsController extends Component {
             }
         }
         blog_data.resultData.edges.forEach((blog, i) => {
-            console.log(`i ========= ${i}`);
+            // console.log(`i ========= ${i}`);
             const { blogContent } = blog.node;
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
@@ -89,7 +89,7 @@ class OrganizationNewsController extends Component {
                 content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate
             });
             if (theme_type !== 'obliviot') {
-                console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
+                // console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
                 if (theme_type === 'felzec' && this.isMobile()) {
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
                 } else {
@@ -121,7 +121,7 @@ class OrganizationNewsController extends Component {
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
             return true;
         }
