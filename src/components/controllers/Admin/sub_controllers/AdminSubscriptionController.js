@@ -19,7 +19,7 @@ import {
 import stripeImage from '../../../../assets/images/powered_by_stripe@3x.png';
 import appManager from '../../../../utils/appManager';
 import { updateUserQuery } from '../../../../queries/users';
-import { getSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
+// import { getSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 
 const createOptions = (fontSize: string, padding: ?string) => {
     return {
@@ -175,19 +175,19 @@ class _SplitForm extends React.Component {
                                 });
 
                                 // add 4 more sponsors, if not already there.
-                                const sponsor_data = await appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.domain });
-                                const num_sponsors = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation.nodes.length;
-                                const num_to_create = 8 - num_sponsors;
-                                for (let p = 0; p < num_to_create; p += 1) {
-                                    await appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
-                                        subDomain: this.props.domain,
-                                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                                        hrefLink: 'http://origin.gg',
-                                        name: 'Origin.GG',
-                                        description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
-                                    });
-                                }
-                                console.log(num_to_create);
+                                // const sponsor_data = await appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.domain });
+                                // const num_sponsors = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation.nodes.length;
+                                // const num_to_create = 8 - num_sponsors;
+                                // for (let p = 0; p < num_to_create; p += 1) {
+                                //     await appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
+                                //         subDomain: this.props.domain,
+                                //         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                                //         hrefLink: 'http://origin.gg',
+                                //         name: 'Origin.GG',
+                                //         description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
+                                //     });
+                                // }
+                                // console.log(num_to_create);
                                 this.props.callback();
                             }
                         }

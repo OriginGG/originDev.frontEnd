@@ -4,16 +4,17 @@ import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
-import { Modal } from 'antd';
+import { Modal, Card, Row, Col, Button, Input } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 // import OrganizationAdminSponsorComponentRender from '../../../render_components/admin/OrganizationAdminSponserComponentRender';
-import OrganizationAdminSponsorComponentElementRender from '../../../render_components/admin/OrganizationAdminSponserComponentElementRender';
-import { getSponsorsQuery, updateSponsorsQuery } from '../../../../queries/sponsors';
+// import OrganizationAdminSponsorComponentElementRender from '../../../render_components/admin/OrganizationAdminSponserComponentElementRender';
+import { createSponsorsQuery, getSponsorsQuery, deleteSponsorQuery, updateSponsorsQuery } from '../../../../queries/sponsors';
 // import blankImage from '../../../../assets/images/imgPlaceholder1.png';
-import disableImage from '../../../../assets/images/element-disabled.png';
+// import disableImage from '../../../../assets/images/element-disabled.png';
 
 const { confirm } = Modal;
+const { TextArea } = Input;
 
 
 class SponsorBlock extends Component {
@@ -44,6 +45,28 @@ class SponsorBlock extends Component {
         this.setState({
             input_http_link_value: e.target.value
         });
+    }
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete Sponsor',
+                content: 'Are you sure you want to delete this sponsor?',
+                okText: 'Delete',
+                cancelText: 'Cancel',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    deleteSponsor = async () => {
+        const f = await this.showDeleteConfirm();
+        if (f) {
+            this.props.deleteSponsor(this.props.element_id);
+        }
     }
     handleSubmit = async () => {
         let sponsor_image = this.sponsor_image_old;
@@ -118,28 +141,98 @@ class SponsorBlock extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        let hd = {
-            display: 'none'
-        };
-        if (!this.props.subscribed) {
-            hd = {
-                position: 'absolute',
-                zIndex: 1,
-                backgroundColor: 'grey',
-                opacity: '0.3',
-                width: 508,
-                height: 544,
-                marginLeft: -3
-            };
-        }
-
+        // let hd = {
+        //     display: 'none'
+        // };
+        // if (!this.props.subscribed) {
+        //     hd = {
+        //         position: 'absolute',
+        //         zIndex: 1,
+        //         backgroundColor: 'grey',
+        //         opacity: '0.3',
+        //         width: 508,
+        //         height: 544,
+        //         marginLeft: -3
+        //     };
+        // }
+        const cn = this.state.input_name_value ? this.state.input_name_value : 'Unnamed Sponsor';
         return (
             <div>
                 <div>
                     <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                     <Dropzone onDrop={this.uploadBGFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneBGRef = node; }} />
                 </div>
-                <OrganizationAdminSponsorComponentElementRender
+                <Card
+                    title={cn}
+                    style={{ width: '97%', marginBottom: 16 }}
+                >
+                    <Row>
+                        <Col style={{ fontSize: '10px', fontWeight: 'bold', textAlign: 'center' }} span={6}>SPONSOR IMAGE</Col>
+                        <Col style={{ fontSize: '10px', fontWeight: 'bold', textAlign: 'center' }} span={8}>SPONSOR BG IMAGE</Col>
+                        <Col style={{ fontSize: '10px', fontWeight: 'bold', textAlign: 'center' }} span={10}>SPONSOR DETAILS</Col>
+
+                    </Row>
+                    <Row>
+                        <Col span={6} style={{ borderRight: '1px solid' }}>
+                            <div style={{
+                                width: 150,
+                                height: 100,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                backgroundColor: '#ccc'
+                            }}>
+                                <img alt="sponsor" style={{ width: 150, height: 100 }} src={this.state.sponsor_image} />
+                            </div>
+                        </Col>
+                        <Col span={10}>
+                            <div style={{
+                                width: 300,
+                                height: 100,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                backgroundColor: '#ccc'
+                            }}>
+                                {this.state.sponsor_bg_image &&
+                                    <img style={{ width: 300, height: 100 }} alt="sponsor" src={this.state.sponsor_bg_image} />
+                                }
+                            </div>
+                        </Col>
+                        <Col span={8} >
+                            <Row>
+                                <Col style={{ paddingBottom: 8, lineHeight: '22px', fontSize: 10 }} span={8}>SPONSOR NAME</Col>
+                                <Col span={16}><Input onChange={this.handleChangeName} value={this.state.input_name_value} size="small" placeholder="Sponsor Name..." /></Col>
+                            </Row>
+                            <Row>
+                                <Col style={{ paddingBottom: 8, lineHeight: '22px', fontSize: 10 }} span={8}>SPONSOR LINK</Col>
+                                <Col span={16}><Input onChange={this.handleChangeLink} value={this.state.input_http_link_value} size="small" placeholder="VALID URL" /></Col>
+                            </Row>
+                            <Row>
+                                <Col style={{ paddingTop: 8, fontSize: 10 }} span={24}>SPONSOR DESCRIPTION</Col>
+                            </Row>
+                            <Row>
+                                <Col style={{ paddingTop: 8, fontSize: 10 }} span={24}><TextArea onChange={this.handleChangeDesc} value={this.state.input_desc_value} rows={2} /></Col>
+                            </Row>
+                        </Col>
+
+                    </Row>
+                    <Row>
+                        <Col style={{ textAlign: 'center' }} span={6}>
+                            <Button onClick={this.handleFileClick} type="primary" size="small">UPLOAD IMAGE</Button>
+                        </Col>
+                        <Col style={{ textAlign: 'center' }} span={10}>
+                            <Button onClick={this.handleBGFileClick} type="primary" size="small">UPLOAD BG IMAGE</Button>
+                        </Col>
+                        <Col span={4}>
+                            {this.props.allow_delete &&
+                                <Button onClick={this.deleteSponsor} type="danger" size="small">DELETE SPONSOR</Button>
+                            }
+                        </Col>
+                        <Col span={4}>
+                            <Button onClick={this.handleSubmit} type="primary" size="small">UPDATE SPONSOR</Button>
+                        </Col>
+                    </Row>
+                </Card>
+                {/* <OrganizationAdminSponsorComponentElementRender
                     upload_title={this.props.upload_title}
                     element_disable_image_src={disableImage}
                     element_style_disable_image={{
@@ -159,7 +252,7 @@ class SponsorBlock extends Component {
                     handleChangeDesc={this.handleChangeDesc}
                     handleChangeLink={this.handleChangeLink}
                     handleSubmit={this.handleSubmit}
-                />
+                /> */}
             </div>
         );
     }
@@ -169,18 +262,22 @@ class AdminSponsorController extends Component {
         element_array: [],
     };
     componentDidMount = async () => {
+        this.grabSponsors();
+    }
+
+    grabSponsors = async () => {
         this.logo_files = {};
         // let s_image = blankImage;
         const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
         const p_array = [];
         nodes.forEach((n, i) => {
-            let { subscribed } = this.props;
+            // let { subscribed } = this.props;
+            let allow_delete = true;
             if (i < 4) {
-                subscribed = true;
+                allow_delete = false;
             }
             p_array.push(<SponsorBlock
-                subscribed={subscribed}
                 key={`sponsor_block_${n.id}`}
                 element_id={n.id}
                 upload_title={`Upload Sponsor ${i + 1}`}
@@ -190,11 +287,25 @@ class AdminSponsorController extends Component {
                 http_link_value={n.hrefLink}
                 sponsor_desc_value={n.description}
                 sponsor_name_value={n.name}
+                allow_delete={allow_delete}
                 appManager={this.props.appManager}
+                deleteSponsor={this.deleteSponsor}
                 uiStore={this.props.uiStore}
             />);
         });
         this.setState({ element_array: p_array });
+    }
+    deleteSponsor = async (id) => {
+        await this.props.appManager.executeQueryAuth(
+            'mutation', deleteSponsorQuery,
+            {
+                id
+            }
+        );
+        toast.success('Sponsor Deleted!', {
+            position: toast.POSITION.TOP_LEFT
+        });
+        this.grabSponsors();
     }
     showSubscribeConfirm = () => {
         return new Promise(resolve => {
@@ -212,14 +323,51 @@ class AdminSponsorController extends Component {
             });
         });
     };
+    showAddSponsorConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Add Sponsor',
+                content: 'Are you sure you wish to add a new sponsor?',
+                okText: 'Yes',
+                cancelText: 'Cancel',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
     subscriptionClick = async () => {
         const action = this.showSubscribeConfirm();
         console.log(action);
     }
+    confirmAddSponsor = async () => {
+        const f = await this.showAddSponsorConfirm();
+        if (f) {
+            await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
+                subDomain: this.props.uiStore.current_organisation.subDomain,
+                imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
+                hrefLink: 'http://origin.gg',
+                name: 'Origin.GG',
+                description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
+            });
+            toast.success('Sponsor Added!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            this.grabSponsors();
+        }
+    }
     render() {
         return (
-            <div style={{ width: 'calc(100vw - 380px)' }}>
-                {this.state.element_array}
+            <div>
+                <div style={{ width: 'calc(100vw - 380px)' }}>
+                    {this.state.element_array}
+                </div>
+                <div>
+                    <Button onClick={this.confirmAddSponsor} type="primary">ADD SPONSOR</Button>
+                </div>
             </div>
         );
     }
@@ -230,17 +378,18 @@ SponsorBlock.propTypes = {
     sponsor_bg_image: PropTypes.string.isRequired,
     sponsor_name_value: PropTypes.string.isRequired,
     sponsor_desc_value: PropTypes.string.isRequired,
-    upload_title: PropTypes.string.isRequired,
+    // upload_title: PropTypes.string.isRequired,
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
     element_id: PropTypes.number.isRequired,
-    subscribed: PropTypes.bool.isRequired
+    allow_delete: PropTypes.bool.isRequired,
+    deleteSponsor: PropTypes.func.isRequired,
+    // subscribed: PropTypes.bool.isRequired
 };
 
 AdminSponsorController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    subscribed: PropTypes.bool.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminSponsorController));
