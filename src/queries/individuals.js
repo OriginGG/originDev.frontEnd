@@ -1,7 +1,8 @@
 import gql from 'graphql-tag';
 
 export const getIndividualUserByHandleQuery = gql`query getIndbyhandle($handle: String!) {
-	allIndividualUsers(condition: {username: $handle}) {
+  allIndividualUsers(filter: 
+    {username: {endsWithInsensitive: $handle }}) {
 		nodes {
     firstName
     lastName

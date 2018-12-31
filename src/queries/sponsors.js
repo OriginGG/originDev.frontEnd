@@ -72,6 +72,15 @@ export const updateSponsorsQuery = gql`mutation updateSponsor($id: Int!, $imageU
   }
 }`;
 
+export const deleteSponsorQuery = gql`mutation deletesponsor($id: Int!) {
+  deleteOrgSponsorById(input: {id: $id}) {
+    orgSponsor {
+      id
+    }
+  }
+}`;
+
+
 export const createSponsorsQuery = gql`mutation createSponsorQuery($subDomain: String!, $imageUrl: String, $bgImages: String, $hrefLink: String, $description: String, $name: String) {
   createOrgSponsor(input: {orgSponsor: {
     imageUrl: $imageUrl

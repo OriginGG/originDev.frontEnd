@@ -191,8 +191,6 @@ class AdminProfileController extends Component {
                     businessContactEmail: this.state.input_values.business_email_value,
                     supportContactEmail: this.state.input_values.support_email_value,
                     twitterLink: this.state.input_values.twitter_value,
-                    business_email_value: this.state.input_values.business_email_value,
-                    support_email_value: this.state.input_values.support_email_value,
                     instaLink: this.state.input_values.insta_value,
                     twitterFeedUsername: this.state.input_values.twitter_username_value,
                     twitchLink: this.state.input_values.twitch_value,
@@ -280,6 +278,8 @@ class AdminProfileController extends Component {
                     twitch_value={this.state.input_values.twitch_value}
                     twitch_team_value={this.state.input_values.twitch_team_value}
                     insta_value={this.state.input_values.insta_value}
+                    business_email_value={this.state.input_values.business_email_value}
+                    support_email_value={this.state.input_values.support_email_value}
                     facebook_value={this.state.input_values.facebook_value}
                     twitter_username_value={this.state.input_values.twitter_username_value}
                     rss_value={this.state.input_values.rss_value}

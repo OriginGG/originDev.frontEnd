@@ -80,7 +80,7 @@ const gameOptions = [
         image: smite_image
     },
     {
-        value: 'Splatoon',
+        value: 'Splatoon 2',
         image: splatoon_image
     },
     {
