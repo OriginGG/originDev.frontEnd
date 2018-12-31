@@ -60,10 +60,10 @@
                         <textarea data-component-props="value={this.props.about} onChange={(e)=>{this.props.handleChange('about', e);}}" class="classes.modal_individual_edit_about" rows="10" placeholder="About"></textarea>
                         <div class="classes.individual_label">Accomplishments</div>
                         <textarea data-component-props="value={this.props.accomplishments} onChange={(e)=>{this.props.handleChange('accomplishments', e);}}" class="classes.modal_individual_edit_about" rows="10" placeholder="Accomplishments"></textarea>
-                        <button data-component-props="onClick={()=>{this.props.redirectAuth('youtube')}}" class='ui youtube button' role='button' style="margin-bottom:2em;display:block;"><i aria-hidden='true' class='youtube icon'></i>Connect with Youtube</button>
-                        <button data-component-props="onClick={()=>{this.props.redirectAuth('twitter')}}" class='ui twitter button' role='button' style="margin-bottom:2em;display:block;"><i aria-hidden='true' class='twitter icon'></i>Connect with Twitter</button>
-                        <button data-component-props="onClick={()=>{this.props.redirectAuth('twitch')}}" class='ui twitch button' role='button' style="margin-bottom:2em;display:block;"><i aria-hidden='true' class='twitch icon'></i>Connect with Twitch</button>
-                        <div data-component-value="{this.props.renderButtons}">BUTTONS</div>    
+                        <div data-component-value="{this.props.renderButtons}" style="margin-bottom:20px;">BUTTONS</div> 
+                        <button data-component-props="onClick={()=>{this.props.redirectAuth('youtube')}}" class='ui youtube button' role='button' style="margin-bottom:2em;margin-top:3em;display:block;margin-left:auto;margin-right:auto;"><i aria-hidden='true' class='youtube icon'></i>Connect with Youtube</button>
+                        <button data-component-props="onClick={()=>{this.props.redirectAuth('twitter')}}" class='ui twitter button' role='button' style="margin-bottom:2em;display:block;margin-left:auto;margin-right:auto;"><i aria-hidden='true' class='twitter icon'></i>Connect with Twitter</button>
+                        <button data-component-props="onClick={()=>{this.props.redirectAuth('twitch')}}" class='ui twitch button' role='button' style="margin-bottom:2em;display:block;margin-left:auto;margin-right:auto;"><i aria-hidden='true' class='twitch icon'></i>Connect with Twitch</button>   
                     </div>
                 </div>        
             </div>                 
