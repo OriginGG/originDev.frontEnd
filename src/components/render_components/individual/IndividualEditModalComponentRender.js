@@ -62,12 +62,6 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'username', e );
                             }}/>
-                            <div className={this.props.classes.individual_label}>Twitter Handle</div>
-                            <input placeholder="Twitter Handle not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.twitterHandle} onChange={e => {
-                                this
-                                    .props
-                                    .handleChange( 'twitterHandle', e );
-                            }}/>
                             <div className={this.props.classes.individual_label}>Contact Email</div>
                             <input placeholder="Contact Email" className={this.props.classes.modal_individual_edit_input} value={this.props.contactEmail} onChange={e => {
                                 this
@@ -86,9 +80,15 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'accomplishments', e );
                             }}/>
+                            <div style={{
+                                marginBottom: '20px'
+                            }}>{this.props.renderButtons}</div>
                             <button role="button" style={{
                                 marginBottom: '2em',
-                                display: 'block'
+                                marginTop: '3em',
+                                display: 'block',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
                             }} className="ui youtube button" onClick={( ) => {
                                 this
                                     .props
@@ -96,7 +96,9 @@ class IndividualEditModalComponentRender extends Component {
                             }}><i aria-hidden="true" className="youtube icon"/>Connect with Youtube</button>
                             <button role="button" style={{
                                 marginBottom: '2em',
-                                display: 'block'
+                                display: 'block',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
                             }} className="ui twitter button" onClick={( ) => {
                                 this
                                     .props
@@ -104,13 +106,14 @@ class IndividualEditModalComponentRender extends Component {
                             }}><i aria-hidden="true" className="twitter icon"/>Connect with Twitter</button>
                             <button role="button" style={{
                                 marginBottom: '2em',
-                                display: 'block'
+                                display: 'block',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
                             }} className="ui twitch button" onClick={( ) => {
                                 this
                                     .props
                                     .redirectAuth( 'twitch' );
                             }}><i aria-hidden="true" className="twitch icon"/>Connect with Twitch</button>
-                            <div >{this.props.renderButtons}</div>
                         </div>
                     </div>
                 </div>
