@@ -190,7 +190,7 @@ class AdminPageController extends Component {
                 console.log('sub domain does not exist!');
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
-                await this.sponsorCheck();
+                // await this.sponsorCheck();
                 this.props.uiStore.setSubDomain(subDomain);
                 this.setState({ visible: true });
                 this.autorun_tracker = autorun(() => {
