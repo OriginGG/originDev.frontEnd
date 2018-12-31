@@ -340,7 +340,7 @@ class AdminThemeController extends Component {
             enigma_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
             obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/obliviot-dark-theme.jpg"
             obliviot_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
-            felzec_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
+            felzec_light_image="http://res.cloudinary.com/origingg/image/upload/dpr_3,e_sharpen:80/v1546274092/image-2018-12-30-13-56-15-366.webp"
         />;
         if (this.state.modal_open) {
             md = <div>
