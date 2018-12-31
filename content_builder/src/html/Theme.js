@@ -1726,7 +1726,7 @@ export const GlobalStyles = GlobalTheme => ({
         height: '15%',
         position: 'absolute',
         paddingLeft: '10%',
-        bottom: '20px'
+        bottom: '80px'
     },
 
     obliviot_light_social_menu_container: {
@@ -3442,7 +3442,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_header_logo: {
         display: 'block',
         margin: 'auto',
-        height: '50px',
+        height: '80px',
         cursor: 'pointer'
     },
     body_container: {

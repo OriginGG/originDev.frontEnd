@@ -177,7 +177,7 @@ class OrganizationMatchesController extends Component {
 
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
             return true;
         }
@@ -246,7 +246,7 @@ class OrganizationMatchesController extends Component {
         const p_array = [];
         const f_array = [];
         const r_theme =     `${this.props.uiStore.current_organisation.themeBaseId}`;
-        edges.forEach((res, i) => {
+        edges.forEach((res) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
@@ -257,8 +257,8 @@ class OrganizationMatchesController extends Component {
                 g_league = res.node.eventDescription;
             }
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
-            console.log(`i = ${i}`);
-            console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
+            // console.log(`i = ${i}`);
+            // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
             const formattedDate = moment(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');

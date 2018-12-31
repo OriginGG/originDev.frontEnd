@@ -47,7 +47,7 @@ class OrganizationSponserListController extends Component {
     }
 
     openPage = page => {
-        console.log(`open page ${page}`);
+        // console.log(`open page ${page}`);
         window.open(page, '_blank');
     }
 
@@ -113,7 +113,7 @@ class OrganizationSponserListController extends Component {
         }
 
         sponser_array.forEach((r, i) => {
-            console.log(`r = ${JSON.stringify(r)}`);
+            // console.log(`r = ${JSON.stringify(r)}`);
             const sl1 = <i key="social_item1" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.facebook.com'); }} className="fab fa-facebook" />;
             const sl2 = <i key="social_item2" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.twitter.com'); }} className="fab fa-twitter" />;
             const sl3 = <i key="social_item3" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.instagram.com'); }} className="fab fa-instagram" />;

@@ -68,7 +68,7 @@ export class ModalContentAddUser extends Component {
     };
     handleDeleteStaff = async () => {
         const p = this.props.game_node;
-        console.log(p);
+        // (p);
         const action = await this.showDeleteConfirm();
         if (action) {
             await this.props.appManager.executeQueryAuth(
@@ -325,7 +325,7 @@ class AdminStaffController extends Component {
     handleGameSelectClick = (game, game_node) => {
         this.current_game_node = game_node;
         this.setState({ user_modal_open: true });
-        console.log(game, game_node);
+        // console.log(game, game_node);
     }
     handleAddNewGame = () => {
         this.setState({ game_modal_open: true });

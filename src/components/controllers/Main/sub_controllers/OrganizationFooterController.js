@@ -61,12 +61,12 @@ class OrganizationFooterController extends Component {
         console.log(error, info);
     }
     handleRosterButtonClick = () => {
-        console.log(`roster click ${this.p_array}`);
+        // console.log(`roster click ${this.p_array}`);
         this.setState({ dropdown: true });
     }
     isMobile = () => {
         // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
             return true;
         }
@@ -80,12 +80,12 @@ class OrganizationFooterController extends Component {
         window.open(page, '_blank');
     }
     handleSupportClick = () => {
-        console.log('handle support click');
+        // console.log('handle support click');
         const emailTo = this.props.uiStore.current_organisation.supportContactEmail;
         window.open(`mailto:${emailTo}`, '_blank');
     }
     handleBusinessClick = () => {
-        console.log('handle business click');
+        // console.log('handle business click');
         const emailTo = this.props.uiStore.current_organisation.businessContactEmail;
         window.open(`mailto:${emailTo}`, '_blank');
     }
@@ -205,8 +205,8 @@ class OrganizationFooterController extends Component {
 
         const sp_array = [];
 
-        this.sponsor_data.forEach((n, i) => {
-            console.log(i);
+        this.sponsor_data.forEach((n) => {
+            // console.log(i);
             sp_array.push(n.imageUrl);
         });
 
