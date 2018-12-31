@@ -94,8 +94,8 @@ export const gameOptions = [
     },
     {
         game_id: 13,
-        text: 'Splatoon',
-        value: 'Splatoon',
+        text: 'Splatoon 2',
+        value: 'Splatoon 2',
         image: splatoon_image
     },
     {
