@@ -32,7 +32,6 @@ class App extends Component {
         return (
             <div>
                 {process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)}
-                {console.log(process.env.REACT_APP_ENVIRONMENT)}
                 <Route exact path="/" component={AppController} />
                 <Route exact path="/signup" component={SignupChoiceController} />
                 <Route exact path="/signup_org" component={SignupPageController} />

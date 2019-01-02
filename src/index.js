@@ -30,8 +30,8 @@ const stores = {
     uiStore,
 };
 
-const ref = document.referrer;
-console.log(`referred from:${ref}`);
+// const ref = document.referrer;
+// console.log(`referred from:${ref}`);
 appManager.createApolloClient();
 
 ReactDOM.render(
