@@ -2539,6 +2539,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_game_container: {
         height: '100%',
+        width: '80px',
         marginRight: '30px',
         marginLeft: '30px',
         float: 'left',

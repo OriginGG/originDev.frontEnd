@@ -248,7 +248,8 @@ class OrganizationTeamController extends Component {
                 onClick={() => { this.handleTeamClick(g.roster_id); }}
                 key={`gm_roster_${i}`}
                 style={{
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    width: '140px'
                 }} >
                 <OrganizationTeamGameComponentRender
                     game_media_1={g.image}
