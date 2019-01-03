@@ -2539,6 +2539,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_game_container: {
         height: '100%',
+        width: '80px',
         marginRight: '30px',
         marginLeft: '30px',
         float: 'left',
@@ -3964,7 +3965,8 @@ export const GlobalStyles = GlobalTheme => ({
     menu_item: {
         width: '100%',
         height: '30px',
-        display: 'table'
+        display: 'table',
+        position: 'relative'
     },
     menu_item_icon: {
         display: 'table',
@@ -3983,6 +3985,18 @@ export const GlobalStyles = GlobalTheme => ({
         height: '30px',
         lineHeight: '30px',
         textAlign: 'left'
+    },
+    menu_item_badge: {
+        width: '60px',
+        backgroundColor: 'red',
+        color: 'white',
+        fontSize: '18px',
+        height: '30px',
+        lineHeight: '30px',
+        position: 'absolute',
+        top: '6px',
+        right: '45px',
+        borderRadius: '5px'
     },
     menu_item_dropdown: {
         padding: '10px'
