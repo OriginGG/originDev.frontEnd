@@ -164,6 +164,9 @@ class MenuDrop extends Component {
                                 <div className={this.props.classes.menu_item_label}>
                                     Social Stats
                                 </div>
+                                <div className={this.props.classes.menu_item_badge}>
+                                    BETA
+                                </div>
                             </div>
                         </a>
                     </Accordion.Content>
