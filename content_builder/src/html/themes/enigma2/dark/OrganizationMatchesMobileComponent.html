@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Standard Meta -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+      <!-- Site Properties -->
+      <title>Organization light Demo</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css" integrity="sha256-oDCP2dNW17Y1QhBwQ+u2kLaKxoauWvIGks3a4as9QKs= sha384-vQPhfJdJkfTCHP7ouiqoAojjcDFuU346yP8z/pRpSn0xsWOfkMd+DkNmxns9jy4l sha512-P6CxF6LlmmWe4kVo37D5SJGcvXhesfQO2T2XU0f3EWmslkSg0Rbu8qxUyX9rMX4dle+J71Fl3acSHM+S33OQtg==" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <script
+         src="https://code.jquery.com/jquery-3.1.1.min.js"
+         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+         crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jss/9.8.1/jss.min.js"></script>   
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>    
+      <script type="module">
+         import { GlobalTheme, GlobalStyles } from '/Theme.js'
+         import {attach_styles} from '/attach-styles.js';
+         attach_styles(GlobalTheme, GlobalStyles, 'classes');
+      </script>  
+   </head>
+   <body>
+        <div data-component-name="dark_OrganizationMatchesMobileComponent"  class="classes.felzec_matches_mobile_container">
+            <div class="classes.felzec_matches_mobile_container" data-component-props="style={this.props.bg_style}">
+            </div>
+            <div class="classes.felzec_matches_mobile_filter_container" data-component-props="style={this.props.filter_style}"></div>
+            <div class="classes.felzec_matches_mobile_inner_container">
+                <div class="classes.felzec_mobile_switch_container">
+                    <div class="classes.felzec_mobile_switch_upcoming_container" data-component-props="style={this.props.upcoming_style} onClick={this.props.handleUpcomingClick}">UPCOMING MATCHES</div>
+                    <div class="classes.felzec_mobile_switch_recent_container" data-component-props="style={this.props.recent_style} onClick={this.props.handleRecentClick}">LATEST RESULTS</div>
+                </div>
+                <div data-component-props="style={this.props.rm_style}">
+                    <div class="classes.felzec_match_mobile_element_container" data-component-value="{this.props.recent_matches}">matches</div>
+                </div>
+                <div data-component-props="style={this.props.fm_style}">
+                    <div class="classes.felzec_match_mobile_element_container" data-component-value="{this.props.future_matches}">matches</div>
+                </div>
+            </div>
+        </div>
+   </body>
+   <script>
+        $( document ).ready(function() {
+             console.log( "ready!" );
+ 
+             $("#more_news_button").click(function(){
+                 $('#news_modal').modal('show');
+             });
+
+             $("#about_button").click(function(){
+                 $('#about_modal').modal('show');
+             });
+         });
+    </script>
+</html>
