@@ -3994,8 +3994,9 @@ export const GlobalStyles = GlobalTheme => ({
         height: '30px',
         lineHeight: '30px',
         position: 'absolute',
-        top: '12px',
-        right: '45px'
+        top: '6px',
+        right: '45px',
+        borderRadius: '5px'
     },
     menu_item_dropdown: {
         padding: '10px'
