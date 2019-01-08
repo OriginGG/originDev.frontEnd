@@ -99,9 +99,11 @@ class OrganizationSponsorController extends Component {
         const p_array = [];
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const sponsor_style = { background: `url(${this.image_src})`, backgroundSize: 'cover' };
+
+        const spons_style = { filter: 'grayscale(100%)' };
         // const sponsor_style = { backgroundColor: '#040404' };
         this.sponsor_data.forEach((n, i) => {
-            p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(n.hrefLink); }} key={`sponsor_${i}`} sponsor_image={n.imageUrl} />);
+            p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(n.hrefLink); }} key={`sponsor_${i}`} sponsor_image={n.imageUrl} spons_style={spons_style} />);
         });
         return (
             <OrganizationSponserComponentRender felzec_sponsor_style={sponsor_style} sponsor_content={<AliceCarousel {...settings}>{p_array}</AliceCarousel>} />

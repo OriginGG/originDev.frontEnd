@@ -1621,7 +1621,48 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#FFF'
     },
 
+    // ***************************************************************
+    // Enigma2
+    // ***************************************************************
 
+    enigma2_nav_constraint : {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px',
+        marginBottom: '20px',
+        position: 'relative'
+    },
+
+    enigma2_darkHeader: {
+        width: '100%',
+        height: '80px',
+        borderBottomWidth: '2px' ,
+        borderBottomStyle: 'solid',
+        borderBottomColor:  'rgb(120,120,120)',
+        backgroundColor: 'black'
+    },
+
+    org_menu_enigma2_light_item : {
+        height: '80px',
+        lineHeight: '70px',
+        float: 'right',
+        color: '#fefefe',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderBottomStyle: 'solid',
+        borderBottomWidth: '2px',
+        borderBottomColor: 'transparent',
+        position: 'relative',
+        display: 'inline-block'
+    },
+
+    enigma2_darkLogo: {
+        maxWidth: '100%',
+        maxHeight: '70px'
+    },
 
     // ***************************************************************
     // Felzec Theme

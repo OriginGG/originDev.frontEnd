@@ -22,9 +22,24 @@
       </script>  
    </head>
    <body>
-        <div data-component-name="dark_OrganizationNavComponent" class="classes.felzec_nav_constraint">
+        <div data-component-name="dark_OrganizationNavComponent" class="classes.enigma2_nav_constraint">
             <div class="ui stackable three column grid" style="padding:0px">
-                <div class="seven wide column" style="padding:0px">
+                <div class="three wide column" style="padding:0px">
+                    <div style="height:80px;max-width:50%;float:left">
+                        <img class="classes.enigma2_darkLogo" data-component-props="src={this.props.image_src}" src="../images/disrupt_logo.jpg" />
+                    </div>
+                </div>
+                <div class="ten wide column" style="padding:0px;display:flex;justify-content:center;">
+                    <div class="classes.obliviot_org_menu_light_container">
+                        <div id="menu_login" class="classes.org_menu_enigma2_light_item" data-component-props="onClick={this.props.handleLoginClick}">Login</div></a>
+                        <div id="menu_news" data-component-props="style={this.props.store_style} onClick={this.props.handleStoreClick}" class="classes.org_menu_enigma2_light_item">Store</div></a>
+                        <div id="sponsers_button" data-component-props="style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}" class="classes.org_menu_enigma2_light_item">Sponsors</div></a>
+                        <div id="news_button" data-component-props="style={this.props.news_style} onClick={this.props.handleViewBlogClick}" class="classes.org_menu_enigma2_light_item">News</div></a>
+                        <div id="about_button" data-component-props="style={this.props.about_style} onClick={this.props.handleAboutClick}" class="classes.org_menu_enigma2_light_item">About</div></a>
+                        <a href="#home_cont"><div id="menu_home" data-component-props="style={this.props.home_style}"  class="classes.org_menu_enigma2_light_item">Home</div></a>
+                    </div>
+                </div>
+                <div class="three wide column" style="padding:0px">
                     <div class="classes.obliviot_light_social_menu_container">
                         <div class="classes.felzec_light_social_menu_item" data-component-value="{this.props.social_link1}">
                             <i class="fa fa-instagram"></i>
@@ -43,18 +58,6 @@
                         </div>
                         <div class="classes.felzec_light_social_menu_item" data-component-value="{this.props.social_link6}">
                             <i class="fab fa-discord"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="two wide column" style="padding:0px">
-                    <div class="classes.felzec_light_nav_logo_holder">
-                        <img class="classes.felzec_light_nav_logo" data-component-props="src={this.props.nav_logo}" />
-                    </div>
-                </div>
-                <div class="seven wide column" style="padding:0px">
-                    <div class="classes.obliviot_nav_right">
-                        <div class="classes.felzec_light_navicon_menu_item" data-component-value="{this.props.navicon}">
-                            <i class="fa fa-navicon"></i>
                         </div>
                     </div>
                 </div>

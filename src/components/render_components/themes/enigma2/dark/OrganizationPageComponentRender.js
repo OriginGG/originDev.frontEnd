@@ -12,7 +12,7 @@ class DarkOrganizationPageComponentRender extends Component {
                     <img id="bg_img" alt="" className={this.props.classes.felzec_light_bg_img}/>
                     <div className={this.props.classes.obliviot_light_bg_filter} style={this.props.obliviot_page_style}/>
                     <div>
-                        <header className={this.props.classes.felzec_lightHeader}>
+                        <header className={this.props.classes.enigma2_darkHeader}>
                             <div >{this.props.navContent}</div>
                         </header>
                         <div id="sponsors">{this.props.topSponsorContent}</div>

@@ -8,11 +8,19 @@ class DarkOrganizationSponserComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className={this.props.classes.felzec_sponsor_box} style={this.props.felzec_sponsor_style}>
-                    <div className={this.props.classes.felzec_jumbotron_layer}/>
-                    <div className={this.props.classes.felzec_sponsor_container}>
-                        <div className="ui stackable four column grid">{this.props.sponsor_content}</div>
-                    </div>
+                <div style={{
+                    display: 'table',
+                    height: '70px',
+                    width: '100%',
+                    borderBottom: '2px solid rgb(120,120,120)'
+                }}>
+                    <div style={{
+                        marginTop: '0px',
+                        height: '70px',
+                        borderBottomColor: 'rgb(120,120,120)',
+                        borderBottomWidth: '2px',
+                        borderBottomStyle: 'solid'
+                    }} className="ui stackable four column grid">{this.props.sponsor_content}</div>
                 </div>
             </div>
         )
