@@ -31,7 +31,7 @@ class OrganizationMediaController extends Component {
             yt_style: this.yt_style,
             tw_style: this.tw_style
         });
-        const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         if (youTubeChannels.resultData.edges.length !== 0) {
             // console.log(`youTubeChannels.resultData.edges.length = ${youTubeChannels.resultData.edges.length}`);
             const v1 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo1);
@@ -70,7 +70,7 @@ class OrganizationMediaController extends Component {
         } else {
             console.log('no team name');
         }
-        const users = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, rosterType: 'content_team' });
+        const users = await this.props.appManager.executeQuery('query', getRosterQuery, { organisationId: this.props.uiStore.current_organisation.id, rosterType: 'content_team' });
         // console.log(`TEST TEST = ${JSON.stringify(users)}`);
         // const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         // console.log(`old_users = ${JSON.stringify(old_users)}`);

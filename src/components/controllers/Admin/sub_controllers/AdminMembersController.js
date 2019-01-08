@@ -28,9 +28,8 @@ class AdminMembersController extends Component {
     }
 
     calcMembers = async () => {
-        const { subDomain } = this.props.uiStore.current_organisation;
         const members = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, {
-            subDomain
+            organisationId: this.props.uiStore.current_organisation.id
         });
         this.current_members = members.allOrganisationMembers.edges;
         const m_array = [];

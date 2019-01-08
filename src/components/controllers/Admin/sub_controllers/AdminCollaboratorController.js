@@ -19,7 +19,7 @@ class AdminCollaboratorController extends Component {
 
     updateTable = async () => {
         return new Promise(async (resolve) => {
-            const users = await this.props.appManager.executeQueryAuth('query', getAllNonAdminUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            const users = await this.props.appManager.executeQueryAuth('query', getAllNonAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
             this.table_data = [];
             users.allUsers.edges.forEach((u) => {
                 this.table_data.push(<tr>

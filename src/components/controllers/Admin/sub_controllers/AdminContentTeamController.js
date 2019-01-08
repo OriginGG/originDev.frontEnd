@@ -16,7 +16,7 @@ import AdminPickListController from './AdminPickList.js';
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQueryAuth('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQueryAuth('query', getOrganisationMembersQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
         this.props.users.forEach((x) => {
@@ -133,9 +133,9 @@ class AdminContentTeamController extends Component {
     }
     getRosterData = async () => {
         return new Promise(async (resolve) => {
-            let ContentTeam_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'content_team', subDomain: this.props.uiStore.current_organisation.subDomain });
+            let ContentTeam_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'content_team', organisationId: this.props.uiStore.current_organisation.id });
             if (ContentTeam_data.allCombinedRosters.edges.length === 0) {
-                ContentTeam_data = await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'content_team', subDomain: this.props.uiStore.current_organisation.subDomain });
+                ContentTeam_data = await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'content_team', organisationId: this.props.uiStore.current_organisation.id });
                 this.current_roster_users = ContentTeam_data.createCombinedRoster.combinedRoster.combinedRosterIndividualsByRosterId.edges;
                 this.current_roster = ContentTeam_data.createCombinedRoster.combinedRoster;
             } else {

@@ -34,7 +34,7 @@ class AdminRecentMatchesController extends Component {
                 const m = await this.props.appManager.executeQueryAuth(
                     'query', recentMatchesQuery,
                     {
-                        organisation: this.props.uiStore.current_organisation.subDomain
+                        organisationId: this.props.uiStore.current_organisation.id
                     }
                 );
                 this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
@@ -180,7 +180,7 @@ class AdminRecentMatchesController extends Component {
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
-                        subDomain: this.props.uiStore.current_organisation.subDomain,
+                        organisationId: this.props.uiStore.current_organisation.id,
                         gameName: this.current_game,
                         eventInfo: this.match_type,
                         eventUrl: this.state.your_url,

@@ -147,7 +147,7 @@ class OrganizationPageController extends Component {
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
-                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
                     this.mobile_roster_data = [];
                     roster_data.allCombinedRosters.edges.forEach((r) => {
                         this.roster_display = true;
@@ -159,9 +159,8 @@ class OrganizationPageController extends Component {
                     });
                 }
 
-
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
-                    organisation: this.props.uiStore.current_organisation.subDomain
+                    organisationId: this.props.uiStore.current_organisation.id
                 });
                 const { edges } = pages.allPages;
                 this.bcontent = <div dangerouslySetInnerHTML={this.createMarkup(edges[0].node.pageContent)} />;
@@ -171,8 +170,10 @@ class OrganizationPageController extends Component {
                     this.store_display = true;
                 }
                 this.sponser_display = false;
-                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-                const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, {
+                    organisationId: this.props.uiStore.current_organisation.id
+                });
+                const { nodes } = sponsor_data.allOrgSponsors;
                 nodes.forEach(n => {
                     if (n.description && n.description.length > 1) {
                         this.sponser_display = true;

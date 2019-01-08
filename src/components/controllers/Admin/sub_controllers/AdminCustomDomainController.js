@@ -29,7 +29,7 @@ class AdminCustomDomainController extends Component {
         } else {
             const o = this.props.uiStore.current_organisation;
             const payload = {
-                text: `*Organization:* ${o.name}\n*Domain Request name:* ${this.state.input_value}\n*Owner Email:* ${o.usersByOrganisation.edges[0].node.email}\n`,
+                text: `*Organization:* ${o.name}\n*Domain Request name:* ${this.state.input_value}\n*Owner Email:* ${o.usersByOrganisationId.edges[0].node.email}\n`,
 
             };
             axios.post(process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK, JSON.stringify(payload), {

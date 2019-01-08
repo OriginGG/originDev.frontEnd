@@ -31,8 +31,8 @@ mutation deleteMemberQuery($id: Int!) {
 }`;
 
 export const getOrganisationMembersQuery = gql`
-query getMembers($subDomain: String!) {
-  allOrganisationMembers(condition: {organisation: $subDomain}) {
+query getMembers($organisationId: Int!) {
+  allOrganisationMembers(condition: {organisationId: $organisationId}) {
     edges {
       node {
         id

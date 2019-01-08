@@ -27,7 +27,7 @@ import AdminCustomDomainController from './sub_controllers/AdminCustomDomainCont
 import AdminSocialStatsController from './sub_controllers/AdminSocialStatsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
-import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
+// import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 
 
@@ -224,22 +224,6 @@ class AdminPageController extends Component {
         this.setState({ isOpen: !f });
     }
 
-    sponsorCheck = async () => {
-        if (this.subscribed) {
-            const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-            const num_sponsors = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation.nodes.length;
-            const num_to_create = 8 - num_sponsors;
-            for (let p = 0; p < num_to_create; p += 1) {
-                await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
-                    subDomain: this.props.uiStore.current_organisation.subDomain,
-                    imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                    hrefLink: 'http://origin.gg',
-                    name: 'Origin.GG',
-                    description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
-                });
-            }
-        }
-    }
 
     handleNavClick = () => {
         // console.log('nav click');
@@ -354,7 +338,7 @@ class AdminPageController extends Component {
                 break;
             }
         }
-        const nd = this.props.uiStore.current_organisation.usersByOrganisation.edges[0].node;
+        const nd = this.props.uiStore.current_organisation.usersByOrganisationId.edges[0].node;
         const full_name = `${nd.firstName} ${nd.lastName}`;
         return (
 

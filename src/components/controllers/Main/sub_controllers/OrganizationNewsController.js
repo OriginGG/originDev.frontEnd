@@ -42,8 +42,8 @@ class OrganizationNewsController extends Component {
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
         const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModuleComponentRender`);
         const OrganizationNewsComponentRender = comp.default;
-        const subDomain = this.props.uiStore.current_subdomain;
-        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
+        // const subDomain = this.props.uiStore.current_subdomain;
+        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.blog_array = [];
         this.results_array = [];
         if (blog_data.resultData.edges.length < 1) {

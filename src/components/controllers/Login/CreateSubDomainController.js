@@ -9,7 +9,7 @@ import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery, getOrganisationByName } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
 import { updateUserQuery, getUserQuery } from '../../../queries/users';
-import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
+import { createThemeQuery, getThemeByNameQuery } from '../../../queries/themes';
 import { createSponsorsQuery } from '../../../queries/sponsors';
 import { createPageQuery } from '../../../queries/pages';
 
@@ -21,7 +21,7 @@ class CreateSubDomainController extends Component {
     componentDidMount = async () => {
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
-            const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
+            const originTheme = await this.props.appManager.executeQuery('query', getThemeByNameQuery, { subDomain: 'origin' });
             this.props.uiStore.setOriginTheme(originTheme.resultData);
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
             this.authPayload = p;
@@ -118,7 +118,7 @@ class CreateSubDomainController extends Component {
                         autoClose: 5000
                     });
                 } else {
-                    await this.props.appManager.executeQueryAuth('mutation', createOrganisationQuery, {
+                    const new_org = await this.props.appManager.executeQueryAuth('mutation', createOrganisationQuery, {
                         themeBaseId: baseId, themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name
                     });
                     await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
@@ -131,28 +131,28 @@ class CreateSubDomainController extends Component {
                         organisation: this.domain_name
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-                        subDomain: this.domain_name,
+                        organisationId: new_org.resultData.organisationAccount.id,
                         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                         hrefLink: 'http://origin.gg',
                         name: 'Origin.GG',
                         description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-                        subDomain: this.domain_name,
+                        organisationId: new_org.resultData.organisationAccount.id,
                         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                         hrefLink: 'http://origin.gg',
                         name: 'Origin.GG',
                         description: ''
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-                        subDomain: this.domain_name,
+                        organisationId: new_org.resultData.organisationAccount.id,
                         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                         hrefLink: 'http://origin.gg',
                         name: 'Origin',
                         description: ''
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-                        subDomain: this.domain_name,
+                        organisationId: new_org.resultData.organisationAccount.id,
                         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                         hrefLink: 'http://origin.gg',
                         name: 'Origin.GG',

@@ -3,7 +3,7 @@ import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import _ from 'lodash';
-import { getThemeQuery } from './queries/themes';
+import { getThemeByNameQuery } from './queries/themes';
 import { getOrganisationQuery } from './queries/organisation';
 import { getIndividualUserByHandleQuery } from './queries/individuals';
 import { GlobalStyles } from './utils/themes/Theme';
@@ -54,8 +54,8 @@ class AppController extends Component {
                 //     historyStore.push('/main');
                 // }
                 // console.log(domainGo);
-                const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
-                this.props.uiStore.setOriginTheme(originTheme.resultData);
+                const originTheme = await this.props.appManager.executeQuery('query', getThemeByNameQuery, { themeName: 'origin' });
+                this.props.uiStore.setOriginTheme(originTheme.resultData.nodes[0]);
                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                 const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
                 let u_string;

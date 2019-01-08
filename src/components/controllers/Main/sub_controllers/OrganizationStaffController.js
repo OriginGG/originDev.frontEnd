@@ -13,7 +13,7 @@ import blankProfileImage from '../../../../assets/images/blank_person.png';
 class OrganizationStaffController extends Component {
     state = { visible: false/* , overlay_showing: false */ };
     componentDidMount = async () => {
-        const subDomain = this.props.uiStore.current_subdomain;
+        // const subDomain = this.props.uiStore.current_subdomain;
 
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
@@ -23,7 +23,7 @@ class OrganizationStaffController extends Component {
         if (theme === 'felzec/light') {
             OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
         }
-        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain, rosterType: 'staff' });
+        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { id: this.props.uiStore.current_organisation.id, rosterType: 'staff' });
         const outer_edges = roster_data.allCombinedRosters.edges;
         let p_array = [];
         for (let outer in outer_edges) {                // eslint-disable-line

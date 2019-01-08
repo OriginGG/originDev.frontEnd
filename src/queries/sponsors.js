@@ -8,11 +8,10 @@ export const getSponsorsCountQuery = gql`query getOrganisationSponsorsCount($sub
   }
 }`;
 
-export const getSponsorsQuery = gql`query getOrganisationSponsors($subDomain: String!) {
-  organisationAccountBySubDomain(subDomain: $subDomain) {
-    orgSponsorsByOrganisation {
+export const getSponsorsQuery = gql`query getOrganisationSponsors($organisationId: Int!) {
+    allOrgSponsors(condition: {organisationId: $organisationId}) {
       nodes {
-        organisation
+        organisationId
         id
         imageUrl
         bgImages
@@ -25,7 +24,7 @@ export const getSponsorsQuery = gql`query getOrganisationSponsors($subDomain: St
       }
     }
   }
-}`;
+`;
 
 // old queries
 
@@ -81,11 +80,11 @@ export const deleteSponsorQuery = gql`mutation deletesponsor($id: Int!) {
 }`;
 
 
-export const createSponsorsQuery = gql`mutation createSponsorQuery($subDomain: String!, $imageUrl: String, $bgImages: String, $hrefLink: String, $description: String, $name: String) {
+export const createSponsorsQuery = gql`mutation createSponsorQuery($organisationId: Int!, $imageUrl: String, $bgImages: String, $hrefLink: String, $description: String, $name: String) {
   createOrgSponsor(input: {orgSponsor: {
     imageUrl: $imageUrl
     bgImages: $bgImages
-    organisation: $subDomain
+    organisationId: $organisationId
     hrefLink: $hrefLink
     name: $name
     description: $description

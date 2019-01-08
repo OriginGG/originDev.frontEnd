@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
-export const createRosterQuery = gql`mutation createRoster($subDomain: String!, $gameId: Int, $rosterType: String, $teamName: String, $positionId: Int) {
+export const createRosterQuery = gql`mutation createRoster($organisationId: Int!, $gameId: Int, $rosterType: String, $teamName: String, $positionId: Int) {
   createCombinedRoster(input: {
     combinedRoster: {
-      subDomain: $subDomain
+      organisationId: $organisationId
       gameId: $gameId
       positionId: $positionId
       teamName: $teamName
@@ -199,14 +199,14 @@ export const deleteRosterUserQuery = gql`mutation deleteRosterUser($id: Int!) {
 //   }
 // }`;
 
-export const getRosterQuery = gql`query getRosters($subDomain: String!, $rosterType: String!) {
-    allCombinedRosters(condition: { rosterType: $rosterType, subDomain: $subDomain }) {
+export const getRosterQuery = gql`query getRosters($organisationId: Int!, $rosterType: String!) {
+    allCombinedRosters(condition: { rosterType: $rosterType, organisationId: $organisationId }) {
         edges {
             node {
                 id
                 createdAt
                 updatedAt
-                subDomain
+                organisationId
                 gameId
                 teamName
               	rosterType

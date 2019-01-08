@@ -268,8 +268,8 @@ class AdminSponsorController extends Component {
     grabSponsors = async () => {
         this.logo_files = {};
         // let s_image = blankImage;
-        const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+        const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const { nodes } = sponsor_data.allOrgSponsors;
         const p_array = [];
         nodes.forEach((n, i) => {
             // let { subscribed } = this.props;
@@ -347,7 +347,7 @@ class AdminSponsorController extends Component {
         const f = await this.showAddSponsorConfirm();
         if (f) {
             await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
-                subDomain: this.props.uiStore.current_organisation.subDomain,
+                organisationId: this.props.uiStore.current_organisation.id,
                 imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
                 hrefLink: 'http://origin.gg',
                 name: 'Origin.GG',

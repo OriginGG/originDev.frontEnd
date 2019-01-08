@@ -38,8 +38,8 @@ class OrganizationBlogController extends Component {
         const OrganizationBlogComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogComponentRender`);
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
         // const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogModuleComponentRender`);
-        const subDomain = this.props.uiStore.current_subdomain;
-        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
+        // const subDomain = this.props.uiStore.current_subdomain;
+        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.results_array = [];
         blog_data.resultData.edges.forEach((blog, i) => {
             const { blogContent } = blog.node;

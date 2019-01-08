@@ -14,10 +14,10 @@ class OrganizationSponserListController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         // console.log(`them = ${theme}`);
-        const subDomain = this.props.uiStore.current_subdomain;
+        // const subDomain = this.props.uiStore.current_subdomain;
         const OrganizationSponsersItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponsersItemComponentRender`);
-        const sponser_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-        const { nodes } = sponser_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+        const sponser_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const { nodes } = sponser_data.allOrgSponsors;
         // console.log(`sponser_data = ${JSON.stringify(sponser_data.resultData.edges)}`);
         // console.log(`edges = ${edges}`);
         this.setState({ sponser_data: nodes, visible: true, OrganizationSponsersItemComponentRender: OrganizationSponsersItemComponentRender.default });

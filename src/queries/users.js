@@ -14,8 +14,8 @@ export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated
     }
 }`;
 
-export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($subDomain: String!) {
-    allUsers(condition:{organisation: $subDomain, adminUser: false}) {
+export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($organisationId: String!) {
+    allUsers(condition:{organisationId: $organisationId, adminUser: false}) {
       edges {
       node {
         firstName
@@ -85,7 +85,7 @@ export const getUserQuery = gql`query getUser($id:Int!) {
     firstName
     lastName
     email
-    organisation
+    organisationId
     adminUser
     authenticated
     subscribed

@@ -19,7 +19,7 @@ const { confirm } = Modal;
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQueryAuth('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQueryAuth('query', getOrganisationMembersQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
         this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((x) => {
@@ -253,7 +253,7 @@ class AdminStaffController extends Component {
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const staff_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain });
+            const staff_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'staff', organisationId: this.props.uiStore.current_organisation.id });
             staff_data.allCombinedRosters.edges.forEach((r, i) => {
                 const { positionId } = r.node;
                 const currGame = _.find(staffOptions, (o) => {
@@ -332,7 +332,7 @@ class AdminStaffController extends Component {
     }
     handleSubmit = async (game) => {
         this.closeModal();
-        await this.props.appManager.executeQueryAuth('mutation', createRosterQuery, { rosterType: 'staff', subDomain: this.props.uiStore.current_organisation.subDomain, positionId: game.position_id });
+        await this.props.appManager.executeQueryAuth('mutation', createRosterQuery, { rosterType: 'staff', organisationId: this.props.uiStore.current_organisation.id, positionId: game.position_id });
         toast.success(`Staff Position ${game.text} added!`, {
             position: toast.POSITION.TOP_LEFT
         });

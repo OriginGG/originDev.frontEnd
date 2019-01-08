@@ -161,7 +161,7 @@ class OrganizationTeamController extends Component {
         let ros_id = 0;
         this.my_index = 1;
         if (!this.isMobile()) {
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allCombinedRosters.edges.forEach((r) => {
                 // console.log(`r data = ${JSON.stringify(r)}`);
@@ -175,7 +175,7 @@ class OrganizationTeamController extends Component {
                 p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
         } else {
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allCombinedRosters.edges.forEach((r) => {
                 // console.log(`r data = ${JSON.stringify(r)}`);

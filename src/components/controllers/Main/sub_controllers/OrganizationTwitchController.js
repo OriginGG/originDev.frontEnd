@@ -47,7 +47,7 @@ class OrganizationTwitchController extends Component {
             console.log('no team name');
         }
 
-        const users = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, rosterType: 'content_team' });
+        const users = await this.props.appManager.executeQuery('query', getRosterQuery, { organisationId: this.props.uiStore.current_organisation.id, rosterType: 'content_team' });
         // console.log(`test_users = ${JSON.stringify(users)}`);
         // const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
         // console.log(`old_users = ${JSON.stringify(old_users)}`);

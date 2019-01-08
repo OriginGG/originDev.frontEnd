@@ -15,8 +15,8 @@ export const deleteBlogQuery = gql`mutation deleteBlog($id: Int!) {
   }
 }`;
 export const getBlogsQuery = gql`
-  query getBlogs($subDomain: String!) {
-    resultData: allBlogs(orderBy: CREATED_AT_DESC, condition: { organisation: $subDomain }) {
+  query getBlogs($organisationId: Int!) {
+    resultData: allBlogs(orderBy: CREATED_AT_DESC, condition: { organisationId: $organisationId }) {
         edges {
             node {
                 id
