@@ -137,10 +137,15 @@ class OrganizationMatchesController extends Component {
             OrganizationMatchesMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentRender`);
             OrganizationMatchesMobileComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentElementRender`);
         }
+        this.org_color = this.props.uiStore.current_organisation.primaryColor;
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         const subDomain = this.props.uiStore.current_subdomain;
         this.recent_style = { color: '#cccccc', backgroundColor: 'red' };
         this.upcoming_style = { color: 'white', backgroundColor: 'black' };
+        if (theme === 'enigma2/dark') {
+            this.recent_style = { color: 'white', backgroundColor: this.org_color, borderColor: this.org_color };
+            this.upcoming_style = { color: 'white', backgroundColor: 'transparent', borderColor: this.org_color };
+        }
         this.rm_style = { display: 'inherit' };
         this.fm_style = { display: 'none' };
         this.setState({
@@ -191,8 +196,14 @@ class OrganizationMatchesController extends Component {
     }
 
     handleRecentClick = () => {
-        const u_style = { color: '#cccccc', backgroundColor: 'black' };
-        const r_style = { color: 'white', backgroundColor: 'red' };
+        console.log(`org color = ${this.org_color}`);
+        const rc_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let u_style = { color: '#cccccc', backgroundColor: 'black' };
+        let r_style = { color: 'white', backgroundColor: 'red' };
+        if (rc_theme === 'enigma2/dark') {
+            u_style = { color: 'white', backgroundColor: 'transparent', borderColor: this.org_color };
+            r_style = { color: 'white', backgroundColor: this.org_color, borderColor: this.org_color };
+        }
         const fmt_style = { display: 'none' };
         const rmt_style = { display: 'inherit' };
         this.setState({
@@ -204,8 +215,13 @@ class OrganizationMatchesController extends Component {
     }
 
     handleUpcomingClick = () => {
-        const r_style = { color: '#cccccc', backgroundColor: 'black' };
-        const u_style = { color: 'white', backgroundColor: 'red' };
+        const uc_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let r_style = { color: '#cccccc', backgroundColor: 'black' };
+        let u_style = { color: 'white', backgroundColor: 'red' };
+        if (uc_theme === 'enigma2/dark') {
+            u_style = { color: 'white', backgroundColor: this.org_color, borderColor: this.org_color };
+            r_style = { color: 'white', backgroundColor: 'transparent', borderColor: this.org_color };
+        }
         const fmt_style = { display: 'inherit' };
         const rmt_style = { display: 'none' };
         this.setState({
@@ -391,6 +407,7 @@ class OrganizationMatchesController extends Component {
         if (r_theme !== 'felzec') {
             combined_array = f_array.concat(p_array);
         }
+        const enigma2_switch_title = { color: this.org_color };
         if (this.isMobile() && r_theme === 'felzec') {
             const { OrganizationMatchesMobileComponentRender } = this.state;
             return <OrganizationMatchesMobileComponentRender
@@ -415,6 +432,7 @@ class OrganizationMatchesController extends Component {
         handleUpcomingClick={this.handleUpcomingClick}
         handleRecentClick={this.handleRecentClick}
         upcoming_style={this.state.upcoming_style}
+        switch_title_color={enigma2_switch_title}
         recent_style={this.state.recent_style}
         rm_style={this.state.rm_style}
         fm_style={this.state.fm_style}

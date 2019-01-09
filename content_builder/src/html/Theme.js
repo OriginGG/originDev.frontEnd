@@ -1808,6 +1808,94 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'left'
     },
 
+    enigma2_matches_container: {
+        width: '100%',
+        height: '500px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    enigma2_matches_filter_container: {
+        width: '100%',
+        height: '500px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_matches_inner_container: {
+        width: '100%',
+        height: '500px',
+        padding: '40px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_switch_container: {
+        width: '80%',
+        height: '40px',
+        marginBottom: '35px'
+    },
+
+    enigma2_switch_upcoming_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '60px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '60px',
+        backgroundColor: 'transparent',
+        border: '1px solid red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    enigma2_switch_recent_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '60px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '60px',
+        backgroundColor: 'red',
+        border: '1px solid red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    enigma2_switch_matches_title: {
+        width: '100%',
+        height: '60px',
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'left'
+    },
+
+    enigma2_switch_matches_description: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontWeight: '900',
+        fontSize: '18px',
+        color: 'rgb(156,142,142)',
+        textAlign: 'left',
+        marginBottom: '50px'
+    },
+
+    enigma2_match_element_container: {
+        width: '100%',
+        height: '440px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
     // ***************************************************************
     // Felzec Theme
     // ***************************************************************
