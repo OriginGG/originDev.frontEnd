@@ -26,7 +26,7 @@ const BlogModal = (props) => {
 };
 class OrganizationBlogController extends Component {
     state = {
-        blog_modal_open: false, OrganizationBlogComponentRender: null, OrganizationNewsModalComponentRender: null, visible: false
+        blog_modal_open: false, OrganizationBlogComponentRender: null, OrganizationNewsModalComponentRender: null, visible: false, switched: 1
     };
     componentDidMount = async () => {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
@@ -94,6 +94,18 @@ class OrganizationBlogController extends Component {
         }
         return false;
     }
+    handleSwitchClick1 = () => {
+        console.log('clicked first switch');
+        this.setState({ switched: 1 });
+    }
+    handleSwitchClick2 = () => {
+        console.log('clicked second switch');
+        this.setState({ switched: 2 });
+    }
+    handleSwitchClick3 = () => {
+        console.log('clicked third switch');
+        this.setState({ switched: 3 });
+    }
     render() {
         if (!this.state.visible) {
             return null;
@@ -121,6 +133,30 @@ class OrganizationBlogController extends Component {
         let b_media_5 = default_image;
         let b_content_5 = 'Latest news coming soon';
         let b_5 = null;
+
+        const nav_color = this.props.uiStore.current_organisation.primaryColor;
+
+        let switch_color_1 = { backgroundColor: '#cdcdcd' };
+        let switch_color_2 = { backgroundColor: '#cdcdcd' };
+        let switch_color_3 = { backgroundColor: '#cdcdcd' };
+
+        if (this.state.switched === 1) {
+            switch_color_1 = { backgroundColor: nav_color };
+            switch_color_2 = { backgroundColor: '#cdcdcd' };
+            switch_color_3 = { backgroundColor: '#cdcdcd' };
+        }
+
+        if (this.state.switched === 2) {
+            switch_color_2 = { backgroundColor: nav_color };
+            switch_color_1 = { backgroundColor: '#cdcdcd' };
+            switch_color_3 = { backgroundColor: '#cdcdcd' };
+        }
+
+        if (this.state.switched === 3) {
+            switch_color_3 = { backgroundColor: nav_color };
+            switch_color_1 = { backgroundColor: '#cdcdcd' };
+            switch_color_2 = { backgroundColor: '#cdcdcd' };
+        }
 
         // console.log(`blog array = ${JSON.stringify(this.results_array)}`);
 
@@ -198,6 +234,9 @@ class OrganizationBlogController extends Component {
             <div>
                 <OrganizationBlogComponentRender
                     bg_style={bg_style}
+                    blog_switch1={switch_color_1}
+                    blog_switch2={switch_color_2}
+                    blog_switch3={switch_color_3}
                     filter_style={f_style}
                     blog_media_1={b_media_1}
                     blog_content_1={b_content_1}
@@ -220,6 +259,9 @@ class OrganizationBlogController extends Component {
                     blog_title_5={b_title_5}
                     blog_5={b_5}
                     handleNewsClick={this.props.handleNewsClick}
+                    handleSwitchClick1={this.handleSwitchClick1}
+                    handleSwitchClick2={this.handleSwitchClick2}
+                    handleSwitchClick3={this.handleSwitchClick3}
                 />
                 <BlogModal
                     modal_open={this.state.blog_modal_open}

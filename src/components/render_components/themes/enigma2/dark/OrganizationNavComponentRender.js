@@ -42,12 +42,12 @@ class DarkOrganizationNavComponentRender extends Component {
                         padding: '0px'
                     }} className="three wide column">
                         <div className={this.props.classes.obliviot_light_social_menu_container}>
-                            <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link1}</div>
-                            <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link2}</div>
-                            <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link3}</div>
-                            <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link4}</div>
-                            <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link5}</div>
-                            <div className={this.props.classes.felzec_light_social_menu_item}>{this.props.social_link6}</div>
+                            <div className={this.props.classes.enigma2_light_social_menu_item}>{this.props.social_link1}</div>
+                            <div className={this.props.classes.enigma2_light_social_menu_item}>{this.props.social_link2}</div>
+                            <div className={this.props.classes.enigma2_light_social_menu_item}>{this.props.social_link3}</div>
+                            <div className={this.props.classes.enigma2_light_social_menu_item}>{this.props.social_link4}</div>
+                            <div className={this.props.classes.enigma2_light_social_menu_item}>{this.props.social_link5}</div>
+                            <div className={this.props.classes.enigma2_light_social_menu_item}>{this.props.social_link6}</div>
                         </div>
                     </div>
                 </div>

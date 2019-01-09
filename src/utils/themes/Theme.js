@@ -1664,6 +1664,149 @@ export const GlobalStyles = GlobalTheme => ({
         maxHeight: '70px'
     },
 
+    enigma2_light_social_menu_item: {
+        lineHeight: '70px',
+        float: 'left',
+        color: 'rgb(152,159,169)',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    enigma2_blog_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    enigma2_blog_main_container: {
+        width: '100%',
+        paddingTop: '56.25%',
+        position: 'relative',
+        backgroundColor: 'black',
+        overflow: 'hidden'
+    },
+
+    enigma2_blog_small_container: {
+        width: '100%',
+        paddingTop: '56.25%',
+        position: 'relative',
+        backgroundColor: 'black',
+        overflow: 'hiden'
+    },
+
+    enigma2_blog_image: {
+        width: '100%'
+    },
+
+    enigma2_blog_inner_container: {
+        width: '100%',
+        height: '600px',
+        padding: '0px 0% 0px 0%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_lightBlogMaxContainer: {
+        width: '100%',
+        height: '600px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    enigma2_lightBlogMiniContainer: {
+        width: '100%',
+        height: '200px',
+        marginBottom: '0px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    enigma2_light_news_title: {
+        textAlign: 'left',
+        fontSize: '68px',
+        lineHeight: '78px',
+        color: '#fefefe',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_mini_news_title: {
+        textAlign: 'left',
+        fontSize: '28px',
+        lineHeight: '38px',
+        color: '#fefefe',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_light_news_text: {
+        textAlign: 'left',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_mini_news_text: {
+        textAlign: 'left',
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_dark_main_news_content_container: {
+        width: '100%',
+        height: '200px',
+        position: 'absolute',
+        top: '50px',
+        left: '0%',
+        padding: '5px',
+        paddingLeft: '30px',
+        backgroundColor: 'rgba(255,255,255,0)'
+    },
+
+    enigma2_dark_mini_news_content_container: {
+        width: '100%',
+        height: '100px',
+        position: 'absolute',
+        top: '20px',
+        left: '0%',
+        padding: '5px',
+        paddingLeft: '20px',
+        backgroundColor: 'rgba(255,255,255,0)'
+    },
+
+    enigma2_blog_switch_container: {
+        width: '100%',
+        height: '5px',
+        position: 'absolute',
+        bottom: '100px',
+        left: '0px',
+        paddingLeft: '50px'
+    },
+
+    enigma2_blog_switch: {
+        width: '10%',
+        height: '4px',
+        backgroundColor: '#cdcdcd',
+        cursor: 'pointer',
+        marginRight: '10px',
+        float: 'left'
+    },
+
     // ***************************************************************
     // Felzec Theme
     // ***************************************************************

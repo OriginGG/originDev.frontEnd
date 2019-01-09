@@ -8,19 +8,28 @@ class DarkOrganizationBlogComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.felzec_lightBlogContainer}>
-                <div className={this.props.classes.felzec_blog_container} style={this.props.bg_style}></div>
-                <div className={this.props.classes.felzec_blog_filter_container} style={this.props.filter_style}/>
-                <div className={this.props.classes.felzec_blog_inner_container}>
-                    <div className="ui stackable three column grid">
-                        <div className="column">
-                            <div className={this.props.classes.felzec_lightBlogMaxContainer} onClick={( ) => {
+                <div className={this.props.classes.enigma2_blog_container} style={this.props.bg_style}></div>
+                <div className={this.props.classes.enigma2_blog_inner_container}>
+                    <div className="ui stackable two column grid">
+                        <div style={{
+                            paddingRight: '0px'
+                        }} className="eleven wide column">
+                            <div className={this.props.classes.enigma2_lightBlogMaxContainer} onClick={( ) => {
                                 this
                                     .props
                                     .handleNewsClick( this.props.blog_1 );
                             }}>
                                 <img className={this.props.classes.felzec_main_news_item_image} src={this.props.blog_media_1}/>
-                                <div className={this.props.classes.obliviot_light_main_news_content_container}>
+                                <div className={this.props.classes.enigma2_dark_main_news_content_container}>
                                     <div>
+                                        <div style={{
+                                            width: '100%',
+                                            height: '50px',
+                                            overflowY: 'hidden',
+                                            textOverflow: 'ellipsis'
+                                        }}>
+                                            <p className={this.props.classes.enigma2_light_news_text}>NEWS</p>
+                                        </div>
                                         <div style={{
                                             width: '100%',
                                             float: 'left',
@@ -29,30 +38,48 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <span className={this.props.classes.obliviot_light_news_title}>{this.props.blog_title_1}</span>
+                                            <span className={this.props.classes.enigma2_light_news_title}>{this.props.blog_title_1}</span>
                                         </div>
                                     </div>
-                                    <div style={{
-                                        width: '100%',
-                                        height: '0px',
-                                        overflowY: 'hidden',
-                                        textOverflow: 'ellipsis'
-                                    }}>
-                                        <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_1}</p>
-                                    </div>
-                                    <div className={this.props.classes.obliviot_light_news_decor}/>
                                 </div>
                             </div>
+                            <div className={this.props.classes.enigma2_blog_switch_container}>
+                                <div className={this.props.classes.enigma2_blog_switch} onClick={( ) => {
+                                    this
+                                        .props
+                                        .handleSwitchClick1( );
+                                }} style={this.props.blog_switch1}/>
+                                <div className={this.props.classes.enigma2_blog_switch} onClick={( ) => {
+                                    this
+                                        .props
+                                        .handleSwitchClick2( );
+                                }} style={this.props.blog_switch2}/>
+                                <div className={this.props.classes.enigma2_blog_switch} onClick={( ) => {
+                                    this
+                                        .props
+                                        .handleSwitchClick3( );
+                                }} style={this.props.blog_switch3}/>
+                            </div>
                         </div>
-                        <div className="column">
-                            <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
+                        <div style={{
+                            paddingLeft: '0px'
+                        }} className="five wide column">
+                            <div className={this.props.classes.enigma2_lightBlogMiniContainer} onClick={( ) => {
                                 this
                                     .props
                                     .handleNewsClick( this.props.blog_2 );
                             }}>
                                 <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_2}/>
-                                <div className={this.props.classes.obliviot_light_main_news_content_container}>
+                                <div className={this.props.classes.enigma2_dark_mini_news_content_container}>
                                     <div>
+                                        <div style={{
+                                            width: '100%',
+                                            height: '30px',
+                                            overflowY: 'hidden',
+                                            textOverflow: 'ellipsis'
+                                        }}>
+                                            <p className={this.props.classes.enigma2_mini_news_text}>NEWS</p>
+                                        </div>
                                         <div style={{
                                             width: '100%',
                                             float: 'left',
@@ -61,28 +88,27 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <span className={this.props.classes.obliviot_light_news_title}>{this.props.blog_title_2}</span>
+                                            <span className={this.props.classes.enigma2_mini_news_title}>{this.props.blog_title_2}</span>
                                         </div>
                                     </div>
-                                    <div style={{
-                                        width: '100%',
-                                        height: '0px',
-                                        overflowY: 'hidden',
-                                        textOverflow: 'ellipsis'
-                                    }}>
-                                        <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_2}</p>
-                                    </div>
-                                    <div className={this.props.classes.obliviot_light_news_decor}/>
                                 </div>
                             </div>
-                            <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
+                            <div className={this.props.classes.enigma2_lightBlogMiniContainer} onClick={( ) => {
                                 this
                                     .props
                                     .handleNewsClick( this.props.blog_3 );
                             }}>
                                 <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_3}/>
-                                <div className={this.props.classes.obliviot_light_main_news_content_container}>
+                                <div className={this.props.classes.enigma2_dark_mini_news_content_container}>
                                     <div>
+                                        <div style={{
+                                            width: '100%',
+                                            height: '30px',
+                                            overflowY: 'hidden',
+                                            textOverflow: 'ellipsis'
+                                        }}>
+                                            <p className={this.props.classes.enigma2_mini_news_text}>NEWS</p>
+                                        </div>
                                         <div style={{
                                             width: '100%',
                                             float: 'left',
@@ -91,30 +117,27 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <span className={this.props.classes.obliviot_light_news_title}>{this.props.blog_title_3}</span>
+                                            <span className={this.props.classes.enigma2_mini_news_title}>{this.props.blog_title_3}</span>
                                         </div>
                                     </div>
-                                    <div style={{
-                                        width: '100%',
-                                        height: '0px',
-                                        overflowY: 'hidden',
-                                        textOverflow: 'ellipsis'
-                                    }}>
-                                        <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_3}</p>
-                                    </div>
-                                    <div className={this.props.classes.obliviot_light_news_decor}/>
                                 </div>
                             </div>
-                        </div>
-                        <div className="column">
-                            <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
+                            <div className={this.props.classes.enigma2_lightBlogMiniContainer} onClick={( ) => {
                                 this
                                     .props
                                     .handleNewsClick( this.props.blog_4 );
                             }}>
                                 <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_4}/>
-                                <div className={this.props.classes.obliviot_light_main_news_content_container}>
+                                <div className={this.props.classes.enigma2_dark_mini_news_content_container}>
                                     <div>
+                                        <div style={{
+                                            width: '100%',
+                                            height: '30px',
+                                            overflowY: 'hidden',
+                                            textOverflow: 'ellipsis'
+                                        }}>
+                                            <p className={this.props.classes.enigma2_mini_news_text}>NEWS</p>
+                                        </div>
                                         <div style={{
                                             width: '100%',
                                             float: 'left',
@@ -123,48 +146,9 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <span className={this.props.classes.obliviot_light_news_title}>{this.props.blog_title_4}</span>
+                                            <span className={this.props.classes.enigma2_mini_news_title}>{this.props.blog_title_4}</span>
                                         </div>
                                     </div>
-                                    <div style={{
-                                        width: '100%',
-                                        height: '0px',
-                                        overflowY: 'hidden',
-                                        textOverflow: 'ellipsis'
-                                    }}>
-                                        <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_4}</p>
-                                    </div>
-                                    <div className={this.props.classes.obliviot_light_news_decor}/>
-                                </div>
-                            </div>
-                            <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
-                                this
-                                    .props
-                                    .handleNewsClick( this.props.blog_5 );
-                            }}>
-                                <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_5}/>
-                                <div className={this.props.classes.obliviot_light_main_news_content_container}>
-                                    <div>
-                                        <div style={{
-                                            width: '100%',
-                                            float: 'left',
-                                            paddingRight: '0px',
-                                            whiteSpace: 'nowrap',
-                                            overflow: 'hidden',
-                                            textOverflow: 'ellipsis'
-                                        }}>
-                                            <span className={this.props.classes.obliviot_light_news_title}>{this.props.blog_title_5}</span>
-                                        </div>
-                                    </div>
-                                    <div style={{
-                                        width: '100%',
-                                        height: '0px',
-                                        overflowY: 'hidden',
-                                        textOverflow: 'ellipsis'
-                                    }}>
-                                        <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_5}</p>
-                                    </div>
-                                    <div className={this.props.classes.obliviot_light_news_decor}/>
                                 </div>
                             </div>
                         </div>

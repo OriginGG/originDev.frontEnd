@@ -9,9 +9,8 @@ class DarkOrganizationSponserComponentRender extends Component {
         return (
             <div>
                 <div style={{
-                    display: 'table',
                     height: '70px',
-                    width: '100%',
+                    width: '99%',
                     borderBottom: '2px solid rgb(120,120,120)'
                 }}>
                     <div style={{
