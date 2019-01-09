@@ -26,8 +26,8 @@
             </div>
             <div class="classes.enigma2_blog_inner_container">
                 <div class="ui stackable two column grid">
-                    <div class="eleven wide column" style="padding-right: 0px">
-                        <div class="classes.enigma2_lightBlogMaxContainer" data-component-props="onClick={()=>{this.props.handleNewsClick(this.props.blog_1);}}">
+                    <div class="eleven wide column" style="padding-right: 0px; overflow:auto;">
+                        <div class="classes.enigma2_lightBlogMaxContainer" data-component-props="style={this.props.main_blog1} onClick={()=>{this.props.handleNewsClick(this.props.blog_1);}}">
                             <img class="classes.felzec_main_news_item_image" data-component-props="src={this.props.blog_media_1}" src="../images/news_test_1.jpg" />    
                             <div class="classes.enigma2_dark_main_news_content_container">
                                 <div>
@@ -40,6 +40,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="classes.enigma2_lightBlogMaxContainer" data-component-props="style={this.props.main_blog2} onClick={()=>{this.props.handleNewsClick(this.props.blog_2);}}">
+                            <img class="classes.felzec_main_news_item_image" data-component-props="src={this.props.blog_media_2}" src="../images/news_test_1.jpg" />    
+                            <div class="classes.enigma2_dark_main_news_content_container">
+                                <div>
+                                    <div style="width: 100%;height: 50px; overflow-y: hidden;text-overflow: ellipsis;">
+                                        <p class="classes.enigma2_light_news_text" >NEWS</p>
+                                    </div>
+                                    <div style="width:100%;float:left;padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
+                                        <span class="classes.enigma2_light_news_title" data-component-value="{this.props.blog_title_2}">We are live with a very long title</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="classes.enigma2_lightBlogMaxContainer" data-component-props="style={this.props.main_blog3} onClick={()=>{this.props.handleNewsClick(this.props.blog_3);}}">
+                            <img class="classes.felzec_main_news_item_image" data-component-props="src={this.props.blog_media_3}" src="../images/news_test_1.jpg" />    
+                            <div class="classes.enigma2_dark_main_news_content_container">
+                                <div>
+                                    <div style="width: 100%;height: 50px; overflow-y: hidden;text-overflow: ellipsis;">
+                                        <p class="classes.enigma2_light_news_text" >NEWS</p>
+                                    </div>
+                                    <div style="width:100%;float:left;padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
+                                        <span class="classes.enigma2_light_news_title" data-component-value="{this.props.blog_title_3}">We are live with a very long title</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="classes.enigma2_blog_switch_container">
                             <div class="classes.enigma2_blog_switch" data-component-props="onClick={()=>{this.props.handleSwitchClick1();}} style={this.props.blog_switch1}"></div>
                             <div class="classes.enigma2_blog_switch" data-component-props="onClick={()=>{this.props.handleSwitchClick2();}} style={this.props.blog_switch2}"></div>
@@ -47,32 +73,6 @@
                         </div>
                     </div>
                     <div class="five wide column" style="padding-left: 0px">
-                        <div class="classes.enigma2_lightBlogMiniContainer" data-component-props="onClick={()=>{this.props.handleNewsClick(this.props.blog_2);}}">
-                            <img class="classes.felzec_main_news_item_mini_image" data-component-props="src={this.props.blog_media_2}" src="../images/news_mini_image.jpg" />    
-                            <div class="classes.enigma2_dark_mini_news_content_container">
-                                <div>
-                                    <div style="width: 100%;height: 30px; overflow-y: hidden;text-overflow: ellipsis;">
-                                        <p class="classes.enigma2_mini_news_text" >NEWS</p>
-                                    </div>
-                                    <div style="width:100%;float:left;padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
-                                        <span class="classes.enigma2_mini_news_title" data-component-value="{this.props.blog_title_2}">We are live with a very long title</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="classes.enigma2_lightBlogMiniContainer" data-component-props="onClick={()=>{this.props.handleNewsClick(this.props.blog_3);}}">
-                            <img class="classes.felzec_main_news_item_mini_image" data-component-props="src={this.props.blog_media_3}" src="../images/news_mini_image.jpg" />    
-                            <div class="classes.enigma2_dark_mini_news_content_container">
-                                <div>
-                                    <div style="width: 100%;height: 30px; overflow-y: hidden;text-overflow: ellipsis;">
-                                        <p class="classes.enigma2_mini_news_text" >NEWS</p>
-                                    </div>
-                                    <div style="width:100%;float:left;padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
-                                        <span class="classes.enigma2_mini_news_title" data-component-value="{this.props.blog_title_3}">We are live with a very long title</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="classes.enigma2_lightBlogMiniContainer" data-component-props="onClick={()=>{this.props.handleNewsClick(this.props.blog_4);}}">
                             <img class="classes.felzec_main_news_item_mini_image" data-component-props="src={this.props.blog_media_4}" src="../images/news_mini_image.jpg" />    
                             <div class="classes.enigma2_dark_mini_news_content_container">
@@ -82,6 +82,32 @@
                                     </div>
                                     <div style="width:100%;float:left;padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
                                         <span class="classes.enigma2_mini_news_title" data-component-value="{this.props.blog_title_4}">We are live with a very long title</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="classes.enigma2_lightBlogMiniContainer" data-component-props="onClick={()=>{this.props.handleNewsClick(this.props.blog_5);}}">
+                            <img class="classes.felzec_main_news_item_mini_image" data-component-props="src={this.props.blog_media_5}" src="../images/news_mini_image.jpg" />    
+                            <div class="classes.enigma2_dark_mini_news_content_container">
+                                <div>
+                                    <div style="width: 100%;height: 30px; overflow-y: hidden;text-overflow: ellipsis;">
+                                        <p class="classes.enigma2_mini_news_text" >NEWS</p>
+                                    </div>
+                                    <div style="width:100%;float:left;padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
+                                        <span class="classes.enigma2_mini_news_title" data-component-value="{this.props.blog_title_5}">We are live with a very long title</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="classes.enigma2_lightBlogMiniContainer" data-component-props="onClick={()=>{this.props.handleNewsClick(this.props.blog_6);}}">
+                            <img class="classes.felzec_main_news_item_mini_image" data-component-props="src={this.props.blog_media_6}" src="../images/news_mini_image.jpg" />    
+                            <div class="classes.enigma2_dark_mini_news_content_container">
+                                <div>
+                                    <div style="width: 100%;height: 30px; overflow-y: hidden;text-overflow: ellipsis;">
+                                        <p class="classes.enigma2_mini_news_text" >NEWS</p>
+                                    </div>
+                                    <div style="width:100%;float:left;padding-right:0px;white-space:nowrap; overflow: hidden;text-overflow: ellipsis;">
+                                        <span class="classes.enigma2_mini_news_title" data-component-value="{this.props.blog_title_6}">We are live with a very long title</span>
                                     </div>
                                 </div>
                             </div>

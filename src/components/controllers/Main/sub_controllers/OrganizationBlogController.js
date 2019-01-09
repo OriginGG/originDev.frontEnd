@@ -110,8 +110,13 @@ class OrganizationBlogController extends Component {
         if (!this.state.visible) {
             return null;
         }
+        const current_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageNewsData;
-        const bg_style = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        let bg_style = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        console.log(`theme = ${current_theme}`);
+        if (current_theme === 'enigma2/dark') {
+            bg_style = { backgroundColor: 'black' };
+        }
         const f_style = { backgroundColor: 'rgba(255,255,255,.8)' };
         let b_title_1 = 'Coming Soon';
         let b_media_1 = default_image;
@@ -133,29 +138,45 @@ class OrganizationBlogController extends Component {
         let b_media_5 = default_image;
         let b_content_5 = 'Latest news coming soon';
         let b_5 = null;
+        let b_title_6 = 'Coming Soon';
+        let b_media_6 = default_image;
+        let b_content_6 = 'Latest news coming soon';
+        let b_6 = null;
 
         const nav_color = this.props.uiStore.current_organisation.primaryColor;
 
         let switch_color_1 = { backgroundColor: '#cdcdcd' };
         let switch_color_2 = { backgroundColor: '#cdcdcd' };
         let switch_color_3 = { backgroundColor: '#cdcdcd' };
+        let main_blog1 = { display: 'none' };
+        let main_blog2 = { display: 'none' };
+        let main_blog3 = { display: 'none' };
 
         if (this.state.switched === 1) {
             switch_color_1 = { backgroundColor: nav_color };
             switch_color_2 = { backgroundColor: '#cdcdcd' };
             switch_color_3 = { backgroundColor: '#cdcdcd' };
+            main_blog1 = { display: 'inherit' };
+            main_blog2 = { display: 'none' };
+            main_blog3 = { display: 'none' };
         }
 
         if (this.state.switched === 2) {
             switch_color_2 = { backgroundColor: nav_color };
             switch_color_1 = { backgroundColor: '#cdcdcd' };
             switch_color_3 = { backgroundColor: '#cdcdcd' };
+            main_blog2 = { display: 'inherit' };
+            main_blog1 = { display: 'none' };
+            main_blog3 = { display: 'none' };
         }
 
         if (this.state.switched === 3) {
             switch_color_3 = { backgroundColor: nav_color };
             switch_color_1 = { backgroundColor: '#cdcdcd' };
             switch_color_2 = { backgroundColor: '#cdcdcd' };
+            main_blog3 = { display: 'inherit' };
+            main_blog2 = { display: 'none' };
+            main_blog1 = { display: 'none' };
         }
 
         // console.log(`blog array = ${JSON.stringify(this.results_array)}`);
@@ -190,6 +211,12 @@ class OrganizationBlogController extends Component {
             b_content_5 = this.results_array[4].content;
             b_5 = this.results_array[4].blog;
         }
+        if (this.results_array[5]) {
+            b_title_6 = this.results_array[5].title;
+            b_media_6 = this.results_array[5].media;
+            b_content_6 = this.results_array[5].content;
+            b_6 = this.results_array[5].blog;
+        }
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
@@ -221,6 +248,10 @@ class OrganizationBlogController extends Component {
                         blog_content_5={b_content_5}
                         blog_title_5={b_title_5}
                         blog_5={b_5}
+                        blog_media_6={b_media_6}
+                        blog_content_6={b_content_6}
+                        blog_title_6={b_title_6}
+                        blog_6={b_6}
                         handleNewsClick={this.props.handleNewsClick}
                     />
                     <BlogModal
@@ -237,6 +268,9 @@ class OrganizationBlogController extends Component {
                     blog_switch1={switch_color_1}
                     blog_switch2={switch_color_2}
                     blog_switch3={switch_color_3}
+                    main_blog1={main_blog1}
+                    main_blog2={main_blog2}
+                    main_blog3={main_blog3}
                     filter_style={f_style}
                     blog_media_1={b_media_1}
                     blog_content_1={b_content_1}
@@ -258,6 +292,10 @@ class OrganizationBlogController extends Component {
                     blog_content_5={b_content_5}
                     blog_title_5={b_title_5}
                     blog_5={b_5}
+                    blog_media_6={b_media_6}
+                    blog_content_6={b_content_6}
+                    blog_title_6={b_title_6}
+                    blog_6={b_6}
                     handleNewsClick={this.props.handleNewsClick}
                     handleSwitchClick1={this.handleSwitchClick1}
                     handleSwitchClick2={this.handleSwitchClick2}
