@@ -315,8 +315,9 @@ class OrganizationMatchesController extends Component {
             }
             let o_logo = this.props.uiStore.current_theme_structure.header.logo.imageData;
 
-            if (r_theme !== 'felzec') {
+            if (r_theme !== ('felzec' && 'enigma2')) {
                 o_logo = g_image.image;
+                console.log(`theme for logo = ${r_theme} logo = ${o_logo}`);
             }
 
             if (res.node.eventInfo === 'um') {
@@ -325,6 +326,7 @@ class OrganizationMatchesController extends Component {
                     f_array.push(<OrganizationMatchesMobileComponentElementRender
                         matches_image_1={o_logo}
                         matches_image_2={res.node.gameLogo}
+                        matches_image_3={o_logo}
                         matches_score={res.node.score}
                         matches_game={g_type}
                         matches_league={g_league}
@@ -335,6 +337,7 @@ class OrganizationMatchesController extends Component {
                 } else {
                     f_array.push(<OrganizationMatchesComponentElementRender
                         matches_image_1={o_logo}
+                        matches_image_3={o_logo}
                         matches_image_2={res.node.gameLogo}
                         matches_score={res.node.score}
                         matches_game={g_type}
@@ -350,6 +353,7 @@ class OrganizationMatchesController extends Component {
                     p_array.push(<OrganizationMatchesMobileComponentElementRender
                         matches_image_1={o_logo}
                         matches_image_2={res.node.gameLogo}
+                        matches_image_3={o_logo}
                         matches_score={res.node.score}
                         matches_game={g_type}
                         matches_league={g_league}
@@ -361,6 +365,7 @@ class OrganizationMatchesController extends Component {
                     p_array.push(<OrganizationMatchesComponentElementRender
                         matches_image_1={o_logo}
                         matches_image_2={res.node.gameLogo}
+                        matches_image_3={o_logo}
                         matches_score={res.node.score}
                         matches_game={g_type}
                         matches_league={g_league}

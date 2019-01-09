@@ -1896,6 +1896,33 @@ export const GlobalStyles = GlobalTheme => ({
         overflowX: 'hidden',
     },
 
+    enigma2_matches_game: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'left'
+    },
+
+    enigma2_matches_league: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'rgb(149,147,141)',
+        textAlign: 'left'
+    },
+
+    enigma2_matches_date: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: '900',
+        color: 'rgb(149,147,141)',
+        textAlign: 'left'
+    },
+
     // ***************************************************************
     // Felzec Theme
     // ***************************************************************
