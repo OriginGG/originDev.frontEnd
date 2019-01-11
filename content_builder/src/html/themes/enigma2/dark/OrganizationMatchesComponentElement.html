@@ -24,23 +24,28 @@
    <body>
         <div data-component-name="dark_OrganizationMatchesComponentElement">
             <div class="classes.felzec_light_match_container">
-                <div class="ui stackable three column grid">
-                    <div class="column">
-                        <div class="classes.felzec_light_match_vs_image_container">
-                            <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_1}" />
-                        </div>
-                        <div class="classes.felzec_light_match_vs_score" data-component-value="{this.props.matches_score}">10-8</div>
-                        <div class="classes.felzec_light_match_vs_image_container">
-                            <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
-                        </div>
+                <div class="ui stackable two column grid">
+                    <div class="seven wide column">
+                        <div class="classes.enigma2_matches_game" data-component-value="{this.props.matches_game}">Call of Duty</div>
+                        <div class="classes.enigma2_matches_league" data-component-value="{this.props.matches_league}">National League</div>
+                        <div class="classes.enigma2_matches_date" data-component-value="{this.props.matches_date}">22 AUG 2018</div>
                     </div>
-                    <div class="column">
-                        <div class="classes.felzec_matches_game" data-component-value="{this.props.matches_game}">Call of Duty</div>
-                        <div class="classes.felzec_matches_league" data-component-value="{this.props.matches_league}">National League</div>
-                        <div class="classes.felzec_matches_date" data-component-value="{this.props.matches_date}">22 AUG 2018</div>
-                    </div>
-                    <div class="column">
-                        <div class="classes.felzec_match_info_container"><a target="_blank" data-component-props="href={this.props.more_url}">SEE MORE</a></div>
+                    <div class="nine wide column">
+                        <div class="ui three column grid">
+                            <div class="column">
+                                <div class="classes.felzec_light_match_vs_image_container">
+                                    <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_3}" />
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="classes.felzec_light_match_vs_score" data-component-value="{this.props.matches_score}">10-8</div>
+                            </div>
+                            <div class="column">
+                                <div class="classes.felzec_light_match_vs_image_container">
+                                    <img class="classes.felzec_light_match_vs_image" data-component-props="src={this.props.matches_image_2}" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
