@@ -5,6 +5,7 @@ import { Provider } from 'mobx-react';
 import { ApolloProvider } from 'react-apollo';
 import { Router } from 'react-router-dom';
 import { ThemeProvider } from 'react-jss';
+import TagManager from 'react-gtm-module';
 import historyStore from './utils/stores/browserHistory';
 import uiStore from './utils/stores/uiStore';
 import './index.css';
@@ -12,6 +13,10 @@ import App from './App';
 import appManager from './utils/appManager';
 // import registerServiceWorker from './registerServiceWorker';
 import { GlobalTheme } from './utils/themes/Theme';
+
+const tagManagerArgs = {
+    gtmId: 'GTM-WV9WPCK'
+};
 
 export const initGA = () => {
     ReactGA.initialize('UA-119536253-1');
@@ -22,6 +27,7 @@ export const logPageView = () => {
 };
 initGA();
 logPageView();
+TagManager.initialize(tagManagerArgs);
 
 require('default-passive-events');
 
