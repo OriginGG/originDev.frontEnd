@@ -18,6 +18,7 @@ import ow_image from '../../../../assets/images/game_images/ow.png';
 import pubg_image from '../../../../assets/images/game_images/pubg.png';
 import smite_image from '../../../../assets/images/game_images/smite.png';
 import splatoon_image from '../../../../assets/images/game_images/splatoon.png';
+import destiny_image from '../../../../assets/images/game_images/destiny.png';
 import vainglory_image from '../../../../assets/images/game_images/vainglory.png';
 import wow_image from '../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../assets/images/game_images/r6.png';
@@ -148,6 +149,12 @@ const gameOptions = [
         text: 'Tekken',
         value: 'Tekken',
         image: tekken_image
+    },
+    {
+        game_id: 21,
+        text: 'Destiny',
+        value: 'Destiny',
+        image: destiny_image
     }
 
 
