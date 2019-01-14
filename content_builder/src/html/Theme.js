@@ -2036,6 +2036,24 @@ export const GlobalStyles = GlobalTheme => ({
         textDecoration: 'none',
         color: '#fff'
     },
+    
+    domain_video_container: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    domain_credit_container: {
+        width: '100%',
+        marginTop: '30px',
+        display: 'table'
+    },
+
+    domain_video: {
+        width: '90%',
+        height: '90%'
+    },
      
     // ***************************************************************
     // Felzec Theme
