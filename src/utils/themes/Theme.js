@@ -1621,8 +1621,422 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#FFF'
     },
 
+    // ***************************************************************
+    // Enigma2
+    // ***************************************************************
 
+    enigma2_nav_constraint : {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px',
+        marginBottom: '20px',
+        position: 'relative'
+    },
 
+    enigma2_darkHeader: {
+        width: '100%',
+        height: '80px',
+        borderBottomWidth: '2px' ,
+        borderBottomStyle: 'solid',
+        borderBottomColor:  'rgb(120,120,120)',
+        backgroundColor: 'black'
+    },
+
+    org_menu_enigma2_light_item : {
+        height: '80px',
+        lineHeight: '70px',
+        float: 'right',
+        color: '#fefefe',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderBottomStyle: 'solid',
+        borderBottomWidth: '2px',
+        borderBottomColor: 'transparent',
+        position: 'relative',
+        display: 'inline-block'
+    },
+
+    enigma2_darkLogo: {
+        maxWidth: '100%',
+        maxHeight: '70px'
+    },
+
+    enigma2_light_social_menu_item: {
+        lineHeight: '70px',
+        float: 'left',
+        color: 'rgb(152,159,169)',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    enigma2_blog_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    enigma2_blog_main_container: {
+        width: '100%',
+        paddingTop: '56.25%',
+        position: 'relative',
+        backgroundColor: 'black',
+        overflow: 'hidden'
+    },
+
+    enigma2_blog_small_container: {
+        width: '100%',
+        paddingTop: '56.25%',
+        position: 'relative',
+        backgroundColor: 'black',
+        overflow: 'hiden'
+    },
+
+    enigma2_blog_image: {
+        width: '100%'
+    },
+
+    enigma2_blog_inner_container: {
+        width: '100%',
+        height: '600px',
+        padding: '0px 0% 0px 0%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_lightBlogMaxContainer: {
+        width: '100%',
+        height: '600px',
+        position: 'relative',
+        cursor: 'pointer',
+        display: 'none'
+    },
+
+    enigma2_lightBlogMiniContainer: {
+        width: '100%',
+        height: '200px',
+        marginBottom: '0px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    enigma2_light_news_title: {
+        textAlign: 'left',
+        fontSize: '68px',
+        lineHeight: '78px',
+        color: '#fefefe',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_mini_news_title: {
+        textAlign: 'left',
+        fontSize: '28px',
+        lineHeight: '38px',
+        color: '#fefefe',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_light_news_text: {
+        textAlign: 'left',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_mini_news_text: {
+        textAlign: 'left',
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_dark_main_news_content_container: {
+        width: '100%',
+        height: '200px',
+        position: 'absolute',
+        top: '50px',
+        left: '0%',
+        padding: '5px',
+        paddingLeft: '30px',
+        backgroundColor: 'rgba(255,255,255,0)'
+    },
+
+    enigma2_dark_mini_news_content_container: {
+        width: '100%',
+        height: '100px',
+        position: 'absolute',
+        top: '20px',
+        left: '0%',
+        padding: '5px',
+        paddingLeft: '20px',
+        backgroundColor: 'rgba(255,255,255,0)'
+    },
+
+    enigma2_blog_switch_container: {
+        width: '100%',
+        height: '5px',
+        position: 'absolute',
+        bottom: '100px',
+        left: '0px',
+        paddingLeft: '50px'
+    },
+
+    enigma2_blog_switch: {
+        width: '10%',
+        height: '4px',
+        backgroundColor: '#cdcdcd',
+        cursor: 'pointer',
+        marginRight: '10px',
+        float: 'left'
+    },
+
+    enigma2_matches_container: {
+        width: '100%',
+        height: '500px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    enigma2_matches_filter_container: {
+        width: '100%',
+        height: '500px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_matches_inner_container: {
+        width: '100%',
+        height: '500px',
+        padding: '40px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_switch_container: {
+        width: '80%',
+        height: '40px',
+        marginBottom: '35px'
+    },
+
+    enigma2_switch_upcoming_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '60px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '60px',
+        backgroundColor: 'transparent',
+        border: '1px solid red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    enigma2_switch_recent_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '60px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '60px',
+        backgroundColor: 'red',
+        border: '1px solid red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    enigma2_switch_matches_title: {
+        width: '100%',
+        height: '60px',
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'left'
+    },
+
+    enigma2_switch_matches_description: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontWeight: '900',
+        fontSize: '18px',
+        color: 'rgb(156,142,142)',
+        textAlign: 'left',
+        marginBottom: '50px'
+    },
+
+    enigma2_match_element_container: {
+        width: '100%',
+        height: '440px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
+    enigma2_matches_game: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'left'
+    },
+
+    enigma2_matches_league: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'rgb(149,147,141)',
+        textAlign: 'left'
+    },
+
+    enigma2_matches_date: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: '900',
+        color: 'rgb(149,147,141)',
+        textAlign: 'left'
+    },
+
+    // ***************************************************************
+    // Credit card
+    // ***************************************************************
+
+    creditcard_video_iframe: {
+        width: '90%',
+        marginLeft: '5%',
+        marginRight: '5%'
+    },
+
+    credit_card: {
+        width: '360px',
+        height: '400px',
+        margin: '60px auto 0',
+        border: '1px solid #ddd',
+        borderRadius: '6px',
+        backgroundColor: '#fff',
+        boxShadow: '1px 2px 3px 0 rgba(0,0,0,.10)'
+    },
+
+    form_header: {
+        height: '60px',
+        padding: '20px 30px 0',
+        borderBottom: '1px solid #e1e8ee'
+    },
+     
+    form_body: {
+        height: '340px',
+        padding: '30px 30px 20px'
+    },
+
+    cc_title: {
+        fontSize: '18px',
+        margin: '0',
+        color: '#5e6977'
+    },
+
+    card_number: {
+        width: '100%',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e'
+    },
+
+    month_select: {
+        width: '145px',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: 'url("caret.png") no-repeat',
+        backgroundPosition: '85% 50%',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e',
+        float: 'left'
+    },
+
+    year_select: {
+        width: '145px',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: 'url("caret.png") no-repeat',
+        backgroundPosition: '85% 50%',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e',
+        float: 'right'
+    },
+
+    cvv_input: {
+        float: 'left',
+        width: '145px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: '#fff'
+    },
+     
+    cvv_details: {
+        fontSize: '12px',
+        fontWeight: '300',
+        lineHeight: '16px',
+        float: 'right',
+        marginBottom: '20px'
+    },
+
+    proceed_btn: {
+        cursor: 'pointer',
+        fontSize: '16px',
+        width: '100%',
+        borderColor: 'transparent',
+        borderRadius: '6px',
+        marginBottom: '10px',
+        background: '#7dc855',
+        textDecoration: 'none',
+        color: '#fff'
+    },
+     
     // ***************************************************************
     // Felzec Theme
     // ***************************************************************
@@ -2539,6 +2953,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_team_game_container: {
         height: '100%',
+        width: '80px',
         marginRight: '30px',
         marginLeft: '30px',
         float: 'left',
@@ -3964,7 +4379,8 @@ export const GlobalStyles = GlobalTheme => ({
     menu_item: {
         width: '100%',
         height: '30px',
-        display: 'table'
+        display: 'table',
+        position: 'relative'
     },
     menu_item_icon: {
         display: 'table',
@@ -3983,6 +4399,18 @@ export const GlobalStyles = GlobalTheme => ({
         height: '30px',
         lineHeight: '30px',
         textAlign: 'left'
+    },
+    menu_item_badge: {
+        width: '60px',
+        backgroundColor: 'red',
+        color: 'white',
+        fontSize: '18px',
+        height: '30px',
+        lineHeight: '30px',
+        position: 'absolute',
+        top: '6px',
+        right: '45px',
+        borderRadius: '5px'
     },
     menu_item_dropdown: {
         padding: '10px'

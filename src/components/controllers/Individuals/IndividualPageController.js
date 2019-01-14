@@ -154,7 +154,6 @@ class ModalContent extends Component {
             window.open(`${process.env.REACT_APP_SOCIAL_STATS_SERVER}/auth/youtube`, '_blank'); // eslint-disable-line   
             window.addEventListener('message', (e) => {
                 if (e.data.success === true) {
-                    console.log(e.data);
                     if (e.data.youtubeURL) {
                         toast.success('Authorization Sucessful!', {
                             position: toast.POSITION.TOP_LEFT
