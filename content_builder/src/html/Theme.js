@@ -1924,6 +1924,120 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // Credit card
+    // ***************************************************************
+
+    creditcard_video_iframe: {
+        width: '90%',
+        marginLeft: '5%',
+        marginRight: '5%'
+    },
+
+    credit_card: {
+        width: '360px',
+        height: '400px',
+        margin: '60px auto 0',
+        border: '1px solid #ddd',
+        borderRadius: '6px',
+        backgroundColor: '#fff',
+        boxShadow: '1px 2px 3px 0 rgba(0,0,0,.10)'
+    },
+
+    form_header: {
+        height: '60px',
+        padding: '20px 30px 0',
+        borderBottom: '1px solid #e1e8ee'
+    },
+     
+    form_body: {
+        height: '340px',
+        padding: '30px 30px 20px'
+    },
+
+    cc_title: {
+        fontSize: '18px',
+        margin: '0',
+        color: '#5e6977'
+    },
+
+    card_number: {
+        width: '100%',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e'
+    },
+
+    month_select: {
+        width: '145px',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: 'url("caret.png") no-repeat',
+        backgroundPosition: '85% 50%',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e',
+        float: 'left'
+    },
+
+    year_select: {
+        width: '145px',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: 'url("caret.png") no-repeat',
+        backgroundPosition: '85% 50%',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e',
+        float: 'right'
+    },
+
+    cvv_input: {
+        float: 'left',
+        width: '145px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: '#fff'
+    },
+     
+    cvv_details: {
+        fontSize: '12px',
+        fontWeight: '300',
+        lineHeight: '16px',
+        float: 'right',
+        marginBottom: '20px'
+    },
+
+    proceed_btn: {
+        cursor: 'pointer',
+        fontSize: '16px',
+        width: '100%',
+        borderColor: 'transparent',
+        borderRadius: '6px',
+        marginBottom: '10px',
+        background: '#7dc855',
+        textDecoration: 'none',
+        color: '#fff'
+    },
+     
+    // ***************************************************************
     // Felzec Theme
     // ***************************************************************
 
