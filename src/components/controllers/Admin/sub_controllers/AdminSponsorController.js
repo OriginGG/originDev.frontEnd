@@ -141,20 +141,6 @@ class SponsorBlock extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        // let hd = {
-        //     display: 'none'
-        // };
-        // if (!this.props.subscribed) {
-        //     hd = {
-        //         position: 'absolute',
-        //         zIndex: 1,
-        //         backgroundColor: 'grey',
-        //         opacity: '0.3',
-        //         width: 508,
-        //         height: 544,
-        //         marginLeft: -3
-        //     };
-        // }
         const cn = this.state.input_name_value ? this.state.input_name_value : 'Unnamed Sponsor';
         return (
             <div>
@@ -272,7 +258,6 @@ class AdminSponsorController extends Component {
         const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
         const p_array = [];
         nodes.forEach((n, i) => {
-            // let { subscribed } = this.props;
             let allow_delete = true;
             if (i < 4) {
                 allow_delete = false;
@@ -307,22 +292,6 @@ class AdminSponsorController extends Component {
         });
         this.grabSponsors();
     }
-    showSubscribeConfirm = () => {
-        return new Promise(resolve => {
-            confirm({
-                title: 'Subscription Required',
-                content: 'To enable this content, you need a subscription.',
-                okText: 'Subscribe',
-                cancelText: 'Cancel',
-                onOk: () => {
-                    resolve(true);
-                },
-                onCancel: () => {
-                    resolve(false);
-                }
-            });
-        });
-    };
     showAddSponsorConfirm = () => {
         return new Promise(resolve => {
             confirm({
@@ -339,10 +308,6 @@ class AdminSponsorController extends Component {
             });
         });
     };
-    subscriptionClick = async () => {
-        const action = this.showSubscribeConfirm();
-        console.log(action);
-    }
     confirmAddSponsor = async () => {
         const f = await this.showAddSponsorConfirm();
         if (f) {
@@ -384,7 +349,6 @@ SponsorBlock.propTypes = {
     element_id: PropTypes.number.isRequired,
     allow_delete: PropTypes.bool.isRequired,
     deleteSponsor: PropTypes.func.isRequired,
-    // subscribed: PropTypes.bool.isRequired
 };
 
 AdminSponsorController.propTypes = {

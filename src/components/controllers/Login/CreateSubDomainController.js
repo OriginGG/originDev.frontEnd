@@ -5,6 +5,7 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import { toast } from 'react-toastify';
+import { Button } from 'semantic-ui-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery, getOrganisationByName } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
@@ -12,13 +13,15 @@ import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import { createThemeQuery, getThemeQuery } from '../../../queries/themes';
 import { createSponsorsQuery } from '../../../queries/sponsors';
 import { createPageQuery } from '../../../queries/pages';
+import PaywallController from './PaywallController';
 
 
 class CreateSubDomainController extends Component {
     state = {
-        visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}
+        visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}, button_disabled: true
     };
     componentDidMount = async () => {
+        this.subscribed = false;
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
             const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
@@ -43,11 +46,17 @@ class CreateSubDomainController extends Component {
             this.current_theme = 'dark';
             const logo_url = 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png';
             this.setState({ theme1_select_style: s, visible: true, image_src: logo_url });
+            document.getElementById('origin_loader').style.display = 'none';
         }
     }
     handleDomainChange = e => {
         const v = e.target.value;
         this.domain_name = v;
+        if (this.subscribed && v) {
+            this.setState({ button_disabled: false });
+        } else {
+            this.setState({ button_disabled: true });
+        }
     }
     uploadFile = (e) => {
         const { files } = e.target;
@@ -183,6 +192,14 @@ class CreateSubDomainController extends Component {
             this.setState({ theme2_select_style: s, theme1_select_style: {} });
         }
     }
+    handleSubscribed = (f) => {
+        this.subscribed = f;
+        if (f) {
+            if (this.domain_name) {
+                this.setState({ button_disabled: false });
+            }
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -194,13 +211,15 @@ class CreateSubDomainController extends Component {
                     light_theme_image_src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
                     header_image_src="https://s3.amazonaws.com/origin-images/origin/logo-top.png"
                     handleDomainChange={this.handleDomainChange}
-                    handleSubmit={this.handleSubmit}
+                    submitButton={<div style={{ display: 'flex', justifyContent: 'center' }}><Button disabled={this.state.button_disabled} style={{ width: 300 }} primary>SUBMIT</Button></div>}
+                    // handleSubmit={this.handleSubmit}
                     uploadFile={this.uploadFile}
                     upload_img_src={this.state.image_src}
                     namestring={`Welcome, ${this.name}`}
                     theme1_select_style={this.state.theme1_select_style}
                     theme2_select_style={this.state.theme2_select_style}
                     handleThemeClick={this.handleThemeClick}
+                    payWallContent={<PaywallController subscribed={this.handleSubscribed} user_id={this.user_id} />}
                 />
             </ThemeProvider>
         );

@@ -1950,7 +1950,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
      
     form_body: {
-        height: '340px',
+        height: '640px',
         padding: '30px 30px 20px'
     },
 
