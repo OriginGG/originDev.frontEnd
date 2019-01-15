@@ -58,11 +58,7 @@ class CreateSubDomainComponentRender extends Component {
                 resize: 'none',
                 display: 'none'
             }} className="g-recaptcha-response"/></div>
-                                        <div style={{
-                                            background: '#0a9ab4',
-                                            fontSize: '18px',
-                                            marginTop: '40px'
-                                        }} className="ui fluid large teal submit button" onClick={this.props.handleSubmit}>Submit</div>
+                                        <div >{this.props.submitButton}</div>
                                     </div>
                                 </div>
                                 <div className="ui error message"/>
