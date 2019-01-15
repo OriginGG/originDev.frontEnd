@@ -29,6 +29,7 @@ class AdminThemeController extends Component {
         let enigma_dark = { borderColor: 'transparent' };
         let enigma_light = { borderColor: 'transparent' };
         let felzec_light = { borderColor: 'transparent', };
+        let enigma2_dark = { borderColor: 'transparent', };
         this.setState({
             reader_image_src: null,
             jumbotron_image_src: this.props.uiStore.current_theme_structure.main_section.background.imageData,
@@ -61,16 +62,23 @@ class AdminThemeController extends Component {
                 obliviot_dark = { borderColor: '#0a9ab4' };
                 obliviot_light = { borderColor: 'transparent' };
             }
-        } else {
+        } else if (this.selected_base_theme === 'felzec') {
             choosen_theme = 'felzec';
             if (this.selected_theme === 'light') {
                 felzec_light = { borderColor: '#0a9ab4' };
             } else {
                 felzec_light = { borderColor: '#0a9ab4' };
             }
+        } else {
+            choosen_theme = 'enigma2';
+            if (this.selected_theme === 'dark') {
+                enigma2_dark = { borderColor: '#0a9ab4' };
+            } else {
+                enigma2_dark = { borderColor: '#0a9ab4' };
+            }
         }
         this.setState({
-            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, felzec_light
+            choosen_theme, enigma_dark, enigma_light, obliviot_dark, obliviot_light, felzec_light, enigma2_dark
         });
     }
     editImage = () => {
@@ -273,7 +281,7 @@ class AdminThemeController extends Component {
         // console.log('obliviot light clicked');
         this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
         this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: '#0a9ab4' } });
-        this.setState({ felzec_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' }, enigma2_dark: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'light';
     }
@@ -281,7 +289,7 @@ class AdminThemeController extends Component {
         // console.log('obliviot dark clicked');
         this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: '#0a9ab4' } });
         this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
-        this.setState({ felzec_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' }, enigma2_dark: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'obliviot' });
         this.new_theme = 'dark';
     }
@@ -289,7 +297,7 @@ class AdminThemeController extends Component {
         // console.log('enigma dark clicked');
         this.setState({ enigma_dark: { borderColor: '#0a9ab4' }, obliviot_dark: { borderColor: 'transparent' } });
         this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
-        this.setState({ felzec_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' }, enigma2_dark: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'dark';
     }
@@ -297,7 +305,7 @@ class AdminThemeController extends Component {
         // console.log('enigma light clicked');
         this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
         this.setState({ enigma_light: { borderColor: '#0a9ab4' }, obliviot_light: { borderColor: 'transparent' } });
-        this.setState({ felzec_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' }, enigma2_dark: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'enigma' });
         this.new_theme = 'light';
     }
@@ -305,9 +313,17 @@ class AdminThemeController extends Component {
         // console.log('felzec light clicked');
         this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
         this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
-        this.setState({ felzec_light: { borderColor: '#0a9ab4' } });
+        this.setState({ felzec_light: { borderColor: '#0a9ab4' }, enigma2_dark: { borderColor: 'transparent' } });
         this.setState({ choosen_theme: 'felzec' });
         this.new_theme = 'light';
+    }
+    handleEnigma2DarkClick = () => {
+        // console.log('felzec light clicked');
+        this.setState({ enigma_dark: { borderColor: 'transparent' }, obliviot_dark: { borderColor: 'transparent' } });
+        this.setState({ enigma_light: { borderColor: 'transparent' }, obliviot_light: { borderColor: 'transparent' } });
+        this.setState({ felzec_light: { borderColor: 'transparent' }, enigma2_dark: { borderColor: '#0a9ab4' } });
+        this.setState({ choosen_theme: 'enigma2' });
+        this.new_theme = 'dark';
     }
     render() {
         let md = <OrganizationAdminThemeComponentRender
@@ -331,11 +347,13 @@ class AdminThemeController extends Component {
             handleEnigmaDarkClick={this.handleEnigmaDarkClick}
             handleEnigmaLightClick={this.handleEnigmaLightClick}
             handleFelzecLightClick={this.handleFelzecLightClick}
+            handleEnigma2DarkClick={this.handleEnigma2DarkClick}
             obliviot_light_style={this.state.obliviot_light}
             obliviot_dark_style={this.state.obliviot_dark}
             enigma_dark_style={this.state.enigma_dark}
             enigma_light_style={this.state.enigma_light}
             felzec_light_style={this.state.felzec_light}
+            enigma2_dark_style={this.state.enigma2_dark}
             enigma_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
             enigma_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
             obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/obliviot-dark-theme.jpg"

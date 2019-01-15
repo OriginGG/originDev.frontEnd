@@ -127,7 +127,7 @@ class OrganizationPageController extends Component {
                 let OrganizationMediaControllerDefault = null;
                 let OrganizationFooterController = null;
                 let OrganizationFooterControllerDefault = null;
-                if (themeBase === 'obliviot' || themeBase === 'felzec') {
+                if (themeBase === 'obliviot' || themeBase === 'felzec' || themeBase === 'enigma2') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
                     OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
@@ -135,7 +135,7 @@ class OrganizationPageController extends Component {
                     // OrganizationTwitchController = null;
                     // OrganizationTwitchControllerDefault = null;
                 }
-                if (themeBase === 'felzec') {
+                if (themeBase === 'felzec' || themeBase === 'enigma2') {
                     OrganizationTeamController = await import('./sub_controllers/OrganizationTeamController');
                     OrganizationTeamControllerDefault = OrganizationTeamController.default;
                     OrganizationMediaController = await import('./sub_controllers/OrganizationMediaController');
@@ -475,13 +475,18 @@ class OrganizationPageController extends Component {
         const theme = this.props.uiStore.current_organisation.themeId;
         const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
 
+        console.log(`real theme = ${real_theme}`);
+        let nav_color = 'transparent';
+        if (real_theme === 'enigma2/dark') {
+            nav_color = this.props.uiStore.current_organisation.primaryColor;
+        }
         // let ml = -200;
         let SideBar = <div />;
         let nv_content = <OrganizationNavController
             store_style={ss}
             about_style={s}
             sponsers_style={sss}
-            home_style={{ display: 'inherit' }}
+            home_style={{ display: 'inherit', borderBottomColor: nav_color }}
             login_style={{ display: 'inherit' }}
             felzec_style={this.state.felzec_style}
             openMenu={this.openMenu}

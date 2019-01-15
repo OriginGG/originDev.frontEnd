@@ -9,10 +9,12 @@ class DarkOrganizationSponserComponentElementRender extends Component {
         return (
             <div>
                 <div style={{
-                    width: '25%',
+                    width: '274px',
                     float: 'left'
                 }} className="container col-sm-4" onClick={this.props.handleClick}>
-                    <img alt="Change Logo" className={this.props.classes.felzec_header_logo} src={this.props.sponsor_image}/>
+                    <img alt="Change Logo" style={{
+                        height: '35px'
+                    }} className={this.props.classes.header_logo} src={this.props.sponsor_image} style={this.props.spons_style}/>
                 </div>
             </div>
         )

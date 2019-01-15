@@ -39,6 +39,10 @@ class CreateSubDomainComponentRender extends Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className={this.props.classes.domain_video_container}>
+                                            <iframe width="100%" height="100%" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" className={this.props.classes.domain_video} frameBorder="0"/>
+                                        </div>
+                                        <div className={this.props.classes.domain_credit_container}>{this.props.payWallContent}</div>
                                         <div style={{
                                             width: '304px',
                                             height: '78px',
