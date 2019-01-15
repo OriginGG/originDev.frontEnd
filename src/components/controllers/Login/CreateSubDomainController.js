@@ -21,7 +21,6 @@ class CreateSubDomainController extends Component {
         visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}, button_disabled: true
     };
     componentDidMount = async () => {
-        this.subscribed = false;
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
             const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
@@ -89,7 +88,9 @@ class CreateSubDomainController extends Component {
         }
         return true;
     }
-    handleSubmit = async () => {
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (this.domain_name) {
             this.current_theme = 'dark';
             if (this.domain_name.indexOf(' ') > -1) {
@@ -211,9 +212,10 @@ class CreateSubDomainController extends Component {
                     light_theme_image_src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
                     header_image_src="https://s3.amazonaws.com/origin-images/origin/logo-top.png"
                     handleDomainChange={this.handleDomainChange}
-                    submitButton={<div style={{ display: 'flex', justifyContent: 'center' }}><Button disabled={this.state.button_disabled} style={{ width: 300 }} primary>SUBMIT</Button></div>}
+                    submitButton={<div style={{ display: 'flex', justifyContent: 'center' }}><Button onClick={(e) => { this.handleSubmit(e); }} disabled={this.state.button_disabled} style={{ width: 300 }} primary>SUBMIT</Button></div>}
                     // handleSubmit={this.handleSubmit}
                     uploadFile={this.uploadFile}
+                    video1_url="https://www.youtube.com/embed/iI3lseGchvE"
                     upload_img_src={this.state.image_src}
                     namestring={`Welcome, ${this.name}`}
                     theme1_select_style={this.state.theme1_select_style}
