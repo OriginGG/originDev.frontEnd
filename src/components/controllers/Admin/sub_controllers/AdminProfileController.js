@@ -174,7 +174,6 @@ class AdminProfileController extends Component {
             this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.Location;
             try {
                 const theme_id = this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id;
-                debugger;
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: theme_id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
             } catch (err) {
                 this.props.appManager.networkError();
