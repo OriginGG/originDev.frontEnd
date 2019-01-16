@@ -1950,8 +1950,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
      
     form_body: {
-        height: '760px',
-        padding: '30px 30px 20px'
+        height: '720px',
+        padding: '30px 30px 20px',
+        overflowY: 'auto'
     },
 
     cc_title: {
@@ -2041,7 +2042,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        height: '380px'
     },
 
     domain_credit_container: {

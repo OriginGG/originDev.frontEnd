@@ -18,7 +18,7 @@ import PaywallController from './PaywallController';
 
 class CreateSubDomainController extends Component {
     state = {
-        visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}, button_disabled: true
+        visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}, button_disabled: true, button_available: false
     };
     componentDidMount = async () => {
         const authPayload = this.props.appManager.GetQueryParams('p');
@@ -51,7 +51,7 @@ class CreateSubDomainController extends Component {
     handleDomainChange = e => {
         const v = e.target.value;
         this.domain_name = v;
-        if (this.subscribed && v) {
+        if (v) {
             this.setState({ button_disabled: false });
         } else {
             this.setState({ button_disabled: true });
@@ -196,14 +196,20 @@ class CreateSubDomainController extends Component {
     handleSubscribed = (f) => {
         this.subscribed = f;
         if (f) {
-            if (this.domain_name) {
-                this.setState({ button_disabled: false });
-            }
+            this.setState({ button_available: true });
         }
     }
     render() {
         if (this.state.visible === false) {
             return null;
+        }
+        let btn = <div style={{ display: 'flex', justifyContent: 'center' }}><Button onClick={(e) => { this.handleSubmit(e); }} disabled={this.state.button_disabled} style={{ width: 300 }} primary>CREATE YOUR DOMAIN</Button></div>;
+        let input_style = { display: 'inherit' };
+        let input_title = 'CREATE YOUR DOMAIN';
+        if (!this.state.button_available) {
+            btn = <span />;
+            input_style = { display: 'none' };
+            input_title = 'Enter your payment info to proceed with 14 day trial';
         }
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
@@ -212,10 +218,12 @@ class CreateSubDomainController extends Component {
                     light_theme_image_src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
                     header_image_src="https://s3.amazonaws.com/origin-images/origin/logo-top.png"
                     handleDomainChange={this.handleDomainChange}
-                    submitButton={<div style={{ display: 'flex', justifyContent: 'center' }}><Button onClick={(e) => { this.handleSubmit(e); }} disabled={this.state.button_disabled} style={{ width: 300 }} primary>SUBMIT</Button></div>}
+                    submitButton={btn}
                     // handleSubmit={this.handleSubmit}
                     uploadFile={this.uploadFile}
-                    video1_url="https://www.youtube.com/embed/iI3lseGchvE"
+                    input_style={input_style}
+                    input_title={input_title}
+                    video1_url="https://www.youtube.com/embed/rijG8eHXSns"
                     upload_img_src={this.state.image_src}
                     namestring={`Welcome, ${this.name}`}
                     theme1_select_style={this.state.theme1_select_style}

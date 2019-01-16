@@ -36,10 +36,10 @@
                     <form class="ui large form">
                         <div class="ui stacked segment">
                            <div class="classes.form_body"> 
-                               <div class="classes.input_title">
+                               <div class="classes.input_title" data-component-value="{this.props.input_title}">
                                    Domain
                                </div>
-                               <div class="field">
+                               <div class="field" data-component-props="style={this.props.input_style}">
                                     <div class="ui labeled input">
                                         <input data-component-props="onChange={this.props.handleDomainChange}" class="classes.input_box" type="text" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="email" placeholder="Create Your Domain">
                                         <div class="ui label">
