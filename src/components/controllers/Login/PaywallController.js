@@ -16,6 +16,7 @@ import Spinner from 'react-svg-spinner';
 import stripeImage from '../../../assets/images/stripeSecure.png';
 import appManager from '../../../utils/appManager';
 import { updateUserQuery } from '../../../queries/users';
+import freeTrialImage from '../../../assets/images/free-trial.png';
 
 
 const PricePlanBlock = ({ plan, handleClick }) => {          // eslint-disable-line
@@ -30,6 +31,9 @@ const PricePlanBlock = ({ plan, handleClick }) => {          // eslint-disable-l
     return (
         <div className="six wide column">
             <div className="ui raised segments">
+                <div className="ui center aligned secondary segment">
+                    <img src={freeTrialImage} alt="free trial" style={{ width: 112 }} />
+                </div>
                 <div className="ui center aligned secondary segment">
                     <div className="ui statistic">
                         <div
