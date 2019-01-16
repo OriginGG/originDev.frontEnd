@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
+import { Dimmer, Header, Segment } from 'semantic-ui-react';
 import {
     CardNumberElement,
     CardExpiryElement,
@@ -11,7 +12,7 @@ import {
     injectStripe,
     StripeProvider
 } from 'react-stripe-elements';
-
+import Spinner from 'react-svg-spinner';
 import stripeImage from '../../../assets/images/stripeSecure.png';
 import appManager from '../../../utils/appManager';
 import { updateUserQuery } from '../../../queries/users';
@@ -163,24 +164,30 @@ class PlanController extends Component {
 
 
 class PaywallContent extends Component {
-    state = { visible: false, display_credit_form: false, display_plan: true };
+    state = {
+        visible: false, dimmer: false, display_credit_form: false, display_plan: true
+    };
     componentDidMount = async () => {
         const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env.REACT_APP_STRIPE_PRODUCT_ID}`);
         this.pay_plans = plans.data.data;
         this.setState({ visible: true });
     }
-
+    setDimmer = f => {
+        this.setState({ dimmer: f });
+    }
     handlePlanClick = plan => {
         this.selected_plan = plan;
         this.setState({ display_plan: false, display_credit_form: true });
     }
     handleCCSubmit = (ev, stripe) => {
         ev.preventDefault();
+        this.setDimmer(true);
         if (stripe) {
             stripe
                 .createToken()
                 .then(async (payload) => {
                     if (payload.error) {
+                        this.setDimmer(false);
                         toast.error(payload.error.message, {
                             position: toast.POSITION.TOP_LEFT,
                             autoClose: 3000
@@ -202,6 +209,7 @@ class PaywallContent extends Component {
                             }
                         );
                         if (response.data.status === 'error') {
+                            this.setDimmer(false);
                             let message = 'An error has occured processing your card';
                             switch (response.data.code) {
                                 case 'card_declined': {
@@ -224,6 +232,7 @@ class PaywallContent extends Component {
                             this.props.callback(false);
                         } else {
                             if (response.data.status === 'subscribed') {
+                                this.setDimmer(false);
                                 await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
                                 toast.success('Thanks - You have been successfully subscribed!', {
                                     position: toast.POSITION.TOP_LEFT,
@@ -267,9 +276,20 @@ class PaywallContent extends Component {
                         </div>
                     </div>}
                 {this.state.display_credit_form &&
-                    <Elements>
-                        <CreditController plans={this.selected_plan} handleSubmit={this.handleCCSubmit} />
-                    </Elements>}
+                    <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmer}>
+                        <Elements>
+                            <CreditController plans={this.selected_plan} handleSubmit={this.handleCCSubmit} />
+                        </Elements>
+                        <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
+                            <Header as="h2" icon inverted>
+                                <div style={{ marginTop: 228 }}>
+                                    <Spinner color="yellow" size="64px" />
+                                </div>
+                                Processing....
+                            </Header>
+                        </Dimmer>
+                    </Dimmer.Dimmable>
+                }
             </div>
         );
     }
@@ -295,16 +315,16 @@ class PaywallController extends Component {
 
         return (
             <div style={{ backgroundColor: '#343c44', paddingBottom: 22, marginBottom: 16 }}>
-            <div style={{ display: 'block', color: 'wheat', paddingTop: 8 }} className="ui grid centered">
-                <div>
-                    <h2>SUCCESSFULL</h2>
-                </div>
-                <div>
-                <h4>You have subscribed to the following plan:</h4>
-                </div>
+                <div style={{ display: 'block', color: 'wheat', paddingTop: 8 }} className="ui grid centered">
+                    <div>
+                        <h2>SUCCESSFULL</h2>
+                    </div>
+                    <div>
+                        <h4>You have subscribed to the following plan:</h4>
+                    </div>
                     <PricePlanBlock plan={this.state.plan} />
                     <h4>You can now proceed and create your subdomain.</h4>
-            </div></div>);
+                </div></div>);
     }
 }
 
