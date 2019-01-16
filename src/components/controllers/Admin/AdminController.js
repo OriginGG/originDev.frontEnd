@@ -24,6 +24,7 @@ import AdminContentTeamController from './sub_controllers/AdminContentTeamContro
 import AdminCustomDomainController from './sub_controllers/AdminCustomDomainController';
 import AdminSocialStatsController from './sub_controllers/AdminSocialStatsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
+import { getAllAdminUsersQuery } from '../../../queries/users';
 // import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -170,7 +171,9 @@ class MenuDrop extends Component {
     }
 }
 class AdminPageController extends Component {
-    state = { page: 'company', isOpen: true, visible: false };
+    state = {
+        page: 'company', isOpen: true, visible: false, error_page: true
+    };
     componentDidMount = async () => {
         document.getElementById('origin_loader').style.display = 'none';
         if (this.props.appManager.admin_logged_in) {
@@ -188,7 +191,10 @@ class AdminPageController extends Component {
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
-                this.setState({ visible: true });
+                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { subDomain });
+                const subscribed = user.allUsers.edges[0].node;
+                this.setState({ visible: true, error_page: !subscribed });
+
                 this.autorun_tracker = autorun(() => {
                     if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
                         if (this.initialized === true) {
@@ -261,7 +267,7 @@ class AdminPageController extends Component {
                 break;
             }
             case 'sponsors': {
-                p_component = <AdminSponsorController  />;
+                p_component = <AdminSponsorController />;
                 break;
             }
             case 'theme': {
@@ -301,6 +307,22 @@ class AdminPageController extends Component {
         return (
 
             <div id="outer-container">
+                {this.state.error_page &&
+                    <div>
+                        <div id="error_page" className="error_page" />
+                        <div id="error_page" className="error_page_overlay">
+                            <div style={{
+                                textAlign: 'center', lineHeight: '32px', marginTop: 12, fontSize: 32, display: 'flex', justifyContent: 'center'
+                            }}>
+                                THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
+                                <br />
+                                CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+                                <br />
+                                <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
+                            </div>
+                        </div>
+                    </div>
+                }
                 <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY} >
                     <Sidebar.Pushable as={Segment}>
                         <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>
