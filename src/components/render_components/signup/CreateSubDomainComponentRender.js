@@ -22,10 +22,12 @@ class CreateSubDomainComponentRender extends Component {
                             <form className="ui large form">
                                 <div className="ui stacked segment">
                                     <div className={this.props.classes.form_body}>
-                                        <div className={this.props.classes.input_title}>
-                                            Domain
+                                        <div className={this.props.classes.input_title}>{this.props.input_title}</div>
+                                        <div className={this.props.classes.domain_video_container}>
+                                            <iframe width="100%" height="100%" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" className={this.props.classes.domain_video} frameBorder="0" src={this.props.video1_url}/>
                                         </div>
-                                        <div className="field">
+                                        <div className={this.props.classes.domain_credit_container}>{this.props.payWallContent}</div>
+                                        <div className="field" style={this.props.input_style}>
                                             <div className="ui labeled input">
                                                 <input type="text" style={{
                                                     backgroundColor: 'transparent',
@@ -45,29 +47,17 @@ class CreateSubDomainComponentRender extends Component {
                                             marginLeft: 'auto',
                                             marginRight: 'auto'
                                         }}>
-                                            <div><iframe width="304" height="78" role="presentation" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" frameBorder="0"/></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" style={{
-                width: '250px',
-                height: '40px',
-                border: '1px solid #c1c1c1',
-                margin: '10px 25px',
-                padding: '0px',
-                resize: 'none',
-                display: 'none'
-            }} className="g-recaptcha-response"/></div>
-                                        <div style={{
-                                            background: '#0a9ab4',
-                                            fontSize: '18px',
-                                            marginTop: '40px'
-                                        }} className="ui fluid large teal submit button" onClick={this.props.handleSubmit}>Submit</div>
+                                            <div >{this.props.submitButton}</div>
+                                        </div>
                                     </div>
+                                    <div className="ui error message"/>
                                 </div>
-                                <div className="ui error message"/>
                             </form>
                         </div>
                     </div>
-                </div>
-                <div className={this.props.classes.signupFooter}>
-                    <p className={this.props.classes.signupFooterText}>© Origin. All rights reserved.</p>
+                    <div className={this.props.classes.signupFooter}>
+                        <p className={this.props.classes.signupFooterText}>© Origin. All rights reserved.</p>
+                    </div>
                 </div>
             </div>
         )

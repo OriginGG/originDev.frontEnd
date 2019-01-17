@@ -1950,8 +1950,9 @@ export const GlobalStyles = GlobalTheme => ({
     },
      
     form_body: {
-        height: '340px',
-        padding: '30px 30px 20px'
+        height: '720px',
+        padding: '30px 30px 20px',
+        overflowY: 'auto'
     },
 
     cc_title: {
@@ -2035,6 +2036,25 @@ export const GlobalStyles = GlobalTheme => ({
         background: '#7dc855',
         textDecoration: 'none',
         color: '#fff'
+    },
+    
+    domain_video_container: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '380px'
+    },
+
+    domain_credit_container: {
+        width: '100%',
+        marginTop: '30px',
+        display: 'table'
+    },
+
+    domain_video: {
+        width: '90%',
+        height: '90%'
     },
      
     // ***************************************************************
