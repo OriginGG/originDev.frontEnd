@@ -5031,14 +5031,11 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         backgroundColor: 'black',
-        padding: '0px 0% 0px 0%',
+        padding: '0px 10% 0px 10%',
         display: 'table'
     },
     individual_inner_bg: {
-        width: '80%',
-        minWidth: '400px',
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        width: '100%',
         minHeight: '100vh',
         backgroundColor: 'rgb(35,35,35)',
         display: 'table',
@@ -5069,7 +5066,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: '20px',
+        bottom: '20px',
         right: '120px'
     },
     individual_login_button: {
@@ -5086,7 +5083,7 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         backgroundColor: 'transparent',
         position: 'absolute',
-        top: '20px',
+        bottom: '20px',
         right: '20px'
     },
     individual_basic_container: {
@@ -5206,8 +5203,6 @@ export const GlobalStyles = GlobalTheme => ({
     },
     indiviual_stats_container: {
         width: '100%',
-        maxHeight: '100px',
-        overflowY: 'auto',
         padding: '20px 10px 20px 10px',
         borderBottom: "1px rgba(255,255,255,.1) solid"
     },

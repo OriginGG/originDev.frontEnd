@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import { Dimmer, Header, Segment } from 'semantic-ui-react';
+import { Dimmer, Header, Segment, Button } from 'semantic-ui-react';
 import {
     CardNumberElement,
     CardExpiryElement,
@@ -16,6 +16,7 @@ import Spinner from 'react-svg-spinner';
 import stripeImage from '../../../assets/images/stripeSecure.png';
 import appManager from '../../../utils/appManager';
 import { updateUserQuery } from '../../../queries/users';
+import freeTrialImage from '../../../assets/images/free-trial.png';
 
 
 const PricePlanBlock = ({ plan, handleClick }) => {          // eslint-disable-line
@@ -30,6 +31,9 @@ const PricePlanBlock = ({ plan, handleClick }) => {          // eslint-disable-l
     return (
         <div className="six wide column">
             <div className="ui raised segments">
+                <div className="ui center aligned secondary segment">
+                    <img src={freeTrialImage} alt="free trial" style={{ width: 112 }} />
+                </div>
                 <div className="ui center aligned secondary segment">
                     <div className="ui statistic">
                         <div
@@ -136,7 +140,11 @@ class _CreditController extends Component {
                             {...createOptions(this.props.fontSize)}
                         />
                     </label>
-                    <button>START FREE TRIAL</button>
+                    <div>
+                        <Button size="mini" primary>START FREE TRIAL</Button>
+                        <Button onClick={this.props.handleBack} size="mini" style={{ float: 'right' }}>BACK</Button>
+                    </div>
+
                 </form>
             </div>
         );
@@ -178,6 +186,11 @@ class PaywallContent extends Component {
     handlePlanClick = plan => {
         this.selected_plan = plan;
         this.setState({ display_plan: false, display_credit_form: true });
+    }
+    handleBack = e => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.setState({ display_plan: true, display_credit_form: false });
     }
     handleCCSubmit = (ev, stripe) => {
         ev.preventDefault();
@@ -278,7 +291,7 @@ class PaywallContent extends Component {
                 {this.state.display_credit_form &&
                     <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmer}>
                         <Elements>
-                            <CreditController plans={this.selected_plan} handleSubmit={this.handleCCSubmit} />
+                        <CreditController plans={this.selected_plan} handleBack={this.handleBack} handleSubmit={this.handleCCSubmit} />
                         </Elements>
                         <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
                             <Header as="h2" icon inverted>
@@ -348,7 +361,8 @@ _CreditController.propTypes = {
     stripe: PropTypes.object.isRequired,
     plan: PropTypes.object.isRequired,
     fontSize: PropTypes.string.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    handleBack: PropTypes.func.isRequired
 };
 PricePlanBlock.propTypes = {
     plan: PropTypes.object.isRequired,
