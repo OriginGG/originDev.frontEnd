@@ -1117,6 +1117,15 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute'
     },
 
+    darkEnigma2BG: {
+        maxWidth: '1400px',
+        minHeight: '100vh',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        padding: '0px 0px 0px 0px',
+        backgroundColor: '#000'
+    },
+
     obliviot_lightContraint: {
         width: '100%',
         maxWidth: '1200px',
