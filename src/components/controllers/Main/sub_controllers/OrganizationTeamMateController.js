@@ -115,43 +115,72 @@ class OrganizationTeamMateController extends Component {
         const { OrganizationTeamImageComponentRender } = this.state;
         const p_array = [];
         this.button_style = { backgroundColor: `${this.props.uiStore.current_organisation.primaryColor}` };
+        this.profile_button_style = { borderColor: `${this.props.uiStore.current_organisation.primaryColor}` };
+        this.profile_handle_style = { color: `${this.props.uiStore.current_organisation.primaryColor}` };
         // let no_items = '';
         // if (this.state.roster_list.length < 1) {
         //     no_items = 'No Players Are Currently On This Roster';
         // }
         // console.log(`this.state.ropster_list size = ${this.state.roster_list.length}`);
+        const theme_check = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (theme_check === 'felzec/light') {
+            this.state.roster_list.forEach((r) => {
+                const { individualUserByIndividualId } = r.node;
+                // console.log(`each roster item =  for item ${i}`);
+                let im = blankProfileImage;
+                if (individualUserByIndividualId.profileImageUrl) {
+                    im = individualUserByIndividualId.profileImageUrl;
+                }
+                const c_name = `${individualUserByIndividualId.firstName} ${individualUserByIndividualId.lastName}`;
+                p_array.push(<div style={{
+                    cursor: 'pointer',
+                    width: '180px',
+                    float: 'left',
+                    position: 'relative',
+                    marginRight: '5px',
+                    marginLeft: '5px'
+                }}><OrganizationTeamImageComponentRender
+                    felzec_team_handle={individualUserByIndividualId.username}
+                    felzec_team_name={c_name}
+                    felzec_overlay_style={this.state.o_style}
+                    felzec_button_style={this.button_style}
+                    team_image={im}
+                    individual_id={individualUserByIndividualId}
+                    handleImageClick={this.handleTeamClick}
+                    handleImageUnClick={this.handleTeamUnClick}
+                    handleIndividualClick={this.handleImageClick}
+                /></div>);
+            });
+            return (<div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    height: '100%'
+                }}>
+                {p_array}</div>);
+        }
         this.state.roster_list.forEach((r) => {
             const { individualUserByIndividualId } = r.node;
-            // console.log(`each roster item =  for item ${i}`);
+            // console.log(`each roster item =  ${JSON.stringify(r)}`);
             let im = blankProfileImage;
             if (individualUserByIndividualId.profileImageUrl) {
                 im = individualUserByIndividualId.profileImageUrl;
             }
             const c_name = `${individualUserByIndividualId.firstName} ${individualUserByIndividualId.lastName}`;
-            p_array.push(<div style={{
-                cursor: 'pointer',
-                width: '180px',
-                float: 'left',
-                position: 'relative',
-                marginRight: '5px',
-                marginLeft: '5px'
-            }}><OrganizationTeamImageComponentRender
+            p_array.push(<OrganizationTeamImageComponentRender
                 felzec_team_handle={individualUserByIndividualId.username}
                 felzec_team_name={c_name}
                 felzec_overlay_style={this.state.o_style}
                 felzec_button_style={this.button_style}
+                enigma2_profile_handle_style={this.profile_handle_style}
+                enigma2_profile_button_style={this.profile_button_style}
                 team_image={im}
                 individual_id={individualUserByIndividualId}
                 handleImageClick={this.handleTeamClick}
                 handleImageUnClick={this.handleTeamUnClick}
                 handleIndividualClick={this.handleImageClick}
-            /></div>);
+            />);
         });
-        return (<div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                height: '100%'
-            }}>
+        return (<div>
             {p_array}</div>);
     }
 }
