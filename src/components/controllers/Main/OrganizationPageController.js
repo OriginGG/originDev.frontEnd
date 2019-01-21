@@ -545,7 +545,7 @@ class OrganizationPageController extends Component {
             nv_content = <span />;
         }
         let footer_content = <span />;
-        if (real_theme === 'felzec/light') {
+        if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
             // console.log(`real theme = ${real_theme}`);
             const s_email = this.props.uiStore.current_organisation.supportContactEmail;
             const b_email = this.props.uiStore.current_organisation.businessContactEmail;
