@@ -23,8 +23,8 @@ class CreateSubDomainController extends Component {
     componentDidMount = async () => {
         const authPayload = this.props.appManager.GetQueryParams('p');
         if (authPayload) {
-            const originTheme = await this.props.appManager.executeQuery('query', getThemeByNameQuery, { subDomain: 'origin' });
-            this.props.uiStore.setOriginTheme(originTheme.resultData);
+            const originTheme = await this.props.appManager.executeQuery('query', getThemeByNameQuery, { themeName: 'origin' });
+            this.props.uiStore.setOriginTheme(originTheme.resultData.nodes[0]);
             const p = JSON.parse(Buffer.from(authPayload, 'hex').toString('utf8'));
             this.authPayload = p;
             const token = p.authenticate.resultData.jwtToken;
@@ -138,7 +138,7 @@ class CreateSubDomainController extends Component {
                         pageContent: '',
                         pageSubtitle: '',
                         pageKey: 'about-us',
-                        organisation: this.domain_name
+                        organisationId: new_org.resultData.organisationAccount.id
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
                         organisationId: new_org.resultData.organisationAccount.id,
@@ -171,7 +171,7 @@ class CreateSubDomainController extends Component {
 
                     const domainInfo = this.props.appManager.getDomainInfo();
                     const new_payload = Object.assign(this.authPayload, {});
-                    new_payload.authenticate.resultData.organisation = this.domain_name;
+                    new_payload.authenticate.resultData.organisationId = new_org.resultData.organisationAccount.id;
                     const payload = Buffer.from(JSON.stringify(new_payload), 'utf8').toString('hex');
                     const u_string = `${domainInfo.protocol}//${this.domain_name}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
                     window.location = u_string;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import _ from 'lodash';
 import { getThemeByNameQuery } from './queries/themes';
-import { getOrganisationQuery } from './queries/organisation';
+import { getOrganisationQuery, getOrganisationByIdQuery } from './queries/organisation';
 import { getIndividualUserByHandleQuery } from './queries/individuals';
 import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
@@ -108,15 +108,24 @@ class AppController extends Component {
                     } else {
                         const auth = this.props.appManager.pouchGet('authenticate');
                         // const auth = await this.props.appManager.pouchGet('authenticate');
-                        if (auth && auth.authenticate.resultData.organisation === subDomain) {
-                            const token = auth.authenticate.resultData.jwtToken;
-                            const d = this.props.appManager.decodeJWT(token);
-                            d.organisation = subDomain;
-                            const new_token = this.props.appManager.encodeJWT(d);
-                            this.props.uiStore.setUserID(d.id);
-                            this.props.appManager.authToken = new_token;
-                            this.props.appManager.admin_logged_in = true;
-                            historyStore.push('/admin_page');
+                        if (auth) {
+                            const my_org = await this.props.appManager.executeQuery('query', getOrganisationByIdQuery, { id: auth.authenticate.resultData.organisationId });
+                            if (my_org.organisationAccountById.subDomain === subDomain) {
+                                console.log(my_org);
+                                const token = auth.authenticate.resultData.jwtToken;
+                                const d = this.props.appManager.decodeJWT(token);
+                                d.organisation = subDomain;
+                                const new_token = this.props.appManager.encodeJWT(d);
+                                this.props.uiStore.setUserID(d.id);
+                                this.props.appManager.authToken = new_token;
+                                this.props.appManager.admin_logged_in = true;
+                                historyStore.push('/admin_page');
+                            } else {
+                                const { hostname } = domainInfo;
+                                const new_host = hostname.replace(`${subDomain}.`, '');
+                                const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+                                window.location = `${u_string}/signup`;
+                            }
                         } else {
                             const { hostname } = domainInfo;
                             const new_host = hostname.replace(`${subDomain}.`, '');

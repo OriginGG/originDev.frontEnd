@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
 export const createPageQuery = gql`
-mutation createPage($organisation: String!, $pageKey: String, $pageTitle: String, $pageContent: String, $pageSubtitle: String) {
+mutation createPage($organisationId: Int!, $pageKey: String, $pageTitle: String, $pageContent: String, $pageSubtitle: String) {
   createPage(input: {page: {
-    organisation:$organisation
+    organisationId:$organisationId
     pageTitle: $pageTitle
     pageKey:$pageKey
     pageContent: $pageContent

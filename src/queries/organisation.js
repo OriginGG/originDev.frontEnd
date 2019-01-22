@@ -11,6 +11,15 @@ export const getOrganisationByName = gql`
       }
     }
   }`;
+
+export const getOrganisationByIdQuery = gql`
+query getOrg($id: Int!) {
+  organisationAccountById(id: $id) {
+    id
+    subDomain
+  }
+}`;
+
 export const getOrganisationQuery = gql`
     query getOrg($subDomain: String!) {
   resultData: allOrganisationAccounts(condition: {subDomain: $subDomain}) {

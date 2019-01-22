@@ -223,8 +223,6 @@ class LoginController extends Component {
                                     email: v.email,
                                     adminUser: !this.props.ind,
                                 };
-
-
                                 await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
                                 toast.success(`Account ${v.email} created, you can now login.`, {
                                     position: toast.POSITION.TOP_LEFT
@@ -309,8 +307,7 @@ class LoginController extends Component {
                                         const url = `/emails/signup?host=${host}&email=${v.email}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
                                         await this.sendEmail(url);
                                         const payload_email = Buffer.from(url, 'utf8').toString('hex');
-                                        const r_email = await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email, payload: payload_email });
-                                        console.log(r_email);
+                                        await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email, payload: payload_email });
                                         toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
                                             position: toast.POSITION.TOP_LEFT,
                                             autoClose: 15000

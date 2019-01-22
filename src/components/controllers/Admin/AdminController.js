@@ -179,6 +179,9 @@ class AdminPageController extends Component {
             // const { user_id } = this.props.uiStore;
             // const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
             // this.subscribed = user.resultData.subscribed;
+            const { user_id } = this.props.uiStore;
+            const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
+            const { subscribed } = user.resultData;
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
             // console.log(`domainInfo = ${JSON.stringify(domainInfo)}`);
@@ -190,9 +193,6 @@ class AdminPageController extends Component {
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
-                debugger;
-                const user = await this.props.appManager.executeQuery('query', getUserQuery, { subDomain });
-                const subscribed = user.allUsers.edges[0].node;
                 this.setState({ visible: true, error_page: !subscribed });
 
                 this.autorun_tracker = autorun(() => {

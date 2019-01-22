@@ -1,9 +1,8 @@
 import gql from 'graphql-tag';
 
-export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated: Boolean, $organisation: String, $subscribed: Boolean) {
+export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated: Boolean, $subscribed: Boolean) {
     updateUserById(input: {
         id: $id, userPatch: {
-            organisation: $organisation
             authenticated: $authenticated
             subscribed: $subscribed
         }
