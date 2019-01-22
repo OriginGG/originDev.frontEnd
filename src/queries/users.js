@@ -27,6 +27,17 @@ export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($organisation
   }
 }`;
 
+export const getAllAdminUsersQuery = gql`query getUsersNonAdmin($subDomain: String!) {
+    allUsers(condition:{organisation: $subDomain, adminUser: true}) {
+      edges {
+      node {
+        subscribed
+      }  
+    }
+  }
+}`;
+
+
 export const getUserByEmailQuery = gql`query getUserByEmail($email:String!) {
   allUsers(condition:{email:$email}) {
     edges {

@@ -308,7 +308,6 @@ class AdminRosterController extends Component {
         games: [], user_modal_open: false, game_modal_open: false, visible: false
     };
     componentDidMount = () => {
-        this.subscribed = true;
         this.getRosterData();
     }
     getRosterData = async () => {
@@ -388,33 +387,8 @@ class AdminRosterController extends Component {
         this.setState({ user_modal_open: true });
         console.log(game, game_node);
     }
-    showSubscribeConfirm = () => {
-        return new Promise(resolve => {
-            confirm({
-                title: 'Subscription Required',
-                content: 'To add more than one game roster, you require a subscription.',
-                okText: 'Subscribe',
-                cancelText: 'Cancel',
-                onOk: () => {
-                    resolve(true);
-                },
-                onCancel: () => {
-                    resolve(false);
-                }
-            });
-        });
-    };
-    subscriptionClick = async () => {
-        const action = this.showSubscribeConfirm();
-        console.log(action);
-    }
     handleAddNewGame = async () => {
-        if (this.state.games.length > 1 && this.subscribed === false) {
-            const action = await this.showSubscribeConfirm();
-            console.log(action);
-        } else {
-            this.setState({ game_modal_open: true });
-        }
+        this.setState({ game_modal_open: true });
     }
     handleSubmit = async (game) => {
         this.closeModal();

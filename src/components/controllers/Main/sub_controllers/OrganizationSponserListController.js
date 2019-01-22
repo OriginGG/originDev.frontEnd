@@ -19,7 +19,7 @@ class OrganizationSponserListController extends Component {
         const sponser_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const { nodes } = sponser_data.allOrgSponsors;
         // console.log(`sponser_data = ${JSON.stringify(sponser_data.resultData.edges)}`);
-        // console.log(`edges = ${edges}`);
+        // console.log(`nodes = ${JSON.stringify(nodes)}`);
         this.setState({ sponser_data: nodes, visible: true, OrganizationSponsersItemComponentRender: OrganizationSponsersItemComponentRender.default });
     }
     // handleClick = (link) => {
@@ -118,7 +118,7 @@ class OrganizationSponserListController extends Component {
             const sl2 = <i key="social_item2" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.twitter.com'); }} className="fab fa-twitter" />;
             const sl3 = <i key="social_item3" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.instagram.com'); }} className="fab fa-instagram" />;
             const sl4 = <i key="social_item4" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.youtube.com'); }} className="fab fa-youtube" />;
-            const sl5 = <div key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage('http://www.google.com'); }} >{r.s_link}</div>;
+            const sl5 = <div key="social_item5" role="menuItem" tabIndex={-1} onClick={() => { this.openPage(r.s_link); }} >{r.s_link}</div>;
             const individualSponserByIndividualId = r;
             const bg_style = { background: `url(${individualSponserByIndividualId.s_bg_image})`, backgroundSize: 'cover' };
             p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualSponserByIndividualId.s_link); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationSponsersItemComponentRender

@@ -3,7 +3,6 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import PropTypes from 'prop-types';
-import { Modal } from 'antd';
 import { StripeProvider } from 'react-stripe-elements';
 import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
@@ -14,7 +13,6 @@ import AdminProfileController from './sub_controllers/AdminProfileController';
 import AdminBlogController from './sub_controllers/AdminBlogController';
 import AdminMembersController from './sub_controllers/AdminMembersController';
 import AdminAboutController from './sub_controllers/AdminAboutController';
-import AdminSubscriptionController from './sub_controllers/AdminSubscriptionController';
 import AdminMediaController from './sub_controllers/AdminMediaController';
 import AdminSponsorController from './sub_controllers/AdminSponsorController';
 import AdminRosterController from './sub_controllers/AdminRosterController';
@@ -30,13 +28,9 @@ import { getUserQuery } from '../../../queries/users';
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 
-
-const { confirm } = Modal;
-
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
     state = { open: true };
-
     handleMenuClick = (v, e) => {
         console.log(e);
         this.props.handleManageClick(v);
@@ -176,13 +170,15 @@ class MenuDrop extends Component {
     }
 }
 class AdminPageController extends Component {
-    state = { page: 'company', isOpen: true, visible: false };
+    state = {
+        page: 'company', isOpen: true, visible: false, error_page: true
+    };
     componentDidMount = async () => {
         document.getElementById('origin_loader').style.display = 'none';
         if (this.props.appManager.admin_logged_in) {
-            const { user_id } = this.props.uiStore;
-            const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
-            this.subscribed = user.resultData.subscribed;
+            // const { user_id } = this.props.uiStore;
+            // const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
+            // this.subscribed = user.resultData.subscribed;
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
             // console.log(`domainInfo = ${JSON.stringify(domainInfo)}`);
@@ -193,9 +189,12 @@ class AdminPageController extends Component {
                 console.log('sub domain does not exist!');
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
-                // await this.sponsorCheck();
                 this.props.uiStore.setSubDomain(subDomain);
-                this.setState({ visible: true });
+                debugger;
+                const user = await this.props.appManager.executeQuery('query', getUserQuery, { subDomain });
+                const subscribed = user.allUsers.edges[0].node;
+                this.setState({ visible: true, error_page: !subscribed });
+
                 this.autorun_tracker = autorun(() => {
                     if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
                         if (this.initialized === true) {
@@ -224,7 +223,6 @@ class AdminPageController extends Component {
         this.setState({ isOpen: !f });
     }
 
-
     handleNavClick = () => {
         // console.log('nav click');
         const domainInfo = this.props.appManager.getDomainInfo();
@@ -232,41 +230,11 @@ class AdminPageController extends Component {
         // console.log(`domain info urlstring = ${url_string}`);
         window.open(url_string, '_blank');
     }
-    showSubscribeConfirm = () => {
-        return new Promise(resolve => {
-            confirm({
-                title: 'Subscription Required',
-                content: 'To add your own custom domain, you require a subscription.',
-                okText: 'Subscribe',
-                cancelText: 'Cancel',
-                onOk: () => {
-                    resolve(true);
-                },
-                onCancel: () => {
-                    resolve(false);
-                }
-            });
-        });
-    };
-    subscriptionClick = async () => {
-        const action = await this.showSubscribeConfirm();
-        if (action) {
-            this.setState({ page: 'subscription' });
-        }
-    }
-    hasSubscribed = () => {
-        this.subscribed = true;
-        this.setState({ page: 'company' });
-    }
     closeModal = () => {
         this.setState({ page: 'company' });
     }
     handleManageClick = async (v) => {
-        if (v === 'add_custom_domain' && !this.subscribed) {
-            this.subscriptionClick();
-        } else {
-            this.setState({ page: v });
-        }
+        this.setState({ page: v });
     }
     render() {
         if (this.state.visible === false) {
@@ -275,11 +243,7 @@ class AdminPageController extends Component {
         let p_component = <span />;
         switch (this.state.page) {
             case 'social_stats': {
-                p_component = <AdminSocialStatsController subscribed={this.subscribed} domain={this.props.uiStore.current_organisation.subDomain} user_id={this.props.uiStore.user_id} />;
-                break;
-            }
-            case 'subscription': {
-                p_component = <AdminSubscriptionController callback={this.hasSubscribed} subscribed={this.subscribed} domain={this.props.uiStore.current_organisation.subDomain} user_id={this.props.uiStore.user_id} />;
+                p_component = <AdminSocialStatsController domain={this.props.uiStore.current_organisation.subDomain} user_id={this.props.uiStore.user_id} />;
                 break;
             }
             case 'add_custom_domain': {
@@ -303,7 +267,7 @@ class AdminPageController extends Component {
                 break;
             }
             case 'sponsors': {
-                p_component = <AdminSponsorController subscribed={this.subscribed} />;
+                p_component = <AdminSponsorController />;
                 break;
             }
             case 'theme': {
@@ -343,6 +307,22 @@ class AdminPageController extends Component {
         return (
 
             <div id="outer-container">
+                {this.state.error_page &&
+                    <div>
+                        <div id="error_page" className="error_page" />
+                        <div id="error_page" className="error_page_overlay">
+                            <div style={{
+                                textAlign: 'center', lineHeight: '32px', marginTop: 12, fontSize: 32, display: 'flex', justifyContent: 'center'
+                            }}>
+                                THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
+                                <br />
+                                CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+                                <br />
+                                <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
+                            </div>
+                        </div>
+                    </div>
+                }
                 <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY} >
                     <Sidebar.Pushable as={Segment}>
                         <Sidebar as={Menu} animation="push" width="wide" visible={this.state.isOpen} icon="labeled" vertical inverted>

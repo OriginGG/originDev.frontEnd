@@ -5,6 +5,7 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import { toast } from 'react-toastify';
+import { Button } from 'semantic-ui-react';
 import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery, getOrganisationByName } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
@@ -12,11 +13,12 @@ import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import { createThemeQuery, getThemeByNameQuery } from '../../../queries/themes';
 import { createSponsorsQuery } from '../../../queries/sponsors';
 import { createPageQuery } from '../../../queries/pages';
+import PaywallController from './PaywallController';
 
 
 class CreateSubDomainController extends Component {
     state = {
-        visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}
+        visible: false, image_src: null, theme1_select_style: {}, theme2_select_style: {}, button_disabled: true, button_available: false
     };
     componentDidMount = async () => {
         const authPayload = this.props.appManager.GetQueryParams('p');
@@ -43,11 +45,17 @@ class CreateSubDomainController extends Component {
             this.current_theme = 'dark';
             const logo_url = 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png';
             this.setState({ theme1_select_style: s, visible: true, image_src: logo_url });
+            document.getElementById('origin_loader').style.display = 'none';
         }
     }
     handleDomainChange = e => {
         const v = e.target.value;
         this.domain_name = v;
+        if (v) {
+            this.setState({ button_disabled: false });
+        } else {
+            this.setState({ button_disabled: true });
+        }
     }
     uploadFile = (e) => {
         const { files } = e.target;
@@ -80,7 +88,9 @@ class CreateSubDomainController extends Component {
         }
         return true;
     }
-    handleSubmit = async () => {
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (this.domain_name) {
             this.current_theme = 'dark';
             if (this.domain_name.indexOf(' ') > -1) {
@@ -183,9 +193,23 @@ class CreateSubDomainController extends Component {
             this.setState({ theme2_select_style: s, theme1_select_style: {} });
         }
     }
+    handleSubscribed = (f) => {
+        this.subscribed = f;
+        if (f) {
+            this.setState({ button_available: true });
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
+        }
+        let btn = <div style={{ display: 'flex', justifyContent: 'center' }}><Button onClick={(e) => { this.handleSubmit(e); }} disabled={this.state.button_disabled} style={{ width: 300 }} primary>CREATE YOUR DOMAIN</Button></div>;
+        let input_style = { display: 'inherit' };
+        let input_title = 'CREATE YOUR DOMAIN';
+        if (!this.state.button_available) {
+            btn = <span />;
+            input_style = { display: 'none' };
+            input_title = 'Enter your payment info to proceed with 14 day trial';
         }
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
@@ -194,13 +218,18 @@ class CreateSubDomainController extends Component {
                     light_theme_image_src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
                     header_image_src="https://s3.amazonaws.com/origin-images/origin/logo-top.png"
                     handleDomainChange={this.handleDomainChange}
-                    handleSubmit={this.handleSubmit}
+                    submitButton={btn}
+                    // handleSubmit={this.handleSubmit}
                     uploadFile={this.uploadFile}
+                    input_style={input_style}
+                    input_title={input_title}
+                    video1_url="https://www.youtube.com/embed/rijG8eHXSns"
                     upload_img_src={this.state.image_src}
                     namestring={`Welcome, ${this.name}`}
                     theme1_select_style={this.state.theme1_select_style}
                     theme2_select_style={this.state.theme2_select_style}
                     handleThemeClick={this.handleThemeClick}
+                    payWallContent={<PaywallController subscribed={this.handleSubscribed} user_id={this.user_id} />}
                 />
             </ThemeProvider>
         );

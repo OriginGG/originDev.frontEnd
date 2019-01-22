@@ -18,6 +18,7 @@ import { getRosterQuery } from '../../../queries/rosters';
 import { getSponsorsQuery } from '../../../queries/sponsors';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
+import { getAllAdminUsersQuery } from '../../../queries/users';
 
 // import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
@@ -99,6 +100,8 @@ class OrganizationPageController extends Component {
             if (o.resultData === null) {
                 historyStore.push('/');
             } else {
+                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { subDomain });
+                const subscribed = user.allUsers.edges[0].node;
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
@@ -213,6 +216,7 @@ class OrganizationPageController extends Component {
                     OrganizationMediaController: OrganizationMediaControllerDefault,
                     OrganizationFooterController: OrganizationFooterControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
+                    error_page: !subscribed
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
                 if (this.invite_details) {
@@ -542,7 +546,7 @@ class OrganizationPageController extends Component {
             nv_content = <span />;
         }
         let footer_content = <span />;
-        if (real_theme === 'felzec/light') {
+        if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
             // console.log(`real theme = ${real_theme}`);
             const s_email = this.props.uiStore.current_organisation.supportContactEmail;
             const b_email = this.props.uiStore.current_organisation.businessContactEmail;
@@ -816,6 +820,22 @@ class OrganizationPageController extends Component {
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
                     <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
+                        {this.state.error_page &&
+                            <div>
+                            <div id="error_page" className="error_page" />
+                            <div id="error_page" className="error_page_overlay">
+                                <div style={{
+                                    textAlign: 'center', lineHeight: '32px', fontSize: 32, display: 'flex', justifyContent: 'center'
+                                }}>
+                                    THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
+                                <br />
+                                    CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+                                <br />
+                                    <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
+                                </div>
+                                </div>
+                            </div>
+                        }
                         <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
                         {SideBar}
                         <div className={c_name} >
