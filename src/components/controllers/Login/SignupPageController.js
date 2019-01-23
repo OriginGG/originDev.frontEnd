@@ -4,6 +4,7 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { Header } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
+import appManager from '../../../utils/appManager';
 import SignupPageComponentRender from '../../render_components/signup/SignupPageComponentRender';
 import SignupController from './sub_controllers/SignupController';
 import logoTop from '../../../assets/images/logo-top.png';
@@ -15,6 +16,12 @@ const HeaderComp = () => {
     );
 };
 class SignupPageController extends Component {
+    componentDidMount = () => {
+        const c = appManager.GetQueryParams('clear');
+        if (c) {
+            appManager.pouchDelete('authenticate');
+        }
+    }
     render() {
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
