@@ -57,14 +57,11 @@ class OrganizationPageController extends Component {
         this.invite_details = null;
         // console.log(token);
         if (token) {
-            debugger;
             const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
             const { email } = d;
-            debugger;
             const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
                 email
             });
-            debugger;
             const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
                 id: user.individualUserByEmail.id,
                 organisationId: parseInt(d.organisation_id, 10)
