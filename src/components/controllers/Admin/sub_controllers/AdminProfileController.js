@@ -234,9 +234,17 @@ class AdminProfileController extends Component {
                 setTimeout(() => {
                     setTimeout(() => {
                         const s = this.props.appManager.getDomainInfo();
-                        const n = s.hostname.split('.');
-                        n.shift();
-                        window.location = `${s.protocol}//${n}:${s.port}/signup_org?clear=true`;
+                        const r = s.hostname.split('.');
+                        r.shift();
+                        let p = '';
+                        r.forEach(t => {
+                            if (p.length > 0) {
+                                p = `${p}.${t}`;
+                            } else {
+                                p = t;
+                            }
+                        });
+                        window.location = `${s.protocol}//${p}:${s.port}/signup_org?clear=true`;
                     }, 5000);
                 });
             } else {
