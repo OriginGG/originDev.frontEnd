@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
-export const getTwitchChannelsQuery = gql`query getTwitchChannels($subDomain: String!) {
-    resultData: allTwitchChannels(condition: { organisation: $subDomain }) {
+export const getTwitchChannelsQuery = gql`query getTwitchChannels($organisationId: Int!) {
+    resultData: allTwitchChannels(condition: { organisationId: $organisationId }) {
         edges {
             node {
                 channelName

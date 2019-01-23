@@ -1,10 +1,11 @@
 import gql from 'graphql-tag';
 
-export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated: Boolean, $subscribed: Boolean) {
+export const updateUserQuery = gql`mutation updateuser($id: Int!, $organisationId: Int, $authenticated: Boolean, $subscribed: Boolean) {
     updateUserById(input: {
         id: $id, userPatch: {
             authenticated: $authenticated
             subscribed: $subscribed
+            organisationId: $organisationId
         }
     }) {
         user {
@@ -13,7 +14,7 @@ export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated
     }
 }`;
 
-export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($organisationId: String!) {
+export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($organisationId: Int!) {
     allUsers(condition:{organisationId: $organisationId, adminUser: false}) {
       edges {
       node {
@@ -26,8 +27,8 @@ export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($organisation
   }
 }`;
 
-export const getAllAdminUsersQuery = gql`query getUsersNonAdmin($subDomain: String!) {
-    allUsers(condition:{organisation: $subDomain, adminUser: true}) {
+export const getAllAdminUsersQuery = gql`query getUsersNonAdmin($organisationId: Int!) {
+    allUsers(condition:{organisationId: $organisationId, adminUser: true}) {
       edges {
       node {
         subscribed

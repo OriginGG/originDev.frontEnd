@@ -36,8 +36,9 @@ export const getThemeByNameQuery = gql`
   }
 `;
 
-export const createThemeQuery = gql`mutation createTheme($themeName: String!, $themeData: JSON!, $themeStructure: JSON!) {
+export const createThemeQuery = gql`mutation createTheme($organisationId: Int!, $themeName: String!, $themeData: JSON!, $themeStructure: JSON!) {
   createTheme(input: {theme: {
+    organisationId: $organisationId
     themeName: $themeName
     themeData: $themeData
     themeStructure: $themeStructure

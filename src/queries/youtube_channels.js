@@ -1,11 +1,5 @@
 import gql from 'graphql-tag';
 
-export const getYouTubeChannelsCountquery = gql`query getYouTubeChannels($subDomain: String!) {
-  resultData:allYoutubeChannels(condition: {organisation: $subDomain}) {
-    totalCount
-  }
-}
-`;
 
 export const getYouTubeChannelsQuery = gql`query getYouTubeChannels($organisationId: Int!) {
     resultData:allYoutubeChannels(condition: { organisationId: $organisationId }) {

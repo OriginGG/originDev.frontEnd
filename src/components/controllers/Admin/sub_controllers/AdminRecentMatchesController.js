@@ -105,7 +105,6 @@ class AdminRecentMatchesController extends Component {
     handleSubmit = async () => {
         // console.log('submit pressed');
         let is_filled = true;
-        // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         if (!this.current_game) {
             toast.error('Please pick a game', {
                 position: toast.POSITION.TOP_LEFT

@@ -1,11 +1,5 @@
 import gql from 'graphql-tag';
 
-export const getBlogsCountQuery = gql`query getBlogsCount($subDomain: String!) {
-  resultData:allBlogs(condition: {organisation: $subDomain}) {
-    totalCount
-  }
-}
-`;
 
 export const deleteBlogQuery = gql`mutation deleteBlog($id: Int!) {
   deleteBlogById(input:{id: $id}) {
@@ -59,9 +53,9 @@ mutation updateBlogPost($id: Int!, $blogTitle: String!, $blogContent: String!, $
   }
 }`;
 export const createBlogPostQuery = gql`
-mutation createBlogPost($blogTitle: String!, $organisation: String!, $blogContent: String!, $featured: Boolean, $blogMedia: String) {
+mutation createBlogPost($blogTitle: String!, $organisationId: Int!, $blogContent: String!, $featured: Boolean, $blogMedia: String) {
   createBlog(input:{blog: {
-    organisation: $organisation,
+    organisationId: $organisationId,
     blogTitle: $blogTitle
     blogContent: $blogContent
     blogMedia: $blogMedia

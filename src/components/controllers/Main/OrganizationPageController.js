@@ -20,7 +20,6 @@ import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
 import { getAllAdminUsersQuery } from '../../../queries/users';
 
-// import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 
@@ -58,14 +57,17 @@ class OrganizationPageController extends Component {
         this.invite_details = null;
         // console.log(token);
         if (token) {
+            debugger;
             const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
             const { email } = d;
+            debugger;
             const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
                 email
             });
+            debugger;
             const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
                 id: user.individualUserByEmail.id,
-                subDomain: d.organisation
+                organisationId: parseInt(d.organisation_id, 10)
             });
             if (exists.allOrganisationMembers.edges.length > 0) {
                 toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
@@ -74,7 +76,7 @@ class OrganizationPageController extends Component {
             } else {
                 // console.log(exists);
                 await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
-                    subDomain: d.organisation,
+                    organisationId: parseInt(d.organisation_id, 10),
                     userId: user.individualUserByEmail.id
                 });
                 this.invite_details = user.individualUserByEmail;
@@ -100,10 +102,10 @@ class OrganizationPageController extends Component {
             if (o.resultData === null) {
                 historyStore.push('/');
             } else {
-                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { subDomain });
-                const subscribed = user.allUsers.edges[0].node;
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
+                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
+                const subscribed = user.allUsers.edges[0].node;
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
                 const themeBase = this.props.uiStore.current_organisation.themeBaseId;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);

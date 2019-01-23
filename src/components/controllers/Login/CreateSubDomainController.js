@@ -131,14 +131,16 @@ class CreateSubDomainController extends Component {
                     const new_org = await this.props.appManager.executeQueryAuth('mutation', createOrganisationQuery, {
                         themeBaseId: baseId, themeId: this.current_theme, name: this.domain_name, subDomain: this.domain_name
                     });
-                    await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.user_id, organisation: this.domain_name });
+                    const org_id = new_org.resultData.organisationAccount.id;
+                    await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.user_id, organisationId: org_id });
+                    t.organisationId = org_id;
                     await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
                     await this.props.appManager.executeQueryAuth('mutation', createPageQuery, {
                         pageTitle: '',
                         pageContent: '',
                         pageSubtitle: '',
                         pageKey: 'about-us',
-                        organisationId: new_org.resultData.organisationAccount.id
+                        organisationId: org_id
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
                         organisationId: new_org.resultData.organisationAccount.id,

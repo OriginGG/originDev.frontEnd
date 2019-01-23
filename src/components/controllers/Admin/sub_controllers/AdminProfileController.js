@@ -180,7 +180,6 @@ class AdminProfileController extends Component {
             }
         }
         try {
-            debugger;
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateOrganisationQuery,
                 {
@@ -201,7 +200,6 @@ class AdminProfileController extends Component {
                 }
             );
             const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-            debugger;
             this.props.uiStore.setOrganisation(o.resultData);
             // console.log(`result data = ${JSON.stringify(o.resultData)}`);
             toast.success('Company Details updated !', {

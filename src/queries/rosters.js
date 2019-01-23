@@ -13,7 +13,7 @@ export const createRosterQuery = gql`mutation createRoster($organisationId: Int!
      id
       createdAt
       updatedAt
-      subDomain
+      organisationId
       gameId
       teamName
     	positionId
@@ -49,18 +49,6 @@ export const createRosterQuery = gql`mutation createRoster($organisationId: Int!
     }
   }
 }`;
-
-// export const createRosterQuery = gql`mutation createRoster($subDomain: String!, $gameId: Int!, $teamName: String) {
-//   createRoster(input:{roster: {
-//     subDomain: $subDomain
-//     gameId:$gameId
-//     teamName: $teamName
-//   }}) {
-//     roster {
-//       id
-//     }
-//   }
-// }`;
 
 export const getRosterByIDQuery = gql`
 query getRosterById($id: Int!) {  
@@ -245,45 +233,3 @@ export const getRosterQuery = gql`query getRosters($organisationId: Int!, $roste
     }
 }
 `;
-// export const getRosterQuery = gql`query getRosters($subDomain: String!) {
-//     allRosters(condition: { subDomain: $subDomain }) {
-//         edges {
-//             node {
-//                 id
-//                 createdAt
-//                 updatedAt
-//                 subDomain
-//                 gameId
-//                 teamName
-//                 rosterIndividualsByRosterId {
-//                     edges {
-//                         node {
-//                             id
-//                             individualUserByIndividualId {
-//                                 firstName
-//                                 lastName
-//                                 email
-//                                 about
-//                                 contactNumber
-//                                 id
-//                                 accomplishments
-//                                 createdAt
-//                                 updatedAt
-//                                 twitchUrl
-//                                 twitterHandle
-//                                 youtubeChannel
-//                                 youtubeVideo1Url
-//                                 youtubeVideo2Url
-//                                 youtubeVideo3Url
-//                                 bannerImageUrl
-//                                 profileImageUrl
-//                                 username
-//                             }
-
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }`;
