@@ -744,7 +744,7 @@ class OrganizationPageController extends Component {
         }
 
         if (this.state.display_blogs) {
-            // console.log(`real_theme = ${real_theme}`);
+            console.log(`real_theme = ${real_theme}`);
             if (real_theme === 'enigma/light') {
                 c_name = 'lightBG';
             } else {
@@ -758,6 +758,11 @@ class OrganizationPageController extends Component {
             if (real_theme === 'felzec/light') {
                 b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
                 s_style = <span />;
+                n_style = nv_content;
+            }
+            if (real_theme === 'enigma2/dark') {
+                // b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
+                s_style = <OrganizationSponsorController />;
                 n_style = nv_content;
             }
             disp = <OrganizationPageComponentRender

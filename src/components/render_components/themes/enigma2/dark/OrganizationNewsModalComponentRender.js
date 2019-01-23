@@ -7,9 +7,9 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationNewsModalComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.lightBG}>
+            <div className={this.props.classes.darkBG}>
                 <div id="about_modal" style={this.props.extra_style}>
-                    <div className={this.props.classes.felzec_modal_inner}>
+                    <div className={this.props.classes.enigma2_modal_inner}>
                         <div className="header">
                             <div className={this.props.classes.modal_news_header}>
                                 <img className={this.props.classes.modal_news_header_image} src={this.props.blog_media}/>
@@ -19,14 +19,14 @@ class DarkOrganizationNewsModalComponentRender extends Component {
                             <div className={this.props.classes.news_modal_info_box}>
                                 <div className="ui stackable two column grid">
                                     <div className="column">
-                                        <div id="news_modal_item_title" className={this.props.classes.felzec_news_modal_title_text}>{this.props.blog_title}</div>
+                                        <div id="news_modal_item_title" className={this.props.classes.enigma2_news_modal_title_text}>{this.props.blog_title}</div>
                                     </div>
                                     <div className="column">
-                                        <div id="news_modal_item_date" className={this.props.classes.felzec_news_modal_date_text}>{this.props.blog_date}</div>
+                                        <div id="news_modal_item_date" className={this.props.classes.enigma2_news_modal_date_text}>{this.props.blog_date}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className={this.props.classes.felzec_modal_news_body_text}>{this.props.blog_content}</div>
+                            <div className={this.props.classes.enigma2_modal_news_body_text}>{this.props.blog_content}</div>
                         </div>
                     </div>
                 </div>

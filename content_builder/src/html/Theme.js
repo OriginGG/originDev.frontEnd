@@ -1741,17 +1741,6 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative',
         cursor: 'pointer'
     },
-
-    enigma2_light_news_title: {
-        textAlign: 'left',
-        fontSize: '68px',
-        lineHeight: '78px',
-        color: '#fefefe',
-        fontWeight: 'bold',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'
-    },
-
     enigma2_mini_news_title: {
         textAlign: 'left',
         fontSize: '28px',
@@ -3343,6 +3332,16 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
 
+    enigma2_light_news_container: {
+        width: '80%',
+        height: '200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'transparent',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
     felzec_light_news_mobile_container: {
         width: '90%',
         height: '100px',
@@ -3388,6 +3387,15 @@ export const GlobalStyles = GlobalTheme => ({
         textTransform: 'uppercase'
     },
 
+    enigma2_light_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '30px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
     felzec_light_mobile_news_title: {
         textAlign: 'left',
         fontSize: '20px',
@@ -3416,6 +3424,15 @@ export const GlobalStyles = GlobalTheme => ({
         textOverflow: 'ellipsis'
     },
 
+    enigma2_light_news_body: {
+        textAlign: 'left',
+        fontSize: '14px',
+        color: 'white',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
     felzec_light_footer_news_body: {
         textAlign: 'left',
         fontSize: '12px',
@@ -3430,6 +3447,15 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '15px',
         display: 'table',
         background: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    enigma2_modal_inner: {
+        width: '80%',
+        padding: '15px',
+        display: 'table',
+        background: 'transparent',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
@@ -3451,6 +3477,26 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100%',
         color: 'black',
+        overflowY: 'scroll'
+    },
+
+    enigma2_news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'white'
+    },
+    enigma2_news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'white'
+    },
+
+    enigma2_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'white',
         overflowY: 'scroll'
     },
 
