@@ -14,7 +14,7 @@ class OrganizationLogoController extends Component {
     componentDidMount = async () => {
         const p_array = [];
         if (!this.isMobile()) {
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
             roster_data.allCombinedRosters.edges.forEach((r) => {
                 const { gameId } = r.node;
                 const currGame = _.find(gameOptions, (o) => {

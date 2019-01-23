@@ -173,7 +173,8 @@ class AdminProfileController extends Component {
             s.header.logo.imageData = logo_data.secure_url;
             this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.Location;
             try {
-                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
+                const theme_id = this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id;
+                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: theme_id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
             } catch (err) {
                 this.props.appManager.networkError();
             }
@@ -182,7 +183,7 @@ class AdminProfileController extends Component {
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateOrganisationQuery,
                 {
-                    subDomain: this.props.uiStore.current_organisation.subDomain,
+                    id: this.props.uiStore.current_organisation.id,
                     companyStoreLink: this.state.input_values.company_store_value,
                     name: this.state.input_values.company_name_value,
                     fbLink: this.state.input_values.facebook_value,

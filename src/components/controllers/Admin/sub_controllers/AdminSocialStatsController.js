@@ -47,7 +47,7 @@ class AdminSocialStatsControllerr extends Component {
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: this.aggregation_type, subDomain: this.props.uiStore.current_organisation.subDomain });
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: this.aggregation_type, organisationId: this.props.uiStore.current_organisation.id });
             let currGame;
             switch (this.aggregation_type) {
                 case 'content_team': {

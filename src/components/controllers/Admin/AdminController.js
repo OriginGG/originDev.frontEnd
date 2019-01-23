@@ -24,14 +24,13 @@ import AdminContentTeamController from './sub_controllers/AdminContentTeamContro
 import AdminCustomDomainController from './sub_controllers/AdminCustomDomainController';
 import AdminSocialStatsController from './sub_controllers/AdminSocialStatsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
-import { getAllAdminUsersQuery } from '../../../queries/users';
-// import { getUserQuery } from '../../../queries/users';
+import { getUserQuery } from '../../../queries/users';
+// import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
     state = { open: true };
-
     handleMenuClick = (v, e) => {
         console.log(e);
         this.props.handleManageClick(v);
@@ -180,6 +179,9 @@ class AdminPageController extends Component {
             // const { user_id } = this.props.uiStore;
             // const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
             // this.subscribed = user.resultData.subscribed;
+            const { user_id } = this.props.uiStore;
+            const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
+            const { subscribed } = user.resultData;
             const domainInfo = this.props.appManager.getDomainInfo();
             const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
             // console.log(`domainInfo = ${JSON.stringify(domainInfo)}`);
@@ -191,8 +193,6 @@ class AdminPageController extends Component {
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
-                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { subDomain });
-                const subscribed = user.allUsers.edges[0].node;
                 this.setState({ visible: true, error_page: !subscribed });
 
                 this.autorun_tracker = autorun(() => {
@@ -302,7 +302,7 @@ class AdminPageController extends Component {
                 break;
             }
         }
-        const nd = this.props.uiStore.current_organisation.usersByOrganisation.edges[0].node;
+        const nd = this.props.uiStore.current_organisation.usersByOrganisationId.edges[0].node;
         const full_name = `${nd.firstName} ${nd.lastName}`;
         return (
 

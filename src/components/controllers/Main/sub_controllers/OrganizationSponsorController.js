@@ -14,9 +14,9 @@ class OrganizationSponsorController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationSponserComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentRender`);
         const OrganizationSponserComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentElementRender`);
-        const subDomain = this.props.uiStore.current_subdomain;
-        const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-        const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+        // const subDomain = this.props.uiStore.current_subdomain;
+        const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const { nodes } = sponsor_data.allOrgSponsors;
         this.sponsor_data = nodes;
         this.setState({
             visible: true,

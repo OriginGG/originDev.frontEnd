@@ -146,7 +146,7 @@ class OrganizationMatchesController extends Component {
         }
         this.org_color = this.props.uiStore.current_organisation.primaryColor;
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
-        const subDomain = this.props.uiStore.current_subdomain;
+        // const subDomain = this.props.uiStore.current_subdomain;
         this.recent_style = { color: '#cccccc', backgroundColor: 'red' };
         this.upcoming_style = { color: 'white', backgroundColor: 'black' };
         if (theme === 'enigma2/dark') {
@@ -161,7 +161,7 @@ class OrganizationMatchesController extends Component {
             rm_style: this.rm_style,
             fm_style: this.fm_style
         });
-        this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisation: subDomain });
+        this.match_data = await this.props.appManager.executeQuery('query', recentMatchesQuery, { organisationId: this.props.uiStore.current_organisation.id });
         if (theme === 'felzec/light') {
             this.setState({
                 visible: true,

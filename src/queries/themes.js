@@ -1,8 +1,9 @@
 import gql from 'graphql-tag';
 
-export const updateThemeQuery = gql`mutation updateTheme($themeName: String!, $themeData: JSON, $themeStructure: JSON) {
-  	        updateThemeByThemeName(input:{themeName:$themeName, themePatch: {themeData: $themeData, themeStructure: $themeStructure}}) {
+export const updateThemeQuery = gql`mutation updateTheme($id: Int!, $themeData: JSON, $themeStructure: JSON) {
+  	        updateThemeById(input:{id:$id, themePatch: {themeData: $themeData, themeStructure: $themeStructure}}) {
             theme {
+                id
                 themeData
                 themeStructure
             	    }
@@ -10,21 +11,40 @@ export const updateThemeQuery = gql`mutation updateTheme($themeName: String!, $t
 }`;
 
 export const getThemeQuery = gql`
-    query getTheme($subDomain: String!) {
-    resultData: themeByThemeName(themeName: $subDomain) {
-        themeData
+    query getTheme($organisationId: Int!) {
+     resultData: allThemes(condition: {organisationId: $organisationId}) {
+    nodes {
+      id
+      themeData
         themeStructure
         themeName
+      }
     }
-}`;
+  }
+`;
 
-export const createThemeQuery = gql`mutation createTheme($themeName: String!, $themeData: JSON!, $themeStructure: JSON!) {
+export const getThemeByNameQuery = gql`
+    query getTheme($themeName: String!) {
+     resultData: allThemes(condition: {themeName: $themeName}) {
+    nodes {
+      id
+      themeData
+        themeStructure
+        themeName
+      }
+    }
+  }
+`;
+
+export const createThemeQuery = gql`mutation createTheme($organisationId: Int!, $themeName: String!, $themeData: JSON!, $themeStructure: JSON!) {
   createTheme(input: {theme: {
+    organisationId: $organisationId
     themeName: $themeName
     themeData: $themeData
     themeStructure: $themeStructure
   }}) {
     theme {
+      id
       themeName
     }
   }
