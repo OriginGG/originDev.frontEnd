@@ -29,7 +29,7 @@ class AdminCustomDomainController extends Component {
         } else {
             const o = this.props.uiStore.current_organisation;
             const payload = {
-                text: `*Organization:* ${o.name}\n*Domain Request name:* ${this.state.input_value}\n*Owner Email:* ${o.usersByOrganisation.edges[0].node.email}\n`,
+                text: `*Organization:* ${o.name}\n*Domain Request name:* ${this.state.input_value}\n*Owner Email:* ${o.usersByOrganisationId.edges[0].node.email}\n`,
 
             };
             axios.post(process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK, JSON.stringify(payload), {
@@ -58,7 +58,7 @@ class AdminCustomDomainController extends Component {
         if (!this.state.sent) {
             return (<Card>
                 <Card.Content>
-                    <Image floated="right" size="mini" src="https://res.cloudinary.com/origingg/image/upload/v1545319630/custom_domain.jpg" />
+                    <Image floated="right" size="mini" src="/images/avatar/large/steve.jpg" />
                     <Card.Header>Add Custom Domain</Card.Header>
                     <Card.Description>
                         As a subscribed member you can request a custom domain be linked to your Organizations page.

@@ -28,9 +28,8 @@ class AdminMembersController extends Component {
     }
 
     calcMembers = async () => {
-        const { subDomain } = this.props.uiStore.current_organisation;
         const members = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, {
-            subDomain
+            organisationId: this.props.uiStore.current_organisation.id
         });
         this.current_members = members.allOrganisationMembers.edges;
         const m_array = [];
@@ -130,7 +129,7 @@ class AdminMembersController extends Component {
         if (user.allIndividualUsers.nodes[0].authenticated) {
             const { email } = user.allIndividualUsers.nodes[0];
             const host = window.location.origin;
-            const url = `/emails/invite_ind?host=${host}&email=${email}&organisation=${subDomain}`;
+            const url = `/emails/invite_ind?host=${host}&email=${email}&organisation_id=${this.props.uiStore.current_organisation.id}&organisation_name=${subDomain}`;
             await this.sendEmail(url);
             toast.success(`Invitation e-mail sent to ${handle}!`, {
                 position: toast.POSITION.TOP_LEFT

@@ -34,7 +34,7 @@ class AdminRecentMatchesController extends Component {
                 const m = await this.props.appManager.executeQueryAuth(
                     'query', recentMatchesQuery,
                     {
-                        organisation: this.props.uiStore.current_organisation.subDomain
+                        organisationId: this.props.uiStore.current_organisation.id
                     }
                 );
                 this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
@@ -105,7 +105,6 @@ class AdminRecentMatchesController extends Component {
     handleSubmit = async () => {
         // console.log('submit pressed');
         let is_filled = true;
-        // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
         if (!this.current_game) {
             toast.error('Please pick a game', {
                 position: toast.POSITION.TOP_LEFT
@@ -180,7 +179,7 @@ class AdminRecentMatchesController extends Component {
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
-                        subDomain: this.props.uiStore.current_organisation.subDomain,
+                        organisationId: this.props.uiStore.current_organisation.id,
                         gameName: this.current_game,
                         eventInfo: this.match_type,
                         eventUrl: this.state.your_url,

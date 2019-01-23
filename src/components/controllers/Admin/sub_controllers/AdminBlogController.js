@@ -15,8 +15,8 @@ class AdminBlogController extends Component {
     }
 
     fetchBlogData = async () => {
-        const { subDomain } = this.props.uiStore.current_organisation;
-        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
+        // const { subDomain } = this.props.uiStore.current_organisation;
+        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.blog_array = [];
         blog_data.resultData.edges.forEach((blog, i) => {
             const { blogContent } = blog.node;

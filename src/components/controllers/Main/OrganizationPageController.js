@@ -20,7 +20,6 @@ import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
 import { getAllAdminUsersQuery } from '../../../queries/users';
 
-// import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 
@@ -65,7 +64,7 @@ class OrganizationPageController extends Component {
             });
             const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
                 id: user.individualUserByEmail.id,
-                subDomain: d.organisation
+                organisationId: parseInt(d.organisation_id, 10)
             });
             if (exists.allOrganisationMembers.edges.length > 0) {
                 toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
@@ -74,7 +73,7 @@ class OrganizationPageController extends Component {
             } else {
                 // console.log(exists);
                 await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
-                    subDomain: d.organisation,
+                    organisationId: parseInt(d.organisation_id, 10),
                     userId: user.individualUserByEmail.id
                 });
                 this.invite_details = user.individualUserByEmail;
@@ -100,10 +99,10 @@ class OrganizationPageController extends Component {
             if (o.resultData === null) {
                 historyStore.push('/');
             } else {
-                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { subDomain });
-                const subscribed = user.allUsers.edges[0].node;
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
+                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
+                const subscribed = user.allUsers.edges[0].node;
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
                 const themeBase = this.props.uiStore.current_organisation.themeBaseId;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
@@ -150,7 +149,7 @@ class OrganizationPageController extends Component {
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
-                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
                     this.mobile_roster_data = [];
                     roster_data.allCombinedRosters.edges.forEach((r) => {
                         this.roster_display = true;
@@ -162,9 +161,8 @@ class OrganizationPageController extends Component {
                     });
                 }
 
-
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
-                    organisation: this.props.uiStore.current_organisation.subDomain
+                    organisationId: this.props.uiStore.current_organisation.id
                 });
                 const { edges } = pages.allPages;
                 this.bcontent = <div dangerouslySetInnerHTML={this.createMarkup(edges[0].node.pageContent)} />;
@@ -174,8 +172,10 @@ class OrganizationPageController extends Component {
                     this.store_display = true;
                 }
                 this.sponser_display = false;
-                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-                const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, {
+                    organisationId: this.props.uiStore.current_organisation.id
+                });
+                const { nodes } = sponsor_data.allOrgSponsors;
                 nodes.forEach(n => {
                     if (n.description && n.description.length > 1) {
                         this.sponser_display = true;
@@ -545,7 +545,7 @@ class OrganizationPageController extends Component {
             nv_content = <span />;
         }
         let footer_content = <span />;
-        if (real_theme === 'felzec/light') {
+        if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
             // console.log(`real theme = ${real_theme}`);
             const s_email = this.props.uiStore.current_organisation.supportContactEmail;
             const b_email = this.props.uiStore.current_organisation.businessContactEmail;
@@ -744,7 +744,7 @@ class OrganizationPageController extends Component {
         }
 
         if (this.state.display_blogs) {
-            // console.log(`real_theme = ${real_theme}`);
+            console.log(`real_theme = ${real_theme}`);
             if (real_theme === 'enigma/light') {
                 c_name = 'lightBG';
             } else {
@@ -758,6 +758,11 @@ class OrganizationPageController extends Component {
             if (real_theme === 'felzec/light') {
                 b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
                 s_style = <span />;
+                n_style = nv_content;
+            }
+            if (real_theme === 'enigma2/dark') {
+                // b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
+                s_style = <OrganizationSponsorController />;
                 n_style = nv_content;
             }
             disp = <OrganizationPageComponentRender

@@ -18,7 +18,7 @@ class OrganizationFooterController extends Component {
         const p_array = [];
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
         roster_data.allCombinedRosters.edges.forEach((r) => {
             const { gameId } = r.node;
             const currGame = _.find(gameOptions, (o) => {
@@ -26,10 +26,10 @@ class OrganizationFooterController extends Component {
             });
             p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
         });
-        const subDomain = this.props.uiStore.current_subdomain;
-        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
-        const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-        const { nodes } = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation;
+        // const subDomain = this.props.uiStore.current_subdomain;
+        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const { nodes } = sponsor_data.allOrgSponsors;
         this.sponsor_data = nodes;
         this.results_array = [];
         blog_data.resultData.edges.forEach((blog, i) => {

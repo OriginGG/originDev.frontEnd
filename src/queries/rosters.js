@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
-export const createRosterQuery = gql`mutation createRoster($subDomain: String!, $gameId: Int, $rosterType: String, $teamName: String, $positionId: Int) {
+export const createRosterQuery = gql`mutation createRoster($organisationId: Int!, $gameId: Int, $rosterType: String, $teamName: String, $positionId: Int) {
   createCombinedRoster(input: {
     combinedRoster: {
-      subDomain: $subDomain
+      organisationId: $organisationId
       gameId: $gameId
       positionId: $positionId
       teamName: $teamName
@@ -13,7 +13,7 @@ export const createRosterQuery = gql`mutation createRoster($subDomain: String!, 
      id
       createdAt
       updatedAt
-      subDomain
+      organisationId
       gameId
       teamName
     	positionId
@@ -49,18 +49,6 @@ export const createRosterQuery = gql`mutation createRoster($subDomain: String!, 
     }
   }
 }`;
-
-// export const createRosterQuery = gql`mutation createRoster($subDomain: String!, $gameId: Int!, $teamName: String) {
-//   createRoster(input:{roster: {
-//     subDomain: $subDomain
-//     gameId:$gameId
-//     teamName: $teamName
-//   }}) {
-//     roster {
-//       id
-//     }
-//   }
-// }`;
 
 export const getRosterByIDQuery = gql`
 query getRosterById($id: Int!) {  
@@ -199,14 +187,14 @@ export const deleteRosterUserQuery = gql`mutation deleteRosterUser($id: Int!) {
 //   }
 // }`;
 
-export const getRosterQuery = gql`query getRosters($subDomain: String!, $rosterType: String!) {
-    allCombinedRosters(condition: { rosterType: $rosterType, subDomain: $subDomain }) {
+export const getRosterQuery = gql`query getRosters($organisationId: Int!, $rosterType: String!) {
+    allCombinedRosters(condition: { rosterType: $rosterType, organisationId: $organisationId }) {
         edges {
             node {
                 id
                 createdAt
                 updatedAt
-                subDomain
+                organisationId
                 gameId
                 teamName
               	rosterType
@@ -245,45 +233,3 @@ export const getRosterQuery = gql`query getRosters($subDomain: String!, $rosterT
     }
 }
 `;
-// export const getRosterQuery = gql`query getRosters($subDomain: String!) {
-//     allRosters(condition: { subDomain: $subDomain }) {
-//         edges {
-//             node {
-//                 id
-//                 createdAt
-//                 updatedAt
-//                 subDomain
-//                 gameId
-//                 teamName
-//                 rosterIndividualsByRosterId {
-//                     edges {
-//                         node {
-//                             id
-//                             individualUserByIndividualId {
-//                                 firstName
-//                                 lastName
-//                                 email
-//                                 about
-//                                 contactNumber
-//                                 id
-//                                 accomplishments
-//                                 createdAt
-//                                 updatedAt
-//                                 twitchUrl
-//                                 twitterHandle
-//                                 youtubeChannel
-//                                 youtubeVideo1Url
-//                                 youtubeVideo2Url
-//                                 youtubeVideo3Url
-//                                 bannerImageUrl
-//                                 profileImageUrl
-//                                 username
-//                             }
-
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }`;

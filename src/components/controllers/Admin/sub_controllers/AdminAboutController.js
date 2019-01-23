@@ -20,7 +20,7 @@ class AdminAboutController extends Component {
     }
     calcRows = async () => {
         const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
-            organisation: this.props.uiStore.current_organisation.subDomain
+            organisationId: this.props.uiStore.current_organisation.id
         });
         const p_array = [];
         const { edges } = pages.allPages;
@@ -55,7 +55,6 @@ class AdminAboutController extends Component {
         await this.props.appManager.executeQueryAuth('mutation', updatePageQuery, {
             id: this.current_id,
             pageContent: this.state.page_content,
-            organisation: this.props.uiStore.current_organisation.subDomain,
             pageTitle: this.state.about_title,
             pageSubtitle: this.state.about_sub_title
         });

@@ -6,7 +6,7 @@ export const authenticateQuery = gql`
             resultData: authPayload {
             jwtToken
             isAdmin
-            organisation
+            organisationId
 		}
     }
 }

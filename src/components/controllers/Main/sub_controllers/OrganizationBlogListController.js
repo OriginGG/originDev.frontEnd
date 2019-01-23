@@ -34,7 +34,7 @@ class OrganizationBlogListController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         // console.log(`them = ${theme}`);
-        const subDomain = this.props.uiStore.current_subdomain;
+        // const subDomain = this.props.uiStore.current_subdomain;
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
         const comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsComponentRender`);
         const OrganizationNewsComponentRender = comp.default;
@@ -44,7 +44,7 @@ class OrganizationBlogListController extends Component {
             m_comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsMobileComponentRender`);
             OrganizationNewsMobileComponentRender = m_comp.default;
         }
-        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { subDomain });
+        const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.blog_array = [];
         blog_data.resultData.edges.forEach((blog, i) => {
             // console.log(`i ========= ${i}`);

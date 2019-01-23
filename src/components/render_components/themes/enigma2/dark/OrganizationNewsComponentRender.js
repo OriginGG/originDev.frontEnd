@@ -9,7 +9,7 @@ class DarkOrganizationNewsComponentRender extends Component {
         return (
             <div>
                 <div className={this.props.classes.felzec_light_news_row}>
-                    <div className={this.props.classes.felzec_light_news_container} onClick={( ) => {
+                    <div className={this.props.classes.enigma2_light_news_container} onClick={( ) => {
                         this
                             .props
                             .handleNewsClick( this.props.blog );
@@ -27,7 +27,7 @@ class DarkOrganizationNewsComponentRender extends Component {
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>
-                                    <span className={this.props.classes.felzec_light_news_title}>{this.props.blog_title}</span>
+                                    <span className={this.props.classes.enigma2_light_news_title}>{this.props.blog_title}</span>
                                 </div>
                                 <div style={{
                                     width: '100%',
@@ -35,7 +35,7 @@ class DarkOrganizationNewsComponentRender extends Component {
                                     overflowY: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>
-                                    <span className={this.props.classes.felzec_light_news_body}>{this.props.blog_content}</span>
+                                    <span className={this.props.classes.enigma2_light_news_body}>{this.props.blog_content}</span>
                                 </div>
                             </div>
                         </div>

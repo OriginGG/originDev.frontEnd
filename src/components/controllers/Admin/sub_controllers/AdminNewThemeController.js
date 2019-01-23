@@ -178,7 +178,7 @@ class AdminThemeController extends Component {
                 }
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 // console.log(`const s = ${JSON.stringify(s)}`);
-                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
+                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ modal_open: false });
                 toast.success('Image(s) updated !', {
                     position: toast.POSITION.TOP_LEFT
@@ -216,7 +216,7 @@ class AdminThemeController extends Component {
                     this.setState({ media_image_src: lf });
                 }
                 const s = toJS(this.props.uiStore.current_theme_structure);
-                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
+                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ reader_image_src: lf, modal_open: false });
                 toast.success('Jumbotron updated !', {
                     position: toast.POSITION.TOP_LEFT
@@ -265,7 +265,7 @@ class AdminThemeController extends Component {
         await this.props.appManager.executeQueryAuth(
             'mutation', updateOrganisationQuery,
             {
-                subDomain: this.props.uiStore.current_organisation.subDomain,
+                id: this.props.uiStore.current_organisation.id,
                 themeId: this.new_theme,
                 themeBaseId: this.state.choosen_theme
             }

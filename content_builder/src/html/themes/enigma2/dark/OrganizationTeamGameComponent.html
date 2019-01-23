@@ -21,8 +21,13 @@
       </script>    
    </head>
    <body>
-        <div data-component-name="dark_OrganizationTeamGameComponent"  class="classes.felzec_team_game_container">
-            <img class="classes.felzec_team_game_media" data-component-props="src={this.props.game_media_1}" />
+        <div data-component-name="dark_OrganizationTeamGameComponent"  class="classes.enigma2_team_game_container" >
+            <img class="classes.enigma2_team_game_media" data-component-props="src={this.props.game_banner}" />
+            <div class="classes.enigma2_team_game_overlay">
+                <div class="classes.enigma2_team_game_overlay_button" data-component-props="style={this.props.show_team_color} onClick={this.props.handleShowClick}" data-component-value="{this.props.button_text}">Show Team</div>
+                <div class="classes.enigma2_team_game_overlay_text" data-component-props="style={this.props.team_game_color}"  data-component-value="{this.props.game_name}">name</div>
+            </div>
+            <div class="classes.enigma2_teamamte_container" data-component-props="style={this.props.container_style}" data-component-value="{this.props.container_teams}">game</div>
         </div>
    </body>
 </html>

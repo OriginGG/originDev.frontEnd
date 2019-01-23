@@ -13,8 +13,7 @@ class OrganizationVideoController extends Component {
         // const theme = this.props.uiStore.current_organisation.themeId;
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationVideoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationVideoComponentRender`);
-
-        const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         if (youTubeChannels.resultData.edges.length !== 0) {
             const v1 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo1);
             const v2 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo2);

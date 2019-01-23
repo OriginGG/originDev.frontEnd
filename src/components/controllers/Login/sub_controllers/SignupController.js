@@ -13,6 +13,7 @@ import SignupComponentRender from '../../../render_components/signup/SignupCompo
 import { authenticateQuery, authenticateIndividualQuery } from '../../../../queries/login';
 import { createUserQuery, createIndividualUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
 import { getIndividualUserByHandleQuery } from '../../../../queries/individuals';
+import { getOrganisationByIdQuery } from '../../../../queries/organisation';
 import { createEmailRegistrationQuery, getEmailRegistrationQuery } from '../../../../queries/registrations';
 import historyStore from '../../../../utils/stores/browserHistory';
 
@@ -172,7 +173,7 @@ class LoginController extends Component {
                                 // console.log(`d:-${d}`);
                                 this.props.uiStore.setUserID(d.id);
 
-                                const { organisation } = authPayload.authenticate.resultData;
+                                const { organisationId } = authPayload.authenticate.resultData;
                                 const domainInfo = this.props.appManager.getDomainInfo();
                                 // console.log(`domain info:-${domainInfo}`);
                                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
@@ -180,12 +181,13 @@ class LoginController extends Component {
                                 // we might have a valid user somewhere, but is he part of this domain?
                                 const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
                                 // console.log(`payload:-${d}`);
-
-                                if (subDomain === 'origin' && organisation !== null) {
+                                const org = await this.props.appManager.executeQuery('query', getOrganisationByIdQuery, { id: organisationId });
+                                const organisation = org.organisationAccountById.subDomain;
+                                if (subDomain === 'origin' && organisationId !== null) {
                                     const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
                                     window.location = u_string;
                                 }
-                                if (subDomain === 'origin' && organisation === null) {
+                                if (subDomain === 'origin' && !organisation) {
                                     if (authPayload.authenticate.resultData.isAdmin === false) {
                                         // it's an individual users, go to ind page.
                                         this.props.appManager.pouchStore('ind_authenticate', payload);
@@ -223,8 +225,6 @@ class LoginController extends Component {
                                     email: v.email,
                                     adminUser: !this.props.ind,
                                 };
-
-
                                 await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
                                 toast.success(`Account ${v.email} created, you can now login.`, {
                                     position: toast.POSITION.TOP_LEFT
@@ -309,8 +309,7 @@ class LoginController extends Component {
                                         const url = `/emails/signup?host=${host}&email=${v.email}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
                                         await this.sendEmail(url);
                                         const payload_email = Buffer.from(url, 'utf8').toString('hex');
-                                        const r_email = await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email, payload: payload_email });
-                                        console.log(r_email);
+                                        await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email, payload: payload_email });
                                         toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
                                             position: toast.POSITION.TOP_LEFT,
                                             autoClose: 15000

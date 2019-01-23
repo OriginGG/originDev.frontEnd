@@ -21,14 +21,21 @@
       </script>    
    </head>
    <body>
-        <div data-component-name="dark_OrganizationTeamComponent"  class="classes.felzec_team_main_container">
-            <div class="classes.felzec_team_container" data-component-props="style={this.props.bg_style}">
+        <div data-component-name="dark_OrganizationTeamComponent"  class="classes.enigma2_team_main_container">
+            <div class="classes.enigma2_team_title_container" data-component-props="style={this.props.title_color}">
+                TEAMS
             </div>
-            <div class="classes.felzec_team_filter_container" data-component-props="style={this.props.filter_style}"></div>
-            <div class="classes.felzec_team_inner_container">
-                <div class="classes.felzec_game_container" data-component-value="{this.props.roster_games}">game</div>
-                <div class="classes.felzec_teammate_container" data-component-value="{this.props.roster_teams}">game</div>
+            <div class="classes.enigma2_team_info_container">
+                <div class="classes.enigma2_team_info_box">
+                    <div class="classes.enigma2_team_info_count" data-component-props="style={this.props.team_count_color}" data-component-value="{this.props.team_count}">teams</div>
+                    <div class="classes.enigma2_team_info_title" data-component-props="style={this.props.team_title_color}" >Teams</div>
+                </div>
+                <div class="classes.enigma2_team_info_box">
+                    <div class="classes.enigma2_team_info_count" data-component-props="style={this.props.player_count_color}" data-component-value="{this.props.player_count}">players</div>
+                    <div class="classes.enigma2_team_info_title" data-component-props="style={this.props.player_title_color}" >Players</div>
+                </div>
             </div>
+            <div class="classes.enigma2_game_container" data-component-value="{this.props.roster_games}">game</div>
         </div>
    </body>
 </html>
