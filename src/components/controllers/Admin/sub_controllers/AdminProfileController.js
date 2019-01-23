@@ -8,7 +8,7 @@ import { inject } from 'mobx-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
-import { updateOrganisationQuery, getOrganisationQuery } from '../../../../queries/organisation';
+import { updateOrganisationQuery, getOrganisationQuery, getOrganisationQueryAnyCase } from '../../../../queries/organisation';
 import { updateThemeQuery } from '../../../../queries/themes';
 
 class AdminProfileController extends Component {
@@ -28,12 +28,13 @@ class AdminProfileController extends Component {
             rss_value: '',
             primary_color_value: '',
             logo_src: null,
-            custom_domain: '',
+            current_sub_domain: '',
             dns_host: ''
         }
     };
     componentDidMount() {
         this.upload_file = false;
+        this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
         this.setState({
             input_values: {
                 insta_value: this.getInputValue(this.props.uiStore.current_organisation.instaLink),
@@ -45,6 +46,7 @@ class AdminProfileController extends Component {
                 business_email_value: this.getInputValue(this.props.uiStore.current_organisation.businessContactEmail),
                 support_email_value: this.getInputValue(this.props.uiStore.current_organisation.supportContactEmail),
                 company_name_value: this.getInputValue(this.props.uiStore.current_organisation.name),
+                current_sub_domain: this.getInputValue(this.props.uiStore.current_organisation.subDomain),
                 company_store_value: this.getInputValue(this.props.uiStore.current_organisation.companyStoreLink),
                 facebook_value: this.getInputValue(this.props.uiStore.current_organisation.fbLink),
                 twitter_username_value: this.getInputValue(this.props.uiStore.current_organisation.twitterFeedUsername),
@@ -70,6 +72,24 @@ class AdminProfileController extends Component {
         return str.includes('https://www.twitch.tv/team/');
     }
     handleSubmit = async () => {
+        // a change in current subdomain.
+        const { current_sub_domain } = this.state.input_values;
+        if (current_sub_domain !== this.current_sub_domain) {
+            if (current_sub_domain.length > 16 || current_sub_domain.length < 3) {
+                toast.error('New Subdomain length cannot be less than 3 characters, or exceed 16 characters', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                return;
+            }
+            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQueryAnyCase, { subDomain: current_sub_domain });
+            if (o.resultData.nodes.length > 0) {
+                toast.error(`${current_sub_domain} is already being used.`, {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                return;
+            }
+        }
+
         if (this.tooLong(this.state.input_values.facebook_value)) {
             toast.error('Facebook URL exceeds 255 char limit', {
                 position: toast.POSITION.TOP_LEFT
@@ -188,6 +208,7 @@ class AdminProfileController extends Component {
                     name: this.state.input_values.company_name_value,
                     fbLink: this.state.input_values.facebook_value,
                     youtubeLink: this.state.input_values.youtube_value,
+                    subDomain: current_sub_domain,
                     discordUrl: this.state.input_values.discord_value,
                     businessContactEmail: this.state.input_values.business_email_value,
                     supportContactEmail: this.state.input_values.support_email_value,
@@ -199,12 +220,30 @@ class AdminProfileController extends Component {
                     primaryColor: this.state.input_values.primary_color_value
                 }
             );
-            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain: current_sub_domain });
             this.props.uiStore.setOrganisation(o.resultData);
             // console.log(`result data = ${JSON.stringify(o.resultData)}`);
-            toast.success('Company Details updated !', {
-                position: toast.POSITION.TOP_LEFT
-            });
+            if (current_sub_domain !== this.current_sub_domain) {
+                toast.success(
+                    'Your subdomain has changed, you will need to login again. Redirecting you to signup page in 5 seconds'
+                    , {
+                        position: toast.POSITION.TOP_LEFT,
+                        autoClose: 5000
+                    }
+                );
+                setTimeout(() => {
+                    setTimeout(() => {
+                        const s = this.props.appManager.getDomainInfo();
+                        const n = s.hostname.split('.');
+                        n.shift();
+                        window.location = `${s.protocol}//${n}:${s.port}/signup_org?clear=true`;
+                    }, 5000);
+                });
+            } else {
+                toast.success('Company Details updated !', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
         } catch (err) {
             this.props.appManager.networkError();
         }
@@ -273,6 +312,7 @@ class AdminProfileController extends Component {
                     logo_src={this.state.input_values.logo_src}
                     primary_color_value={this.state.input_values.primary_color_value}
                     handleChange={this.handleChange}
+                    sub_domain_value={this.state.input_values.current_sub_domain}
                     youtube_value={this.state.input_values.youtube_value}
                     discord_value={this.state.input_values.discord_value}
                     twitter_value={this.state.input_values.twitter_value}

@@ -95,9 +95,11 @@ class OrganizationPageController extends Component {
             historyStore.push('/signup');
         } else {
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
-            // console.log(`RESULTS = ${JSON.stringify(o.resultData)}`);
-            if (o.resultData === null) {
-                historyStore.push('/');
+            if (o.resultData && o.resultData.nodes.length === 0) {
+                const s = this.props.appManager.getDomainInfo();
+                        const n = s.hostname.split('.');
+                        n.shift();
+                        window.location = `${s.protocol}//${n}:${s.port}/`;
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);

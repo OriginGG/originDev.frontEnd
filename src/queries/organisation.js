@@ -20,6 +20,18 @@ query getOrg($id: Int!) {
   }
 }`;
 
+export const getOrganisationQueryAnyCase = gql`
+query getOrg($subDomain: String!) {
+  resultData: allOrganisationAccounts(filter: {
+    subDomain: {endsWithInsensitive: $subDomain}
+  }) {
+  nodes {
+    	id
+  	}
+  }
+}
+`;
+
 export const getOrganisationQuery = gql`
     query getOrg($subDomain: String!) {
   resultData: allOrganisationAccounts(condition: {subDomain: $subDomain}) {
@@ -70,7 +82,7 @@ export const getOrganisationQuery = gql`
 export const updateOrganisationQuery = gql`mutation updateOrg($id: Int!, $name: String, $instaLink: String
 		$fbLink: String, $twitterLink: String, $youtubeLink: String, $themeId: String, $themeBaseId: String, $twitterFeedUsername: String
     $twitchLink: String, $streamTeamUrl: String, $description: String, $logo: String, $primaryColor: String, $companyStoreLink: String, $discordUrl: String
-    $businessContactEmail: String, $supportContactEmail: String) {
+    $businessContactEmail: String, $supportContactEmail: String, $subDomain: String) {
   updateOrganisationAccountById(input: {
 		id: $id
     organisationAccountPatch: {
@@ -89,6 +101,7 @@ export const updateOrganisationQuery = gql`mutation updateOrg($id: Int!, $name: 
       description: $description
       themeId: $themeId
       themeBaseId: $themeBaseId
+      subDomain: $subDomain
       logo: $logo
       primaryColor: $primaryColor
       
