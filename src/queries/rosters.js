@@ -56,7 +56,6 @@ query getRosterById($id: Int!) {
       id
       createdAt
       updatedAt
-      subDomain
       gameId
       teamName
     	positionId
