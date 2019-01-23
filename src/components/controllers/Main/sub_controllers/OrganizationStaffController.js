@@ -23,7 +23,7 @@ class OrganizationStaffController extends Component {
         if (theme === 'felzec/light') {
             OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
         }
-        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { id: this.props.uiStore.current_organisation.id, rosterType: 'staff' });
+        const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { organisationId: this.props.uiStore.current_organisation.id, rosterType: 'staff' });
         const outer_edges = roster_data.allCombinedRosters.edges;
         let p_array = [];
         for (let outer in outer_edges) {                // eslint-disable-line
