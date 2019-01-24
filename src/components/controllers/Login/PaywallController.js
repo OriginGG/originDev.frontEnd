@@ -253,7 +253,7 @@ class PaywallContent extends Component {
                                 });
                                 appManager.executeQueryAuth('query', getUserQuery, { id: this.props.user_id }).then(pl => {
                                     let slack_payload = {
-                                        text: `*Owner name:* ${pl.resultData.firstName} ${pl.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl.resultData.email}\n`,
+                                        text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl.resultData.email}\n`,
                                     };
                                     if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
                                         slack_payload = {
