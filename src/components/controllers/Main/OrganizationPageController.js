@@ -434,17 +434,26 @@ class OrganizationPageController extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        let s = { display: 'none' };
+        const theme = this.props.uiStore.current_organisation.themeId;
+        const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        console.log(`real theme = ${real_theme}`);
+        let nav_color = 'transparent';
+        if (real_theme === 'enigma2/dark') {
+            nav_color = this.props.uiStore.current_organisation.primaryColor;
+        }
+        this.h_style = { display: 'inherit', borderBottomColor: nav_color };
+        this.l_style = { display: 'inherit' };
+        this.s = { display: 'none' };
         if (this.about_us.pageTitle) {
-            s = { display: 'inherit' };
+            this.s = { display: 'inherit' };
         }
-        let ss = { display: 'none' };
+        this.ss = { display: 'none' };
         if (this.store_display) {
-            ss = { display: 'inherit' };
+            this.ss = { display: 'inherit' };
         }
-        let sss = { display: 'none' };
+        this.sss = { display: 'none' };
         if (this.sponser_display) {
-            sss = { display: 'inherit' };
+            this.sss = { display: 'inherit' };
         }
 
         let ssss = { display: 'none' };
@@ -485,22 +494,14 @@ class OrganizationPageController extends Component {
             rosterComponent = this.mobile_roster_data;
         }
 
-        const theme = this.props.uiStore.current_organisation.themeId;
-        const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-
-        console.log(`real theme = ${real_theme}`);
-        let nav_color = 'transparent';
-        if (real_theme === 'enigma2/dark') {
-            nav_color = this.props.uiStore.current_organisation.primaryColor;
-        }
         // let ml = -200;
         let SideBar = <div />;
         let nv_content = <OrganizationNavController
-            store_style={ss}
-            about_style={s}
-            sponsers_style={sss}
-            home_style={{ display: 'inherit', borderBottomColor: nav_color }}
-            login_style={{ display: 'inherit' }}
+            store_style={this.ss}
+            about_style={this.s}
+            sponsers_style={this.sss}
+            home_style={this.h_style}
+            login_style={this.l_style}
             felzec_style={this.state.felzec_style}
             openMenu={this.openMenu}
             handleStoreClick={this.handleStoreClick}
@@ -560,11 +561,11 @@ class OrganizationPageController extends Component {
             const s_email = this.props.uiStore.current_organisation.supportContactEmail;
             const b_email = this.props.uiStore.current_organisation.businessContactEmail;
             footer_content = <OrganizationFooterController
-                store_style={ss}
-                about_style={s}
-                sponsers_style={sss}
-                home_style={{ display: 'inherit' }}
-                login_style={{ display: 'inherit' }}
+                store_style={this.ss}
+                about_style={this.s}
+                sponsers_style={this.sss}
+                home_style={this.h_style}
+                login_style={this.l_style}
                 footer_about={this.bcontent}
                 footer_support={s_email}
                 footer_business={b_email}
@@ -705,7 +706,7 @@ class OrganizationPageController extends Component {
 
         if (this.state.display_sponsers) {
             // console.log(`real_theme = ${real_theme}`);
-            if (real_theme === 'felzec/light') {
+            if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
                 if (real_theme === 'felzec/light') {
                     c_name = 'lightBG';
                 } else {
@@ -805,7 +806,7 @@ class OrganizationPageController extends Component {
             let n_cnt = <span />;
             let s_cnt = <OrganizationSponsorController />;
 
-            if (real_theme === 'felzec/light') {
+            if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
                 n_cnt = nv_content;
                 s_cnt = <span />;
             }
