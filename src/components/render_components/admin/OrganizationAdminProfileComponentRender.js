@@ -35,10 +35,10 @@ class OrganizationAdminProfileComponentRender extends Component {
                         </div>
                         <div className={this.props.classes.admin_main_logo_spacer}/>
                         <div className="ui fluid input">
-                            <input type="text" placeholder="Custom Domain" value={this.props.custom_domain_value} onChange={e => {
+                            <input type="text" placeholder="Sub Domain" value={this.props.sub_domain_value} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'custom_domain_value', e );
+                                    .handleChange( 'current_sub_domain', e );
                             }}/>
                         </div>
                         <div className={this.props.classes.admin_main_logo_spacer}/>

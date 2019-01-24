@@ -8,7 +8,7 @@ import { inject } from 'mobx-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
-import { updateOrganisationQuery, getOrganisationQuery } from '../../../../queries/organisation';
+import { updateOrganisationQuery, getOrganisationQuery, getOrganisationQueryAnyCase } from '../../../../queries/organisation';
 import { updateThemeQuery } from '../../../../queries/themes';
 
 class AdminProfileController extends Component {
@@ -28,12 +28,13 @@ class AdminProfileController extends Component {
             rss_value: '',
             primary_color_value: '',
             logo_src: null,
-            custom_domain: '',
+            current_sub_domain: '',
             dns_host: ''
         }
     };
     componentDidMount() {
         this.upload_file = false;
+        this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
         this.setState({
             input_values: {
                 insta_value: this.getInputValue(this.props.uiStore.current_organisation.instaLink),
@@ -45,6 +46,7 @@ class AdminProfileController extends Component {
                 business_email_value: this.getInputValue(this.props.uiStore.current_organisation.businessContactEmail),
                 support_email_value: this.getInputValue(this.props.uiStore.current_organisation.supportContactEmail),
                 company_name_value: this.getInputValue(this.props.uiStore.current_organisation.name),
+                current_sub_domain: this.getInputValue(this.props.uiStore.current_organisation.subDomain),
                 company_store_value: this.getInputValue(this.props.uiStore.current_organisation.companyStoreLink),
                 facebook_value: this.getInputValue(this.props.uiStore.current_organisation.fbLink),
                 twitter_username_value: this.getInputValue(this.props.uiStore.current_organisation.twitterFeedUsername),
@@ -70,6 +72,32 @@ class AdminProfileController extends Component {
         return str.includes('https://www.twitch.tv/team/');
     }
     handleSubmit = async () => {
+        // a change in current subdomain.
+        const { current_sub_domain } = this.state.input_values;
+        if (current_sub_domain !== this.current_sub_domain) {
+            if (current_sub_domain.length > 16 || current_sub_domain.length < 3) {
+                toast.error('New Subdomain length cannot be less than 3 characters, or exceed 16 characters', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                return;
+            }
+            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQueryAnyCase, { subDomain: current_sub_domain });
+            if (o.resultData.nodes.length > 0) {
+                toast.error(`${current_sub_domain} is already being used.`, {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                return;
+            }
+            const regExp = /^[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]$/;
+            const match = current_sub_domain.match(regExp);
+            if (!match) {
+                toast.error('Subdomain has illegal characters. Only numbers, letters and hyphens are allowed!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                return;
+            }
+        }
+
         if (this.tooLong(this.state.input_values.facebook_value)) {
             toast.error('Facebook URL exceeds 255 char limit', {
                 position: toast.POSITION.TOP_LEFT
@@ -173,7 +201,8 @@ class AdminProfileController extends Component {
             s.header.logo.imageData = logo_data.secure_url;
             this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.Location;
             try {
-                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
+                const theme_id = this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id;
+                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: theme_id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
             } catch (err) {
                 this.props.appManager.networkError();
             }
@@ -182,11 +211,12 @@ class AdminProfileController extends Component {
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateOrganisationQuery,
                 {
-                    subDomain: this.props.uiStore.current_organisation.subDomain,
+                    id: this.props.uiStore.current_organisation.id,
                     companyStoreLink: this.state.input_values.company_store_value,
                     name: this.state.input_values.company_name_value,
                     fbLink: this.state.input_values.facebook_value,
                     youtubeLink: this.state.input_values.youtube_value,
+                    subDomain: current_sub_domain.toLowerCase(),
                     discordUrl: this.state.input_values.discord_value,
                     businessContactEmail: this.state.input_values.business_email_value,
                     supportContactEmail: this.state.input_values.support_email_value,
@@ -198,12 +228,38 @@ class AdminProfileController extends Component {
                     primaryColor: this.state.input_values.primary_color_value
                 }
             );
-            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            const o = await this.props.appManager.executeQueryAuth('query', getOrganisationQuery, { subDomain: current_sub_domain });
             this.props.uiStore.setOrganisation(o.resultData);
             // console.log(`result data = ${JSON.stringify(o.resultData)}`);
-            toast.success('Company Details updated !', {
-                position: toast.POSITION.TOP_LEFT
-            });
+            if (current_sub_domain !== this.current_sub_domain) {
+                toast.success(
+                    'Your subdomain has changed, you will need to login again. Redirecting you to signup page in 5 seconds'
+                    , {
+                        position: toast.POSITION.TOP_LEFT,
+                        autoClose: 5000
+                    }
+                );
+                setTimeout(() => {
+                    setTimeout(() => {
+                        const s = this.props.appManager.getDomainInfo();
+                        const r = s.hostname.split('.');
+                        r.shift();
+                        let p = '';
+                        r.forEach(t => {
+                            if (p.length > 0) {
+                                p = `${p}.${t}`;
+                            } else {
+                                p = t;
+                            }
+                        });
+                        window.location = `${s.protocol}//${p}:${s.port}/signup_org?clear=true`;
+                    }, 5000);
+                });
+            } else {
+                toast.success('Company Details updated !', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
         } catch (err) {
             this.props.appManager.networkError();
         }
@@ -272,6 +328,7 @@ class AdminProfileController extends Component {
                     logo_src={this.state.input_values.logo_src}
                     primary_color_value={this.state.input_values.primary_color_value}
                     handleChange={this.handleChange}
+                    sub_domain_value={this.state.input_values.current_sub_domain}
                     youtube_value={this.state.input_values.youtube_value}
                     discord_value={this.state.input_values.discord_value}
                     twitter_value={this.state.input_values.twitter_value}

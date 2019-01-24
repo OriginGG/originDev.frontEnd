@@ -23,15 +23,19 @@ class OrganizationMediaController extends Component {
         // onst subDomain = this.props.uiStore.current_subdomain;
         this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
         this.upcoming_style = { color: 'white', backgroundColor: 'red' };
+        this.recent_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: 'transparent' };
+        this.upcoming_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: this.props.uiStore.current_organisation.primaryColor };
         this.yt_style = { display: 'none' };
         this.tw_style = { display: 'inherit' };
         this.setState({
             youtube_style: this.upcoming_style,
             twitch_style: this.recent_style,
+            youtube_enigma_style: this.upcoming_enigma_style,
+            twitch_enigma_style: this.recent_enigma_style,
             yt_style: this.yt_style,
             tw_style: this.tw_style
         });
-        const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         if (youTubeChannels.resultData.edges.length !== 0) {
             // console.log(`youTubeChannels.resultData.edges.length = ${youTubeChannels.resultData.edges.length}`);
             const v1 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo1);
@@ -70,10 +74,7 @@ class OrganizationMediaController extends Component {
         } else {
             console.log('no team name');
         }
-        const users = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, rosterType: 'content_team' });
-        // console.log(`TEST TEST = ${JSON.stringify(users)}`);
-        // const old_users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        // console.log(`old_users = ${JSON.stringify(old_users)}`);
+        const users = await this.props.appManager.executeQuery('query', getRosterQuery, { organisationId: this.props.uiStore.current_organisation.id, rosterType: 'content_team' });
         const t_array = [];
         this.current_game_node = users.allCombinedRosters.edges;
         let twitch_url = '';
@@ -135,11 +136,15 @@ class OrganizationMediaController extends Component {
     handleYoutubeClick = () => {
         const u_style = { color: '#cccccc', backgroundColor: 'black' };
         const r_style = { color: 'white', backgroundColor: 'red' };
+        const u_e_style = this.recent_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: this.props.uiStore.current_organisation.primaryColor };
+        const r_e_style = this.recent_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: 'transparent' };
         const y_style = { display: 'none' };
         const t_style = { display: 'inherit' };
         this.setState({
             youtube_style: r_style,
             twitch_style: u_style,
+            youtube_enigma_style: u_e_style,
+            twitch_enigma_style: r_e_style,
             yt_style: y_style,
             tw_style: t_style
         });
@@ -148,11 +153,15 @@ class OrganizationMediaController extends Component {
     handleTwitchClick = () => {
         const r_style = { color: '#cccccc', backgroundColor: 'black' };
         const u_style = { color: 'white', backgroundColor: 'red' };
+        const u_e_style = this.recent_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: 'transparent' };
+        const r_e_style = this.recent_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: this.props.uiStore.current_organisation.primaryColor };
         const y_style = { display: 'inherit' };
         const t_style = { display: 'none' };
         this.setState({
             youtube_style: r_style,
             twitch_style: u_style,
+            youtube_enigma_style: u_e_style,
+            twitch_enigma_style: r_e_style,
             yt_style: y_style,
             tw_style: t_style
         });
@@ -177,7 +186,11 @@ class OrganizationMediaController extends Component {
         // }
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageMediaData;
         const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
-        const f = { backgroundColor: 'rgba(255,255,255,.8)' };
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let f = { backgroundColor: 'rgba(0,0,0,.8)' };
+        if (theme === 'felzec/light') {
+            f = { backgroundColor: 'rgba(255,255,255,.8)' };
+        }
         const p_array = [];
         const y_array = [];
 
@@ -268,6 +281,8 @@ class OrganizationMediaController extends Component {
         handleTwitchClick={this.handleTwitchClick}
         youtube_style={this.state.youtube_style}
         twitch_style={this.state.twitch_style}
+        upcoming_style={this.state.youtube_enigma_style}
+        recent_style={this.state.twitch_enigma_style}
         yt_style={this.state.yt_style}
         tw_style={this.state.tw_style}
         youtube_videos={p_array}

@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const createOrganisationMemberQuery = gql`
-  mutation createOrganisationMember($subDomain: String!, $userId: Int) {
-  createOrganisationMember(input: {organisationMember: {organisation: $subDomain, individalUserId: $userId}}) {
+  mutation createOrganisationMember($organisationId: Int!, $userId: Int) {
+  createOrganisationMember(input: {organisationMember: {organisationId: $organisationId, individalUserId: $userId}}) {
     organisationMember {
       id
     }
@@ -11,8 +11,8 @@ export const createOrganisationMemberQuery = gql`
 `;
 
 export const getOrganisationMemberByIDQuery = gql`
-query getMemberByEmail($id: Int!, $subDomain: String!) {
-  allOrganisationMembers(condition: {individalUserId: $id, organisation: $subDomain}) {
+query getMemberByEmail($id: Int!, $organisationId: Int!) {
+  allOrganisationMembers(condition: {individalUserId: $id, organisationId: $organisationId}) {
     edges {
       node {
         id
@@ -31,8 +31,8 @@ mutation deleteMemberQuery($id: Int!) {
 }`;
 
 export const getOrganisationMembersQuery = gql`
-query getMembers($subDomain: String!) {
-  allOrganisationMembers(condition: {organisation: $subDomain}) {
+query getMembers($organisationId: Int!) {
+  allOrganisationMembers(condition: {organisationId: $organisationId}) {
     edges {
       node {
         id

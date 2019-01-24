@@ -18,7 +18,6 @@ class NewSignupPageController extends Component {
         const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
         const my_token = authPayload.authenticate.resultData.jwtToken;
         const ar = this.props.appManager.decodeJWT(my_token);
-
         this.props.appManager.authToken = my_token;
         const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: parseInt(d.id, 10) });
         const u = user.resultData;

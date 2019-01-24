@@ -15,7 +15,7 @@ import {
 import Spinner from 'react-svg-spinner';
 import stripeImage from '../../../assets/images/stripeSecure.png';
 import appManager from '../../../utils/appManager';
-import { updateUserQuery } from '../../../queries/users';
+import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import freeTrialImage from '../../../assets/images/free-trial.png';
 
 
@@ -251,21 +251,23 @@ class PaywallContent extends Component {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 3000
                                 });
-
-                                // add 4 more sponsors, if not already there.
-                                // const sponsor_data = await appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.domain });
-                                // const num_sponsors = sponsor_data.organisationAccountBySubDomain.orgSponsorsByOrganisation.nodes.length;
-                                // const num_to_create = 8 - num_sponsors;
-                                // for (let p = 0; p < num_to_create; p += 1) {
-                                //     await appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
-                                //         subDomain: this.props.domain,
-                                //         imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                                //         hrefLink: 'http://origin.gg',
-                                //         name: 'Origin.GG',
-                                //         description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
-                                //     });
-                                // }
-                                // console.log(num_to_create);
+                                appManager.executeQueryAuth('query', getUserQuery, { id: this.props.user_id }).then(pl => {
+                                    let slack_payload = {
+                                        text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl.resultData.email}\n`,
+                                    };
+                                    if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+                                        slack_payload = {
+                                            text: `*TEST-NOT-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl.resultData.email}\n`,
+                                        };
+                                    }
+                                    axios.post(process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK, JSON.stringify(slack_payload), {
+                                        withCredentials: false,
+                                        transformRequest: [(data, headers) => {
+                                            delete headers.post['Content-Type'];                // eslint-disable-line
+                                            return data;
+                                        }]
+                                    });
+                                });
                                 this.props.callback(true, this.selected_plan);
                             }
                         }
@@ -291,7 +293,7 @@ class PaywallContent extends Component {
                 {this.state.display_credit_form &&
                     <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmer}>
                         <Elements>
-                        <CreditController plans={this.selected_plan} handleBack={this.handleBack} handleSubmit={this.handleCCSubmit} />
+                            <CreditController plans={this.selected_plan} handleBack={this.handleBack} handleSubmit={this.handleCCSubmit} />
                         </Elements>
                         <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
                             <Header as="h2" icon inverted>

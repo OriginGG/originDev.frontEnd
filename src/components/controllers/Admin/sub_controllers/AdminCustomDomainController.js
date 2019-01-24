@@ -28,17 +28,17 @@ class AdminCustomDomainController extends Component {
             });
         } else {
             const o = this.props.uiStore.current_organisation;
-            const payload = {
-                text: `*Organization:* ${o.name}\n*Domain Request name:* ${this.state.input_value}\n*Owner Email:* ${o.usersByOrganisation.edges[0].node.email}\n`,
+            // const payload = {
+            //     text: `*Organization:* ${o.name}\n*Domain Request name:* ${this.state.input_value}\n*Owner Email:* ${o.usersByOrganisationId.edges[0].node.email}\n`,
 
-            };
-            axios.post(process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK, JSON.stringify(payload), {
-                withCredentials: false,
-                transformRequest: [(data, headers) => {
-                    delete headers.post['Content-Type'];                // eslint-disable-line
-                    return data;
-                }]
-            });
+            // };
+            // axios.post(process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK, JSON.stringify(payload), {
+            //     withCredentials: false,
+            //     transformRequest: [(data, headers) => {
+            //         delete headers.post['Content-Type'];                // eslint-disable-line
+            //         return data;
+            //     }]
+            // });
             const full_url = `${process.env.REACT_APP_API_SERVER}/emails/request_custom_domain`;
             await axios.post(
                 full_url,

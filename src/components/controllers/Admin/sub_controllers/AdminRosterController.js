@@ -20,7 +20,7 @@ const { confirm } = Modal;
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
         this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((x) => {
@@ -313,7 +313,7 @@ class AdminRosterController extends Component {
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain });
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
             roster_data.allCombinedRosters.edges.forEach((r, i) => {
                 const { gameId } = r.node;
                 const currGame = _.find(gameOptions, (o) => {
@@ -392,7 +392,7 @@ class AdminRosterController extends Component {
     }
     handleSubmit = async (game) => {
         this.closeModal();
-        await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'roster', subDomain: this.props.uiStore.current_organisation.subDomain, gameId: game.game_id });
+        await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id, gameId: game.game_id });
         toast.success(`Game ${game.text} added!`, {
             position: toast.POSITION.TOP_LEFT
         });

@@ -7,29 +7,15 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationTeamImageComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.felzec_team_image_container}>
-                <img className={this.props.classes.felzec_team_image} onMouseOver={( ) => {
+            <div className={this.props.classes.enigma2_teammember_container}>
+                <img className={this.props.classes.enigma2_teammember_image} src={this.props.team_image}/>
+                <div className={this.props.classes.enigma2_player_handle} style={this.props.enigma2_profile_handle_style}>{this.props.felzec_team_handle}</div>
+                <div className={this.props.classes.enigma2_player_name}>{this.props.felzec_team_name}</div>
+                <div className={this.props.classes.enigma2_profile_button} style={this.props.enigma2_profile_button_style} key={this.props.individual_id} onClick={( ) => {
                     this
                         .props
-                        .handleImageClick( this.props.felzec_overlay_style );
-                }} src={this.props.team_image}/>
-                <div className={this.props.classes.felzec_team_overlay} style={this.props.felzec_overlay_style} onMouseOver={( ) => {
-                    this
-                        .props
-                        .handleImageClick( this.props.felzec_overlay_style );
-                }} onMouseOut={( ) => {
-                    this
-                        .props
-                        .handleImageUnClick( this.props.felzec_overlay_style );
-                }}>
-                    <div className={this.props.classes.felzec_team_overlay_name}>{this.props.felzec_team_name}</div>
-                    <div className={this.props.classes.felzec_team_overlay_handle}>{this.props.felzec_team_handle}</div>
-                    <div className={this.props.classes.felzec_team_overlay_button} style={this.props.felzec_button_style} key={this.props.individual_id} onClick={( ) => {
-                        this
-                            .props
-                            .handleIndividualClick( this.props.individual_id );
-                    }}>PROFILE</div>
-                </div>
+                        .handleIndividualClick( this.props.individual_id );
+                }}>VIEW PROFILE</div>
             </div>
         )
     }

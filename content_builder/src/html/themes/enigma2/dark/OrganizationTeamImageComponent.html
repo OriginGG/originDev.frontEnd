@@ -21,13 +21,11 @@
       </script>    
    </head>
    <body>
-        <div data-component-name="dark_OrganizationTeamImageComponent"  class="classes.felzec_team_image_container">
-            <img class="classes.felzec_team_image" data-component-props="onMouseOver={()=>{this.props.handleImageClick(this.props.felzec_overlay_style)}} src={this.props.team_image}" />
-            <div class="classes.felzec_team_overlay" data-component-props="style={this.props.felzec_overlay_style} onMouseOver={()=>{this.props.handleImageClick(this.props.felzec_overlay_style)}} onMouseOut={()=>{this.props.handleImageUnClick(this.props.felzec_overlay_style)}}">
-                <div class="classes.felzec_team_overlay_name" data-component-value="{this.props.felzec_team_name}">John Doe</div>
-                <div class="classes.felzec_team_overlay_handle" data-component-value="{this.props.felzec_team_handle}">undertaker</div>
-                <div class="classes.felzec_team_overlay_button" data-component-props="style={this.props.felzec_button_style} key={this.props.individual_id} onClick={()=>{this.props.handleIndividualClick(this.props.individual_id)}}">PROFILE</div>
-            </div>
+        <div data-component-name="dark_OrganizationTeamImageComponent"  class="classes.enigma2_teammember_container">
+            <img class="classes.enigma2_teammember_image" data-component-props="src={this.props.team_image}" />
+            <div class="classes.enigma2_player_handle" data-component-value="{this.props.felzec_team_handle}" data-component-props="style={this.props.enigma2_profile_handle_style}">undertaker</div>
+            <div class="classes.enigma2_player_name" data-component-value="{this.props.felzec_team_name}">John Doe</div>
+            <div class="classes.enigma2_profile_button" data-component-props="style={this.props.enigma2_profile_button_style} key={this.props.individual_id} onClick={()=>{this.props.handleIndividualClick(this.props.individual_id)}}">VIEW PROFILE</div>
         </div>
    </body>
 </html>

@@ -1117,6 +1117,15 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute'
     },
 
+    darkEnigma2BG: {
+        maxWidth: '1400px',
+        minHeight: '100vh',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        padding: '0px 0px 0px 0px',
+        backgroundColor: '#000'
+    },
+
     obliviot_lightContraint: {
         width: '100%',
         maxWidth: '1200px',
@@ -1500,6 +1509,13 @@ export const GlobalStyles = GlobalTheme => ({
         float: 'left'
     },
 
+    enigma2_dark_video_container: {
+        width: '584px',
+        height: '325px',
+        backgroundColor: 'rgba(0,0,0,.1)',
+        float: 'left'
+    },
+
     obliviot_light_matches_holder: {
         width: '100%',
         overflow: 'auto',
@@ -1725,17 +1741,6 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative',
         cursor: 'pointer'
     },
-
-    enigma2_light_news_title: {
-        textAlign: 'left',
-        fontSize: '68px',
-        lineHeight: '78px',
-        color: '#fefefe',
-        fontWeight: 'bold',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis'
-    },
-
     enigma2_mini_news_title: {
         textAlign: 'left',
         fontSize: '28px',
@@ -1896,6 +1901,14 @@ export const GlobalStyles = GlobalTheme => ({
         overflowX: 'hidden',
     },
 
+    enigma2_media_element_container: {
+        width: '100%',
+        height: '440px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        paddingLeft: '70px'
+    },
+
     enigma2_matches_game: {
         width: '100%',
         lineHeight: '30px',
@@ -1921,6 +1934,171 @@ export const GlobalStyles = GlobalTheme => ({
         fontWeight: '900',
         color: 'rgb(149,147,141)',
         textAlign: 'left'
+    },
+
+    enigma2_team_main_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: '#040404',
+        position: 'relative',
+        display: 'table'
+    },
+
+    enigma2_team_title_container: {
+        width: '100%',
+        fontSize: '168px',
+        fontWeight: '900',
+        lineHeight: '300px',
+        textAlign: 'center',
+        color: 'red',
+        borderBottom: '1px solid rgba(255,255,255,.7)'
+    },
+
+    enigma2_team_info_container: {
+        width: '100%',
+        height: '200px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    enigma2_team_info_box: {
+        height: '100px',
+        width: '300px'
+    },
+
+    enigma2_team_info_count: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '24px',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    enigma2_team_info_title: {
+        width: '100%',
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    enigma2_game_container: {
+        width: '100%',
+        display: 'table',
+        overflowX: 'auto',
+        overflowY: 'auto',
+    },
+
+    enigma2_team_game_container: {
+        minHeight: '400px',
+        width: '100%',
+        position: 'relative'
+    },
+
+    enigma2_team_game_media: {
+        height: '400px',
+        width: '100%',
+        position: 'relative'
+    },
+
+    enigma2_team_game_overlay: {
+        width: '100%',
+        minHeight: '400px',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        backgroundColor: 'rgba(0,0,0,.5)',
+        padding: '80px 100px'
+    },
+
+    enigma2_team_game_overlay_container: {
+        width: '100%',
+        paddingLeft: '80px',
+        paddingRight: '80px',
+        height: '80px'
+    },
+
+    enigma2_team_game_overlay_text: {
+        width: '70%',
+        height: '80px',
+        lineHeight: '80px',
+        fontSize: '56px',
+        textTransform: 'uppercase',
+        fontWeight: '900',
+        textAlign: 'left',
+        color: 'red',
+        float: 'left'
+    },
+
+    enigma2_team_game_overlay_button: {
+        width: '140px',
+        height: '60px',
+        lineHeight: '56px',
+        textAlign: 'center',
+        float: 'right',
+        fontSize: '18px',
+        fontWeight: '400',
+        color: 'white',
+        border: '2px solid red',
+        cursor: 'pointer'
+    },
+
+    enigma2_teamamte_container: {
+        width: '100%',
+        padding: '50px',
+        marginBottom: '50px',
+        display: 'none',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
+    },
+
+    enigma2_teammember_container: {
+        width: '22vw',
+        height: '39vw',
+        margin: '0.5vw 0.5vw',
+        float: 'left',
+        background: 'transparent',
+        padding: '40px'
+    },
+
+    enigma2_teammember_image: {
+        width: '100%',
+        height: '70%',
+    },
+
+    enigma2_player_handle: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '24px',
+        color: 'red',
+        textAlign: 'left'
+    },
+
+    enigma2_player_name: {
+        width: '100%',
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        color: 'gray',
+        textAlign: 'left'
+    },
+
+    enigma2_profile_button: {
+        width: '120px',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '12px',
+        color: '#dedede',
+        textAlign: 'center',
+        border: '1px solid red',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px',
+        cursor: 'pointer'
     },
 
     // ***************************************************************
@@ -2343,6 +2521,13 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         backgroundColor: '#040404',
         overflow: 'hidden'
+    },
+
+    enigma2_darkFooter: {
+        width: '100%',
+        backgroundColor: '#040404',
+        overflow: 'hidden',
+        position: 'relative'
     },
 
     felzec_roster_item_container: {
@@ -3147,6 +3332,16 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
 
+    enigma2_light_news_container: {
+        width: '80%',
+        height: '200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'transparent',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
     felzec_light_news_mobile_container: {
         width: '90%',
         height: '100px',
@@ -3192,6 +3387,15 @@ export const GlobalStyles = GlobalTheme => ({
         textTransform: 'uppercase'
     },
 
+    enigma2_light_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '30px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
     felzec_light_mobile_news_title: {
         textAlign: 'left',
         fontSize: '20px',
@@ -3220,6 +3424,15 @@ export const GlobalStyles = GlobalTheme => ({
         textOverflow: 'ellipsis'
     },
 
+    enigma2_light_news_body: {
+        textAlign: 'left',
+        fontSize: '14px',
+        color: 'white',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
     felzec_light_footer_news_body: {
         textAlign: 'left',
         fontSize: '12px',
@@ -3234,6 +3447,15 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '15px',
         display: 'table',
         background: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    enigma2_modal_inner: {
+        width: '80%',
+        padding: '15px',
+        display: 'table',
+        background: 'transparent',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
@@ -3255,6 +3477,26 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100%',
         color: 'black',
+        overflowY: 'scroll'
+    },
+
+    enigma2_news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'white'
+    },
+    enigma2_news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'white'
+    },
+
+    enigma2_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'white',
         overflowY: 'scroll'
     },
 

@@ -51,18 +51,6 @@ class DarkOrganizationNavComponentRender extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={this.props.classes.felzec_menu_container} style={this.props.felzec_menu_style}>
-                    <div className={this.props.classes.obliviot_org_menu_light_container}>
-                        <div id="menu_login" className={this.props.classes.org_menu_felzec_light_item} onClick={this.props.handleLoginClick}>Login</div>
-                        <div id="menu_news" className={this.props.classes.org_menu_felzec_light_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
-                        <div id="sponsers_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>
-                        <div id="news_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.news_style} onClick={this.props.handleViewBlogClick}>News</div>
-                        <div id="about_button" className={this.props.classes.org_menu_felzec_light_item} style={this.props.about_style} onClick={this.props.handleAboutClick}>About</div>
-                        <a href="#home_cont">
-                            <div id="menu_home" className={this.props.classes.org_menu_felzec_light_item} style={this.props.home_style}>Home</div>
-                        </a>
-                    </div>
-                </div>
             </div>
         )
     }

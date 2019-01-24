@@ -23,23 +23,29 @@
    </head>
    <body>
         <div data-component-name="dark_OrganizationMediaComponent"  class="classes.felzec_matches_container">
-            <div class="classes.felzec_matches_container" data-component-props="style={this.props.bg_style}">
+            <div class="classes.enigma2_matches_container" data-component-props="style={this.props.bg_style}">
             </div>
-            <div class="classes.felzec_matches_filter_container" data-component-props="style={this.props.filter_style}"></div>
-            <div class="classes.felzec_matches_inner_container">
-                <div class="classes.felzec_switch_container">
-                    <div class="classes.felzec_switch_upcoming_container" data-component-props="style={this.props.youtube_style} onClick={this.props.handleYoutubeClick}">YOUTUBE</div>
-                    <div class="classes.felzec_switch_recent_container" data-component-props="style={this.props.twitch_style} onClick={this.props.handleTwitchClick}">TWITCH</div>
-                </div>
-                <div data-component-props="style={this.props.yt_style}">
-                    <div class="classes.felzec_media_element_container" data-component-props="ref={c => {this.props.storeRef(c);}}" data-component-value="{this.props.youtube_videos}">youtube</div>
-                </div>
-                <div data-component-props="style={this.props.tw_style}">
-                    <div class="classes.felzec_media_element_container" data-component-props="ref={t => {this.props.storeRef2(t);}}" data-component-value="{this.props.twitch_videos}">twitch</div>
+            <div class="classes.enigma2_matches_filter_container" data-component-props="style={this.props.filter_style}"></div>
+            <div class="classes.enigma2_matches_inner_container">
+                <div class="ui stackable three column grid" style="padding:0px">
+                    <div class="five wide column">
+                        <div class="classes.enigma2_switch_matches_title" data-component-props="style={this.props.switch_title_color}">STREAMS.</div>
+                        <div class="classes.enigma2_switch_matches_description">YOUTUBE AND TWITCH</div>
+                        <div class="classes.enigma2_switch_container">
+                            <div class="classes.enigma2_switch_upcoming_container" data-component-props="style={this.props.upcoming_style} onClick={this.props.handleYoutubeClick}">YOUTUBE</div>
+                            <div class="classes.enigma2_switch_recent_container" data-component-props="style={this.props.recent_style} onClick={this.props.handleTwitchClick}">TWITCH</div>
+                        </div>
+                    </div>
+                    <div class="eleven wide column">
+                        <div data-component-props="style={this.props.yt_style}">
+                            <div class="classes.enigma2_media_element_container" data-component-props="ref={c => {this.props.storeRef(c);}}" data-component-value="{this.props.youtube_videos}">matches</div>
+                        </div>
+                        <div data-component-props="style={this.props.tw_style}">
+                            <div class="classes.enigma2_media_element_container" data-component-props="ref={t => {this.props.storeRef2(t);}}" data-component-value="{this.props.twitch_videos}">matches</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="classes.felzec_dark_twitch_left_arrow" data-component-props="onClick={this.props.handleLeftScroll}"><i class="fa fa-arrow-left"></i></div>
-            <div class="classes.felzec_dark_twitch_right_arrow" data-component-props="onClick={this.props.handleRightScroll}"><i class="fa fa-arrow-right"></i></div>
         </div>
    </body>
    <script>

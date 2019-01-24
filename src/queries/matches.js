@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const createRecentMatchQuery = gql`mutation createRecentMatch($subDomain: String!, $oppositeTeamName: String, $gameName: String!,
+export const createRecentMatchQuery = gql`mutation createRecentMatch($organisationId: Int!, $oppositeTeamName: String, $gameName: String!,
   $gameLogo:String!, $score: String!, $eventDescription: String, $eventDate: String, $eventUrl: String, $eventInfo: String) {
-  createRecentmatch(input:{recentmatch:{organisation:$subDomain, oppositeTeamName: $oppositeTeamName,
+  createRecentmatch(input:{recentmatch:{organisationId:$organisationId, oppositeTeamName: $oppositeTeamName,
   gameName: $gameName, score: $score, gameLogo: $gameLogo, eventDescription: $eventDescription, eventUrl: $eventUrl, eventInfo: $eventInfo, eventDate: $eventDate}}) {
     recentmatch {
       id
@@ -18,12 +18,12 @@ export const deleteRecentMatchQuery = gql`mutation deleteRecentMatch($id: Int!) 
 }`;
 
 export const recentMatchesQuery = gql`
-         query recentMatches($organisation: String!) {
-           resultdata: allRecentmatches(orderBy: CREATED_AT_DESC, condition: { organisation: $organisation }) {
+         query recentMatches($organisationId: Int!) {
+           resultdata: allRecentmatches(orderBy: CREATED_AT_DESC, condition: { organisationId: $organisationId }) {
              edges {
                node {
                 id
-                 organisation
+                 organisationId
                  oppositeTeamName
                  oppositeTeamLogo
                  gameName

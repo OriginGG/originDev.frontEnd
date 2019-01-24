@@ -54,7 +54,7 @@ class AdminAddBlogController extends Component {
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createBlogPostQuery,
                     {
-                        organisation: this.props.uiStore.current_organisation.subDomain,
+                        organisationId: this.props.uiStore.current_organisation.id,
                         blogTitle: this.state.blog_title,
                         blogContent: this.state.text,
                         blogMedia: f_name

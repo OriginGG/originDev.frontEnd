@@ -60,7 +60,7 @@ class AdminThemeController extends Component {
             if (this.state.preview_image_src) {
                 this.props.uiStore.current_theme_structure.main_section.background.imageData = this.state.preview_image_src;
                 const s = toJS(this.props.uiStore.current_theme_structure);
-                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
+                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 const i = this.state.preview_image_src;
                 this.setState({ image_src: i, modal_open: false });
                 toast.success('Jumbotron updated !', {
@@ -72,7 +72,7 @@ class AdminThemeController extends Component {
                 const lf = await this.uploadtoCloudinary();
                 this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
                 const s = toJS(this.props.uiStore.current_theme_structure);
-                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
+                await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ image_src: lf, modal_open: false });
                 toast.success('Jumbotron updated !', {
                     position: toast.POSITION.TOP_LEFT
@@ -121,7 +121,7 @@ class AdminThemeController extends Component {
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateOrganisationQuery,
                 {
-                    subDomain: this.props.uiStore.current_organisation.subDomain,
+                    id: this.props.uiStore.current_organisation.id,
                     themeId: this.new_theme
                 }
             );

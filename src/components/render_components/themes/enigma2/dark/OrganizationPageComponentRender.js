@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationPageComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.lightFelzecBG}>
+            <div className={this.props.classes.darkEnigma2BG}>
                 <div>
                     <img id="bg_img" alt="" className={this.props.classes.felzec_light_bg_img}/>
                     <div className={this.props.classes.obliviot_light_bg_filter} style={this.props.obliviot_page_style}/>
@@ -24,7 +24,9 @@ class DarkOrganizationPageComponentRender extends Component {
                             paddingTop: '0px',
                             paddingBottom: '0px'
                         }}>{this.props.rosterContent}</div>
-                        <footer className={this.props.classes.felzec_darkFooter} style={this.props.felzec_footer_style}>
+                        <footer style={{
+                            position: 'relative'
+                        }} className={this.props.classes.enigma2_darkFooter} style={this.props.felzec_footer_style}>
                             <div >{this.props.footerContent}</div>
                         </footer>
                     </div>

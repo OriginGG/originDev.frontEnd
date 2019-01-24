@@ -185,6 +185,7 @@ class AppManager {
         try {
             return this.executeApolloQuery(type, query, p, this.apolloClientAuth);
         } catch (err) {
+            console.log(`error query: ${query}`);
             throw err;
         }
     }
@@ -196,6 +197,7 @@ class AppManager {
         try {
             return this.executeApolloQuery(type, query, p, this.apolloClient);
         } catch (err) {
+            console.log(`error query: ${query}`);
             throw err;
         }
     }
@@ -223,6 +225,7 @@ class AppManager {
                         });
                     resolve(data.data);
                 } catch (err) {
+                    console.log(`error query: ${query.definitions[0].name.value}`);
                     console.log(`error = ${JSON.stringify(err)}`);
                     reject(new Error('Network Error'));
                 }
