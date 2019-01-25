@@ -1820,6 +1820,13 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'relative'
     },
 
+    enigma2_media_container: {
+        width: '100%',
+        height: '320px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
     enigma2_matches_filter_container: {
         width: '100%',
         height: '500px',
@@ -1829,9 +1836,28 @@ export const GlobalStyles = GlobalTheme => ({
         left: '0'
     },
 
+    enigma2_media_filter_container: {
+        width: '100%',
+        height: '320px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
     enigma2_matches_inner_container: {
         width: '100%',
         height: '500px',
+        padding: '40px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_media_inner_container: {
+        width: '100%',
+        height: '320px',
         padding: '40px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1903,10 +1929,10 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_media_element_container: {
         width: '100%',
-        height: '440px',
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        paddingLeft: '70px'
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        whiteSpace: 'nowrap'
     },
 
     enigma2_matches_game: {
@@ -2693,6 +2719,13 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_matches_container: {
         width: '100%',
         height: '400px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    e2_media_container: {
+        width: '100%',
+        height: '320px',
         backgroundColor: '#040404',
         position: 'relative'
     },
