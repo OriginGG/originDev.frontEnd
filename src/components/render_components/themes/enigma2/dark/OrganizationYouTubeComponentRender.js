@@ -11,8 +11,8 @@ class DarkOrganizationYouTubeComponentRender extends Component {
                 display: 'inline-block',
                 marginRight: '15px'
             }}>
-                <div className={this.props.classes.enigma2_dark_video_container}>
-                    <iframe title="ifr" width="584px" height="325px" frameBorder="0" allowFullScreen src={this.props.video_url}/>
+                <div className={this.props.classes.felzec_light_video_container}>
+                    <iframe title="ifr" width="426px" height="240pxpx" frameBorder="0" allowFullScreen src={this.props.video_url}/>
                 </div>
             </div>
         )

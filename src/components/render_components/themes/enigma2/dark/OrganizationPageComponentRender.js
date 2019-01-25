@@ -17,9 +17,9 @@ class DarkOrganizationPageComponentRender extends Component {
                         </header>
                         <div id="sponsors">{this.props.topSponsorContent}</div>
                         <div id="blog">{this.props.blogContent}</div>
+                        <div id="media_container">{this.props.mediaContent}</div>
                         <div id="matches_container">{this.props.matchesContent}</div>
                         <div id="team_component">{this.props.teamContent}</div>
-                        <div id="media_container">{this.props.mediaContent}</div>
                         <div id="roster_component" style={{
                             paddingTop: '0px',
                             paddingBottom: '0px'

@@ -21,12 +21,12 @@ class OrganizationMediaController extends Component {
         const OrganizationYouTubeComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationYouTubeComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         // onst subDomain = this.props.uiStore.current_subdomain;
-        this.recent_style = { color: '#cccccc', backgroundColor: 'black' };
-        this.upcoming_style = { color: 'white', backgroundColor: 'red' };
-        this.recent_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: 'transparent' };
-        this.upcoming_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: this.props.uiStore.current_organisation.primaryColor };
-        this.yt_style = { display: 'none' };
-        this.tw_style = { display: 'inherit' };
+        this.upcoming_style = { color: '#cccccc', backgroundColor: 'black' };
+        this.recent_style = { color: 'white', backgroundColor: 'red' };
+        this.upcoming_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: 'transparent' };
+        this.recent_enigma_style = { borderColor: this.props.uiStore.current_organisation.primaryColor, backgroundColor: this.props.uiStore.current_organisation.primaryColor };
+        this.tw_style = { display: 'none' };
+        this.yt_style = { display: 'inherit' };
         this.setState({
             youtube_style: this.upcoming_style,
             twitch_style: this.recent_style,
@@ -274,6 +274,7 @@ class OrganizationMediaController extends Component {
                 // console.log(`testing what it sorts as ${p_array.toString}`);
             });
         }
+        const m_title_color = { color: this.props.uiStore.current_organisation.primaryColor };
         return <OrganizationMediaComponentRender
         handleLeftScroll={this.handleLeftScroll}
         handleRightScroll={this.handleRightScroll}
@@ -285,6 +286,7 @@ class OrganizationMediaController extends Component {
         recent_style={this.state.twitch_enigma_style}
         yt_style={this.state.yt_style}
         tw_style={this.state.tw_style}
+        switch_title_color={m_title_color}
         youtube_videos={p_array}
         twitch_videos={y_array}
         bg_style={s}
