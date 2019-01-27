@@ -112,7 +112,7 @@ class OrganizationPageController extends Component {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
                 const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
-                const subscribed = user.allUsers.edges[0].node;
+                const { subscribed } = user.allUsers.edges[0].node;
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
                 const themeBase = this.props.uiStore.current_organisation.themeBaseId;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
@@ -837,17 +837,17 @@ class OrganizationPageController extends Component {
                     <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
                         {this.state.error_page &&
                             <div>
-                            <div id="error_page" className="error_page" />
-                            <div id="error_page" className="error_page_overlay">
-                                <div style={{
-                                    textAlign: 'center', lineHeight: '32px', fontSize: 32, display: 'flex', justifyContent: 'center'
-                                }}>
-                                    THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
+                                <div id="error_page" className="error_page" />
+                                <div id="error_page" className="error_page_overlay">
+                                    <div style={{
+                                        textAlign: 'center', lineHeight: '32px', fontSize: 32, display: 'flex', justifyContent: 'center'
+                                    }}>
+                                        THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
                                 <br />
-                                    CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+                                        CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
                                 <br />
-                                    <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
-                                </div>
+                                        <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
+                                    </div>
                                 </div>
                             </div>
                         }
