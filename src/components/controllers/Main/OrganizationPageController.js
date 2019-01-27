@@ -42,6 +42,10 @@ class OrganizationPageController extends Component {
         OrganizationBlogController: null,
         OrganizationTwitchController: null,
         OrganizationMediaController: null,
+        enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+        enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         display_rosters: false,
@@ -112,7 +116,7 @@ class OrganizationPageController extends Component {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
                 const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
-                const subscribed = user.allUsers.edges[0].node;
+                const { subscribed } = user.allUsers.edges[0].node;
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
                 const themeBase = this.props.uiStore.current_organisation.themeBaseId;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
@@ -225,6 +229,10 @@ class OrganizationPageController extends Component {
                     OrganizationMediaController: OrganizationMediaControllerDefault,
                     OrganizationFooterController: OrganizationFooterControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
+                    enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+                    enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+                    enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+                    enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
                     error_page: !subscribed
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
@@ -274,7 +282,15 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_sponsers: true });
+        console.log('sponsors clicked');
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' },
+            display_sponsers: true,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
         this.openMenu();
     }
     handleBlogClick = () => {
@@ -293,7 +309,14 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blogs: true });
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' },
+            display_blogs: true,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+        });
         this.openMenu();
     }
     handleAboutClick = () => {
@@ -302,8 +325,25 @@ class OrganizationPageController extends Component {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_staff: true });
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' },
+            enigma2_home_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            display_staff: true
+        });
         this.openMenu();
+    }
+    handleHomeClick = () => {
+        console.log('handleHomeClick');
+        this.closeAll();
+        this.setState({
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
     }
     handleStoreClick = () => {
         this.closeAll();
@@ -404,19 +444,47 @@ class OrganizationPageController extends Component {
         });
     }
     closeRosters = () => {
-        this.setState({ roster_style: { display: 'none' }, display_rosters: false });
+        this.setState({
+            roster_style: { display: 'none' },
+            display_rosters: false,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
     }
     closeSponsers = () => {
-        this.setState({ roster_style: { display: 'none' }, display_sponsers: false });
+        this.setState({
+            roster_style: { display: 'none' },
+            display_sponsers: false,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
     }
     closeBlogs = () => {
-        this.setState({ roster_style: { display: 'none' }, display_blogs: false });
+        this.setState({
+            roster_style: { display: 'none' },
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            display_blogs: false,
+        });
     }
     closeBlogView = () => {
         this.setState({ roster_style: { display: 'none' }, display_blog_view: false });
     }
     closeStaff = () => {
-        this.setState({ roster_style: { display: 'none' }, display_staff: false });
+        this.setState({
+            roster_style: { display: 'none' },
+            display_staff: false,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
     }
     openMenu = () => {
         // console.log('open menu');
@@ -494,6 +562,8 @@ class OrganizationPageController extends Component {
             rosterComponent = this.mobile_roster_data;
         }
 
+        console.log(`h_style= ${JSON.stringify(this.h_style)}`);
+
         // let ml = -200;
         let SideBar = <div />;
         let nv_content = <OrganizationNavController
@@ -501,11 +571,16 @@ class OrganizationPageController extends Component {
             about_style={this.s}
             sponsers_style={this.sss}
             home_style={this.h_style}
+            enigma2_home_style={this.state.enigma2_home_style}
+            enigma2_about_style={this.state.enigma2_about_style}
+            enigma2_news_style={this.state.enigma2_news_style}
+            enigma2_sponsers_style={this.state.enigma2_sponsors_style}
             login_style={this.l_style}
             felzec_style={this.state.felzec_style}
             openMenu={this.openMenu}
             handleStoreClick={this.handleStoreClick}
             handleBlogClick={this.handleBlogClick}
+            handleHomeClick={this.handleHomeClick}
             handleViewBlogClick={this.handleViewBlogClick}
             handleLoginClick={this.handleLoginClick}
             handleRosterClick={this.handleRosterClick}
@@ -565,6 +640,7 @@ class OrganizationPageController extends Component {
                 about_style={this.s}
                 sponsers_style={this.sss}
                 home_style={this.h_style}
+                enigma2_home_style={this.h_style}
                 login_style={this.l_style}
                 footer_about={this.bcontent}
                 footer_support={s_email}
@@ -837,17 +913,17 @@ class OrganizationPageController extends Component {
                     <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
                         {this.state.error_page &&
                             <div>
-                            <div id="error_page" className="error_page" />
-                            <div id="error_page" className="error_page_overlay">
-                                <div style={{
-                                    textAlign: 'center', lineHeight: '32px', fontSize: 32, display: 'flex', justifyContent: 'center'
-                                }}>
-                                    THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
+                                <div id="error_page" className="error_page" />
+                                <div id="error_page" className="error_page_overlay">
+                                    <div style={{
+                                        textAlign: 'center', lineHeight: '32px', fontSize: 32, display: 'flex', justifyContent: 'center'
+                                    }}>
+                                        THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
                                 <br />
-                                    CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+                                        CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
                                 <br />
-                                    <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
-                                </div>
+                                        <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
+                                    </div>
                                 </div>
                             </div>
                         }

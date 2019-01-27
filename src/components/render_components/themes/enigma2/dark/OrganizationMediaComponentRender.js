@@ -7,10 +7,10 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationMediaComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.felzec_matches_container}>
-                <div className={this.props.classes.enigma2_matches_container} style={this.props.bg_style}></div>
-                <div className={this.props.classes.enigma2_matches_filter_container} style={this.props.filter_style}/>
-                <div className={this.props.classes.enigma2_matches_inner_container}>
+            <div className={this.props.classes.e2_media_container}>
+                <div className={this.props.classes.enigma2_media_container} style={this.props.bg_style}></div>
+                <div className={this.props.classes.enigma2_media_filter_container} style={this.props.filter_style}/>
+                <div className={this.props.classes.enigma2_media_inner_container}>
                     <div style={{
                         padding: '0px'
                     }} className="ui stackable three column grid">

@@ -147,13 +147,17 @@ class OrganizationNavController extends Component {
         return <OrganizationNavComponentRender
             login_style={this.props.login_style}
             home_style={this.props.home_style}
+            enigma2_home_style={this.props.enigma2_home_style}
             store_style={this.props.store_style}
             about_style={this.props.about_style}
+            enigma2_about_style={this.props.enigma2_about_style}
+            enigma2_news_style={this.props.enigma2_news_style}
             roster_dropdown_style={d_style}
             felzec_menu_style={this.props.felzec_style}
             dropdown_item={m_array}
             handleRosterButtonClick={this.handleRosterButtonClick}
             sponsers_style={this.props.sponsers_style}
+            enigma2_sponsers_style={this.props.enigma2_sponsers_style}
             roster_menu_style={sssss}
             handleBlogButtonClick={this.handleBlogButtonClick}
             handleStoreClick={this.props.handleStoreClick}
@@ -162,6 +166,7 @@ class OrganizationNavController extends Component {
             handleSponsersClick={this.props.handleSponsersClick}
             handleAboutClick={this.props.handleAboutClick}
             handleViewBlogClick={this.props.handleViewBlogClick}
+            handleHomeClick={this.props.handleHomeClick}
             handleLoginClick={this.props.handleLoginClick}
             social_link1={social_link1}
             social_link2={social_link2}
@@ -181,16 +186,21 @@ OrganizationNavController.propTypes = {
     handleSponsersClick: PropTypes.func.isRequired,
     handleRosterClick: PropTypes.func.isRequired,
     handleStoreClick: PropTypes.func.isRequired,
+    handleHomeClick: PropTypes.func.isRequired,
     handleBlogClick: PropTypes.func.isRequired,
     handleViewBlogClick: PropTypes.func.isRequired,
     openMenu: PropTypes.func.isRequired,
     handleLoginClick: PropTypes.func.isRequired,
     uiStore: PropTypes.object.isRequired,
     about_style: PropTypes.object.isRequired,
+    enigma2_about_style: PropTypes.object.isRequired,
+    enigma2_news_style: PropTypes.object.isRequired,
     felzec_style: PropTypes.object.isRequired,
     sponsers_style: PropTypes.object.isRequired,
+    enigma2_sponsers_style: PropTypes.object.isRequired,
     store_style: PropTypes.object.isRequired,
     home_style: PropTypes.object.isRequired,
+    enigma2_home_style: PropTypes.object.isRequired,
     login_style: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired
 };
