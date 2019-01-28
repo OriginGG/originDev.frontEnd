@@ -14,6 +14,7 @@ import appManager from './utils/appManager';
 // import registerServiceWorker from './registerServiceWorker';
 import { GlobalTheme } from './utils/themes/Theme';
 
+
 const tagManagerArgs = {
     gtmId: 'GTM-WV9WPCK'
 };

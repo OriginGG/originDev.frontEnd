@@ -3,7 +3,7 @@ import { inject } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import FullStory from 'react-fullstory';
+// import FullStory from 'react-fullstory';
 // import { authenticateQuery } from './queries/login';
 import AppController from './AppController';
 import SignupChoiceController from './components/controllers/Login/SignupChoiceController';
@@ -31,7 +31,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                {process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)}
+                {/* {process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)} */}
                 <Route exact path="/" component={AppController} />
                 <Route exact path="/signup" component={SignupChoiceController} />
                 <Route exact path="/signup_org" component={SignupPageController} />
