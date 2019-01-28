@@ -156,7 +156,7 @@ class AdminMembersController extends Component {
                             <Segment>
                                 <Header as="h5">Enter Users Handle, and click SUBMIT</Header>
                                 <Header as="h5">You can send your members to https://origin.gg/signup_ind if they havent created an individual account</Header>
-                                <Input value={this.state.about_title} onChange={(e) => { this.handleInputChange(e, 'handle'); }} style={{ width: 'calc(100vw - 478px)' }} label="Handle:" placeholder="Handle" />
+                                <Input value={this.state.handle} onChange={(e) => { this.handleInputChange(e, 'handle'); }} style={{ width: 'calc(100vw - 478px)' }} label="Handle:" placeholder="Handle" />
                             </Segment>
                             <Button disabled={this.state.disabled} primary onClick={this.handleSubmit}>SUBMIT</Button>
                         </Card.Description>

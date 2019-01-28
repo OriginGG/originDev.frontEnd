@@ -163,6 +163,7 @@ class LoginController extends Component {
                                 });
                                 return;
                             }
+                            v.email = v.email.toLowerCase();                    // eslint-disable-line
                             const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                             if (authPayload.authenticate.resultData !== null) {
                                 // console.log('submitting2....');
@@ -220,7 +221,7 @@ class LoginController extends Component {
                                     lastName: v.lastName,
                                     password: v.password,
                                     userName: v.userName,
-                                    email: v.email,
+                                    email: v.email.toLowerCase(),
                                     adminUser: !this.props.ind,
                                 };
 
