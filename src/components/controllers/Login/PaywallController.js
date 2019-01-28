@@ -286,7 +286,7 @@ class PaywallContent extends Component {
             <div>
                 {this.state.display_plan &&
                     <div style={{ backgroundColor: '#343c44', paddingBottom: 16, marginBottom: 16 }}>
-                        <div className="ui grid centered">
+                        <div className="ui stackable grid centered">
                             <PlanController plans={this.pay_plans} handleClick={this.handlePlanClick} />
                         </div>
                     </div>}
@@ -330,7 +330,7 @@ class PaywallController extends Component {
 
         return (
             <div style={{ backgroundColor: '#343c44', paddingBottom: 22, marginBottom: 16 }}>
-                <div style={{ display: 'block', color: 'wheat', paddingTop: 8 }} className="ui grid centered">
+                <div style={{ display: 'block', color: 'wheat', paddingTop: 8 }} className="ui stackable grid centered">
                     <div>
                         <h2>SUCCESSFULL</h2>
                     </div>
