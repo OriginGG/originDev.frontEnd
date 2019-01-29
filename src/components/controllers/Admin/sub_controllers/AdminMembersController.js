@@ -151,8 +151,14 @@ class AdminMembersController extends Component {
         this.setState({ found_members });           // eslint-disable-line
     }
     handleSubmit = async () => {
-        this.setState({ found_disabled: true });
         let error = false;
+        if (this.invite_array.length === 0) {
+            toast.error('You have to selected some users to invite!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            return;
+        }
+        this.setState({ found_disabled: true });
         this.invite_array.forEach(o => {
             const fnd = _.findIndex(this.current_members, m => {
                 return (m.node.individualUserByIndividalUserId.username === o.username);
@@ -182,7 +188,7 @@ class AdminMembersController extends Component {
         toast.success('Invitation e-mail(s) sent!', {
             position: toast.POSITION.TOP_LEFT
         });
-        this.setState({ found_disabled: false });
+        this.setState({ found_disabled: false, found_members: [], handle: '' });
     }
     render() {
         if (this.state.visible === false) {
