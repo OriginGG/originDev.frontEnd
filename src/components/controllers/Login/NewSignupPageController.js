@@ -15,7 +15,7 @@ class NewSignupPageController extends Component {
         document.getElementById('origin_loader').style.display = 'none';
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
-        const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email, password: d.password });
+        const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email.toLowerCase(), password: d.password });
         const my_token = authPayload.authenticate.resultData.jwtToken;
         const ar = this.props.appManager.decodeJWT(my_token);
         this.props.appManager.authToken = my_token;

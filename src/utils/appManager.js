@@ -88,16 +88,18 @@ class AppManager {
     pouchDelete = (_id) => {
         store.remove(_id);
         // try {
-            // const doc = await this.localDB.get(_id);
-            // return await this.localDB.remove(doc);
+        // const doc = await this.localDB.get(_id);
+        // return await this.localDB.remove(doc);
         // } catch (e) {
-            // return null;
+        // return null;
         // }
     }
 
     getDomainInfo = () => {
         const regex = /[.:]/g;
-        const { hostname, port, protocol } = window.location;
+        const {
+            hostname, port, protocol, pathname
+        } = window.location;
         // console.log(`${hostname}, ${port}, ${protocol}`);
         const url_string = `${hostname}${(port === 443 || port === 80 || port === '') ? '' : `:${port}`}`;
         // console.log(`urlstring = ${url_string}`);
@@ -115,7 +117,8 @@ class AppManager {
             hostname,
             protocol,
             port,
-            subDomain
+            subDomain,
+            pathname
         };
     }
     decodeJWT = token => {
@@ -206,14 +209,14 @@ class AppManager {
         return new Promise(async (resolve, reject) => {
             if (type === 'mutation') {
                 // try {
-                    const data = await client
-                        .mutate({
-                            mutation: query,
-                            variables: payload
-                        });
-                    resolve(data.data);
+                const data = await client
+                    .mutate({
+                        mutation: query,
+                        variables: payload
+                    });
+                resolve(data.data);
                 // } catch (err) {
-                    // reject(new Error('Network Error'));
+                // reject(new Error('Network Error'));
                 // }
             } else {
                 try {

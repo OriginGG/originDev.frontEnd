@@ -8,7 +8,6 @@ class LightOrganizationAboutModalComponentRender extends Component {
     render( ) {
         return (
             <div className={this.props.classes.blankBG}>
-                <div className={this.props.classes.felzec_about_header} style={this.props.bg_style}/>
                 <div className={this.props.classes.felzec_about_container}>
                     <div className={this.props.classes.felzec_about_desc_conatiner} style={this.props.about_desc_style}>
                         <div className={this.props.classes.felzec_about_container_inner}>

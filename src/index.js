@@ -14,6 +14,7 @@ import appManager from './utils/appManager';
 // import registerServiceWorker from './registerServiceWorker';
 import { GlobalTheme } from './utils/themes/Theme';
 
+
 const tagManagerArgs = {
     gtmId: 'GTM-WV9WPCK'
 };
@@ -25,6 +26,14 @@ export const logPageView = () => {
     ReactGA.set({ page: window.location.pathname });
     ReactGA.pageview(window.location.pathname);
 };
+
+const h = appManager.getDomainInfo();
+if (h.subDomain && h.subDomain.toLowerCase() === 'www') {
+    const dm = h.hostname.substring(4, h.hostname.length);
+    const redirect_url = `${h.protocol}//${dm}:${h.port}${h.pathname}`;
+    window.location = redirect_url;
+}
+
 initGA();
 logPageView();
 TagManager.initialize(tagManagerArgs);
@@ -39,6 +48,7 @@ const stores = {
 // const ref = document.referrer;
 // console.log(`referred from:${ref}`);
 appManager.createApolloClient();
+
 
 ReactDOM.render(
     <Router history={historyStore}>
