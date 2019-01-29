@@ -25,7 +25,7 @@ class DarkOrganizationNavComponentRender extends Component {
                     <div style={{
                         padding: '0px',
                         display: 'flex',
-                        justifyContent: 'center'
+                        justifyContent: 'left'
                     }} className="ten wide column">
                         <div className={this.props.classes.obliviot_org_menu_light_container}>
                             <div id="menu_login" className={this.props.classes.org_menu_enigma2_light_item} onClick={this.props.handleLoginClick}>Login</div>
