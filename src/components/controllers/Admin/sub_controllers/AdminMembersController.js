@@ -188,7 +188,7 @@ class AdminMembersController extends Component {
         toast.success('Invitation e-mail(s) sent!', {
             position: toast.POSITION.TOP_LEFT
         });
-        this.setState({ found_disabled: false, found_members: [] });
+        this.setState({ found_disabled: false, found_members: [], handle: '' });
     }
     render() {
         if (this.state.visible === false) {
