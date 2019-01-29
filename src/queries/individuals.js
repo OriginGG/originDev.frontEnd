@@ -1,5 +1,36 @@
 import gql from 'graphql-tag';
 
+export const searchIndividualUsersByHandleQuery = gql`query srchIndbyhandle($handle: String!) {
+  allIndividualUsers(filter: 
+    {username: {includesInsensitive: $handle }}) {
+		nodes {
+    firstName
+    lastName
+    about
+    email
+    contactEmail
+    updatedAt
+    createdAt
+		youtubeChannel
+    twitchUrl
+    twitchUserId
+		twitterHandle
+		accomplishments
+		youtubeVideo1Url
+		youtubeVideo2Url
+		youtubeVideo3Url
+    bannerImageUrl
+		profileImageUrl
+    facebookLink
+    instagramLink
+    username
+    id
+    authenticated
+		}
+	}
+}
+`;
+
 export const getIndividualUserByHandleQuery = gql`query getIndbyhandle($handle: String!) {
   allIndividualUsers(filter: 
     {username: {endsWithInsensitive: $handle }}) {
