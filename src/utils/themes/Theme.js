@@ -1118,7 +1118,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     darkEnigma2BG: {
-        maxWidth: '1400px',
+        maxWidth: '2500px',
         minHeight: '100vh',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -1667,6 +1667,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '18px',
         fontWeight: '900',
         cursor: 'pointer',
+        fontFamily: 'nimbus-sans-condensed,light,sans-serif',
+        textTransform: 'uppercase',
         padding: '0px 10px 0px 10px',
         borderBottomStyle: 'solid',
         borderBottomWidth: '2px',
