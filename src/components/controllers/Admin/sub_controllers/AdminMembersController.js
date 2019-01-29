@@ -15,7 +15,7 @@ const { confirm } = Modal;
 
 // import OrganizationAdminBlogComponentRender from '../../../render_components/OrganizationAdminBlogComponentRender';
 
-const MemberCharacter = ({ user, handleCheckbox }) => {
+const MemberCharacter = ({ user, handleCheckbox, key_index }) => {
     return <Table.Row style={{ height: 64 }}>
         <Table.Cell style={{ width: 64 }}>
             <Image style={{ marginLeft: 4 }} centered src={user.profileImageUrl} rounded size="mini" />
@@ -25,7 +25,7 @@ const MemberCharacter = ({ user, handleCheckbox }) => {
         </Table.Cell>
         <Table.Cell><span style={{ color: 'grey' }}>{user.username}</span></Table.Cell>
         <Table.Cell style={{ width: 96, textAlign: 'center' }}>
-            <Checkbox onChange={(e, data) => { handleCheckbox(e, data, user); }} />
+            <Checkbox key={`cbox_key_${key_index}`} defaultChecked={false} onChange={(e, data) => { handleCheckbox(e, data, user); }} />
         </Table.Cell>
     </Table.Row>;
 };
@@ -43,6 +43,7 @@ class AdminMembersController extends Component {
     componentDidMount = () => {
         this.calcMembers();
         this.invite_array = [];
+        this.key_index = 1;
     }
 
     calcMembers = async () => {
@@ -144,7 +145,8 @@ class AdminMembersController extends Component {
         });
         const found_members = [];
         users.allIndividualUsers.nodes.forEach(m => {
-            found_members.push(<MemberCharacter user={m} handleCheckbox={this.handleCheckbox} />);
+            found_members.push(<MemberCharacter key_index={this.key_index} user={m} handleCheckbox={this.handleCheckbox} />);
+            this.key_index += 1;
         });
         this.setState({ found_members });           // eslint-disable-line
     }
@@ -256,7 +258,8 @@ AdminMembersController.propTypes = {
 
 MemberCharacter.propTypes = {
     user: PropTypes.object.isRequired,
-    handleCheckbox: PropTypes.func.isRequired
+    handleCheckbox: PropTypes.func.isRequired,
+    key_index: PropTypes.number.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminMembersController));
