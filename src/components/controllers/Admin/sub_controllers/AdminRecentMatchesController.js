@@ -197,7 +197,7 @@ class AdminRecentMatchesController extends Component {
                     'mutation', updateRecentMatchQuery,
                     {
                         id: p.createRecentmatch.recentmatch.id,
-                        url: logo_data.url
+                        url: logo_data.secure_url
                     }
                 );
                 toast.success('Match Added !', {

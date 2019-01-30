@@ -118,7 +118,7 @@ class SponsorBlock extends Component {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((x) => {
-                resolve(x.data.url);
+                resolve(x.data.secure_url);
             });
         });
     }
@@ -323,8 +323,8 @@ class AdminSponsorController extends Component {
         if (f) {
             await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
                 organisationId: this.props.uiStore.current_organisation.id,
-                imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                hrefLink: 'http://origin.gg',
+                imageUrl: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+                hrefLink: 'https://origin.gg',
                 name: 'Origin.GG',
                 description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
             });

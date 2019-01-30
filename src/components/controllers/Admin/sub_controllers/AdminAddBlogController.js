@@ -117,7 +117,7 @@ class AdminAddBlogController extends Component {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((x) => {
-                    resolve(x.data.url);
+                    resolve(x.data.secure_url);
                 });
             } else {
                 if (this.create_blog === false) {

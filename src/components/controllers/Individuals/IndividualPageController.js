@@ -230,7 +230,7 @@ class ModalContent extends Component {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((x) => {
-                    resolve(x.data.url);
+                    resolve(x.data.secure_url);
                 });
             } else {
                 resolve(null);
@@ -678,7 +678,7 @@ class IndividualPageController extends Component {
         }
         let bi = this.user_details.bannerImageUrl;
         if (!bi) {
-            bi = 'https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg';
+            bi = 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg';
         }
         return (
             <div>
