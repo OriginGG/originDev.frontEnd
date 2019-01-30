@@ -264,19 +264,6 @@ class AdminProfileController extends Component {
             this.props.appManager.networkError();
         }
     }
-    uploadLogo = () => {
-        return new Promise((resolve) => {
-            const formData = new FormData();
-            formData.append('images', this.logo_files);
-            axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((x) => {
-                resolve(x.data);
-            });
-        });
-    }
     uploadLogoToCloudinary = () => {
         return new Promise((resolve) => {
             const formData = new FormData();

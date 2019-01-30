@@ -243,23 +243,6 @@ class AdminThemeController extends Component {
         });
     }
 
-    uploadtoS3 = () => {
-        return new Promise((resolve) => {
-            if (this.logo_files) {
-                const formData = new FormData();
-                formData.append('images', this.logo_files);
-                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then((x) => {
-                    resolve(x.data.Location);
-                });
-            } else {
-                resolve(null);
-            }
-        });
-    }
     handleSubmit = async () => {
         // if (this.new_theme !== this.selected_theme) {
         await this.props.appManager.executeQueryAuth(
