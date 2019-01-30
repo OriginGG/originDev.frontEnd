@@ -71,11 +71,11 @@ class SponsorBlock extends Component {
     handleSubmit = async () => {
         let sponsor_image = this.sponsor_image_old;
         if (this.sponsor_image_old !== this.state.sponsor_image) {
-            sponsor_image = await this.uploadSponsorMedia(this.state.sponsor_image);
+            sponsor_image = await this.uploadSponsorMedia('foreground');
         }
         let sponsor_bg_image = this.sponsor_bg_image_old;
         if (this.sponsor_bg_image_old !== this.state.sponsor_bg_image) {
-            sponsor_bg_image = await this.uploadSponsorMedia(this.state.sponsor_bg_image);
+            sponsor_bg_image = await this.uploadSponsorMedia('background');
         }
         if (this.state.input_http_link_value) {
             if (!this.isURL(this.state.input_http_link_value)) {
@@ -100,16 +100,25 @@ class SponsorBlock extends Component {
             position: toast.POSITION.TOP_LEFT
         });
     }
-    uploadSponsorMedia = () => {
+    uploadSponsorMedia = (typ) => {
+        console.log(typ);
+        const theme = '';
+        const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
+        let fn = 'sponsor';
+        let f = this.logo_file;
+        if (typ !== 'foreground') {
+            f = this.logo_file_bg;
+            fn = 'sponsor_bg';
+        }
         return new Promise((resolve) => {
             const formData = new FormData();
-            formData.append('images', this.logo_file);
-            axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
+            formData.append('images', f);
+            axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((x) => {
-                resolve(x.data.Location);
+                resolve(x.data.url);
             });
         });
     }
@@ -125,7 +134,7 @@ class SponsorBlock extends Component {
     uploadBGFile = (e) => {
         const reader = new FileReader();
         reader.readAsDataURL(e[0]);
-        this.logo_file = e[0];              // eslint-disable-line
+        this.logo_file_bg = e[0];              // eslint-disable-line
         reader.onloadend = () => {
             const x = reader.result;
             this.setState({ sponsor_bg_image: x });
@@ -252,7 +261,8 @@ class AdminSponsorController extends Component {
     }
 
     grabSponsors = async () => {
-        this.logo_files = {};
+        this.logo_file = {};
+        this.logo_file_bg = {};
         // let s_image = blankImage;
         const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const { nodes } = sponsor_data.allOrgSponsors;

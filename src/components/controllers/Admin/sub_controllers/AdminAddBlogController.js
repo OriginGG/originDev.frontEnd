@@ -107,14 +107,17 @@ class AdminAddBlogController extends Component {
     uploadBlogMedia = () => {
         return new Promise((resolve) => {
             if (this.logo_files) {
+                const theme = '';
+                const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
                 const formData = new FormData();
+                const fn = `_blog_${this.props.blogId}`;
                 formData.append('images', this.logo_files);
-                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
+                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((x) => {
-                    resolve(x.data.Location);
+                    resolve(x.data.url);
                 });
             } else {
                 if (this.create_blog === false) {
