@@ -337,10 +337,10 @@ class AdminThemeController extends Component {
             enigma_light_style={this.state.enigma_light}
             felzec_light_style={this.state.felzec_light}
             enigma2_dark_style={this.state.enigma2_dark}
-            enigma_dark_image="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
-            enigma_light_image="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
-            obliviot_dark_image="https://s3.amazonaws.com/origin-images/origin/obliviot-dark-theme.jpg"
-            obliviot_light_image="https://s3.amazonaws.com/origin-images/origin/obliviot-light-theme.jpg"
+            enigma_dark_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889228/dark-theme.jpg"
+            enigma_light_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889272/light-theme.jpg"
+            obliviot_dark_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889302/obliviot-dark-theme.jpg"
+            obliviot_light_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889350/obliviot-light-theme.jpg"
             felzec_light_image="http://res.cloudinary.com/origingg/image/upload/dpr_3,e_sharpen:80/v1546274092/image-2018-12-30-13-56-15-366.webp"
         />;
         if (this.state.modal_open) {
@@ -353,9 +353,9 @@ class AdminThemeController extends Component {
 
                     preview_image={this.state.reader_image_src}
 
-                    default_image1="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg1.jpg"
-                    default_image2="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg2.jpg"
-                    default_image3="https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg"
+                    default_image1="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889070/section1-bg1.jpg"
+                    default_image2="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889158/section1-bg2.jpg"
+                    default_image3="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg"
                 />
             </div>;
         }
