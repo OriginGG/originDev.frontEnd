@@ -108,7 +108,6 @@ class CreateSubDomainController extends Component {
                 this.domain_name = this.domain_name.toLowerCase();
 
                 // console.log(`domain name = ${this.domain_name}`);
-
                 // const logo_data = await this.uploadLogo();
                 const p = toJS(this.props.uiStore.origin_theme_structure);
                 p.header.logo.imageData = this.state.image_src;

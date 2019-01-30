@@ -11,7 +11,7 @@ import { Modal } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
-import { createRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
+import { createRecentMatchQuery, updateRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
 import { gameOptions } from './data/AllGames';
 import '../../../../../node_modules/react-datetime/css/react-datetime.css';
 
@@ -26,6 +26,7 @@ class AdminRecentMatchesController extends Component {
         this.current_game = null;
         this.match_type = null;
         this.is_saving = false;
+        this.logo_files = null;
         this.calcMatches();
     }
     calcMatches = () => {
@@ -45,12 +46,15 @@ class AdminRecentMatchesController extends Component {
         });
     }
 
-    uploadLogo = () => {
+    uploadLogo = (id) => {
         return new Promise(async (resolve) => {
             const formData = new FormData();
+            const theme = '';
+            const fn = `recent_match_${id}_`;
+            const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
             formData.append('images', this.logo_files);
             try {
-                const x = await axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
+                const x = await axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
@@ -164,8 +168,7 @@ class AdminRecentMatchesController extends Component {
         }
         if (this.is_saving === false && this.current_game && this.state.logo_src) {
             this.is_saving = true;
-            const logo_data = await this.uploadLogo();
-            if (logo_data === null) {
+            if (!this.logo_files) {
                 this.is_saving = false;
             } else {
                 // console.log(`event description = ${this.state.event_description}
@@ -176,7 +179,7 @@ class AdminRecentMatchesController extends Component {
                 // eventDate= ${this.state.your_date}
                 // gameLogo= ${logo_data.Location}
                 // score= ${this.state.your_score} - ${this.state.their_score}`);
-                await this.props.appManager.executeQueryAuth(
+                const p = await this.props.appManager.executeQueryAuth(
                     'mutation', createRecentMatchQuery,
                     {
                         organisationId: this.props.uiStore.current_organisation.id,
@@ -184,9 +187,17 @@ class AdminRecentMatchesController extends Component {
                         eventInfo: this.match_type,
                         eventUrl: this.state.your_url,
                         eventDate: this.state.your_date,
-                        gameLogo: logo_data.Location,
+                        gameLogo: '',
                         eventDescription: this.state.event_description,
                         score: `${this.state.your_score} - ${this.state.their_score}`
+                    }
+                );
+                const logo_data = await this.uploadLogo(p.createRecentmatch.recentmatch.id);          // eslint-disable-line
+                await this.props.appManager.executeQueryAuth(
+                    'mutation', updateRecentMatchQuery,
+                    {
+                        id: p.createRecentmatch.recentmatch.id,
+                        url: logo_data.url
                     }
                 );
                 toast.success('Match Added !', {

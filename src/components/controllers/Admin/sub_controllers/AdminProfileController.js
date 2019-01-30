@@ -266,9 +266,11 @@ class AdminProfileController extends Component {
     }
     uploadLogoToCloudinary = () => {
         return new Promise((resolve) => {
+            const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
             const formData = new FormData();
             formData.append('images', this.logo_files);
-            axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload/?sub_domain=${this.props.uiStore.current_organisation.subDomain}&theme=${this.props.uiStore.current_organisation.themeId}&force_name=company_logo`, formData, {
+            const theme = '';
+            axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload/?sub_domain=${subDomain}&theme=${theme}&force_name=company_logo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
