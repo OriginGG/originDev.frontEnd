@@ -1693,7 +1693,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_container: {
         width: '100%',
-        height: '600px',
+        height: '100vh',
         backgroundColor: '#040404',
         position: 'relative'
     },
@@ -1720,7 +1720,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_inner_container: {
         width: '100%',
-        height: '600px',
+        height: '100vh',
         padding: '0px 0% 0px 0%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1730,7 +1730,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMaxContainer: {
         width: '100%',
-        height: '600px',
+        height: '100vh',
         position: 'relative',
         cursor: 'pointer',
         display: 'none'
@@ -1738,7 +1738,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMiniContainer: {
         width: '100%',
-        height: '200px',
+        height: '33.3vh',
         marginBottom: '0px',
         position: 'relative',
         cursor: 'pointer'
