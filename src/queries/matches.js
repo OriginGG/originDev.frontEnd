@@ -9,6 +9,15 @@ export const createRecentMatchQuery = gql`mutation createRecentMatch($organisati
     }
   }
 }`;
+
+export const updateRecentMatchQuery = gql`mutation upd($id: Int!, $url: String!) {
+  updateRecentmatchById(input: {id: $id, recentmatchPatch: {gameLogo: $url}}) {
+    recentmatch {
+      id
+    }
+  }
+}`;
+
 export const deleteRecentMatchQuery = gql`mutation deleteRecentMatch($id: Int!) {
   deleteRecentmatchById(input: {id: $id}) {
     recentmatch {
