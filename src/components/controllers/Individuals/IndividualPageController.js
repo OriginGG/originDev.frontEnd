@@ -220,14 +220,17 @@ class ModalContent extends Component {
     uploadtoS3 = (f) => {
         return new Promise((resolve) => {
             if (f) {
+                const subDomain = `_${this.state.username}_`;
+                const theme = '';
+                const fn = 'ind_profile_pic';
                 const formData = new FormData();
                 formData.append('images', f);
-                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/individuals`, formData, {
+                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((x) => {
-                    resolve(x.data.Location);
+                    resolve(x.data.url);
                 });
             } else {
                 resolve(null);

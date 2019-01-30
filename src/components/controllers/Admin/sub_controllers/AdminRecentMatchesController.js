@@ -55,7 +55,6 @@ class AdminRecentMatchesController extends Component {
             formData.append('images', this.logo_files);
             try {
                 const x = await axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
-                    // await axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
