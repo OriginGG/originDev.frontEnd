@@ -118,7 +118,7 @@ class SponsorBlock extends Component {
                     'Content-Type': 'multipart/form-data'
                 }
             }).then((x) => {
-                resolve(x.data.secure_url);
+                resolve(this.props.appManager.insertCloudinaryOptions(x.data.secure_url));
             });
         });
     }
