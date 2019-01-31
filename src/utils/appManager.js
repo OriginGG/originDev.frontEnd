@@ -96,7 +96,7 @@ class AppManager {
     }
 
     insertCloudinaryOptions = (u) => {
-        const opts = `${process.env.REACT_CLOUDINARY_URL_OPTIONS}/`;
+        const opts = `${process.env.REACT_APP_CLOUDINARY_URL_OPTIONS}/`;
         const position = u.indexOf('upload/') + 7;
         const output = [u.slice(0, position), opts, u.slice(position)].join('');
         return output;
