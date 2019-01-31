@@ -221,8 +221,8 @@ class OrganizationStaffController extends Component {
                 instagram_style={instagram_style}
             /></div>);
         });
-        const s = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
-        const d = { background: 'url(https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg)', backgroundSize: 'cover' };
+        const s = { background: 'url(https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
+        const d = { background: 'url(https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg)', backgroundSize: 'cover' };
         const f = { backgroundColor: 'rgba(255,0,0,.7)' };
         let f_array = p_array;
         if (theme === 'felzec/light' || theme === 'enigma2/dark') {

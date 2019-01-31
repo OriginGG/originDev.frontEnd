@@ -199,7 +199,7 @@ class AdminProfileController extends Component {
             const logo_data = await this.uploadLogoToCloudinary();
             const s = toJS(this.props.uiStore.current_theme_structure);
             s.header.logo.imageData = logo_data.secure_url;
-            this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.Location;
+            this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.secure_url;
             try {
                 const theme_id = this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id;
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: theme_id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
@@ -264,24 +264,13 @@ class AdminProfileController extends Component {
             this.props.appManager.networkError();
         }
     }
-    uploadLogo = () => {
-        return new Promise((resolve) => {
-            const formData = new FormData();
-            formData.append('images', this.logo_files);
-            axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((x) => {
-                resolve(x.data);
-            });
-        });
-    }
     uploadLogoToCloudinary = () => {
         return new Promise((resolve) => {
+            const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
             const formData = new FormData();
             formData.append('images', this.logo_files);
-            axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload/?sub_domain=${this.props.uiStore.current_organisation.subDomain}&theme=${this.props.uiStore.current_organisation.themeId}&force_name=company_logo`, formData, {
+            const theme = '';
+            axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload/?sub_domain=${subDomain}&theme=${theme}&force_name=company_logo`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

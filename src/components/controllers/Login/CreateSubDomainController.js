@@ -43,7 +43,7 @@ class CreateSubDomainController extends Component {
                 borderColor: 'white',
             };
             this.current_theme = 'dark';
-            const logo_url = 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/sponsor-logo1.png';
+            const logo_url = 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889867/sponsor-logo1.png';
             this.setState({ theme1_select_style: s, visible: true, image_src: logo_url });
             document.getElementById('origin_loader').style.display = 'none';
         }
@@ -108,7 +108,6 @@ class CreateSubDomainController extends Component {
                 this.domain_name = this.domain_name.toLowerCase();
 
                 // console.log(`domain name = ${this.domain_name}`);
-
                 // const logo_data = await this.uploadLogo();
                 const p = toJS(this.props.uiStore.origin_theme_structure);
                 p.header.logo.imageData = this.state.image_src;
@@ -144,29 +143,29 @@ class CreateSubDomainController extends Component {
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
                         organisationId: new_org.resultData.organisationAccount.id,
-                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                        hrefLink: 'http://origin.gg',
+                        imageUrl: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+                        hrefLink: 'https://origin.gg',
                         name: 'Origin.GG',
                         description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
                         organisationId: new_org.resultData.organisationAccount.id,
-                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                        hrefLink: 'http://origin.gg',
+                        imageUrl: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+                        hrefLink: 'https://origin.gg',
                         name: 'Origin.GG',
                         description: ''
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
                         organisationId: new_org.resultData.organisationAccount.id,
-                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                        hrefLink: 'http://origin.gg',
+                        imageUrl: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+                        hrefLink: 'https://origin.gg',
                         name: 'Origin',
                         description: ''
                     });
                     await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
                         organisationId: new_org.resultData.organisationAccount.id,
-                        imageUrl: 'https://s3.amazonaws.com/origin-images/origin/sponsor_images/logoSameColor.png',
-                        hrefLink: 'http://origin.gg',
+                        imageUrl: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+                        hrefLink: 'https://origin.gg',
                         name: 'Origin.GG',
                         description: ''
                     });
@@ -216,9 +215,9 @@ class CreateSubDomainController extends Component {
         return (
             <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
                 <CreateSubDomainComponentRender
-                    dark_theme_image_src="https://s3.amazonaws.com/origin-images/origin/dark-theme.jpg"
-                    light_theme_image_src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg"
-                    header_image_src="https://s3.amazonaws.com/origin-images/origin/logo-top.png"
+                    dark_theme_image_src="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889228/dark-theme.jpg"
+                    light_theme_image_src="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889272/light-theme.jpg"
+                    header_image_src="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548890076/logo-top.png"
                     handleDomainChange={this.handleDomainChange}
                     submitButton={btn}
                     // handleSubmit={this.handleSubmit}
