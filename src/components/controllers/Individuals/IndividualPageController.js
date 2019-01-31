@@ -203,11 +203,13 @@ class ModalContent extends Component {
         // upload files to s3 if they've changed.
         try {
             if (this.profile_files) {
-                pn = await this.uploadtoS3(this.profile_files);
+                pn = await this.uploadtoS3(this.profile_files, 'pf');
             }
             if (this.banner_files) {
-                bn = await this.uploadtoS3(this.banner_files);
+                bn = await this.uploadtoS3(this.banner_files, 'bf');
             }
+            this.profile_files = null;
+            this.banner_files = null;
             const p = Object.assign(this.state, {});
             p.input_values.bannerImageUrl = bn;
             p.input_values.profileImageUrl = pn;
@@ -217,10 +219,10 @@ class ModalContent extends Component {
         }
     }
 
-    uploadtoS3 = (f) => {
+    uploadtoS3 = (f, ex) => {
         return new Promise((resolve) => {
             if (f) {
-                const subDomain = `_${this.state.username}_`;
+                const subDomain = `_${this.state.input_values.username}_${ex}_`;
                 const theme = '';
                 const fn = 'ind_profile_pic';
                 const formData = new FormData();
