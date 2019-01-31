@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import axios from 'axios';
+import { isMobile } from 'react-device-detect';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { getYouTubeChannelsQuery } from '../../../../queries/youtube_channels';
@@ -167,6 +168,17 @@ class OrganizationMediaController extends Component {
         });
     }
 
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            // console.log('isMobile true');
+            return true;
+        }
+        // console.log('isMobile false');
+        return false;
+    }
+
     storeRef = ref => {
         this.scrollRef = ref;
     }
@@ -274,8 +286,13 @@ class OrganizationMediaController extends Component {
                 // console.log(`testing what it sorts as ${p_array.toString}`);
             });
         }
+        let m_style = { height: '320px' };
+        if (this.isMobile()) {
+            m_style = { height: '580px' };
+        }
         const m_title_color = { color: this.props.uiStore.current_organisation.primaryColor };
         return <OrganizationMediaComponentRender
+        mobile_height={m_style}
         handleLeftScroll={this.handleLeftScroll}
         handleRightScroll={this.handleRightScroll}
         handleYoutubeClick={this.handleYoutubeClick}
