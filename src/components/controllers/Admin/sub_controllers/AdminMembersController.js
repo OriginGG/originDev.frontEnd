@@ -10,6 +10,7 @@ import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
 import { searchIndividualUsersByHandleQuery } from '../../../../queries/individuals';
 import { getOrganisationMembersQuery, deleteOrganisaionMemberQuery } from '../../../../queries/members';
+import { deleteContentTeamQuery, getContentTeamQuery} from '../../../../queries/content_team';      // eslint-disable-line
 
 const { confirm } = Modal;
 
@@ -91,6 +92,16 @@ class AdminMembersController extends Component {
     deleteMember = async (id) => {
         const f = await this.showDeleteConfirm();
         if (f) {
+            const ct = await this.props.appManager.executeQuery('query', getContentTeamQuery, {
+                    memberId: id
+            });
+            await this.props.appManager.executeQuery(
+                'mutation', deleteContentTeamQuery,
+                {
+                    id: ct.allContentTeams.nodes[0].id
+                }
+            );
+            console.log(ct);
             await this.props.appManager.executeQuery(
                 'mutation', deleteOrganisaionMemberQuery,
                 {

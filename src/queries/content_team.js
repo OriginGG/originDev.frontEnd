@@ -18,3 +18,12 @@ export const deleteContentTeamQuery = gql`mutation deleteContentTeam($id: Int!) 
   }
 }`;
 
+
+export const getContentTeamQuery = gql`query getcteam($memberId: Int!) {
+  allContentTeams(condition: {memberId: $memberId}) {
+    nodes {
+      id
+    }
+  }
+}`;
+

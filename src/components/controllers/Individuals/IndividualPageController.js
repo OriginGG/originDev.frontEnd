@@ -203,11 +203,13 @@ class ModalContent extends Component {
         // upload files to s3 if they've changed.
         try {
             if (this.profile_files) {
-                pn = await this.uploadtoS3(this.profile_files);
+                pn = await this.uploadtoS3(this.profile_files, 'pf');
             }
             if (this.banner_files) {
-                bn = await this.uploadtoS3(this.banner_files);
+                bn = await this.uploadtoS3(this.banner_files, 'bf');
             }
+            this.profile_files = null;
+            this.banner_files = null;
             const p = Object.assign(this.state, {});
             p.input_values.bannerImageUrl = bn;
             p.input_values.profileImageUrl = pn;
@@ -217,17 +219,20 @@ class ModalContent extends Component {
         }
     }
 
-    uploadtoS3 = (f) => {
+    uploadtoS3 = (f, ex) => {
         return new Promise((resolve) => {
             if (f) {
+                const subDomain = `_${this.state.input_values.username}_${ex}_`;
+                const theme = '';
+                const fn = 'ind_profile_pic';
                 const formData = new FormData();
                 formData.append('images', f);
-                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/individuals`, formData, {
+                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((x) => {
-                    resolve(x.data.Location);
+                    resolve(this.props.appManager.insertCloudinaryOptions(x.data.secure_url));
                 });
             } else {
                 resolve(null);
@@ -675,7 +680,7 @@ class IndividualPageController extends Component {
         }
         let bi = this.user_details.bannerImageUrl;
         if (!bi) {
-            bi = 'https://s3.amazonaws.com/origin-images/origin/jumbotron/section1-bg3.jpg';
+            bi = 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg';
         }
         return (
             <div>
