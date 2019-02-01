@@ -23,6 +23,10 @@ const { confirm } = Modal;
 class LoginController extends Component {
     state = { button_disabled: false, content_display: 'signup' };
     componentDidMount = () => {
+        const pg = this.props.appManager.GetQueryParams('t');
+        if (pg) {
+            this.setState({ content_display: pg });
+        }
         document.getElementById('origin_loader').style.display = 'none';
     }
     handleClick = () => {
