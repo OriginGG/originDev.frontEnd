@@ -198,8 +198,8 @@ class AdminProfileController extends Component {
             // const logo_data = await this.uploadLogo();
             const logo_data = await this.uploadLogoToCloudinary();
             const s = toJS(this.props.uiStore.current_theme_structure);
-            s.header.logo.imageData = logo_data.secure_url;
-            this.props.uiStore.current_theme_structure.header.logo.imageData = logo_data.secure_url;
+            s.header.logo.imageData = this.props.appManager.insertCloudinaryOptions(logo_data.secure_url);
+            this.props.uiStore.current_theme_structure.header.logo.imageData = this.props.appManager.insertCloudinaryOptions(logo_data.secure_url);
             try {
                 const theme_id = this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id;
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: theme_id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
