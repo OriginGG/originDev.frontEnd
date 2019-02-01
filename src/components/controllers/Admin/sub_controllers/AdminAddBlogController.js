@@ -38,6 +38,11 @@ class AdminAddBlogController extends Component {
     }
     handleSubmit = async () => {
         this.setState({ submitting: true });
+        const f = this.props.appManager.checkFileSizeLimit(this.logo_files);
+        if (!f) {
+            this.setState({ submitting: false });
+            return;
+        }
         const f_name = await this.uploadBlogMedia();
         const f_title = this.state.blog_title;
         const f_text = this.state.text;
