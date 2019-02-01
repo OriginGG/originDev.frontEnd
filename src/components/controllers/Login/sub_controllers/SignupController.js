@@ -13,7 +13,7 @@ import SignupComponentRender from '../../../render_components/signup/SignupCompo
 import { authenticateQuery, authenticateIndividualQuery } from '../../../../queries/login';
 import { createUserQuery, createIndividualUserQuery, getUserByEmailQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
 import { getIndividualUserByHandleQuery } from '../../../../queries/individuals';
-import { getOrganisationByIdQuery } from '../../../../queries/organisation';
+import { getOrganisationByIdQuery, getOrganisationByName } from '../../../../queries/organisation';
 import { createEmailRegistrationQuery, getEmailRegistrationQuery } from '../../../../queries/registrations';
 import historyStore from '../../../../utils/stores/browserHistory';
 
@@ -188,11 +188,13 @@ class LoginController extends Component {
                                 // console.log(`payload:-${d}`);
                                 const org = await this.props.appManager.executeQuery('query', getOrganisationByIdQuery, { id: organisationId });
                                 const organisation = org.organisationAccountById.subDomain;
+                                const named_org = await this.props.appManager.executeQuery('query', getOrganisationByName, { subdomain: organisation });
+                                console.log(named_org);
                                 if (subDomain === 'origin' && organisationId !== null) {
                                     const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
                                     window.location = u_string;
                                 }
-                                if (subDomain === 'origin' && !organisation) {
+                                if (subDomain === 'origin' && !organisationId) {
                                     if (authPayload.authenticate.resultData.isAdmin === false) {
                                         // it's an individual users, go to ind page.
                                         this.props.appManager.pouchStore('ind_authenticate', payload);
@@ -201,7 +203,7 @@ class LoginController extends Component {
                                         historyStore.push(`/createsubdomain?p=${payload}`);
                                     }
                                 }
-                                if (subDomain === authPayload.authenticate.resultData.organisation) {
+                                if (subDomain === named_org.getorganisationbyname.edges[0].node.subDomain) {
                                     // succesfully logged in store in pouch then change page.
                                     this.props.appManager.pouchStore('authenticate', authPayload);
                                     // await this.props.appManager.pouchStore('authenticate', authPayload);
