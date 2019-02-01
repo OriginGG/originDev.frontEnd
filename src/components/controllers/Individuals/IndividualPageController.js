@@ -203,9 +203,19 @@ class ModalContent extends Component {
         // upload files to s3 if they've changed.
         try {
             if (this.profile_files) {
+                const f = this.props.appManager.checkFileSizeLimit(this.profile_files);
+                if (!f) {
+                    uiStore.setSubmittingContent(false);
+                    return;
+                }
                 pn = await this.uploadtoS3(this.profile_files, 'pf');
             }
             if (this.banner_files) {
+                const f = this.props.appManager.checkFileSizeLimit(this.banner_files);
+                if (!f) {
+                    uiStore.setSubmittingContent(false);
+                    return;
+                }
                 bn = await this.uploadtoS3(this.banner_files, 'bf');
             }
             this.profile_files = null;

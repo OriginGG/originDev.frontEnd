@@ -186,6 +186,10 @@ class AdminThemeController extends Component {
             }
         } else {
             if (this.logo_files) {
+                const f = this.props.appManager.checkFileSizeLimit(this.logo_files);
+                if (!f) {
+                    return;
+                }
                 const lf = await this.uploadtoCloudinary(this.state.image_type);
                 if (this.state.image_type === 'jumbo') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
