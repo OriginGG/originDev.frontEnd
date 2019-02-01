@@ -1764,6 +1764,17 @@ export const GlobalStyles = GlobalTheme => ({
         textOverflow: 'ellipsis'
     },
 
+    enigma2_large_news_text: {
+        textAlign: 'left',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
     enigma2_mini_news_text: {
         textAlign: 'left',
         height: '30px',
@@ -3426,6 +3437,15 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'left',
         fontSize: '20px',
         lineHeight: '30px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    enigma2_large_news_title: {
+        textAlign: 'left',
+        fontSize: '48px',
+        lineHeight: '60px',
         color: 'white',
         fontWeight: '900',
         textTransform: 'uppercase'
