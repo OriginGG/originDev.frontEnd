@@ -26,6 +26,7 @@ class LightOrganizationPageComponentRender extends Component {
                         }}>{this.props.rosterContent}</div>
                         <footer className={this.props.classes.felzec_darkFooter} style={this.props.felzec_footer_style}>
                             <div >{this.props.footerContent}</div>
+                            <div className={this.props.classes.universal_footer_dark}>Website by OriginGG</div>
                         </footer>
                     </div>
                 </div>

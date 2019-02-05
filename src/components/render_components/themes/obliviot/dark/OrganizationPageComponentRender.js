@@ -74,6 +74,7 @@ class DarkOrganizationPageComponentRender extends Component {
                     <div className={this.props.classes.obliviot_orgFooter}>
                         <p className={this.props.classes.obliviot_orgFooterText}>© Origin. All rights reserved.</p>
                     </div>
+                    <div className={this.props.classes.universal_footer_dark}>Website by OriginGG</div>
                 </div>
             </div>
         )
