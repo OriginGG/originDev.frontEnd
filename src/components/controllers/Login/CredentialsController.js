@@ -25,7 +25,7 @@ export class SignupOrg extends Component {
 export class SignupInd extends Component {
     render() {
         return (<div>
-            <CredentialsController headerComponent={HeaderOrg} bodyComponent={<SignupControllerInd />} />
+            <CredentialsController headerComponent={HeaderInd} bodyComponent={<SignupControllerInd />} />
         </div>);
     }
 }
