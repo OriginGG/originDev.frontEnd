@@ -29,26 +29,26 @@ import dragonball_image from '../../../../assets/images/game_images/dragonball.p
 import tekken_image from '../../../../assets/images/game_images/tekken.png';
 // banners
 import coc_banner from '../../../../assets/images/game_images/coc_banner.jpg';
-import cod_banner from '../../../../assets/images/game_images/cod_banner.jpeg';
+import cod_banner from '../../../../assets/images/game_images/cod_banner.jpg';
 import dota_banner from '../../../../assets/images/game_images/dota2_banner.jpg';
-import csgo_banner from '../../../../assets/images/game_images/csgo_banner.jpg';
-import fortnite_banner from '../../../../assets/images/game_images/fortnite_banner.png';
+import csgo_banner from '../../../../assets/images/game_images/csgo_banner.png';
+import fortnite_banner from '../../../../assets/images/game_images/fortnite_banner.jpg';
 import hearthstone_banner from '../../../../assets/images/game_images/hearthstone_banner.jpg';
 import lol_banner from '../../../../assets/images/game_images/lol_banner.jpg';
 import paladins_banner from '../../../../assets/images/game_images/paladins_banner.jpg';
 import ow_banner from '../../../../assets/images/game_images/ow_banner.jpg';
 import pubg_banner from '../../../../assets/images/game_images/pubg_banner.png';
-import smite_banner from '../../../../assets/images/game_images/smite_banner.jpeg';
+import smite_banner from '../../../../assets/images/game_images/smite_banner.png';
 import splatoon_banner from '../../../../assets/images/game_images/splatoon_banner.jpg';
-import destiny_banner from '../../../../assets/images/game_images/destiny_banner.jpg';
+import destiny_banner from '../../../../assets/images/game_images/destiny_banner.png';
 import vainglory_banner from '../../../../assets/images/game_images/vainglory_banner.jpg';
 import wow_banner from '../../../../assets/images/game_images/wow_banner.jpg';
 import r6_banner from '../../../../assets/images/game_images/r6_banner.jpg';
 import gow_banner from '../../../../assets/images/game_images/gow_banner.jpeg';
 import streetfighter_banner from '../../../../assets/images/game_images/streetfighter_banner.jpg';
-import ssb_banner from '../../../../assets/images/game_images/ssb_banner.jpg';
+import ssb_banner from '../../../../assets/images/game_images/ssb_banner.png';
 import dragonball_banner from '../../../../assets/images/game_images/dragonball_banner.jpg';
-import tekken_banner from '../../../../assets/images/game_images/tekken_banner.png';
+import tekken_banner from '../../../../assets/images/game_images/tekken_banner.jpg';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [

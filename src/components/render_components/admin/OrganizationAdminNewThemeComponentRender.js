@@ -33,7 +33,7 @@ class OrganizationAdminThemeComponentRender extends Component {
                         <div className={this.props.classes.admin_theme_display_text}>Felzek</div>
                     </div>
                     <div className={this.props.classes.admin_theme_display_container} style={this.props.enigma2_dark_style} onClick={this.props.handleEnigma2DarkClick}>
-                        <img className={this.props.classes.admin_theme_display_image} src={this.props.felzec_light_image}/>
+                        <img className={this.props.classes.admin_theme_display_image} src={this.props.enigma2_dark_image}/>
                         <div className={this.props.classes.admin_theme_display_text}>Enigma2</div>
                     </div>
                 </div>

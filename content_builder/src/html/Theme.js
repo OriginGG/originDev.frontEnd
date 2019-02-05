@@ -1118,7 +1118,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     darkEnigma2BG: {
-        maxWidth: '1400px',
+        maxWidth: '2500px',
         minHeight: '100vh',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -1638,6 +1638,32 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     // ***************************************************************
+    // Universal footers
+    // ***************************************************************
+
+    universal_footer_dark: {
+        width: '100%',
+        height: '80px',
+        lineHeight: '80px',
+        textAlign: 'center',
+        fontSize: '18px',
+        color: 'white',
+        fontWeight: '900',
+        backgroundColor: 'black'
+    },
+
+    universal_footer_light: {
+        width: '100%',
+        height: '80px',
+        lineHeight: '80px',
+        textAlign: 'center',
+        fontSize: '18px',
+        color: 'black',
+        fontWeight: '900',
+        backgroundColor: 'white'
+    },
+
+    // ***************************************************************
     // Enigma2
     // ***************************************************************
 
@@ -1667,6 +1693,8 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '18px',
         fontWeight: '900',
         cursor: 'pointer',
+        fontFamily: 'nimbus-sans-condensed,light,sans-serif',
+        textTransform: 'uppercase',
         padding: '0px 10px 0px 10px',
         borderBottomStyle: 'solid',
         borderBottomWidth: '2px',
@@ -1691,7 +1719,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_container: {
         width: '100%',
-        height: '600px',
+        height: '90vh',
         backgroundColor: '#040404',
         position: 'relative'
     },
@@ -1718,7 +1746,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_inner_container: {
         width: '100%',
-        height: '600px',
+        height: '90vh',
         padding: '0px 0% 0px 0%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1728,7 +1756,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMaxContainer: {
         width: '100%',
-        height: '600px',
+        height: '90vh',
         position: 'relative',
         cursor: 'pointer',
         display: 'none'
@@ -1736,7 +1764,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMiniContainer: {
         width: '100%',
-        height: '200px',
+        height: '30vh',
         marginBottom: '0px',
         position: 'relative',
         cursor: 'pointer'
@@ -1752,6 +1780,17 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     enigma2_light_news_text: {
+        textAlign: 'left',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_large_news_text: {
         textAlign: 'left',
         height: '50px',
         lineHeight: '50px',
@@ -3424,6 +3463,15 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'left',
         fontSize: '20px',
         lineHeight: '30px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    enigma2_large_news_title: {
+        textAlign: 'left',
+        fontSize: '48px',
+        lineHeight: '60px',
         color: 'white',
         fontWeight: '900',
         textTransform: 'uppercase'

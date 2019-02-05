@@ -29,7 +29,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflowY: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <p className={this.props.classes.enigma2_light_news_text}>NEWS</p>
+                                            <p className={this.props.classes.enigma2_large_news_text}>NEWS</p>
                                         </div>
                                         <div style={{
                                             width: '100%',
@@ -39,7 +39,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <span className={this.props.classes.enigma2_light_news_title}>{this.props.blog_title_1}</span>
+                                            <span className={this.props.classes.enigma2_large_news_title}>{this.props.blog_title_1}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +58,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflowY: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <p className={this.props.classes.enigma2_light_news_text}>NEWS</p>
+                                            <p className={this.props.classes.enigma2_large_news_text}>NEWS</p>
                                         </div>
                                         <div style={{
                                             width: '100%',
@@ -68,7 +68,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <span className={this.props.classes.enigma2_light_news_title}>{this.props.blog_title_2}</span>
+                                            <span className={this.props.classes.enigma2_large_news_title}>{this.props.blog_title_2}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflowY: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <p className={this.props.classes.enigma2_light_news_text}>NEWS</p>
+                                            <p className={this.props.classes.enigma2_large_news_text}>NEWS</p>
                                         </div>
                                         <div style={{
                                             width: '100%',
@@ -97,7 +97,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis'
                                         }}>
-                                            <span className={this.props.classes.enigma2_light_news_title}>{this.props.blog_title_3}</span>
+                                            <span className={this.props.classes.enigma2_large_news_title}>{this.props.blog_title_3}</span>
                                         </div>
                                     </div>
                                 </div>

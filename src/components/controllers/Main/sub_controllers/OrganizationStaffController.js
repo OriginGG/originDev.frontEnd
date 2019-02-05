@@ -20,7 +20,7 @@ class OrganizationStaffController extends Component {
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
         let OrganizationAboutModalMobileComponentRender = null;
-        if (theme === 'felzec/light') {
+        if (theme === 'felzec/light' || theme === 'enigma2/dark') {
             OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
         }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { organisationId: this.props.uiStore.current_organisation.id, rosterType: 'staff' });
@@ -40,7 +40,7 @@ class OrganizationStaffController extends Component {
             p_array = p_array.concat(ed_array);
         }
         const temp_style = { display: 'none' };
-        if (theme === 'felzec/light') {
+        if (theme === 'felzec/light' || theme === 'enigma2/dark') {
             this.setState({
                 roster_list: p_array,
                 felzec_overlay_style: temp_style,
@@ -225,7 +225,7 @@ class OrganizationStaffController extends Component {
         const d = { background: 'url(https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg)', backgroundSize: 'cover' };
         const f = { backgroundColor: 'rgba(255,0,0,.7)' };
         let f_array = p_array;
-        if (theme === 'felzec/light') {
+        if (theme === 'felzec/light' || theme === 'enigma2/dark') {
             f_array = [];
         }
         // console.log(`currennt_org = ${JSON.stringify(this.props.uiStore.current_organisation)}`);
