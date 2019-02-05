@@ -99,7 +99,7 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
     tabular_menu_item_active: {
-        width: '50%',
+        width: '100%',
         height: '54px',
         lineHeight: '54px',
         backgroundColor: 'rgb(102,102,102)',
