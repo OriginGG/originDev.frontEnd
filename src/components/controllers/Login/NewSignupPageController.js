@@ -22,12 +22,12 @@ class NewSignupPageController extends Component {
         const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: parseInt(d.id, 10) });
         const u = user.resultData;
         if (u.authenticated === true && ar.organisation !== null) {
-            toast.error(`${ar.organisation} is already registered - Redirecting you to login page in 5 seconds`, {
+            toast.error(`${ar.organisation} is already registered - Redirecting you to credentials page in 5 seconds`, {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 5000
             });
             setTimeout(() => {
-                historyStore.push('/signup');
+                historyStore.push('/signup_ind');
             }, 5000);
         } else {
             const payload = {

@@ -3,16 +3,11 @@ import { inject } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-// import FullStory from 'react-fullstory';
-// import { authenticateQuery } from './queries/login';
 import AppController from './AppController';
-import SignupChoiceController from './components/controllers/Login/SignupChoiceController';
-import SignupPageController from './components/controllers/Login/SignupPageController';
-import SignupIndividualController from './components/controllers/Login/SignupIndividualController';
-// import LoginPageController from './components/controllers/Login/LoginPageController';
-// import LoginIndividualController from './components/controllers/Login/LoginIndividualController';
-import NewSignupPageController from './components/controllers/Login/NewSignupPageController';
+// import SignupPageController from './components/controllers/Login/SignupPageController';
 import PasswordPageController from './components/controllers/Login/PasswordPageController';
+// complete signup
+import NewSignupPageController from './components/controllers/Login/NewSignupPageController';
 import NewSignupIndividualPageController from './components/controllers/Login/NewSignupIndividualPageController';
 import OrganizationPageController from './components/controllers/Main/OrganizationPageController';
 import AdminPageController from './components/controllers/Admin/AdminController';
@@ -21,11 +16,11 @@ import { GlobalStyles } from './utils/themes/Theme';
 import './App.css';
 import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
 // import OriginLandingPageController from './components/controllers/Login/OriginLandingPageController';
-
+import { SignupInd, SignupOrg, LoginInd, LoginOrg } from './components/controllers/Login/CredentialsController';
 // Test
 
-
 const reload = () => window.location.reload();
+
 
 class App extends Component {
     render() {
@@ -33,11 +28,10 @@ class App extends Component {
             <div>
                 {/* {process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)} */}
                 <Route exact path="/" component={AppController} />
-                <Route exact path="/signup" component={SignupChoiceController} />
-                <Route exact path="/signup_org" component={SignupPageController} />
-                <Route exact path="/signup_ind" component={SignupIndividualController} />
-                {/* <Route exact path="/login_org" component={LoginPageController} /> */}
-                {/* <Route exact path="/login_ind" component={LoginIndividualController} /> */}
+                <Route exact path="/signup_org" component={SignupOrg} />
+                <Route exact path="/signup_ind" component={SignupInd} />
+                <Route exact path="/login_org" component={LoginOrg} />
+                <Route exact path="/login_ind" component={LoginInd} />
                 <Route exact path="/new_signup" component={NewSignupPageController} />
                 <Route exact path="/password" component={PasswordPageController} />
                 <Route exact path="/new_signup_ind" component={NewSignupIndividualPageController} />

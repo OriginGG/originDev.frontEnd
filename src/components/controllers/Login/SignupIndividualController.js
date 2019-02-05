@@ -5,7 +5,7 @@ import { inject } from 'mobx-react';
 import { Header } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
 import SignupPageComponentRender from '../../render_components/signup/SignupPageComponentRender';
-import SignupController from './sub_controllers/SignupController';
+import SignupController from './SignupControllerOrg';
 import logoTop from '../../../assets/images/logo-top.png';
 
 

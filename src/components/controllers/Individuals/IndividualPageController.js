@@ -400,7 +400,7 @@ class IndividualPageController extends Component {
                             autoClose: 5000
                         });
                         setTimeout(() => {
-                            browserHistory.push('/signup');
+                            browserHistory.push('/signup_ind');
                         }, 5000);
                         return;
                     }
@@ -411,7 +411,7 @@ class IndividualPageController extends Component {
                             autoClose: 5000
                         });
                         setTimeout(() => {
-                            browserHistory.push('/signup');
+                            browserHistory.push('/signup_ind');
                         }, 5000);
                     } else {
                         this.authPayload = p;
@@ -427,7 +427,7 @@ class IndividualPageController extends Component {
                         browserHistory.push(`/individual/${user.individualUserById.username}`);
                     }
                 } else {
-                    browserHistory.push('/signup');
+                    browserHistory.push('/signup_ind');
                 }
             }
         }
@@ -509,7 +509,7 @@ class IndividualPageController extends Component {
     }
     handleLoginClick = () => {
         // console.log('clickd login');
-        browserHistory.push('/signup_ind?t=login');
+        browserHistory.push('/login_ind');
     }
     closeModal = () => {
         this.setState({ modal_open: false });

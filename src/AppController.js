@@ -12,7 +12,6 @@ import './App.css';
 
 
 const pathsToIgnore = [
-    '/signup',
     '/password',
     '/landing',
     '/signup_org',
@@ -69,14 +68,14 @@ class AppController extends Component {
                     if (process.env.REACT_APP_ENVIRONMENT === 'production') {
                         window.location = `${u_string}/landing/index.html`;
                     } else {
-                        window.location = `${u_string}/signup`;
+                        window.location = `${u_string}/login_org`;
                     }
                 } else {
                     if (subDomain === 'origin') {
                         if (process.env.REACT_APP_ENVIRONMENT === 'production') {
                             window.location.href = '/landing/index.html';
                         } else {
-                            historyStore.push('/signup');
+                            historyStore.push('/login_org');
                         }
                     } else {
                         if (!admin) {
@@ -97,14 +96,14 @@ class AppController extends Component {
                 const domainInfo = this.props.appManager.getDomainInfo();
                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                 if (!domainInfo) {
-                    historyStore.push('/signup');
+                    historyStore.push('/signup_org');
                 } else {
                     const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
                     if (o.resultData === null) {
                         const { hostname } = domainInfo;
                         const new_host = hostname.replace(`${subDomain}.`, '');
                         const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                        window.location = `${u_string}/signup`;
+                        window.location = `${u_string}/`;
                     } else {
                         const auth = this.props.appManager.pouchGet('authenticate');
                         // const auth = await this.props.appManager.pouchGet('authenticate');
@@ -124,13 +123,13 @@ class AppController extends Component {
                                 const { hostname } = domainInfo;
                                 const new_host = hostname.replace(`${subDomain}.`, '');
                                 const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                                window.location = `${u_string}/signup`;
+                                window.location = `${u_string}/signup_org`;
                             }
                         } else {
                             const { hostname } = domainInfo;
                             const new_host = hostname.replace(`${subDomain}.`, '');
                             const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                            window.location = `${u_string}/signup`;
+                            window.location = `${u_string}/signup_org`;
                         }
                     }
                 }
