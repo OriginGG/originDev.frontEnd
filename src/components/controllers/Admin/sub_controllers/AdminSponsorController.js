@@ -71,10 +71,18 @@ class SponsorBlock extends Component {
     handleSubmit = async () => {
         let sponsor_image = this.sponsor_image_old;
         if (this.sponsor_image_old !== this.state.sponsor_image) {
+            const f = this.props.appManager.checkFileSizeLimit(this.logo_file);
+            if (!f) {
+                return;
+            }
             sponsor_image = await this.uploadSponsorMedia('foreground');
         }
         let sponsor_bg_image = this.sponsor_bg_image_old;
         if (this.sponsor_bg_image_old !== this.state.sponsor_bg_image) {
+            const f = this.props.appManager.checkFileSizeLimit(this.logo_file_bg);
+            if (!f) {
+                return;
+            }
             sponsor_bg_image = await this.uploadSponsorMedia('background');
         }
         if (this.state.input_http_link_value) {

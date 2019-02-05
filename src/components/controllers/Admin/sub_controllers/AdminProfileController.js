@@ -196,6 +196,10 @@ class AdminProfileController extends Component {
         }
         if (this.upload_file) {
             // const logo_data = await this.uploadLogo();
+            const f = this.props.appManager.checkFileSizeLimit(this.logo_files);
+            if (!f) {
+                return;
+            }
             const logo_data = await this.uploadLogoToCloudinary();
             const s = toJS(this.props.uiStore.current_theme_structure);
             s.header.logo.imageData = this.props.appManager.insertCloudinaryOptions(logo_data.secure_url);

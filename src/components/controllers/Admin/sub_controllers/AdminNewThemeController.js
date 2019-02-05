@@ -186,6 +186,10 @@ class AdminThemeController extends Component {
             }
         } else {
             if (this.logo_files) {
+                const f = this.props.appManager.checkFileSizeLimit(this.logo_files);
+                if (!f) {
+                    return;
+                }
                 const lf = await this.uploadtoCloudinary(this.state.image_type);
                 if (this.state.image_type === 'jumbo') {
                     this.props.uiStore.current_theme_structure.main_section.background.imageData = lf;
@@ -341,7 +345,7 @@ class AdminThemeController extends Component {
             enigma_light_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889272/light-theme.jpg"
             obliviot_dark_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889302/obliviot-dark-theme.jpg"
             obliviot_light_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889350/obliviot-light-theme.jpg"
-            felzec_light_image="http://res.cloudinary.com/origingg/image/upload/dpr_3,e_sharpen:80/v1546274092/image-2018-12-30-13-56-15-366.webp"
+            felzec_light_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1546274092/image-2018-12-30-13-56-15-366.png"
         />;
         if (this.state.modal_open) {
             md = <div>
