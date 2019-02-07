@@ -8,7 +8,7 @@ const fs = require('fs-extra')
 
 
 const component_array = [
-    { source_html: './src/html/themes/base/SignupPageComponent.html', sub_dir: 'signup' },
+    { source_html: './src/html/themes/base/CredentialsComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/themes/base/SignupComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/themes/base/SignupChoiceComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/themes/base/LoginComponent.html', sub_dir: 'signup' },

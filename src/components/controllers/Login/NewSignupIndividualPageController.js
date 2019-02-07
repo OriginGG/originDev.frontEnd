@@ -38,12 +38,12 @@ class NewSignupIndividualPageController extends Component {
         // }
         if (u) {
             if (u.authenticated === true) {
-                toast.error(`${u.email} is already registered - Redirecting you to login page in 5 seconds`, {
+                toast.error(`${u.email} is already registered - Redirecting you to credentials page in 5 seconds`, {
                     position: toast.POSITION.TOP_LEFT,
                     autoClose: 5000
                 });
                 setTimeout(() => {
-                    historyStore.push('/signup');
+                    historyStore.push('/signup_ind');
                 }, 5000);
             } else {
                 const payload = {

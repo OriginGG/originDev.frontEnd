@@ -99,7 +99,7 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
     tabular_menu_item_active: {
-        width: '50%',
+        width: '100%',
         height: '54px',
         lineHeight: '54px',
         backgroundColor: 'rgb(102,102,102)',
@@ -1635,6 +1635,32 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '400',
         color: '#FFF'
+    },
+
+    // ***************************************************************
+    // Universal footers
+    // ***************************************************************
+
+    universal_footer_dark: {
+        width: '100%',
+        height: '80px',
+        lineHeight: '80px',
+        textAlign: 'center',
+        fontSize: '18px',
+        color: 'white',
+        fontWeight: '900',
+        backgroundColor: 'black'
+    },
+
+    universal_footer_light: {
+        width: '100%',
+        height: '80px',
+        lineHeight: '80px',
+        textAlign: 'center',
+        fontSize: '18px',
+        color: 'black',
+        fontWeight: '900',
+        backgroundColor: 'white'
     },
 
     // ***************************************************************
