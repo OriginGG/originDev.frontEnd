@@ -11,7 +11,6 @@ class SignupComponentRender extends Component {
                 <div id="sign_up" className={this.props.classes.signupModal}>
                     <div className={this.props.classes.tabular_menu}>
                         <div className={this.props.classes.tabular_menu_item_active}>Sign Up</div>
-                        <div className={this.props.classes.tabular_menu_item} onClick={this.props.handleClick}>Sign In</div>
                     </div>
                     <div className={this.props.classes.signupModalContent}>
                         <form className="ui large form" onSubmit={this.props.handleSubmit}>

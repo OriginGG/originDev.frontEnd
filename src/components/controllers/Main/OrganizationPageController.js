@@ -96,7 +96,7 @@ class OrganizationPageController extends Component {
             this.show_blog = b.resultData;
         }
         if (subDomain === 'origin') {
-            historyStore.push('/signup');
+            historyStore.push('/signup_org');
         } else {
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
             if (o.resultData && o.resultData.nodes.length === 0) {
@@ -385,7 +385,7 @@ class OrganizationPageController extends Component {
         if (this.inIframe()) {
             parent.postMessage({ command: 'link', id: 'login' }, "*");           // eslint-disable-line
         } else {
-            historyStore.push('/signup_org?t=login');
+            historyStore.push('/login_org');
         }
     }
     isMenuOpen = (state) => {
