@@ -72,7 +72,7 @@ class AppController extends Component {
                     }
                 } else {
                     if (subDomain === 'origin') {
-                        if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+                        if (process.env.REACT_APP_ENVIRONMENT === 'production' || process.env.REACT_APP_ENVIRONMENT === 'development') {
                             window.location.href = '/landing/index.html';
                         } else {
                             historyStore.push('/login_org');
