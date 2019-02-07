@@ -65,7 +65,7 @@ class AppController extends Component {
                         u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
                         console.log(u_string);
                     }
-                    if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+                    if (process.env.REACT_APP_ENVIRONMENT === 'production' || process.env.REACT_APP_ENVIRONMENT === 'development') {
                         window.location = `${u_string}/landing/index.html`;
                     } else {
                         window.location = `${u_string}/login_org`;
