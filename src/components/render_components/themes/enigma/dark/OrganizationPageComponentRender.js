@@ -9,7 +9,7 @@ class DarkOrganizationPageComponentRender extends Component {
         return (
             <div className={this.props.classes.darkMainBG}>
                 <div className={this.props.classes.dark_pageTestContraint}>
-                    <header className={this.props.classes.darkHeader}>
+                    <header className={this.props.classes.newDarkHeader}>
                         <div id="dark_header">
                             <div >{this.props.topSponsorContent}</div>
                         </div>

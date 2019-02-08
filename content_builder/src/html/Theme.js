@@ -434,6 +434,17 @@ export const GlobalStyles = GlobalTheme => ({
         background: 'rgb(255,255,255)',
         borderBottom: '5px solid white'
     },
+    newObliviotHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
+        top: '0',
+        left: '0',
+        background: 'rgb(255,255,255)',
+        borderBottom: '5px solid white'
+    },
     obliviotHeaderInner: {
         width: '50%',
         height: '40px'
@@ -3946,6 +3957,17 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
         position: 'fixed',
+        top: '0',
+        left: '0',
+        background: 'rgb(6,6,6)',
+        borderBottom: '5px solid black'
+    },
+    newDarkHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
         top: '0',
         left: '0',
         background: 'rgb(6,6,6)',
