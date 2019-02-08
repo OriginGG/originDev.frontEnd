@@ -140,7 +140,11 @@ class _CreditController extends Component {
                             {...createOptions(this.props.fontSize)}
                         />
                     </label>
-                    <div>
+                    <label>
+                        Code
+                        <input />
+                    </label>
+                    <div style={{ paddingTop: 24 }}>
                         <Button size="mini" primary>START FREE TRIAL</Button>
                         <Button onClick={this.props.handleBack} size="mini" style={{ float: 'right' }}>BACK</Button>
                     </div>

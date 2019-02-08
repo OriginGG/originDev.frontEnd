@@ -10,7 +10,6 @@ class LoginComponentRender extends Component {
             <div>
                 <div id="login" className={this.props.classes.signupModal}>
                     <div className={this.props.classes.tabular_menu}>
-                        <div className={this.props.classes.tabular_menu_item} onClick={this.props.handleClick}>Sign Up</div>
                         <div className={this.props.classes.tabular_menu_item_active}>Sign In</div>
                     </div>
                     <div className={this.props.classes.signupModalContent}>

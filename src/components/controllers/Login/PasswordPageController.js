@@ -193,7 +193,11 @@ class PasswordPageController extends Component {
             autoClose: 5000
         });
         setTimeout(() => {
-            historyStore.push('/signup');
+            if (!this.ind) {
+                historyStore.push('/login_org');
+            } else {
+                historyStore.push('/login_ind');
+            }
         }, 5000);
     }
     sendEmail = (url) => {
