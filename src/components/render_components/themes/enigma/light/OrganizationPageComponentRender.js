@@ -9,7 +9,7 @@ class ObliviotOrganizationPageComponentRender extends Component {
         return (
             <div className={this.props.classes.obliviotMainBG}>
                 <div className={this.props.classes.obliviot_pageTestContraint}>
-                    <header className={this.props.classes.obliviotHeader}>
+                    <header className={this.props.classes.newObliviotHeader}>
                         <div id="obliviot_header">
                             <div >{this.props.topSponsorContent}</div>
                         </div>
