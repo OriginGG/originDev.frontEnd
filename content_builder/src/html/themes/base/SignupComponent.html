@@ -75,6 +75,15 @@
                                         <div data-component-props="style={{ position: 'absolute', right: 0, marginTop: 13, marginRight: 30 }}" data-component-value="{this.props.touched.password && this.props.errors.password && <div style={{color: 'red'}} >{this.props.errors.password}</div>}">&nbsp;</div>
                                     </div>
                                 </div>
+                                <div class="classes.input_title">
+                                    Confirm Password
+                                </div>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.confirm_password}" class="classes.input_box" type="password" name="confirm_password" placeholder="Confirm Password" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="email" placeholder="E-mail address">
+                                        <div data-component-props="style={{ position: 'absolute', right: 0, marginTop: 13, marginRight: 30 }}" data-component-value="{this.props.touched.confirm_password && this.props.errors.confirm_password && <div style={{color: 'red'}} >{this.props.errors.confirm_password}</div>}">&nbsp;</div>
+                                    </div>
+                                </div>
                                 <div data-component-value="{this.props.createAccountButton}">
                                     <div class="ui fluid large teal submit button" style="background: #0a9ab4;font-size:18px;margin-top:40px;">Create an Account</div>
                                 </div>

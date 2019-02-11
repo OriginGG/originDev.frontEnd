@@ -55,6 +55,7 @@ class SignupControllerOrg extends Component {
                 initialValues={{
                     email: '',
                     password: '',
+                    confirm_password: '',
                     firstName: '',
                     lastName: '',
                     userName: ''
@@ -63,6 +64,11 @@ class SignupControllerOrg extends Component {
                     let disabled = false;
                     // same as above, but feel free to move this into a class method now.
                     const errors = {};
+                    if (values.password && values.confirm_password) {
+                        if (values.password !== values.confirm_password) {
+                            errors.confirm_password = 'Passwords do not match!';
+                        }
+                    }
                     if (!values.password) {
                         errors.password = 'Required';
                     }
@@ -76,7 +82,7 @@ class SignupControllerOrg extends Component {
                     ) {
                         errors.email = 'Invalid email address';
                     }
-                    if (errors.password || errors.email) {
+                    if (errors.password || errors.email || errors.confirm_password) {
                         disabled = true;
                     }
                     if (!values.password || !values.email) {
