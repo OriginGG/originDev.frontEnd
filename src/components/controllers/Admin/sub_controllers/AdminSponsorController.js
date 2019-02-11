@@ -112,11 +112,11 @@ class SponsorBlock extends Component {
         console.log(typ);
         const theme = '';
         const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
-        let fn = 'sponsor';
+        let fn = `sponsor_${this.props.element_id}_`;
         let f = this.logo_file;
         if (typ !== 'foreground') {
             f = this.logo_file_bg;
-            fn = 'sponsor_bg';
+            fn = `sponsor_bg_${this.props.element_id}`;
         }
         return new Promise((resolve) => {
             const formData = new FormData();

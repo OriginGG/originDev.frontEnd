@@ -141,7 +141,7 @@ class _CreditController extends Component {
                         />
                     </label>
                     <label>
-                        Code
+                        Promo Code
                         <input />
                     </label>
                     <div style={{ paddingTop: 24 }}>
