@@ -40,9 +40,11 @@ class OrganizationBlogListController extends Component {
         const OrganizationNewsComponentRender = comp.default;
         let m_comp = null;
         let  OrganizationNewsMobileComponentRender = null;
-        if (this.isMobile() && theme === 'felzec/light') {
-            m_comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsMobileComponentRender`);
-            OrganizationNewsMobileComponentRender = m_comp.default;
+        if (this.isMobile()) {
+            if (theme === 'felzec/light' || theme === 'enigma2/dark') {
+                m_comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsMobileComponentRender`);
+                OrganizationNewsMobileComponentRender = m_comp.default;
+            }
         }
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.blog_array = [];
