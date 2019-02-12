@@ -1888,7 +1888,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_media_filter_container: {
         width: '100%',
-        height: '320px',
+        height: '100%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2775,7 +2775,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     e2_media_container: {
         width: '100%',
-        height: '320px',
         backgroundColor: '#040404',
         position: 'relative'
     },
