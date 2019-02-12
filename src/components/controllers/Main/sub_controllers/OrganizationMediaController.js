@@ -197,7 +197,16 @@ class OrganizationMediaController extends Component {
         //     return null;
         // }
         const temp_bg = this.props.uiStore.current_theme_structure.main_section.background.imageMediaData;
-        const s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        let s = { background: `url(${temp_bg})`, backgroundSize: 'cover', filter: 'grayscale(100%)' };
+        if (this.isMobile()) {
+            console.log('it is mobile use 580 heigth');
+            s = {
+                background: `url(${temp_bg})`,
+                backgroundSize: 'cover',
+                filter: 'grayscale(100%)',
+                height: '580px'
+            };
+        }
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         let f = { backgroundColor: 'rgba(0,0,0,.8)' };
         if (theme === 'felzec/light') {
@@ -288,6 +297,7 @@ class OrganizationMediaController extends Component {
         }
         let m_style = { height: '320px' };
         if (this.isMobile()) {
+            console.log('it is mobile use 580 heigth');
             m_style = { height: '580px' };
         }
         const m_title_color = { color: this.props.uiStore.current_organisation.primaryColor };

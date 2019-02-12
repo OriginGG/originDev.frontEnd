@@ -35,6 +35,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     signupHeader: {
         backgroundColor: GlobalTheme.signupHeaderColor,
+        display: 'table',
+        width: '100%',
         padding: '15px'
     },
     signupBGImage: {
@@ -429,6 +431,17 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
         position: 'fixed',
+        top: '0',
+        left: '0',
+        background: 'rgb(255,255,255)',
+        borderBottom: '5px solid white'
+    },
+    newObliviotHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
         top: '0',
         left: '0',
         background: 'rgb(255,255,255)',
@@ -1877,7 +1890,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_media_filter_container: {
         width: '100%',
-        height: '320px',
+        height: '100%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2764,7 +2777,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     e2_media_container: {
         width: '100%',
-        height: '320px',
         backgroundColor: '#040404',
         position: 'relative'
     },
@@ -3946,6 +3958,17 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
         position: 'fixed',
+        top: '0',
+        left: '0',
+        background: 'rgb(6,6,6)',
+        borderBottom: '5px solid black'
+    },
+    newDarkHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
         top: '0',
         left: '0',
         background: 'rgb(6,6,6)',
