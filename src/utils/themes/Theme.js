@@ -35,6 +35,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     signupHeader: {
         backgroundColor: GlobalTheme.signupHeaderColor,
+        display: 'table',
+        width: '100%',
         padding: '15px'
     },
     signupBGImage: {
