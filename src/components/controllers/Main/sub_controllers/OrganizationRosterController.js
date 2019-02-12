@@ -16,13 +16,13 @@ class OrganizationRosterController extends Component {
         const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         let OrganizationRosterItemMobileComponentRender = null;
-        if (theme === 'felzec/light') {
+        if (theme === 'felzec/light' || theme === 'enigma2/dark') {
             OrganizationRosterItemMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemMobileComponentRender`);
         }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         const { edges } = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId;
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
-        if (theme === 'felzec/light') {
+        if (theme === 'felzec/light' || theme === 'enigma2/dark') {
             this.setState({
                 roster_list: edges,
                 visible: true,
@@ -146,6 +146,20 @@ class OrganizationRosterController extends Component {
                 youtube_style={youtube_style}
                 instagram_style={instagram_style}
             /></div>);
+            } else if (theme === 'enigma2/dark' && this.isMobile()) {
+                const { OrganizationRosterItemMobileComponentRender } = this.state;
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemMobileComponentRender
+                roster_nickname={individualUserByIndividualId.username}
+                roster_about={individualUserByIndividualId.about}
+                roster_name={individualUserByIndividualId.firstName}
+                roster_image={im}
+                ind_user={individualUserByIndividualId}
+                handle_social={this.handle_social}
+                twitter_style={twitter_style}
+                facebook_style={facebook_style}
+                youtube_style={youtube_style}
+                instagram_style={instagram_style}
+                /></div>);
             } else {
                 p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
                 roster_nickname={individualUserByIndividualId.username}
