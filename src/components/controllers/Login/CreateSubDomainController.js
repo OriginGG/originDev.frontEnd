@@ -146,16 +146,22 @@ class CreateSubDomainController extends Component {
 					const ax = await this.props.appManager.executeQuery('mutation', createUserQuery, {
 						id: this.user_id,
 						password: this.payload.password,
-                        firstName: this.payload.firstName,
-                        email: this.payload.email,
-                        lastName: this.payload.lastName,
-                        authenticated: false,
+						firstName: this.payload.firstName,
+						email: this.payload.email,
+						lastName: this.payload.lastName,
+						authenticated: false,
 						adminUser: true
-                    });
-                    this.authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, this.payload);
-                    const token = this.authPayload.authenticate.resultData.jwtToken;
-                    this.props.appManager.authToken = token;
-                    this.user_id = ax.registerUser.user.id;
+					});
+					// create a stripe customer as well.
+
+					this.authPayload = await this.props.appManager.executeQuery(
+						'mutation',
+						authenticateQuery,
+						this.payload
+					);
+					const token = this.authPayload.authenticate.resultData.jwtToken;
+					this.props.appManager.authToken = token;
+					this.user_id = ax.registerUser.user.id;
 					console.log(ax);
 
 					// then we authenticate, to get back an authoken
@@ -168,8 +174,9 @@ class CreateSubDomainController extends Component {
 					});
 					const org_id = new_org.resultData.organisationAccount.id;
 					await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, {
-						id: this.user_id,
-						organisationId: org_id,
+                        id: this.user_id,
+						subscribed: true,
+						organisationId: org_id
 					});
 					t.organisationId = org_id;
 					await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
@@ -213,7 +220,7 @@ class CreateSubDomainController extends Component {
 						name: 'Origin.GG',
 						description: ''
 					});
-                    await this.subcribeUser();
+					await this.subcribeUser();
 					const domainInfo = this.props.appManager.getDomainInfo();
 					const new_payload = Object.assign(this.authPayload, {});
 					new_payload.authenticate.resultData.organisationId = new_org.resultData.organisationAccount.id;
@@ -225,27 +232,58 @@ class CreateSubDomainController extends Component {
 			}
 			// create a domain and theme here.
 		}
-    };
-    subcribeUser = async () => {
-        // const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env.REACT_APP_STRIPE_PRODUCT_ID}`);
-        // const { data } = plans.data;
-        // // subscribe user to the yearly plan with a 14 day trial.
-        // this.props.stripe
-        //     .createToken()
-        //     .then(async (payload) => {
-        //         if (payload.error) {
-        //             toast.error(payload.error.message, {
-        //                 position: toast.POSITION.TOP_LEFT,
-        //                 autoClose: 3000
-        //             });
-        //         } else {
-        //             const response = await axios.post(
-        //                 `${process.env.REACT_APP_API_SERVER}/stripe/create_subscription`,
-        //                 {
-        //                     token: payload.token.id,
-        //                     customer_id: this.props.user_id,
-        //                 },
-    }
+	};
+	subcribeUser = async () => {
+		const plans = await axios.get(
+			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_plans?product=${process.env
+				.REACT_APP_STRIPE_PRODUCT_ID}`
+		);
+		const { data } = plans.data;
+
+        const customer = await axios.post(
+            `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
+            {
+                user_id: this.user_id,
+                email: this.payload.email
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+        await axios.post(
+            `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+            {
+                customer_id: customer.data.cust.id,
+                plan: data[0].id,
+                trial_period_days: data[0].trial_period_days
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+		// const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env.REACT_APP_STRIPE_PRODUCT_ID}`);
+		// const { data } = plans.data;
+		// // subscribe user to the yearly plan with a 14 day trial.
+		// this.props.stripe
+		//     .createToken()
+		//     .then(async (payload) => {
+		//         if (payload.error) {
+		//             toast.error(payload.error.message, {
+		//                 position: toast.POSITION.TOP_LEFT,
+		//                 autoClose: 3000
+		//             });
+		//         } else {
+		//             const response = await axios.post(
+		//                 `${process.env.REACT_APP_API_SERVER}/stripe/create_subscription`,
+		//                 {
+		//                     token: payload.token.id,
+		//                     customer_id: this.props.user_id,
+		//                 },
+	};
 	handleThemeClick = (t) => {
 		const s = {
 			border: '1px solid',

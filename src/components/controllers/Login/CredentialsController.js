@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'react-jss';
 // import { inject } from 'mobx-react';
+import PropTypes from 'prop-types';
 import { Header } from 'semantic-ui-react/dist/commonjs';
 // import { GlobalStyles } from 'Theme/Theme';
 import appManager from '../../../utils/appManager';
@@ -32,7 +33,7 @@ export class SignupInd extends Component {
 export class LoginOrg extends Component {
     render() {
         return (<div>
-            <CredentialsController headerComponent={HeaderOrg} bodyComponent={<LoginControllerOrg />} />
+            <CredentialsController headerComponent={HeaderOrg} bodyComponent={<LoginControllerOrg location={this.props.location} />} />
         </div>);
     }
 }
@@ -63,6 +64,10 @@ class CredentialsController extends Component {
         );
     }
 }
+
+LoginOrg.propTypes = {
+    location: PropTypes.object.isRequired,
+};
 
 
 export default CredentialsController;

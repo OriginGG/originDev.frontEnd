@@ -3,6 +3,7 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
+import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
@@ -130,19 +131,7 @@ class OrganizationPageController extends Component {
 				let subscribed = false;
 				if (user.allUsers.edges[0].node.subscribed !== null) {
 					subscribed = user.allUsers.edges[0].node.subscribed; // eslint-disable-line
-                }
-
-                if (!subscribed) {
-                    // are we still in trial period.
-                    const days = moment
-                        .duration(moment()
-                            .diff(moment(user.allUsers.edges[0].node.createdAt))
-                    ).asDays();
-                    if (days < process.env.REACT_APP_FREE_TRIAL_PERIOD_DAYS) {
-                        subscribed = true;
-                    }
-                }
-
+				}
 
 				const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore
 					.current_organisation.themeId}`;
@@ -574,6 +563,9 @@ class OrganizationPageController extends Component {
 			const st = { display: 'table', backgroundColor: `${menu_color}` };
 			this.setState({ felzec_menu: true, felzec_style: st });
 		}
+	};
+	handleLoginAndSubscribe = () => {
+		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
 	};
 	render() {
 		if (this.state.visible === false) {
@@ -1064,6 +1056,8 @@ class OrganizationPageController extends Component {
 								<div id="error_page" className="error_page_overlay">
 									<div
 										style={{
+											paddingLeft: 32,
+											paddingRight: 32,
 											textAlign: 'center',
 											lineHeight: '32px',
 											fontSize: 32,
@@ -1071,13 +1065,24 @@ class OrganizationPageController extends Component {
 											justifyContent: 'center'
 										}}
 									>
-										THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
+										THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
+										SUBSCRIBE.
 										<br />
-										CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+										OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
 										<br />
 										<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
 											support@origin.gg
 										</a>
+									</div>
+									<div
+										style={{
+											marginTop: 64,
+											textAlign: 'center',
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
 									</div>
 								</div>
 							</div>
