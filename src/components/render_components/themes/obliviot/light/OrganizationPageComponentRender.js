@@ -71,6 +71,7 @@ class LightOrganizationPageComponentRender extends Component {
                             <div >{this.props.navContent}</div>
                         </footer>
                     </div>
+                    <div id="email_component">{this.props.emailContent}</div>
                     <div className={this.props.classes.obliviot_orgFooter}>
                         <p className={this.props.classes.obliviot_orgFooterText}>© Origin. All rights reserved.</p>
                     </div>

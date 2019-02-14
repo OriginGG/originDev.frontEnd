@@ -36,6 +36,7 @@ const component_array = [
     { source_html: './src/html/themes/enigma/dark/OrganizationAboutPageComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationSponsersItemComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationSponsersPageComponent.html', sub_dir: 'themes/enigma/dark' },
+    { source_html: './src/html/themes/enigma/dark/OrganizationEmailComponent.html', sub_dir: 'themes/enigma/dark' },
 
     { source_html: './src/html/themes/enigma/light/OrganizationAboutModalComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationNewsModuleComponent.html', sub_dir: 'themes/enigma/light' },
@@ -59,6 +60,7 @@ const component_array = [
     { source_html: './src/html/themes/enigma/light/OrganizationAboutPageComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationSponsersItemComponent.html', sub_dir: 'themes/enigma/light' },
     { source_html: './src/html/themes/enigma/light/OrganizationSponsersPageComponent.html', sub_dir: 'themes/enigma/light' },
+    { source_html: './src/html/themes/enigma/light/OrganizationEmailComponent.html', sub_dir: 'themes/enigma/light' },
 
     { source_html: './src/html/themes/obliviot/dark/OrganizationAboutModalComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationNewsModuleComponent.html', sub_dir: 'themes/obliviot/dark' },
@@ -84,6 +86,7 @@ const component_array = [
     { source_html: './src/html/themes/obliviot/dark/OrganizationSponsersItemComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationSponsersPageComponent.html', sub_dir: 'themes/obliviot/dark' },
     { source_html: './src/html/themes/obliviot/dark/OrganizationRosterItemComponent.html', sub_dir: 'themes/obliviot/dark' },
+    { source_html: './src/html/themes/obliviot/dark/OrganizationEmailComponent.html', sub_dir: 'themes/obliviot/dark' },
 
     { source_html: './src/html/themes/obliviot/light/OrganizationAboutModalComponent.html', sub_dir: 'themes/obliviot/light' },
     { source_html: './src/html/themes/obliviot/light/OrganizationNewsModuleComponent.html', sub_dir: 'themes/obliviot/light' },
@@ -109,6 +112,7 @@ const component_array = [
     { source_html: './src/html/themes/obliviot/light/OrganizationSponsersItemComponent.html', sub_dir: 'themes/obliviot/light' },
     { source_html: './src/html/themes/obliviot/light/OrganizationSponsersPageComponent.html', sub_dir: 'themes/obliviot/light' },
     { source_html: './src/html/themes/obliviot/light/OrganizationRosterItemComponent.html', sub_dir: 'themes/obliviot/light' },
+    { source_html: './src/html/themes/obliviot/light/OrganizationEmailComponent.html', sub_dir: 'themes/obliviot/light' },
 
     { source_html: './src/html/themes/felzec/light/OrganizationAboutModalComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationAboutModalMobileComponent.html', sub_dir: 'themes/felzec/light' },
@@ -146,6 +150,7 @@ const component_array = [
     { source_html: './src/html/themes/felzec/light/OrganizationSponsersPageComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationRosterItemComponent.html', sub_dir: 'themes/felzec/light' },
     { source_html: './src/html/themes/felzec/light/OrganizationRosterItemMobileComponent.html', sub_dir: 'themes/felzec/light' },
+    { source_html: './src/html/themes/felzec/light/OrganizationEmailComponent.html', sub_dir: 'themes/felzec/light' },
 
     { source_html: './src/html/themes/enigma2/dark/OrganizationAboutModalComponent.html', sub_dir: 'themes/enigma2/dark' },
     { source_html: './src/html/themes/enigma2/dark/OrganizationAboutModalMobileComponent.html', sub_dir: 'themes/enigma2/dark' },
@@ -155,6 +160,7 @@ const component_array = [
     { source_html: './src/html/themes/enigma2/dark/OrganizationVideoComponent.html', sub_dir: 'themes/enigma2/dark' },
     { source_html: './src/html/themes/enigma2/dark/OrganizationYouTubeComponent.html', sub_dir: 'themes/enigma2/dark' },
     { source_html: './src/html/themes/enigma2/dark/OrganizationMatchesComponent.html', sub_dir: 'themes/enigma2/dark' },
+    { source_html: './src/html/themes/enigma2/dark/OrganizationEmailComponent.html', sub_dir: 'themes/enigma2/dark' },
     { source_html: './src/html/themes/enigma2/dark/OrganizationMatchesMobileComponent.html', sub_dir: 'themes/enigma2/dark' },
     { source_html: './src/html/themes/enigma2/dark/OrganizationMediaComponent.html', sub_dir: 'themes/enigma2/dark' },
     { source_html: './src/html/themes/enigma2/dark/OrganizationMatchesComponentElement.html', sub_dir: 'themes/enigma2/dark' },
