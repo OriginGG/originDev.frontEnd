@@ -24,6 +24,7 @@ class DarkOrganizationPageComponentRender extends Component {
                             paddingTop: '0px',
                             paddingBottom: '0px'
                         }}>{this.props.rosterContent}</div>
+                        <div id="email_component">{this.props.emailContent}</div>
                         <footer style={{
                             position: 'relative'
                         }} className={this.props.classes.enigma2_darkFooter} style={this.props.felzec_footer_style}>

@@ -38,6 +38,7 @@ class DarkOrganizationPageComponentRender extends Component {
                             <div >{this.props.videoContent}</div>
                         </div>
                     </div>
+                    <div id="email_component">{this.props.emailContent}</div>
                 </div>
                 <div className={this.props.classes.orgFooter} style={this.props.footer_style}>
                     <p className={this.props.classes.orgFooterText}>{this.props.copyright}</p>

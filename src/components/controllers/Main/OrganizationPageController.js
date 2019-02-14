@@ -26,7 +26,10 @@ import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 class OrganizationPageController extends Component {
     state = {
         menu_open: false,
+        customer_email: '',
+        email_visible: { display: 'none' },
         OrganizationPageComponentRender: null,
+        OrganizationEmailComponentRender: null,
         OrganizationVideoController: null,
         OrganizationTwitterController: null,
         OrganizationSponsorController: null,
@@ -120,6 +123,7 @@ class OrganizationPageController extends Component {
                 const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
                 const themeBase = this.props.uiStore.current_organisation.themeBaseId;
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
+                const OrganizationEmailComponentRender = await import(`../../render_components/themes/${theme}/OrganizationEmailComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
                 const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
@@ -158,6 +162,12 @@ class OrganizationPageController extends Component {
                     OrganizationMediaControllerDefault = OrganizationMediaController.default;
                     OrganizationFooterController = await import('./sub_controllers/OrganizationFooterController');
                     OrganizationFooterControllerDefault = OrganizationFooterController.default;
+                }
+
+                if (themeBase === 'enigma2') {
+                    this.setState({
+                        email_visible: { display: 'inherit' }
+                    });
                 }
                 this.roster_display = false;
                 if (this.isMobile()) {
@@ -212,6 +222,7 @@ class OrganizationPageController extends Component {
                     felzec_style: nf_style,
                     OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
                     OrganizationPageComponentRender: OrganizationPageComponentRender.default,
+                    OrganizationEmailComponentRender: OrganizationEmailComponentRender.default,
                     OrganizationVideoController: OrganizationVideoController.default,
                     OrganizationTwitterController: OrganizationTwitterController.default,
                     OrganizationSponsorController: OrganizationSponsorController.default,
@@ -377,6 +388,25 @@ class OrganizationPageController extends Component {
             return true;
         }
     }
+    handleCustomerEmailClose = () => {
+        console.log(`close this noise email:${this.state.customer_email}`);
+        this.setState({
+            email_visible: { display: 'none' }
+        });
+    }
+    handleCustomerEmailSubmit = () => {
+        console.log(`send the email email:${this.state.customer_email}`);
+        this.setState({
+            email_visible: { display: 'none' }
+        });
+    }
+    handleEmailChange = (e) => {
+        const v = e.target.value;
+        console.log(`email = ${v}`);
+        this.setState({
+            customer_email: v
+        });
+    }
     handleLoginClick = () => {
         this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
@@ -538,6 +568,7 @@ class OrganizationPageController extends Component {
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
+        const { OrganizationEmailComponentRender } = this.state;
         const { OrganizationNewsController } = this.state;
         const { OrganizationTwitterController } = this.state;
         const { OrganizationMatchesController } = this.state;
@@ -701,12 +732,25 @@ class OrganizationPageController extends Component {
             info_style = { display: 'inherit' };
         }
 
+        let email_style = { backgroundColor: 'green' };
+
+        if (this.props.uiStore.current_organisation.primaryColor) {
+            email_style = { backgroundColor: this.props.uiStore.current_organisation.primaryColor };
+        }
+
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
             roster_style={this.state.roster_style}
             copyright={cp}
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
+            emailContent={<OrganizationEmailComponentRender
+                handleCustomerEmailClose={this.handleCustomerEmailClose}
+                handleEmailChange={this.handleEmailChange}
+                handleCustomerEmailSubmit={this.handleCustomerEmailSubmit}
+                org_email_button={email_style}
+                org_email_container={this.state.email_visible}
+                />}
             blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
             teamContent={t_content}
             mediaContent={<OrganizationMediaController />}
