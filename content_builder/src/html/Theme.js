@@ -35,6 +35,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     signupHeader: {
         backgroundColor: GlobalTheme.signupHeaderColor,
+        display: 'table',
+        width: '100%',
         padding: '15px'
     },
     signupBGImage: {
@@ -429,6 +431,17 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
         position: 'fixed',
+        top: '0',
+        left: '0',
+        background: 'rgb(255,255,255)',
+        borderBottom: '5px solid white'
+    },
+    newObliviotHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
         top: '0',
         left: '0',
         background: 'rgb(255,255,255)',
@@ -1877,7 +1890,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_media_filter_container: {
         width: '100%',
-        height: '320px',
+        height: '100%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2764,7 +2777,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     e2_media_container: {
         width: '100%',
-        height: '320px',
         backgroundColor: '#040404',
         position: 'relative'
     },
@@ -3231,9 +3243,9 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_team_game_container: {
         height: '100%',
         width: '80px',
+        display: 'flex',
         marginRight: '30px',
         marginLeft: '30px',
-        float: 'left',
     },
 
     felzec_team_game_media: {
@@ -3733,6 +3745,91 @@ export const GlobalStyles = GlobalTheme => ({
         color: '#FFF'
     },
 
+    //***************************************************************
+    // email entry for orgs
+    // **************************************************************
+
+    org_email_container: {
+        width: '100%',
+        height: '100vh',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        zIndex: '200',
+        backgroundColor: 'rgba(0,0,0,.8)'
+    },
+
+    org_email_close: {
+        padding: '5px',
+        backgroundColor: 'white',
+        color: 'black',
+        cursor: 'pointer',
+        fontSize: '24px',
+        fontWeight: '900',
+        position: 'absolute',
+        zIndex: '300',
+        top: '20px',
+        right: '20px'
+    },
+
+    org_email_data_container: {
+        width: '500px',
+        padding: '20px',
+        display: 'block',
+        position: 'relative',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        marginTop: '300px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    org_email_data_title: {
+        width: '100%',
+        height: '60px',
+        lineHeight: '60px',
+        textAlign: 'center',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    org_email_data_subtitle: {
+        width: '100%',
+        lineHeight: '24px',
+        textAlign: 'center',
+        fontSize: '18px',
+        fontWeight: '100',
+        color: 'white'
+    },
+
+    org_email_data_input_container: {
+        width: '100%',
+        height: '80px',
+        marginTop: '30px'
+    },
+
+    org_email_data_input: {
+        width: '70%',
+        float: 'left',
+        height: '60px',
+        border: '0 solid transparent',
+        borderRadius: '0px',
+        fontSize: '18px',
+        margin: '0px'
+    },
+
+    org_email_data_button: {
+        width: '29%',
+        float: 'left',
+        height: '60px',
+        textAlign: 'center',
+        cursor: 'pointer',
+        lineHeight: '60px',
+        fontSize: '24px',
+        color: 'white',
+        backgroundColor: 'rgb(166,197,87)'
+    },
+
     // ***************************************************************
     // admin_navigate_button
     //****************************************************************
@@ -3946,6 +4043,17 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
         position: 'fixed',
+        top: '0',
+        left: '0',
+        background: 'rgb(6,6,6)',
+        borderBottom: '5px solid black'
+    },
+    newDarkHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
         top: '0',
         left: '0',
         background: 'rgb(6,6,6)',
