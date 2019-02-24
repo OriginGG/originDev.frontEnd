@@ -20,7 +20,14 @@ const { confirm } = Modal;
 class LoginControllerOrg extends Component {
     state = { button_disabled: false };
     componentDidMount = () => {
+        this.paywall = false;
         document.getElementById('origin_loader').style.display = 'none';
+        if (this.props.location.state) {
+            const { state } = this.props.location;
+            if (state.paywall) {
+                this.paywall = true;
+            }
+        }
     }
     sendEmail = (url) => {
         return new Promise((resolve, reject) => {
@@ -137,7 +144,11 @@ class LoginControllerOrg extends Component {
                             // succesfully logged in store in pouch then change page.
                             this.props.appManager.pouchStore('authenticate', authPayload);
                             // await this.props.appManager.pouchStore('authenticate', authPayload);
-                            historyStore.push('/admin');
+                            if (!this.paywall) {
+                                historyStore.push('/admin');
+                            } else {
+                                historyStore.push('/paywall');
+                            }
                         }
                     } else {
                         // does user exist as a pre-user?
@@ -199,6 +210,7 @@ class LoginControllerOrg extends Component {
 
 LoginControllerOrg.propTypes = {
     uiStore: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
 };
 

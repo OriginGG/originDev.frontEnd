@@ -17,6 +17,7 @@ import './App.css';
 import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
 // import OriginLandingPageController from './components/controllers/Login/OriginLandingPageController';
 import { SignupInd, SignupOrg, LoginInd, LoginOrg } from './components/controllers/Login/CredentialsController';
+import PaywallController from './components/controllers/Login/PaywallController';
 // Test
 
 const reload = () => window.location.reload();
@@ -41,6 +42,7 @@ class App extends Component {
                 <Route exact path="/individual/*" component={IndividualPageController} />
                 <Route exact path="/admin" component={AppController} />
                 <Route exact path="/admin_page" component={AdminPageController} />
+                <Route exact path="/paywall" component={PaywallController} />
                 <Route exact path="/createsubdomain" component={CreateSubDomainController} />
                 <Route exact path="/blog" component={AppController} />
                 <Route path="/landing" onEnter={reload} />

@@ -13,6 +13,7 @@ const component_array = [
     { source_html: './src/html/themes/base/SignupChoiceComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/themes/base/LoginComponent.html', sub_dir: 'signup' },
     { source_html: './src/html/themes/base/CreateSubDomainComponent.html', sub_dir: 'signup' },
+    { source_html: './src/html/themes/base/PaywallComponent.html', sub_dir: 'signup' },
 
     { source_html: './src/html/themes/enigma/dark/OrganizationAboutModalComponent.html', sub_dir: 'themes/enigma/dark' },
     { source_html: './src/html/themes/enigma/dark/OrganizationNewsModuleComponent.html', sub_dir: 'themes/enigma/dark' },
