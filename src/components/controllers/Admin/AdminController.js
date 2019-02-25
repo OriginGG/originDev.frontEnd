@@ -321,6 +321,9 @@ class AdminPageController extends Component {
     gotoPayWall = () => {
         historyStore.push('/paywall');
     }
+    handleLoginAndSubscribe = () => {
+        historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+    };
 	render() {
 		let pwc = <span />;
 		if (this.subscription_days_left !== null) {
@@ -415,31 +418,43 @@ class AdminPageController extends Component {
 		const full_name = `${nd.firstName} ${nd.lastName}`;
 		return (
 			<div id="outer-container">
-				{this.state.error_page && (
-					<div>
-						<div id="error_page" className="error_page" />
-						<div id="error_page" className="error_page_overlay">
-							<div
-								style={{
-									textAlign: 'center',
-									lineHeight: '32px',
-									marginTop: 12,
-									fontSize: 32,
-									display: 'flex',
-									justifyContent: 'center'
-								}}
-							>
-								THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
-								<br />
-								CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-								<br />
-								<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
-									support@origin.gg
-								</a>
-							</div>
-						</div>
-					</div>
-				)}
+                {this.state.error_page && (
+                    <div>
+                        <div id="error_page" className="error_page" />
+                        <div id="error_page" className="error_page_overlay">
+                            <div
+                                style={{
+                                    paddingLeft: 32,
+                                    paddingRight: 32,
+                                    textAlign: 'center',
+                                    lineHeight: '32px',
+                                    fontSize: 32,
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
+                                SUBSCRIBE.
+										<br />
+                                OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+										<br />
+                                <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+                                    support@origin.gg
+										</a>
+                            </div>
+                            <div
+                                style={{
+                                    marginTop: 64,
+                                    textAlign: 'center',
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
 					<Sidebar.Pushable as={Segment}>
 						<Sidebar
