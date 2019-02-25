@@ -3,6 +3,8 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import { Button, Card, Image } from 'semantic-ui-react';
+import { Modal } from 'antd';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 import { StripeProvider } from 'react-stripe-elements';
 import axios from 'axios';
@@ -28,9 +30,12 @@ import AdminCustomDomainController from './sub_controllers/AdminCustomDomainCont
 import AdminSocialStatsController from './sub_controllers/AdminSocialStatsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
+import { getEmailRegistrationQuery } from '../../../queries/registrations';
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 import stripeImage from '../../../assets/images/stripeSecure.png';
+
+const { confirm } = Modal;
 
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
@@ -247,6 +252,8 @@ class AdminPageController extends Component {
 			const customer = await axios.get(
 				`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 			);
+			this.authenticated = user.resultData.authenticated;
+			this.user_email = user.resultData.email;
 			this.subscription_days_left = null;
 			if (customer.data.success !== false) {
 				const { subscriptions } = customer.data.customer;
@@ -326,8 +333,59 @@ class AdminPageController extends Component {
 	handleLoginAndSubscribe = () => {
 		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
 	};
+	sendEmail = (url) => {
+		return new Promise((resolve, reject) => {
+			const full_url = `${process.env.REACT_APP_API_SERVER}${url}`;
+			axios
+				.get(full_url)
+				.then((x) => {
+					resolve(x.data);
+				})
+				.catch((error) => {
+					reject(error);
+				});
+		});
+	};
+	showSendConfirm = () => {
+		return new Promise((resolve) => {
+			confirm({
+				title: 'Registration',
+				content: 'Do you want to re-send registration email?',
+				okText: 'Yes',
+				okType: 'danger',
+				cancelText: 'No',
+				onOk: () => {
+					resolve(true);
+				},
+				onCancel: () => {
+					resolve(false);
+				}
+			});
+		});
+	};
+	resendVerifcation = async () => {
+		const f = await this.showSendConfirm();
+		if (f) {
+			debugger;
+			const r = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, {
+				email: this.user_email
+			});
+			debugger;
+			const email_payload = r.registrationEmailByEmail.payload;
+			const url = Buffer.from(email_payload, 'hex').toString('utf8');
+			await this.sendEmail(url);
+			toast.success(
+				`Registration email re-sent to ${this.user_email}, please check your email for further instructions.`,
+				{
+					position: toast.POSITION.TOP_LEFT,
+					autoClose: 15000
+				}
+			);
+		}
+	};
 	render() {
 		let pwc = <span />;
+		let awc = <span />;
 		if (this.subscription_days_left !== null) {
 			pwc = (
 				<Card>
@@ -346,6 +404,30 @@ class AdminPageController extends Component {
 				</Card>
 			);
 		}
+		if (this.authenticated === false) {
+			awc = (
+				<Card>
+					<Card.Content>
+						<Card.Header>ACCOUNT NOT VERIFIED</Card.Header>
+						<Card.Description>
+							This account has not been verified, please check your email and complete your verification
+							process. Click the Button Below to resend verification email.
+						</Card.Description>
+					</Card.Content>
+					<Card.Content extra>
+						<Button onClick={this.resendVerifcation} basic color="green">
+							Resend Verification
+						</Button>
+					</Card.Content>
+				</Card>
+			);
+		}
+		const info_block = (
+			<div>
+				{pwc}
+				{awc}
+			</div>
+		);
 		if (this.state.visible === false) {
 			return null;
 		}
@@ -470,7 +552,7 @@ class AdminPageController extends Component {
 							<OrganizationAdminMenuComponentRender
 								key={`admin_sidebar_key_${this.my_key}`}
 								handleMainMenuClick={this.handleManageClick}
-								paywall_content={pwc}
+								paywall_content={info_block}
 								dropdown={
 									<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
 								}
