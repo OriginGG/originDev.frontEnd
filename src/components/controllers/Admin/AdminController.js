@@ -247,17 +247,20 @@ class AdminPageController extends Component {
 			const customer = await axios.get(
 				`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 			);
-            this.subscription_days_left = null;
-            const { subscriptions } = customer.data.customer;
-            const num_sources = customer.data.customer.sources.total_count;
-            if (!num_sources) {
-                const { trial_end } = subscriptions.data[0];
-                if (trial_end) {
-                    const cur = moment().tz('America/New_York');
-                    const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
-                    this.subscription_days_left = day_diff + 1;
-                }
-            }
+			debugger;
+			this.subscription_days_left = null;
+			if (customer.data.success !== false) {
+				const { subscriptions } = customer.data.customer;
+				const num_sources = customer.data.customer.sources.total_count;
+				if (!num_sources) {
+					const { trial_end } = subscriptions.data[0];
+					if (trial_end) {
+						const cur = moment().tz('America/New_York');
+						const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+						this.subscription_days_left = day_diff + 1;
+					}
+				}
+			}
 			const { subscribed } = user.resultData;
 			const domainInfo = this.props.appManager.getDomainInfo();
 			const subDomain =
@@ -317,29 +320,29 @@ class AdminPageController extends Component {
 	};
 	handleManageClick = async (v) => {
 		this.setState({ page: v });
-    };
-    gotoPayWall = () => {
-        historyStore.push('/paywall');
-    }
-    handleLoginAndSubscribe = () => {
-        historyStore.push({ pathname: '/login_org', state: { paywall: true } });
-    };
+	};
+	gotoPayWall = () => {
+		historyStore.push('/paywall');
+	};
+	handleLoginAndSubscribe = () => {
+		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+	};
 	render() {
 		let pwc = <span />;
 		if (this.subscription_days_left !== null) {
 			pwc = (
 				<Card>
 					<Card.Content>
-                        <Image floated="right" style={{ height: 32, width: 164 }} size="mini" src={stripeImage} />
+						<Image floated="right" style={{ height: 32, width: 164 }} size="mini" src={stripeImage} />
 						<Card.Header>FREE TRIAL</Card.Header>
 						<Card.Description>
-                            You have <strong>{this.subscription_days_left} days left of your free trial.</strong>
+							You have <strong>{this.subscription_days_left} days left of your free trial.</strong>
 						</Card.Description>
 					</Card.Content>
 					<Card.Content extra>
-                        <Button onClick={this.gotoPayWall} basic color="green">
-								Pay Now
-							</Button>
+						<Button onClick={this.gotoPayWall} basic color="green">
+							Pay Now
+						</Button>
 					</Card.Content>
 				</Card>
 			);
@@ -418,43 +421,42 @@ class AdminPageController extends Component {
 		const full_name = `${nd.firstName} ${nd.lastName}`;
 		return (
 			<div id="outer-container">
-                {this.state.error_page && (
-                    <div>
-                        <div id="error_page" className="error_page" />
-                        <div id="error_page" className="error_page_overlay">
-                            <div
-                                style={{
-                                    paddingLeft: 32,
-                                    paddingRight: 32,
-                                    textAlign: 'center',
-                                    lineHeight: '32px',
-                                    fontSize: 32,
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
-                                SUBSCRIBE.
-										<br />
-                                OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-										<br />
-                                <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
-                                    support@origin.gg
-										</a>
-                            </div>
-                            <div
-                                style={{
-                                    marginTop: 64,
-                                    textAlign: 'center',
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
-                            </div>
-                        </div>
-                    </div>
-                )}
+				{this.state.error_page && (
+					<div>
+						<div id="error_page" className="error_page" />
+						<div id="error_page" className="error_page_overlay">
+							<div
+								style={{
+									paddingLeft: 32,
+									paddingRight: 32,
+									textAlign: 'center',
+									lineHeight: '32px',
+									fontSize: 32,
+									display: 'flex',
+									justifyContent: 'center'
+								}}
+							>
+								THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND SUBSCRIBE.
+								<br />
+								OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+								<br />
+								<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+									support@origin.gg
+								</a>
+							</div>
+							<div
+								style={{
+									marginTop: 64,
+									textAlign: 'center',
+									display: 'flex',
+									justifyContent: 'center'
+								}}
+							>
+								<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+							</div>
+						</div>
+					</div>
+				)}
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
 					<Sidebar.Pushable as={Segment}>
 						<Sidebar
