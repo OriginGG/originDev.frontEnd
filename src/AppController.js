@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { getThemeByNameQuery } from './queries/themes';
 import { getOrganisationQuery, getOrganisationByIdQuery } from './queries/organisation';
 import { getIndividualUserByHandleQuery } from './queries/individuals';
+
 import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
 import './App.css';
@@ -25,6 +26,7 @@ const pathsToIgnore = [
     '/admin_page',
     '/ind_invite',
     '/paywall',
+    '/go_paywall',
     '/createsubdomain'
 ];
 
@@ -32,7 +34,8 @@ class AppController extends Component {
     componentDidMount = async () => {
         let admin = false;
         // pouchTest
-
+        const { ignore_routes } = this.props;
+        this.ignore_routes = ignore_routes;
         const is_root = location.pathname === '/';              // eslint-disable-line
         if (is_root) {
             const domainToken = await this.props.appManager.getDomainToken();
@@ -93,18 +96,26 @@ class AppController extends Component {
                 this.props.appManager.blog_id = parseInt(b_id, 10);
                 historyStore.push('/main');
             }
-            if (location.pathname === '/admin') {  // eslint-disable-line
+            if (location.pathname === '/admin' || location.pathname === '/go_paywall' && this.ignore_routes === false) {  // eslint-disable-line
                 const domainInfo = this.props.appManager.getDomainInfo();
                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                 if (!domainInfo) {
-                    historyStore.push('/signup_org');
+                    if (location.pathname === '/go_paywall') {
+                        historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+                    } else {
+                        historyStore.push('/signup_org');
+                    }
                 } else {
                     const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
                     if (o.resultData === null) {
-                        const { hostname } = domainInfo;
-                        const new_host = hostname.replace(`${subDomain}.`, '');
-                        const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                        window.location = `${u_string}/`;
+                        if (location.pathname === '/go_paywall') {
+                            historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+                        } else {
+                            const { hostname } = domainInfo;
+                            const new_host = hostname.replace(`${subDomain}.`, '');
+                            const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+                            window.location = `${u_string}/`;
+                        }
                     } else {
                         const auth = this.props.appManager.pouchGet('authenticate');
                         // const auth = await this.props.appManager.pouchGet('authenticate');
@@ -118,19 +129,31 @@ class AppController extends Component {
                                 const new_token = this.props.appManager.encodeJWT(d);
                                 this.props.uiStore.setUserID(d.id);
                                 this.props.appManager.authToken = new_token;
-                                this.props.appManager.admin_logged_in = true;
-                                historyStore.push('/admin_page');
+                                if (location.pathname === '/go_paywall') {
+                                    historyStore.push('/paywall');
+                                } else {
+                                    this.props.appManager.admin_logged_in = true;
+                                    historyStore.push('/admin_page');
+                                }
+                            } else {
+                                if (location.pathname === '/go_paywall') {
+                                    historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+                                } else {
+                                    const { hostname } = domainInfo;
+                                    const new_host = hostname.replace(`${subDomain}.`, '');
+                                    const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+                                    window.location = `${u_string}/signup_org`;
+                                }
+                            }
+                        } else {
+                            if (location.pathname === '/go_paywall') {
+                                    historyStore.push({ pathname: '/login_org', state: { paywall: true } });
                             } else {
                                 const { hostname } = domainInfo;
                                 const new_host = hostname.replace(`${subDomain}.`, '');
                                 const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
                                 window.location = `${u_string}/signup_org`;
                             }
-                        } else {
-                            const { hostname } = domainInfo;
-                            const new_host = hostname.replace(`${subDomain}.`, '');
-                            const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                            window.location = `${u_string}/signup_org`;
                         }
                     }
                 }
@@ -162,7 +185,12 @@ class AppController extends Component {
 }
 AppController.propTypes = {
     appManager: PropTypes.object.isRequired,
-    uiStore: PropTypes.object.isRequired
+    uiStore: PropTypes.object.isRequired,
+    ignore_routes: PropTypes.bool
+};
+
+AppController.defaultProps = {
+    ignore_routes: false
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AppController));
