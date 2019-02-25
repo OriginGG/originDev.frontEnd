@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 // import { getRosterByIDQuery } from '../../../../queries/rosters';
@@ -12,7 +13,10 @@ class OrganizationTeamGameController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         // const OrganizationTeamImageComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamImageComponentRender`);
         const OrganizationTeamGameComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamGameComponentRender`);
         const OrganizationTeamMateController = await import('./OrganizationTeamMateController');
@@ -60,6 +64,14 @@ class OrganizationTeamGameController extends Component {
             const url = `${x.protocol}//${p}${pt}/individual/${i.username}`;
             window.open(url, '_blank');
         }
+    }
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
 
     handle_social = (s, ind_user) => {

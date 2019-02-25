@@ -249,7 +249,10 @@ class OrganizationTeamController extends Component {
                 });
             });
         }
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         // const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationTeamComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamComponentRender`);
         const OrganizationTeamGameController = await import('./OrganizationTeamGameController');
@@ -301,7 +304,10 @@ class OrganizationTeamController extends Component {
         // if (this.isMobile()) {
         //     s = { display: 'none' };
         // }
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         let g_width = '140px';
         if (theme === 'enigma2/dark') {
             g_width = '100%';

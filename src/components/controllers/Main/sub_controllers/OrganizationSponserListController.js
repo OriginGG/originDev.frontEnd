@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
@@ -12,7 +13,10 @@ class OrganizationSponserListController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         // console.log(`them = ${theme}`);
         // const subDomain = this.props.uiStore.current_subdomain;
         const OrganizationSponsersItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponsersItemComponentRender`);
@@ -27,6 +31,14 @@ class OrganizationSponserListController extends Component {
     //         window.open(link, '_blank');
     //     }
     // }
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    }
 
     handleClick = (i) => {              // eslint-disable-line
         // console.log(`i = ${i}`);
@@ -78,7 +90,10 @@ class OrganizationSponserListController extends Component {
         // const sponser_name3 = this.state.sponser_data[0].node.sponsorName3;
         // const sponser_name4 = this.state.sponser_data[0].node.sponsorName4;
 
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
 
         let close_button = 'white';
 

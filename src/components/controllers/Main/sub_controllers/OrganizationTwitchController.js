@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 // mport _ from 'lodash';
@@ -17,7 +18,10 @@ class OrganizationTwitchController extends Component {
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         // const subDomain = this.props.uiStore.current_subdomain;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         const OrganizationTwitchComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitchComponentRender`);
         const OrganizationTwitchHolderComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitchHolderComponentRender`);
 
@@ -63,6 +67,15 @@ class OrganizationTwitchController extends Component {
             OrganizationTwitchComponentRender: OrganizationTwitchComponentRender.default,
             OrganizationTwitchHolderComponentRender: OrganizationTwitchHolderComponentRender.default
         });
+    }
+
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
 
     handleLeftScroll = () => {
