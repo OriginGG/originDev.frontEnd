@@ -366,11 +366,9 @@ class AdminPageController extends Component {
 	resendVerifcation = async () => {
 		const f = await this.showSendConfirm();
 		if (f) {
-			debugger;
 			const r = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, {
 				email: this.user_email
 			});
-			debugger;
 			const email_payload = r.registrationEmailByEmail.payload;
 			const url = Buffer.from(email_payload, 'hex').toString('utf8');
 			await this.sendEmail(url);
