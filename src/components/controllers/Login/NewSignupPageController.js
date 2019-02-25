@@ -18,17 +18,16 @@ class NewSignupPageController extends Component {
         const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, { email: d.email.toLowerCase(), password: d.password });
         const my_token = authPayload.authenticate.resultData.jwtToken;
         const ar = this.props.appManager.decodeJWT(my_token);
-        console.log(ar);
         this.props.appManager.authToken = my_token;
         const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: parseInt(d.id, 10) });
         const u = user.resultData;
         if (u.authenticated === true && ar.organisation_id !== null) {
-            toast.error(`${ar.organisation_id} is already registered - Redirecting you to credentials page in 5 seconds`, {
+            toast.error(`${d.email} is already registered - Redirecting you to credentials page in 5 seconds`, {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 5000
             });
             setTimeout(() => {
-                historyStore.push('/signup_ind');
+                historyStore.push('/login_org');
             }, 5000);
         } else {
             const payload = {
@@ -40,8 +39,13 @@ class NewSignupPageController extends Component {
             if (exists.registrationEmailByEmail) {
                 await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
             }
-            const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
-            historyStore.push(`/createsubdomain?p=${new_payload}`);
+            toast.success(`${d.email} registered - Redirecting you to credentials page in 5 seconds`, {
+                position: toast.POSITION.TOP_LEFT,
+                autoClose: 5000
+            });
+            setTimeout(() => {
+                historyStore.push('/login_org');
+            }, 5000);
         }
     }
 

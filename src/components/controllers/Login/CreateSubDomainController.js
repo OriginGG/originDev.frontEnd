@@ -15,6 +15,8 @@ import { createThemeQuery, getThemeByNameQuery } from '../../../queries/themes';
 import { authenticateQuery } from '../../../queries/login';
 import { createSponsorsQuery } from '../../../queries/sponsors';
 import { createPageQuery } from '../../../queries/pages';
+import { createEmailRegistrationQuery } from '../../../queries/registrations';
+
 // import PaywallController from './PaywallController';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -59,6 +61,19 @@ class CreateSubDomainController extends Component {
 		this.setState({ theme1_select_style: s, visible: true, image_src: logo_url });
 		document.getElementById('origin_loader').style.display = 'none';
 		// }
+	};
+	sendEmail = (url) => {
+		return new Promise((resolve, reject) => {
+			const full_url = `${process.env.REACT_APP_API_SERVER}${url}`;
+			axios
+				.get(full_url)
+				.then((x) => {
+					resolve(x.data);
+				})
+				.catch((error) => {
+					reject(error);
+				});
+		});
 	};
 	handleDomainChange = (e) => {
 		const v = e.target.value;
@@ -152,6 +167,16 @@ class CreateSubDomainController extends Component {
 						authenticated: false,
 						adminUser: true
 					});
+
+					const host = window.location.origin;
+					const url = `/emails/signup?host=${host}&email=${this.payload.email}&password=${this.payload.password}&name=${this.payload.firstName}&id=${ax.registerUser.user.id}&admin_user=true&dev=false`;
+					await this.sendEmail(url);
+					const payload_email = Buffer.from(url, 'utf8').toString('hex');
+					await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, {
+						email: this.payload.email,
+						payload: payload_email
+					});
+
 					// create a stripe customer as well.
 
 					this.authPayload = await this.props.appManager.executeQuery(
@@ -174,7 +199,7 @@ class CreateSubDomainController extends Component {
 					});
 					const org_id = new_org.resultData.organisationAccount.id;
 					await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, {
-                        id: this.user_id,
+						id: this.user_id,
 						subscribed: true,
 						organisationId: org_id
 					});
@@ -240,31 +265,31 @@ class CreateSubDomainController extends Component {
 		);
 		const { data } = plans.data;
 
-        const customer = await axios.post(
-            `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
-            {
-                user_id: this.user_id,
-                email: this.payload.email
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
-        await axios.post(
-            `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
-            {
-                customer_id: customer.data.cust.id,
-                plan: data[0].id,
-                trial_period_days: data[0].trial_period_days
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        );
+		const customer = await axios.post(
+			`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
+			{
+				user_id: this.user_id,
+				email: this.payload.email
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}
+		);
+		await axios.post(
+			`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+			{
+				customer_id: customer.data.cust.id,
+				plan: data[0].id,
+				trial_period_days: data[0].trial_period_days
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			}
+		);
 		// const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env.REACT_APP_STRIPE_PRODUCT_ID}`);
 		// const { data } = plans.data;
 		// // subscribe user to the yearly plan with a 14 day trial.
