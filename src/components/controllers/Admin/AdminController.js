@@ -247,7 +247,6 @@ class AdminPageController extends Component {
 			const customer = await axios.get(
 				`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 			);
-			debugger;
 			this.subscription_days_left = null;
 			if (customer.data.success !== false) {
 				const { subscriptions } = customer.data.customer;
