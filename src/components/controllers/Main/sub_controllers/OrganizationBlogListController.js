@@ -32,7 +32,10 @@ class OrganizationBlogListController extends Component {
     state = { visible: false, blog_modal_open: false };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile) {
+            theme = 'mobile/dark';
+        }
         // console.log(`them = ${theme}`);
         // const subDomain = this.props.uiStore.current_subdomain;
         const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);

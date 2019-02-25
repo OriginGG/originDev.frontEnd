@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 // import Slider from 'react-slick';
 import AliceCarousel from 'react-alice-carousel';
 import { GlobalStyles } from 'Theme/Theme';
@@ -11,7 +12,10 @@ import { getSponsorsQuery } from '../../../../queries/sponsors';
 class OrganizationSponsorController extends Component {
     state = { visible: false, OrganizationSponserComponentRender: null, OrganizationSponserComponentElementRender: null };
     componentDidMount = async () => {
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         const OrganizationSponserComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentRender`);
         const OrganizationSponserComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentElementRender`);
         // const subDomain = this.props.uiStore.current_subdomain;
@@ -26,6 +30,14 @@ class OrganizationSponsorController extends Component {
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
+    }
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
     handleClick = (link) => {
         // console.log(`link = ${link}`);

@@ -15,7 +15,10 @@ class OrganizationMediaController extends Component {
     state = { visible: false, OrganizationMediaComponentRender: null }
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
 
         const OrganizationMediaComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMediaComponentRender`);
         const OrganizationTwitchComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitchComponentRender`);
@@ -207,7 +210,10 @@ class OrganizationMediaController extends Component {
                 height: '580px'
             };
         }
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         let f = { backgroundColor: 'rgba(0,0,0,.8)' };
         if (theme === 'felzec/light') {
             f = { backgroundColor: 'rgba(255,255,255,.8)' };

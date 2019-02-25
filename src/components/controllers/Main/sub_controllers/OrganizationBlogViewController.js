@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 // import { getBlogsQuery } from '../../../../queries/blogs';
@@ -23,11 +24,23 @@ class OrganizationBlogViewController extends Component {
         return { __html: content };
     }
 
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    }
+
     render() {
         if (this.state.visible === false) {
             return null;
         }
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         let close_button = 'white';
         if (theme === 'obliviot/light' || theme === 'enigma/light' || theme === 'felzec/light') {
             close_button = 'black';

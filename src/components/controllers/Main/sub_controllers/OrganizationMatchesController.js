@@ -133,7 +133,10 @@ class OrganizationMatchesController extends Component {
     state = { visible: false, OrganizationMatchesComponentRender: null }
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
 
         const OrganizationMatchesComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentRender`);
         const OrganizationMatchesComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`);
@@ -204,7 +207,10 @@ class OrganizationMatchesController extends Component {
 
     handleRecentClick = () => {
         console.log(`org color = ${this.org_color}`);
-        const rc_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let rc_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            rc_theme = 'mobile/dark';
+        }
         let u_style = { color: '#cccccc', backgroundColor: 'black' };
         let r_style = { color: 'white', backgroundColor: 'red' };
         if (rc_theme === 'enigma2/dark') {
@@ -222,7 +228,10 @@ class OrganizationMatchesController extends Component {
     }
 
     handleUpcomingClick = () => {
-        const uc_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let uc_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            uc_theme = 'mobile/dark';
+        }
         let r_style = { color: '#cccccc', backgroundColor: 'black' };
         let u_style = { color: 'white', backgroundColor: 'red' };
         if (uc_theme === 'enigma2/dark') {
@@ -268,7 +277,10 @@ class OrganizationMatchesController extends Component {
         const f = { backgroundColor: 'rgba(0,0,0,.5)' };
         const p_array = [];
         const f_array = [];
-        const r_theme =     `${this.props.uiStore.current_organisation.themeBaseId}`;
+        let r_theme =     `${this.props.uiStore.current_organisation.themeBaseId}`;
+        if (this.isMobile) {
+            r_theme = 'mobile';
+        }
         edges.forEach((res) => {
             const g_image = _.find(gameOptions, (o) => {
                 return o.value === res.node.gameName;

@@ -120,8 +120,13 @@ class OrganizationPageController extends Component {
                 this.props.uiStore.setSubDomain(subDomain);
                 const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
                 const { subscribed } = user.allUsers.edges[0].node;
-                const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-                const themeBase = this.props.uiStore.current_organisation.themeBaseId;
+                let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+                let themeBase = this.props.uiStore.current_organisation.themeBaseId;
+                if (this.isMobile()) {
+                    theme = 'mobile/dark';
+                    themeBase = 'mobile';
+                }
+                console.log(`theme === ${theme}`);
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
                 const OrganizationEmailComponentRender = await import(`../../render_components/themes/${theme}/OrganizationEmailComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
@@ -148,6 +153,14 @@ class OrganizationPageController extends Component {
                 let OrganizationFooterController = null;
                 let OrganizationFooterControllerDefault = null;
                 if (themeBase === 'obliviot' || themeBase === 'felzec' || themeBase === 'enigma2') {
+                    OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
+                    OrganizationBlogControllerDefault = OrganizationBlogController.default;
+                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
+                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    // OrganizationTwitchController = null;
+                    // OrganizationTwitchControllerDefault = null;
+                }
+                if (themeBase === 'mobile' && this.isMobile()) {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
                     OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
