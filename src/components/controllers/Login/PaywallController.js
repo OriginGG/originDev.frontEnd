@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
+import moment from 'moment-timezone';
 import { Dimmer, Header, Segment, Button } from 'semantic-ui-react';
 import {
 	CardNumberElement,
@@ -15,9 +16,11 @@ import {
 import Spinner from 'react-svg-spinner';
 import stripeImage from '../../../assets/images/stripeSecure.png';
 import appManager from '../../../utils/appManager';
+import uiStore from '../../../utils/stores/uiStore';
 import { updateUserQuery, getUserQuery } from '../../../queries/users';
 import freeTrialImage from '../../../assets/images/free-trial.png';
 import PaywallComponentRender from '../../render_components/signup/PaywallComponentRender';
+import browserHistory from '../../../utils/stores/browserHistory';
 
 const PricePlanBlock = ({ plan, handleClick }) => {
 	// eslint-disable-line
@@ -173,12 +176,12 @@ const CreditController = injectStripe(_CreditController);
 
 class PlanController extends Component {
 	state = { visible: false, selected_plan: '', plan_array: [] }; // eslint-disable-line
-	componentDidMount = () => {
+	componentDidMount = async () => {
 		const plan_array = [];
 		this.props.plans.forEach((plan) => {
 			plan_array.push(<PricePlanBlock plan={plan} handleClick={this.props.handleClick} />);
 		});
-		this.setState({ visible: true, plan_array });
+		this.setState({ visible: true, plan_array }); // eslint-disable-line
 	};
 	render() {
 		if (!this.state.visible) {
@@ -193,16 +196,27 @@ class PaywallContent extends Component {
 		visible: false,
 		dimmer: false,
 		display_credit_form: false,
-		display_plan: true
+		display_plan: true,
+		customer: null // eslint-disable-line
 	};
-    componentDidMount = async () => {
-        document.getElementById('origin_loader').style.display = 'none';
+	componentDidMount = async () => {
+		document.getElementById('origin_loader').style.display = 'none';
 		const plans = await axios.get(
 			`${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env
 				.REACT_APP_STRIPE_PRODUCT_ID}`
 		);
 		this.pay_plans = plans.data.data;
-		this.setState({ visible: true });
+		const { user_id } = uiStore;
+		if (!user_id) {
+			browserHistory.push('/login_org');
+			return;
+		}
+		const user = await appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
+		const { email } = user.resultData;
+		const customer = await axios.get(
+			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
+		);
+		this.setState({ visible: true, customer: customer.data.customer }); // eslint-disable-line
 	};
 	setDimmer = (f) => {
 		this.setState({ dimmer: f });
@@ -229,13 +243,14 @@ class PaywallContent extends Component {
 					});
 					this.props.callback(false);
 				} else {
+					const { customer } = this.state;
 					const response = await axios.post(
-						`${process.env.REACT_APP_API_SERVER}/stripe/new/create_subscription`,
+						`${process.env.REACT_APP_API_SERVER}/stripe/new2/update_customer`,
 						{
-							token: payload.token.id,
-							customer_id: this.props.user_id,
-							plan: this.selected_plan.id,
-							trial_period_days: this.selected_plan.trial_period_days
+							customer: customer.id,
+							options: {
+								token: payload.token.id
+							}
 						},
 						{
 							headers: {
@@ -266,46 +281,79 @@ class PaywallContent extends Component {
 						});
 						this.props.callback(false);
 					} else {
-						if (response.data.status === 'subscribed') {
+						if (response.data.status === 'success') {
+							// now we delete previous subscription, and create a new one, with trial days left.
+							const { subscriptions } = response.data.cust;
+							const { id } = subscriptions.data[0];
+							await axios.post(
+								`${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
+								{
+									id
+								},
+								{
+									headers: {
+										'Content-Type': 'application/json'
+									}
+								}
+							);
+							this.subscription_days_left = null;
+							const { trial_end } = subscriptions.data[0];
+							if (trial_end) {
+								const cur = moment().tz('America/New_York');
+								const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+								this.subscription_days_left = day_diff + 1;
+							}
+							await axios.post(
+								`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+								{
+									customer_id: response.data.cust.id,
+									plan: this.selected_plan.id,
+									trial_period_days: this.subscription_days_left
+								},
+								{
+									headers: {
+										'Content-Type': 'application/json'
+									}
+								}
+							);
+
 							this.setDimmer(false);
 							await appManager.executeQueryAuth('mutation', updateUserQuery, {
-								id: this.props.user_id,
+								id: uiStore.user_id,
 								subscribed: true
 							});
 							toast.success('Thanks - You have been successfully subscribed!', {
 								position: toast.POSITION.TOP_LEFT,
 								autoClose: 3000
 							});
-							appManager
-								.executeQueryAuth('query', getUserQuery, { id: this.props.user_id })
-								.then((pl) => {
-									let slack_payload = {
-										text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl
+							appManager.executeQueryAuth('query', getUserQuery, { id: uiStore.user_id }).then((pl) => {
+								let slack_payload = {
+									text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl
+										.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl
+										.resultData.email}\n`
+								};
+								if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+									slack_payload = {
+										text: `*TEST-NOT-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl
 											.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl
 											.resultData.email}\n`
 									};
-									if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
-										slack_payload = {
-											text: `*TEST-NOT-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl
-												.resultData.lastName}\n*Plan:* ${this.selected_plan
-												.id}\n*Owner Email:* ${pl.resultData.email}\n`
-										};
+								}
+								axios.post(
+									process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
+									JSON.stringify(slack_payload),
+									{
+										withCredentials: false,
+										transformRequest: [
+											(data, headers) => {
+												delete headers.post['Content-Type']; // eslint-disable-line
+												return data;
+											}
+										]
 									}
-									axios.post(
-										process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
-										JSON.stringify(slack_payload),
-										{
-											withCredentials: false,
-											transformRequest: [
-												(data, headers) => {
-													delete headers.post['Content-Type']; // eslint-disable-line
-													return data;
-												}
-											]
-										}
-									);
-								});
-							this.props.callback(true, this.selected_plan);
+								);
+							});
+							this.props.callback(true, this.selected_plan, this.state.customer);
 						}
 					}
 				}
@@ -349,14 +397,19 @@ class PaywallContent extends Component {
 				)}
 			</div>
 		);
-        return <PaywallComponentRender namestring="SUBSCRIPTION" payWallContent={pwallContent} input_title="CHOOSE YOUR PLAN BELOW:" />;
+		return (
+			<PaywallComponentRender
+				namestring="SUBSCRIPTION"
+				payWallContent={pwallContent}
+				input_title="CHOOSE YOUR PLAN BELOW:"
+			/>
+		);
 	}
 }
 
 class PaywallController extends Component {
 	state = { subscribed: false, plan: null };
 	handleCallback = (f, plan) => {
-		this.props.subscribed(f);
 		if (f) {
 			this.setState({ subscribed: true, plan });
 		}
@@ -365,13 +418,20 @@ class PaywallController extends Component {
 		if (!this.state.subscribed) {
 			return (
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
-					<PaywallContent callback={this.handleCallback} user_id={this.props.user_id} />
+					<PaywallContent callback={this.handleCallback} />
 				</StripeProvider>
 			);
 		}
 
 		return (
-			<div style={{ backgroundColor: '#343c44', paddingBottom: 22, marginBottom: 16 }}>
+			<div
+				style={{
+					paddingTop: 32,
+					backgroundColor: '#343c44',
+					height: '100vh',
+					width: '100vw'
+				}}
+			>
 				<div style={{ display: 'block', color: 'wheat', paddingTop: 8 }} className="ui stackable grid centered">
 					<div>
 						<h2>SUCCESSFULL</h2>
@@ -380,20 +440,22 @@ class PaywallController extends Component {
 						<h4>You have subscribed to the following plan:</h4>
 					</div>
 					<PricePlanBlock plan={this.state.plan} />
-					<h4>You can now proceed and create your subdomain.</h4>
+					<h4>Click Button to go to your admin portal.</h4>
+					<Button
+						onClick={() => {
+							browserHistory.push('/admin');
+						}}
+						primary
+					>
+						CONTINUE
+					</Button>
 				</div>
 			</div>
 		);
 	}
 }
 
-PaywallController.propTypes = {
-	user_id: PropTypes.number.isRequired,
-	subscribed: PropTypes.func.isRequired
-};
-
 PaywallContent.propTypes = {
-	user_id: PropTypes.number.isRequired,
 	callback: PropTypes.func.isRequired
 };
 PlanController.propTypes = {
