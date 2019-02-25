@@ -56,6 +56,7 @@ class SignupControllerInd extends Component {
                 initialValues={{
                     email: '',
                     password: '',
+                    confirm_password: '',
                     firstName: '',
                     lastName: '',
                     userName: ''
@@ -73,6 +74,11 @@ class SignupControllerInd extends Component {
                     if (values.userName.indexOf(' ') > -1) {
                         errors.userName = 'No Spaces allowed!';
                     }
+                    if (values.password && values.confirm_password) {
+                        if (values.password !== values.confirm_password) {
+                            errors.confirm_password = 'Passwords do not match!';
+                        }
+                    }
                     if (!values.firstName) {
                         errors.firstName = 'Required';
                     }
@@ -83,7 +89,7 @@ class SignupControllerInd extends Component {
                     ) {
                         errors.email = 'Invalid email address';
                     }
-                    if (errors.password || errors.email || errors.userName) {
+                    if (errors.password || errors.email || errors.userName || errors.confirm_password) {
                         disabled = true;
                     }
                     if (!values.password || !values.email || !values.userName) {

@@ -112,6 +112,28 @@ class SignupComponentRender extends Component {
                                                 }}>{this.props.errors.password}</div>}</div>
                                         </div>
                                     </div>
+                                    <div className={this.props.classes.input_title}>
+                                        Confirm Password
+                                    </div>
+                                    <div className="field">
+                                        <div className="ui input">
+                                            <input type="password" name="confirm_password" placeholder="Confirm Password" style={{
+                                                backgroundColor: 'transparent',
+                                                borderColor: '#fff',
+                                                color: '#fff',
+                                                height: '45px',
+                                                fontSize: '16px'
+                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.confirm_password}/>
+                                            <div style={{
+                                                position: 'absolute',
+                                                right: 0,
+                                                marginTop: 13,
+                                                marginRight: 30
+                                            }}>{this.props.touched.confirm_password && this.props.errors.confirm_password && <div style={{
+                                                    color: 'red'
+                                                }}>{this.props.errors.confirm_password}</div>}</div>
+                                        </div>
+                                    </div>
                                     <div >{this.props.createAccountButton}</div>
                                 </div>
                             </div>

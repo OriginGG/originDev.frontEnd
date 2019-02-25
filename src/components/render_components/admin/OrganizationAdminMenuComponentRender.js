@@ -53,6 +53,7 @@ class OrganizationAdminMenuComponentRender extends Component {
                                     </div>
                                 </div>
                             </a>
+                            <div >{this.props.paywall_content}</div>
                             <div className="ui inverted accordion">
                                 <div >{this.props.dropdown}</div>
                             </div>

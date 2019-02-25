@@ -3,6 +3,7 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
+import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
@@ -21,7 +22,6 @@ import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '.
 import { getAllAdminUsersQuery } from '../../../queries/users';
 
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
-
 
 class OrganizationPageController extends Component {
     state = {
@@ -966,38 +966,62 @@ class OrganizationPageController extends Component {
 
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
-                <DocumentTitle title={this.props.uiStore.current_organisation.name}>
-                    <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
-                        {this.state.error_page &&
-                            <div>
-                                <div id="error_page" className="error_page" />
-                                <div id="error_page" className="error_page_overlay">
-                                    <div style={{
-                                        textAlign: 'center', lineHeight: '32px', fontSize: 32, display: 'flex', justifyContent: 'center'
-                                    }}>
-                                        THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
-                                <br />
-                                        CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-                                <br />
-                                        <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-                        {SideBar}
-                        <div className={c_name} >
-                            {disp}
-                        </div>
-                    </div>
-                </DocumentTitle>
-            </ThemeProvider>
+				<DocumentTitle title={this.props.uiStore.current_organisation.name}>
+					<div
+						id="outer-container"
+						ref={(c) => {
+							this.ref_node = c;
+						}}
+					>
+						{this.state.error_page && (
+							<div>
+								<div id="error_page" className="error_page" />
+								<div id="error_page" className="error_page_overlay">
+									<div
+										style={{
+											paddingLeft: 32,
+											paddingRight: 32,
+											textAlign: 'center',
+											lineHeight: '32px',
+											fontSize: 32,
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
+										SUBSCRIBE.
+										<br />
+										OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+										<br />
+										<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+											support@origin.gg
+										</a>
+									</div>
+									<div
+										style={{
+											marginTop: 64,
+											textAlign: 'center',
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+									</div>
+								</div>
+							</div>
+						)}
+						<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+						{SideBar}
+						<div className={c_name}>{disp}</div>
+					</div>
+				</DocumentTitle>
+			</ThemeProvider>
         );
     }
 }
 OrganizationPageController.propTypes = {
-    uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+	uiStore: PropTypes.object.isRequired,
+	appManager: PropTypes.object.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));
