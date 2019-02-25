@@ -10,7 +10,7 @@ import axios from 'axios';
 import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../render_components/signup/LoginComponentRender';
 import { authenticateQuery } from '../../../queries/login';
-import { getUserByEmailQuery } from '../../../queries/users';
+// import { getUserByEmailQuery } from '../../../queries/users';
 import { getOrganisationByIdQuery, getOrganisationByName } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -97,14 +97,14 @@ class LoginControllerOrg extends Component {
                 }}
                 onSubmit={async (v) => {
                     // console.log('submitting....');
-                    const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
-                    if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
-                        toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
-                            position: toast.POSITION.TOP_LEFT,
-                            autoClose: 5000
-                        });
-                        return;
-                    }
+                    // const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
+                    // if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
+                    //     toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
+                    //         position: toast.POSITION.TOP_LEFT,
+                    //         autoClose: 5000
+                    //     });
+                    //     return;
+                    // }
                     v.email = v.email.toLowerCase();            // eslint-disable-line
                     const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     if (authPayload.authenticate.resultData !== null) {
