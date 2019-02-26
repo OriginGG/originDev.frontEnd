@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
+import { isMobile } from 'react-device-detect';
 import { Timeline } from 'react-twitter-widgets';
 import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
@@ -30,7 +31,10 @@ class OrganizationTwitterController extends Component {
     state = { visible: false, OrganizationTwitterComponenRender: null };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
 
         const OrganizationTwitterComponenRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitterComponentRender`);
         // if (this.props.uiStore.current_organisation.twitterFeedUsername) {
@@ -39,6 +43,14 @@ class OrganizationTwitterController extends Component {
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
+    }
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
     render() {
         if (this.state.visible === false) {

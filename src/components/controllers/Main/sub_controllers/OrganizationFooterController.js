@@ -17,7 +17,11 @@ class OrganizationFooterController extends Component {
     componentDidMount = async () => {
         const p_array = [];
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
+        console.log(`footercontrooler theme = ${theme}`);
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
         roster_data.allCombinedRosters.edges.forEach((r) => {
             const { gameId } = r.node;
@@ -66,7 +70,7 @@ class OrganizationFooterController extends Component {
     }
     isMobile = () => {
         // return true;
-        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
         if (isMobile || window.outerWidth < 1050) {
             return true;
         }

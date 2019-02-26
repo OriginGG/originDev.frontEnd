@@ -3,6 +3,7 @@ import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
+import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
@@ -22,11 +23,13 @@ import { getAllAdminUsersQuery } from '../../../queries/users';
 
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
-
 class OrganizationPageController extends Component {
     state = {
         menu_open: false,
+        customer_email: '',
+        email_visible: { display: 'none' },
         OrganizationPageComponentRender: null,
+        OrganizationEmailComponentRender: null,
         OrganizationVideoController: null,
         OrganizationTwitterController: null,
         OrganizationSponsorController: null,
@@ -117,9 +120,15 @@ class OrganizationPageController extends Component {
                 this.props.uiStore.setSubDomain(subDomain);
                 const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
                 const { subscribed } = user.allUsers.edges[0].node;
-                const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-                const themeBase = this.props.uiStore.current_organisation.themeBaseId;
+                let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+                let themeBase = this.props.uiStore.current_organisation.themeBaseId;
+                if (this.isMobile()) {
+                    theme = 'mobile/dark';
+                    themeBase = 'mobile';
+                }
+                console.log(`theme === ${theme}`);
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
+                const OrganizationEmailComponentRender = await import(`../../render_components/themes/${theme}/OrganizationEmailComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
                 const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
@@ -151,6 +160,14 @@ class OrganizationPageController extends Component {
                     // OrganizationTwitchController = null;
                     // OrganizationTwitchControllerDefault = null;
                 }
+                if (themeBase === 'mobile' && this.isMobile()) {
+                    OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
+                    OrganizationBlogControllerDefault = OrganizationBlogController.default;
+                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
+                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    // OrganizationTwitchController = null;
+                    // OrganizationTwitchControllerDefault = null;
+                }
                 if (themeBase === 'felzec' || themeBase === 'enigma2') {
                     OrganizationTeamController = await import('./sub_controllers/OrganizationTeamController');
                     OrganizationTeamControllerDefault = OrganizationTeamController.default;
@@ -158,6 +175,12 @@ class OrganizationPageController extends Component {
                     OrganizationMediaControllerDefault = OrganizationMediaController.default;
                     OrganizationFooterController = await import('./sub_controllers/OrganizationFooterController');
                     OrganizationFooterControllerDefault = OrganizationFooterController.default;
+                }
+
+                if (themeBase === 'enigma2') {
+                    this.setState({
+                        email_visible: { display: 'inherit' }
+                    });
                 }
                 this.roster_display = false;
                 if (this.isMobile()) {
@@ -212,6 +235,7 @@ class OrganizationPageController extends Component {
                     felzec_style: nf_style,
                     OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
                     OrganizationPageComponentRender: OrganizationPageComponentRender.default,
+                    OrganizationEmailComponentRender: OrganizationEmailComponentRender.default,
                     OrganizationVideoController: OrganizationVideoController.default,
                     OrganizationTwitterController: OrganizationTwitterController.default,
                     OrganizationSponsorController: OrganizationSponsorController.default,
@@ -377,6 +401,25 @@ class OrganizationPageController extends Component {
             return true;
         }
     }
+    handleCustomerEmailClose = () => {
+        console.log(`close this noise email:${this.state.customer_email}`);
+        this.setState({
+            email_visible: { display: 'none' }
+        });
+    }
+    handleCustomerEmailSubmit = () => {
+        console.log(`send the email email:${this.state.customer_email}`);
+        this.setState({
+            email_visible: { display: 'none' }
+        });
+    }
+    handleEmailChange = (e) => {
+        const v = e.target.value;
+        console.log(`email = ${v}`);
+        this.setState({
+            customer_email: v
+        });
+    }
     handleLoginClick = () => {
         this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
@@ -538,6 +581,7 @@ class OrganizationPageController extends Component {
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
+        const { OrganizationEmailComponentRender } = this.state;
         const { OrganizationNewsController } = this.state;
         const { OrganizationTwitterController } = this.state;
         const { OrganizationMatchesController } = this.state;
@@ -701,12 +745,25 @@ class OrganizationPageController extends Component {
             info_style = { display: 'inherit' };
         }
 
+        let email_style = { backgroundColor: 'green' };
+
+        if (this.props.uiStore.current_organisation.primaryColor) {
+            email_style = { backgroundColor: this.props.uiStore.current_organisation.primaryColor };
+        }
+
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
             roster_style={this.state.roster_style}
             copyright={cp}
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
+            emailContent={<OrganizationEmailComponentRender
+                handleCustomerEmailClose={this.handleCustomerEmailClose}
+                handleEmailChange={this.handleEmailChange}
+                handleCustomerEmailSubmit={this.handleCustomerEmailSubmit}
+                org_email_button={email_style}
+                org_email_container={this.state.email_visible}
+                />}
             blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
             teamContent={t_content}
             mediaContent={<OrganizationMediaController />}
@@ -909,38 +966,62 @@ class OrganizationPageController extends Component {
 
         return (
             <ThemeProvider theme={this.props.uiStore.current_theme_data}>
-                <DocumentTitle title={this.props.uiStore.current_organisation.name}>
-                    <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
-                        {this.state.error_page &&
-                            <div>
-                                <div id="error_page" className="error_page" />
-                                <div id="error_page" className="error_page_overlay">
-                                    <div style={{
-                                        textAlign: 'center', lineHeight: '32px', fontSize: 32, display: 'flex', justifyContent: 'center'
-                                    }}>
-                                        THIS SUBDOMAIN IS CURRENTLY SUSPENDED.
-                                <br />
-                                        CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-                                <br />
-                                        <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>support@origin.gg</a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-                        {SideBar}
-                        <div className={c_name} >
-                            {disp}
-                        </div>
-                    </div>
-                </DocumentTitle>
-            </ThemeProvider>
+				<DocumentTitle title={this.props.uiStore.current_organisation.name}>
+					<div
+						id="outer-container"
+						ref={(c) => {
+							this.ref_node = c;
+						}}
+					>
+						{this.state.error_page && (
+							<div>
+								<div id="error_page" className="error_page" />
+								<div id="error_page" className="error_page_overlay">
+									<div
+										style={{
+											paddingLeft: 32,
+											paddingRight: 32,
+											textAlign: 'center',
+											lineHeight: '32px',
+											fontSize: 32,
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
+										SUBSCRIBE.
+										<br />
+										OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+										<br />
+										<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+											support@origin.gg
+										</a>
+									</div>
+									<div
+										style={{
+											marginTop: 64,
+											textAlign: 'center',
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+									</div>
+								</div>
+							</div>
+						)}
+						<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+						{SideBar}
+						<div className={c_name}>{disp}</div>
+					</div>
+				</DocumentTitle>
+			</ThemeProvider>
         );
     }
 }
 OrganizationPageController.propTypes = {
-    uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+	uiStore: PropTypes.object.isRequired,
+	appManager: PropTypes.object.isRequired
 };
 
 export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));

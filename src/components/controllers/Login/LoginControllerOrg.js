@@ -10,7 +10,7 @@ import axios from 'axios';
 import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../render_components/signup/LoginComponentRender';
 import { authenticateQuery } from '../../../queries/login';
-import { getUserByEmailQuery } from '../../../queries/users';
+// import { getUserByEmailQuery } from '../../../queries/users';
 import { getOrganisationByIdQuery, getOrganisationByName } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
 
@@ -20,7 +20,14 @@ const { confirm } = Modal;
 class LoginControllerOrg extends Component {
     state = { button_disabled: false };
     componentDidMount = () => {
+        this.paywall = false;
         document.getElementById('origin_loader').style.display = 'none';
+        if (this.props.location.state) {
+            const { state } = this.props.location;
+            if (state.paywall) {
+                this.paywall = true;
+            }
+        }
     }
     sendEmail = (url) => {
         return new Promise((resolve, reject) => {
@@ -90,14 +97,14 @@ class LoginControllerOrg extends Component {
                 }}
                 onSubmit={async (v) => {
                     // console.log('submitting....');
-                    const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
-                    if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
-                        toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
-                            position: toast.POSITION.TOP_LEFT,
-                            autoClose: 5000
-                        });
-                        return;
-                    }
+                    // const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
+                    // if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
+                    //     toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
+                    //         position: toast.POSITION.TOP_LEFT,
+                    //         autoClose: 5000
+                    //     });
+                    //     return;
+                    // }
                     v.email = v.email.toLowerCase();            // eslint-disable-line
                     const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
                     if (authPayload.authenticate.resultData !== null) {
@@ -137,7 +144,11 @@ class LoginControllerOrg extends Component {
                             // succesfully logged in store in pouch then change page.
                             this.props.appManager.pouchStore('authenticate', authPayload);
                             // await this.props.appManager.pouchStore('authenticate', authPayload);
-                            historyStore.push('/admin');
+                            if (!this.paywall) {
+                                historyStore.push('/admin');
+                            } else {
+                                historyStore.push('/paywall');
+                            }
                         }
                     } else {
                         // does user exist as a pre-user?
@@ -199,6 +210,7 @@ class LoginControllerOrg extends Component {
 
 LoginControllerOrg.propTypes = {
     uiStore: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
 };
 

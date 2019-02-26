@@ -39,6 +39,7 @@ class ObliviotOrganizationPageComponentRender extends Component {
                         <div >{this.props.videoContent}</div>
                     </div>
                 </div>
+                <div id="email_component">{this.props.emailContent}</div>
             </div>
         )
     }
