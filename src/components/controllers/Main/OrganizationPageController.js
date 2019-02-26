@@ -179,7 +179,7 @@ class OrganizationPageController extends Component {
 
                 if (themeBase === 'enigma2') {
                     this.setState({
-                        email_visible: { display: 'inherit' }
+                        email_visible: { display: 'none' }
                     });
                 }
                 this.roster_display = false;
