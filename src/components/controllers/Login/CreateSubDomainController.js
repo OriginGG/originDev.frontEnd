@@ -246,6 +246,31 @@ class CreateSubDomainController extends Component {
 						description: ''
 					});
 					await this.subcribeUser();
+					let slack_payload = {
+						text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${this.payload.firstName} ${this
+							.payload.lastName}\n*Sub Domain:* ${this.domain_name}\n*Owner Email:* ${this
+								.payload.email}\n`
+					};
+					if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+						slack_payload = {
+							text: `*TEST-NOT-PRODUCTION*\n*Owner name:* ${this.payload.firstName} ${this
+								.payload.lastName}\n*Sub Domain:* ${this.domain_name}\n*Owner Email:* ${this
+									.payload.email}\n`
+						};
+					}
+					axios.post(
+						process.env.REACT_APP_SLACK_NEW_SIGNUP_WEBHOOK,
+						JSON.stringify(slack_payload),
+						{
+							withCredentials: false,
+							transformRequest: [
+								(data, headers) => {
+									delete headers.post['Content-Type']; // eslint-disable-line
+									return data;
+								}
+							]
+						}
+					);
 					const domainInfo = this.props.appManager.getDomainInfo();
 					const new_payload = Object.assign(this.authPayload, {});
 					new_payload.authenticate.resultData.organisationId = new_org.resultData.organisationAccount.id;
