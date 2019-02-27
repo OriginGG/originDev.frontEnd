@@ -24,7 +24,7 @@ class OrganizationLogoController extends Component {
             });
         }
         let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        if (this.isMobile) {
+        if (this.isMobile()) {
             theme = 'mobile/dark';
         }
         // const theme = this.props.uiStore.current_organisation.themeId;
