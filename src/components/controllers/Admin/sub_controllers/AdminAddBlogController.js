@@ -45,13 +45,20 @@ class AdminAddBlogController extends Component {
         }
         const f_name = await this.uploadBlogMedia();
         const f_text = this.state.text;
-        if (!f_text || !f_name) {
+        const f_title = this.state.blog_title;
+        if (!f_text || !f_name || !f_title) {
             if (!f_text) {
                 toast.error('Please add some blog text!', {
                     position: toast.POSITION.TOP_LEFT
                 });
-            } else {
+            }
+            if (!f_name) {
                 toast.error('Please supply a blog image!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
+            if (!f_title) {
+                toast.error('Please supply a blog title!', {
                     position: toast.POSITION.TOP_LEFT
                 });
             }
