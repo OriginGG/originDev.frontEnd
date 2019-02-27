@@ -99,17 +99,17 @@ class SignupControllerOrg extends Component {
 						firstName: v.firstName,
 						lastName: v.lastName,
 						password: v.password,
-						email: v.email,
+						email: v.email.tolowerCase(),
 						adminUser: true,
 						authenticated: false,
 						userName: v.userName
 					};
 					// const a = 'admin_user=true';
 					const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, {
-						email: v.email
+						email: v.email.tolowerCase()
 					});
 					if (registered_user.allUsers.edges.length > 0) {
-						toast.success(`Account ${v.email} already registered. Please sign in as normal`, {
+						toast.success(`Account ${v.email.tolowerCase()} already registered. Please sign in as normal`, {
 							position: toast.POSITION.TOP_LEFT,
 							autoClose: 15000
 						});
