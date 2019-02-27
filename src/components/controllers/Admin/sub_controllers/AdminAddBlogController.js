@@ -44,18 +44,28 @@ class AdminAddBlogController extends Component {
             return;
         }
         const f_name = await this.uploadBlogMedia();
-        const f_title = this.state.blog_title;
         const f_text = this.state.text;
-
-        if (!f_name && !f_title && !f_text) {
-            toast.error('Not all Blog fields filled out or an image has nott been uploaded', {
-                position: toast.POSITION.TOP_LEFT
-            });
+        const f_title = this.state.blog_title;
+        if (!f_text || !f_name || !f_title) {
+            if (!f_text) {
+                toast.error('Please add some blog text!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
+            if (!f_name) {
+                toast.error('Please supply a blog image!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
+            if (!f_title) {
+                toast.error('Please supply a blog title!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
             this.setState({ submitting: false });
             return;
         }
         if (this.create_blog) {
-            if (this.state.blog_title && this.state.text) {
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createBlogPostQuery,
                     {
@@ -70,7 +80,6 @@ class AdminAddBlogController extends Component {
                 });
                 this.setState({ submitting: false });
                 this.props.handleCancel();
-            }
         } else {
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateBlogPostQuery,

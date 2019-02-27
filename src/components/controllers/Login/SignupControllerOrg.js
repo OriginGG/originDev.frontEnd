@@ -85,7 +85,7 @@ class SignupControllerOrg extends Component {
 					} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
 						errors.email = 'Invalid email address';
 					}
-					if (errors.password || errors.email || errors.confirm_password) {
+					if (errors.firstName || errors.password || errors.email || errors.confirm_password) {
 						disabled = true;
 					}
 					if (!values.password || !values.email) {
@@ -99,17 +99,17 @@ class SignupControllerOrg extends Component {
 						firstName: v.firstName,
 						lastName: v.lastName,
 						password: v.password,
-						email: v.email,
+						email: v.email.toLowerCase(),
 						adminUser: true,
 						authenticated: false,
 						userName: v.userName
 					};
 					// const a = 'admin_user=true';
 					const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, {
-						email: v.email
+						email: v.email.toLowerCase()
 					});
 					if (registered_user.allUsers.edges.length > 0) {
-						toast.success(`Account ${v.email} already registered. Please sign in as normal`, {
+						toast.success(`Account ${v.email.toLowerCase()} already registered. Please sign in as normal`, {
 							position: toast.POSITION.TOP_LEFT,
 							autoClose: 15000
 						});

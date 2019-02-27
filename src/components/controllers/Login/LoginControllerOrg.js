@@ -157,7 +157,7 @@ class LoginControllerOrg extends Component {
                         // if (jwtToken) {
                         //     debugger;
                         // }
-                        toast.error(`Cannot log into ${v.email}. Check email & password is correct. Are you signed up?`, {
+                        toast.error(`Cannot log into ${v.email.toLowerCase()}. Check email & password is correct. Are you signed up?`, {
                             position: toast.POSITION.TOP_LEFT,
                             autoClose: 5000
                         });
