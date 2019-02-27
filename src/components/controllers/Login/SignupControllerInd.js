@@ -109,7 +109,7 @@ class SignupControllerInd extends Component {
                             adminUser: false,
                         };
                         await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
-                        toast.success(`Account ${v.email} created, you can now login.`, {
+                        toast.success(`Account ${v.email.toLowerCase()} created, you can now login.`, {
                             position: toast.POSITION.TOP_LEFT
                         });
                     } else {
@@ -117,7 +117,7 @@ class SignupControllerInd extends Component {
                             firstName: v.firstName,
                             lastName: v.lastName,
                             password: v.password,
-                            email: v.email,
+                            email: v.email.toLowerCase(),
                             adminUser: false,
                             authenticated: false,
                             userName: v.userName,
@@ -126,7 +126,7 @@ class SignupControllerInd extends Component {
                         const a = 'admin_user=false';
                         // first see if user exists in normal db?
                         let ll = 0;
-                        const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email });
+                        const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email.toLowerCase() });
                         if (registered_user.allIndividualUsers.edges.length > 0) {
                             if (registered_user.allIndividualUsers.edges[0].node.authenticated === true) {
                                 ll = 1;
@@ -138,18 +138,18 @@ class SignupControllerInd extends Component {
 
                         if (ll > 0) {
                             if (ll === 1) {
-                                toast.success(`Account ${v.email} already registered. Please sign in as normal`, {
+                                toast.success(`Account ${v.email.toLowerCase()} already registered. Please sign in as normal`, {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 15000
                                 });
                             } else {
                                 const f = await this.showSendConfirm();
                                 if (f) {
-                                    const r = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, { email: v.email });
+                                    const r = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, { email: v.email.toLowerCase() });
                                     const email_payload = r.registrationEmailByEmail.payload;
                                     const url = Buffer.from(email_payload, 'hex').toString('utf8');
                                     await this.sendEmail(url);
-                                    toast.success(`Registration email re-sent to ${v.email}, please check your email for further instructions.`, {
+                                    toast.success(`Registration email re-sent to ${v.email.toLowerCase()}, please check your email for further instructions.`, {
                                         position: toast.POSITION.TOP_LEFT,
                                         autoClose: 15000
                                     });
@@ -169,11 +169,11 @@ class SignupControllerInd extends Component {
                                 const pre_user = await this.props.appManager.executeQuery('mutation', createIndividualUserQuery, payload);
                                 const u_id = pre_user.individualUserRegister.individualUser.id;
                                 const host = window.location.origin;
-                                const url = `/emails/signup?host=${host}&email=${v.email}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
+                                const url = `/emails/signup?host=${host}&email=${v.email.toLowerCase()}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
                                 await this.sendEmail(url);
                                 const payload_email = Buffer.from(url, 'utf8').toString('hex');
-                                await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email, payload: payload_email });
-                                toast.success(`Account ${v.email} registered, please check your email for further instructions.`, {
+                                await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email.toLowerCase(), payload: payload_email });
+                                toast.success(`Account ${v.email.toLowerCase()} registered, please check your email for further instructions.`, {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 15000
                                 });
