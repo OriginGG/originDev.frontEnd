@@ -53,7 +53,7 @@ class AdminCollaboratorController extends Component {
             firstName: this.state.firstname_value,
             lastName: this.state.firstname_value,
             password: this.state.password_value,
-            email: this.state.email_value,
+            email: this.state.email_value.toLowerCase(),
             adminUser: false
         };
         const my_id = await this.props.appManager.executeQueryAuth('mutation', createUserQuery, payload);
