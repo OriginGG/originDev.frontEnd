@@ -162,7 +162,7 @@ class CreateSubDomainController extends Component {
 						id: this.user_id,
 						password: this.payload.password,
 						firstName: this.payload.firstName,
-						email: this.payload.email,
+						email: this.payload.email.toLowerCase(),
 						lastName: this.payload.lastName,
 						authenticated: false,
 						adminUser: true
