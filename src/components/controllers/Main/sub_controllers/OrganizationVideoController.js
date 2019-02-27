@@ -13,7 +13,7 @@ class OrganizationVideoController extends Component {
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
         let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        if (this.isMobile) {
+        if (this.isMobile()) {
             theme = 'mobile/dark';
         }
         const OrganizationVideoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationVideoComponentRender`);
