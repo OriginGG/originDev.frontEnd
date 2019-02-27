@@ -45,15 +45,20 @@ class AdminAddBlogController extends Component {
         }
         const f_name = await this.uploadBlogMedia();
         const f_text = this.state.text;
-        if (!f_text) {
-            toast.error('Please add some blog text!', {
-                position: toast.POSITION.TOP_LEFT
-            });
+        if (!f_text || !f_name) {
+            if (!f_text) {
+                toast.error('Please add some blog text!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            } else {
+                toast.error('Please supply a blog image!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
             this.setState({ submitting: false });
             return;
         }
         if (this.create_blog) {
-            if (this.state.text) {
                 await this.props.appManager.executeQueryAuth(
                     'mutation', createBlogPostQuery,
                     {
@@ -68,7 +73,6 @@ class AdminAddBlogController extends Component {
                 });
                 this.setState({ submitting: false });
                 this.props.handleCancel();
-            }
         } else {
             await this.props.appManager.executeQueryAuth(
                 'mutation', updateBlogPostQuery,
