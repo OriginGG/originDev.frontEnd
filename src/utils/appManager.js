@@ -97,7 +97,7 @@ class AppManager {
 
     checkFileSizeLimit = (f) => {
         const max_size = (process.env.REACT_APP_CLOUDINARY_MAX_UPLOAD_SIZE_MB * 1024) * 1024;
-        if (f.size > max_size) {
+        if (f && f.size > max_size) {
             toast.error(`File size too large to upload - maximum size is ${process.env.REACT_APP_CLOUDINARY_MAX_UPLOAD_SIZE_MB}mb`, {
                 position: toast.POSITION.TOP_LEFT,
                 autoClose: 5000
