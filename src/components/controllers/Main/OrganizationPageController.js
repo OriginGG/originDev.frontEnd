@@ -108,7 +108,6 @@ class OrganizationPageController extends Component {
 			historyStore.push('/signup_org');
 		} else {
 			const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
-			debugger;
 			if (o.resultData && o.resultData.nodes.length === 0) {
 				const s = this.props.appManager.getDomainInfo();
 				const r = s.hostname.split('.');
