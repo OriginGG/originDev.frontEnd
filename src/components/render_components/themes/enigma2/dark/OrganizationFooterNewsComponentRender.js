@@ -32,7 +32,6 @@ class DarkOrganizationFooterNewsComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '140px',
                                     overflowY: 'hidden',
                                     textOverflow: 'ellipsis'
                                 }}>
