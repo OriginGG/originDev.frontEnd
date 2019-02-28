@@ -29,7 +29,8 @@ class LightOrganizationPageComponentRender extends Component {
                             <div >{this.props.footerContent}</div>
                             <div className={this.props.classes.universal_footer_dark}>Website by
                                 <span style={{
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    marginLeft: '5px'
                                 }} onClick={this.props.handleWebClick}>
                                     OriginGG</span>
                             </div>
