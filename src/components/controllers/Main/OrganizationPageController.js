@@ -326,6 +326,9 @@ class OrganizationPageController extends Component {
         this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blogs: true });
         this.openMenu();
     }
+    handleWebClick = () => {
+        window.open('https://origin.gg', '_blank');
+    }
     handleViewBlogClick = () => {
         this.closeAll();
         // console.log('view more blogs clicked');
@@ -755,6 +758,7 @@ class OrganizationPageController extends Component {
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
             roster_style={this.state.roster_style}
+            handleWebClick={this.handleWebClick}
             copyright={cp}
             newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
             emailContent={<OrganizationEmailComponentRender
