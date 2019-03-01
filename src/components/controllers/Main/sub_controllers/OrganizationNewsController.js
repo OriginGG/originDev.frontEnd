@@ -102,8 +102,16 @@ class OrganizationNewsController extends Component {
             }
 
             if (theme_type === 'obliviot' && i > 2) {
+                const ocontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
                 console.log(`news item = ${blogTitle}`);
                 this.blog_array.unshift(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
+                if (blog_data.resultData.edges.length === 4) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+                if (blog_data.resultData.edges.length === 5) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
             }
             if (theme_type === 'obliviot' && i < 3) {
                 const ocontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
