@@ -23,7 +23,10 @@ class OrganizationLogoController extends Component {
                 p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
         }
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         // const theme = this.props.uiStore.current_organisation.themeId;
         const OrganizationLogoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationLogoComponentRender`);
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;

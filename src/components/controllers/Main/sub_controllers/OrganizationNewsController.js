@@ -30,8 +30,12 @@ class OrganizationNewsController extends Component {
     };
     componentDidMount = async () => {
         // console.log('organizationnews controller called');
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        const theme_type = this.props.uiStore.current_organisation.themeBaseId;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme_type = this.props.uiStore.current_organisation.themeBaseId;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+            theme_type = 'mobile';
+        }
         const comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsComponentRender`);
         let m_comp = null;
         let  OrganizationNewsMobileComponentRender = null;
@@ -48,9 +52,9 @@ class OrganizationNewsController extends Component {
         this.results_array = [];
         if (blog_data.resultData.edges.length < 1) {
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
-            if (theme_type !== 'obliviot') {
+            if (theme_type !== 'obliviot' || theme_type !== 'mobile') {
                 // console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
-                if (theme_type === 'felzec' && this.isMobile()) {
+                if (theme_type === 'felzec') {
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${2}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
@@ -67,7 +71,7 @@ class OrganizationNewsController extends Component {
                 }
             }
 
-            if (theme_type === 'obliviot') {
+            if (theme_type === 'obliviot' || theme_type === 'mobile') {
                 this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                 this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
                 this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${2}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
@@ -77,7 +81,7 @@ class OrganizationNewsController extends Component {
             }
         }
         blog_data.resultData.edges.forEach((blog, i) => {
-            // console.log(`i ========= ${i}`);
+            console.log(`i ========= ${i} theme_type = ${theme_type}`);
             const { blogContent } = blog.node;
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
@@ -88,8 +92,8 @@ class OrganizationNewsController extends Component {
             this.results_array.push({
                 content: blogContent, media: blogMedia, title: blogTitle, date: formattedDate
             });
-            if (theme_type !== 'obliviot') {
-                // console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
+            if (theme_type !== 'obliviot' && theme_type !== 'mobile') {
+                console.log(`theme_type = ${theme_type} and isMobile = ${this.isMobile()}`);
                 if (theme_type === 'felzec' && this.isMobile()) {
                     this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
                 } else {
@@ -98,7 +102,64 @@ class OrganizationNewsController extends Component {
             }
 
             if (theme_type === 'obliviot' && i > 2) {
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
+                const ocontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
+                console.log(`news item = ${blogTitle}`);
+                this.blog_array.unshift(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
+                if (blog_data.resultData.edges.length === 4) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+                if (blog_data.resultData.edges.length === 5) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+            }
+            if (theme_type === 'obliviot' && i < 3) {
+                const ocontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
+                if (blog_data.resultData.edges.length === 1) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+                if (blog_data.resultData.edges.length === 2) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+                if (blog_data.resultData.edges.length === 3) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+            }
+            if (theme_type === 'mobile' && i > 2) {
+                const ocontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
+                console.log(`news item = ${blogTitle}`);
+                this.blog_array.unshift(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
+                if (blog_data.resultData.edges.length === 4) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+                if (blog_data.resultData.edges.length === 5) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+            }
+            if (theme_type === 'mobile' && i < 3) {
+                const ocontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
+                if (blog_data.resultData.edges.length === 1) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+                if (blog_data.resultData.edges.length === 2) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
+                if (blog_data.resultData.edges.length === 3) {
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                    this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);
+                }
             }
         });
         if (blog_data.resultData.edges.length > -1) {

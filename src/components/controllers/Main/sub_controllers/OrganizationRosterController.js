@@ -13,7 +13,10 @@ class OrganizationRosterController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
         let OrganizationRosterItemMobileComponentRender = null;
         if (theme === 'felzec/light' || theme === 'enigma2/dark') {

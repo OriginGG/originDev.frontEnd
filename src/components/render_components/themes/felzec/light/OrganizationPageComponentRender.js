@@ -27,7 +27,13 @@ class LightOrganizationPageComponentRender extends Component {
                         <div id="email_component">{this.props.emailContent}</div>
                         <footer className={this.props.classes.felzec_darkFooter} style={this.props.felzec_footer_style}>
                             <div >{this.props.footerContent}</div>
-                            <div className={this.props.classes.universal_footer_dark}>Website by OriginGG</div>
+                            <div className={this.props.classes.universal_footer_dark}>Website by
+                                <span style={{
+                                    cursor: 'pointer',
+                                    marginLeft: '5px'
+                                }} onClick={this.props.handleWebClick}>
+                                    OriginGG</span>
+                            </div>
                         </footer>
                     </div>
                 </div>

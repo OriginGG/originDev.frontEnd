@@ -29,10 +29,14 @@ class OrganizationBlogController extends Component {
         blog_modal_open: false, OrganizationBlogComponentRender: null, OrganizationNewsModalComponentRender: null, visible: false, switched: 1
     };
     componentDidMount = async () => {
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
 
         let OrganizationBlogMobileComponentRender = null;
-        if (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light') {
+        if (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light' || theme === 'mobile/dark') {
             OrganizationBlogMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogMobileComponentRender`);
         }
         const OrganizationBlogComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogComponentRender`);
@@ -54,7 +58,7 @@ class OrganizationBlogController extends Component {
             });
         });
         // if (blog_data.resultData.edges.length > 0) {
-            if (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light') {
+            if (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light' || theme === 'mobile/dark') {
                 this.setState({
                     OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
                     OrganizationBlogMobileComponentRender: OrganizationBlogMobileComponentRender.default,
@@ -219,8 +223,8 @@ class OrganizationBlogController extends Component {
         }
         const { OrganizationNewsModalComponentRender } = this.state;
         const { OrganizationBlogComponentRender } = this.state;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        if (this.isMobile() && (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light')) {
+        // const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
             const { OrganizationBlogMobileComponentRender } = this.state;
             // console.log(`isMobile so retunr corrwct blog style    ${this.isMobile}`);
             return (

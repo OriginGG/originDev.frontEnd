@@ -3,6 +3,7 @@ import injectSheet from 'react-jss';
 import _ from 'lodash';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
@@ -12,7 +13,10 @@ class OrganizationNavController extends Component {
     componentDidMount = async () => {
         const p_array = [];
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
         roster_data.allCombinedRosters.edges.forEach((r) => {
             const { gameId } = r.node;
@@ -42,6 +46,16 @@ class OrganizationNavController extends Component {
     }
     openPage = page => {
         window.open(page, '_blank');
+    }
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            // console.log('isMobile true');
+            return true;
+        }
+        // console.log('isMobile false');
+        return false;
     }
     // openMenu = () => {
     //     // console.log('open menu');
