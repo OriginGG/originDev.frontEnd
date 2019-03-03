@@ -284,7 +284,6 @@ class CreateSubDomainController extends Component {
 		}
 	};
 	subcribeUser = async () => {
-		debugger;
 		const plans = await axios.get(
 			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_plans?product=${process.env
 				.REACT_APP_STRIPE_PRODUCT_ID}`
