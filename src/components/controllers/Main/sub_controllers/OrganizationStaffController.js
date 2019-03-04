@@ -119,6 +119,14 @@ class OrganizationStaffController extends Component {
         const overlay_style = { display: 'none' };
         this.setState({ felzec_overlay_style: overlay_style });
     }
+    isMobile = () => {
+        // return true;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    }
 
     handle_social = (s, ind_user) => {
         // console.log(`type = ${s}`);
