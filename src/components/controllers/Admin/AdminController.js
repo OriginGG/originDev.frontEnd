@@ -5,6 +5,7 @@ import { autorun } from 'mobx';
 import { Button, Card, Image } from 'semantic-ui-react';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
+import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { StripeProvider } from 'react-stripe-elements';
 import axios from 'axios';
@@ -246,6 +247,9 @@ class AdminPageController extends Component {
 			// const { user_id } = this.props.uiStore;
 			// const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
 			// this.subscribed = user.resultData.subscribed;
+			if (this.isMobile()) {
+				this.setState({ isOpen: false });
+			}
 			const { user_id } = this.props.uiStore;
 			const user = await this.props.appManager.executeQueryAuth('query', getUserQuery, { id: user_id });
 			const { email } = user.resultData;
@@ -309,7 +313,14 @@ class AdminPageController extends Component {
 		const f = this.state.isOpen;
 		this.setState({ isOpen: !f });
 	};
-
+	isMobile = () => {
+        // return true;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    };
 	handleNavClick = () => {
 		// console.log('nav click');
 		const domainInfo = this.props.appManager.getDomainInfo();

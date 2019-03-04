@@ -210,11 +210,13 @@ class OrganizationTeamController extends Component {
         const p_array = [];
         let ros_id = 0;
         this.my_index = 1;
+        this.player_count = 0;
         if (!this.isMobile()) {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
-            // console.log(`team data = ${JSON.stringify(roster_data)}`);
+            console.log(`players = ${JSON.stringify(roster_data.allCombinedRosters.edges.length)}`);
             roster_data.allCombinedRosters.edges.forEach((r) => {
-                // console.log(`r data = ${JSON.stringify(r)}`);
+                // console.log(`r data = ${JSON.stringify(r.node.combinedRosterIndividualsByRosterId.edges.length)}`);
+                this.player_count += r.node.combinedRosterIndividualsByRosterId.edges.length;
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
@@ -229,11 +231,12 @@ class OrganizationTeamController extends Component {
                     banner: currGame.banner
                 });
             });
+            console.log(`total player count = ${this.player_count}`);
         } else {
             const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
             // console.log(`team data = ${JSON.stringify(roster_data)}`);
             roster_data.allCombinedRosters.edges.forEach((r) => {
-                // console.log(`r data = ${JSON.stringify(r)}`);
+                console.log(`r data = ${JSON.stringify(r.length)}`);
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
@@ -334,8 +337,9 @@ class OrganizationTeamController extends Component {
                 />
             </div>);
         });
+        console.log(`total player count = ${this.player_count}`);
         const { OrganizationTeamComponentRender } = this.state;
-        return <OrganizationTeamComponentRender player_count={15} team_count={p.length} title_color={enigma2_color} team_count_color={enigma2_color} team_title_color={enigma2_color} player_count_color={enigma2_color} player_title_color={enigma2_color} filter_style={f} bg_style={s} roster_games={m_array} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
+        return <OrganizationTeamComponentRender player_count={this.player_count} team_count={p.length} title_color={enigma2_color} team_count_color={enigma2_color} team_title_color={enigma2_color} player_count_color={enigma2_color} player_title_color={enigma2_color} filter_style={f} bg_style={s} roster_games={m_array} roster_teams={<OrganizationTeamMateController key={`team_mate_roster_key_${this.my_index}`} closeRosters={this.closeRosters} roster_id={this.state.current_roster_id} />} />;
     }
 }
 

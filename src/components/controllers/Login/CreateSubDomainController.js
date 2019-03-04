@@ -289,7 +289,9 @@ class CreateSubDomainController extends Component {
 				.REACT_APP_STRIPE_PRODUCT_ID}`
 		);
 		const { data } = plans.data;
-
+		const f = data.findIndex(p => {
+			return p.id === process.env.REACT_APP_STRIPE_DEFAULT_SIGNUP_PLAN;
+		});
 		const customer = await axios.post(
 			`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
 			{
@@ -306,8 +308,8 @@ class CreateSubDomainController extends Component {
 			`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
 			{
 				customer_id: customer.data.cust.id,
-				plan: data[0].id,
-				trial_period_days: data[0].trial_period_days
+				plan: data[f].id,
+				trial_period_days: data[f].trial_period_days
 			},
 			{
 				headers: {
