@@ -6,7 +6,7 @@ import DateTime from 'react-datetime';
 import { GlobalStyles } from 'Theme/Theme';
 import { Select, Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { inject } from 'mobx-react';
-import _ from 'lodash';
+import find from 'lodash/find';
 import { Modal } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -320,7 +320,7 @@ class AdminRecentMatchesController extends Component {
 
         const p_array = [];
         this.state.matches.forEach((res, i) => {
-            const g_image = _.find(gameOptions, (o) => {
+            const g_image = find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
             p_array.push(<tr key={`key_rm_k_1_${i}`}>

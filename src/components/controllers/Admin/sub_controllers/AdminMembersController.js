@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';         // eslint-disable-line
 import injectSheet from 'react-jss';
 import axios from 'axios';
-import _ from 'lodash';
+import findIndex from 'lodash/findIndex';
 import { Modal } from 'antd';
 import { Table, Image, Icon, Checkbox, Card, Input, Segment, Button, Header } from 'semantic-ui-react/dist/commonjs';
 import { GlobalStyles } from 'Theme/Theme';
@@ -171,7 +171,7 @@ class AdminMembersController extends Component {
         }
         this.setState({ found_disabled: true });
         this.invite_array.forEach(o => {
-            const fnd = _.findIndex(this.current_members, m => {
+            const fnd = findIndex(this.current_members, m => {
                 return (m.node.individualUserByIndividalUserId.username === o.username);
             });
             if (fnd > -1) {
