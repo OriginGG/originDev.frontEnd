@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-import _ from 'lodash';
+import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
@@ -20,7 +20,7 @@ class OrganizationNavController extends Component {
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
         roster_data.allCombinedRosters.edges.forEach((r) => {
             const { gameId } = r.node;
-            const currGame = _.find(gameOptions, (o) => {
+            const currGame = find(gameOptions, (o) => {
                 return o.game_id === gameId;
             });
             p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });

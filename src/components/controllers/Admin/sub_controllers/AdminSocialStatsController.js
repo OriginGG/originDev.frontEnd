@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 import { toast } from 'react-toastify';
 import { GlobalStyles } from 'Theme/Theme';
 import axios from 'axios';
-import _ from 'lodash';
+import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import { Select } from 'antd';
 import { Table, Button, Card } from 'semantic-ui-react';
@@ -73,7 +73,7 @@ class AdminSocialStatsControllerr extends Component {
                 case 'roster': {
                     roster_data.allCombinedRosters.edges.forEach((r, i) => {
                         const { gameId } = r.node;
-                        currGame = _.find(gameOptions, (o) => {
+                        currGame = find(gameOptions, (o) => {
                             return o.game_id === gameId;
                         });
                         p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);

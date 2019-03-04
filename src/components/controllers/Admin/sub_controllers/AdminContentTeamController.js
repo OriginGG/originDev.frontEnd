@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
-import _ from 'lodash';
+import findIndex from 'lodash/findIndex';
 import { Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
@@ -20,7 +20,7 @@ export class ModalContentAddUser extends Component {
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
         this.props.users.forEach((x) => {
-            const f = _.findIndex(edges, (o) => {
+            const f = findIndex(edges, (o) => {
                 return o.node.individualUserByIndividalUserId.id === x.node.individualUserByIndividualId.id;
             });
             if (f > -1) {
@@ -151,7 +151,7 @@ class AdminContentTeamController extends Component {
         const add_array = [];
         const delete_array = [];
         t.forEach((u) => {
-            const p = _.findIndex(this.current_roster_users, (o) => {
+            const p = findIndex(this.current_roster_users, (o) => {
                 return o.node.individualUserByIndividualId.id === u.node.id;
             });
             if (p === -1) {
@@ -159,12 +159,12 @@ class AdminContentTeamController extends Component {
             }
         });
         this.current_roster_users.forEach((u) => {
-            const p = _.findIndex(t, (o) => {
+            const p = findIndex(t, (o) => {
                 return o.node.id === u.node.individualUserByIndividualId.id;
             });
             if (p === -1) {
                 // make sure its not in add array
-                const p2 = _.findIndex(add_array, (a) => {
+                const p2 = findIndex(add_array, (a) => {
                     return a.id === u.node.id;
                 });
                 if (p2 === -1) {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import find from 'lodash/find';
 import { GlobalStyles } from 'Theme/Theme';
 import { isMobile } from 'react-device-detect';
 import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
@@ -32,7 +32,7 @@ class OrganizationStaffController extends Component {
         for (let outer in outer_edges) {                // eslint-disable-line
             const { edges } = outer_edges[outer].node.combinedRosterIndividualsByRosterId;
             const p_type = outer_edges[outer].node.positionId;
-            const tx = _.find(staffOptions, o => o.position_id === p_type).text;
+            const tx = find(staffOptions, o => o.position_id === p_type).text;
             const ed_array = [];
             // console.log(`staff = ${JSON.stringify(edges)}`);
             edges.forEach((ed) => {

@@ -8,7 +8,7 @@ import Favicon from 'react-favicon';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
-import _ from 'lodash';
+import find from 'lodash/find';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { getOrganisationQuery } from '../../../queries/organisation';
@@ -191,7 +191,7 @@ class OrganizationPageController extends Component {
                     roster_data.allCombinedRosters.edges.forEach((r) => {
                         this.roster_display = true;
                         const { gameId } = r.node;
-                        const currGame = _.find(gameOptions, (or) => {          // eslint-disable-line
+                        const currGame = find(gameOptions, (or) => {          // eslint-disable-line
                             return or.game_id === gameId;
                         });
                         this.mobile_roster_data.push(<div onClick={() => { this.handleRosterClick(r.node.id); }} role="menuItem" tabIndex={-1} key={`mobile_roster_${r.node.id}`}><OrganizationMobileSubMenuComponentRender name={currGame.text} /></div>);

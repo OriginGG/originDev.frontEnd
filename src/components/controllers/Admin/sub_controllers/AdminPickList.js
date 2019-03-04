@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { Input } from 'antd';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
+import filter from 'lodash/filter';
 import { PickList } from 'primereact/components/picklist/PickList';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
@@ -21,7 +22,7 @@ class AdminPickListController extends Component {
         this.setState({ source: s, target: t });
     }
     sortAlpha = t => {
-        return _.orderBy(
+        return orderBy(
             t,
             [
                 user => {
@@ -45,7 +46,7 @@ class AdminPickListController extends Component {
     }
     updateFilter = input_value => {
         if (input_value.length >= 3) {
-            const p = _.filter(this.props.source, (o) => {
+            const p = filter(this.props.source, (o) => {
                 if (o.node.username) {
                     return o.node.username.toLowerCase().indexOf(input_value.toLowerCase()) > -1;
                 }

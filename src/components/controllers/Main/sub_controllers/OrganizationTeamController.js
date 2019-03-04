@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-import _ from 'lodash';
+import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
@@ -220,7 +220,7 @@ class OrganizationTeamController extends Component {
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
-                const currGame = _.find(gameOptions, (o) => {
+                const currGame = find(gameOptions, (o) => {
                     return o.game_id === gameId;
                 });
                 // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
@@ -240,7 +240,7 @@ class OrganizationTeamController extends Component {
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
-                const currGame = _.find(gameOptions, (o) => {
+                const currGame = find(gameOptions, (o) => {
                     return o.game_id === gameId;
                 });
                 // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);

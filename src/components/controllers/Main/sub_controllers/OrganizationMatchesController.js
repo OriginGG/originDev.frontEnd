@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import moment from 'moment';
 import { isMobile } from 'react-device-detect';
-import _ from 'lodash';
+import find from 'lodash/find';
 // import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 import { recentMatchesQuery } from '../../../../queries/matches';
@@ -282,7 +282,7 @@ class OrganizationMatchesController extends Component {
             r_theme = 'mobile';
         }
         edges.forEach((res) => {
-            const g_image = _.find(gameOptions, (o) => {
+            const g_image = find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
             const g_type = res.node.gameName;
