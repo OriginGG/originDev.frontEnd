@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getBlogsQuery } from '../../../../queries/blogs';
 // import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -184,4 +184,4 @@ OrganizationBlogListController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationBlogListController));
+export default inject('uiStore', 'appManager')(OrganizationBlogListController);

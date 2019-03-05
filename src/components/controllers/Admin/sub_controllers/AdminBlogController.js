@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import { GlobalStyles } from 'Theme/Theme';
+// import injectSheet from 'react-jss';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import dayjs from 'dayjs';
 import OrganizationAdminBlogComponentRender from '../../../render_components/admin/OrganizationAdminBlogComponentRender';
@@ -84,4 +84,4 @@ AdminBlogController.propTypes = {
     appManager: PropTypes.object.isRequired,
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminBlogController));
+export default inject('uiStore', 'appManager')((AdminBlogController));

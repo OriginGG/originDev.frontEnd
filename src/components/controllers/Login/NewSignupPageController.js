@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import historyStore from '../../../utils/stores/browserHistory';
 
 import { getUserQuery, updateUserQuery } from '../../../queries/users';
@@ -57,5 +57,5 @@ class NewSignupPageController extends Component {
 NewSignupPageController.propTypes = {
     appManager: PropTypes.object.isRequired,
 };
-export default inject('appManager', 'uiStore')(injectSheet(GlobalStyles)(NewSignupPageController));
+export default inject('appManager', 'uiStore')(NewSignupPageController);
 

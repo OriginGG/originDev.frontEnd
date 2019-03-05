@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getYouTubeChannelsQuery } from '../../../../queries/youtube_channels';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationVideoController extends Component {
@@ -78,4 +78,4 @@ OrganizationVideoController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationVideoController));
+export default inject('uiStore', 'appManager')(OrganizationVideoController);

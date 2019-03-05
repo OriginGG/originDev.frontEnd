@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
 import { toJS } from 'mobx';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -345,5 +345,5 @@ AdminProfileController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminProfileController));
+export default inject('uiStore', 'appManager')(AdminProfileController);
 

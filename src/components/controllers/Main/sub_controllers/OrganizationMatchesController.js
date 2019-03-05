@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import find from 'lodash/find';
 // import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { recentMatchesQuery } from '../../../../queries/matches';
 import coc_image from '../../../../assets/images/game_images/clashofclans.png';
 import cod_image from '../../../../assets/images/game_images/cod.png';
@@ -474,4 +474,4 @@ OrganizationMatchesController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationMatchesController));
+export default inject('uiStore', 'appManager')(OrganizationMatchesController);

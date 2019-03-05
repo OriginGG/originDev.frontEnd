@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
 import coc_image from '../../../../assets/images/game_images/clashofclans.png';
 import cod_image from '../../../../assets/images/game_images/cod.png';
@@ -349,4 +349,4 @@ OrganizationTeamController.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationTeamController));
+export default inject('uiStore', 'appManager')(OrganizationTeamController);

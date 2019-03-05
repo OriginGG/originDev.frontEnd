@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getRosterByIDQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -206,4 +206,4 @@ OrganizationTeamMateController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationTeamMateController));
+export default inject('uiStore', 'appManager')(OrganizationTeamMateController);

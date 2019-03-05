@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { Modal, Card, Row, Col, Button, Input } from 'antd';
 import axios from 'axios';
@@ -374,5 +374,5 @@ AdminSponsorController.propTypes = {
     appManager: PropTypes.object.isRequired,
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminSponsorController));
+export default inject('uiStore', 'appManager')(AdminSponsorController);
 

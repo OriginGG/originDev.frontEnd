@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
 import default_image from '../../../../assets/images/game_images/blog_default_image.jpg';
 
@@ -324,4 +324,4 @@ OrganizationBlogController.propTypes = {
     handleNewsClick: PropTypes.func.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationBlogController));
+export default inject('uiStore', 'appManager')(OrganizationBlogController);

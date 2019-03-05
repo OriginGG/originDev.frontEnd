@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { Formik } from 'formik';
 import { inject } from 'mobx-react';
 import { Button } from 'semantic-ui-react/dist/commonjs';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { Modal } from 'antd';
 import axios from 'axios';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../render_components/signup/LoginComponentRender';
 import { getIndividualUserByEmailQuery } from '../../../queries/users';
 import { authenticateIndividualQuery } from '../../../queries/login';
@@ -156,4 +156,4 @@ LoginControllerInd.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(LoginControllerInd));
+export default inject('uiStore', 'appManager')(LoginControllerInd);

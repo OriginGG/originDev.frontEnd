@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import axios from 'axios';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
@@ -559,5 +559,5 @@ TwitterIndividualTable.propTypes = {
     tb_agg: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminSocialStatsControllerr));
+export default inject('uiStore', 'appManager')(AdminSocialStatsControllerr);
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import findIndex from 'lodash/findIndex';
 import { getThemeByNameQuery } from './queries/themes';
 import { getOrganisationQuery, getOrganisationByIdQuery } from './queries/organisation';
 import { getIndividualUserByHandleQuery } from './queries/individuals';
 
-import { GlobalStyles } from './utils/themes/Theme';
+// import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
 import './App.css';
 
@@ -193,5 +193,5 @@ AppController.defaultProps = {
     ignore_routes: false
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AppController));
+export default inject('uiStore', 'appManager')((AppController));
 

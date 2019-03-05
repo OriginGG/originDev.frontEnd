@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import injectSheet, { ThemeProvider } from 'react-jss';
+// import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
 import dayjs from 'dayjs';
@@ -969,7 +969,7 @@ class OrganizationPageController extends Component {
 
 
         return (
-            <ThemeProvider theme={this.props.uiStore.current_theme_data}>
+            // <ThemeProvider theme={this.props.uiStore.current_theme_data}>
 				<DocumentTitle title={this.props.uiStore.current_organisation.name}>
 					<div
 						id="outer-container"
@@ -1019,7 +1019,7 @@ class OrganizationPageController extends Component {
 						<div className={c_name}>{disp}</div>
 					</div>
 				</DocumentTitle>
-			</ThemeProvider>
+			// </ThemeProvider>
         );
     }
 }
@@ -1028,4 +1028,4 @@ OrganizationPageController.propTypes = {
 	appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));
+export default inject('uiStore', 'appManager')((OrganizationPageController));

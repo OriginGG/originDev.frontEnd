@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 
@@ -220,4 +220,4 @@ OrganizationNavController.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationNavController));
+export default inject('uiStore', 'appManager')(OrganizationNavController);

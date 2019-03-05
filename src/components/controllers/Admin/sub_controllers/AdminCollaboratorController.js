@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import { GlobalStyles } from 'Theme/Theme';
+// import injectSheet from 'react-jss';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { Input, Segment, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { createUserQuery, updateUserQuery, getAllNonAdminUsersQuery } from '../../../../queries/users';
@@ -117,5 +117,5 @@ AdminCollaboratorController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminCollaboratorController));
+export default inject('uiStore', 'appManager')((AdminCollaboratorController));
 

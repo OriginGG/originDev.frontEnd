@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { isMobile } from 'react-device-detect';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getRosterByIDQuery } from '../../../../queries/rosters';
@@ -222,4 +222,4 @@ OrganizationRosterController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationRosterController));
+export default inject('uiStore', 'appManager')(OrganizationRosterController);

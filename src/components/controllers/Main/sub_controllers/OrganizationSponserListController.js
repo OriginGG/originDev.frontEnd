@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 // import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -192,4 +192,4 @@ OrganizationSponserListController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationSponserListController));
+export default inject('uiStore', 'appManager')(OrganizationSponserListController);
