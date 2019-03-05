@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import find from 'lodash/find';
 import findIndex from 'lodash/findIndex';
 import { Dropdown, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 // import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
@@ -461,4 +461,4 @@ RosterGame.propTypes = {
     handleClick: PropTypes.func.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminRosterController));
+export default inject('uiStore', 'appManager')(AdminRosterController);

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet, { ThemeProvider } from 'react-jss';
+// import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { Segment, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { Row, Col } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import SignupPageComponentRender from '../../render_components/signup/SignupPageComponentRender';
 import logoTop from '../../../assets/images/logo-top.png';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
@@ -215,15 +215,15 @@ class PasswordPageController extends Component {
             return null;
         }
         return (
-            <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
+            // <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
                 <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={this.state.rsComponent} />
-            </ThemeProvider>
+            // </ThemeProvider>
         );
     }
 }
 
 PasswordPageController.propTypes = {
-    uiStore: PropTypes.object.isRequired,
+    // uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
 };
 
@@ -236,5 +236,5 @@ InputBoxPassword.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(PasswordPageController));
+export default inject('uiStore', 'appManager')(PasswordPageController);
 

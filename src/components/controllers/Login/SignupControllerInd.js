@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { Formik } from 'formik';
 import { inject } from 'mobx-react';
 import { Button } from 'semantic-ui-react/dist/commonjs';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { Modal } from 'antd';
 import axios from 'axios';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import SignupComponentRender from '../../render_components/signup/SignupComponentRender';
 import { createUserQuery, createIndividualUserQuery, getIndividualUserByEmailQuery } from '../../../queries/users';
 import { getIndividualUserByHandleQuery } from '../../../queries/individuals';
@@ -225,4 +225,4 @@ SignupControllerInd.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(SignupControllerInd));
+export default inject('uiStore', 'appManager')(SignupControllerInd);

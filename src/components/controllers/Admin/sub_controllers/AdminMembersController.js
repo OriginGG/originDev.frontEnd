@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';         // eslint-disable-line
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import axios from 'axios';
 import findIndex from 'lodash/findIndex';
 import { Modal } from 'antd';
 import { Table, Image, Icon, Checkbox, Card, Input, Segment, Button, Header } from 'semantic-ui-react/dist/commonjs';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
 import { searchIndividualUsersByHandleQuery } from '../../../../queries/individuals';
@@ -279,5 +279,5 @@ MemberCharacter.propTypes = {
     key_index: PropTypes.number.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminMembersController));
+export default inject('uiStore', 'appManager')(AdminMembersController);
 

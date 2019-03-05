@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 import { getRosterQuery } from '../../../../queries/rosters';
@@ -317,4 +317,4 @@ OrganizationFooterController.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationFooterController));
+export default inject('uiStore', 'appManager')(OrganizationFooterController);

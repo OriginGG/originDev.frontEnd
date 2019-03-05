@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { isMobile } from 'react-device-detect';
 import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
 import { getRosterQuery } from '../../../../queries/rosters';
@@ -318,4 +318,4 @@ OrganizationStaffController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationStaffController));
+export default inject('uiStore', 'appManager')(OrganizationStaffController);

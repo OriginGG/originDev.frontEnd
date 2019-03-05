@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 
@@ -70,4 +70,4 @@ OrganizationLogoController.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationLogoController));
+export default inject('uiStore', 'appManager')(OrganizationLogoController);

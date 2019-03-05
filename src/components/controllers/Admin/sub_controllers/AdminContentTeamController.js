@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import findIndex from 'lodash/findIndex';
 import { Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 // import { deleteContentTeamQuery, deleteContentTeamUserQuery, createContentTeamUserQuery, getContentTeamQuery, createContentTeamQuery } from '../../../../queries/ContentTeam.js';
@@ -248,4 +248,4 @@ AddUserModal.propTypes = {
     content: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminContentTeamController));
+export default inject('uiStore', 'appManager')((AdminContentTeamController));

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import { GlobalStyles } from 'Theme/Theme';
+// import injectSheet from 'react-jss';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import axios from 'axios';
@@ -380,5 +380,5 @@ AdminThemeController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminThemeController));
+export default inject('uiStore', 'appManager')(AdminThemeController);
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { Card, Icon, Image, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
@@ -746,4 +746,4 @@ EditModal.propTypes = {
     modal_open: PropTypes.bool.isRequired,
     content: PropTypes.object.isRequired
 };
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(IndividualPageController));
+export default inject('uiStore', 'appManager')(IndividualPageController);
