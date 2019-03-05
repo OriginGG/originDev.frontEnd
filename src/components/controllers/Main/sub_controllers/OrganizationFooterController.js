@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
@@ -42,7 +42,7 @@ class OrganizationFooterController extends Component {
             const { createdAt } = blog.node;
             const blog_d = blog;
             // console.log(`blogMain = ${blog}`);
-            const formattedDate = moment(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('lll');
             this.results_array.push({
                 media: blogMedia, title: blogTitle, date: formattedDate, blog: blog_d, key: i
             });

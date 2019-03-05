@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
@@ -52,7 +52,7 @@ class OrganizationBlogController extends Component {
             const { createdAt } = blog.node;
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // console.log(`blogMain = ${blog}`);
-            const formattedDate = moment(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('lll');
             this.results_array.push({
                 content: bcontent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
             });

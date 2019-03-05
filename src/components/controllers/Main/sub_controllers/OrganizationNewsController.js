@@ -4,7 +4,7 @@ import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { Modal } from 'antd';
 import { isMobile } from 'react-device-detect';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
 import default_image from '../../../../assets/images/game_images/blog_default_image.jpg';
@@ -86,7 +86,7 @@ class OrganizationNewsController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            const formattedDate = moment(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('lll');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
             this.results_array.push({

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import OrganizationAdminBlogComponentRender from '../../../render_components/admin/OrganizationAdminBlogComponentRender';
 import { getBlogsQuery } from '../../../../queries/blogs';
 import AdminAddBlogController from './AdminAddBlogController';
@@ -32,7 +32,7 @@ class AdminBlogController extends Component {
                     height: 64, overflow: 'hidden', maxHeight: 64, display: 'block'
                 }}>{bcontent}</td>
                 <td><img style={{ height: 64 }} alt="" src={blogMedia} /></td>
-                <td>{moment(createdAt).format('lll')}</td>
+                <td>{dayjs(createdAt).format('lll')}</td>
             </tr>);
         });
         this.setState({ visible: true });

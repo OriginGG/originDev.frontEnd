@@ -5,7 +5,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import find from 'lodash/find';
@@ -392,7 +392,7 @@ class OrganizationPageController extends Component {
         }
         /* this.setState({ about_modal_open: true }); */
         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-        const formattedDate = moment(blog.node.createdAt).format('lll');
+        const formattedDate = dayjs(blog.node.createdAt).format('lll');
         this.setState({
             roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blog_view: true, b_media: blog.node.blogMedia, b_content: bcontent, b_title: blog.node.blogTitle, b_date: formattedDate
         });
