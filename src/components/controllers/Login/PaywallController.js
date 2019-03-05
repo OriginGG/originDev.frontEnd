@@ -302,6 +302,9 @@ class PaywallContent extends Component {
 								const cur = moment().tz('America/New_York');
 								const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
 								this.subscription_days_left = day_diff + 1;
+								if (this.subscription_days_left > subscriptions.data[0].plan.trial_period_days) {
+									this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
+								}
 							}
 							await axios.post(
 								`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
