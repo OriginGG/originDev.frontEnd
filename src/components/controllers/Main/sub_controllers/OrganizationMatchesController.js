@@ -29,6 +29,7 @@ import streetfighter_image from '../../../../assets/images/game_images/streetfig
 import ssb_image from '../../../../assets/images/game_images/ssb.png';
 import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
 import tekken_image from '../../../../assets/images/game_images/tekken.png';
+import apex_image from '../../../../assets/images/game_images/apex.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -127,6 +128,12 @@ const gameOptions = [
         text: 'Destiny',
         value: 'Destiny',
         image: destiny_image
+    },
+    {
+        game_id: 22,
+        text: 'Apex Legends',
+        value: 'Apex Legends',
+        image: apex_image
     },
 ];
 class OrganizationMatchesController extends Component {
