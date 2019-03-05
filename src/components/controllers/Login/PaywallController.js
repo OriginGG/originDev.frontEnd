@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
+import dayjs from 'dayjs';
 import { Dimmer, Header, Segment, Button } from 'semantic-ui-react';
 import {
 	CardNumberElement,
@@ -299,8 +299,11 @@ class PaywallContent extends Component {
 							this.subscription_days_left = null;
 							const { trial_end } = subscriptions.data[0];
 							if (trial_end) {
-								const cur = moment().tz('America/New_York');
-								const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+								const cur = dayjs(new Date());		// .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+								// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+								const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
+								// const cur = moment().tz('America/New_York');
+								// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
 								this.subscription_days_left = day_diff + 1;
 								if (this.subscription_days_left > subscriptions.data[0].plan.trial_period_days) {
 									this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
