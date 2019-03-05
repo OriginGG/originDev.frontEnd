@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import { Timeline } from 'react-twitter-widgets';
 import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 
 // import { getOrganisationQuery } from './queries/organisation'
 
@@ -78,4 +78,4 @@ TwitterFeed.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationTwitterController));
+export default inject('uiStore', 'appManager')(OrganizationTwitterController);

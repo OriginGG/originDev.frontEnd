@@ -1,9 +1,9 @@
-@import '~antd/dist/antd.css';
+@import '~antd/dist/antd.min.css';
 @import "./external_styles/Semantic-UI-CSS-master/semantic.min.css";
 @import "~react-quill/dist/quill.snow.css";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
+/* @import "~slick-carousel/slick/slick.css"; */
+/* @import "~slick-carousel/slick/slick-theme.css"; */
 @import "~primereact/resources/themes/redmond/theme.css";
 @import "~primereact/resources/primereact.min.css";
 @import "~react-alice-carousel/lib/alice-carousel.css";

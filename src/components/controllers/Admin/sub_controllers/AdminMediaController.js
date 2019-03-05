@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import { GlobalStyles } from 'Theme/Theme';
+// import injectSheet from 'react-jss';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
 import OrganizationAdminMediaComponentRender from '../../../render_components/admin/OrganizationAdminMediaComponentRender';
@@ -126,5 +126,5 @@ AdminMediaController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminMediaController));
+export default inject('uiStore', 'appManager')(AdminMediaController);
 

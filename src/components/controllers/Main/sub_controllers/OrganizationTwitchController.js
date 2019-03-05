@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 // mport _ from 'lodash';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters.js';
 // import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import offline_image from '../../../../assets/images/game_images/twitch_offline.png';
@@ -193,4 +193,4 @@ OrganizationTwitchController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationTwitchController));
+export default inject('uiStore', 'appManager')(OrganizationTwitchController);

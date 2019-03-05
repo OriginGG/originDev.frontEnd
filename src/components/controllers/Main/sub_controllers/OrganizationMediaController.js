@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import axios from 'axios';
 import { isMobile } from 'react-device-detect';
 // import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getYouTubeChannelsQuery } from '../../../../queries/youtube_channels';
 // import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import { getRosterQuery } from '../../../../queries/rosters.js';
@@ -249,7 +249,7 @@ class OrganizationMediaController extends Component {
                         />);
                     } else {
                         const t_url = `https://player.twitch.tv/?channel=${l.name}`;
-                        const t_thumb = offline_image;
+                        const t_thumb = 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1551819112/game_images/twitch_offline.png';
                         p_array.push(<OrganizationTwitchComponentRender
                             key={`twitch_live_k_${i}`}
                             twitch_url={t_url}
@@ -335,4 +335,4 @@ OrganizationMediaController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationMediaController));
+export default inject('uiStore', 'appManager')(OrganizationMediaController);

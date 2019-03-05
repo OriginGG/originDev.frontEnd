@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import injectSheet, { ThemeProvider } from 'react-jss';
+// import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
-import _ from 'lodash';
+import find from 'lodash/find';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { getOrganisationQuery } from '../../../queries/organisation';
@@ -191,7 +191,7 @@ class OrganizationPageController extends Component {
                     roster_data.allCombinedRosters.edges.forEach((r) => {
                         this.roster_display = true;
                         const { gameId } = r.node;
-                        const currGame = _.find(gameOptions, (or) => {          // eslint-disable-line
+                        const currGame = find(gameOptions, (or) => {          // eslint-disable-line
                             return or.game_id === gameId;
                         });
                         this.mobile_roster_data.push(<div onClick={() => { this.handleRosterClick(r.node.id); }} role="menuItem" tabIndex={-1} key={`mobile_roster_${r.node.id}`}><OrganizationMobileSubMenuComponentRender name={currGame.text} /></div>);
@@ -392,7 +392,7 @@ class OrganizationPageController extends Component {
         }
         /* this.setState({ about_modal_open: true }); */
         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-        const formattedDate = moment(blog.node.createdAt).format('lll');
+        const formattedDate = dayjs(blog.node.createdAt).format('lll');
         this.setState({
             roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blog_view: true, b_media: blog.node.blogMedia, b_content: bcontent, b_title: blog.node.blogTitle, b_date: formattedDate
         });
@@ -969,7 +969,7 @@ class OrganizationPageController extends Component {
 
 
         return (
-            <ThemeProvider theme={this.props.uiStore.current_theme_data}>
+            // <ThemeProvider theme={this.props.uiStore.current_theme_data}>
 				<DocumentTitle title={this.props.uiStore.current_organisation.name}>
 					<div
 						id="outer-container"
@@ -1019,7 +1019,7 @@ class OrganizationPageController extends Component {
 						<div className={c_name}>{disp}</div>
 					</div>
 				</DocumentTitle>
-			</ThemeProvider>
+			// </ThemeProvider>
         );
     }
 }
@@ -1028,4 +1028,4 @@ OrganizationPageController.propTypes = {
 	appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));
+export default inject('uiStore', 'appManager')((OrganizationPageController));

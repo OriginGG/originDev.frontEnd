@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import _ from 'lodash';
+// import injectSheet from 'react-jss';
+import findIndex from 'lodash/findIndex';
 import { getThemeByNameQuery } from './queries/themes';
 import { getOrganisationQuery, getOrganisationByIdQuery } from './queries/organisation';
 import { getIndividualUserByHandleQuery } from './queries/individuals';
 
-import { GlobalStyles } from './utils/themes/Theme';
+// import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
 import './App.css';
 
@@ -159,7 +159,7 @@ class AppController extends Component {
                 }
             } else {
                 const l = location.pathname;        // eslint-disable-line
-                if (_.findIndex(pathsToIgnore, (o) => {
+                if (findIndex(pathsToIgnore, (o) => {
                     return o === l;
                 }) === -1) {
                     let handle = (location.pathname).replace('/', '');            // eslint-disable-line
@@ -193,5 +193,5 @@ AppController.defaultProps = {
     ignore_routes: false
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AppController));
+export default inject('uiStore', 'appManager')((AppController));
 

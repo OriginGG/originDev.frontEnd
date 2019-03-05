@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
-import _ from 'lodash';
+// import injectSheet from 'react-jss';
+import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getBlogsQuery } from '../../../../queries/blogs';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 import { getRosterQuery } from '../../../../queries/rosters';
@@ -25,7 +25,7 @@ class OrganizationFooterController extends Component {
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
         roster_data.allCombinedRosters.edges.forEach((r) => {
             const { gameId } = r.node;
-            const currGame = _.find(gameOptions, (o) => {
+            const currGame = find(gameOptions, (o) => {
                 return o.game_id === gameId;
             });
             p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
@@ -42,7 +42,7 @@ class OrganizationFooterController extends Component {
             const { createdAt } = blog.node;
             const blog_d = blog;
             // console.log(`blogMain = ${blog}`);
-            const formattedDate = moment(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('lll');
             this.results_array.push({
                 media: blogMedia, title: blogTitle, date: formattedDate, blog: blog_d, key: i
             });
@@ -317,4 +317,4 @@ OrganizationFooterController.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationFooterController));
+export default inject('uiStore', 'appManager')(OrganizationFooterController);

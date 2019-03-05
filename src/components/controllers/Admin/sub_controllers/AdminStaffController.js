@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import _ from 'lodash';
+// import injectSheet from 'react-jss';
+import findIndex from 'lodash/findIndex';
+import find from 'lodash/find';
 import { Dropdown, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
 import { deleteRosterUserQuery, deleteRosterQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
@@ -22,7 +23,7 @@ export class ModalContentAddUser extends Component {
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
         this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((x) => {
-            const f = _.findIndex(edges, (o) => {
+            const f = findIndex(edges, (o) => {
                 return o.node.individualUserByIndividalUserId.id === x.node.individualUserByIndividualId.id;
             });
             if (f > -1) {
@@ -91,7 +92,7 @@ export class ModalContentAddUser extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        const currGame = _.find(staffOptions, (o) => {
+        const currGame = find(staffOptions, (o) => {
             return o.position_id === parseInt(this.props.game_node.positionId, 10);
         });
         return (
@@ -176,7 +177,7 @@ class ModalContentAddGame extends Component {
         this.setState({ current_game: data });
     }
     handleOk = () => {
-        const currGame = _.find(staffOptions, (o) => {
+        const currGame = find(staffOptions, (o) => {
             return o.value === this.state.current_game.value;
         });
         this.props.handleSubmit(currGame);
@@ -189,7 +190,7 @@ class ModalContentAddGame extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        const currGame = _.find(staffOptions, (o) => {
+        const currGame = find(staffOptions, (o) => {
             return o.value === this.state.current_game.value;
         });
         return (
@@ -255,7 +256,7 @@ class AdminStaffController extends Component {
             const staff_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'staff', organisationId: this.props.uiStore.current_organisation.id });
             staff_data.allCombinedRosters.edges.forEach((r, i) => {
                 const { positionId } = r.node;
-                const currGame = _.find(staffOptions, (o) => {
+                const currGame = find(staffOptions, (o) => {
                     return o.position_id === parseInt(positionId, 10);
                 });
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
@@ -270,7 +271,7 @@ class AdminStaffController extends Component {
         const add_array = [];
         const delete_array = [];
         t.forEach((u) => {
-            const p = _.findIndex(this.current_game_node.combinedRosterIndividualsByRosterId.edges, (o) => {
+            const p = findIndex(this.current_game_node.combinedRosterIndividualsByRosterId.edges, (o) => {
                 return o.node.individualUserByIndividualId.id === u.node.id;
             });
             if (p === -1) {
@@ -278,12 +279,12 @@ class AdminStaffController extends Component {
             }
         });
         this.current_game_node.combinedRosterIndividualsByRosterId.edges.forEach((u) => {
-            const p = _.findIndex(t, (o) => {
+            const p = findIndex(t, (o) => {
                 return o.node.id === u.node.individualUserByIndividualId.id;
             });
             if (p === -1) {
                 // make sure its not in add array
-                const p2 = _.findIndex(add_array, (a) => {
+                const p2 = findIndex(add_array, (a) => {
                     return a.id === u.node.id;
                 });
                 if (p2 === -1) {
@@ -399,4 +400,4 @@ RosterGame.propTypes = {
     handleClick: PropTypes.func.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminStaffController));
+export default inject('uiStore', 'appManager')(AdminStaffController);

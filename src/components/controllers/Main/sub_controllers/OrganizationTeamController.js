@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
-import _ from 'lodash';
+// import injectSheet from 'react-jss';
+import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
-import coc_image from '../../../../assets/images/game_images/clashofclans.png';
+// import coc_image from '../../../../assets/images/game_images/clashofclans.png';
 import cod_image from '../../../../assets/images/game_images/cod.png';
 import dota_image from '../../../../assets/images/game_images/dota2.png';
 import csgo_image from '../../../../assets/images/game_images/csgo.png';
@@ -29,7 +29,7 @@ import dragonball_image from '../../../../assets/images/game_images/dragonball.p
 import tekken_image from '../../../../assets/images/game_images/tekken.png';
 import apex_image from '../../../../assets/images/game_images/apex.png';
 // banners
-import coc_banner from '../../../../assets/images/game_images/coc_banner.jpg';
+// import coc_banner from '../../../../assets/images/game_images/coc_banner.jpg';
 import cod_banner from '../../../../assets/images/game_images/cod_banner.jpg';
 import dota_banner from '../../../../assets/images/game_images/dota2_banner.jpg';
 import csgo_banner from '../../../../assets/images/game_images/csgo_banner.png';
@@ -58,8 +58,8 @@ const gameOptions = [
         game_id: 1,
         text: 'Clash of Clans',
         value: 'Clash of Clans',
-        image: coc_image,
-        banner: coc_banner
+        image: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1551819115/game_images/clashofclans.png',
+        banner: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1551819116/game_images/coc_banner.jpg'
     },
     {
         game_id: 2,
@@ -229,7 +229,7 @@ class OrganizationTeamController extends Component {
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
-                const currGame = _.find(gameOptions, (o) => {
+                const currGame = find(gameOptions, (o) => {
                     return o.game_id === gameId;
                 });
                 // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
@@ -249,7 +249,7 @@ class OrganizationTeamController extends Component {
                 const { gameId } = r.node;
                 const { id } = r.node;
                 ros_id = id;
-                const currGame = _.find(gameOptions, (o) => {
+                const currGame = find(gameOptions, (o) => {
                     return o.game_id === gameId;
                 });
                 // console.log(`CURRENT GAME ++++++++++++ ${JSON.stringify(currGame)}`);
@@ -358,4 +358,4 @@ OrganizationTeamController.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationTeamController));
+export default inject('uiStore', 'appManager')(OrganizationTeamController);
