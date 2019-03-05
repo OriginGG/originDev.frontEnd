@@ -12,7 +12,8 @@ import axios from 'axios';
 import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
-import moment from 'moment-timezone';
+// import moment from 'moment-timezone';
+import dayjs from 'dayjs';
 import OrganizationAdminPageComponentRender from '../../render_components/admin/OrganizationAdminPageComponentRender';
 import OrganizationAdminMenuComponentRender from '../../render_components/admin/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
@@ -265,8 +266,10 @@ class AdminPageController extends Component {
 				if (!num_sources) {
 					const { trial_end } = subscriptions.data[0];
 					if (trial_end) {
-						const cur = moment().tz('America/New_York');
-						const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+						// const cur = moment().tz('America/New_York');
+						const cur = dayjs(new Date());		// .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+						// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+						const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
 						this.subscription_days_left = day_diff + 1;
 					}
 				}

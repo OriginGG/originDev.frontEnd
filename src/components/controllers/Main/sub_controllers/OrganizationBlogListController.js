@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { Modal } from 'antd';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
@@ -57,7 +57,7 @@ class OrganizationBlogListController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            const formattedDate = moment(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('lll');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             if (this.isMobile() && theme === 'felzec/light') {
                 this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);

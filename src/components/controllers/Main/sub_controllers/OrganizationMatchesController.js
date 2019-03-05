@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import find from 'lodash/find';
 // import PropTypes from 'prop-types';
@@ -294,7 +294,7 @@ class OrganizationMatchesController extends Component {
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             // console.log(`i = ${i}`);
             // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
-            const formattedDate = moment(res.node.createdAt).format('lll');
+            const formattedDate = dayjs(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');
 
