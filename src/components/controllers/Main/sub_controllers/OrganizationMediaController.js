@@ -249,7 +249,7 @@ class OrganizationMediaController extends Component {
                         />);
                     } else {
                         const t_url = `https://player.twitch.tv/?channel=${l.name}`;
-                        const t_thumb = offline_image;
+                        const t_thumb = 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1551819112/game_images/twitch_offline.png';
                         p_array.push(<OrganizationTwitchComponentRender
                             key={`twitch_live_k_${i}`}
                             twitch_url={t_url}
