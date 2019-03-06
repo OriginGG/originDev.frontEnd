@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
-import _ from 'lodash';
+import find from 'lodash/find';
 // import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { recentMatchesQuery } from '../../../../queries/matches';
 import coc_image from '../../../../assets/images/game_images/clashofclans.png';
 import cod_image from '../../../../assets/images/game_images/cod.png';
@@ -29,6 +29,7 @@ import streetfighter_image from '../../../../assets/images/game_images/streetfig
 import ssb_image from '../../../../assets/images/game_images/ssb.png';
 import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
 import tekken_image from '../../../../assets/images/game_images/tekken.png';
+import apex_image from '../../../../assets/images/game_images/apex.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -127,6 +128,12 @@ const gameOptions = [
         text: 'Destiny',
         value: 'Destiny',
         image: destiny_image
+    },
+    {
+        game_id: 22,
+        text: 'Apex Legends',
+        value: 'Apex Legends',
+        image: apex_image
     },
 ];
 class OrganizationMatchesController extends Component {
@@ -282,7 +289,7 @@ class OrganizationMatchesController extends Component {
             r_theme = 'mobile';
         }
         edges.forEach((res) => {
-            const g_image = _.find(gameOptions, (o) => {
+            const g_image = find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
             const g_type = res.node.gameName;
@@ -294,7 +301,7 @@ class OrganizationMatchesController extends Component {
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             // console.log(`i = ${i}`);
             // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
-            const formattedDate = moment(res.node.createdAt).format('lll');
+            const formattedDate = dayjs(res.node.createdAt).format('lll');
 
             const score_array = res.node.score.split(' - ');
 
@@ -474,4 +481,4 @@ OrganizationMatchesController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationMatchesController));
+export default inject('uiStore', 'appManager')(OrganizationMatchesController);

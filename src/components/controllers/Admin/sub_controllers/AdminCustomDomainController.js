@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { Button, Card, Image, Input } from 'semantic-ui-react';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 // import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -93,5 +93,5 @@ AdminCustomDomainController.propTypes = {
     // appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminCustomDomainController));
+export default inject('uiStore', 'appManager')((AdminCustomDomainController));
 

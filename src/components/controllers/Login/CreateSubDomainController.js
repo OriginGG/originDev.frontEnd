@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import injectSheet, { ThemeProvider } from 'react-jss';
+// import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import { toast } from 'react-toastify';
 import { Button } from 'semantic-ui-react';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery, getOrganisationByName } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
 import { createUserQuery, updateUserQuery } from '../../../queries/users';
@@ -375,7 +375,6 @@ class CreateSubDomainController extends Component {
 		// 	input_title = 'Enter your payment info to proceed with 14 day trial';
 		// }
 		return (
-			<ThemeProvider theme={this.props.uiStore.origin_theme_data}>
 				<CreateSubDomainComponentRender
 					dark_theme_image_src="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889228/dark-theme.jpg"
 					light_theme_image_src="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889272/light-theme.jpg"
@@ -394,7 +393,6 @@ class CreateSubDomainController extends Component {
 					handleThemeClick={this.handleThemeClick}
 					// payWallContent={<PaywallController subscribed={this.handleSubscribed} user_id={this.user_id} />}
 				/>
-			</ThemeProvider>
 		);
 	}
 }
@@ -404,4 +402,4 @@ CreateSubDomainController.propTypes = {
 	appManager: PropTypes.object.isRequired,
 	location: PropTypes.object.isRequired
 };
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(CreateSubDomainController));
+export default inject('uiStore', 'appManager')(CreateSubDomainController);

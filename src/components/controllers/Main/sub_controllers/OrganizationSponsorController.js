@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
 // import Slider from 'react-slick';
 import AliceCarousel from 'react-alice-carousel';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 // import OrganizationSponsorComponentRender from '../../../render_components/OrganizationSponserComponentRender';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 // import { getOrganisationQuery } from './queries/organisation'
@@ -125,11 +125,11 @@ class OrganizationSponsorController extends Component {
 OrganizationSponsorController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
+    // classes: PropTypes.object.isRequired
 };
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationSponsorController));
+export default inject('uiStore', 'appManager')(OrganizationSponsorController);

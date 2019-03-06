@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { Formik } from 'formik';
 import { inject } from 'mobx-react';
 import { Button } from 'semantic-ui-react/dist/commonjs';
@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { Modal } from 'antd';
 import axios from 'axios';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import LoginComponentRender from '../../render_components/signup/LoginComponentRender';
 import { getIndividualUserByEmailQuery } from '../../../queries/users';
 import { authenticateIndividualQuery } from '../../../queries/login';
@@ -88,7 +88,8 @@ class LoginControllerInd extends Component {
                     return errors;
                 }}
                 onSubmit={async (v) => {
-                    const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email.toLowerCase() });
+                    v.email = v.email.toLowerCase();            // eslint-disable-line
+                    const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email });
                     if (registered_user.allIndividualUsers.edges.length > 0 && registered_user.allIndividualUsers.edges[0].node.authenticated === false) {
                         toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
                             position: toast.POSITION.TOP_LEFT,
@@ -156,4 +157,4 @@ LoginControllerInd.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(LoginControllerInd));
+export default inject('uiStore', 'appManager')(LoginControllerInd);
