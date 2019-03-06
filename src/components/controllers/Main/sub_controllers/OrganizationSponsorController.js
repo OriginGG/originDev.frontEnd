@@ -66,7 +66,7 @@ class OrganizationSponsorController extends Component {
                     items: 1
                 },
                 1024: {
-                    items: 4
+                    items: 2
                 },
                 600: {
                     items: 2

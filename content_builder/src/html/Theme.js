@@ -2415,7 +2415,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '15%',
         position: 'absolute',
-        paddingLeft: '10%',
         bottom: '80px'
     },
 
