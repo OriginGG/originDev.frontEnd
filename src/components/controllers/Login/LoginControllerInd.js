@@ -88,7 +88,8 @@ class LoginControllerInd extends Component {
                     return errors;
                 }}
                 onSubmit={async (v) => {
-                    const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email.toLowerCase() });
+                    v.email = v.email.toLowerCase();            // eslint-disable-line
+                    const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: v.email });
                     if (registered_user.allIndividualUsers.edges.length > 0 && registered_user.allIndividualUsers.edges[0].node.authenticated === false) {
                         toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
                             position: toast.POSITION.TOP_LEFT,
