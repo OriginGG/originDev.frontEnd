@@ -18,6 +18,13 @@ class OrganizationAdminMenuComponentRender extends Component {
                                 <div className={this.props.classes.menu_title_text}>
                                     Admin Panel
                                 </div>
+                                <a style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '10px'
+                                }} className="item" onClick={this.props.handleCloseClick}>
+                                    <i className="close icon" style={this.props.close_style}/>
+                                </a>
                             </div>
                             <div className={this.props.classes.menu_user_container}>
                                 <div className={this.props.classes.menu_user_logo}>
