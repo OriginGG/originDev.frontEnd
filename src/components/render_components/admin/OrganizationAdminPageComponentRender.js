@@ -22,7 +22,7 @@ class OrganizationAdminPageComponentRender extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={this.props.classes.admin_navigate_button} onClick={this.props.handleNavClick}>Navigate To Your Site</div>
+                <div className={this.props.classes.admin_navigate_button} style={this.props.navigate_style} onClick={this.props.handleNavClick}>Navigate To Your Site</div>
             </div>
         )
     }

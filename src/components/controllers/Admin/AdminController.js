@@ -512,6 +512,12 @@ class AdminPageController extends Component {
 		}
 		const nd = this.props.uiStore.current_organisation.usersByOrganisationId.edges[0].node;
 		const full_name = `${nd.firstName} ${nd.lastName}`;
+		let nav_button = { right: '370px' };
+		let close_style = { display: 'none' };
+		if (this.isMobile()) {
+			nav_button = { right: '10px' };
+			close_style = { displa: 'inherit' };
+		}
 		return (
 			<div id="outer-container">
 				{this.state.error_page && (
@@ -564,6 +570,8 @@ class AdminPageController extends Component {
 							<OrganizationAdminMenuComponentRender
 								key={`admin_sidebar_key_${this.my_key}`}
 								handleMainMenuClick={this.handleManageClick}
+								handleCloseClick={this.handleClick}
+								close_style={close_style}
 								paywall_content={info_block}
 								dropdown={
 									<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
@@ -576,6 +584,7 @@ class AdminPageController extends Component {
 							<Segment basic>
 								<div style={{ height: '100vh', overflowY: 'auto' }}>
 									<OrganizationAdminPageComponentRender
+										navigate_style={nav_button}
 										admin_content={p_component}
 										handleClick={this.handleClick}
 										handleNavClick={this.handleNavClick}
