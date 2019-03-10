@@ -1,35 +1,41 @@
 import React, { Component } from 'react';
-import injectSheet, { ThemeProvider } from 'react-jss';
+// import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
-import { GlobalStyles } from 'Theme/Theme';
 import { slide as Menu } from 'react-burger-menu';
+// import { GlobalStyles } from 'Theme/Theme';
+import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
+import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
-import _ from 'lodash';
+import find from 'lodash/find';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import historyStore from '../../../utils/stores/browserHistory';
+import { getSingleBlogQuery } from '../../../queries/blogs';
 import { getPagesQuery } from '../../../queries/pages';
 import { getRosterQuery } from '../../../queries/rosters';
 import { getSponsorsQuery } from '../../../queries/sponsors';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
+import { getAllAdminUsersQuery } from '../../../queries/users';
 
-// import { getStaffQuery } from '../../../queries/staff';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
-
 
 class OrganizationPageController extends Component {
     state = {
         menu_open: false,
+        customer_email: '',
+        email_visible: { display: 'none' },
         OrganizationPageComponentRender: null,
+        OrganizationEmailComponentRender: null,
         OrganizationVideoController: null,
         OrganizationTwitterController: null,
         OrganizationSponsorController: null,
         OrganizationMatchesController: null,
         OrganizationNavController: null,
+        OrganizationFooterController: null,
         OrganizationLogoController: null,
         OrganizationNewsController: null,
         OrganizationRosterController: null,
@@ -37,6 +43,12 @@ class OrganizationPageController extends Component {
         OrganizationStaffController: null,
         OrganizationMobileMenuComponentRender: null,
         OrganizationBlogController: null,
+        OrganizationTwitchController: null,
+        OrganizationMediaController: null,
+        enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+        enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
         // OrganizationMobileSubMenuComponentRender: null,
         visible: false,
         display_rosters: false,
@@ -45,9 +57,12 @@ class OrganizationPageController extends Component {
     };
 
     componentDidMount = async () => {
+        // Pace.restart();
+        // eslint-disable-line
+
         const token = this.props.appManager.GetQueryParams('ipl');
         this.invite_details = null;
-        console.log(token);
+        // console.log(token);
         if (token) {
             const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
             const { email } = d;
@@ -55,16 +70,17 @@ class OrganizationPageController extends Component {
                 email
             });
             const exists = await this.props.appManager.executeQuery('query', getOrganisationMemberByIDQuery, {
-                id: user.individualUserByEmail.id
+                id: user.individualUserByEmail.id,
+                organisationId: parseInt(d.organisation_id, 10)
             });
             if (exists.allOrganisationMembers.edges.length > 0) {
                 toast.error(`${user.individualUserByEmail.username} has already been made a member of this organization!`, {
                     autoClose: false
                 });
             } else {
-                console.log(exists);
+                // console.log(exists);
                 await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
-                    subDomain: d.organisation,
+                    organisationId: parseInt(d.organisation_id, 10),
                     userId: user.individualUserByEmail.id
                 });
                 this.invite_details = user.individualUserByEmail;
@@ -77,18 +93,42 @@ class OrganizationPageController extends Component {
         }
         const domainInfo = this.props.appManager.getDomainInfo();
         const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
+        this.show_blog = null;
+        if (this.props.appManager.blog_id !== -1) {
+            const b = await this.props.appManager.executeQuery('query', getSingleBlogQuery, { id: this.props.appManager.blog_id });
+            this.show_blog = b.resultData;
+        }
         if (subDomain === 'origin') {
-            historyStore.push('/signup');
+            historyStore.push('/signup_org');
         } else {
             const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
-            if (o.resultData === null) {
-                historyStore.push('/');
+            if (o.resultData && o.resultData.nodes.length === 0) {
+                const s = this.props.appManager.getDomainInfo();
+                const r = s.hostname.split('.');
+                r.shift();
+                let p = '';
+                r.forEach(t => {
+                    if (p.length > 0) {
+                        p = `${p}.${t}`;
+                    } else {
+                        p = t;
+                    }
+                });
+                window.location = `${s.protocol}//${p}:${s.port}/signup_org?clear=true`;
             } else {
                 this.props.uiStore.setOrganisation(o.resultData);
                 this.props.uiStore.setSubDomain(subDomain);
-                const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-                const themeBase = this.props.uiStore.current_organisation.themeBaseId;
+                const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
+                const { subscribed } = user.allUsers.edges[0].node;
+                let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+                let themeBase = this.props.uiStore.current_organisation.themeBaseId;
+                if (this.isMobile()) {
+                    theme = 'mobile/dark';
+                    themeBase = 'mobile';
+                }
+                console.log(`theme === ${theme}`);
                 const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
+                const OrganizationEmailComponentRender = await import(`../../render_components/themes/${theme}/OrganizationEmailComponentRender`);
                 const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
                 const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
                 const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
@@ -99,30 +139,67 @@ class OrganizationPageController extends Component {
                 const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
                 const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
                 const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
+                const OrganizationBlogListController = await import('./sub_controllers/OrganizationBlogListController');
+                const OrganizationBlogViewController = await import('./sub_controllers/OrganizationBlogViewController');
                 const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 let OrganizationBlogController = null;
                 let OrganizationBlogControllerDefault = null;
-                if (themeBase === 'obliviot') {
+                let OrganizationTwitchController = null;
+                let OrganizationTwitchControllerDefault = null;
+                let OrganizationTeamController = null;
+                let OrganizationTeamControllerDefault = null;
+                let OrganizationMediaController = null;
+                let OrganizationMediaControllerDefault = null;
+                let OrganizationFooterController = null;
+                let OrganizationFooterControllerDefault = null;
+                if (themeBase === 'obliviot' || themeBase === 'felzec' || themeBase === 'enigma2') {
                     OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
                     OrganizationBlogControllerDefault = OrganizationBlogController.default;
+                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
+                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    // OrganizationTwitchController = null;
+                    // OrganizationTwitchControllerDefault = null;
                 }
+                if (themeBase === 'mobile' && this.isMobile()) {
+                    OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
+                    OrganizationBlogControllerDefault = OrganizationBlogController.default;
+                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
+                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    // OrganizationTwitchController = null;
+                    // OrganizationTwitchControllerDefault = null;
+                }
+                if (themeBase === 'felzec' || themeBase === 'enigma2') {
+                    OrganizationTeamController = await import('./sub_controllers/OrganizationTeamController');
+                    OrganizationTeamControllerDefault = OrganizationTeamController.default;
+                    OrganizationMediaController = await import('./sub_controllers/OrganizationMediaController');
+                    OrganizationMediaControllerDefault = OrganizationMediaController.default;
+                    OrganizationFooterController = await import('./sub_controllers/OrganizationFooterController');
+                    OrganizationFooterControllerDefault = OrganizationFooterController.default;
+                }
+
+                if (themeBase === 'enigma2') {
+                    this.setState({
+                        email_visible: { display: 'none' }
+                    });
+                }
+                this.roster_display = false;
                 if (this.isMobile()) {
                     const org_roster_sub = await import(`../../render_components/themes/${theme}/OrganizationMobileSubMenuComponentRender`);
                     const OrganizationMobileSubMenuComponentRender = org_roster_sub.default;
-                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+                    const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
                     this.mobile_roster_data = [];
-                    roster_data.allRosters.edges.forEach((r) => {
+                    roster_data.allCombinedRosters.edges.forEach((r) => {
+                        this.roster_display = true;
                         const { gameId } = r.node;
-                        const currGame = _.find(gameOptions, (or) => {          // eslint-disable-line
+                        const currGame = find(gameOptions, (or) => {          // eslint-disable-line
                             return or.game_id === gameId;
                         });
                         this.mobile_roster_data.push(<div onClick={() => { this.handleRosterClick(r.node.id); }} role="menuItem" tabIndex={-1} key={`mobile_roster_${r.node.id}`}><OrganizationMobileSubMenuComponentRender name={currGame.text} /></div>);
                     });
                 }
 
-
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
-                    organisation: this.props.uiStore.current_organisation.subDomain
+                    organisationId: this.props.uiStore.current_organisation.id
                 });
                 const { edges } = pages.allPages;
                 this.bcontent = <div dangerouslySetInnerHTML={this.createMarkup(edges[0].node.pageContent)} />;
@@ -131,19 +208,34 @@ class OrganizationPageController extends Component {
                 if (this.props.uiStore.current_organisation.companyStoreLink) {
                     this.store_display = true;
                 }
-                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-                this.sponsor_desc1 = sponsor_data.resultData.edges[0].node.sponsorDesc1;
-                this.sponsor_desc2 = sponsor_data.resultData.edges[0].node.sponsorDesc2;
-                this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
-                this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
-                this.sponser_display = true;
-                if ((this.sponsor_desc1.length < 1) && (this.sponsor_desc2.length < 1) && (this.sponsor_desc3.length < 1) && (this.sponsor_desc4.length < 1)) {
-                    this.sponser_display = false;
-                }
+                this.sponser_display = false;
+                const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, {
+                    organisationId: this.props.uiStore.current_organisation.id
+                });
+                const { nodes } = sponsor_data.allOrgSponsors;
+                nodes.forEach(n => {
+                    if (n.description && n.description.length > 1) {
+                        this.sponser_display = true;
+                    }
+                });
+                // this.sponsor_desc1 = sponsor_data.resultData.edges[0].node.sponsorDesc1;
+                // this.sponsor_desc2 = sponsor_data.resultData.edges[0].node.sponsorDesc2;
+                // this.sponsor_desc3 = sponsor_data.resultData.edges[0].node.sponsorDesc3;
+                // this.sponsor_desc4 = sponsor_data.resultData.edges[0].node.sponsorDesc4;
+                // this.sponser_display = true;
+
+                // if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
+                //     this.sponser_display = false;
+                // }
+                const menu_color = 'black';// this.props.uiStore.current_organisation.primaryColor;
+                const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
                 this.setState({
                     visible: true,
+                    felzec_menu: false,
+                    felzec_style: nf_style,
                     OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
                     OrganizationPageComponentRender: OrganizationPageComponentRender.default,
+                    OrganizationEmailComponentRender: OrganizationEmailComponentRender.default,
                     OrganizationVideoController: OrganizationVideoController.default,
                     OrganizationTwitterController: OrganizationTwitterController.default,
                     OrganizationSponsorController: OrganizationSponsorController.default,
@@ -153,14 +245,32 @@ class OrganizationPageController extends Component {
                     OrganizationNewsController: OrganizationNewsController.default,
                     OrganizationRosterController: OrganizationRosterController.default,
                     OrganizationSponserListController: OrganizationSponserListController.default,
+                    OrganizationBlogListController: OrganizationBlogListController.default,
+                    OrganizationBlogViewController: OrganizationBlogViewController.default,
                     OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
+                    OrganizationTeamController: OrganizationTeamControllerDefault,
+                    OrganizationMediaController: OrganizationMediaControllerDefault,
+                    OrganizationFooterController: OrganizationFooterControllerDefault,
+                    OrganizationTwitchController: OrganizationTwitchControllerDefault,
+                    enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+                    enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+                    enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+                    enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+                    error_page: !subscribed
                     // OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
                 });
                 if (this.invite_details) {
                     toast.success(`${this.invite_details.username} has been successfully invited`, {
                         autoClose: false
                     });
+                }
+                document.getElementById('origin_loader').style.display = 'none';
+                if (this.show_blog) {
+                    const mc = {
+                        node: this.show_blog
+                    };
+                    this.handleNewsClick(mc);
                 }
             }
         }
@@ -178,39 +288,151 @@ class OrganizationPageController extends Component {
     }
     isMobile = () => {
         // return true;
-        return isMobile;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            // console.log('isMobile true');
+            return true;
+        }
+        // console.log('isMobile false');
+        return false;
     }
 
     createMarkup = (content) => {
         return { __html: content };
     }
     handleSponsersClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_sponsers: true });
+        console.log('sponsors clicked');
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' },
+            display_sponsers: true,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
+        this.openMenu();
+    }
+    handleBlogClick = () => {
+        this.closeAll();
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blogs: true });
+        this.openMenu();
+    }
+    handleWebClick = () => {
+        window.open('https://origin.gg', '_blank');
+    }
+    handleViewBlogClick = () => {
+        this.closeAll();
+        // console.log('view more blogs clicked');
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        /* this.setState({ about_modal_open: true }); */
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' },
+            display_blogs: true,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+        });
+        this.openMenu();
     }
     handleAboutClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
         /* this.setState({ about_modal_open: true }); */
-        this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_staff: true });
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' },
+            enigma2_home_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            display_staff: true
+        });
+        this.openMenu();
+    }
+    handleHomeClick = () => {
+        console.log('handleHomeClick');
+        this.closeAll();
+        this.setState({
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
     }
     handleStoreClick = () => {
+        this.closeAll();
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
         if (this.props.uiStore.current_organisation.companyStoreLink) {
             window.open(this.props.uiStore.current_organisation.companyStoreLink, '_blank');
         }
+        this.openMenu();
     }
-    handleLoginClick = () => {
+    handleNewsClick = (blog) => {
+        this.current_blog_id = blog.node.id;
+        this.closeAll();
+        this.setState({ roster_style: { display: 'none' }, display_blogs: false });
+        // console.log(`blog = ${JSON.stringify(blog)}`);
         if (this.isMobile() && this.state.menu_open) {
             this.setState({ menu_open: false });
         }
-        historyStore.push('/signup_org');
+        /* this.setState({ about_modal_open: true }); */
+        const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
+        const formattedDate = dayjs(blog.node.createdAt).format('lll');
+        this.setState({
+            roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blog_view: true, b_media: blog.node.blogMedia, b_content: bcontent, b_title: blog.node.blogTitle, b_date: formattedDate
+        });
+    }
+    inIframe = () => {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
+    }
+    handleCustomerEmailClose = () => {
+        console.log(`close this noise email:${this.state.customer_email}`);
+        this.setState({
+            email_visible: { display: 'none' }
+        });
+    }
+    handleCustomerEmailSubmit = () => {
+        console.log(`send the email email:${this.state.customer_email}`);
+        this.setState({
+            email_visible: { display: 'none' }
+        });
+    }
+    handleEmailChange = (e) => {
+        const v = e.target.value;
+        console.log(`email = ${v}`);
+        this.setState({
+            customer_email: v
+        });
+    }
+    handleLoginClick = () => {
+        this.closeAll();
+        if (this.isMobile() && this.state.menu_open) {
+            this.setState({ menu_open: false });
+        }
+        if (this.inIframe()) {
+            parent.postMessage({ command: 'link', id: 'login' }, "*");           // eslint-disable-line
+        } else {
+            historyStore.push('/login_org');
+        }
     }
     isMenuOpen = (state) => {
         this.setState({ menu_open: state.isOpen });
@@ -248,35 +470,121 @@ class OrganizationPageController extends Component {
         this.current_roster_id = r;
         this.setState({ roster_style: { display: 'table', width: '100%', height: '100vh' }, display_rosters: true });
     }
+    closeAll = () => {
+        this.setState({
+            roster_style: { display: 'none' },
+            display_rosters: false,
+            display_sponsers: false,
+            display_blogs: false,
+            display_blog_view: false,
+            display_staff: false
+        });
+    }
+    shareBlogs = () => {
+        const { hostname, port, protocol } = window.location;
+        // console.log(hostname, port, protocol);
+        const blog_url = `${protocol}//${hostname}:${port}/blog?b=${this.current_blog_id}`;
+        navigator.clipboard.writeText(blog_url);
+        toast.success('Blog link copied to clipboard!', {
+            autoClose: true
+        });
+    }
     closeRosters = () => {
-        this.setState({ roster_style: { display: 'none' }, display_rosters: false });
+        this.setState({
+            roster_style: { display: 'none' },
+            display_rosters: false,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
     }
     closeSponsers = () => {
-        this.setState({ roster_style: { display: 'none' }, display_sponsers: false });
+        this.setState({
+            roster_style: { display: 'none' },
+            display_sponsers: false,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
+    }
+    closeBlogs = () => {
+        this.setState({
+            roster_style: { display: 'none' },
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            display_blogs: false,
+        });
+    }
+    closeBlogView = () => {
+        this.setState({ roster_style: { display: 'none' }, display_blog_view: false });
     }
     closeStaff = () => {
-        this.setState({ roster_style: { display: 'none' }, display_staff: false });
+        this.setState({
+            roster_style: { display: 'none' },
+            display_staff: false,
+            enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
+            enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
+            enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
+        });
+    }
+    openMenu = () => {
+        // console.log('open menu');
+        if (this.state.felzec_menu) {
+            const menu_color = 'black';
+            const st = { display: 'none', backgroundColor: `${menu_color}` };
+            this.setState({ felzec_menu: false, felzec_style: st });
+        } else {
+            const menu_color = 'black';
+            const st = { display: 'table', backgroundColor: `${menu_color}` };
+            this.setState({ felzec_menu: true, felzec_style: st });
+        }
     }
     render() {
         if (this.state.visible === false) {
             return null;
         }
-        let s = { display: 'none' };
+        const theme = this.props.uiStore.current_organisation.themeId;
+        const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        console.log(`real theme = ${real_theme}`);
+        let nav_color = 'transparent';
+        if (real_theme === 'enigma2/dark') {
+            nav_color = this.props.uiStore.current_organisation.primaryColor;
+        }
+        this.h_style = { display: 'inherit', borderBottomColor: nav_color };
+        this.l_style = { display: 'inherit' };
+        this.s = { display: 'none' };
         if (this.about_us.pageTitle) {
-            s = { display: 'inherit' };
+            this.s = { display: 'inherit' };
         }
-        let ss = { display: 'none' };
+        this.ss = { display: 'none' };
         if (this.store_display) {
-            ss = { display: 'inherit' };
+            this.ss = { display: 'inherit' };
         }
-        let sss = { display: 'none' };
+        this.sss = { display: 'none' };
         if (this.sponser_display) {
-            sss = { display: 'inheret' };
+            this.sss = { display: 'inherit' };
         }
+
+        let ssss = { display: 'none' };
+        if (this.roster_display && this.isMobile()) {
+            ssss = { display: 'inherit' };
+        }
+
+        const ob_inherit = { display: 'inherit' };
+        const ob_none = { display: 'none' };
+
+        const ob_light = { backgroundColor: '#fff' };
+        const ob_dark = { backgroundColor: '#000', height: '100%' };
 
         // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
         const { OrganizationPageComponentRender } = this.state;
+        const { OrganizationEmailComponentRender } = this.state;
         const { OrganizationNewsController } = this.state;
         const { OrganizationTwitterController } = this.state;
         const { OrganizationMatchesController } = this.state;
@@ -287,28 +595,61 @@ class OrganizationPageController extends Component {
         const { OrganizationMobileMenuComponentRender } = this.state;
         const { OrganizationRosterController } = this.state;
         const { OrganizationSponserListController } = this.state;
+        const { OrganizationBlogListController } = this.state;
+        const { OrganizationBlogViewController } = this.state;
         const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
+        const { OrganizationTeamController } = this.state;
+        const { OrganizationMediaController } = this.state;
+        const { OrganizationFooterController } = this.state;
+        const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
         if (this.isMobile()) {
             rosterComponent = this.mobile_roster_data;
         }
 
+        console.log(`h_style= ${JSON.stringify(this.h_style)}`);
+
         // let ml = -200;
         let SideBar = <div />;
         let nv_content = <OrganizationNavController
-            store_style={ss}
-            about_style={s}
-            sponsers_style={sss}
-            home_style={{ display: 'inherit' }}
-            login_style={{ display: 'inherit' }}
+            store_style={this.ss}
+            about_style={this.s}
+            sponsers_style={this.sss}
+            home_style={this.h_style}
+            enigma2_home_style={this.state.enigma2_home_style}
+            enigma2_about_style={this.state.enigma2_about_style}
+            enigma2_news_style={this.state.enigma2_news_style}
+            enigma2_sponsers_style={this.state.enigma2_sponsors_style}
+            login_style={this.l_style}
+            felzec_style={this.state.felzec_style}
+            openMenu={this.openMenu}
             handleStoreClick={this.handleStoreClick}
+            handleBlogClick={this.handleBlogClick}
+            handleHomeClick={this.handleHomeClick}
+            handleViewBlogClick={this.handleViewBlogClick}
             handleLoginClick={this.handleLoginClick}
             handleRosterClick={this.handleRosterClick}
             handleSponsersClick={this.handleSponsersClick}
             handleAboutClick={this.handleAboutClick} />;
         if (this.isMobile() && this.state.display_rosters === false) {
+            let fb_style = { display: 'none' };
+            let tw_style = { display: 'none' };
+            let yt_style = { display: 'none' };
+
+            if (this.props.uiStore.current_organisation.fbLink) {
+                fb_style = { display: 'inherit' };
+            }
+
+            if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+                tw_style = { display: 'inherit' };
+            }
+
+            if (this.props.uiStore.current_organisation.youtubeLink) {
+                yt_style = { display: 'inherit' };
+            }
+
             SideBar =
                 <Menu
                     pageWrapId="page-wrap"
@@ -322,44 +663,177 @@ class OrganizationPageController extends Component {
                         <div style={{ display: 'flex', width: '100%', height: '100%' }}>
                             <OrganizationMobileMenuComponentRender
                                 rosterContent={rosterComponent}
+                                mobile_roster_item={ssss}
                                 handleSocial={this.handleSocial}
+                                facebook_style={fb_style}
+                                twiiter_style={tw_style}
+                                youtube_style={yt_style}
                                 handleStoreClick={this.handleStoreClick}
                                 handleLoginClick={this.handleLoginClick}
+                                handleViewBlogClick={this.handleViewBlogClick}
                                 handleSponsersClick={this.handleSponsersClick}
                                 handleAboutClick={this.handleAboutClick} />
                         </div>
                     </div></Menu>;
             nv_content = <span />;
         }
-        const theme = this.props.uiStore.current_organisation.themeId;
+        let footer_content = <span />;
+        if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
+            // console.log(`real theme = ${real_theme}`);
+            const s_email = this.props.uiStore.current_organisation.supportContactEmail;
+            const b_email = this.props.uiStore.current_organisation.businessContactEmail;
+            footer_content = <OrganizationFooterController
+                store_style={this.ss}
+                about_style={this.s}
+                sponsers_style={this.sss}
+                home_style={this.h_style}
+                enigma2_home_style={this.h_style}
+                login_style={this.l_style}
+                footer_about={this.bcontent}
+                footer_support={s_email}
+                footer_business={b_email}
+                handleStoreClick={this.handleStoreClick}
+                handleBlogClick={this.handleBlogClick}
+                handleViewBlogClick={this.handleViewBlogClick}
+                handleLoginClick={this.handleLoginClick}
+                handleNewsClick={this.handleNewsClick}
+                handleRosterClick={this.handleRosterClick}
+                handleSponsersClick={this.handleSponsersClick}
+                handleAboutClick={this.handleAboutClick} />;
+            if (this.isMobile() && this.state.display_rosters === false) {
+                let fb_style = { display: 'none' };
+                let tw_style = { display: 'none' };
+                let yt_style = { display: 'none' };
+                if (this.props.uiStore.current_organisation.fbLink) {
+                    fb_style = { display: 'inherit' };
+                }
+                if (this.props.uiStore.current_organisation.twitterFeedUsername) {
+                    tw_style = { display: 'inherit' };
+                }
+                if (this.props.uiStore.current_organisation.youtubeLink) {
+                    yt_style = { display: 'inherit' };
+                }
+                SideBar =
+                    <Menu
+                        pageWrapId="page-wrap"
+                        outerContainerId="outer-container"
+                        isOpen={this.state.menu_open}
+                        onStateChange={this.isMenuOpen}
+                        width="100%"
+                        height="100%"
+                        right
+                    ><div id="page-wrap">
+                            <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+                                <OrganizationMobileMenuComponentRender
+                                    rosterContent={rosterComponent}
+                                    mobile_roster_item={ssss}
+                                    facebook_style={fb_style}
+                                    twiiter_style={tw_style}
+                                    youtube_style={yt_style}
+                                    handleSocial={this.handleSocial}
+                                    handleStoreClick={this.handleStoreClick}
+                                    handleLoginClick={this.handleLoginClick}
+                                    handleViewBlogClick={this.handleViewBlogClick}
+                                    handleSponsersClick={this.handleSponsersClick}
+                                    handleAboutClick={this.handleAboutClick} />
+                            </div>
+                        </div></Menu>;
+                // footer_content = <span />;
+            }
+        }
+        let t_content = <OrganizationTeamController />;
+        let info_style = { display: 'none' };
+        if (this.isMobile()) {
+            t_content = <span />;
+            info_style = { display: 'inherit' };
+        }
+
+        let email_style = { backgroundColor: 'green' };
+
+        if (this.props.uiStore.current_organisation.primaryColor) {
+            email_style = { backgroundColor: this.props.uiStore.current_organisation.primaryColor };
+        }
+
         const cp = `© ${this.props.uiStore.current_organisation.name}. All rights reserved.`;
         let c_name = `${theme}_gradient_bg`;
         let disp = <OrganizationPageComponentRender
             roster_style={this.state.roster_style}
+            handleWebClick={this.handleWebClick}
             copyright={cp}
-            newsContent={<OrganizationNewsController />}
-            blogContent={<OrganizationBlogController />}
+            newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
+            emailContent={<OrganizationEmailComponentRender
+                handleCustomerEmailClose={this.handleCustomerEmailClose}
+                handleEmailChange={this.handleEmailChange}
+                handleCustomerEmailSubmit={this.handleCustomerEmailSubmit}
+                org_email_button={email_style}
+                org_email_container={this.state.email_visible}
+                />}
+            blogContent={<OrganizationBlogController handleNewsClick={this.handleNewsClick} />}
+            teamContent={t_content}
+            mediaContent={<OrganizationMediaController />}
+            twitchContent={<OrganizationTwitchController />}
             twitterContent={<OrganizationTwitterController />}
             matchesContent={<OrganizationMatchesController subDomain={subDomain} />}
             videoContent={<OrganizationVideoController />}
             rosterContent={<span />}
+            info_image={this.props.uiStore.current_theme_structure.header.logo.imageData}
+            info_name={this.props.uiStore.current_organisation.name}
+            obliviot_info_style={info_style}
+            handleViewBlogClick={this.handleViewBlogClick}
+            obliviot_hidden_style={ob_inherit}
+            obliviot_page_style={ob_light}
             topSponsorContent={<OrganizationSponsorController />}
             bottomSponsorContent={<OrganizationSponsorController />}
             navContent={nv_content}
+            footerContent={footer_content}
             logoContent={<OrganizationLogoController handleRosterClick={this.handleRosterClick} />}
             footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
         />;
         if (this.state.display_rosters) {
-            c_name = 'blackBG';
+            // console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationRosterController closeRosters={this.closeRosters} roster_id={this.current_roster_id} />}
                 newsContent={<span />}
                 twitterContent={<span />}
+                blogContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
                 topSponsorContent={<OrganizationSponsorController />}
+                bottomSponsorContent={<span />}
+                navContent={<span />}
+                logoContent={<span />}
+                footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+            />;
+        }
+
+        if (this.state.display_blog_view) {
+            // console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
+            disp = <OrganizationPageComponentRender
+                roster_style={this.state.roster_style}
+                copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
+                rosterContent={<OrganizationBlogViewController shareBlog={this.shareBlogs} closeBlogView={this.closeBlogView} roster_id={this.current_roster_id} blog_media={this.state.b_media} blog_content={this.state.b_content} blog_title={this.state.b_title} blog_date={this.state.b_date} />}
+                newsContent={<span />}
+                blogContent={<span />}
+                twitterContent={<span />}
+                matchesContent={<span />}
+                videoContent={<span />}
+                topSponsorContent={<span />}
                 bottomSponsorContent={<span />}
                 navContent={<span />}
                 logoContent={<span />}
@@ -368,60 +842,190 @@ class OrganizationPageController extends Component {
         }
 
         if (this.state.display_sponsers) {
-            c_name = 'blackBG';
+            // console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
+                if (real_theme === 'felzec/light') {
+                    c_name = 'lightBG';
+                } else {
+                    c_name = 'blackBG';
+                }
+                disp = <OrganizationPageComponentRender
+                    roster_style={this.state.roster_style}
+                    copyright={cp}
+                    obliviot_hidden_style={ob_none}
+                    obliviot_page_style={ob_dark}
+                    rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                    newsContent={<span />}
+                    twitterContent={<span />}
+                    blogContent={<span />}
+                    matchesContent={<span />}
+                    videoContent={<span />}
+                    topSponsorContent={<span />}
+                    bottomSponsorContent={<span />}
+                    navContent={nv_content}
+                    logoContent={<span />}
+                    footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+                />;
+            } else {
+                if (real_theme === 'enigma/light') {
+                    c_name = 'lightBG';
+                } else {
+                    c_name = 'blackBG';
+                }
+                disp = <OrganizationPageComponentRender
+                    roster_style={this.state.roster_style}
+                    copyright={cp}
+                    obliviot_hidden_style={ob_none}
+                    obliviot_page_style={ob_dark}
+                    rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                    newsContent={<span />}
+                    twitterContent={<span />}
+                    matchesContent={<span />}
+                    videoContent={<span />}
+                    topSponsorContent={<OrganizationSponsorController />}
+                    bottomSponsorContent={<span />}
+                    navContent={<span />}
+                    logoContent={<span />}
+                    footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
+                />;
+            }
+        }
+
+        if (this.state.display_blogs) {
+            console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
+
+            let b_style = <span />;
+            let s_style = <OrganizationSponsorController />;
+            let n_style = <span />;
+
+            if (real_theme === 'felzec/light') {
+                b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
+                s_style = <span />;
+                n_style = nv_content;
+            }
+            if (real_theme === 'enigma2/dark') {
+                // b_style = <OrganizationBlogController handleNewsClick={this.handleNewsClick} />;
+                s_style = <OrganizationSponsorController />;
+                n_style = nv_content;
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
-                rosterContent={<OrganizationSponserListController closeSponsers={this.closeSponsers} roster_id={this.current_roster_id} />}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
+                rosterContent={<OrganizationBlogListController closeBlogs={this.closeBlogs} roster_id={this.current_roster_id} handleNewsClick={this.handleNewsClick} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
+                blogContent={b_style}
+                topSponsorContent={s_style}
                 bottomSponsorContent={<span />}
-                navContent={<span />}
+                navContent={n_style}
                 logoContent={<span />}
                 footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
             />;
         }
 
         if (this.state.display_staff) {
-            c_name = 'blackBG';
+            // console.log(`real_theme = ${real_theme}`);
+            if (real_theme === 'enigma/light') {
+                c_name = 'lightBG';
+            } else {
+                c_name = 'blackBG';
+            }
+
+            let n_cnt = <span />;
+            let s_cnt = <OrganizationSponsorController />;
+
+            if (real_theme === 'felzec/light' || real_theme === 'enigma2/dark') {
+                n_cnt = nv_content;
+                s_cnt = <span />;
+            }
             disp = <OrganizationPageComponentRender
                 roster_style={this.state.roster_style}
                 copyright={cp}
+                obliviot_hidden_style={ob_none}
+                obliviot_page_style={ob_dark}
                 rosterContent={<OrganizationStaffController about_title={this.about_us.pageTitle} about_content={this.bcontent} closeStaff={this.closeStaff} />}
                 newsContent={<span />}
                 twitterContent={<span />}
                 matchesContent={<span />}
                 videoContent={<span />}
-                topSponsorContent={<OrganizationSponsorController />}
+                blogContent={<span />}
+                topSponsorContent={s_cnt}
                 bottomSponsorContent={<span />}
-                navContent={<span />}
+                navContent={n_cnt}
                 logoContent={<span />}
+                footerContent={<span />}
                 footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
             />;
         }
 
 
         return (
-            <ThemeProvider theme={this.props.uiStore.current_theme_data}>
-                <DocumentTitle title={this.props.uiStore.current_organisation.name}>
-                    <div id="outer-container" ref={(c) => { this.ref_node = c; }}>
-                        <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-                        {SideBar}
-                        <div className={c_name} >
-                            {disp}
-                        </div>
-                    </div>
-                </DocumentTitle>
-            </ThemeProvider>
+            // <ThemeProvider theme={this.props.uiStore.current_theme_data}>
+				<DocumentTitle title={this.props.uiStore.current_organisation.name}>
+					<div
+						id="outer-container"
+						ref={(c) => {
+							this.ref_node = c;
+						}}
+					>
+						{this.state.error_page && (
+							<div>
+								<div id="error_page" className="error_page" />
+								<div id="error_page" className="error_page_overlay">
+									<div
+										style={{
+											paddingLeft: 32,
+											paddingRight: 32,
+											textAlign: 'center',
+											lineHeight: '32px',
+											fontSize: 32,
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
+										SUBSCRIBE.
+										<br />
+										OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+										<br />
+										<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+											support@origin.gg
+										</a>
+									</div>
+									<div
+										style={{
+											marginTop: 64,
+											textAlign: 'center',
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+									</div>
+								</div>
+							</div>
+						)}
+						<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+						{SideBar}
+						<div className={c_name}>{disp}</div>
+					</div>
+				</DocumentTitle>
+			// </ThemeProvider>
         );
     }
 }
 OrganizationPageController.propTypes = {
-    uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+	uiStore: PropTypes.object.isRequired,
+	appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationPageController));
+export default inject('uiStore', 'appManager')((OrganizationPageController));

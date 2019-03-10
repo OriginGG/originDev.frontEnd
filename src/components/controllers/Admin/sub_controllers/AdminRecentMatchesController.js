@@ -2,27 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
+import DateTime from 'react-datetime';
 import { GlobalStyles } from 'Theme/Theme';
-import { Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
+import { Select, Dropdown, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { inject } from 'mobx-react';
-import _ from 'lodash';
+import find from 'lodash/find';
 import { Modal } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import OrganizationAdminMatchesComponentRender from '../../../render_components/admin/OrganizationAdminMatchesComponentRender';
-import { createRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
+import { createRecentMatchQuery, updateRecentMatchQuery, recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
 import { gameOptions } from './data/AllGames';
+import '../../../../../node_modules/react-datetime/css/react-datetime.css';
 
 const { confirm } = Modal;
 
 class AdminRecentMatchesController extends Component {
     state = {
-        visible: false, add_match: false, logo_src: null, your_score: '', their_score: ''
+        visible: false, add_match: false, logo_src: null, your_score: '', their_score: '', your_url: '', event_description: '', your_date: new Date()
     };
     componentDidMount = async () => {
         this.upload_file = false;
         this.current_game = null;
+        this.match_type = null;
         this.is_saving = false;
+        this.logo_files = null;
         this.calcMatches();
     }
     calcMatches = () => {
@@ -31,7 +35,7 @@ class AdminRecentMatchesController extends Component {
                 const m = await this.props.appManager.executeQueryAuth(
                     'query', recentMatchesQuery,
                     {
-                        organisation: this.props.uiStore.current_organisation.subDomain
+                        organisationId: this.props.uiStore.current_organisation.id
                     }
                 );
                 this.setState({ add_match: false, matches: m.resultdata.edges, visible: true });
@@ -42,17 +46,23 @@ class AdminRecentMatchesController extends Component {
         });
     }
 
-    uploadLogo = () => {
-        return new Promise((resolve) => {
+    uploadLogo = (id) => {
+        return new Promise(async (resolve) => {
             const formData = new FormData();
+            const theme = '';
+            const fn = `recent_match_${id}_`;
+            const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
             formData.append('images', this.logo_files);
-            axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((x) => {
+            try {
+                const x = await axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
                 resolve(x.data);
-            });
+            } catch (err) {
+                resolve(null);
+            }
         });
     }
     uploadFile = (e) => {
@@ -75,54 +85,127 @@ class AdminRecentMatchesController extends Component {
         this.setState({ add_match: true });
     }
     handleInputChange = (e, field) => {
+        // console.log(JSON.stringify(e));
         const p = this.state;
         p[field] = e.target.value;
+        this.setState(p);
+    }
+    handleDateInputChange = (e, field) => {
+        // console.log(JSON.stringify(e));
+        const p = this.state;
+        p[field] = e;
         this.setState(p);
     }
     handleDropDown = (e, data) => {
         this.current_game = data.value;
     }
 
+    handleDropDownList = (e, data) => {
+        // console.log(`handleDropDownList ${data.value}`);
+        this.match_type = data.value;
+        // console.log(`match type = ${this.match_type}`);
+    }
+
     handleSubmit = async () => {
-        // await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
+        // console.log('submit pressed');
+        let is_filled = true;
         if (!this.current_game) {
             toast.error('Please pick a game', {
                 position: toast.POSITION.TOP_LEFT
             });
-            return;
+            is_filled = false;
+            // return;
         }
         if (!this.state.your_score) {
-            toast.error('Please enter your score', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
+            // toast.error('Please enter your score', {
+            //     position: toast.POSITION.TOP_LEFT
+            // });
+            // return;
         }
         if (!this.state.their_score) {
-            toast.error('Please enter your opponents score', {
+            // toast.error('Please enter your opponents score', {
+            //     position: toast.POSITION.TOP_LEFT
+            // });
+            // return;
+        }
+        if (!this.state.your_url) {
+            toast.error('Please enter your league', {
                 position: toast.POSITION.TOP_LEFT
             });
-            return;
+            is_filled = false;
+            // return;
+        }
+        if (!this.state.your_date) {
+            toast.error('Please enter date', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            is_filled = false;
+            // return;
+        }
+        if (!this.match_type) {
+            toast.error('Please choose Upcoming or Recent', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            is_filled = false;
+            // return;
+        }
+        if (!this.state.event_description) {
+            toast.error('Please enter your event', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            is_filled = false;
+            // return;
         }
         if (!this.state.logo_src) {
             toast.error('Please upload your opponents logo', {
                 position: toast.POSITION.TOP_LEFT
             });
+            is_filled = false;
+            // return;
+        }
+        if (!is_filled) {
             return;
         }
-        if (this.is_saving === false && this.current_game && this.state.your_score && this.state.their_score && this.state.logo_src) {
+        if (this.is_saving === false && this.current_game && this.state.logo_src) {
             this.is_saving = true;
-            const logo_data = await this.uploadLogo();
-            await this.props.appManager.executeQueryAuth(
-                'mutation', createRecentMatchQuery,
-                {
-                    subDomain: this.props.uiStore.current_organisation.subDomain, gameName: this.current_game, gameLogo: logo_data.Location, score: `${this.state.your_score} - ${this.state.their_score}`
-                }
-            );
-            toast.success('Match Added !', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            await this.calcMatches();
-            this.is_saving = false;
+            if (!this.logo_files) {
+                this.is_saving = false;
+            } else {
+                // console.log(`event description = ${this.state.event_description}
+                // subDomain=${this.props.uiStore.current_organisation.subDomain}
+                // gameName=${this.current_game}
+                // eventInfo= ${this.match_type}
+                // eventUrl= ${this.state.your_url}
+                // eventDate= ${this.state.your_date}
+                // gameLogo= ${logo_data.Location}
+                // score= ${this.state.your_score} - ${this.state.their_score}`);
+                const p = await this.props.appManager.executeQueryAuth(
+                    'mutation', createRecentMatchQuery,
+                    {
+                        organisationId: this.props.uiStore.current_organisation.id,
+                        gameName: this.current_game,
+                        eventInfo: this.match_type,
+                        eventUrl: this.state.your_url,
+                        eventDate: this.state.your_date,
+                        gameLogo: '',
+                        eventDescription: this.state.event_description,
+                        score: `${this.state.your_score} - ${this.state.their_score}`
+                    }
+                );
+                const logo_data = await this.uploadLogo(p.createRecentmatch.recentmatch.id);          // eslint-disable-line
+                await this.props.appManager.executeQueryAuth(
+                    'mutation', updateRecentMatchQuery,
+                    {
+                        id: p.createRecentmatch.recentmatch.id,
+                        url: this.props.appManager.insertCloudinaryOptions(logo_data.secure_url)
+                    }
+                );
+                toast.success('Match Added !', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                await this.calcMatches();
+                this.is_saving = false;
+            }
         }
     }
     showDeleteConfirm = () => {
@@ -145,7 +228,7 @@ class AdminRecentMatchesController extends Component {
     deleteMatch = async (id) => {
         const action = await this.showDeleteConfirm();
         if (action) {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', deleteRecentMatchQuery,
                 {
                     id
@@ -162,20 +245,23 @@ class AdminRecentMatchesController extends Component {
             return null;
         }
         if (this.state.add_match === true) {
+            const matchOptions = [{ key: 'rm', value: 'rm', text: 'Recent Matches' }, { key: 'um', value: 'um', text: 'Upcoming Matches' }];
             return (
                 <div style={{ height: '100vh', width: 'calc(100vw - 420px)' }}>
                     <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                     <div className="classes.admin_title_box">
                         Add New Recent Match
                     </div>
-                    <div className={this.props.classes.admin_main_logo_box_inner}>
+                    <div className={this.props.classes.admin_main_logo_box_inner} style={{ marginBottom: '10px' }}>
                         <img alt="" id="admin_main_logo" className={this.props.classes.admin_main_logo_image} src={this.props.uiStore.current_theme_structure.header.logo.imageData} />
                     </div>
-                    <Dropdown onChange={this.handleDropDown} style={{ width: 200, clear: 'both' }} placeholder="Select Game Logo" fluid selection options={gameOptions} />
-                    <Button onClick={this.handleFileClick} style={{ marginTop: 4 }} primary>UPLOAD OPPOSITE TEAM LOGO</Button>
+                    <Select onChange={this.handleDropDownList} style={{ width: 200, clear: 'both', marginTop: '10px' }} placeholder="Select Match Type" fluid selection options={matchOptions} />
+                    <Dropdown onChange={this.handleDropDown} style={{ width: 200, clear: 'both', marginTop: '10px' }} placeholder="Select Game Logo" fluid selection options={gameOptions} />
+                    <Button onClick={this.handleFileClick} style={{ marginTop: '10px' }} primary>UPLOAD OPPOSITE TEAM LOGO</Button>
                     <img alt="" style={{ display: 'table' }} className={this.props.classes.admin_main_logo_image} src={this.state.logo_src} />
                     <div style={{ marginTop: 4 }}>
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Your Score'
                             }}
@@ -185,6 +271,7 @@ class AdminRecentMatchesController extends Component {
                             onChange={(e) => { this.handleInputChange(e, 'your_score'); }}
                         />
                         <Input
+                            style={{ marginTop: 4 }}
                             action={{
                                 color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Their Score'
                             }}
@@ -195,14 +282,45 @@ class AdminRecentMatchesController extends Component {
 
                         />
                     </div>
+                    <div style={{ marginTop: 15 }}>
+                        <Input
+                            style={{ marginTop: 4 }}
+                            action={{
+                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Info URL'
+                            }}
+                            actionPosition="left"
+                            placeholder="URL..."
+                            value={this.state.your_url}
+                            onChange={(e) => { this.handleInputChange(e, 'your_url'); }}
+                        />
+                        <Input
+                            style={{ marginTop: 4 }}
+                            action={{
+                                color: 'teal', labelPosition: 'left', icon: 'trophy', content: 'Event/Description'
+                            }}
+                            actionPosition="left"
+                            placeholder="League..."
+                            value={this.state.event_description}
+                            onChange={(e) => { this.handleInputChange(e, 'event_description'); }}
+
+                        />
+                    </div>
+                    <div style={{ marginTop: 15 }}>
+                        <DateTime
+                            style={{ marginTop: 4 }}
+                            defaultValue={new Date()}
+                            onChange={(e) => { this.handleDateInputChange(e, 'your_date'); }}
+                        />
+                    </div>
                     <Button style={{ marginTop: 16 }} onClick={this.handleSubmit} primary>SUBMIT</Button>
                 </div>
 
             );
         }
+
         const p_array = [];
         this.state.matches.forEach((res, i) => {
-            const g_image = _.find(gameOptions, (o) => {
+            const g_image = find(gameOptions, (o) => {
                 return o.value === res.node.gameName;
             });
             p_array.push(<tr key={`key_rm_k_1_${i}`}>

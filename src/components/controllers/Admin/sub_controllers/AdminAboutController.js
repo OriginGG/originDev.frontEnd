@@ -13,14 +13,14 @@ import { getPagesQuery, updatePageQuery } from '../../../../queries/pages';
 
 class AdminAboutController extends Component {
     state = {
-        page_content: '', about_title: '', about_sub_title: '', visible: false, edit_page: false, row_array: []
+        submitting: false, page_content: '', about_title: '', about_sub_title: '', visible: false, edit_page: false, row_array: []
     };
     componentDidMount = () => {
         this.calcRows();
     }
     calcRows = async () => {
         const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
-            organisation: this.props.uiStore.current_organisation.subDomain
+            organisationId: this.props.uiStore.current_organisation.id
         });
         const p_array = [];
         const { edges } = pages.allPages;
@@ -51,16 +51,17 @@ class AdminAboutController extends Component {
         this.setState({ page_content: value });
     }
     handleSubmit = async () => {
-        await this.props.appManager.executeQuery('mutation', updatePageQuery, {
+        this.setState({ submitting: true });
+        await this.props.appManager.executeQueryAuth('mutation', updatePageQuery, {
             id: this.current_id,
             pageContent: this.state.page_content,
-            organisation: this.props.uiStore.current_organisation.subDomain,
             pageTitle: this.state.about_title,
             pageSubtitle: this.state.about_sub_title
         });
         toast.success('Blog post added !', {
             position: toast.POSITION.TOP_LEFT
         });
+        this.setState({ submitting: false });
         this.calcRows();
     }
     render() {
@@ -92,7 +93,7 @@ class AdminAboutController extends Component {
                                     value={this.state.page_content}
                                     onChange={this.handleQuillChange} />
                             </Segment>
-                            <Button primary onClick={this.handleSubmit}>SUBMIT</Button>
+                            <Button disabled={this.state.submitting} primary onClick={this.handleSubmit}>SUBMIT</Button>
                         </Card.Description>
                     </Card.Content>
                 </Card>

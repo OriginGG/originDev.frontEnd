@@ -33,6 +33,9 @@
                     <div class="classes.menu_title_text">
                         Admin Panel
                     </div>
+                    <a class="item" data-component-props="onClick={this.props.handleCloseClick}" style="position:absolute;top:10px;right:10px" >
+                        <i class="close icon" data-component-props="style={this.props.close_style}"></i>
+                    </a>
                 </div>
                 <div class="classes.menu_user_container">
                     <div class="classes.menu_user_logo">
@@ -62,16 +65,9 @@
                         </div>
                     </div>
                 </a>
-                <a class="item" data-component-props="onClick={(e)=>{this.props.handleMainMenuClick('subscription', e);}}">
-                    <div class="classes.menu_item">
-                        <div class="classes.menu_item_icon">
-                            <i class="dollar icon"></i>
-                        </div>
-                        <div class="classes.menu_item_label">
-                            Subscription
-                        </div>
-                    </div>
-                </a>
+                 <div data-component-value="{this.props.paywall_content}">
+                    paywall_content
+                </div>
                 <div class="ui inverted accordion">    
                     <div data-component-value="{this.props.dropdown}">
                         <div class="title">Manage<i class="dropdown icon"></i></div>

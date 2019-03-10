@@ -10,7 +10,6 @@ class LoginComponentRender extends Component {
             <div>
                 <div id="login" className={this.props.classes.signupModal}>
                     <div className={this.props.classes.tabular_menu}>
-                        <div className={this.props.classes.tabular_menu_item} onClick={this.props.handleClick}>Sign Up</div>
                         <div className={this.props.classes.tabular_menu_item_active}>Sign In</div>
                     </div>
                     <div className={this.props.classes.signupModalContent}>
@@ -63,29 +62,9 @@ class LoginComponentRender extends Component {
                                     </div>
                                     <div >{this.props.loginAccountButton}</div>
                                     <div >{this.props.forgotPasswordButton}</div>
-                                    <div className={this.props.classes.submit_divider}/>
-                                    <div className={this.props.classes.submit_or}>OR</div>
-                                    <div className={this.props.classes.social_box_outer}>
-                                        <div className={this.props.classes.social_box_inner}>
-                                            <div className={this.props.classes.social_box_left}>
-                                                <img className={this.props.classes.social_image_box}/>
-                                                <div className={this.props.classes.social_text_box}>
-                                                    Facebook
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={this.props.classes.social_box_inner}>
-                                            <div className={this.props.classes.social_box_right}>
-                                                <img className={this.props.classes.social_image_box}/>
-                                                <div className={this.props.classes.social_text_box}>
-                                                    Twitch
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div className="ui error message"/>
                                 </div>
                             </div>
-                            <div className="ui error message"/>
                         </form>
                     </div>
                 </div>

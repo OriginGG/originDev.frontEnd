@@ -10,12 +10,18 @@ class UiStore {
     @observable origin_theme_structure = {}
     @observable user_id = 0;
     @observable individual_user_id = 0;
+    @observable current_blog = {}
+    @observable submitting_content = false;
     setOrganisation = (o) => {
-        const { themeData } = o.themesByThemeName.edges[0].node;
-        const { themeStructure } = o.themesByThemeName.edges[0].node;
+        const theme = o.nodes[0];
+        const { themeData } = theme.themesByOrganisationId.edges[0].node;
+        const { themeStructure } = theme.themesByOrganisationId.edges[0].node;
         this.current_theme_data = JSON.parse(themeData);
         this.current_theme_structure = JSON.parse(themeStructure);
-        this.current_organisation = o;
+        this.current_organisation = o.nodes[0];             // eslint-disable-line
+    }
+    @action setSubmittingContent = f => {
+        this.submitting_content = f;
     }
     @action setUserID = (id) => {
         this.user_id = id;
@@ -33,6 +39,10 @@ class UiStore {
         const { themeStructure } = o;
         this.origin_theme_data = JSON.parse(themeData);
         this.origin_theme_structure = JSON.parse(themeStructure);
+    }
+    @action
+    setBlogStory = (o) => {
+        this.current_blog = o;
     }
 }
 

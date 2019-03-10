@@ -31,8 +31,9 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '68px',
-                                    overflowY: 'hidden'
+                                    height: '0px',
+                                    overflowY: 'hidden',
+                                    textOverflow: 'ellipsis'
                                 }}>
                                     <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_1}</p>
                                 </div>
@@ -62,8 +63,9 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '68px',
-                                    overflowY: 'hidden'
+                                    height: '0px',
+                                    overflowY: 'hidden',
+                                    textOverflow: 'ellipsis'
                                 }}>
                                     <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_2}</p>
                                 </div>
@@ -91,8 +93,9 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                                 <div style={{
                                     width: '100%',
-                                    height: '68px',
-                                    overflowY: 'hidden'
+                                    height: '0px',
+                                    overflowY: 'hidden',
+                                    textOverflow: 'ellipsis'
                                 }}>
                                     <p className={this.props.classes.obliviot_light_news_body}>{this.props.blog_content_3}</p>
                                 </div>

@@ -10,6 +10,7 @@ import ow_image from '../../../../../assets/images/game_images/ow.png';
 import pubg_image from '../../../../../assets/images/game_images/pubg.png';
 import smite_image from '../../../../../assets/images/game_images/smite.png';
 import splatoon_image from '../../../../../assets/images/game_images/splatoon.png';
+import destiny_image from '../../../../../assets/images/game_images/destiny.png';
 import vainglory_image from '../../../../../assets/images/game_images/vainglory.png';
 import wow_image from '../../../../../assets/images/game_images/wow.png';
 import r6_image from '../../../../../assets/images/game_images/r6.png';
@@ -18,6 +19,7 @@ import streetfighter_image from '../../../../../assets/images/game_images/street
 import ssb_image from '../../../../../assets/images/game_images/ssb.png';
 import dragonball_image from '../../../../../assets/images/game_images/dragonball.png';
 import tekken_image from '../../../../../assets/images/game_images/tekken.png';
+import apex_image from '../../../../../assets/images/game_images/apex.png';
 
 export const gameOptions = [
     {
@@ -94,8 +96,8 @@ export const gameOptions = [
     },
     {
         game_id: 13,
-        text: 'Splatoon',
-        value: 'Splatoon',
+        text: 'Splatoon 2',
+        value: 'Splatoon 2',
         image: splatoon_image
     },
     {
@@ -139,6 +141,18 @@ export const gameOptions = [
         text: 'Tekken',
         value: 'Tekken',
         image: tekken_image
+    },
+    {
+        game_id: 21,
+        text: 'Destiny',
+        value: 'Destiny',
+        image: destiny_image
+    },
+    {
+        game_id: 22,
+        text: 'Apex Legends',
+        value: 'Apex Legends',
+        image: apex_image
     }
 
 

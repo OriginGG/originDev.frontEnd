@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import _ from 'lodash';
+// import injectSheet from 'react-jss';
+import find from 'lodash/find';
+import findIndex from 'lodash/findIndex';
 import { Dropdown, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 // import { PickList } from 'primereact/components/picklist/PickList';
 import { inject } from 'mobx-react';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
@@ -20,11 +21,11 @@ const { confirm } = Modal;
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
-        this.props.game_node.rosterIndividualsByRosterId.edges.forEach((x) => {
-            const f = _.findIndex(edges, (o) => {
+        this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((x) => {
+            const f = findIndex(edges, (o) => {
                 return o.node.individualUserByIndividalUserId.id === x.node.individualUserByIndividualId.id;
             });
             if (f > -1) {
@@ -35,7 +36,7 @@ export class ModalContentAddUser extends Component {
             s_array.push({ node: x1.node.individualUserByIndividalUserId });
         });
         const t_array = [];
-        this.props.game_node.rosterIndividualsByRosterId.edges.forEach((p) => {
+        this.props.game_node.combinedRosterIndividualsByRosterId.edges.forEach((p) => {
             t_array.push({ node: p.node.individualUserByIndividualId });
         });
         this.setState({
@@ -49,6 +50,10 @@ export class ModalContentAddUser extends Component {
     }
     handleCancel = () => {
         this.props.closeModal();
+    }
+
+    handleUserCancel = () => {
+        this.handleUserDeleteRoster();
     }
 
     userTemplate = (user) => {
@@ -80,6 +85,23 @@ export class ModalContentAddUser extends Component {
             });
         });
     };
+    showUserDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete this Roster',
+                content: 'Not adding Users will delete this roster. Are you sure?',
+                okText: 'Yes',
+                okType: 'danger',
+                cancelText: 'No',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
     handleDeleteRoster = async () => {
         const p = this.props.game_node;
         console.log(p);
@@ -97,6 +119,30 @@ export class ModalContentAddUser extends Component {
             this.props.closeModal();
         }
     }
+    handleUserDeleteRoster = async () => {
+        const p = this.props.game_node;
+        const u_count = this.props.game_node.combinedRosterIndividualsByRosterId.edges.length;
+        console.log(p);
+        console.log(`important stuff = ${JSON.stringify(u_count)}`);
+
+        if (u_count < 1) {
+            const action = await this.showUserDeleteConfirm();
+            if (action) {
+                await this.props.appManager.executeQuery(
+                    'mutation', deleteRosterQuery,
+                    {
+                        id: p.id
+                    }
+                );
+                toast.success('Roster deleted !', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                this.props.closeModal();
+            }
+        } else {
+            this.props.closeModal();
+        }
+    }
     onChange = (s, t) => {
         this.setState({
             source: s, target: t
@@ -106,7 +152,7 @@ export class ModalContentAddUser extends Component {
         if (this.state.visible === false) {
             return null;
         }
-        const currGame = _.find(gameOptions, (o) => {
+        const currGame = find(gameOptions, (o) => {
             return o.game_id === this.props.game_node.gameId;
         });
         return (
@@ -135,7 +181,7 @@ export class ModalContentAddUser extends Component {
                 </div>
                 <div style={{ padding: 24 }}>
                     <Button onClick={this.handleOk} primary>Ok</Button>
-                    <Button onClick={this.handleCancel} style={{ float: 'right' }} secondary>Cancel</Button>
+                    <Button onClick={this.handleUserCancel} style={{ float: 'right' }} secondary>Cancel</Button>
                 </div>
                 <div style={{ padding: 24 }}>
                     <Button onClick={this.handleDeleteRoster} color="red" >Delete This Roster</Button>
@@ -191,7 +237,7 @@ class ModalContentAddGame extends Component {
         this.setState({ current_game: data });
     }
     handleOk = () => {
-        const currGame = _.find(gameOptions, (o) => {
+        const currGame = find(gameOptions, (o) => {
             return o.value === this.state.current_game.value;
         });
         this.props.handleSubmit(currGame);
@@ -204,7 +250,7 @@ class ModalContentAddGame extends Component {
         if (!this.state.visible) {
             return null;
         }
-        const currGame = _.find(gameOptions, (o) => {
+        const currGame = find(gameOptions, (o) => {
             return o.value === this.state.current_game.value;
         });
         return (
@@ -268,15 +314,15 @@ class AdminRosterController extends Component {
     getRosterData = async () => {
         return new Promise(async (resolve) => {
             const p_array = [];
-            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-            roster_data.allRosters.edges.forEach((r, i) => {
+            const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id });
+            roster_data.allCombinedRosters.edges.forEach((r, i) => {
                 const { gameId } = r.node;
-                const currGame = _.find(gameOptions, (o) => {
+                const currGame = find(gameOptions, (o) => {
                     return o.game_id === gameId;
                 });
                 p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
             });
-            this.current_roster_users = roster_data.allRosters.edges;
+            this.current_roster_users = roster_data.allCombinedRosters.edges;
             this.setState({ visible: true, games: p_array });
             resolve(true);
         });
@@ -286,20 +332,20 @@ class AdminRosterController extends Component {
         const add_array = [];
         const delete_array = [];
         t.forEach((u) => {
-            const p = _.findIndex(this.current_game_node.rosterIndividualsByRosterId.edges, (o) => {
+            const p = findIndex(this.current_game_node.combinedRosterIndividualsByRosterId.edges, (o) => {
                 return o.node.individualUserByIndividualId.id === u.node.id;
             });
             if (p === -1) {
                 add_array.push(u.node);
             }
         });
-        this.current_game_node.rosterIndividualsByRosterId.edges.forEach((u) => {
-            const p = _.findIndex(t, (o) => {
+        this.current_game_node.combinedRosterIndividualsByRosterId.edges.forEach((u) => {
+            const p = findIndex(t, (o) => {
                 return o.node.id === u.node.individualUserByIndividualId.id;
             });
             if (p === -1) {
                 // make sure its not in add array
-                const p2 = _.findIndex(add_array, (a) => {
+                const p2 = findIndex(add_array, (a) => {
                     return a.id === u.node.id;
                 });
                 if (p2 === -1) {
@@ -342,12 +388,12 @@ class AdminRosterController extends Component {
         this.setState({ user_modal_open: true });
         console.log(game, game_node);
     }
-    handleAddNewGame = () => {
+    handleAddNewGame = async () => {
         this.setState({ game_modal_open: true });
     }
     handleSubmit = async (game) => {
         this.closeModal();
-        await this.props.appManager.executeQuery('mutation', createRosterQuery, { subDomain: this.props.uiStore.current_organisation.subDomain, gameId: game.game_id });
+        await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'roster', organisationId: this.props.uiStore.current_organisation.id, gameId: game.game_id });
         toast.success(`Game ${game.text} added!`, {
             position: toast.POSITION.TOP_LEFT
         });
@@ -415,4 +461,4 @@ RosterGame.propTypes = {
     handleClick: PropTypes.func.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminRosterController));
+export default inject('uiStore', 'appManager')(AdminRosterController);

@@ -25,7 +25,7 @@
         <div class="classes.fixed_div">
                 <div data-component-name="dark_OrganizationPageComponent" class="classes.darkMainBG">
                         <div class="classes.dark_pageTestContraint">
-                            <header class='classes.darkHeader'>
+                            <header class='classes.newDarkHeader'>
                                 <div id="dark_header">
                                     <div data-component-value="{this.props.topSponsorContent}">News</div>
                                 </div>
@@ -58,10 +58,12 @@
                                         <div data-component-value="{this.props.videoContent}">News</div>
                                 </div>
                             </div>
+                            <div data-component-value="{this.props.emailContent}" id="email_component">email</div>
                         </div>
                         <div class="classes.orgFooter" data-component-props="style={this.props.footer_style}">
                                 <p  data-component-value="{this.props.copyright}" class="classes.orgFooterText">© Origin. All rights reserved.</p>
                         </div>
+                        <div class="classes.universal_footer_dark">Website by <span  style="cursor:pointer;margin-left:5px;" data-component-props="onClick={this.props.handleWebClick}">&nbsp;OriginGG</span></div>
                     </div>
         </div>
    </body>

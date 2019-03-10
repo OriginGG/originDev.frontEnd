@@ -1,236 +1,378 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import { GlobalStyles } from 'Theme/Theme';
+// import injectSheet from 'react-jss';
+import Dropzone from 'react-dropzone';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
+import { Modal, Card, Row, Col, Button, Input } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import OrganizationAdminSponsorComponentRender from '../../../render_components/admin/OrganizationAdminSponserComponentRender';
-import { getSponsorsQuery, updateSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
-import blankImage from '../../../../assets/images/imgPlaceholder1.png';
+// import OrganizationAdminSponsorComponentRender from '../../../render_components/admin/OrganizationAdminSponserComponentRender';
+// import OrganizationAdminSponsorComponentElementRender from '../../../render_components/admin/OrganizationAdminSponserComponentElementRender';
+import { createSponsorsQuery, getSponsorsQuery, deleteSponsorQuery, updateSponsorsQuery } from '../../../../queries/sponsors';
+// import blankImage from '../../../../assets/images/imgPlaceholder1.png';
+// import disableImage from '../../../../assets/images/element-disabled.png';
 
-class AdminSponsorController extends Component {
+const { confirm } = Modal;
+const { TextArea } = Input;
+
+
+class SponsorBlock extends Component {
     state = {
-        input_values: {
-            sponsor_image1: null,
-            sponsor_image2: null,
-            sponsor_image3: null,
-            sponsor_image4: null,
-            http_link1_value: '',
-            http_link2_value: '',
-            http_link3_value: '',
-            http_link4_value: '',
-            sponsor_desc1_value: '',
-            sponsor_desc2_value: '',
-            sponsor_desc3_value: '',
-            sponsor_desc4_value: '',
-            sponsor_name1_value: '',
-            sponsor_name2_value: '',
-            sponsor_name3_value: '',
-            sponsor_name4_value: ''
-        }
+        sponsor_image: null, sponsor_bg_image: null, input_http_link_value: '', input_name_value: '', input_desc_value: '', visible: false
     };
-    componentDidMount = async () => {
-        this.logo_files = {};
-        let s_image0 = blankImage;
-        let s_image1 = blankImage;
-        let s_image2 = blankImage;
-        let s_image3 = blankImage;
-        const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-        this.c_id = sponsor_data.resultData.edges[0].node.id;
-        s_image0 = sponsor_data.resultData.edges[0].node.sponsor1;
-        s_image1 = sponsor_data.resultData.edges[0].node.sponsor2;
-        s_image2 = sponsor_data.resultData.edges[0].node.sponsor3;
-        s_image3 = sponsor_data.resultData.edges[0].node.sponsor4;
+    componentDidMount = () => {
+        this.sponsor_image_old = this.props.sponsor_image;
+        this.sponsor_bg_image_old = this.props.sponsor_bg_image;
         this.setState({
-            input_values: {
-                sponsor_image1: s_image0,
-                sponsor_image2: s_image1,
-                sponsor_image3: s_image2,
-                sponsor_image4: s_image3,
-                http_link1_value: sponsor_data.resultData.edges[0].node.hrefLink1,
-                http_link2_value: sponsor_data.resultData.edges[0].node.hrefLink2,
-                http_link3_value: sponsor_data.resultData.edges[0].node.hrefLink3,
-                http_link4_value: sponsor_data.resultData.edges[0].node.hrefLink4,
-                sponsor_desc1_value: sponsor_data.resultData.edges[0].node.sponsorDesc1,
-                sponsor_desc2_value: sponsor_data.resultData.edges[0].node.sponsorDesc2,
-                sponsor_desc3_value: sponsor_data.resultData.edges[0].node.sponsorDesc3,
-                sponsor_desc4_value: sponsor_data.resultData.edges[0].node.sponsorDesc4,
-                sponsor_name1_value: sponsor_data.resultData.edges[0].node.sponsorName1,
-                sponsor_name2_value: sponsor_data.resultData.edges[0].node.sponsorName2,
-                sponsor_name3_value: sponsor_data.resultData.edges[0].node.sponsorName3,
-                sponsor_name4_value: sponsor_data.resultData.edges[0].node.sponsorName4,
-            }
+            input_http_link_value: this.props.http_link_value, sponsor_image: this.props.sponsor_image, sponsor_bg_image: this.props.sponsor_bg_image, input_name_value: this.props.sponsor_name_value, input_desc_value: this.props.sponsor_desc_value, visible: true
         });
     }
-
-    handleChange = (field, e) => {
-        const v = e.target.value;
-        const p = this.state.input_values;
-        p[field] = v;
-        this.setState({
-            input_values: p
-        });
-    }
-
-    isURL = (str)  => {
+    isURL = (str) => {
         return str.includes('http');
     }
-
-    handleSubmit = async () => {
-        const sponsor_image1 = await this.uploadSponsorMedia('sponsor_image1');
-        const sponsor_image2 = await this.uploadSponsorMedia('sponsor_image2');
-        const sponsor_image3 = await this.uploadSponsorMedia('sponsor_image3');
-        const sponsor_image4 = await this.uploadSponsorMedia('sponsor_image4');
-        const sponser_href1 = this.state.input_values.http_link1_value;
-        const sponser_href2 = this.state.input_values.http_link2_value;
-        const sponser_href3 = this.state.input_values.http_link3_value;
-        const sponser_href4 = this.state.input_values.http_link4_value;
-
-        if (!this.isURL(sponser_href1) && sponser_href1) {
-            toast.error('First Sponser URL Not Valid', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
-        }
-        if (!this.isURL(sponser_href2) && sponser_href2) {
-            toast.error('Second Sponser URL Not Valid', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
-        }
-        if (!this.isURL(sponser_href3) && sponser_href3) {
-            toast.error('Third Sponser URL Not Valid', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
-        }
-        if (!this.isURL(sponser_href4) && sponser_href4) {
-            toast.error('Fourth Sponser URL Not Valid', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
-        }
-        if (this.create) {
-            await this.props.appManager.executeQuery(
-                'mutation', createSponsorsQuery,
-                {
-                    subDomain: this.props.uiStore.current_organisation.subDomain,
-                    link1: sponsor_image1,
-                    link2: sponsor_image2,
-                    link3: sponsor_image3,
-                    link4: sponsor_image4,
-                    href_link1: sponser_href1,
-                    href_link2: sponser_href2,
-                    href_link3: sponser_href3,
-                    href_link4: sponser_href4,
-                    desc1: this.state.input_values.sponsor_desc1_value,
-                    desc2: this.state.input_values.sponsor_desc2_value,
-                    desc3: this.state.input_values.sponsor_desc3_value,
-                    desc4: this.state.input_values.sponsor_desc4_value,
-                    name1: this.state.input_values.sponsor_name1_value,
-                    name2: this.state.input_values.sponsor_name2_value,
-                    name3: this.state.input_values.sponsor_name3_value,
-                    name4: this.state.input_values.sponsor_name4_value
-
-                }
-            );
-            toast.success('Sponsors Updated!', {
-                position: toast.POSITION.TOP_LEFT
-            });
-        } else {
-            await this.props.appManager.executeQuery(
-                'mutation', updateSponsorsQuery,
-                {
-                    id: this.c_id,
-                    link1: sponsor_image1,
-                    link2: sponsor_image2,
-                    link3: sponsor_image3,
-                    link4: sponsor_image4,
-                    href_link1: sponser_href1,
-                    href_link2: sponser_href2,
-                    href_link3: sponser_href3,
-                    href_link4: sponser_href4,
-                    desc1: this.state.input_values.sponsor_desc1_value,
-                    desc2: this.state.input_values.sponsor_desc2_value,
-                    desc3: this.state.input_values.sponsor_desc3_value,
-                    desc4: this.state.input_values.sponsor_desc4_value,
-                    name1: this.state.input_values.sponsor_name1_value,
-                    name2: this.state.input_values.sponsor_name2_value,
-                    name3: this.state.input_values.sponsor_name3_value,
-                    name4: this.state.input_values.sponsor_name4_value
-                }
-            );
-            toast.success('Sponsors Updated!', {
-                position: toast.POSITION.TOP_LEFT
-            });
-        }
-    }
-    uploadSponsorMedia = (field) => {
-        return new Promise((resolve) => {
-            if (this.logo_files[field]) {
-                const formData = new FormData();
-                formData.append('images', this.logo_files[field]);
-                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                }).then((x) => {
-                    resolve(x.data.Location);
-                });
-            } else {
-                resolve(this.state[field]);
-            }
+    handleChangeName = (e) => {
+        this.setState({
+            input_name_value: e.target.value
         });
     }
-
-    uploadFile = (field, e) => {
-        console.log(field);
-        const { files } = e.target;
-        this.logo_files[field] = files[0];             // eslint-disable-line
+    handleChangeDesc = (e) => {
+        this.setState({
+            input_desc_value: e.target.value
+        });
+    }
+    handleChangeLink = (e) => {
+        this.setState({
+            input_http_link_value: e.target.value
+        });
+    }
+    showDeleteConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Delete Sponsor',
+                content: 'Are you sure you want to delete this sponsor?',
+                okText: 'Delete',
+                cancelText: 'Cancel',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    deleteSponsor = async () => {
+        const f = await this.showDeleteConfirm();
+        if (f) {
+            this.props.deleteSponsor(this.props.element_id);
+        }
+    }
+    handleSubmit = async () => {
+        let sponsor_image = this.sponsor_image_old;
+        if (this.sponsor_image_old !== this.state.sponsor_image) {
+            const f = this.props.appManager.checkFileSizeLimit(this.logo_file);
+            if (!f) {
+                return;
+            }
+            sponsor_image = await this.uploadSponsorMedia('foreground');
+        }
+        let sponsor_bg_image = this.sponsor_bg_image_old;
+        if (this.sponsor_bg_image_old !== this.state.sponsor_bg_image) {
+            const f = this.props.appManager.checkFileSizeLimit(this.logo_file_bg);
+            if (!f) {
+                return;
+            }
+            sponsor_bg_image = await this.uploadSponsorMedia('background');
+        }
+        if (this.state.input_http_link_value) {
+            if (!this.isURL(this.state.input_http_link_value)) {
+                toast.error('Sponsor URL Not Valid', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+                return;
+            }
+        }
+        await this.props.appManager.executeQueryAuth(
+            'mutation', updateSponsorsQuery,
+            {
+                id: this.props.element_id,
+                imageUrl: sponsor_image,
+                bgImages: sponsor_bg_image,
+                hrefLink: this.state.input_http_link_value,
+                description: this.state.input_desc_value,
+                name: this.state.input_name_value
+            }
+        );
+        toast.success('Sponsor Updated!', {
+            position: toast.POSITION.TOP_LEFT
+        });
+    }
+    uploadSponsorMedia = (typ) => {
+        console.log(typ);
+        const theme = '';
+        const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
+        let fn = `sponsor_${this.props.element_id}_`;
+        let f = this.logo_file;
+        if (typ !== 'foreground') {
+            f = this.logo_file_bg;
+            fn = `sponsor_bg_${this.props.element_id}`;
+        }
+        return new Promise((resolve) => {
+            const formData = new FormData();
+            formData.append('images', f);
+            axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((x) => {
+                resolve(this.props.appManager.insertCloudinaryOptions(x.data.secure_url));
+            });
+        });
+    }
+    uploadFile = (e) => {
         const reader = new FileReader();
-        reader.readAsDataURL(this.logo_files[field]);
-
+        reader.readAsDataURL(e[0]);
+        this.logo_file = e[0];              // eslint-disable-line
         reader.onloadend = () => {
             const x = reader.result;
-            const p = this.state.input_values;
-            p[field] = x;
-            this.setState(p);
+            this.setState({ sponsor_image: x });
         };
     }
+    uploadBGFile = (e) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e[0]);
+        this.logo_file_bg = e[0];              // eslint-disable-line
+        reader.onloadend = () => {
+            const x = reader.result;
+            this.setState({ sponsor_bg_image: x });
+        };
+    }
+    handleFileClick = () => {
+        this.dropzoneRef.open();
+    }
+    handleBGFileClick = () => {
+        this.dropzoneBGRef.open();
+    }
     render() {
+        if (this.state.visible === false) {
+            return null;
+        }
+        const cn = this.state.input_name_value ? this.state.input_name_value : 'Unnamed Sponsor';
         return (
-            <div style={{ width: 'calc(100vw - 380px)' }}>
-                <OrganizationAdminSponsorComponentRender
+            <div>
+                <div>
+                    <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
+                    <Dropzone onDrop={this.uploadBGFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneBGRef = node; }} />
+                </div>
+                <Card
+                    title={cn}
+                    style={{ width: '97%', marginBottom: 16 }}
+                >
+                    <Row>
+                        <Col style={{ fontSize: '10px', fontWeight: 'bold', textAlign: 'center' }} span={6}>SPONSOR IMAGE</Col>
+                        <Col style={{ fontSize: '10px', fontWeight: 'bold', textAlign: 'center' }} span={8}>SPONSOR BG IMAGE</Col>
+                        <Col style={{ fontSize: '10px', fontWeight: 'bold', textAlign: 'center' }} span={10}>SPONSOR DETAILS</Col>
+
+                    </Row>
+                    <Row>
+                        <Col span={6} style={{ borderRight: '1px solid' }}>
+                            <div style={{
+                                width: 150,
+                                height: 100,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                backgroundColor: '#ccc'
+                            }}>
+                                <img alt="sponsor" style={{ width: 150, height: 100 }} src={this.state.sponsor_image} />
+                            </div>
+                        </Col>
+                        <Col span={10}>
+                            <div style={{
+                                width: 300,
+                                height: 100,
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                backgroundColor: '#ccc'
+                            }}>
+                                {this.state.sponsor_bg_image &&
+                                    <img style={{ width: 300, height: 100 }} alt="sponsor" src={this.state.sponsor_bg_image} />
+                                }
+                            </div>
+                        </Col>
+                        <Col span={8} >
+                            <Row>
+                                <Col style={{ paddingBottom: 8, lineHeight: '22px', fontSize: 10 }} span={8}>SPONSOR NAME</Col>
+                                <Col span={16}><Input onChange={this.handleChangeName} value={this.state.input_name_value} size="small" placeholder="Sponsor Name..." /></Col>
+                            </Row>
+                            <Row>
+                                <Col style={{ paddingBottom: 8, lineHeight: '22px', fontSize: 10 }} span={8}>SPONSOR LINK</Col>
+                                <Col span={16}><Input onChange={this.handleChangeLink} value={this.state.input_http_link_value} size="small" placeholder="VALID URL" /></Col>
+                            </Row>
+                            <Row>
+                                <Col style={{ paddingTop: 8, fontSize: 10 }} span={24}>SPONSOR DESCRIPTION</Col>
+                            </Row>
+                            <Row>
+                                <Col style={{ paddingTop: 8, fontSize: 10 }} span={24}><TextArea onChange={this.handleChangeDesc} value={this.state.input_desc_value} rows={2} /></Col>
+                            </Row>
+                        </Col>
+
+                    </Row>
+                    <Row>
+                        <Col style={{ textAlign: 'center' }} span={6}>
+                            <Button onClick={this.handleFileClick} type="primary" size="small">UPLOAD IMAGE</Button>
+                        </Col>
+                        <Col style={{ textAlign: 'center' }} span={10}>
+                            <Button onClick={this.handleBGFileClick} type="primary" size="small">UPLOAD BG IMAGE</Button>
+                        </Col>
+                        <Col span={4}>
+                            {this.props.allow_delete &&
+                                <Button onClick={this.deleteSponsor} type="danger" size="small">DELETE SPONSOR</Button>
+                            }
+                        </Col>
+                        <Col span={4}>
+                            <Button onClick={this.handleSubmit} type="primary" size="small">UPDATE SPONSOR</Button>
+                        </Col>
+                    </Row>
+                </Card>
+                {/* <OrganizationAdminSponsorComponentElementRender
+                    upload_title={this.props.upload_title}
+                    element_disable_image_src={disableImage}
+                    element_style_disable_image={{
+                        marginLeft: 36, marginTop: 48, width: 440, height: 440
+                    }}
+                    element_style_disable={hd}
+                    sponsor_image={this.state.sponsor_image}
+                    sponsor_bg_image={this.state.sponsor_bg_image}
+                    http_link_value={this.state.input_http_link_value}
+                    sponsor_desc_value={this.state.input_desc_value}
+                    sponsor_name_value={this.state.input_name_value}
+                    handleFileClick={this.handleFileClick}
+                    handleBGFileClick={this.handleBGFileClick}
                     uploadFile={this.uploadFile}
+                    uploadBGFile={this.uploadBGFile}
+                    handleChangeName={this.handleChangeName}
+                    handleChangeDesc={this.handleChangeDesc}
+                    handleChangeLink={this.handleChangeLink}
                     handleSubmit={this.handleSubmit}
-                    handleChange={this.handleChange}
-                    sponsor_image1={this.state.input_values.sponsor_image1}
-                    sponsor_image2={this.state.input_values.sponsor_image2}
-                    sponsor_image3={this.state.input_values.sponsor_image3}
-                    sponsor_image4={this.state.input_values.sponsor_image4}
-                    http_link1_value={this.state.input_values.http_link1_value}
-                    http_link2_value={this.state.input_values.http_link2_value}
-                    http_link3_value={this.state.input_values.http_link3_value}
-                    http_link4_value={this.state.input_values.http_link4_value}
-                    sponsor_desc1_value={this.state.input_values.sponsor_desc1_value}
-                    sponsor_desc2_value={this.state.input_values.sponsor_desc2_value}
-                    sponsor_desc3_value={this.state.input_values.sponsor_desc3_value}
-                    sponsor_desc4_value={this.state.input_values.sponsor_desc4_value}
-                    sponsor_name1_value={this.state.input_values.sponsor_name1_value}
-                    sponsor_name2_value={this.state.input_values.sponsor_name2_value}
-                    sponsor_name3_value={this.state.input_values.sponsor_name3_value}
-                    sponsor_name4_value={this.state.input_values.sponsor_name4_value}
-                />
+                /> */}
             </div>
         );
     }
 }
+class AdminSponsorController extends Component {
+    state = {
+        element_array: [],
+    };
+    componentDidMount = async () => {
+        this.grabSponsors();
+    }
+
+    grabSponsors = async () => {
+        this.logo_file = {};
+        this.logo_file_bg = {};
+        // let s_image = blankImage;
+        const sponsor_data = await this.props.appManager.executeQueryAuth('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const { nodes } = sponsor_data.allOrgSponsors;
+        const p_array = [];
+        nodes.forEach((n, i) => {
+            let allow_delete = true;
+            if (i < 4) {
+                allow_delete = false;
+            }
+            p_array.push(<SponsorBlock
+                key={`sponsor_block_${n.id}`}
+                element_id={n.id}
+                upload_title={`Upload Sponsor ${i + 1}`}
+                sponsor_image={n.imageUrl}
+                sponsor_bg_image={n.bgImages}
+                for={`hidden-new-file${n.id}`}
+                http_link_value={n.hrefLink}
+                sponsor_desc_value={n.description}
+                sponsor_name_value={n.name}
+                allow_delete={allow_delete}
+                appManager={this.props.appManager}
+                deleteSponsor={this.deleteSponsor}
+                uiStore={this.props.uiStore}
+            />);
+        });
+        this.setState({ element_array: p_array });
+    }
+    deleteSponsor = async (id) => {
+        await this.props.appManager.executeQueryAuth(
+            'mutation', deleteSponsorQuery,
+            {
+                id
+            }
+        );
+        toast.success('Sponsor Deleted!', {
+            position: toast.POSITION.TOP_LEFT
+        });
+        this.grabSponsors();
+    }
+    showAddSponsorConfirm = () => {
+        return new Promise(resolve => {
+            confirm({
+                title: 'Add Sponsor',
+                content: 'Are you sure you wish to add a new sponsor?',
+                okText: 'Yes',
+                cancelText: 'Cancel',
+                onOk: () => {
+                    resolve(true);
+                },
+                onCancel: () => {
+                    resolve(false);
+                }
+            });
+        });
+    };
+    confirmAddSponsor = async () => {
+        const f = await this.showAddSponsorConfirm();
+        if (f) {
+            await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {                // eslint-disable-line
+                organisationId: this.props.uiStore.current_organisation.id,
+                imageUrl: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+                hrefLink: 'https://origin.gg',
+                name: 'Origin.GG',
+                description: 'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
+            });
+            toast.success('Sponsor Added!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+            this.grabSponsors();
+        }
+    }
+    render() {
+        return (
+            <div>
+                <div style={{ width: 'calc(100vw - 380px)' }}>
+                    {this.state.element_array}
+                </div>
+                <div>
+                    <Button onClick={this.confirmAddSponsor} type="primary">ADD SPONSOR</Button>
+                </div>
+            </div>
+        );
+    }
+}
+SponsorBlock.propTypes = {
+    http_link_value: PropTypes.string.isRequired,
+    sponsor_image: PropTypes.string.isRequired,
+    sponsor_bg_image: PropTypes.string.isRequired,
+    sponsor_name_value: PropTypes.string.isRequired,
+    sponsor_desc_value: PropTypes.string.isRequired,
+    // upload_title: PropTypes.string.isRequired,
+    uiStore: PropTypes.object.isRequired,
+    appManager: PropTypes.object.isRequired,
+    element_id: PropTypes.number.isRequired,
+    allow_delete: PropTypes.bool.isRequired,
+    deleteSponsor: PropTypes.func.isRequired,
+};
 
 AdminSponsorController.propTypes = {
     uiStore: PropTypes.object.isRequired,
-    appManager: PropTypes.object.isRequired
+    appManager: PropTypes.object.isRequired,
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminSponsorController));
+export default inject('uiStore', 'appManager')(AdminSponsorController);
 

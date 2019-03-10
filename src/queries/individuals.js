@@ -1,14 +1,64 @@
 import gql from 'graphql-tag';
 
-export const getIndividualUserByHandleQuery = gql`
-  query getuserbyusername($handle: String!) {
-  getinduserbyusername(username: $handle) {
-    edges {
-      node {
-        id
-      }
-    }
-  }
+export const searchIndividualUsersByHandleQuery = gql`query srchIndbyhandle($handle: String!) {
+  allIndividualUsers(filter: 
+    {username: {includesInsensitive: $handle }}) {
+		nodes {
+    firstName
+    lastName
+    about
+    email
+    contactEmail
+    updatedAt
+    createdAt
+		youtubeChannel
+    twitchUrl
+    twitchUserId
+		twitterHandle
+		accomplishments
+		youtubeVideo1Url
+		youtubeVideo2Url
+		youtubeVideo3Url
+    bannerImageUrl
+		profileImageUrl
+    facebookLink
+    instagramLink
+    username
+    id
+    authenticated
+		}
+	}
+}
+`;
+
+export const getIndividualUserByHandleQuery = gql`query getIndbyhandle($handle: String!) {
+  allIndividualUsers(filter: 
+    {username: {endsWithInsensitive: $handle }}) {
+		nodes {
+    firstName
+    lastName
+    about
+    email
+    contactEmail
+    updatedAt
+    createdAt
+		youtubeChannel
+    twitchUrl
+    twitchUserId
+		twitterHandle
+		accomplishments
+		youtubeVideo1Url
+		youtubeVideo2Url
+		youtubeVideo3Url
+    bannerImageUrl
+		profileImageUrl
+    facebookLink
+    instagramLink
+    username
+    id
+    authenticated
+		}
+	}
 }
 `;
 
@@ -26,11 +76,12 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
     lastName
     about
     email
-    contactNumber
+    contactEmail
     updatedAt
     createdAt
 		youtubeChannel
-		twitchUrl
+    twitchUrl
+    twitchUserId
 		twitterHandle
 		accomplishments
 		youtubeVideo1Url
@@ -41,18 +92,20 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
     facebookLink
     instagramLink
     username
-		id
+    id
+    authenticated
   }
 }
 `;
 
 export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: Int!, $firstName: String, $lastName: String, $about: String,
-	$contactNumber: String, $accomplishments: String, $twitchUrl: String,
+	$contactEmail: String, $accomplishments: String, $twitchUrl: String, 
   $twitterHandle: String, $youtubeChannel: String,
   $youtubeVideo1Url: String,
   $youtubeVideo2Url: String,
   $youtubeVideo3Url: String,
   $bannerImageUrl: String,
+  $twitchUserId: String,
   $profileImageUrl: String,
   $facebookLink: String,
   $instagramLink: String,
@@ -65,10 +118,11 @@ export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: 
       about: $about
       bannerImageUrl: $bannerImageUrl
       profileImageUrl: $profileImageUrl
-      contactNumber: $contactNumber
+      contactEmail: $contactEmail
       accomplishments: $accomplishments
       twitchUrl: $twitchUrl
       twitterHandle: $twitterHandle
+      twitchUserId: $twitchUserId
       youtubeChannel: $youtubeChannel
       youtubeVideo1Url: $youtubeVideo1Url
       youtubeVideo2Url: $youtubeVideo2Url

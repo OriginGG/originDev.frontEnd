@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import _ from 'lodash';
-import { getThemeQuery } from './queries/themes';
-import { getOrganisationQuery } from './queries/organisation';
+// import injectSheet from 'react-jss';
+import findIndex from 'lodash/findIndex';
+import { getThemeByNameQuery } from './queries/themes';
+import { getOrganisationQuery, getOrganisationByIdQuery } from './queries/organisation';
 import { getIndividualUserByHandleQuery } from './queries/individuals';
-import { GlobalStyles } from './utils/themes/Theme';
+
+// import { GlobalStyles } from './utils/themes/Theme';
 import historyStore from './utils/stores/browserHistory';
 import './App.css';
 
 
 const pathsToIgnore = [
-    '/signup',
     '/password',
     '/landing',
     '/signup_org',
     '/signup_ind',
+    '/login_org',
+    '/login_ind',
     '/new_signup',
     '/new_signup_ind',
     '/main',
     '/individual',
     '/admin_page',
     '/ind_invite',
+    '/paywall',
+    '/go_paywall',
     '/createsubdomain'
 ];
 
@@ -30,7 +34,8 @@ class AppController extends Component {
     componentDidMount = async () => {
         let admin = false;
         // pouchTest
-
+        const { ignore_routes } = this.props;
+        this.ignore_routes = ignore_routes;
         const is_root = location.pathname === '/';              // eslint-disable-line
         if (is_root) {
             const domainToken = await this.props.appManager.getDomainToken();
@@ -52,8 +57,8 @@ class AppController extends Component {
                 //     historyStore.push('/main');
                 // }
                 // console.log(domainGo);
-                const originTheme = await this.props.appManager.executeQuery('query', getThemeQuery, { subDomain: 'origin' });
-                this.props.uiStore.setOriginTheme(originTheme.resultData);
+                const originTheme = await this.props.appManager.executeQuery('query', getThemeByNameQuery, { themeName: 'origin' });
+                this.props.uiStore.setOriginTheme(originTheme.resultData.nodes[0]);
                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                 const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
                 let u_string;
@@ -64,17 +69,17 @@ class AppController extends Component {
                         u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
                         console.log(u_string);
                     }
-                    if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+                    if (process.env.REACT_APP_ENVIRONMENT === 'production' || process.env.REACT_APP_ENVIRONMENT === 'development') {
                         window.location = `${u_string}/landing/index.html`;
                     } else {
-                        window.location = `${u_string}/signup`;
+                        window.location = `${u_string}/login_org`;
                     }
                 } else {
                     if (subDomain === 'origin') {
-                        if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+                        if (process.env.REACT_APP_ENVIRONMENT === 'production' || process.env.REACT_APP_ENVIRONMENT === 'development') {
                             window.location.href = '/landing/index.html';
                         } else {
-                            historyStore.push('/signup');
+                            historyStore.push('/login_org');
                         }
                     } else {
                         if (!admin) {
@@ -86,50 +91,86 @@ class AppController extends Component {
                 }
             }
         } else {
-            if (location.pathname === '/admin') {  // eslint-disable-line
+            if (location.pathname === '/blog') {  // eslint-disable-line
+                const b_id = this.props.appManager.GetQueryParams('b');
+                this.props.appManager.blog_id = parseInt(b_id, 10);
+                historyStore.push('/main');
+            }
+            if (location.pathname === '/admin' || location.pathname === '/go_paywall' && this.ignore_routes === false) {  // eslint-disable-line
                 const domainInfo = this.props.appManager.getDomainInfo();
                 const subDomain = (domainInfo.subDomain === null) ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
                 if (!domainInfo) {
-                    historyStore.push('/signup');
+                    if (location.pathname === '/go_paywall') {
+                        historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+                    } else {
+                        historyStore.push('/signup_org');
+                    }
                 } else {
                     const o = await this.props.appManager.executeQuery('query', getOrganisationQuery, { subDomain });
                     if (o.resultData === null) {
-                        const { hostname } = domainInfo;
-                        const new_host = hostname.replace(`${subDomain}.`, '');
-                        const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                        window.location = `${u_string}/signup`;
-                    } else {
-                        const auth = this.props.appManager.pouchGet('authenticate');
-                        // const auth = await this.props.appManager.pouchGet('authenticate');
-                        if (auth && auth.authenticate.resultData.organisation === subDomain) {
-                            const token = auth.authenticate.resultData.jwtToken;
-                            const d = this.props.appManager.decodeJWT(token);
-                            d.organisation = subDomain;
-                            const new_token = this.props.appManager.encodeJWT(d);
-                            this.props.uiStore.setUserID(d.id);
-                            this.props.appManager.authToken = new_token;
-                            this.props.appManager.admin_logged_in = true;
-                            historyStore.push('/admin_page');
+                        if (location.pathname === '/go_paywall') {
+                            historyStore.push({ pathname: '/login_org', state: { paywall: true } });
                         } else {
                             const { hostname } = domainInfo;
                             const new_host = hostname.replace(`${subDomain}.`, '');
                             const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-                            window.location = `${u_string}/signup`;
+                            window.location = `${u_string}/`;
+                        }
+                    } else {
+                        const auth = this.props.appManager.pouchGet('authenticate');
+                        // const auth = await this.props.appManager.pouchGet('authenticate');
+                        if (auth) {
+                            const my_org = await this.props.appManager.executeQuery('query', getOrganisationByIdQuery, { id: auth.authenticate.resultData.organisationId });
+                            if (my_org.organisationAccountById.subDomain === subDomain) {
+                                console.log(my_org);
+                                const token = auth.authenticate.resultData.jwtToken;
+                                const d = this.props.appManager.decodeJWT(token);
+                                d.organisation = subDomain;
+                                const new_token = this.props.appManager.encodeJWT(d);
+                                this.props.uiStore.setUserID(d.id);
+                                this.props.appManager.authToken = new_token;
+                                if (location.pathname === '/go_paywall') {
+                                    historyStore.push('/paywall');
+                                } else {
+                                    this.props.appManager.admin_logged_in = true;
+                                    historyStore.push('/admin_page');
+                                }
+                            } else {
+                                if (location.pathname === '/go_paywall') {
+                                    historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+                                } else {
+                                    const { hostname } = domainInfo;
+                                    const new_host = hostname.replace(`${subDomain}.`, '');
+                                    const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+                                    window.location = `${u_string}/signup_org`;
+                                }
+                            }
+                        } else {
+                            if (location.pathname === '/go_paywall') {
+                                    historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+                            } else {
+                                const { hostname } = domainInfo;
+                                const new_host = hostname.replace(`${subDomain}.`, '');
+                                const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+                                window.location = `${u_string}/signup_org`;
+                            }
                         }
                     }
                 }
             } else {
                 const l = location.pathname;        // eslint-disable-line
-                if (_.findIndex(pathsToIgnore, (o) => {
+                if (findIndex(pathsToIgnore, (o) => {
                     return o === l;
                 }) === -1) {
-                    const handle = (location.pathname).replace('/', '');            // eslint-disable-line
+                    let handle = (location.pathname).replace('/', '');            // eslint-disable-line
+                    if (handle.indexOf('individual/') > -1) {
+                        handle = (location.pathname).replace('/individual/', '');            // eslint-disable-line
+                    }
                     const user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, { handle });
-                    if (user.getinduserbyusername.edges.length > 0) {
-                        const user_id = user.getinduserbyusername.edges[0].node.id;
-                        historyStore.push(`/individual?u=${user_id}`);
+                    if (user.allIndividualUsers.nodes.length > 0) {
+                        // const user_id = user.allIndividualUsers.nodes[0].id;
+                        historyStore.push(`/individual/${handle}`);
                     } else {
-                        console.log('cock 1');
                         historyStore.push('/');
                     }
                 }
@@ -144,8 +185,13 @@ class AppController extends Component {
 }
 AppController.propTypes = {
     appManager: PropTypes.object.isRequired,
-    uiStore: PropTypes.object.isRequired
+    uiStore: PropTypes.object.isRequired,
+    ignore_routes: PropTypes.bool
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AppController));
+AppController.defaultProps = {
+    ignore_routes: false
+};
+
+export default inject('uiStore', 'appManager')((AppController));
 

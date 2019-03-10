@@ -11,7 +11,6 @@ class SignupComponentRender extends Component {
                 <div id="sign_up" className={this.props.classes.signupModal}>
                     <div className={this.props.classes.tabular_menu}>
                         <div className={this.props.classes.tabular_menu_item_active}>Sign Up</div>
-                        <div className={this.props.classes.tabular_menu_item} onClick={this.props.handleClick}>Sign In</div>
                     </div>
                     <div className={this.props.classes.signupModalContent}>
                         <form className="ui large form" onSubmit={this.props.handleSubmit}>
@@ -113,30 +112,31 @@ class SignupComponentRender extends Component {
                                                 }}>{this.props.errors.password}</div>}</div>
                                         </div>
                                     </div>
-                                    <div >{this.props.createAccountButton}</div>
-                                    <div className={this.props.classes.submit_divider}/>
-                                    <div className={this.props.classes.submit_or}>OR</div>
-                                    <div className={this.props.classes.social_box_outer}>
-                                        <div className={this.props.classes.social_box_inner}>
-                                            <div className={this.props.classes.social_box_left}>
-                                                <img className={this.props.classes.social_image_box}/>
-                                                <div className={this.props.classes.social_text_box}>
-                                                    Facebook
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={this.props.classes.social_box_inner}>
-                                            <div className={this.props.classes.social_box_right}>
-                                                <img className={this.props.classes.social_image_box}/>
-                                                <div className={this.props.classes.social_text_box}>
-                                                    Twitch
-                                                </div>
-                                            </div>
+                                    <div className={this.props.classes.input_title}>
+                                        Confirm Password
+                                    </div>
+                                    <div className="field">
+                                        <div className="ui input">
+                                            <input type="password" name="confirm_password" placeholder="Confirm Password" style={{
+                                                backgroundColor: 'transparent',
+                                                borderColor: '#fff',
+                                                color: '#fff',
+                                                height: '45px',
+                                                fontSize: '16px'
+                                            }} className={this.props.classes.input_box} onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.confirm_password}/>
+                                            <div style={{
+                                                position: 'absolute',
+                                                right: 0,
+                                                marginTop: 13,
+                                                marginRight: 30
+                                            }}>{this.props.touched.confirm_password && this.props.errors.confirm_password && <div style={{
+                                                    color: 'red'
+                                                }}>{this.props.errors.confirm_password}</div>}</div>
                                         </div>
                                     </div>
+                                    <div >{this.props.createAccountButton}</div>
                                 </div>
                             </div>
-                            <div className="ui error message"/>
                         </form>
                     </div>
                 </div>

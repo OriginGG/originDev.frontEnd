@@ -43,12 +43,65 @@
                         <img class="classes.admin_theme_display_image" data-component-props="src={this.props.obliviot_light_image}" src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg" />
                         <div class="classes.admin_theme_display_text">Obliviot Light</div>
                     </div>
+                    <div data-component-props="style={this.props.felzec_light_style} onClick={this.props.handleFelzecLightClick}" class="classes.admin_theme_display_container">
+                        <img class="classes.admin_theme_display_image" data-component-props="src={this.props.felzec_light_image}" src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg" />
+                        <div class="classes.admin_theme_display_text">Felzek</div>
+                    </div>
+                    <div data-component-props="style={this.props.enigma2_dark_style} onClick={this.props.handleEnigma2DarkClick}" class="classes.admin_theme_display_container">
+                        <img class="classes.admin_theme_display_image" data-component-props="src={this.props.enigma2_dark_image}" src="https://s3.amazonaws.com/origin-images/origin/light-theme.jpg" />
+                        <div class="classes.admin_theme_display_text">Enigma2</div>
+                    </div>
+                </div>
+                <div class="classes.admin_submit_box" data-component-props="onClick={this.props.handleSubmit}" >
+                    <div class="classes.admin_submit_button">Save</div>
                 </div>
                 <p>Change Jumbotron Images</p>
                 <div class="classes.jumbotron_container">
                     <img class="classes.jumbotron_image" data-component-props="src={this.props.image_src}" src="http://api.originbeta.net/defaultImages/section1-bg2.jpg" />
                     <div data-component-props="onClick={this.props.editImage}" id="theme_modal_button" class="classes.jumbotron_overlay">
-                        <div class="classes.jumbotron_model_switch">Edit Jubotron Image</div>
+                        <div class="classes.jumbotron_model_switch">Edit</div>
+                    </div>
+                </div>
+                <p>Change Main Background (Felzec Theme)</p>
+                <div class="classes.jumbotron_container">
+                    <img class="classes.jumbotron_image" data-component-props="src={this.props.image_main_src}" src="http://api.originbeta.net/defaultImages/section1-bg2.jpg" />
+                    <div data-component-props="onClick={this.props.editMainImage}" id="theme_modal_button" class="classes.jumbotron_overlay">
+                        <div class="classes.jumbotron_model_switch">Edit</div>
+                    </div>
+                </div>
+                <p>Change Sponsor Background (Felzec Theme)</p>
+                <div class="classes.jumbotron_container">
+                    <img class="classes.jumbotron_image" data-component-props="src={this.props.image_sponsor_src}" src="http://api.originbeta.net/defaultImages/section1-bg2.jpg" />
+                    <div data-component-props="onClick={this.props.editSponsorImage}" id="theme_modal_button" class="classes.jumbotron_overlay">
+                        <div class="classes.jumbotron_model_switch">Edit</div>
+                    </div>
+                </div>
+                <p>Change News Background (Felzec Theme)</p>
+                <div class="classes.jumbotron_container">
+                    <img class="classes.jumbotron_image" data-component-props="src={this.props.image_news_src}" src="http://api.originbeta.net/defaultImages/section1-bg2.jpg" />
+                    <div data-component-props="onClick={this.props.editNewsImage}" id="theme_modal_button" class="classes.jumbotron_overlay">
+                        <div class="classes.jumbotron_model_switch">Edit</div>
+                    </div>
+                </div>
+                <p>Change Matches Background (Felzec Theme)</p>
+                <div class="classes.jumbotron_container">
+                    <img class="classes.jumbotron_image" data-component-props="src={this.props.image_matches_src}" src="http://api.originbeta.net/defaultImages/section1-bg2.jpg" />
+                    <div data-component-props="onClick={this.props.editMatchessImage}" id="theme_modal_button" class="classes.jumbotron_overlay">
+                        <div class="classes.jumbotron_model_switch">Edit</div>
+                    </div>
+                </div>
+                <p>Change Rosters Background (Felzec Theme)</p>
+                <div class="classes.jumbotron_container">
+                    <img class="classes.jumbotron_image" data-component-props="src={this.props.image_rosters_src}" src="http://api.originbeta.net/defaultImages/section1-bg2.jpg" />
+                    <div data-component-props="onClick={this.props.editRostersImage}" id="theme_modal_button" class="classes.jumbotron_overlay">
+                        <div class="classes.jumbotron_model_switch">Edit</div>
+                    </div>
+                </div>
+                <p>Change Media Background (Felzec Theme)</p>
+                <div class="classes.jumbotron_container">
+                    <img class="classes.jumbotron_image" data-component-props="src={this.props.image_media_src}" src="http://api.originbeta.net/defaultImages/section1-bg2.jpg" />
+                    <div data-component-props="onClick={this.props.editMediaImage}" id="theme_modal_button" class="classes.jumbotron_overlay">
+                        <div class="classes.jumbotron_model_switch">Edit</div>
                     </div>
                 </div>
                 <div id="theme_modal" class="ui modal">

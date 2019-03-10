@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import historyStore from '../../../utils/stores/browserHistory';
 
 import { getIndividualUserByIdQuery } from '../../../queries/users';
 import { authenticateIndividualQuery } from '../../../queries/login';
 import { updateIndividualUserQuery } from '../../../queries/individuals';
-import { deleteEmailRegistrationQuery } from '../../../queries/registrations';
+import { deleteEmailRegistrationQuery, getEmailRegistrationQuery } from '../../../queries/registrations';
 
 class NewSignupIndividualPageController extends Component {
     componentDidMount = async () => {
+        document.getElementById('origin_loader').style.display = 'none';
         const token = this.props.appManager.GetQueryParams('p');
         const d = JSON.parse(Buffer.from(token, 'hex').toString('utf8'));
-        const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: d.id });
+        const pre_user = await this.props.appManager.executeQuery('query', getIndividualUserByIdQuery, { id: parseInt(d.id, 10) });
+        // debugger;
         const u = pre_user.allIndividualUsers.edges[0].node;
         // if (u == null) {
         //     const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, { email: d.organisation });
@@ -36,27 +38,35 @@ class NewSignupIndividualPageController extends Component {
         // }
         if (u) {
             if (u.authenticated === true) {
-                toast.error(`${u.email} is already registered - Redirecting you to login page in 5 seconds`, {
+                toast.error(`${u.email} is already registered - Redirecting you to credentials page in 5 seconds`, {
                     position: toast.POSITION.TOP_LEFT,
                     autoClose: 5000
                 });
                 setTimeout(() => {
-                    historyStore.push('/signup');
+                    historyStore.push('/signup_ind');
                 }, 5000);
             } else {
                 const payload = {
-                    id: d.id,
+                    id: parseInt(d.id, 10),
                     firstName: u.firstName,
                     lastName: u.lastName,
                     userName: u.username,
                     email: u.email,
                     authenticated: true
                 };
-                await this.props.appManager.executeQuery('mutation', updateIndividualUserQuery, payload);
-                await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
                 const authPayload = await this.props.appManager.executeQuery('mutation', authenticateIndividualQuery, { email: u.email, password: d.password });
+                // debugger;
+                const u_token = authPayload.authenticateIndividual.individualAuthPayload.jwtToken;
+                this.props.appManager.authToken = u_token;
+                // debugger;
+                await this.props.appManager.executeQueryAuth('mutation', updateIndividualUserQuery, payload);
+                const exists = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, { email: u.email });
+                if (exists.registrationEmailByEmail) {
+                    await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
+                }
                 const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
-                historyStore.push(`/individual?p=${new_payload}`);
+                this.props.appManager.pouchStore('ind_authenticate', new_payload);
+                historyStore.push(`/individual?u=${parseInt(d.id, 10)}`);
             }
         }
     }
@@ -69,5 +79,5 @@ class NewSignupIndividualPageController extends Component {
 NewSignupIndividualPageController.propTypes = {
     appManager: PropTypes.object.isRequired,
 };
-export default inject('appManager', 'uiStore')(injectSheet(GlobalStyles)(NewSignupIndividualPageController));
+export default inject('appManager', 'uiStore')(NewSignupIndividualPageController);
 

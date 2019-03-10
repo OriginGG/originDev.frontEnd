@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import { GlobalStyles } from 'Theme/Theme';
+// import injectSheet from 'react-jss';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
 import OrganizationAdminMediaComponentRender from '../../../render_components/admin/OrganizationAdminMediaComponentRender';
@@ -18,7 +18,7 @@ class AdminMediaController extends Component {
     };
     componentDidMount = async () => {
         this.create = false;
-        const youTubeChannels = await this.props.appManager.executeQueryAuth('query', getYouTubeChannelsQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const youTubeChannels = await this.props.appManager.executeQueryAuth('query', getYouTubeChannelsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         if (youTubeChannels.resultData.edges.length === 0) {
             this.create = true;
         } else {
@@ -77,7 +77,7 @@ class AdminMediaController extends Component {
             await this.props.appManager.executeQueryAuth(
                 'mutation', createYouTubeChannelQuery,
                 {
-                    subDomain: this.props.uiStore.current_organisation.subDomain,
+                    organisationId: this.props.uiStore.current_organisation.id,
                     link1: this.state.input_values.link1_value,
                     link2: this.state.input_values.link2_value,
                     link3: this.state.input_values.link3_value,
@@ -102,19 +102,6 @@ class AdminMediaController extends Component {
                 position: toast.POSITION.TOP_LEFT
             });
         }
-        // await this.props.appManager.executeQuery(
-        //     'mutation', updateOrganisationQuery,
-        //     {
-        //         subDomain: this.props.uiStore.current_organisation.subDomain,
-        //         name: this.state.input_values.company_name_value,
-        //         fbLink: this.state.input_values.facebook_value,
-        //         twitterLink: this.state.input_values.twitter_value,
-        //         instaLink: this.state.input_values.insta_value,
-        //         twitterFeedUsername: this.state.input_values.twitter_username_value,
-        //         twitchLink: this.state.input_values.twitch_value,
-        //         primaryColor: this.state.input_values.primary_color_value
-        //     }
-        // );
     }
     render() {
         return (
@@ -139,5 +126,5 @@ AdminMediaController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminMediaController));
+export default inject('uiStore', 'appManager')(AdminMediaController);
 

@@ -11,62 +11,97 @@ export const getOrganisationByName = gql`
       }
     }
   }`;
+
+export const getOrganisationByIdQuery = gql`
+query getOrg($id: Int!) {
+  organisationAccountById(id: $id) {
+    id
+    subDomain
+  }
+}`;
+
+export const getOrganisationQueryAnyCase = gql`
+query getOrg($subDomain: String!) {
+  resultData: allOrganisationAccounts(filter: {
+    subDomain: {endsWithInsensitive: $subDomain}
+  }) {
+  nodes {
+    	id
+  	}
+  }
+}
+`;
+
 export const getOrganisationQuery = gql`
     query getOrg($subDomain: String!) {
-  resultData: organisationAccountBySubDomain(subDomain: $subDomain) {
+  resultData: allOrganisationAccounts(condition: {subDomain: $subDomain}) {
+    nodes {
+    id
     name
     companyStoreLink
     description
     fbLink
     twitterLink
     twitchLink
+    streamTeamUrl
+    discordUrl
     logo
     subDomain
+    supportContactEmail
+    businessContactEmail
     primaryColor
     instaLink
     youtubeLink
     twitterFeedUsername
     themeId
     themeBaseId
-    themesByThemeName {
+    themesByOrganisationId {
       edges {
         node {
+          id
           themeName
           themeData
           themeStructure
         }
       }
     }
-    usersByOrganisation {
+    usersByOrganisationId {
 			edges {
 				node {
-					id
+          id
+          email
 					firstName
 					lastName
 				}
 			}
 		}
   }
-}
+} }
 `;
 
-export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String!, $name: String, $instaLink: String
+export const updateOrganisationQuery = gql`mutation updateOrg($id: Int!, $name: String, $instaLink: String
 		$fbLink: String, $twitterLink: String, $youtubeLink: String, $themeId: String, $themeBaseId: String, $twitterFeedUsername: String
-		$twitchLink: String, $description: String, $logo: String, $primaryColor: String, $companyStoreLink: String) {
-  updateOrganisationAccountBySubDomain(input: {
-		subDomain: $subDomain
+    $twitchLink: String, $streamTeamUrl: String, $description: String, $logo: String, $primaryColor: String, $companyStoreLink: String, $discordUrl: String
+    $businessContactEmail: String, $supportContactEmail: String, $subDomain: String) {
+  updateOrganisationAccountById(input: {
+		id: $id
     organisationAccountPatch: {
       name: $name
       companyStoreLink: $companyStoreLink
       instaLink: $instaLink
       fbLink: $fbLink
+      discordUrl: $discordUrl
       twitterLink: $twitterLink
       twitterFeedUsername: $twitterFeedUsername
       twitchLink: $twitchLink
+      streamTeamUrl: $streamTeamUrl      
+      supportContactEmail: $supportContactEmail
+      businessContactEmail: $businessContactEmail
       youtubeLink: $youtubeLink
       description: $description
       themeId: $themeId
       themeBaseId: $themeBaseId
+      subDomain: $subDomain
       logo: $logo
       primaryColor: $primaryColor
       
@@ -82,8 +117,9 @@ export const updateOrganisationQuery = gql`mutation updateOrg($subDomain: String
 export const createOrganisationQuery = gql`
 mutation createOrg($subDomain: String!, $name: String, $description: String,
 	$fbLink:String, $instaLink: String, $twitterLink: String, $youtubeLink: String
-	$twitchLink: String, $themeId: String, $themeBaseId: String, $logo: String, $primaryColor: String,
-	$twitterFeedUsername: String, $companyStoreLink: String) {
+	$twitchLink: String, $streamTeamUrl: String, $themeId: String, $themeBaseId: String, $logo: String, $primaryColor: String,
+  $twitterFeedUsername: String, $companyStoreLink: String, $discordUrl: String
+  $businessContactEmail: String, $supportContactEmail: String) {
   resultData: createOrganisationAccount(input: {
     organisationAccount: {
       subDomain: $subDomain
@@ -93,8 +129,12 @@ mutation createOrg($subDomain: String!, $name: String, $description: String,
       fbLink: $fbLink
       youtubeLink: $youtubeLink
       instaLink: $instaLink
+      discordUrl: $discordUrl
       twitterLink: $twitterLink
       twitchLink: $twitchLink
+      streamTeamUrl: $streamTeamUrl
+      supportContactEmail: $supportContactEmail
+      businessContactEmail: $businessContactEmail
       themeId: $themeId
       themeBaseId: $themeBaseId
       logo: $logo
@@ -104,6 +144,7 @@ mutation createOrg($subDomain: String!, $name: String, $description: String,
   })
     {
       organisationAccount {
+        id
         subDomain
       }
     }

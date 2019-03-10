@@ -62,17 +62,11 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'username', e );
                             }}/>
-                            <div className={this.props.classes.individual_label}>Twitter Handle</div>
-                            <input placeholder="Twitter Handle not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.twitterHandle} onChange={e => {
+                            <div className={this.props.classes.individual_label}>Contact Email</div>
+                            <input placeholder="Contact Email" className={this.props.classes.modal_individual_edit_input} value={this.props.contactEmail} onChange={e => {
                                 this
                                     .props
-                                    .handleChange( 'twitterHandle', e );
-                            }}/>
-                            <div className={this.props.classes.individual_label}>Contact Number</div>
-                            <input placeholder="Contact Number" className={this.props.classes.modal_individual_edit_input} value={this.props.contactNumber} onChange={e => {
-                                this
-                                    .props
-                                    .handleChange( 'contactNumber', e );
+                                    .handleChange( 'contactEmail', e );
                             }}/>
                             <div className={this.props.classes.individual_label}>About</div>
                             <textarea rows="10" placeholder="About" className={this.props.classes.modal_individual_edit_about} value={this.props.about} onChange={e => {
@@ -86,30 +80,40 @@ class IndividualEditModalComponentRender extends Component {
                                     .props
                                     .handleChange( 'accomplishments', e );
                             }}/>
-                            <div className={this.props.classes.individual_label}>Twitch Handle</div>
-                            <input placeholder="Twitch Handle not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.twitchUrl} onChange={e => {
+                            <div style={{
+                                marginBottom: '20px'
+                            }}>{this.props.renderButtons}</div>
+                            <button role="button" style={{
+                                marginBottom: '2em',
+                                marginTop: '3em',
+                                display: 'block',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
+                            }} className="ui youtube button" onClick={( ) => {
                                 this
                                     .props
-                                    .handleChange( 'twitchUrl', e );
-                            }}/>
-                            <div className={this.props.classes.individual_label}>YouTube Channel ID</div>
-                            <input placeholder="Youtube Channel ID not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.youtubeChannel} onChange={e => {
+                                    .redirectAuth( 'youtube' );
+                            }}><i aria-hidden="true" className="youtube icon"/>Connect with Youtube</button>
+                            <button role="button" style={{
+                                marginBottom: '2em',
+                                display: 'block',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
+                            }} className="ui twitter button" onClick={( ) => {
                                 this
                                     .props
-                                    .handleChange( 'youtubeChannel', e );
-                            }}/>
-                            <div className={this.props.classes.individual_label}>Instagram Username</div>
-                            <input placeholder="Instagram Username not full URL" className={this.props.classes.modal_individual_edit_input} value={this.props.instagramLink} onChange={e => {
+                                    .redirectAuth( 'twitter' );
+                            }}><i aria-hidden="true" className="twitter icon"/>Connect with Twitter</button>
+                            <button role="button" style={{
+                                marginBottom: '2em',
+                                display: 'block',
+                                marginLeft: 'auto',
+                                marginRight: 'auto'
+                            }} className="ui twitch button" onClick={( ) => {
                                 this
                                     .props
-                                    .handleChange( 'instagramLink', e );
-                            }}/>
-                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.closeModal}>
-                                <div className={this.props.classes.modal_individual_submit_button}>Cancel</div>
-                            </div>
-                            <div className={this.props.classes.modal_individual_submit_button_container} onClick={this.props.handleSubmit}>
-                                <div className={this.props.classes.modal_individual_submit_button}>Submit</div>
-                            </div>
+                                    .redirectAuth( 'twitch' );
+                            }}><i aria-hidden="true" className="twitch icon"/>Connect with Twitch</button>
                         </div>
                     </div>
                 </div>

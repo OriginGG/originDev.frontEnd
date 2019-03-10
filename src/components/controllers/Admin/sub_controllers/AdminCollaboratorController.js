@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
-import { GlobalStyles } from 'Theme/Theme';
+// import injectSheet from 'react-jss';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { Input, Segment, Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { createUserQuery, updateUserQuery, getAllNonAdminUsersQuery } from '../../../../queries/users';
@@ -9,7 +9,7 @@ import OrganizationAdminCollaboratorComponentRender from '../../../render_compon
 
 class AdminCollaboratorController extends Component {
     state = {
-        visible: false, modal_open: false, firstname_value: '', lastname_value: '', email_value: '', password_value: ''
+        submitting: false, visible: false, modal_open: false, firstname_value: '', lastname_value: '', email_value: '', password_value: ''
     }
 
     componentDidMount = async () => {
@@ -19,7 +19,7 @@ class AdminCollaboratorController extends Component {
 
     updateTable = async () => {
         return new Promise(async (resolve) => {
-            const users = await this.props.appManager.executeQuery('query', getAllNonAdminUsersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+            const users = await this.props.appManager.executeQueryAuth('query', getAllNonAdminUsersQuery, { organisationId: this.props.uiStore.current_organisation.id });
             this.table_data = [];
             users.allUsers.edges.forEach((u) => {
                 this.table_data.push(<tr>
@@ -33,7 +33,7 @@ class AdminCollaboratorController extends Component {
         });
     }
     cancelModal = () => {
-        this.setState({ modal_open: false });
+        this.setState({ modal_open: false, submitting: false });
     }
     handleInputChange = (e, field) => {
         const v = e.target.value;
@@ -48,19 +48,20 @@ class AdminCollaboratorController extends Component {
     }
 
     handleSubmit = async () => {
+        this.setState({ submitting: true });
         const payload = {
             firstName: this.state.firstname_value,
             lastName: this.state.firstname_value,
             password: this.state.password_value,
-            email: this.state.email_value,
+            email: this.state.email_value.toLowerCase(),
             adminUser: false
         };
-        const my_id = await this.props.appManager.executeQuery('mutation', createUserQuery, payload);
-        console.log(my_id);
+        const my_id = await this.props.appManager.executeQueryAuth('mutation', createUserQuery, payload);
+        // console.log(my_id);
         const actual_id = my_id.registerUser.user.id;
-        await this.props.appManager.executeQuery('mutation', updateUserQuery, { id: actual_id, organisation: this.props.uiStore.current_organisation.subDomain });
+        await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, { id: actual_id, organisationId: this.props.uiStore.current_organisation.id });
         await this.updateTable();
-        this.setState({ modal_open: false });
+        this.setState({ modal_open: false, submitting: false });
     }
     render() {
         if (!this.state.visible) {
@@ -94,7 +95,7 @@ class AdminCollaboratorController extends Component {
                         </div>
                     </div>
                 </div >
-                <Button onClick={this.handleSubmit} primary>Submit</Button>
+                <Button disabled={this.state.submitting} onClick={this.handleSubmit} primary>Submit</Button>
                 <Button onClick={this.cancelModal} negative>Cancel</Button>
 
             </Segment >;
@@ -116,5 +117,5 @@ AdminCollaboratorController.propTypes = {
     appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminCollaboratorController));
+export default inject('uiStore', 'appManager')((AdminCollaboratorController));
 

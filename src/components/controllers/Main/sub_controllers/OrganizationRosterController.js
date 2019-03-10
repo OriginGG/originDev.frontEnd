@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
+import { isMobile } from 'react-device-detect';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
 import { getRosterByIDQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
@@ -12,12 +13,32 @@ class OrganizationRosterController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
+        let OrganizationRosterItemMobileComponentRender = null;
+        if (theme === 'felzec/light' || theme === 'enigma2/dark') {
+            OrganizationRosterItemMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemMobileComponentRender`);
+        }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
-        const { edges } = roster_data.rosterById.rosterIndividualsByRosterId;
-        console.log(roster_data);
-        this.setState({ roster_list: edges, visible: true, OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default });
+        const { edges } = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId;
+        // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
+        if (theme === 'felzec/light' || theme === 'enigma2/dark') {
+            this.setState({
+                roster_list: edges,
+                visible: true,
+                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default,
+                OrganizationRosterItemMobileComponentRender: OrganizationRosterItemMobileComponentRender.default
+            });
+        } else {
+            this.setState({
+                roster_list: edges,
+                visible: true,
+                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+            });
+        }
     }
     // handleClick = (link) => {
     //     if (link) {
@@ -25,7 +46,17 @@ class OrganizationRosterController extends Component {
     //     }
     // }
 
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    }
+
     handleClick = (i) => {              // eslint-disable-line
+        // console.log(`individidual = ${JSON.stringify(i)}`);
         const x = this.props.appManager.getDomainInfo();
         let p = x.hostname;
         if (p.indexOf(x.subDomain) > -1) {
@@ -34,7 +65,7 @@ class OrganizationRosterController extends Component {
             if (x.port) {
                 pt = `:${x.port}`;
             }
-            const url = `${x.protocol}//${p}${pt}/individual?u=${i}`;
+            const url = `${x.protocol}//${p}${pt}/individual/${i.username}`;
             window.open(url, '_blank');
         }
     }
@@ -63,12 +94,17 @@ class OrganizationRosterController extends Component {
                 break;
             }
         }
-        console.log(s);
+        // console.log(s);
     }
 
     render() {
         if (this.state.visible === false) {
             return null;
+        }
+        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let close_button = 'white';
+        if (theme === 'obliviot/light' || theme === 'enigma/light') {
+            close_button = 'black';
         }
         const { OrganizationRosterItemComponentRender } = this.state;
         const p_array = [];
@@ -78,6 +114,7 @@ class OrganizationRosterController extends Component {
         }
         this.state.roster_list.forEach((r, i) => {
             const { individualUserByIndividualId } = r.node;
+            // console.log(`each roster item = ${individualUserByIndividualId}`);
             let im = blankProfileImage;
             if (individualUserByIndividualId.profileImageUrl) {
                 im = individualUserByIndividualId.profileImageUrl;
@@ -98,7 +135,9 @@ class OrganizationRosterController extends Component {
             if (!individualUserByIndividualId.instagramLink) {
                 instagram_style = { display: 'none' };
             }
-            p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId.id); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
+            if (theme === 'felzec/light' && this.isMobile()) {
+                const { OrganizationRosterItemMobileComponentRender } = this.state;
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemMobileComponentRender
                 roster_nickname={individualUserByIndividualId.username}
                 roster_about={individualUserByIndividualId.about}
                 roster_name={individualUserByIndividualId.firstName}
@@ -110,6 +149,34 @@ class OrganizationRosterController extends Component {
                 youtube_style={youtube_style}
                 instagram_style={instagram_style}
             /></div>);
+            } else if (theme === 'enigma2/dark' && this.isMobile()) {
+                const { OrganizationRosterItemMobileComponentRender } = this.state;
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemMobileComponentRender
+                roster_nickname={individualUserByIndividualId.username}
+                roster_about={individualUserByIndividualId.about}
+                roster_name={individualUserByIndividualId.firstName}
+                roster_image={im}
+                ind_user={individualUserByIndividualId}
+                handle_social={this.handle_social}
+                twitter_style={twitter_style}
+                facebook_style={facebook_style}
+                youtube_style={youtube_style}
+                instagram_style={instagram_style}
+                /></div>);
+            } else {
+                p_array.push(<div role="menuItem" tabIndex={-1} onClick={() => { this.handleClick(individualUserByIndividualId); }} key={`roster_gm_list_${i}`} style={{ cursor: 'pointer' }}><OrganizationRosterItemComponentRender
+                roster_nickname={individualUserByIndividualId.username}
+                roster_about={individualUserByIndividualId.about}
+                roster_name={individualUserByIndividualId.firstName}
+                roster_image={im}
+                ind_user={individualUserByIndividualId}
+                handle_social={this.handle_social}
+                twitter_style={twitter_style}
+                facebook_style={facebook_style}
+                youtube_style={youtube_style}
+                instagram_style={instagram_style}
+            /></div>);
+            }
         });
         return (<div>
             <div
@@ -123,7 +190,7 @@ class OrganizationRosterController extends Component {
                     right: 32,
                     top: 94,
                     zIndex: 10000,
-                    color: 'white',
+                    color: close_button,
                 }}><span className="fa fa-window-close" /></div>
                 <div
                     tabIndex={-1}
@@ -136,7 +203,7 @@ class OrganizationRosterController extends Component {
                         top: 200,
                         left: '0%',
                         textAlign: 'center',
-                        color: 'white',
+                        color: close_button,
                         zIndex: 10000,
                     }}>
                     {no_items}
@@ -155,4 +222,4 @@ OrganizationRosterController.propTypes = {
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationRosterController));
+export default inject('uiStore', 'appManager')(OrganizationRosterController);

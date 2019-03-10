@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
-import Slider from 'react-slick';
-import { GlobalStyles } from 'Theme/Theme';
+import { isMobile } from 'react-device-detect';
+// import Slider from 'react-slick';
+import AliceCarousel from 'react-alice-carousel';
+// import { GlobalStyles } from 'Theme/Theme';
 // import OrganizationSponsorComponentRender from '../../../render_components/OrganizationSponserComponentRender';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationSponsorController extends Component {
     state = { visible: false, OrganizationSponserComponentRender: null, OrganizationSponserComponentElementRender: null };
     componentDidMount = async () => {
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         const OrganizationSponserComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentRender`);
         const OrganizationSponserComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentElementRender`);
-        const subDomain = this.props.uiStore.current_subdomain;
-        const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { subDomain });
-        this.sponsor_image1 = sponsor_data.resultData.edges[0].node.sponsor1;
-        this.sponsor_image2 = sponsor_data.resultData.edges[0].node.sponsor2;
-        this.sponsor_image3 = sponsor_data.resultData.edges[0].node.sponsor3;
-        this.sponsor_image4 = sponsor_data.resultData.edges[0].node.sponsor4;
-        this.sponsor_link1 = sponsor_data.resultData.edges[0].node.hrefLink1;
-        this.sponsor_link2 = sponsor_data.resultData.edges[0].node.hrefLink2;
-        this.sponsor_link3 = sponsor_data.resultData.edges[0].node.hrefLink3;
-        this.sponsor_link4 = sponsor_data.resultData.edges[0].node.hrefLink4;
+        // const subDomain = this.props.uiStore.current_subdomain;
+        const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const { nodes } = sponsor_data.allOrgSponsors;
+        this.sponsor_data = nodes;
         this.setState({
             visible: true,
             OrganizationSponserComponentRender: OrganizationSponserComponentRender.default,
@@ -32,9 +31,23 @@ class OrganizationSponsorController extends Component {
     componentDidCatch = (error, info) => {
         console.log(error, info);
     }
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    }
     handleClick = (link) => {
-        if (link) {
+        // console.log(`link = ${link}`);
+        if (link && link.includes('http')) {
+            // console.log(`link has http = ${link}`);
             window.open(link, '_blank');
+        } else if (link) {
+            // console.log(`link not full ${link}`);
+            const new_link = `http://${link}`;
+            window.open(new_link, '_blank');
         }
     }
     render() {
@@ -42,6 +55,27 @@ class OrganizationSponsorController extends Component {
             return null;
         }
         const settings = {
+            buttonsDisabled: true,
+            dotsDisabled: true,
+            swipeDisabled: true,
+            autoPlay: true,
+            keysControlDisabled: true,
+            autoPlayInterval: 6000,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                1024: {
+                    items: 2
+                },
+                600: {
+                    items: 2
+                },
+                480: {
+                    items: 2
+                }
+            },
+
             speed: 1000,
             slidesToShow: 4,
             slidesToScroll: 4,
@@ -50,48 +84,52 @@ class OrganizationSponsorController extends Component {
             initialSlide: 0,
             variableWidth: false,
             arrows: false,
-            responsive: [{
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    infinite: true,
-                }
-            }, {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    initialSlide: 2
-                }
-            }, {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
-                }
-            }]
+            // responsive: [{
+            //     breakpoint: 1024,
+            //     settings: {
+            //         slidesToShow: 4,
+            //         slidesToScroll: 4,
+            //         infinite: true,
+            //     }
+            // }, {
+            //     breakpoint: 600,
+            //     settings: {
+            //         slidesToShow: 2,
+            //         slidesToScroll: 2,
+            //         initialSlide: 2
+            //     }
+            // }, {
+            //     breakpoint: 480,
+            //     settings: {
+            //         slidesToShow: 1,
+            //         slidesToScroll: 1
+            //     }
+            // }]
         };
         const { OrganizationSponserComponentRender } = this.state;
         const { OrganizationSponserComponentElementRender } = this.state;
         const p_array = [];
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_1" sponsor_image={this.sponsor_image1} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_2" sponsor_image={this.sponsor_image2} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_3" sponsor_image={this.sponsor_image3} />);
-        p_array.push(<OrganizationSponserComponentElementRender handleClick={this.handleClick} key="sponsor_4" sponsor_image={this.sponsor_image4} />);
+        this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
+        const sponsor_style = { background: `url(${this.image_src})`, backgroundSize: 'cover' };
+
+        const spons_style = { filter: 'grayscale(100%)' };
+        // const sponsor_style = { backgroundColor: '#040404' };
+        this.sponsor_data.forEach((n, i) => {
+            p_array.push(<OrganizationSponserComponentElementRender handleClick={() => { this.handleClick(n.hrefLink); }} key={`sponsor_${i}`} sponsor_image={n.imageUrl} spons_style={spons_style} />);
+        });
         return (
-            <OrganizationSponserComponentRender sponsor_content={<Slider {...settings}>{p_array}</Slider>} />
+            <OrganizationSponserComponentRender felzec_sponsor_style={sponsor_style} sponsor_content={<AliceCarousel {...settings}>{p_array}</AliceCarousel>} />
         );
     }
 }
 OrganizationSponsorController.propTypes = {
     uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
+    // classes: PropTypes.object.isRequired
 };
 // LoginController.propTypes = {
 //     // uiStore: PropTypes.object.isRequired,
 //     appManager: PropTypes.object.isRequired
 // };
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(OrganizationSponsorController));
+export default inject('uiStore', 'appManager')(OrganizationSponsorController);

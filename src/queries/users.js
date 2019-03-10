@@ -1,10 +1,11 @@
 import gql from 'graphql-tag';
 
-export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated: Boolean, $organisation: String) {
+export const updateUserQuery = gql`mutation updateuser($id: Int!, $organisationId: Int, $authenticated: Boolean, $subscribed: Boolean) {
     updateUserById(input: {
         id: $id, userPatch: {
-            organisation: $organisation
             authenticated: $authenticated
+            subscribed: $subscribed
+            organisationId: $organisationId
         }
     }) {
         user {
@@ -13,8 +14,8 @@ export const updateUserQuery = gql`mutation updateuser($id: Int!, $authenticated
     }
 }`;
 
-export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($subDomain: String!) {
-    allUsers(condition:{organisation: $subDomain, adminUser: false}) {
+export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($organisationId: Int!) {
+    allUsers(condition:{organisationId: $organisationId, adminUser: false}) {
       edges {
       node {
         firstName
@@ -25,6 +26,18 @@ export const getAllNonAdminUsersQuery = gql`query getUsersNonAdmin($subDomain: S
     }
   }
 }`;
+
+export const getAllAdminUsersQuery = gql`query getUsersNonAdmin($organisationId: Int!) {
+    allUsers(condition:{organisationId: $organisationId, adminUser: true}) {
+      edges {
+      node {
+        subscribed
+        createdAt
+      }  
+    }
+  }
+}`;
+
 
 export const getUserByEmailQuery = gql`query getUserByEmail($email:String!) {
   allUsers(condition:{email:$email}) {
@@ -55,6 +68,8 @@ export const getIndividualUserByEmailQuery = gql`query getIndividualUserByEmail(
     }
   }
 }`;
+
+
 export const getIndividualUserByIdQuery = gql`query getIndividualUserByEmail($id:Int!) {
   allIndividualUsers(condition:{id:$id}) {
     edges {
@@ -82,10 +97,10 @@ export const getUserQuery = gql`query getUser($id:Int!) {
     firstName
     lastName
     email
-    organisation
+    organisationId
     adminUser
     authenticated
-    
+    subscribed
   }
 }`;
 

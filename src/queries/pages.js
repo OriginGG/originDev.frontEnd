@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 
 export const createPageQuery = gql`
-mutation createPage($organisation: String!, $pageKey: String, $pageTitle: String, $pageContent: String, $pageSubtitle: String) {
+mutation createPage($organisationId: Int!, $pageKey: String, $pageTitle: String, $pageContent: String, $pageSubtitle: String) {
   createPage(input: {page: {
-    organisation:$organisation
+    organisationId:$organisationId
     pageTitle: $pageTitle
     pageKey:$pageKey
     pageContent: $pageContent
@@ -16,8 +16,8 @@ mutation createPage($organisation: String!, $pageKey: String, $pageTitle: String
 }
 `;
 
-export const getPagesQuery = gql`query getPages($organisation: String!) {
-  allPages(condition: {organisation: $organisation}) {
+export const getPagesQuery = gql`query getPages($organisationId: Int!) {
+  allPages(condition: {organisationId: $organisationId}) {
     edges {
       node {
         pageTitle 
@@ -31,9 +31,8 @@ export const getPagesQuery = gql`query getPages($organisation: String!) {
   }
 }`;
 
-export const updatePageQuery = gql`mutation updatePage($id: Int!, $organisation: String!, $pageTitle: String, $pageContent: String, $pageSubtitle: String) {
+export const updatePageQuery = gql`mutation updatePage($id: Int!, $pageTitle: String, $pageContent: String, $pageSubtitle: String) {
   updatePageById(input:{id: $id, pagePatch: {
-    organisation: $organisation
     pageTitle:$pageTitle
     pageContent: $pageContent
     pageSubtitle: $pageSubtitle

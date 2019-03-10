@@ -17,6 +17,7 @@ class DarkOrganizationNavComponentRender extends Component {
                                 <div className={this.props.classes.dark_social_menu_item}>{this.props.social_link3}</div>
                                 <div className={this.props.classes.dark_social_menu_item}>{this.props.social_link4}</div>
                                 <div className={this.props.classes.dark_social_menu_item}>{this.props.social_link5}</div>
+                                <div className={this.props.classes.dark_social_menu_item}>{this.props.social_link6}</div>
                             </div>
                         </div>
                     </div>
@@ -35,6 +36,9 @@ class DarkOrganizationNavComponentRender extends Component {
                                 </a>
                                 <a>
                                     <div id="menu_store" className={this.props.classes.org_menu_dark_item} style={this.props.store_style} onClick={this.props.handleStoreClick}>Store</div>
+                                </a>
+                                <a>
+                                    <div id="menu_blog" className={this.props.classes.org_menu_dark_item} style={this.props.blog_style} onClick={this.props.handleBlogClick}>Blog</div>
                                 </a>
                                 <a>
                                     <div id="menu_about" className={this.props.classes.org_menu_dark_item} style={this.props.sponsers_style} onClick={this.props.handleSponsersClick}>Sponsors</div>

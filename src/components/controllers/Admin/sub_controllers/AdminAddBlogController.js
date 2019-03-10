@@ -19,7 +19,7 @@ class AdminAddBlogController extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false, blog_image: null, blog_title: '', text: ''
+            submitting: false, visible: false, blog_image: null, blog_title: '', text: ''
         }; // You can also pass a Quill Delta here
     }
     componentDidMount = () => {
@@ -37,22 +37,39 @@ class AdminAddBlogController extends Component {
         this.setState(p);
     }
     handleSubmit = async () => {
+        this.setState({ submitting: true });
+        const f = this.props.appManager.checkFileSizeLimit(this.logo_files);
+        if (!f) {
+            this.setState({ submitting: false });
+            return;
+        }
         const f_name = await this.uploadBlogMedia();
-        const f_title = this.state.blog_title;
         const f_text = this.state.text;
-
-        if (!f_name && !f_title && !f_text) {
-            toast.error('Not all Blog fields filled out or an image has nott been uploaded', {
-                position: toast.POSITION.TOP_LEFT
-            });
+        const f_title = this.state.blog_title;
+        if (!f_text || !f_name || !f_title) {
+            if (!f_text) {
+                toast.error('Please add some blog text!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
+            if (!f_name) {
+                toast.error('Please supply a blog image!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
+            if (!f_title) {
+                toast.error('Please supply a blog title!', {
+                    position: toast.POSITION.TOP_LEFT
+                });
+            }
+            this.setState({ submitting: false });
             return;
         }
         if (this.create_blog) {
-            if (this.state.blog_title && this.state.text) {
-                await this.props.appManager.executeQuery(
+                await this.props.appManager.executeQueryAuth(
                     'mutation', createBlogPostQuery,
                     {
-                        organisation: this.props.uiStore.current_organisation.subDomain,
+                        organisationId: this.props.uiStore.current_organisation.id,
                         blogTitle: this.state.blog_title,
                         blogContent: this.state.text,
                         blogMedia: f_name
@@ -61,10 +78,10 @@ class AdminAddBlogController extends Component {
                 toast.success('Blog post added !', {
                     position: toast.POSITION.TOP_LEFT
                 });
+                this.setState({ submitting: false });
                 this.props.handleCancel();
-            }
         } else {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', updateBlogPostQuery,
                 {
                     id: this.props.blogId,
@@ -76,10 +93,12 @@ class AdminAddBlogController extends Component {
             toast.success('Blog post updated !', {
                 position: toast.POSITION.TOP_LEFT
             });
+            this.setState({ submitting: false });
             this.props.handleCancel();
         }
     }
     handleCancel = () => {
+        this.setState({ submitting: false });
         this.props.handleCancel();
     }
     handleChange = (value) => {
@@ -102,14 +121,17 @@ class AdminAddBlogController extends Component {
     uploadBlogMedia = () => {
         return new Promise((resolve) => {
             if (this.logo_files) {
+                const theme = '';
+                const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
                 const formData = new FormData();
+                const fn = `_blog_${this.props.blogId}`;
                 formData.append('images', this.logo_files);
-                axios.post(`${process.env.REACT_APP_API_SERVER}/upload/${this.props.uiStore.current_organisation.subDomain}`, formData, {
+                axios.post(`${process.env.REACT_APP_API_SERVER}/c_upload?sub_domain=${subDomain}&theme=${theme}&force_name=${fn}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then((x) => {
-                    resolve(x.data.Location);
+                    resolve(this.props.appManager.insertCloudinaryOptions(x.data.secure_url));
                 });
             } else {
                 if (this.create_blog === false) {
@@ -140,7 +162,7 @@ class AdminAddBlogController extends Component {
     handleDelete = async () => {
         const action = await this.showDeleteConfirm();
         if (action) {
-            await this.props.appManager.executeQuery(
+            await this.props.appManager.executeQueryAuth(
                 'mutation', deleteBlogQuery,
                 {
                     id: this.props.blogId,
@@ -179,9 +201,14 @@ class AdminAddBlogController extends Component {
 
                             <ReactQuill
                                 theme="snow"
+                                modules={{
+                                    clipboard: {
+                                        matchVisual: false
+                                    }
+                                }}
                                 value={this.state.text}
                                 onChange={this.handleChange} />
-                            <Button onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
+                            <Button disabled={this.state.submitting} onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
                                 SUBMIT
                         </Button> {!this.create_blog &&
                                 <Button onClick={this.handleDelete} style={{ float: 'right', marginTop: 12 }} negative>

@@ -25,7 +25,6 @@
             <div id="sign_up" class="classes.signupModal">
                 <div class="classes.tabular_menu">
                     <div class="classes.tabular_menu_item_active">Sign Up</div> 
-                    <div class="classes.tabular_menu_item" data-component-props="onClick={this.props.handleClick}">Sign In</div>
                 </div>
                 <div class="classes.signupModalContent">
                     <form class="ui large form" data-component-props="onSubmit={this.props.handleSubmit}" >
@@ -76,32 +75,23 @@
                                         <div data-component-props="style={{ position: 'absolute', right: 0, marginTop: 13, marginRight: 30 }}" data-component-value="{this.props.touched.password && this.props.errors.password && <div style={{color: 'red'}} >{this.props.errors.password}</div>}">&nbsp;</div>
                                     </div>
                                 </div>
+                                <div class="classes.input_title">
+                                    Confirm Password
+                                </div>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input data-component-props="onBlur={this.props.handleBlur} onChange={this.props.handleChange} value={this.props.values.confirm_password}" class="classes.input_box" type="password" name="confirm_password" placeholder="Confirm Password" style="background-color:transparent;border-color: #fff; color:#fff; height: 45px; font-size: 16px;" type="text" name="email" placeholder="E-mail address">
+                                        <div data-component-props="style={{ position: 'absolute', right: 0, marginTop: 13, marginRight: 30 }}" data-component-value="{this.props.touched.confirm_password && this.props.errors.confirm_password && <div style={{color: 'red'}} >{this.props.errors.confirm_password}</div>}">&nbsp;</div>
+                                    </div>
+                                </div>
                                 <div data-component-value="{this.props.createAccountButton}">
                                     <div class="ui fluid large teal submit button" style="background: #0a9ab4;font-size:18px;margin-top:40px;">Create an Account</div>
                                 </div>
-                                <div class="classes.submit_divider"></div>
-                                <div class="classes.submit_or">OR</div>
-                                <div class="classes.social_box_outer">
-                                    <div class="classes.social_box_inner">
-                                        <div class="classes.social_box_left">
-                                            <img class="classes.social_image_box" src="./images/sm-1.png"/>
-                                            <div class="classes.social_text_box">
-                                                Facebook
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="classes.social_box_inner">
-                                        <div class="classes.social_box_right">
-                                            <img class="classes.social_image_box" src="./images/sm-6.png"/>
-                                            <div class="classes.social_text_box">
-                                                Twitch
-                                            </div>
-                                        </div>
-                                    </div>
+                               
                                 </div>
                             </div>
                         </div>
-                        <div class="ui error message"></div>
+                        
                      </form>
                 </div>
             </div>

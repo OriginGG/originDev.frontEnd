@@ -1,11 +1,5 @@
 import gql from 'graphql-tag';
 
-export const getBlogsCountQuery = gql`query getBlogsCount($subDomain: String!) {
-  resultData:allBlogs(condition: {organisation: $subDomain}) {
-    totalCount
-  }
-}
-`;
 
 export const deleteBlogQuery = gql`mutation deleteBlog($id: Int!) {
   deleteBlogById(input:{id: $id}) {
@@ -15,8 +9,8 @@ export const deleteBlogQuery = gql`mutation deleteBlog($id: Int!) {
   }
 }`;
 export const getBlogsQuery = gql`
-  query getBlogs($subDomain: String!) {
-    resultData: allBlogs(orderBy: CREATED_AT_DESC, condition: { organisation: $subDomain }) {
+  query getBlogs($organisationId: Int!) {
+    resultData: allBlogs(orderBy: CREATED_AT_DESC, condition: { organisationId: $organisationId }) {
         edges {
             node {
                 id
@@ -29,7 +23,20 @@ export const getBlogsQuery = gql`
             }
         }
     }
-}
+}`;
+
+export const getSingleBlogQuery = gql`
+query getBlog($id: Int!) {
+  resultData: blogById(id: $id) {
+        id
+        blogTitle
+        blogContent
+        blogMedia
+        createdAt
+        updatedAt
+        featured
+      }
+    }
 `;
 
 export const updateBlogPostQuery = gql`
@@ -46,9 +53,9 @@ mutation updateBlogPost($id: Int!, $blogTitle: String!, $blogContent: String!, $
   }
 }`;
 export const createBlogPostQuery = gql`
-mutation createBlogPost($blogTitle: String!, $organisation: String!, $blogContent: String!, $featured: Boolean, $blogMedia: String) {
+mutation createBlogPost($blogTitle: String!, $organisationId: Int!, $blogContent: String!, $featured: Boolean, $blogMedia: String) {
   createBlog(input:{blog: {
-    organisation: $organisation,
+    organisationId: $organisationId,
     blogTitle: $blogTitle
     blogContent: $blogContent
     blogMedia: $blogMedia

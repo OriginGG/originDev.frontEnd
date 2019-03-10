@@ -1,31 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet from 'react-jss';
+// import injectSheet from 'react-jss';
+import findIndex from 'lodash/findIndex';
 import { Header, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { getOrganisationMembersQuery } from '../../../../queries/members.js';
-import { createContentTeamQuery, deleteContentTeamQuery } from '../../../../queries/content_team';
+// import { deleteContentTeamQuery, deleteContentTeamUserQuery, createContentTeamUserQuery, getContentTeamQuery, createContentTeamQuery } from '../../../../queries/ContentTeam.js';
+import { deleteRosterUserQuery, createRosterUserQuery, getRosterQuery, createRosterQuery } from '../../../../queries/rosters.js';
 import AdminPickListController from './AdminPickList.js';
 
-const { confirm } = Modal;
 
 export class ModalContentAddUser extends Component {
     state = { visible: false, source: [], target: [] }
     componentDidMount = async () => {
-        this.setState({ visible: false });
-        const users = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
+        const users = await this.props.appManager.executeQueryAuth('query', getOrganisationMembersQuery, { organisationId: this.props.uiStore.current_organisation.id });
+        const edges = users.allOrganisationMembers.edges.slice(0);
         const s_array = [];
-        const t_array = [];
-        this.current_game_node = users.allOrganisationMembers.edges;
-        users.allOrganisationMembers.edges.forEach(n => {
-            if (n.node.contentTeamsByMemberId.nodes.length > 0) {
-                t_array.push({ member_id: n.node.id, contentTeamsByMemberId: n.node.contentTeamsByMemberId, node: n.node.individualUserByIndividalUserId });
-            } else {
-                s_array.push({ member_id: n.node.id, contentTeamsByMemberId: n.node.contentTeamsByMemberId, node: n.node.individualUserByIndividalUserId });
+        this.props.users.forEach((x) => {
+            const f = findIndex(edges, (o) => {
+                return o.node.individualUserByIndividalUserId.id === x.node.individualUserByIndividualId.id;
+            });
+            if (f > -1) {
+                edges.splice(f, 1);
             }
+        });
+        edges.forEach((x1) => {
+            s_array.push({ node: x1.node.individualUserByIndividalUserId });
+        });
+        const t_array = [];
+        this.props.users.forEach((p) => {
+            t_array.push({ node: p.node.individualUserByIndividualId });
         });
         this.setState({
             target: t_array,
@@ -34,28 +41,11 @@ export class ModalContentAddUser extends Component {
         });
     }
     handleOk = () => {
-        this.props.handleSubmit(this.state.target, this.state.source);
+        this.props.handleSubmit(this.state.target);
     }
     handleCancel = () => {
         this.props.closeModal();
     }
-    showDeleteConfirm = () => {
-        return new Promise(resolve => {
-            confirm({
-                title: 'Delete this Staff Position',
-                content: 'Are you sure?',
-                okText: 'Yes',
-                okType: 'danger',
-                cancelText: 'No',
-                onOk: () => {
-                    resolve(true);
-                },
-                onCancel: () => {
-                    resolve(false);
-                }
-            });
-        });
-    };
     onChange = (s, t) => {
         this.setState({
             source: s, target: t
@@ -72,7 +62,7 @@ export class ModalContentAddUser extends Component {
                 <div style={{
                     paddingTop: 16, paddingBottom: 12, display: 'inherit', justifyContent: 'center', flexDirection: 'row'
                 }}>
-                    <Header color="blue" as="h3">Content Team:</Header>
+                    <Header color="blue" as="h3">Content Team</Header>
 
                 </div>
                 <div style={{
@@ -90,6 +80,7 @@ export class ModalContentAddUser extends Component {
                 </div>
                 <div style={{ padding: 24 }}>
                     <Button onClick={this.handleOk} primary>Ok</Button>
+                    <Button onClick={this.handleCancel} style={{ float: 'right' }} secondary>Cancel</Button>
                 </div>
             </div>
         );
@@ -133,81 +124,87 @@ const AddGameModal = (props) => {
 };
 
 
-const RosterGame = (props) => {
-    return (
-        <div
-            role="menuItem"
-            tabIndex={-1}
-            onClick={() => { props.handleClick(props.game, props.game_node); }}
-            style={{
-                cursor: 'pointer', display: 'flex', padding: 8, backgroundColor: 'aliceblue', border: '1px solid', borderColor: '#9e9ed6', borderRadius: 8
-            }}>
-            <p style={{
-                fontSize: 14, lineHeight: '24px', color: 'black', paddingLeft: 4
-            }}>{props.game.text}</p>
-        </div >
-    );
-};
-
 class AdminContentTeamController extends Component {
     state = {
-        visible: true, my_index: 1
+        visible: false
     };
-    // getRosterData = async () => {
-    //     return new Promise(async (resolve) => {
-    //         const p_array = [];
-    //         const staff_data = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, { subDomain: this.props.uiStore.current_organisation.subDomain });
-    //         // staff_data.allStaff.edges.forEach((r, i) => {
-    //         //     const { positionId } = r.node;
-    //         //     const currGame = _.find(staffOptions, (o) => {
-    //         //         return o.position_id === positionId;
-    //         //     });
-    //         //     p_array.push(<RosterGame handleClick={this.handleGameSelectClick} game_node={r.node} key={`roster_game_${i}`} game={currGame} />);
-    //         // });
-    //         this.current_roster_users = staff_data.allStaff.edges;
-    //         this.setState({ visible: true });
-    //         resolve(true);
-    //     });
-    // }
-
-    handleUserSubmit = async (t, s) => {
-        let added = 0;
-        let removed = 0;
-        for (let p = 0; p < t.length; p += 1) {
-            const u = t[p];
-            if (u.contentTeamsByMemberId.nodes.length === 0) {
-                await this.props.appManager.executeQuery('mutation', createContentTeamQuery, { memberId: u.member_id });         // eslint-disable-line
-                added += 1;
+    componentDidMount = () => {
+        this.getRosterData();
+    }
+    getRosterData = async () => {
+        return new Promise(async (resolve) => {
+            let ContentTeam_data = await this.props.appManager.executeQueryAuth('query', getRosterQuery, { rosterType: 'content_team', organisationId: this.props.uiStore.current_organisation.id });
+            if (ContentTeam_data.allCombinedRosters.edges.length === 0) {
+                ContentTeam_data = await this.props.appManager.executeQuery('mutation', createRosterQuery, { rosterType: 'content_team', organisationId: this.props.uiStore.current_organisation.id });
+                this.current_roster_users = ContentTeam_data.createCombinedRoster.combinedRoster.combinedRosterIndividualsByRosterId.edges;
+                this.current_roster = ContentTeam_data.createCombinedRoster.combinedRoster;
+            } else {
+                this.current_roster_users = ContentTeam_data.allCombinedRosters.edges[0].node.combinedRosterIndividualsByRosterId.edges;
+                this.current_roster = ContentTeam_data.allCombinedRosters.edges[0].node;
             }
-        }
-        for (let f = 0; f < s.length; f += 1) {
-            const u = s[f];
-            if (u.contentTeamsByMemberId.nodes.length > 0) {
-                await this.props.appManager.executeQuery('mutation', deleteContentTeamQuery, { id: u.contentTeamsByMemberId.nodes[0].id });         // eslint-disable-line
-                removed += 1;
-            }
-        }
-        if (added > 0 && removed === 0) {
-            toast.success(`${added} User(s) added..`, {
-                position: toast.POSITION.TOP_LEFT
-            });
-        }
-        if (added === 0 && removed > 0) {
-            toast.success(`${removed} User(s) removed..`, {
-                position: toast.POSITION.TOP_LEFT
-            });
-        }
-        if (added > 0 && removed > 0) {
-            toast.success(`${added} User(s) added, and ${removed} User(s) removed...`, {
-                position: toast.POSITION.TOP_LEFT
-            });
-        }
-        let k = this.state.my_index;
-        k += 1;
-        this.setState({ my_index: k });
+            this.setState({ visible: true });
+            resolve(true);
+        });
+    }
 
-        // await this.getRosterData();
-        // this.closeUserModal();
+    handleUserSubmit = async (t) => {
+        const add_array = [];
+        const delete_array = [];
+        t.forEach((u) => {
+            const p = findIndex(this.current_roster_users, (o) => {
+                return o.node.individualUserByIndividualId.id === u.node.id;
+            });
+            if (p === -1) {
+                add_array.push(u.node);
+            }
+        });
+        this.current_roster_users.forEach((u) => {
+            const p = findIndex(t, (o) => {
+                return o.node.id === u.node.individualUserByIndividualId.id;
+            });
+            if (p === -1) {
+                // make sure its not in add array
+                const p2 = findIndex(add_array, (a) => {
+                    return a.id === u.node.id;
+                });
+                if (p2 === -1) {
+                    delete_array.push(u.node);
+                }
+            }
+        });
+        for (let a in add_array) {          // eslint-disable-line
+            const x = add_array[a];
+            await this.props.appManager.executeQuery('mutation', createRosterUserQuery, { rosterId: this.current_roster.id, individualId: x.id });         // eslint-disable-line
+        }
+        for (let a in delete_array) {          // eslint-disable-line
+            const x = delete_array[a];
+            await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
+        }
+        let f = false;
+        if (add_array.length > 0 && delete_array.length === 0) {
+            f = true;
+            toast.success(`${add_array.length} User(s) added..`, {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        if (add_array.length === 0 && delete_array.length > 0) {
+            f = true;
+            toast.success(`${delete_array.length} User(s) removed..`, {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        if (add_array.length > 0 && delete_array.length > 0) {
+            f = true;
+            toast.success(`${add_array.length} User(s) added, and ${delete_array.length} User(s) removed...`, {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        if (!f) {
+            toast.success('No Changes made!', {
+                position: toast.POSITION.TOP_LEFT
+            });
+        }
+        await this.getRosterData();
 
         // here we calculate a list of id's to add or delete..
         // first found the add id's
@@ -221,7 +218,7 @@ class AdminContentTeamController extends Component {
             <div style={{
                 width: 'calc(100vw - 416px)'
             }}>
-                <ModalContentAddUser key={this.state.my_index} handleSubmit={this.handleUserSubmit} game_node={this.current_game_node} closeModal={this.closeUserModal} {...this.props} />
+                <ModalContentAddUser handleSubmit={this.handleUserSubmit} users={this.current_roster_users} closeModal={this.closeUserModal} {...this.props} />
             </div>
         );
     }
@@ -234,9 +231,13 @@ AdminContentTeamController.propTypes = {
 
 ModalContentAddUser.propTypes = {
     uiStore: PropTypes.object.isRequired,
+    users: PropTypes.object,
     appManager: PropTypes.object.isRequired,
     closeModal: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired
+};
+ModalContentAddUser.defaultProps = {
+    users: null
 };
 AddGameModal.propTypes = {
     game_modal_open: PropTypes.bool.isRequired,
@@ -246,10 +247,5 @@ AddUserModal.propTypes = {
     user_modal_open: PropTypes.bool.isRequired,
     content: PropTypes.object.isRequired
 };
-RosterGame.propTypes = {
-    game: PropTypes.object.isRequired,
-    game_node: PropTypes.object.isRequired,
-    handleClick: PropTypes.func.isRequired
-};
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(AdminContentTeamController));
+export default inject('uiStore', 'appManager')((AdminContentTeamController));

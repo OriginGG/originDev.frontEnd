@@ -35,6 +35,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     signupHeader: {
         backgroundColor: GlobalTheme.signupHeaderColor,
+        display: 'table',
+        width: '100%',
         padding: '15px'
     },
     signupBGImage: {
@@ -99,7 +101,7 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
     tabular_menu_item_active: {
-        width: '50%',
+        width: '100%',
         height: '54px',
         lineHeight: '54px',
         backgroundColor: 'rgb(102,102,102)',
@@ -203,6 +205,48 @@ export const GlobalStyles = GlobalTheme => ({
     // ***************************************************************
     // New Obliviot Theme
     // ***************************************************************
+
+    obliviot_dark_info_container: {
+        width: '100%',
+        height: '35px'
+    },
+
+    obliviot_dark_info_image: {
+        height: '35px',
+        marginLeft: '20px',
+        marginRight: '20px',
+        float: 'left'
+    },
+
+    obliviot_dark_info_content_container: {
+        height: '35px',
+        textAlign: 'left',
+        lineHeight: '35px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    obliviot_light_info_container: {
+        width: '100%',
+        height: '35px'
+    },
+
+    obliviot_light_info_image: {
+        height: '35px',
+        marginLeft: '20px',
+        marginRight: '20px',
+        float: 'left'
+    },
+
+    obliviot_light_info_content_container: {
+        height: '35px',
+        textAlign: 'left',
+        lineHeight: '35px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white'
+    },
 
     obliviot_mobile_menu: {
         position: 'absolute',
@@ -386,9 +430,18 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
-        display: 'table',
         position: 'fixed',
-        zIndex: '1000',
+        top: '0',
+        left: '0',
+        background: 'rgb(255,255,255)',
+        borderBottom: '5px solid white'
+    },
+    newObliviotHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
         top: '0',
         left: '0',
         background: 'rgb(255,255,255)',
@@ -549,7 +602,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkContraint: {
         width: '100%',
-        display: 'table',
         maxWidth: '1200px',
         minHeight: '100vh',
         marginLeft: 'auto',
@@ -558,8 +610,6 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_bg_img: {
-        width: '100%',
-        height: '100vh',
         position: 'absolute',
         top: '0px',
         left: '0px'
@@ -569,6 +619,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         minHeight: '100vh',
         position: 'absolute',
+        zIndex: '-1',
         top: '0px',
         left: '0px',
         backgroundColor: 'rgba(0,0,0,.8)'
@@ -576,13 +627,12 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkHeader: {
         width: '100%',
-        height: '80px'
+        maxHeight: '90px'
     },
 
     obliviot_darkLogo: {
-        height: '60px',
-        float: 'left',
-        marginTop: '10px'
+        maxWidth: '100%',
+        maxHeight: '60px'
     },
 
     obliviot_dark_social_menu_container: {
@@ -632,20 +682,23 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_darkBlogContainer: {
         width: '100%',
         height: '600px',
-        marginTop: '20px'
+        marginTop: '20px',
+        display: 'table'
     },
 
     obliviot_darkBlogMiniContainer: {
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_darkBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -667,12 +720,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_main_news_content_container: {
-        width: '86%',
-        height: '130px',
+        width: '100%',
+        height: '50px',
         position: 'absolute',
-        bottom: '5px',
-        left: '7%',
+        bottom: '0px',
+        left: '0%',
         padding: '5px',
+        paddingLeft: '20px',
         backgroundColor: 'rgba(0,0,0,.5)'
     },
 
@@ -739,22 +793,90 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'black',
         paddingLeft: '10px',
         position: 'absolute',
-        right: '0px'
+        right: '0px',
+        cursor: 'pointer'
     },
 
     obliviot_dark_twitch_container: {
         width: '100%',
-        overflow: 'hidden',
-        height: '120px',
+        overflowX: 'scroll',
+        overflowY: 'hidden',
+        height: '150px',
         marginTop: '10px',
-        display: 'table'
+        whiteSpace: 'nowrap'
+    },
+
+    obliviot_dark_twitch_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_twitch_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    obliviot_dark_matches_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '50px',
+        right: '0px',
+        cursor: 'pointer'
     },
 
     obliviot_dark_twitch_feed_container: {
-        width: '100%',
+        width: '300px',
         height: '150px',
         backgroundColor: 'rgba(255,255,255,.1)',
-        position: 'relative'
+        position: 'relative',
+        float: 'left',
+        marginRight: '5px'
     },
 
     obliviot_dark_twitch_title_container: {
@@ -839,9 +961,14 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: '#f1f1f1',
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: 'white',
         minWidth: '160px',
-        padding: '10px',
+        padding: '10px 30px 10px 0px',
+        top: '80px',
+        right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
         zIndex: '1'
     },
@@ -851,7 +978,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(255,255,255,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_dark_video_container: {
@@ -861,13 +989,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
-    obliviot_dark_match_container: {
+    obliviot_dark_matches_holder: {
         width: '100%',
-        padding: '20px 30px 0px 30px',
-        backgroundColor: 'rgba(255,255,255,.1)',
-        position: 'relative',
-        display: 'table',
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
         marginTop: '15px'
+    },
+
+    obliviot_dark_match_container: {
+        width: '33.3%',
+        padding: '20px 30px 0px 30px',
+        backgroundColor: 'rgba(255,255,255,0.0)',
+        position: 'relative',
+        float: 'left'
     },
 
     obliviot_dark_match_vs_container: {
@@ -877,11 +1011,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
-    obliviot_dark_match_vs_image: {
+    obliviot_dark_match_vs_image_holder: {
         width: '70px',
         height: '70px',
-        backgroundColor: 'green',
+        lineHeight: '70px',
         float: 'left'
+    },
+
+    obliviot_dark_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     obliviot_dark_match_vs_score: {
@@ -980,9 +1122,25 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute'
     },
 
+    lightFelzecBG: {
+        width: '100%',
+        minHeight: '100vh',
+        padding: '0px 0px 0px 0px',
+        backgroundColor: '#000',
+        position: 'absolute'
+    },
+
+    darkEnigma2BG: {
+        maxWidth: '2500px',
+        minHeight: '100vh',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        padding: '0px 0px 0px 0px',
+        backgroundColor: '#000'
+    },
+
     obliviot_lightContraint: {
         width: '100%',
-        display: 'table',
         maxWidth: '1200px',
         minHeight: '100vh',
         marginLeft: 'auto',
@@ -1004,18 +1162,18 @@ export const GlobalStyles = GlobalTheme => ({
         position: 'absolute',
         top: '0px',
         left: '0px',
+        zIndex: '-1',
         backgroundColor: 'rgba(255,255,255,.8)'
     },
 
     obliviot_lightHeader: {
         width: '100%',
-        height: '80px'
+        maxHeight: '90px'
     },
 
     obliviot_lightLogo: {
-        height: '60px',
-        float: 'left',
-        marginTop: '10px'
+        maxWidth: '100%',
+        maxHeight: '60px'
     },
 
     obliviot_light_social_menu_container: {
@@ -1065,20 +1223,23 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_lightBlogContainer: {
         width: '100%',
         height: '600px',
-        marginTop: '20px'
+        marginTop: '20px',
+        display: 'table'
     },
 
     obliviot_lightBlogMiniContainer: {
         width: '100%',
         height: '295px',
         marginBottom: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_lightBlogMaxContainer: {
         width: '100%',
         height: '600px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
@@ -1100,12 +1261,13 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_light_main_news_content_container: {
-        width: '86%',
-        height: '130px',
+        width: '100%',
+        height: '50px',
         position: 'absolute',
-        bottom: '5px',
-        left: '7%',
+        bottom: '0px',
+        left: '0%',
         padding: '5px',
+        paddingLeft: '20px',
         backgroundColor: 'rgba(255,255,255,.5)'
     },
 
@@ -1146,7 +1308,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_light_section_divider: {
         width: '100%',
         height: '2px',
-        backgroundColor: 'rgba(255,255,255,.5)',
+        backgroundColor: 'rgba(0,0,0,.5)',
         marginTop: '9px',
         position: 'absolute'
     },
@@ -1172,22 +1334,44 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: 'white',
         paddingLeft: '10px',
         position: 'absolute',
-        right: '0px'
+        right: '0px',
+        cursor: 'pointer'
     },
 
     obliviot_light_twitch_container: {
         width: '100%',
-        overflow: 'hidden',
-        height: '120px',
+        overflowX: 'scroll',
+        overflowY: 'hidden',
+        height: '150px',
         marginTop: '10px',
-        display: 'table'
+        whiteSpace: 'nowrap'
     },
 
     obliviot_light_twitch_feed_container: {
-        width: '100%',
+        width: '300px',
         height: '150px',
         backgroundColor: 'rgba(0,0,0,.1)',
-        position: 'relative'
+        position: 'relative',
+        float: 'left',
+        marginRight: '6px'
+    },
+
+    obliviot_twitch_thumbnail: {
+        width: '300px',
+        height: '150px',
+        objectFit: 'fill'
+    },
+
+    obliviot_twitch_overlay: {
+        width: '300px',
+        height: '20px',
+        backgroundColor: 'rgba(0,0,0,.7)',
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        textAlign: 'left'
     },
 
     obliviot_light_twitch_title_container: {
@@ -1195,7 +1379,26 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '0px 0px 10px 20px',
         position: 'absolute',
         bottom: '0px',
-        left: '0px'
+        left: '0px',
+        textAlign: 'left'
+    },
+
+    obliviot_twitch_overlay_text: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    obliviot_twitch_overlay_status: {
+        width: '18px',
+        height: '18px',
+        position: 'absolute',
+        top: '2px',
+        right: '10px',
+        borderRadius: '9px',
+        backgroundColor: 'red'
     },
 
     obliviot_light_twitch_title: {
@@ -1272,11 +1475,28 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_dropdown_container: {
         display: 'none',
         position: 'absolute',
-        backgroundColor: '#f1f1f1',
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: 'white',
         minWidth: '160px',
-        padding: '10px',
+        padding: '10px 30px 10px 0px',
+        top: '80px',
+        right: '150px',
         boxShadow: '0px 8px 16px 0px rgba(0,0,0,0.2)',
         zIndex: '1'
+    },
+
+    obliviot_dropdown_container_close: {
+        position: 'absolute',
+        top: '0px',
+        right: '4px',
+        color: 'white',
+        backgroundColor: 'black',
+        padding: '2px 0px 2px 0px',
+        fontSize: '14px',
+        fontWeight: '900',
+        zIndex: '10'
     },
 
     obliviot_light_news_container: {
@@ -1284,7 +1504,8 @@ export const GlobalStyles = GlobalTheme => ({
         height: '200px',
         backgroundColor: 'rgba(0,0,0,.1)',
         marginTop: '10px',
-        position: 'relative'
+        position: 'relative',
+        cursor: 'pointer'
     },
 
     obliviot_light_video_container: {
@@ -1294,13 +1515,33 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px'
     },
 
-    obliviot_light_match_container: {
-        width: '100%',
-        padding: '20px 30px 0px 30px',
+    felzec_light_video_container: {
+        width: '426px',
+        height: '240px',
         backgroundColor: 'rgba(0,0,0,.1)',
-        position: 'relative',
-        display: 'table',
+        float: 'left'
+    },
+
+    enigma2_dark_video_container: {
+        width: '584px',
+        height: '325px',
+        backgroundColor: 'rgba(0,0,0,.1)',
+        float: 'left'
+    },
+
+    obliviot_light_matches_holder: {
+        width: '100%',
+        overflow: 'auto',
+        whiteSpace: 'nowrap',
         marginTop: '15px'
+    },
+
+    obliviot_light_match_container: {
+        width: '33.3%',
+        padding: '20px 30px 0px 30px',
+        backgroundColor: 'rgba(255,255,255,0.0)',
+        position: 'relative',
+        float: 'left'
     },
 
     obliviot_light_match_vs_container: {
@@ -1310,11 +1551,19 @@ export const GlobalStyles = GlobalTheme => ({
         marginRight: 'auto'
     },
 
-    obliviot_light_match_vs_image: {
+    obliviot_light_match_vs_image_holder: {
         width: '70px',
         height: '70px',
-        backgroundColor: 'green',
+        lineHeight: '70px',
         float: 'left'
+    },
+
+    obliviot_light_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
     },
 
     obliviot_light_match_vs_score: {
@@ -1399,6 +1648,2201 @@ export const GlobalStyles = GlobalTheme => ({
         fontSize: '16px',
         fontWeight: '400',
         color: '#FFF'
+    },
+
+    // ***************************************************************
+    // Universal footers
+    // ***************************************************************
+
+    universal_footer_dark: {
+        width: '100%',
+        height: '80px',
+        lineHeight: '80px',
+        textAlign: 'center',
+        fontSize: '18px',
+        color: 'white',
+        fontWeight: '900',
+        backgroundColor: 'black'
+    },
+
+    universal_footer_light: {
+        width: '100%',
+        height: '80px',
+        lineHeight: '80px',
+        textAlign: 'center',
+        fontSize: '18px',
+        color: 'black',
+        fontWeight: '900',
+        backgroundColor: 'white'
+    },
+
+    // ***************************************************************
+    // Enigma2
+    // ***************************************************************
+
+    enigma2_nav_constraint : {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px',
+        marginBottom: '20px',
+        position: 'relative'
+    },
+
+    enigma2_darkHeader: {
+        width: '100%',
+        height: '80px',
+        borderBottomWidth: '2px' ,
+        borderBottomStyle: 'solid',
+        borderBottomColor:  'rgb(120,120,120)',
+        backgroundColor: 'black'
+    },
+
+    org_menu_enigma2_light_item : {
+        height: '80px',
+        lineHeight: '70px',
+        float: 'right',
+        color: '#fefefe',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        fontFamily: 'nimbus-sans-condensed,light,sans-serif',
+        textTransform: 'uppercase',
+        padding: '0px 10px 0px 10px',
+        borderBottomStyle: 'solid',
+        borderBottomWidth: '2px',
+        borderBottomColor: 'transparent',
+        position: 'relative',
+        display: 'inline-block'
+    },
+
+    enigma2_darkLogo: {
+        maxWidth: '100%',
+        maxHeight: '70px'
+    },
+
+    enigma2_light_social_menu_item: {
+        lineHeight: '70px',
+        float: 'left',
+        color: 'rgb(152,159,169)',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    enigma2_blog_container: {
+        width: '100%',
+        height: '90vh',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    enigma2_blog_main_container: {
+        width: '100%',
+        paddingTop: '56.25%',
+        position: 'relative',
+        backgroundColor: 'black',
+        overflow: 'hidden'
+    },
+
+    enigma2_blog_small_container: {
+        width: '100%',
+        paddingTop: '56.25%',
+        position: 'relative',
+        backgroundColor: 'black',
+        overflow: 'hiden'
+    },
+
+    enigma2_blog_image: {
+        width: '100%'
+    },
+
+    enigma2_blog_inner_container: {
+        width: '100%',
+        height: '90vh',
+        padding: '0px 0% 0px 0%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_lightBlogMaxContainer: {
+        width: '100%',
+        height: '90vh',
+        position: 'relative',
+        cursor: 'pointer',
+        display: 'none'
+    },
+
+    enigma2_lightBlogMiniContainer: {
+        width: '100%',
+        height: '30vh',
+        marginBottom: '0px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+    enigma2_mini_news_title: {
+        textAlign: 'left',
+        fontSize: '28px',
+        lineHeight: '38px',
+        color: '#fefefe',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_light_news_text: {
+        textAlign: 'left',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_large_news_text: {
+        textAlign: 'left',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_mini_news_text: {
+        textAlign: 'left',
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: 'rgb(152,159,169)',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_dark_main_news_content_container: {
+        width: '100%',
+        height: '200px',
+        position: 'absolute',
+        top: '50px',
+        left: '0%',
+        padding: '5px',
+        paddingLeft: '30px',
+        backgroundColor: 'rgba(255,255,255,0)'
+    },
+
+    enigma2_dark_mini_news_content_container: {
+        width: '100%',
+        height: '100px',
+        position: 'absolute',
+        top: '20px',
+        left: '0%',
+        padding: '5px',
+        paddingLeft: '20px',
+        backgroundColor: 'rgba(255,255,255,0)'
+    },
+
+    enigma2_blog_switch_container: {
+        width: '100%',
+        height: '5px',
+        position: 'absolute',
+        bottom: '100px',
+        left: '0px',
+        paddingLeft: '50px'
+    },
+
+    enigma2_blog_switch: {
+        width: '10%',
+        height: '4px',
+        backgroundColor: '#cdcdcd',
+        cursor: 'pointer',
+        marginRight: '10px',
+        float: 'left'
+    },
+
+    enigma2_matches_container: {
+        width: '100%',
+        height: '500px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    enigma2_media_container: {
+        width: '100%',
+        height: '320px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    enigma2_matches_filter_container: {
+        width: '100%',
+        height: '500px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_media_filter_container: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_matches_inner_container: {
+        width: '100%',
+        height: '500px',
+        padding: '40px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_media_inner_container: {
+        width: '100%',
+        height: '320px',
+        padding: '40px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_switch_container: {
+        width: '80%',
+        height: '40px',
+        marginBottom: '35px'
+    },
+
+    enigma2_switch_upcoming_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '60px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '60px',
+        backgroundColor: 'transparent',
+        border: '1px solid red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    enigma2_switch_recent_container: {
+        width: '50%',
+        float: 'left',
+        lineHeight: '60px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '60px',
+        backgroundColor: 'red',
+        border: '1px solid red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    enigma2_switch_matches_title: {
+        width: '100%',
+        height: '60px',
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'left'
+    },
+
+    enigma2_switch_matches_description: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontWeight: '900',
+        fontSize: '18px',
+        color: 'rgb(156,142,142)',
+        textAlign: 'left',
+        marginBottom: '50px'
+    },
+
+    enigma2_match_element_container: {
+        width: '100%',
+        height: '440px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
+    enigma2_media_element_container: {
+        width: '100%',
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        whiteSpace: 'nowrap'
+    },
+
+    enigma2_matches_game: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'left'
+    },
+
+    enigma2_matches_league: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'rgb(149,147,141)',
+        textAlign: 'left'
+    },
+
+    enigma2_matches_date: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: '900',
+        color: 'rgb(149,147,141)',
+        textAlign: 'left'
+    },
+
+    enigma2_team_main_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: '#040404',
+        position: 'relative',
+        display: 'table'
+    },
+
+    enigma2_team_title_container: {
+        width: '100%',
+        fontSize: '168px',
+        fontWeight: '900',
+        lineHeight: '300px',
+        textAlign: 'center',
+        color: 'red',
+        borderBottom: '1px solid rgba(255,255,255,.7)'
+    },
+
+    enigma2_team_info_container: {
+        width: '100%',
+        height: '200px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    enigma2_team_info_box: {
+        height: '100px',
+        width: '300px'
+    },
+
+    enigma2_team_info_count: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '24px',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    enigma2_team_info_title: {
+        width: '100%',
+        height: '30px',
+        lineHeight: '30px',
+        fontSize: '18px',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    enigma2_game_container: {
+        width: '100%',
+        display: 'table',
+        overflowX: 'auto',
+        overflowY: 'auto',
+    },
+
+    enigma2_team_game_container: {
+        minHeight: '400px',
+        width: '100%',
+        position: 'relative'
+    },
+
+    enigma2_team_game_media: {
+        height: '400px',
+        width: '100%',
+        position: 'relative'
+    },
+
+    enigma2_team_game_overlay: {
+        width: '100%',
+        minHeight: '400px',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        backgroundColor: 'rgba(0,0,0,.5)',
+        padding: '80px 100px'
+    },
+
+    enigma2_team_game_overlay_container: {
+        width: '100%',
+        paddingLeft: '80px',
+        paddingRight: '80px',
+        height: '80px'
+    },
+
+    enigma2_team_game_overlay_text: {
+        width: '70%',
+        height: '80px',
+        lineHeight: '80px',
+        fontSize: '56px',
+        textTransform: 'uppercase',
+        fontWeight: '900',
+        textAlign: 'left',
+        color: 'red',
+        float: 'left'
+    },
+
+    enigma2_team_game_overlay_button: {
+        width: '140px',
+        height: '60px',
+        lineHeight: '56px',
+        textAlign: 'center',
+        float: 'right',
+        fontSize: '18px',
+        fontWeight: '400',
+        color: 'white',
+        border: '2px solid red',
+        cursor: 'pointer'
+    },
+
+    enigma2_teamamte_container: {
+        width: '100%',
+        padding: '50px',
+        marginBottom: '50px',
+        display: 'none',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between'
+    },
+
+    enigma2_teammember_container: {
+        width: '22vw',
+        height: '39vw',
+        margin: '0.5vw 0.5vw',
+        float: 'left',
+        background: 'transparent',
+        padding: '40px'
+    },
+
+    enigma2_teammember_image: {
+        width: '100%',
+        height: '70%',
+    },
+
+    enigma2_player_handle: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '24px',
+        color: 'red',
+        textAlign: 'left'
+    },
+
+    enigma2_player_name: {
+        width: '100%',
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        color: 'gray',
+        textAlign: 'left'
+    },
+
+    enigma2_profile_button: {
+        width: '120px',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '12px',
+        color: '#dedede',
+        textAlign: 'center',
+        border: '1px solid red',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px',
+        cursor: 'pointer'
+    },
+
+    // ***************************************************************
+    // Credit card
+    // ***************************************************************
+
+    creditcard_video_iframe: {
+        width: '90%',
+        marginLeft: '5%',
+        marginRight: '5%'
+    },
+
+    credit_card: {
+        width: '360px',
+        height: '400px',
+        margin: '60px auto 0',
+        border: '1px solid #ddd',
+        borderRadius: '6px',
+        backgroundColor: '#fff',
+        boxShadow: '1px 2px 3px 0 rgba(0,0,0,.10)'
+    },
+
+    form_header: {
+        height: '60px',
+        padding: '20px 30px 0',
+        borderBottom: '1px solid #e1e8ee'
+    },
+     
+    form_body: {
+        height: '720px',
+        padding: '30px 30px 20px',
+        overflowY: 'auto'
+    },
+
+    cc_title: {
+        fontSize: '18px',
+        margin: '0',
+        color: '#5e6977'
+    },
+
+    card_number: {
+        width: '100%',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e'
+    },
+
+    month_select: {
+        width: '145px',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: 'url("caret.png") no-repeat',
+        backgroundPosition: '85% 50%',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e',
+        float: 'left'
+    },
+
+    year_select: {
+        width: '145px',
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: 'url("caret.png") no-repeat',
+        backgroundPosition: '85% 50%',
+        fontSize: '14px',
+        fontWeight: '100',
+        lineHeight: '14px',
+        fontSize: '14px',
+        opacity: '.7',
+        color: '#86939e',
+        float: 'right'
+    },
+
+    cvv_input: {
+        float: 'left',
+        width: '145px',
+        paddingLeft: '20px',
+        border: '2px solid #e1e8ee',
+        borderRadius: '6px',
+        background: '#fff'
+    },
+     
+    cvv_details: {
+        fontSize: '12px',
+        fontWeight: '300',
+        lineHeight: '16px',
+        float: 'right',
+        marginBottom: '20px'
+    },
+
+    proceed_btn: {
+        cursor: 'pointer',
+        fontSize: '16px',
+        width: '100%',
+        borderColor: 'transparent',
+        borderRadius: '6px',
+        marginBottom: '10px',
+        background: '#7dc855',
+        textDecoration: 'none',
+        color: '#fff'
+    },
+    
+    domain_video_container: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '380px'
+    },
+
+    domain_credit_container: {
+        width: '100%',
+        marginTop: '30px',
+        display: 'table'
+    },
+
+    domain_video: {
+        width: '90%',
+        height: '90%'
+    },
+     
+    // ***************************************************************
+    // Felzec Theme
+    // ***************************************************************
+
+    felzec_lightBlogContainer: {
+        width: '100%',
+        display: 'table',
+        position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_lightBlogMobileContainer: {
+        width: '90%',
+        height: '200px',
+        display: 'table',
+        position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '10px'
+    },
+
+    felzec_lightTeamContainer: {
+        width: '100%',
+        height: '500px',
+        display: 'table',
+        position: 'relative',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_lightHeader: {
+        width: '100%',
+        maxHeight: '70px',
+        backgroundColor: 'black',
+        marginBottom: '-20px'
+    },
+
+    felzec_nav_constraint : {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '20px',
+        marginBottom: '20px',
+        position: 'relative'
+    },
+
+    felzec_light_nav_logo_holder: {
+        height: '70px',
+        width: '50px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        lineHeight: '70px'
+    },
+
+    felzec_light_nav_logo: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
+    },
+
+    felzec_light_social_menu_item: {
+        lineHeight: '70px',
+        float: 'left',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    felzec_light_navicon_menu_item: {
+        lineHeight: '70px',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px'
+    },
+
+    felzec_sponsor_box: {
+        width: '100%',
+        paddingTop: '56.25%',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_jumbotron_layer: {
+       width: '100%',  
+       paddingTop: '56.25%',
+       position: 'absolute',
+       bottom: '0px',
+       height: '35%',
+       background: 'rgb(4,4,4)',
+       background: 'linear-gradient(0deg, rgba(4,4,4,1) 0%, rgba(4,4,4,.9) 20%, rgba(4,4,4,.6) 40%, rgba(4,4,4,0) 60%, rgba(4,4,4,0) 100%)'
+    },
+
+    felzec_sponsor_container: {
+        width: '100%',
+        height: '15%',
+        position: 'absolute',
+        bottom: '80px'
+    },
+
+    obliviot_light_social_menu_container: {
+        float: 'left',
+        display: 'table',
+        paddingTop: '0px',
+        paddingLeft: '0px'
+    },
+
+    felzec_menu_container: {
+        width: '100%',
+        height: '60px',
+        backgroundColor: 'rgb(131,24,39)',
+        borderWidth: '2px 0px 0px 0px',
+        borderStyle: 'solid',
+        borderColor: 'rgba(255,255,255,.5)',
+        position: 'absolute',
+        bottom: '-48px',
+        zIndex: '10'
+    },
+
+    felzec_footer_sponsor_container: {
+        width: '100%',
+        height: '60px',
+        marginBottom: '19px',
+        marginTop: '19px'
+    },
+
+    felzec_footer_sponsor_image: {
+        maxHeight: '60px',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_footer_mobile_sponsor_image: {
+        maxHeight: '30px',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    org_menu_felzec_light_item : {
+        height: '60px',
+        lineHeight: '60px',
+        float: 'right',
+        color: '#fefefe',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        position: 'relative',
+        display: 'inline-block'
+    },
+    felzec_menu_felzec_light_item : {
+        height: '25px',
+        lineHeight: '25px',
+        width: '100%',
+        textAlign: 'right',
+        float: 'right',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900',
+        cursor: 'pointer',
+        padding: '0px 10px 0px 10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        borderColor: 'transparent',
+        position: 'relative'
+    },
+
+    felzec_footer_title_left: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_title_mobile_left: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_title_center: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_inner: {
+        width: '90%'
+    },
+
+    felzec_footer_title_right: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_title_mobile_right: {
+        width: '100%',
+        lineHeight: '30px',
+        height: '30px',
+        textAlign: 'right',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: '900'
+    },
+
+    felzec_footer_text_left : {
+        width: '100%',
+        height: '200px',
+        overflow: 'hidden',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'left',
+        paddingBottom: '20px'
+    },
+
+    felzec_footer_email_left : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'left',
+        paddingBottom: '20px',
+        cursor: 'pointer'
+    },
+
+    felzec_footer_text_right : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'right',
+        paddingBottom: '20px'
+    },
+
+    felzec_footer_email_right : {
+        width: '100%',
+        color: '#cdcdcd',
+        fontSize: '16px',
+        fontWeight: '400',
+        textAlign: 'right',
+        paddingBottom: '20px',
+        cursor: 'pointer'
+    },
+
+    footer_menu_felzec_light_item: {
+        width: '100%',
+        lineHeight: '2.0em',
+        textAlign: 'right',
+        color: '#bbb',
+        fontSize: '24px',
+        fontWeight: '400',
+        cursor: 'pointer'
+    },
+
+    felzec_darkFooter: {
+        width: '100%',
+        backgroundColor: '#040404',
+        overflow: 'hidden'
+    },
+
+    enigma2_darkFooter: {
+        width: '100%',
+        backgroundColor: '#040404',
+        overflow: 'hidden',
+        position: 'relative'
+    },
+
+    felzec_roster_item_container: {
+        width: '100%',
+        height: '300px',
+        position: 'relative',
+        margin: '10px 0px 10px 0px',
+        backgroundColor: '#040404'
+    },
+
+    felzec_sponser_item_img_container: {
+        width: '125px',
+        height: '300px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_roster_filter_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'rgba(0,0,0,.5)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_roster_inner_container: {
+        width: '60%',
+        padding: '20px 0px 10px 0px',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '20%'
+    },
+
+    felzec_roster_nav_container: {
+        width: '40%',
+        height: '40px',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: '20px',
+        right: '20%'
+    },
+
+    felzec_sponsor_list_button: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        textAlign: 'center',
+        color: 'white',
+        backgroundColor: 'rgb(235,51,61)',
+        borderRadius: '5px'
+    },
+
+    felzec_sponsor_icon_container: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'white'
+    },
+    
+    felzec_roster_item_about_container: {
+        width: '100%',
+        height: '200px',
+        padding: '10px 30px 0px 10px',
+        textAlign: 'left',
+        overflowY: 'auto',
+        overflowX: 'none'
+    },
+
+    felzec_sponser_item_img: {
+        maxHeight: '150px',
+        maxWidth: '100%',
+        marginTop: '70px'
+    },
+
+    felzec_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white',
+        wordBreak: 'break-all'
+    },
+
+    felzec_roster_about_text: {
+        lineHeight: '20px',
+        fontWeight: '400',
+        color: 'white'
+    },
+
+    felzec_roster_item_name_container: {
+        width: '100%',
+        display: 'table',
+        paddingBottom: '10px'
+    },
+
+    felzec_light_bg_img: {
+        width: '100%',
+        position: 'absolute',
+        top: '0px',
+        left: '0px'
+    },
+
+    felzec_blog_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_blog_m_container: {
+        width: '100%',
+        height: '240px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+
+    felzec_blog_mobile_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_blog_filter_container: {
+        width: '100%',
+        height: '600px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_blog_m_filter_container: {
+        width: '100%',
+        height: '240px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_blog_inner_container: {
+        width: '100%',
+        height: '600px',
+        padding: '50px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_blog_mobile_inner_container: {
+        width: '100%',
+        height: '240px',
+        padding: '20px 10px 20px 10px',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    e2_media_container: {
+        width: '100%',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_matches_mobile_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_matches_inner_container: {
+        width: '100%',
+        padding: '10px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_team_container: {
+        width: '100%',
+        paddingTop: '30%',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_team_main_container: {
+        width: '100%',
+        display: 'table',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_staff_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: '#040404',
+        position: 'relative'
+    },
+
+    felzec_staff_image_container: {
+        width: '170px',
+        height: '240px',
+        float: 'left',
+        marginLeft: '25px',
+        marginRight: '25px',
+        backgroundColor: 'rgb(230,230,230)',
+        position: 'relative'
+    },
+
+    felzec_team_image_container: {
+        width: '100%',
+        height: '100%',
+        position: 'relative'
+    },
+
+    felzec_team_image: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+        position: 'relative'
+    },
+
+    felzec_staff_image: {
+        width: '170px',
+        height: '240px',
+        objectFit: 'cover',
+        position: 'relative'
+    },
+
+    felzec_team_overlay: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'contain',
+        position: 'absolute',
+        zIndex: '10',
+        top: '0px',
+        left: '0px',
+        backgroundColor: '#040404'
+    },
+
+    felzec_staff_overlay: {
+        width: '140px',
+        height: '240px',
+        objectFit: 'contain',
+        position: 'absolute',
+        padding: '15px',
+        zIndex: '10',
+        top: '0px',
+        left: '0px',
+        backgroundColor: '#040404'
+    },
+
+    felzec_team_overlay_name: {
+        lineHeight: '24px',
+        padding: '15px 0px 0px 15px',
+        width: '80%',
+        fontSize: '20px',
+        fontWeight: '900',
+        textAlign: 'left',
+        color: 'white',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    felzec_team_overlay_handle: {
+        width: '100%',
+        lineHeight: '22px',
+        paddingLeft: '15px',
+        fontSize: '18px',
+        fontWeight: '900',
+        textAlign: 'left',
+        color: 'red'
+    },
+
+    felzec_team_overlay_button: {
+        height: '30px',
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '16px',
+        textAlign: 'center',
+        color: 'white',
+        fontWeight: '100',
+        cursor: 'pointer',
+        position: 'absolute',
+        bottom: '0px',
+        left: '0',
+        backgroundColor: 'blue'
+    },
+
+    felzec_team_inner_container: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'transparent',
+        padding: '1% 10% 1% 10%',
+        position: 'absolute',
+        top: '0%',
+        left: '0%'
+    },
+
+    felzec_team_filter_container: {
+        width: '100%',
+        paddingTop: '30%',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_staff_inner_container: {
+        width: '100%',
+        height: '400px',
+        padding: '0px 15% 50px 15%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_staff_inner_mobile_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_staff_title: {
+        width: '100%',
+        height: '50px',
+        lineHeight: '50px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center',
+        backgroundColor: 'transparent'
+    },
+
+    felzec_staff_filter_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_inner_container: {
+        width: '100%',
+        height: '400px',
+        padding: '10px 10% 50px 10%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_mobile_inner_container: {
+        width: '100%',
+        padding: '10px 0% 30px 0%',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_filter_container: {
+        width: '100%',
+        height: '400px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_matches_mobile_filter_container: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'rgba(255,0,0,0)',
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    felzec_match_element_container: {
+        width: '100%',
+        height: '340px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+    },
+
+    felzec_match_mobile_element_container: {
+        width: '100%',
+        height: '340px',
+        overflowY: 'hidden',
+        overflowX: 'hidden',
+    },
+
+    felzec_media_element_container: {
+        width: '100%',
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        whiteSpace: 'nowrap'
+    },
+
+    felzec_match_info_container: {
+        width: '100%',
+        height: '100px',
+        lineHeight: '100px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center',
+        cursor: 'pointer'
+    },
+
+    felzec_match_mobile_info_container: {
+        width: '100%',
+        height: '40px',
+        lineHeight: '40px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center',
+        cursor: 'pointer'
+    },
+
+    felzec_matches_game: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    felzec_matches_mobile_game: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '18px',
+        fontWeight: '900',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    felzec_matches_league: {
+        width: '100%',
+        lineHeight: '30px',
+        fontSize: '24px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center'
+    },
+
+    felzec_matches_date: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        fontWeight: '900',
+        color: 'white',
+        textAlign: 'center'
+    },
+
+    felzec_switch_container: {
+        width: '80%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: '50px',
+        marginBottom: '35px'
+    },
+
+    felzec_mobile_switch_container: {
+        width: '90%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: '30px'
+    },
+
+    felzec_switch_upcoming_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '50px',
+        fontSize: '24px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '50px',
+        backgroundColor: 'black',
+        marginRight: '2%',
+        color: '#cccccc',
+        cursor: 'pointer'
+    },
+
+    felzec_switch_recent_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '50px',
+        fontSize: '24px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '50px',
+        backgroundColor: 'red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    felzec_mobile_switch_upcoming_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '30px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '30px',
+        backgroundColor: 'black',
+        marginRight: '2%',
+        color: '#cccccc',
+        cursor: 'pointer'
+    },
+
+    felzec_mobile_switch_recent_container: {
+        width: '49%',
+        float: 'left',
+        lineHeight: '30px',
+        fontSize: '14px',
+        textAlign: 'center',
+        fontWeight: '900',
+        height: '30px',
+        backgroundColor: 'red',
+        color: 'white',
+        cursor: 'pointer'
+    },
+
+    felzec_light_match_container: {
+        width: '100%',
+        padding: '10px 0px 10px 0px',
+        borderBottom: '1px solid rgba(255,255,255,.5)'
+    },
+
+    felzec_light_match_vs_image_container: {
+        width: '70px',
+        height: '70px',
+        lineHeight: '70px',
+        marginTop: '15px',
+        float: 'left'
+    },
+
+    felzec_light_match_vs_image: {
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'inline-block',
+        margin: '0 auto',
+        verticalAlign: 'middle'
+    },
+
+    felzec_light_mobile_match_vs_image: {
+        width: '70px',
+        height: '70px',
+        backgroundColor: 'rgba(0,0,0,0)',
+        float: 'left'
+    },
+
+    felzec_light_match_vs_score: {
+        width: '80px',
+        height: '100px',
+        lineHeight: '100px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900',
+        float: 'left'
+    },
+
+    felzec_light_mobile_match_vs_score: {
+        width: '80px',
+        height: '70px',
+        lineHeight: '70px',
+        textAlign: 'center',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900',
+        float: 'left'
+    },
+
+    felzec_game_container: {
+        width: '100%',
+        height: '20%',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingBottom: '-17px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_teammate_container: {
+        width: '100%',
+        height: '65%',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        paddingBottom: '-17px',
+        marginTop: '40px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_coworker_container: {
+        width: '100%',
+        height: '240px',
+        overflowX: 'auto',
+        overflowY: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingBottom: '-17px',
+        marginTop: '50px',
+        whiteSpace: 'nowrap',
+        boxSizing: 'content-box'
+    },
+
+    felzec_team_game_container: {
+        height: '100%',
+        width: '80px',
+        display: 'flex',
+        marginRight: '30px',
+        marginLeft: '30px',
+    },
+
+    felzec_team_game_media: {
+        height: '100%',
+        objectFit: 'fill'
+    },
+
+    felzec_lightBlogMaxContainer: {
+        width: '100%',
+        height: '500px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_image: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+    },
+
+    felzec_lightBlogMiniContainer: {
+        width: '100%',
+        height: '245px',
+        marginBottom: '10px',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_mini_image: {
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+    },
+
+    felzec_light_twitch_feed_container: {
+        width: '426px',
+        height: '240px',
+        backgroundColor: 'rgba(0,0,0,.1)',
+        position: 'relative',
+        float: 'left',
+        marginRight: '6px'
+    },
+
+    felzec_twitch_thumbnail: {
+        width: '416px',
+        height: '240px',
+        objectFit: 'fill'
+    },
+
+    felzec_twitch_overlay: {
+        width: '426px',
+        height: '20px',
+        backgroundColor: 'rgba(0,0,0,.7)',
+        position: 'absolute',
+        top: '0px',
+        left: '0px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        textAlign: 'left'
+    },
+
+    felzec_light_twitch_title_container: {
+        width: '100%',
+        padding: '0px 0px 10px 20px',
+        position: 'absolute',
+        bottom: '0px',
+        left: '0px',
+        textAlign: 'left'
+    },
+
+    felzec_twitch_overlay_text: {
+        height: '20px',
+        lineHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    felzec_twitch_overlay_status: {
+        width: '18px',
+        height: '18px',
+        position: 'absolute',
+        top: '2px',
+        right: '10px',
+        borderRadius: '9px',
+        backgroundColor: 'red'
+    },
+
+    felzec_light_twitch_title: {
+        color: 'black',
+        fontSize: '18px',
+        fontWeight: '900',
+        textAlign: 'left',
+        lineHeight: '22px',
+        width: '100%'
+    },
+
+    felzec_light_twitch_subtitle: {
+        color: 'black',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        textAlign: 'left',
+        lineHeight: '18px',
+        width: '100%'
+    },
+
+    felzec_dark_twitch_left_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '150px',
+        left: '0px',
+        cursor: 'pointer'
+    },
+
+    felzec_dark_twitch_right_arrow: {
+        height: '50px',
+        width: '50px',
+        textAlign: 'center',
+        lineHeight: '50px',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        position: 'absolute',
+        zIndex: '100',
+        top: '150px',
+        right: '0px',
+        cursor: 'pointer'
+    },
+
+    felzec_light_news_row: {
+        width: '100%',
+        height: '200px',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
+    felzec_light_mobile_news_row: {
+        width: '100%',
+        height: '100px',
+        marginTop: '10px',
+        position: 'relative'
+    },
+
+    felzec_light_footer_news_row: {
+        width: '100%',
+        height: '100px',
+        marginTop: '15px',
+        position: 'relative',
+        display: 'table'
+    },
+
+    felzec_light_news_container: {
+        width: '80%',
+        height: '200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'rgba(255,255,255,1)',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    enigma2_light_news_container: {
+        width: '80%',
+        height: '200px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'transparent',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_light_news_mobile_container: {
+        width: '90%',
+        height: '100px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        backgroundColor: 'rgba(255,255,255,1)',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_light_news_footercontainer: {
+        width: '100%',
+        height: '100px',
+        backgroundColor: 'transparent',
+        position: 'relative',
+        cursor: 'pointer'
+    },
+
+    felzec_main_news_item_micro_image: {
+        width: '100%',
+        height: '200px',
+        objectFit: 'cover'
+    },
+
+    felzec_main_news_item_micro_mobile_image: {
+        width: '100%',
+        height: '100px',
+        objectFit: 'cover'
+    },
+
+    felzec_main_footer_news_item_micro_image: {
+        width: '100%',
+        height: '100px',
+        objectFit: 'cover'
+    },
+
+    felzec_light_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '30px',
+        color: 'black',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    enigma2_light_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '30px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    enigma2_large_news_title: {
+        textAlign: 'left',
+        fontSize: '48px',
+        lineHeight: '60px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    felzec_light_mobile_news_title: {
+        textAlign: 'left',
+        fontSize: '20px',
+        lineHeight: '25px',
+        color: 'black',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    felzec_light_footer_news_title: {
+        textAlign: 'left',
+        fontSize: '14px',
+        lineHeight: '20px',
+        marginTop: '10px',
+        color: 'white',
+        fontWeight: '900',
+        textTransform: 'uppercase'
+    },
+
+    felzec_light_news_body: {
+        textAlign: 'left',
+        fontSize: '14px',
+        color: 'black',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    enigma2_light_news_body: {
+        textAlign: 'left',
+        fontSize: '14px',
+        color: 'white',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    felzec_light_footer_news_body: {
+        textAlign: 'left',
+        fontSize: '12px',
+        color: 'red',
+        fontWeight: 'bold',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
+
+    felzec_modal_inner: {
+        width: '80%',
+        padding: '15px',
+        display: 'table',
+        background: 'white',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    enigma2_modal_inner: {
+        width: '80%',
+        padding: '15px',
+        display: 'table',
+        background: 'transparent',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    felzec_news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'black'
+    },
+    felzec_news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'black'
+    },
+
+    felzec_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'black',
+        overflowY: 'scroll'
+    },
+
+    enigma2_news_modal_title_text: {
+        fontSize: '24px',
+        fontWeight: 'bold',
+        float: 'left',
+        color: 'white'
+    },
+    enigma2_news_modal_date_text: {
+        fontSize: ' 18px',
+        fontWeight: 'bold',
+        float: 'right',
+        color: 'white'
+    },
+
+    enigma2_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'white',
+        overflowY: 'scroll'
+    },
+
+    felzec_about_header: {
+        width: '100%',
+        height: '300px',
+        backgroundColor: 'blue'
+    },
+
+    felzec_about_container: {
+        width: '100%',
+        padding: '20px 15% 20px 15%'
+    },
+
+    felzec_about_mobile_container: {
+        width: '100%',
+        padding: '0px 0% 0px 0%'
+    },
+
+    felzec_about_desc_conatiner: {
+        width: '100%',
+        minHeight: '500px',
+        backgroundColor: 'black',
+        position: 'relative'
+    },
+
+    felzec_about_container_inner: {
+        width: '100%',
+        minHeight: '400px',
+        backgroundColor: 'rgba(0,0,0,.85)',
+        padding: '20px'
+    },
+
+    felzec_about_container_lower: {
+        width: '100%',
+        height: '100px',
+        backgroundColor: 'rgba(211,45,54,.85)',
+        padding: '10px'
+    },
+
+    felzec_about_title: {
+        color: 'white',
+        width: '100%',
+        fontSize: '24px',
+        fontWeight: '900',
+        lineHeight: '35px'
+    },
+
+    felzec_about_text: {
+        color: 'white',
+        width: '100%',
+        fontSize: '16px',
+        fontWeight: '400',
+    },
+
+    light_roster_item_container: {
+        width: '70px',
+        height: '100px',
+        display: 'table',
+        borderColor: 'rgba(0,0,0,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+
+    felzec_lower_about_title: {
+        width: '100%',
+        lineHeight: '25px',
+        paddingLeft: '10px',
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '900'
+    },
+
+    felzec_lower_about_text: {
+        width: '100%',
+        lineHeight: '20px',
+        paddingLeft: '10px',
+        paddingRight: '10px',
+        color: 'white',
+        fontSize: '16px'
+    },
+
+    felzec_about_email_title: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '18px',
+        color: 'white',
+        fontWeight: '900'
+    },
+
+    felzec_about_email_title: {
+        width: '100%',
+        lineHeight: '6px',
+        fontSize: '14px',
+        color: 'white',
+        fontWeight: '900'
+    },
+
+    felzec_about_email_text: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '16px',
+        color: 'red',
+        fontWeight: '300'
+    },
+
+    felzec_about_mobile_email_text: {
+        width: '100%',
+        lineHeight: '20px',
+        fontSize: '14px',
+        marginTop: '3px',
+        color: 'red',
+        fontWeight: '300'
+    },
+
+    felzec_lower_email_button: {
+        backgroundColor: 'black',
+        padding: '8px',
+        width: '180px',
+        height: '60px',
+        float: 'left',
+        marginRight: '20px',
+        marginTop: '10px',
+        cursor: 'pointer'
+    },
+
+    felzec_lower_mobile_email_button: {
+        backgroundColor: 'black',
+        padding: '8px',
+        width: '180px',
+        height: '35px',
+        float: 'left',
+        marginBottom: '10px',
+        cursor: 'pointer'
+    },
+
+    felzec_orgFooter: {
+        textAlign: 'center',
+        width: '100%',
+        background: '#000000',
+        padding: '20px',
+    },
+    felzec_orgFooterText: {
+        width: '100%',
+        height: '20px',
+        textAlign: 'right',
+        lightHeight: '20px',
+        fontSize: '16px',
+        fontWeight: '400',
+        color: '#FFF'
+    },
+
+    //***************************************************************
+    // email entry for orgs
+    // **************************************************************
+
+    org_email_container: {
+        width: '100%',
+        height: '100vh',
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        zIndex: '200',
+        backgroundColor: 'rgba(0,0,0,.8)'
+    },
+
+    org_email_close: {
+        padding: '5px',
+        backgroundColor: 'white',
+        color: 'black',
+        cursor: 'pointer',
+        fontSize: '24px',
+        fontWeight: '900',
+        position: 'absolute',
+        zIndex: '300',
+        top: '20px',
+        right: '20px'
+    },
+
+    org_email_data_container: {
+        width: '500px',
+        padding: '20px',
+        display: 'block',
+        position: 'relative',
+        backgroundColor: 'rgba(0,0,0,.8)',
+        marginTop: '300px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    org_email_data_title: {
+        width: '100%',
+        height: '60px',
+        lineHeight: '60px',
+        textAlign: 'center',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'white'
+    },
+
+    org_email_data_subtitle: {
+        width: '100%',
+        lineHeight: '24px',
+        textAlign: 'center',
+        fontSize: '18px',
+        fontWeight: '100',
+        color: 'white'
+    },
+
+    org_email_data_input_container: {
+        width: '100%',
+        height: '80px',
+        marginTop: '30px'
+    },
+
+    org_email_data_input: {
+        width: '70%',
+        float: 'left',
+        height: '60px',
+        border: '0 solid transparent',
+        borderRadius: '0px',
+        fontSize: '18px',
+        margin: '0px'
+    },
+
+    org_email_data_button: {
+        width: '29%',
+        float: 'left',
+        height: '60px',
+        textAlign: 'center',
+        cursor: 'pointer',
+        lineHeight: '60px',
+        fontSize: '24px',
+        color: 'white',
+        backgroundColor: 'rgb(166,197,87)'
+    },
+
+    // ***************************************************************
+    // admin_navigate_button
+    //****************************************************************
+
+    admin_navigate_button: {
+        position: 'absolute',
+        padding: '10px 20px 10px 20px',
+        top: '16px',
+        right: '370px',
+        backgroundColor: 'blue',
+        color: 'white',
+        fontSize: '20px',
+        fontWeight: '900',
+        cursor: 'pointer'
     },
 
     // ***************************************************************
@@ -1539,7 +3983,12 @@ export const GlobalStyles = GlobalTheme => ({
     },
     darkBG: {
         width: '100%',
-        backgroundColor: 'rgb(20,20,20)',
+        backgroundColor: 'rgb(0,0,0)',
+        padding: '0px 0px 0px 0px'
+    },
+    lightBG: {
+        width: '100%',
+        backgroundColor: 'rgb(255,255,255)',
         padding: '0px 0px 0px 0px'
     },
     blankBG: {
@@ -1592,9 +4041,18 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         padding: '15px 20px 15px 20px',
         minHeight: '40px',
-        display: 'table',
         position: 'fixed',
-        zIndex: '1000',
+        top: '0',
+        left: '0',
+        background: 'rgb(6,6,6)',
+        borderBottom: '5px solid black'
+    },
+    newDarkHeader: {
+        width: '100%',
+        padding: '15px 20px 15px 20px',
+        minHeight: '40px',
+        position: 'fixed',
+        zIndex: '100',
         top: '0',
         left: '0',
         background: 'rgb(6,6,6)',
@@ -1827,7 +4285,6 @@ export const GlobalStyles = GlobalTheme => ({
         minHeight: '40px',
         display: 'table',
         position: 'fixed',
-        zIndex: '1000',
         top: '0',
         left: '0',
         background: GlobalTheme.user_styles.lightHeaderColor,
@@ -1844,7 +4301,14 @@ export const GlobalStyles = GlobalTheme => ({
     header_logo: {
         display: 'block',
         margin: 'auto',
-        height: '35px'
+        height: '35px',
+        cursor: 'pointer'
+    },
+    felzec_header_logo: {
+        display: 'block',
+        margin: 'auto',
+        height: '80px',
+        cursor: 'pointer'
     },
     body_container: {
         width: '100%',
@@ -1863,6 +4327,26 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         borderColor: 'rgba(255,255,255,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+    dark_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(255,255,255,.2)',
+        borderRadius: '10px',
+        borderStyle: 'solid',
+        borderWidth: '2px',
+        padding: '30px 0px 30px 0px',
+        margin: '10px 0px 10px 0px'
+    },
+    light_roster_item_container: {
+        width: '100%',
+        display: 'table',
+        borderColor: 'rgba(0,0,0,.2)',
         borderRadius: '10px',
         borderStyle: 'solid',
         borderWidth: '2px',
@@ -1911,11 +4395,39 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         wordBreak: 'break-all'
     },
+    dark_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'white',
+        wordBreak: 'break-all'
+    },
+    light_roster_name: {
+        fontSize: '36px',
+        fontWeight: '900',
+        color: 'black',
+        wordBreak: 'break-all'
+    },
     roster_divider: {
         lineHeight: '80px',
         fontSize: '48px',
         fontWeight: '900',
         color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    dark_roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'white',
+        marginLeft: '10px',
+        marginRight: '10px'
+    },
+    light_roster_divider: {
+        lineHeight: '80px',
+        fontSize: '48px',
+        fontWeight: '900',
+        color: 'black',
         marginLeft: '10px',
         marginRight: '10px'
     },
@@ -1937,10 +4449,38 @@ export const GlobalStyles = GlobalTheme => ({
         textAlign: 'center',
         float: 'left'
     },
+    dark_roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'white',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
+    light_roster_item_social_icon: {
+        width: '40px',
+        height: '40px',
+        lineHeight: '40px',
+        color: 'black',
+        fontSize: '24px',
+        textAlign: 'center',
+        float: 'left'
+    },
     roster_about_text: {
         lineHeight: '25px',
         fontWeight: '400',
         color: 'rgba(255,255,255,.8)'
+    },
+    dark_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(255,255,255,.8)'
+    },
+    light_roster_about_text: {
+        lineHeight: '25px',
+        fontWeight: '400',
+        color: 'rgba(0,0,0,.8)'
     },
     roster_item_title: {
         height: '30px',
@@ -2289,7 +4829,8 @@ export const GlobalStyles = GlobalTheme => ({
     menu_item: {
         width: '100%',
         height: '30px',
-        display: 'table'
+        display: 'table',
+        position: 'relative'
     },
     menu_item_icon: {
         display: 'table',
@@ -2308,6 +4849,18 @@ export const GlobalStyles = GlobalTheme => ({
         height: '30px',
         lineHeight: '30px',
         textAlign: 'left'
+    },
+    menu_item_badge: {
+        width: '60px',
+        backgroundColor: 'red',
+        color: 'white',
+        fontSize: '18px',
+        height: '30px',
+        lineHeight: '30px',
+        position: 'absolute',
+        top: '6px',
+        right: '45px',
+        borderRadius: '5px'
     },
     menu_item_dropdown: {
         padding: '10px'
@@ -2338,7 +4891,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_main_logo_spacer: {
         width: '100%',
-        height: '50px'
+        height: '20px'
     },
     admin_color_label: {
     },
@@ -2398,7 +4951,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_social_box_divider: {
         width: '100%',
-        height: '50px'
+        height: '20px'
     },
     admin_submit_box: {
         width: '100%',
@@ -2513,8 +5066,29 @@ export const GlobalStyles = GlobalTheme => ({
         marginTop: '10px',
         cursor: 'pointer'
     },
+    individual_twitch_image_holder: {
+        width: '100%',
+        marginTop: '10px',
+        marginBottom: '10px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    individual_twitch_image: {
+        width: '80px',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
     admin_sponser_image_box: {
         width: '150px',
+        height: '100px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginBottom: '20px',
+        backgroundColor: '#ccc'
+    },
+    admin_sponser_bg_image_box: {
+        width: '300px',
         height: '100px',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -2530,6 +5104,10 @@ export const GlobalStyles = GlobalTheme => ({
         width: '150px',
         height: '100px'
     },
+    admin_sponser_bg_image: {
+        width: '300px',
+        height: '100px'
+    },
     modal_news_header: {
         width: '100%',
         height: '250px'
@@ -2542,8 +5120,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_news_body: {
         width: '100%',
         height: '50vh',
-        padding: '20px 15px 20px 15px',
-        overflow: 'hidden'
+        padding: '20px 15px 50px 15px'
     },
     modal_about_body: {
         width: '100%',
@@ -2556,12 +5133,40 @@ export const GlobalStyles = GlobalTheme => ({
         color: 'white',
         overflowY: 'scroll'
     },
+    dark_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'white',
+        overflowY: 'scroll'
+    },
+    light_modal_news_body_text: {
+        width: '100%',
+        height: '100%',
+        color: 'black',
+        overflowY: 'scroll'
+    },
     modal_about_header: {
         width: '100%',
         height: '120px',
         lineHeight: '120px',
         textAlign: 'left',
         color: 'white',
+        fontSize: '48px'
+    },
+    dark_modal_about_header: {
+        width: '100%',
+        height: '120px',
+        lineHeight: '120px',
+        textAlign: 'left',
+        color: 'white',
+        fontSize: '48px'
+    },
+    light_modal_about_header: {
+        width: '100%',
+        height: '120px',
+        lineHeight: '120px',
+        textAlign: 'left',
+        color: 'black',
         fontSize: '48px'
     },
     modal_inner: {
@@ -2613,7 +5218,7 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100px',
         height: '200px',
         borderStyle: 'solid',
-        borderWidth: '2px',
+        borderWidth: '4px',
         borderColor: 'blue',
         cursor: 'pointer',
         marginRight: '10px',
@@ -2691,6 +5296,23 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
     individual_edit_button: {
+        height: '40px',
+        lineHeight: '40px',
+        padding: '0px 20px 0px 20px',
+        fontSize: '18px',
+        fontWeight: '900',
+        borderColor: 'white',
+        borderWidth: '1px',
+        borderRadius: '5px',
+        borderStyle: 'solid',
+        cursor: 'pointer',
+        color: 'white',
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: '20px',
+        right: '120px'
+    },
+    individual_login_button: {
         height: '40px',
         lineHeight: '40px',
         padding: '0px 20px 0px 20px',
@@ -2827,14 +5449,24 @@ export const GlobalStyles = GlobalTheme => ({
         padding: '20px 10px 20px 10px',
         borderBottom: "1px rgba(255,255,255,.1) solid"
     },
+    indiviual_stats_description_container: {
+        width: '100%',
+        maxHeight: '222px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        padding: '20px 10px 20px 10px',
+        borderBottom: "1px rgba(255,255,255,.1) solid"
+    },
     individual_stats_title: {
         color: 'white',
         fontSize: '16px',
+        lineHeight: '30px',
         fontWeight: '900'
     },
     individual_stats_data: {
         color: 'rgba(255,255,255,.9)',
         fontSize: '24px',
+        lineHeight: '30px',
         fontWeight: '300',
         float: 'right'
     },
@@ -2923,7 +5555,7 @@ export const GlobalStyles = GlobalTheme => ({
     modal_individual_submit_button: {
         height: '40px',
         lineHeight: '40px',
-        width: '200px',
+        width: '95%',
         fontSize: '18px',
         fontWeight: '900',
         borderColor: 'white',

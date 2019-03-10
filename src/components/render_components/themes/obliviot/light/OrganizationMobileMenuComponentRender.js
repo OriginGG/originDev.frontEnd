@@ -25,11 +25,16 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                         </a>
                     </div>
                     <div className={this.props.classes.light_mobile_menu_item}>
+                        <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleViewBlogClick}>
+                            Blog
+                        </a>
+                    </div>
+                    <div className={this.props.classes.light_mobile_menu_item}>
                         <a className={this.props.classes.light_mobile_menu_item_box} onClick={this.props.handleLoginClick}>
                             Login
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
+                    <div className={this.props.classes.light_mobile_menu_item} style={this.props.facebook_style}>
                         <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
@@ -38,7 +43,7 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                             Facebook
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
+                    <div className={this.props.classes.light_mobile_menu_item} style={this.props.twiiter_style}>
                         <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
@@ -47,7 +52,7 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                             Twitter
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
+                    <div className={this.props.classes.light_mobile_menu_item} style={this.props.youtube_style}>
                         <a className={this.props.classes.light_mobile_menu_item_box} onClick={( ) => {
                             this
                                 .props
@@ -56,7 +61,7 @@ class LightOrganizationMobileMenuComponentRender extends Component {
                             Youtube
                         </a>
                     </div>
-                    <div className={this.props.classes.light_mobile_menu_item}>
+                    <div className={this.props.classes.light_mobile_menu_item} style={this.props.mobile_roster_item}>
                         <div className={this.props.classes.light_mobile_menu_item_box}>
                             Rosters
                         </div>

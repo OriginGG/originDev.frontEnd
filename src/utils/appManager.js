@@ -28,6 +28,7 @@ class AppManager {
             this.logged_in = false;
             this.serveDomain = null;
             this.admin_logged_in = false;
+            this.blog_id = -1;
             // this.localDB = new PouchDB('user', { adapter: 'idb', revs_limit: 1, auto_compaction: true });
         }
 
@@ -46,6 +47,16 @@ class AppManager {
         console.log(e);
     };
     convertYoutubeURL = (url) => {
+        if (url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;       // eslint-disable-line
+            const match = url.match(regExp);
+            if (match && match[2].length === 11) {
+                return `https://www.youtube.com/embed/${match[2]}`;
+            }
+        }
+        return null;
+    }
+    convertTwitchURL = (url) => {
         if (url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;       // eslint-disable-line
             const match = url.match(regExp);
@@ -77,18 +88,39 @@ class AppManager {
     pouchDelete = (_id) => {
         store.remove(_id);
         // try {
-            // const doc = await this.localDB.get(_id);
-            // return await this.localDB.remove(doc);
+        // const doc = await this.localDB.get(_id);
+        // return await this.localDB.remove(doc);
         // } catch (e) {
-            // return null;
+        // return null;
         // }
     }
+
+    checkFileSizeLimit = (f) => {
+        const max_size = (process.env.REACT_APP_CLOUDINARY_MAX_UPLOAD_SIZE_MB * 1024) * 1024;
+        if (f && f.size > max_size) {
+            toast.error(`File size too large to upload - maximum size is ${process.env.REACT_APP_CLOUDINARY_MAX_UPLOAD_SIZE_MB}mb`, {
+                position: toast.POSITION.TOP_LEFT,
+                autoClose: 5000
+            });
+            return false;
+        }
+        return true;
+    }
+    insertCloudinaryOptions = (u) => {
+        const opts = `${process.env.REACT_APP_CLOUDINARY_URL_OPTIONS}/`;
+        const position = u.indexOf('upload/') + 7;
+        const output = [u.slice(0, position), opts, u.slice(position)].join('');
+        return output;
+    }
+
     getDomainInfo = () => {
         const regex = /[.:]/g;
-        const { hostname, port, protocol } = window.location;
-        console.log(`${hostname}, ${port}, ${protocol}`);
+        const {
+            hostname, port, protocol, pathname
+        } = window.location;
+        // console.log(`${hostname}, ${port}, ${protocol}`);
         const url_string = `${hostname}${(port === 443 || port === 80 || port === '') ? '' : `:${port}`}`;
-        console.log(`urlstring = ${url_string}`);
+        // console.log(`urlstring = ${url_string}`);
         const spString = url_string.split(regex);
         let subDomain;
         if (spString.length === 3) {
@@ -103,7 +135,8 @@ class AppManager {
             hostname,
             protocol,
             port,
-            subDomain
+            subDomain,
+            pathname
         };
     }
     decodeJWT = token => {
@@ -173,6 +206,7 @@ class AppManager {
         try {
             return this.executeApolloQuery(type, query, p, this.apolloClientAuth);
         } catch (err) {
+            console.log(`error query: ${query}`);
             throw err;
         }
     }
@@ -184,6 +218,7 @@ class AppManager {
         try {
             return this.executeApolloQuery(type, query, p, this.apolloClient);
         } catch (err) {
+            console.log(`error query: ${query}`);
             throw err;
         }
     }
@@ -191,16 +226,16 @@ class AppManager {
     executeApolloQuery = async (type, query, payload, client) => {
         return new Promise(async (resolve, reject) => {
             if (type === 'mutation') {
-                try {
-                    const data = await client
-                        .mutate({
-                            mutation: query,
-                            variables: payload
-                        });
-                    resolve(data.data);
-                } catch (err) {
-                    reject(new Error('Network Error'));
-                }
+                // try {
+                const data = await client
+                    .mutate({
+                        mutation: query,
+                        variables: payload
+                    });
+                resolve(data.data);
+                // } catch (err) {
+                // reject(new Error('Network Error'));
+                // }
             } else {
                 try {
                     const data = await client
@@ -211,6 +246,8 @@ class AppManager {
                         });
                     resolve(data.data);
                 } catch (err) {
+                    console.log(`error query: ${query.definitions[0].name.value}`);
+                    console.log(`error = ${JSON.stringify(err)}`);
                     reject(new Error('Network Error'));
                 }
             }

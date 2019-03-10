@@ -24,18 +24,9 @@ class IndividualBasicInfoComponentRender extends Component {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <i className="icon mail"/>
-                                        Email Address
+                                        <i className="icon mail"/>Contact Email
                                         <div className={this.props.classes.individual_basic_text}>
-                                            <p id="basic_email">{this.props.email}</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <i className="icon phone"/>Contact Number
-                                        <div className={this.props.classes.individual_basic_text}>
-                                            <p id="basic_phone">{this.props.contactNumber}</p>
+                                            <p id="basic_phone">{this.props.contactEmail}</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -53,7 +44,7 @@ class IndividualBasicInfoComponentRender extends Component {
                             <div style={{
                                 padding: '10px'
                             }}>
-                                <p id="basic_accomplishments"/>
+                                <p id="basic_accomplishments">{this.props.accomplishments}</p>
                             </div>
                         </div>
                     </div>

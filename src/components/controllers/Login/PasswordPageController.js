@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import injectSheet, { ThemeProvider } from 'react-jss';
+// import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { Segment, Button, Input } from 'semantic-ui-react/dist/commonjs';
 import { Row, Col } from 'antd';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { GlobalStyles } from 'Theme/Theme';
+// import { GlobalStyles } from 'Theme/Theme';
 import SignupPageComponentRender from '../../render_components/signup/SignupPageComponentRender';
 import logoTop from '../../../assets/images/logo-top.png';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
@@ -104,8 +104,9 @@ class InputBoxPassword extends Component {
 class PasswordPageController extends Component {
     state = { visible: false, rsComponent: null };
     componentDidMount = () => {
+        document.getElementById('origin_loader').style.display = 'none';
         const t = this.props.appManager.GetQueryParams('t');
-        this.current_id = this.props.appManager.GetQueryParams('id');
+        this.current_id = parseInt(this.props.appManager.GetQueryParams('id'), 10);
         let rsComponent = <span />;
         this.ind = false;
         switch (t) {
@@ -178,7 +179,7 @@ class PasswordPageController extends Component {
                 historyStore.push('/signup');
             }, 5000);
         }
-        console.log(r);
+        // console.log(r);
     }
 
     handleSubmitPassword = async (v) => {
@@ -192,7 +193,11 @@ class PasswordPageController extends Component {
             autoClose: 5000
         });
         setTimeout(() => {
-            historyStore.push('/signup');
+            if (!this.ind) {
+                historyStore.push('/login_org');
+            } else {
+                historyStore.push('/login_ind');
+            }
         }, 5000);
     }
     sendEmail = (url) => {
@@ -210,15 +215,15 @@ class PasswordPageController extends Component {
             return null;
         }
         return (
-            <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
+            // <ThemeProvider theme={this.props.uiStore.origin_theme_data}>
                 <SignupPageComponentRender headerComponent={<HeaderComp />} bodyComponent={this.state.rsComponent} />
-            </ThemeProvider>
+            // </ThemeProvider>
         );
     }
 }
 
 PasswordPageController.propTypes = {
-    uiStore: PropTypes.object.isRequired,
+    // uiStore: PropTypes.object.isRequired,
     appManager: PropTypes.object.isRequired,
 };
 
@@ -231,5 +236,5 @@ InputBoxPassword.propTypes = {
 };
 
 
-export default inject('uiStore', 'appManager')(injectSheet(GlobalStyles)(PasswordPageController));
+export default inject('uiStore', 'appManager')(PasswordPageController);
 

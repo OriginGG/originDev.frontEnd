@@ -18,6 +18,13 @@ class OrganizationAdminMenuComponentRender extends Component {
                                 <div className={this.props.classes.menu_title_text}>
                                     Admin Panel
                                 </div>
+                                <a style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '10px'
+                                }} className="item" onClick={this.props.handleCloseClick}>
+                                    <i className="close icon" style={this.props.close_style}/>
+                                </a>
                             </div>
                             <div className={this.props.classes.menu_user_container}>
                                 <div className={this.props.classes.menu_user_logo}>
@@ -53,20 +60,7 @@ class OrganizationAdminMenuComponentRender extends Component {
                                     </div>
                                 </div>
                             </a>
-                            <a className="item" onClick={e => {
-                                this
-                                    .props
-                                    .handleMainMenuClick( 'subscription', e );
-                            }}>
-                                <div className={this.props.classes.menu_item}>
-                                    <div className={this.props.classes.menu_item_icon}>
-                                        <i className="dollar icon"/>
-                                    </div>
-                                    <div className={this.props.classes.menu_item_label}>
-                                        Subscription
-                                    </div>
-                                </div>
-                            </a>
+                            <div >{this.props.paywall_content}</div>
                             <div className="ui inverted accordion">
                                 <div >{this.props.dropdown}</div>
                             </div>
