@@ -36,6 +36,7 @@ import { getEmailRegistrationQuery } from '../../../queries/registrations';
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 import stripeImage from '../../../assets/images/stripeSecure.png';
+import Chatlio from '../Plugins/Chatlio';
 
 const { confirm } = Modal;
 
@@ -556,6 +557,7 @@ class AdminPageController extends Component {
 						</div>
 					</div>
 				)}
+				<Chatlio />
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
 					<Sidebar.Pushable as={Segment}>
 						<Sidebar
