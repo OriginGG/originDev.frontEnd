@@ -688,11 +688,11 @@ class IndividualPageController extends Component {
         let ss = { display: 'none' };
         if (this.isMobile()) {
             if (this.is_admin === false) {
-                s = { display: 'none', bottom: '320px' };
-                ss = { display: 'inherit', bottom: '320px' };
+                s = { display: 'none', bottom: '140px' };
+                ss = { display: 'inherit', bottom: '140px' };
             } else {
-                s = { display: 'inherit', bottom: '320px', right: '20px' };
-                ss = { display: 'none', bottom: '320px' };
+                s = { display: 'inherit', bottom: '140px', right: '20px' };
+                ss = { display: 'none', bottom: '140px' };
             }
         } else {
             if (this.is_admin === false) {

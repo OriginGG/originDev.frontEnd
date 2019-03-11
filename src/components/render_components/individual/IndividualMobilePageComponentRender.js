@@ -10,8 +10,8 @@ class IndividualPageComponentRender extends Component {
             <div>
                 <div className={this.props.classes.individual_mobile_bg}>
                     <div className={this.props.classes.individual_mobile_inner_bg}>
-                        <div className={this.props.classes.individual_header}>
-                            <img className={this.props.classes.individual_header_image} src={this.props.bannerImageUrl}/>
+                        <div className={this.props.classes.individual_mobile_header}>
+                            <img className={this.props.classes.individual_mobile_header_image} src={this.props.bannerImageUrl}/>
                             <div id="edit_button" className={this.props.classes.individual_edit_button} onClick={this.props.handleEditClick} style={this.props.button_style}>
                                 Edit
                             </div>

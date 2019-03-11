@@ -5307,6 +5307,17 @@ export const GlobalStyles = GlobalTheme => ({
         height: '400px',
         objectFit: 'cover'
     },
+    individual_mobile_header: {
+        width: '100%',
+        height: '200px',
+        position: 'relative',
+        backgroundColor: '#000',
+    },
+    individual_mobile_header_image: {
+        width: '100%',
+        height: '200px',
+        objectFit: 'cover'
+    },
     individual_edit_button: {
         height: '40px',
         lineHeight: '40px',
