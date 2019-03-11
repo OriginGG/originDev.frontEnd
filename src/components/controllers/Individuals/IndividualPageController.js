@@ -7,12 +7,12 @@ import { Card, Icon, Image, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
 import { toast } from 'react-toastify';
 import Dropzone from 'react-dropzone';
+import { isMobile } from 'react-device-detect';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import uiStore from '../../../utils/stores/uiStore';
 import blankImage from '../../../assets/images/blank_person.png';
 import { getIndividualUserByHandleQuery, getIndividualUserQuery, updateIndividualUserQuery } from '../../../queries/individuals';
-import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
 // import IndividualSocialStatsComponentRender from '../../render_components/individual/IndividualSocialStatsComponentRender';
 import IndividualTwitterStatsComponentRender from '../../render_components/individual/IndividualTwitterStatsComponentRender';
 import IndividualInstagramStatsComponentRender from '../../render_components/individual/IndividualInstagramStatsComponentRender';
@@ -349,6 +349,8 @@ class IndividualPageController extends Component {
     state = {
         visible: false,
         modal_open: false,
+        IndividualPageComponentRender: null,
+
     };
     componentDidMount = async () => {
         this.is_admin = false;
@@ -356,6 +358,12 @@ class IndividualPageController extends Component {
         this.twitter_stats = null;
         this.instagram_stats = null;
         this.youtube_stats = null;
+        // import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
+        let IndividualPageComponentRender = await import('../../render_components/individual/IndividualPageComponentRender');
+        if (this.isMobile()) {
+            IndividualPageComponentRender = await import('../../render_components/individual/IndividualMobilePageComponentRender');
+        }
+        this.setState({ IndividualPageComponentRender: IndividualPageComponentRender.default });
         const view_id = this.props.appManager.GetQueryParams('u');
         const handle = (location.pathname).replace('/individual/', '');            // eslint-disable-line
         // console.log('view_id' + view_id); // eslint-disable-line
@@ -431,6 +439,15 @@ class IndividualPageController extends Component {
                 }
             }
         }
+    }
+
+    isMobile = () => {
+        // return true;
+        // console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
     }
 
     getStats = async () => {
@@ -668,8 +685,20 @@ class IndividualPageController extends Component {
                 twitter_screen_name={twitter_screen_name} />;
         }
         let s = { display: 'inherit' };
-        if (this.is_admin === false) {
-            s = { display: 'none' };
+        let ss = { display: 'none' };
+        if (this.isMobile()) {
+            if (this.is_admin === false) {
+                s = { display: 'none', bottom: '320px' };
+                ss = { display: 'inherit', bottom: '320px' };
+            } else {
+                s = { display: 'inherit', bottom: '320px', right: '20px' };
+                ss = { display: 'none', bottom: '320px' };
+            }
+        } else {
+            if (this.is_admin === false) {
+                s = { display: 'none' };
+                ss = { display: 'inherit' };
+            }
         }
         // let v1 = null;
         // let v2 = null;
@@ -692,6 +721,7 @@ class IndividualPageController extends Component {
         if (!bi) {
             bi = 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg';
         }
+        const { IndividualPageComponentRender } = this.state;
         return (
             <div>
                 <IndividualPageComponentRender
@@ -699,6 +729,7 @@ class IndividualPageController extends Component {
                     handleEditClick={this.handleEditClick}
                     handleLoginClick={this.handleLoginClick}
                     button_style={s}
+                    login_button_style={ss}
                     ColumnOne={
                         <IndividualBasicInfoComponentRender
                             profileImageUrl={pi}
