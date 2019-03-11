@@ -236,6 +236,7 @@ const component_array = [
     { source_html: './src/html/themes/admin/OrganizationAdminCollaboratorComponent.html', sub_dir: 'admin' },
     
     { source_html: './src/html/themes/individual/IndividualPageComponent.html', sub_dir: 'individual' },
+    { source_html: './src/html/themes/individual/IndividualMobilePageComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualBasicInfoComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualSocialStatsComponent.html', sub_dir: 'individual' },
     { source_html: './src/html/themes/individual/IndividualYoutubeStatsComponent.html', sub_dir: 'individual' },

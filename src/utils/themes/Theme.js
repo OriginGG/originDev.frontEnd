@@ -5284,6 +5284,18 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         padding: '0px 25px 0px 0px'
     },
+    individual_mobile_bg: {
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: 'black',
+        display: 'table'
+    },
+    individual_mobile_inner_bg: {
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: 'rgb(35,35,35)',
+        display: 'table'
+    },
     individual_header: {
         width: '100%',
         height: '400px',
