@@ -684,7 +684,7 @@ class IndividualPageController extends Component {
                 twitter_favourite_count={twitter_favourite_count}
                 twitter_screen_name={twitter_screen_name} />;
         }
-        let s = { display: 'inherit' };
+        let s = { display: 'inherit', right: '20px' };
         let ss = { display: 'none' };
         if (this.isMobile()) {
             if (this.is_admin === false) {
