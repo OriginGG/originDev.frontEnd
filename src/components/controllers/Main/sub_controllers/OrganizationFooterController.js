@@ -119,7 +119,7 @@ class OrganizationFooterController extends Component {
         const news_array = [];
         for (let i = 0; i < 3; i += 1) {
             if (this.results_array[i]) {
-                news_array.push(<OrganizationFooterNewsComponentRender handleNewsClick={this.props.handleNewsClick} blog={this.results_array[i].blog} blog_media={this.results_array[i].media} blog_content={this.results_array[i].content} blog_title={this.results_array[i].title} />);
+                news_array.push(<OrganizationFooterNewsComponentRender handleNewsClick={this.props.handleNewsClick} blog={this.results_array[i].blog} blog_media={this.results_array[i].media} blog_content={this.results_array[i].title} blog_title={this.results_array[i].date} />);
             } else {
                 const b_title_1 = 'Coming Soon';
                 const b_media_1 = default_image;
