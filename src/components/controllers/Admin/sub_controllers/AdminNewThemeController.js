@@ -222,7 +222,7 @@ class AdminThemeController extends Component {
                 const s = toJS(this.props.uiStore.current_theme_structure);
                 await this.props.appManager.executeQuery('mutation', updateThemeQuery, { id: this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id, themeName: this.props.uiStore.current_organisation.subDomain, themeStructure: JSON.stringify(s) });
                 this.setState({ reader_image_src: lf, modal_open: false });
-                toast.success('Jumbotron updated !', {
+                toast.success('Image updated !', {
                     position: toast.POSITION.TOP_LEFT
                 });
             }

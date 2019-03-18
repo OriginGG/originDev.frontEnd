@@ -160,7 +160,7 @@ class _CreditController extends Component {
 					</label>
 					<div style={{ paddingTop: 24 }}>
 						<Button size="mini" primary>
-							START FREE TRIAL
+							{this.props.buttonText}
 						</Button>
 						<Button onClick={this.props.handleBack} size="mini" style={{ float: 'right' }}>
 							BACK
@@ -200,12 +200,21 @@ class PaywallContent extends Component {
 		customer: null // eslint-disable-line
 	};
 	componentDidMount = async () => {
+		this.update_payment = false;
+		if (this.props.location.state) {
+			const { state } = this.props.location;
+			if (state.update_card) {
+				this.update_payment = true;
+			}
+		}
 		document.getElementById('origin_loader').style.display = 'none';
-		const plans = await axios.get(
-			`${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env
-				.REACT_APP_STRIPE_PRODUCT_ID}`
-		);
-		this.pay_plans = plans.data.data;
+		if (!this.update_payment) {
+			const plans = await axios.get(
+				`${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env
+					.REACT_APP_STRIPE_PRODUCT_ID}`
+			);
+			this.pay_plans = plans.data.data;
+		}
 		const { user_id } = uiStore;
 		if (!user_id) {
 			browserHistory.push('/login_org');
@@ -216,7 +225,12 @@ class PaywallContent extends Component {
 		const customer = await axios.get(
 			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 		);
-		this.setState({ visible: true, customer: customer.data.customer }); // eslint-disable-line
+		this.setState({
+			display_credit_form: this.update_payment,
+			display_plan: !this.update_payment,
+			visible: true,
+			customer: customer.data.customer
+		}); // eslint-disable-line
 	};
 	setDimmer = (f) => {
 		this.setState({ dimmer: f });
@@ -282,84 +296,99 @@ class PaywallContent extends Component {
 						this.props.callback(false);
 					} else {
 						if (response.data.status === 'success') {
-							// now we delete previous subscription, and create a new one, with trial days left.
-							const { subscriptions } = response.data.cust;
-							const { id } = subscriptions.data[0];
-							await axios.post(
-								`${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
-								{
-									id
-								},
-								{
-									headers: {
-										'Content-Type': 'application/json'
-									}
-								}
-							);
-							this.subscription_days_left = null;
-							const { trial_end } = subscriptions.data[0];
-							if (trial_end) {
-								const cur = dayjs(new Date());		// .toLocaleString('en-US', { timeZone: 'America/New_York' }));
-								// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
-								const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
-								// const cur = moment().tz('America/New_York');
-								// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
-								this.subscription_days_left = day_diff + 1;
-								if (this.subscription_days_left > subscriptions.data[0].plan.trial_period_days) {
-									this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
-								}
-							}
-							await axios.post(
-								`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
-								{
-									customer_id: response.data.cust.id,
-									plan: this.selected_plan.id,
-									trial_period_days: this.subscription_days_left
-								},
-								{
-									headers: {
-										'Content-Type': 'application/json'
-									}
-								}
-							);
-
-							this.setDimmer(false);
-							await appManager.executeQueryAuth('mutation', updateUserQuery, {
-								id: uiStore.user_id,
-								subscribed: true
-							});
-							toast.success('Thanks - You have been successfully subscribed!', {
-								position: toast.POSITION.TOP_LEFT,
-								autoClose: 3000
-							});
-							appManager.executeQueryAuth('query', getUserQuery, { id: uiStore.user_id }).then((pl) => {
-								let slack_payload = {
-									text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl
-										.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl
-										.resultData.email}\n`
-								};
-								if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
-									slack_payload = {
-										text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${pl.resultData.firstName} ${pl
-											.resultData.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${pl
-											.resultData.email}\n`
-									};
-								}
-								axios.post(
-									process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
-									JSON.stringify(slack_payload),
+							if (!this.update_payment) {
+								// now we delete previous subscription, and create a new one, with trial days left.
+								const { subscriptions } = response.data.cust;
+								const { id } = subscriptions.data[0];
+								await axios.post(
+									`${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
 									{
-										withCredentials: false,
-										transformRequest: [
-											(data, headers) => {
-												delete headers.post['Content-Type']; // eslint-disable-line
-												return data;
-											}
-										]
+										id
+									},
+									{
+										headers: {
+											'Content-Type': 'application/json'
+										}
 									}
 								);
-							});
-							this.props.callback(true, this.selected_plan, this.state.customer);
+								this.subscription_days_left = null;
+								const { trial_end } = subscriptions.data[0];
+								if (trial_end) {
+									const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+									// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+									const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
+									// const cur = moment().tz('America/New_York');
+									// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+									this.subscription_days_left = day_diff + 1;
+									if (this.subscription_days_left > subscriptions.data[0].plan.trial_period_days) {
+										this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
+									}
+								}
+								await axios.post(
+									`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+									{
+										customer_id: response.data.cust.id,
+										plan: this.selected_plan.id,
+										trial_period_days: this.subscription_days_left
+									},
+									{
+										headers: {
+											'Content-Type': 'application/json'
+										}
+									}
+								);
+
+								this.setDimmer(false);
+								await appManager.executeQueryAuth('mutation', updateUserQuery, {
+									id: uiStore.user_id,
+									subscribed: true
+								});
+								toast.success('Thanks - You have been successfully subscribed!', {
+									position: toast.POSITION.TOP_LEFT,
+									autoClose: 3000
+								});
+								appManager
+									.executeQueryAuth('query', getUserQuery, { id: uiStore.user_id })
+									.then((pl) => {
+										let slack_payload = {
+											text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${pl.resultData
+												.firstName} ${pl.resultData.lastName}\n*Plan:* ${this.selected_plan
+												.id}\n*Owner Email:* ${pl.resultData.email}\n`
+										};
+										if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+											slack_payload = {
+												text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${pl
+													.resultData.firstName} ${pl.resultData.lastName}\n*Plan:* ${this
+													.selected_plan.id}\n*Owner Email:* ${pl.resultData.email}\n`
+											};
+										}
+										axios.post(
+											process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
+											JSON.stringify(slack_payload),
+											{
+												withCredentials: false,
+												transformRequest: [
+													(data, headers) => {
+														delete headers.post['Content-Type']; // eslint-disable-line
+														return data;
+													}
+												]
+											}
+										);
+									});
+								this.props.callback(true, this.selected_plan, this.state.customer);
+							} else {
+								toast.success(
+									'Thanks - You have been successfully updated your card details, redirecting you back to login page!',
+									{
+										position: toast.POSITION.TOP_LEFT,
+										autoClose: 3000
+									}
+								);
+								setTimeout(() => {
+									browserHistory.push('/login_org');
+								}, 3000);
+							}
 						}
 					}
 				}
@@ -372,6 +401,10 @@ class PaywallContent extends Component {
 	render() {
 		if (!this.state.visible) {
 			return null;
+		}
+		let bt = 'PURCHASE';
+		if (this.update_payment) {
+			bt = 'UPDATE CARD';
 		}
 		const pwallContent = (
 			<div>
@@ -389,6 +422,7 @@ class PaywallContent extends Component {
 								plans={this.selected_plan}
 								handleBack={this.handleBack}
 								handleSubmit={this.handleCCSubmit}
+								buttonText={bt}
 							/>
 						</Elements>
 						<Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
@@ -403,13 +437,11 @@ class PaywallContent extends Component {
 				)}
 			</div>
 		);
-		return (
-			<PaywallComponentRender
-				namestring="SUBSCRIPTION"
-				payWallContent={pwallContent}
-				input_title="CHOOSE YOUR PLAN BELOW:"
-			/>
-		);
+		let t = 'CHOOSE YOUR PLAN BELOW.';
+		if (this.update_payment) {
+			t = 'CHANGE YOUR CARD DETAILS BELOW.';
+		}
+		return <PaywallComponentRender namestring="SUBSCRIPTION" payWallContent={pwallContent} input_title={t} />;
 	}
 }
 
@@ -424,7 +456,7 @@ class PaywallController extends Component {
 		if (!this.state.subscribed) {
 			return (
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
-					<PaywallContent callback={this.handleCallback} />
+					<PaywallContent location={this.props.location} callback={this.handleCallback} />
 				</StripeProvider>
 			);
 		}
@@ -460,9 +492,13 @@ class PaywallController extends Component {
 		);
 	}
 }
+PaywallController.propTypes = {
+	location: PropTypes.object.isRequired
+};
 
 PaywallContent.propTypes = {
-	callback: PropTypes.func.isRequired
+	callback: PropTypes.func.isRequired,
+	location: PropTypes.object.isRequired
 };
 PlanController.propTypes = {
 	plans: PropTypes.array.isRequired,
@@ -474,7 +510,8 @@ _CreditController.propTypes = {
 	plan: PropTypes.object.isRequired,
 	fontSize: PropTypes.string.isRequired,
 	handleSubmit: PropTypes.func.isRequired,
-	handleBack: PropTypes.func.isRequired
+	handleBack: PropTypes.func.isRequired,
+	buttonText: PropTypes.string.isRequired
 };
 PricePlanBlock.propTypes = {
 	plan: PropTypes.object.isRequired,

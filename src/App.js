@@ -16,7 +16,7 @@ import { GlobalStyles } from './utils/themes/Theme';
 import './App.css';
 import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
 // import OriginLandingPageController from './components/controllers/Login/OriginLandingPageController';
-import { SignupInd, SignupOrg, LoginInd, LoginOrg } from './components/controllers/Login/CredentialsController';
+import { SignupInd, SignupOrg, LoginInd, LoginOrg, LoginOrgUpdatePayment } from './components/controllers/Login/CredentialsController';
 import PaywallController from './components/controllers/Login/PaywallController';
 // Test
 
@@ -32,6 +32,7 @@ class App extends Component {
 				<Route exact path="/signup_ind" component={SignupInd} />
 				<Route exact path="/login_org" component={LoginOrg} />
 				<Route exact path="/login_ind" component={LoginInd} />
+				<Route exact path="/update_payment" component={LoginOrgUpdatePayment} />
 				<Route exact path="/new_signup" component={NewSignupPageController} />
 				<Route exact path="/password" component={PasswordPageController} />
 				<Route exact path="/new_signup_ind" component={NewSignupIndividualPageController} />
