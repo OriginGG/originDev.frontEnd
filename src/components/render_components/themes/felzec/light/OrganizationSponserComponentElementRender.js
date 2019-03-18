@@ -9,9 +9,9 @@ class LightOrganizationSponserComponentElementRender extends Component {
         return (
             <div>
                 <div style={{
-                    width: '25%',
-                    float: 'left'
-                }} className="container col-sm-4" onClick={this.props.handleClick}>
+                    minWidth: '25%',
+                    float: 'center'
+                }} onClick={this.props.handleClick}>
                     <img alt="Change Logo" className={this.props.classes.felzec_header_logo} src={this.props.sponsor_image}/>
                 </div>
             </div>

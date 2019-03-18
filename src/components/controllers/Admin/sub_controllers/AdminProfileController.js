@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import injectSheet from 'react-jss';
 import Dropzone from 'react-dropzone';
+import { isMobile } from 'react-device-detect';
 import { toJS } from 'mobx';
 // import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
@@ -59,6 +60,14 @@ class AdminProfileController extends Component {
     getInputValue = (i) => {
         return i === null ? '' : i;
     }
+    isMobile = () => {
+        // return true;
+        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+        if (isMobile || window.outerWidth < 1050) {
+            return true;
+        }
+        return false;
+    };
     isURL = (str) => {
         // console.log(`string is ${str}`);
         return str.includes('http');
@@ -310,9 +319,13 @@ class AdminProfileController extends Component {
         this.dropzoneRef.open();
     }
     render() {
+        let admin_width = 'calc(100vw - 380px)';
+        if (this.isMobile()) {
+            admin_width = '100%';
+        }
         return (
             <div style={{
-                width: 'calc(100vw - 380px)'
+                width: admin_width
             }}>
                 <Dropzone onDrop={this.uploadFile} style={{ width: 0, height: 0 }} ref={(node) => { this.dropzoneRef = node; }} />
                 <OrganizationAdminProfileComponentRender

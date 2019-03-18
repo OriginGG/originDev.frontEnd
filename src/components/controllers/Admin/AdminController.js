@@ -36,6 +36,7 @@ import { getEmailRegistrationQuery } from '../../../queries/registrations';
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 import stripeImage from '../../../assets/images/stripeSecure.png';
+import Chatlio from '../Plugins/Chatlio';
 
 const { confirm } = Modal;
 
@@ -398,7 +399,9 @@ class AdminPageController extends Component {
 	render() {
 		let pwc = <span />;
 		let awc = <span />;
+		let update_card_style = { display: 'inherit' };
 		if (this.subscription_days_left !== null) {
+			update_card_style = { display: 'none' };
 			pwc = (
 				<Card>
 					<Card.Content>
@@ -490,6 +493,16 @@ class AdminPageController extends Component {
 				p_component = <AdminMembersController />;
 				break;
 			}
+			case 'update_card': {
+				const domainInfo = this.props.appManager.getDomainInfo();
+				const { hostname } = domainInfo;
+				const subDomain =
+					domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
+				const new_host = hostname.replace(`${subDomain}.`, '');
+				const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+				window.location = `${u_string}/update_payment`;
+				break;
+			}
 			case 'recentmatches': {
 				p_component = <AdminRecentMatchesController />;
 				break;
@@ -512,6 +525,12 @@ class AdminPageController extends Component {
 		}
 		const nd = this.props.uiStore.current_organisation.usersByOrganisationId.edges[0].node;
 		const full_name = `${nd.firstName} ${nd.lastName}`;
+		let nav_button = { right: '370px' };
+		let close_style = { display: 'none' };
+		if (this.isMobile()) {
+			nav_button = { right: '10px' };
+			close_style = { displa: 'inherit' };
+		}
 		return (
 			<div id="outer-container">
 				{this.state.error_page && (
@@ -550,6 +569,7 @@ class AdminPageController extends Component {
 						</div>
 					</div>
 				)}
+				<Chatlio />
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
 					<Sidebar.Pushable as={Segment}>
 						<Sidebar
@@ -564,6 +584,9 @@ class AdminPageController extends Component {
 							<OrganizationAdminMenuComponentRender
 								key={`admin_sidebar_key_${this.my_key}`}
 								handleMainMenuClick={this.handleManageClick}
+								handleCloseClick={this.handleClick}
+								close_style={close_style}
+								update_card_style={update_card_style}
 								paywall_content={info_block}
 								dropdown={
 									<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
@@ -576,6 +599,7 @@ class AdminPageController extends Component {
 							<Segment basic>
 								<div style={{ height: '100vh', overflowY: 'auto' }}>
 									<OrganizationAdminPageComponentRender
+										navigate_style={nav_button}
 										admin_content={p_component}
 										handleClick={this.handleClick}
 										handleNavClick={this.handleNavClick}

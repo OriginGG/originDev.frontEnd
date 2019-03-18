@@ -18,6 +18,13 @@ class OrganizationAdminMenuComponentRender extends Component {
                                 <div className={this.props.classes.menu_title_text}>
                                     Admin Panel
                                 </div>
+                                <a style={{
+                                    position: 'absolute',
+                                    top: '10px',
+                                    right: '10px'
+                                }} className="item" onClick={this.props.handleCloseClick}>
+                                    <i className="close icon" style={this.props.close_style}/>
+                                </a>
                             </div>
                             <div className={this.props.classes.menu_user_container}>
                                 <div className={this.props.classes.menu_user_logo}>
@@ -50,6 +57,20 @@ class OrganizationAdminMenuComponentRender extends Component {
                                     </div>
                                     <div className={this.props.classes.menu_item_label}>
                                         Members
+                                    </div>
+                                </div>
+                            </a>
+                            <a className="item" style={this.props.update_card_style} onClick={e => {
+                                this
+                                    .props
+                                    .handleMainMenuClick( 'update_card', e );
+                            }}>
+                                <div className={this.props.classes.menu_item}>
+                                    <div className={this.props.classes.menu_item_icon}>
+                                        <i className="credit card outline icon"/>
+                                    </div>
+                                    <div className={this.props.classes.menu_item_label}>
+                                        Update Payment Card
                                     </div>
                                 </div>
                             </a>

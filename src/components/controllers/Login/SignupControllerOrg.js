@@ -69,7 +69,7 @@ class SignupControllerOrg extends Component {
 					let disabled = false;
 					// same as above, but feel free to move this into a class method now.
 					const errors = {};
-					if (values.password && values.confirm_password) {
+					if (values.password) {
 						if (values.password !== values.confirm_password) {
 							errors.confirm_password = 'Passwords do not match!';
 						}

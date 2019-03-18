@@ -2415,7 +2415,6 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '15%',
         position: 'absolute',
-        paddingLeft: '10%',
         bottom: '80px'
     },
 
@@ -4914,7 +4913,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_main_logo_image: {
         maxHeight: '320px',
-        marginTop: '20px'
+        marginTop: '20px',
+        maxWidth: '100%'
     },
     admin_social_box: {
         width: '100%',
@@ -5285,6 +5285,18 @@ export const GlobalStyles = GlobalTheme => ({
         display: 'table',
         padding: '0px 25px 0px 0px'
     },
+    individual_mobile_bg: {
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: 'black',
+        display: 'table'
+    },
+    individual_mobile_inner_bg: {
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: 'rgb(35,35,35)',
+        display: 'table'
+    },
     individual_header: {
         width: '100%',
         height: '400px',
@@ -5294,6 +5306,17 @@ export const GlobalStyles = GlobalTheme => ({
     individual_header_image: {
         width: '100%',
         height: '400px',
+        objectFit: 'cover'
+    },
+    individual_mobile_header: {
+        width: '100%',
+        height: '200px',
+        position: 'relative',
+        backgroundColor: '#000',
+    },
+    individual_mobile_header_image: {
+        width: '100%',
+        height: '200px',
         objectFit: 'cover'
     },
     individual_edit_button: {
