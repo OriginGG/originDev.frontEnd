@@ -271,7 +271,7 @@ class AdminPageController extends Component {
 						const cur = dayjs(new Date());		// .toLocaleString('en-US', { timeZone: 'America/New_York' }));
 						// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
 						const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
-						this.subscription_days_left = day_diff + 1;
+						this.subscription_days_left = day_diff;
 					}
 				}
 			}

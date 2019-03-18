@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 // import injectSheet from 'react-jss';
-import { Button, Card, Image, Input } from 'semantic-ui-react';
+import { Button, Card, Input } from 'semantic-ui-react';
 // import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 // import axios from 'axios';
@@ -58,7 +58,6 @@ class AdminCustomDomainController extends Component {
         if (!this.state.sent) {
             return (<Card>
                 <Card.Content>
-                    <Image floated="right" size="mini" src="/images/avatar/large/steve.jpg" />
                     <Card.Header>Add Custom Domain</Card.Header>
                     <Card.Description>
                         As a subscribed member you can request a custom domain be linked to your Organizations page.
