@@ -58,7 +58,6 @@ class AdminCustomDomainController extends Component {
         if (!this.state.sent) {
             return (<Card>
                 <Card.Content>
-                    <Image floated="right" size="mini" src="/images/avatar/large/steve.jpg" />
                     <Card.Header>Add Custom Domain</Card.Header>
                     <Card.Description>
                         As a subscribed member you can request a custom domain be linked to your Organizations page.
