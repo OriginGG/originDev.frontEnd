@@ -402,7 +402,7 @@ class PaywallContent extends Component {
 		if (!this.state.visible) {
 			return null;
 		}
-		let bt = 'START FREE TRIAL';
+		let bt = 'PURCHASE';
 		if (this.update_payment) {
 			bt = 'UPDATE CARD';
 		}
