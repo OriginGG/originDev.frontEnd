@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 // import injectSheet from 'react-jss';
-import { Button, Card, Image, Input } from 'semantic-ui-react';
+import { Button, Card, Input } from 'semantic-ui-react';
 // import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 // import axios from 'axios';
