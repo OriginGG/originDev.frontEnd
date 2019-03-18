@@ -60,6 +60,20 @@ class OrganizationAdminMenuComponentRender extends Component {
                                     </div>
                                 </div>
                             </a>
+                            <a className="item" style={this.props.update_card_style} onClick={e => {
+                                this
+                                    .props
+                                    .handleMainMenuClick( 'update_card', e );
+                            }}>
+                                <div className={this.props.classes.menu_item}>
+                                    <div className={this.props.classes.menu_item_icon}>
+                                        <i className="credit card outline icon"/>
+                                    </div>
+                                    <div className={this.props.classes.menu_item_label}>
+                                        Update Payment Card
+                                    </div>
+                                </div>
+                            </a>
                             <div >{this.props.paywall_content}</div>
                             <div className="ui inverted accordion">
                                 <div >{this.props.dropdown}</div>

@@ -45,6 +45,14 @@ export class LoginInd extends Component {
     }
 }
 
+export class LoginOrgUpdatePayment extends Component {
+    render() {
+        return (<div>
+            <CredentialsController headerComponent={HeaderOrg} bodyComponent={<LoginControllerOrg pw={true} location={this.props.location} />} />
+        </div>);
+    }
+}
+
 
 class CredentialsController extends Component {
     componentDidMount = () => {
@@ -66,6 +74,9 @@ class CredentialsController extends Component {
 }
 
 LoginOrg.propTypes = {
+    location: PropTypes.object.isRequired,
+};
+LoginOrgUpdatePayment.propTypes = {
     location: PropTypes.object.isRequired,
 };
 

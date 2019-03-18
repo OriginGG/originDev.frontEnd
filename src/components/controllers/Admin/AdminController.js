@@ -399,7 +399,9 @@ class AdminPageController extends Component {
 	render() {
 		let pwc = <span />;
 		let awc = <span />;
+		let update_card_style = { display: 'inherit' };
 		if (this.subscription_days_left !== null) {
+			update_card_style = { display: 'none' };
 			pwc = (
 				<Card>
 					<Card.Content>
@@ -491,6 +493,16 @@ class AdminPageController extends Component {
 				p_component = <AdminMembersController />;
 				break;
 			}
+			case 'update_card': {
+				const domainInfo = this.props.appManager.getDomainInfo();
+				const { hostname } = domainInfo;
+				const subDomain =
+					domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
+				const new_host = hostname.replace(`${subDomain}.`, '');
+				const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+				window.location = `${u_string}/update_payment`;
+				break;
+			}
 			case 'recentmatches': {
 				p_component = <AdminRecentMatchesController />;
 				break;
@@ -574,6 +586,7 @@ class AdminPageController extends Component {
 								handleMainMenuClick={this.handleManageClick}
 								handleCloseClick={this.handleClick}
 								close_style={close_style}
+								update_card_style={update_card_style}
 								paywall_content={info_block}
 								dropdown={
 									<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
