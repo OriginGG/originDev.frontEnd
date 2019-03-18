@@ -4913,7 +4913,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
     admin_main_logo_image: {
         maxHeight: '320px',
-        marginTop: '20px'
+        marginTop: '20px',
+        maxWidth: '100%'
     },
     admin_social_box: {
         width: '100%',
