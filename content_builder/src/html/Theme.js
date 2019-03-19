@@ -2654,6 +2654,9 @@ export const GlobalStyles = GlobalTheme => ({
         height: '40px',
         lineHeight: '40px',
         textAlign: 'center',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
         color: 'white',
         backgroundColor: 'rgb(235,51,61)',
         borderRadius: '5px'
