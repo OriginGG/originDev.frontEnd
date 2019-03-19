@@ -226,7 +226,7 @@ class OrganizationPageController extends Component {
                 // if ((this.sponsor_desc1 && this.sponsor_desc1.length < 1) && (this.sponsor_desc2 && this.sponsor_desc2.length < 1) && (this.sponsor_desc3 && this.sponsor_desc3.length < 1) && (this.sponsor_desc4 && this.sponsor_desc4.length < 1)) {
                 //     this.sponser_display = false;
                 // }
-                const menu_color = 'black';// this.props.uiStore.current_organisation.primaryColor;
+                const menu_color = 'rgba(0,0,0,.7)';// this.props.uiStore.current_organisation.primaryColor;
                 const nf_style = { display: 'none', backgroundColor: `${menu_color}` };
                 this.setState({
                     visible: true,
