@@ -23,9 +23,6 @@ class CreateSubDomainComponentRender extends Component {
                                 <div className="ui stacked segment">
                                     <div className={this.props.classes.form_body}>
                                         <div className={this.props.classes.input_title}>{this.props.input_title}</div>
-                                        <div className={this.props.classes.domain_video_container}>
-                                            <iframe width="100%" height="100%" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" className={this.props.classes.domain_video} frameBorder="0" src={this.props.video1_url}/>
-                                        </div>
                                         <div className={this.props.classes.domain_credit_container}>{this.props.payWallContent}</div>
                                         <div className="field" style={this.props.input_style}>
                                             <div className="ui labeled input">
