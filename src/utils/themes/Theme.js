@@ -2428,12 +2428,13 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_menu_container: {
         width: '100%',
         height: '60px',
-        backgroundColor: 'rgb(131,24,39)',
+        paddingRight: '10%',
+        backgroundColor: 'rgb(0,0,0,.7)',
         borderWidth: '2px 0px 0px 0px',
         borderStyle: 'solid',
         borderColor: 'rgba(255,255,255,.5)',
         position: 'absolute',
-        bottom: '-48px',
+        top: '76px',
         zIndex: '10'
     },
 
@@ -2654,6 +2655,9 @@ export const GlobalStyles = GlobalTheme => ({
         height: '40px',
         lineHeight: '40px',
         textAlign: 'center',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
         color: 'white',
         backgroundColor: 'rgb(235,51,61)',
         borderRadius: '5px'
