@@ -715,8 +715,10 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_main_news_item_micro_image: {
         width: '100%',
-        height: '200px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     obliviot_dark_main_news_content_container: {
@@ -974,9 +976,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_news_container: {
-        width: '100%',
-        height: '200px',
         backgroundColor: 'rgba(255,255,255,.1)',
+        paddingTop: '56.25%',
         marginTop: '10px',
         position: 'relative',
         cursor: 'pointer'
@@ -1251,12 +1252,6 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_main_news_item_mini_image: {
         width: '100%',
         height: '295px',
-        objectFit: 'cover'
-    },
-
-    obliviot_main_news_item_micro_image: {
-        width: '100%',
-        height: '200px',
         objectFit: 'cover'
     },
 
@@ -1769,7 +1764,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMaxContainer: {
         width: '100%',
-        height: '90vh',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer',
         display: 'none'
@@ -1777,7 +1772,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMiniContainer: {
         width: '100%',
-        height: '30vh',
+        paddingTop: '57.80%',
         marginBottom: '0px',
         position: 'relative',
         cursor: 'pointer'
@@ -3269,6 +3264,14 @@ export const GlobalStyles = GlobalTheme => ({
         objectFit: 'cover'
     },
 
+    enigma2_main_news_item_image: {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%'
+    },
+
     felzec_lightBlogMiniContainer: {
         width: '100%',
         height: '245px',
@@ -3281,6 +3284,14 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         height: '100%',
         objectFit: 'cover'
+    },
+
+    enigma2_main_news_item_mini_image: {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%'
     },
 
     felzec_light_twitch_feed_container: {
@@ -5115,12 +5126,15 @@ export const GlobalStyles = GlobalTheme => ({
     },
     modal_news_header: {
         width: '100%',
-        height: '250px'
+        paddingTop: '56.25%',
+        position: 'relative'
     },
     modal_news_header_image: {
         width: '100%',
-        height: '250px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
     modal_news_body: {
         width: '100%',
