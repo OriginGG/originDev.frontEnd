@@ -1,26 +1,87 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { inject } from 'mobx-react';
 import injectSheet from 'react-jss';
 import { Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import AppController from './AppController';
+// import AppController from './AppController';
 // import SignupPageController from './components/controllers/Login/SignupPageController';
-import PasswordPageController from './components/controllers/Login/PasswordPageController';
 // complete signup
 import NewSignupPageController from './components/controllers/Login/NewSignupPageController';
 import NewSignupIndividualPageController from './components/controllers/Login/NewSignupIndividualPageController';
-import OrganizationPageController from './components/controllers/Main/OrganizationPageController';
-import AdminPageController from './components/controllers/Admin/AdminController';
-import IndividualPageController from './components/controllers/Individuals/IndividualPageController';
+// import OrganizationPageController from './components/controllers/Main/OrganizationPageController';
+// import AdminPageController from './components/controllers/Admin/AdminController';
+// import IndividualPageController from './components/controllers/Individuals/IndividualPageController';
 import { GlobalStyles } from './utils/themes/Theme';
 import './App.css';
-import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
+// import CreateSubDomainController from './components/controllers/Login/CreateSubDomainController';
 // import OriginLandingPageController from './components/controllers/Login/OriginLandingPageController';
 import { SignupInd, SignupOrg, LoginInd, LoginOrg, LoginOrgUpdatePayment } from './components/controllers/Login/CredentialsController';
-import PaywallController from './components/controllers/Login/PaywallController';
+// import PaywallController from './components/controllers/Login/PaywallController';
 // Test
 
 const reload = () => window.location.reload();
+
+const OrganizationPageControllerComponent = lazy(() => import('./components/controllers/Main/OrganizationPageController'));
+function OrganizationPageController(props) {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<OrganizationPageControllerComponent {...props} />
+		</Suspense>
+	);
+}
+
+const IndividualPageControllerComponent = lazy(() => import('./components/controllers/Individuals/IndividualPageController'));
+function IndividualPageController(props) {
+	return (
+		<Suspense fallback={<div />}>
+			<IndividualPageControllerComponent {...props} />
+		</Suspense>
+	);
+}
+
+const PasswordPageControllerComponent = lazy(() => import('./components/controllers/Login/PasswordPageController'));
+function PasswordPageController(props) {
+	return (
+		<Suspense fallback={<div />}>
+			<PasswordPageControllerComponent {...props} />
+		</Suspense>
+	);
+}
+
+const AdminPageControllerComponent = lazy(() => import('./components/controllers/Admin/AdminController'));
+function AdminPageController(props) {
+	return (
+		<Suspense fallback={<div />}>
+			<AdminPageControllerComponent {...props} />
+		</Suspense>
+	);
+}
+
+const PaywallControllerComponent = lazy(() => import('./components/controllers/Login/PaywallController'));
+function PaywallController(props) {
+	return (
+		<Suspense fallback={<div />}>
+			<PaywallControllerComponent {...props} />
+		</Suspense>
+	);
+}
+const AppControllerComponent = lazy(() => import('./AppController'));
+function AppController(props) {
+	return (
+		<Suspense fallback={<div />}>
+			<AppControllerComponent {...props} />
+		</Suspense>
+	);
+}
+
+const CreateSubDomainControllerComponent = lazy(() => import('./components/controllers/Login/CreateSubDomainController'));
+function CreateSubDomainController(props) {
+	return (
+		<Suspense fallback={<div />}>
+			<CreateSubDomainControllerComponent {...props} />
+		</Suspense>
+	);
+}
 
 class App extends Component {
 	render() {
