@@ -4649,24 +4649,28 @@ export const GlobalStyles = GlobalTheme => ({
     },
     news_item_container: {
         width: '100%',
-        height: '286px',
         position: 'relative',
+        paddingTop: '56.25%',
         color: 'white',
         marginBottom: '4px'
     },
     news_item_body: {
         width: '100%',
-        height: '250px',
+        height: '100%',
         paddingTop: '0px',
-        position: 'relative',
+        position: 'absolute',
+        top: '0',
+        left: '0',
         backgroundColor: 'black',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: '50% 50%'
     },
     news_item_image: {
         width: '100%',
-        height: '250px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
     news_menu_item: {
         position: 'absolute',
