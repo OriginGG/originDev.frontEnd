@@ -9,7 +9,9 @@ class DarkOrganizationBlogComponentRender extends Component {
         return (
             <div>
                 <div className="ui stackable two column grid">
-                    <div className="seven wide column">
+                    <div style={{
+                        width: '66.66%'
+                    }} className="column">
                         <div className={this.props.classes.obliviot_darkBlogMaxContainer} onClick={( ) => {
                             this
                                 .props
@@ -41,7 +43,9 @@ class DarkOrganizationBlogComponentRender extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="nine wide column">
+                    <div style={{
+                        width: '33.33%'
+                    }} className="column">
                         <div className={this.props.classes.obliviot_darkBlogMiniContainer} onClick={( ) => {
                             this
                                 .props

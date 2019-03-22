@@ -681,14 +681,13 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkBlogContainer: {
         width: '100%',
-        height: '600px',
         marginTop: '20px',
         display: 'table'
     },
 
     obliviot_darkBlogMiniContainer: {
         width: '100%',
-        height: '295px',
+        paddingTop: '56.25%',
         marginBottom: '10px',
         position: 'relative',
         cursor: 'pointer'
@@ -696,21 +695,25 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkBlogMaxContainer: {
         width: '100%',
-        height: '600px',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
         width: '100%',
-        height: '600px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     obliviot_main_news_item_mini_image: {
         width: '100%',
-        height: '295px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     obliviot_main_news_item_micro_image: {
@@ -1223,14 +1226,13 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_lightBlogContainer: {
         width: '100%',
-        height: '600px',
         marginTop: '20px',
         display: 'table'
     },
 
     obliviot_lightBlogMiniContainer: {
         width: '100%',
-        height: '295px',
+        paddingTop: '56.25%',
         marginBottom: '10px',
         position: 'relative',
         cursor: 'pointer'
@@ -1238,21 +1240,9 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_lightBlogMaxContainer: {
         width: '100%',
-        height: '600px',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer'
-    },
-
-    obliviot_main_news_item_image: {
-        width: '100%',
-        height: '600px',
-        objectFit: 'cover'
-    },
-
-    obliviot_main_news_item_mini_image: {
-        width: '100%',
-        height: '295px',
-        objectFit: 'cover'
     },
 
     obliviot_light_main_news_content_container: {
