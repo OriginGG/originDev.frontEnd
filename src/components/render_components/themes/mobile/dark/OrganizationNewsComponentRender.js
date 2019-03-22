@@ -9,7 +9,8 @@ class DarkOrganizationNewsComponentRender extends Component {
         return (
             <div>
                 <div style={{
-                    width: '60%',
+                    width: '100%',
+                    maxWidth: '1000px',
                     marginLeft: 'auto',
                     marginRight: 'auto'
                 }}>

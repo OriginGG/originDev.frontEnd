@@ -688,7 +688,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_darkBlogMiniContainer: {
         width: '100%',
         paddingTop: '56.25%',
-        marginBottom: '10px',
+        marginBottom: '15px',
         position: 'relative',
         cursor: 'pointer'
     },
@@ -1233,7 +1233,7 @@ export const GlobalStyles = GlobalTheme => ({
     obliviot_lightBlogMiniContainer: {
         width: '100%',
         paddingTop: '56.25%',
-        marginBottom: '10px',
+        marginBottom: '15px',
         position: 'relative',
         cursor: 'pointer'
     },
@@ -1717,7 +1717,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_container: {
         width: '100%',
-        height: '90vh',
         backgroundColor: '#040404',
         position: 'relative'
     },
@@ -1744,7 +1743,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_inner_container: {
         width: '100%',
-        height: '90vh',
         padding: '0px 0% 0px 0%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -2306,6 +2304,16 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         position: 'relative',
+        paddingTop: '30%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    enigma2_lightBlogContainer: {
+        width: '100%',
+        display: 'table',
+        position: 'relative',
+        paddingTop: '42%',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
@@ -2698,9 +2706,11 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_container: {
         width: '100%',
-        height: '600px',
+        height: '100%',
         backgroundColor: '#040404',
-        position: 'relative'
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     felzec_blog_m_container: {
@@ -2720,7 +2730,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_filter_container: {
         width: '100%',
-        height: '600px',
+        height: '100%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2738,7 +2748,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_inner_container: {
         width: '100%',
-        height: '600px',
+        height: '100%',
         padding: '50px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -3243,7 +3253,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMaxContainer: {
         width: '100%',
-        height: '500px',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer'
     },
@@ -3251,7 +3261,9 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_main_news_item_image: {
         width: '100%',
         height: '100%',
-        objectFit: 'cover'
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     enigma2_main_news_item_image: {
@@ -3264,16 +3276,18 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMiniContainer: {
         width: '100%',
-        height: '245px',
-        marginBottom: '10px',
+        paddingTop: '56.25%',
         position: 'relative',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        marginBottom: '13px'
     },
 
     felzec_main_news_item_mini_image: {
         width: '100%',
         height: '100%',
-        objectFit: 'cover'
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     enigma2_main_news_item_mini_image: {
