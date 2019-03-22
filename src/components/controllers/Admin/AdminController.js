@@ -268,7 +268,7 @@ class AdminPageController extends Component {
 					const { trial_end } = subscriptions.data[0];
 					if (trial_end) {
 						// const cur = moment().tz('America/New_York');
-						const cur = dayjs(new Date());		// .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+						const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
 						// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
 						const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
 						this.subscription_days_left = day_diff;
@@ -318,13 +318,13 @@ class AdminPageController extends Component {
 		this.setState({ isOpen: !f });
 	};
 	isMobile = () => {
-        // return true;
-        console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
-        if (isMobile || window.outerWidth < 1050) {
-            return true;
-        }
-        return false;
-    };
+		// return true;
+		console.log(`page isMObile ${isMobile} screen width = ${window.outerWidth}`);
+		if (isMobile || window.outerWidth < 1050) {
+			return true;
+		}
+		return false;
+	};
 	handleNavClick = () => {
 		// console.log('nav click');
 		const domainInfo = this.props.appManager.getDomainInfo();
@@ -458,7 +458,7 @@ class AdminPageController extends Component {
 				break;
 			}
 			case 'add_custom_domain': {
-				p_component = <AdminCustomDomainController />;
+				p_component = <AdminCustomDomainController dont_allow={this.subscription_days_left > 0} />;
 				break;
 			}
 			case 'company': {
@@ -497,7 +497,9 @@ class AdminPageController extends Component {
 				const domainInfo = this.props.appManager.getDomainInfo();
 				const { hostname } = domainInfo;
 				const subDomain =
-					domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
+					domainInfo.subDomain === null
+						? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME
+						: domainInfo.subDomain;
 				const new_host = hostname.replace(`${subDomain}.`, '');
 				const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
 				window.location = `${u_string}/update_payment`;
