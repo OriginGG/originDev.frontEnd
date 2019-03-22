@@ -12,7 +12,7 @@ class LightOrganizationBlogComponentRender extends Component {
                 <div className={this.props.classes.felzec_blog_filter_container} style={this.props.filter_style}/>
                 <div className={this.props.classes.felzec_blog_inner_container}>
                     <div className="ui stackable three column grid">
-                        <div className="column">
+                        <div className="eight wide column">
                             <div className={this.props.classes.felzec_lightBlogMaxContainer} onClick={( ) => {
                                 this
                                     .props
@@ -44,7 +44,7 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="column">
+                        <div className="four wide column">
                             <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
                                 this
                                     .props
@@ -106,7 +106,7 @@ class LightOrganizationBlogComponentRender extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="column">
+                        <div className="four wide column">
                             <div className={this.props.classes.felzec_lightBlogMiniContainer} onClick={( ) => {
                                 this
                                     .props
