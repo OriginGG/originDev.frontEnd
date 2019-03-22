@@ -13,7 +13,6 @@ class AdminBlogController extends Component {
     componentDidMount = () => {
         this.fetchBlogData();
     }
-
     fetchBlogData = async () => {
         // const { subDomain } = this.props.uiStore.current_organisation;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
@@ -23,7 +22,6 @@ class AdminBlogController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
             this.blog_array.push(<tr key={`blog_table_k_${i}`} onClick={() => { this.editBlog(blog); }} style={{ cursor: 'pointer' }}>
@@ -32,7 +30,7 @@ class AdminBlogController extends Component {
                     height: 64, overflow: 'hidden', maxHeight: 64, display: 'block'
                 }}>{bcontent}</td>
                 <td><img style={{ height: 64 }} alt="" src={blogMedia} /></td>
-                <td>{dayjs(createdAt).format('lll')}</td>
+                <td>{dayjs(createdAt).format('MMMM D, YYYY h:mm A')}</td>
             </tr>);
         });
         this.setState({ visible: true });

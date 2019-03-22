@@ -391,7 +391,7 @@ class OrganizationPageController extends Component {
         }
         /* this.setState({ about_modal_open: true }); */
         const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blog.node.blogContent)} />;
-        const formattedDate = dayjs(blog.node.createdAt).format('lll');
+        const formattedDate = dayjs(blog.node.createdAt).format('MMMM D, YYYY h:mm A');
         this.setState({
             roster_style: { display: 'table', width: '100%', height: '100vh' }, display_blog_view: true, b_media: blog.node.blogMedia, b_content: bcontent, b_title: blog.node.blogTitle, b_date: formattedDate
         });
