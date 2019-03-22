@@ -195,10 +195,9 @@ class AdminAddBlogController extends Component {
                             <div className={this.props.classes.subdomain_logo_upload_container}>
                                 <img alt="" className={this.props.classes.subdomain_logo_upload} src={this.state.blog_image} />
                             </div>
+                            <h3>16:9 ratio images used for all themes</h3>
                             <Button onClick={() => { this.dropzoneRef.open(); }} style={{ marginBottom: 12 }} primary>ATTACH MEDIA
-
                         </Button>
-
                             <ReactQuill
                                 theme="snow"
                                 modules={{
