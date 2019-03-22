@@ -57,7 +57,7 @@ class OrganizationBlogListController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            const formattedDate = dayjs(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('MMMM D, YYYY h:mm A');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             if (this.isMobile() && theme === 'felzec/light') {
                 this.blog_array.push(<OrganizationNewsMobileComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
@@ -116,7 +116,7 @@ class OrganizationBlogListController extends Component {
         // this.state.blog_data.resultData.edges.forEach(n => {
         //     console.log(`CHECK CHECK CHECK ${JSON.stringify(n)}`);
         //     blog_array.push({
-        //         content: n.node.blogContent, media: n.node.blogMedia, title: n.node.blogTitle, date: moment(n.node.createdAt).format('lll')
+        //         content: n.node.blogContent, media: n.node.blogMedia, title: n.node.blogTitle, date: moment(n.node.createdAt).format('MMMM D, YYYY h:mm A')
         //     });
         // });
         // console.log(`WHOOOOOOPS blog_array = ${JSON.stringify(blog_array)}`);

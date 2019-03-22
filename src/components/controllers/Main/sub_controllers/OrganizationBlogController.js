@@ -52,7 +52,7 @@ class OrganizationBlogController extends Component {
             const { createdAt } = blog.node;
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // console.log(`blogMain = ${blog}`);
-            const formattedDate = dayjs(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('MMMM D, YYYY h:mm A');
             this.results_array.push({
                 content: bcontent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
             });
