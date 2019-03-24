@@ -408,7 +408,7 @@ class AdminPageController extends Component {
 						<Image floated="right" style={{ height: 32, width: 164 }} size="mini" src={stripeImage} />
 						<Card.Header>FREE TRIAL</Card.Header>
 						<Card.Description>
-							You have <strong>{this.subscription_days_left} days left of your free trial.</strong>
+							You have <strong>{this.subscription_days_left + 1} days left of your free trial.</strong>
 						</Card.Description>
 					</Card.Content>
 					<Card.Content extra>
