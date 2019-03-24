@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.3.1",
+    "@loadable/component": "^5.7.0",
     "antd": "^3.4.0",
     "apollo-cache-inmemory": "^1.1.9",
     "apollo-client": "^2.2.5",
