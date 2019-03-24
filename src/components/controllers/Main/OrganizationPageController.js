@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { lazy, Suspense, Component } from 'react';
 // import injectSheet, { ThemeProvider } from 'react-jss';
 import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
 // import { GlobalStyles } from 'Theme/Theme';
 import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
+// import Loadable from 'react-loadable';
 import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
@@ -20,31 +21,268 @@ import { getSponsorsQuery } from '../../../queries/sponsors';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
 import { getAllAdminUsersQuery } from '../../../queries/users';
-
+import appManager from '../../../utils/appManager';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
+
+
+const OrganizationPageComponentRenderComponent = lazy(() => {
+    const c_name = `${appManager.current_theme}/OrganizationPageComponentRender`;
+    return import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${c_name}`);
+});
+function OrganizationPageComponentRender(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationPageComponentRenderComponent {...props} />
+        </Suspense>
+    );
+}
+const OrganizationFooterControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationFooterController');
+});
+function OrganizationFooterController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationFooterControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationVideoControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationVideoController');
+});
+function OrganizationVideoController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationVideoControllerComponent {...props} />
+        </Suspense>
+    );
+}
+const OrganizationMatchesControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationMatchesController');
+});
+function OrganizationMatchesController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationMatchesControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationEmailComponentRenderComponent = lazy(() => {
+    const c_name = `${appManager.current_theme}/OrganizationEmailComponentRender`;
+    return import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${c_name}`);
+});
+function OrganizationEmailComponentRender(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationEmailComponentRenderComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationMobileMenuComponentRenderComponent = lazy(() => {
+    const c_name = `${appManager.current_theme}/OrganizationMobileMenuComponentRender`;
+    return import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${c_name}`);
+});
+function OrganizationMobileMenuComponentRender(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationMobileMenuComponentRenderComponent {...props} />
+        </Suspense>
+    );
+}
+const OrganizationNewsControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationNewsController');
+});
+function OrganizationNewsController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationNewsControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationTwitterControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationTwitterController');
+});
+function OrganizationTwitterController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationTwitterControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationSponsorControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationSponsorController');
+});
+function OrganizationSponsorController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationSponsorControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationNavControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationNavController');
+});
+function OrganizationNavController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationNavControllerComponent {...props} />
+        </Suspense>
+    );
+}
+const OrganizationLogoControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationLogoController');
+});
+function OrganizationLogoController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationLogoControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationRosterControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationRosterController');
+});
+function OrganizationRosterController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationRosterControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationStaffControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationStaffController');
+});
+function OrganizationStaffController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationStaffControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationSponserListControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationSponserListController');
+});
+function OrganizationSponserListController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationSponserListControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationBlogControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationBlogController');
+});
+
+function OrganizationBlogControllerHOC(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationBlogControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationTwitchControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationTwitchController');
+});
+
+function OrganizationTwitchControllerHOC(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationTwitchControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationTeamControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationTeamController');
+});
+
+function OrganizationTeamControllerHOC(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationTeamControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationMediaControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationMediaController');
+});
+
+function OrganizationMediaControllerHOC(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationMediaControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationBlogListControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationBlogListController');
+});
+
+function OrganizationBlogListController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationBlogListControllerComponent {...props} />
+        </Suspense>
+    );
+}
+
+const OrganizationBlogViewControllerComponent = lazy(() => {
+    return import(/* webpackChunkName: "lazyComponents" */ './sub_controllers/OrganizationBlogController');
+});
+
+function OrganizationBlogViewController(props) {
+    return (
+        <Suspense fallback={<div>Loading</div>}>
+            <OrganizationBlogViewControllerComponent {...props} />
+        </Suspense>
+    );
+}
+// const OrganizationPageComponentRender = Loadable({
+//     loader: () => {
+//         const c_name = `${appManager.current_theme}/OrganizationPageComponentRender`;
+//         return import(/* webpackChunkName: "myAwesomeComponent" */ `../../render_components/themes/${c_name}`);
+//     },
+//     loading() {
+//         return <div>Loading...</div>;
+//     }
+// });
+
 
 class OrganizationPageController extends Component {
     state = {
         menu_open: false,
         customer_email: '',
         email_visible: { display: 'none' },
-        OrganizationPageComponentRender: null,
-        OrganizationEmailComponentRender: null,
-        OrganizationVideoController: null,
-        OrganizationTwitterController: null,
-        OrganizationSponsorController: null,
-        OrganizationMatchesController: null,
-        OrganizationNavController: null,
-        OrganizationFooterController: null,
-        OrganizationLogoController: null,
-        OrganizationNewsController: null,
-        OrganizationRosterController: null,
-        OrganizationSponserListController: null,
-        OrganizationStaffController: null,
-        OrganizationMobileMenuComponentRender: null,
-        OrganizationBlogController: null,
+        // OrganizationPageComponentRender: null,
+        // OrganizationEmailComponentRender: null,
+        // OrganizationVideoController: null,
+        // OrganizationTwitterController: null,
+        // OrganizationSponsorController: null,
+        // OrganizationMatchesController: null,
+        // OrganizationNavController: null,
+        // OrganizationFooterController: null,
+        // OrganizationLogoController: null,
+        // OrganizationNewsController: null,
+        // OrganizationRosterController: null,
+        // OrganizationSponserListController: null,
+        // OrganizationStaffController: null,
+        // OrganizationMobileMenuComponentRender: null,
+        // OrganizationBlogController: null,
         OrganizationTwitchController: null,
         OrganizationMediaController: null,
+        OrganizationTeamController: null,
         enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
         enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
         enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
@@ -126,54 +364,48 @@ class OrganizationPageController extends Component {
                     themeBase = 'mobile';
                 }
                 console.log(`theme === ${theme}`);
-                const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
-                const OrganizationEmailComponentRender = await import(`../../render_components/themes/${theme}/OrganizationEmailComponentRender`);
-                const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
-                const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
-                const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
-                const OrganizationSponsorController = await import('./sub_controllers/OrganizationSponsorController');
-                const OrganizationMatchesController = await import('./sub_controllers/OrganizationMatchesController');
-                const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
-                const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
-                const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
-                const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
-                const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
-                const OrganizationBlogListController = await import('./sub_controllers/OrganizationBlogListController');
-                const OrganizationBlogViewController = await import('./sub_controllers/OrganizationBlogViewController');
-                const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
-                let OrganizationBlogController = null;
+                // const OrganizationPageComponentRender = await import(`../../render_components/themes/${theme}/OrganizationPageComponentRender`);
+                // const OrganizationEmailComponentRender = await import(`../../render_components/themes/${theme}/OrganizationEmailComponentRender`);
+                // const OrganizationMobileMenuComponentRender = await import(`../../render_components/themes/${theme}/OrganizationMobileMenuComponentRender`);
+                // const OrganizationVideoController = await import('./sub_controllers/OrganizationVideoController');
+                // const OrganizationTwitterController = await import('./sub_controllers/OrganizationTwitterController');
+                // const OrganizationSponsorController = await import('./sub_controllers/OrganizationSponsorController');
+                // const OrganizationMatchesController = await import('./sub_controllers/OrganizationMatchesController');
+                // const OrganizationNavController = await import('./sub_controllers/OrganizationNavController');
+                // const OrganizationLogoController = await import('./sub_controllers/OrganizationLogoController');
+                // const OrganizationNewsController = await import('./sub_controllers/OrganizationNewsController');
+                // const OrganizationRosterController = await import('./sub_controllers/OrganizationRosterController');
+                // const OrganizationSponserListController = await import('./sub_controllers/OrganizationSponserListController');
+                // const OrganizationBlogListController = await import('./sub_controllers/OrganizationBlogListController');
+                // const OrganizationBlogViewController = await import('./sub_controllers/OrganizationBlogViewController');
+                // const OrganizationStaffController = await import('./sub_controllers/OrganizationStaffController');
                 let OrganizationBlogControllerDefault = null;
-                let OrganizationTwitchController = null;
+                // let OrganizationTwitchController = null;
                 let OrganizationTwitchControllerDefault = null;
-                let OrganizationTeamController = null;
+                // let OrganizationTeamController = null;
                 let OrganizationTeamControllerDefault = null;
-                let OrganizationMediaController = null;
+                // let OrganizationMediaController = null;
                 let OrganizationMediaControllerDefault = null;
-                let OrganizationFooterController = null;
-                let OrganizationFooterControllerDefault = null;
+                // let OrganizationFooterController = null;
+                // let OrganizationFooterControllerDefault = null;
                 if (themeBase === 'obliviot' || themeBase === 'felzec' || themeBase === 'enigma2') {
-                    OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
-                    OrganizationBlogControllerDefault = OrganizationBlogController.default;
-                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
-                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    OrganizationBlogControllerDefault = OrganizationBlogControllerHOC;
+                    // OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
+                    OrganizationTwitchControllerDefault = OrganizationTwitchControllerHOC;
                     // OrganizationTwitchController = null;
                     // OrganizationTwitchControllerDefault = null;
                 }
                 if (themeBase === 'mobile' && this.isMobile()) {
-                    OrganizationBlogController = await import('./sub_controllers/OrganizationBlogController');
-                    OrganizationBlogControllerDefault = OrganizationBlogController.default;
-                    OrganizationTwitchController = await import('./sub_controllers/OrganizationTwitchController');
-                    OrganizationTwitchControllerDefault = OrganizationTwitchController.default;
+                    OrganizationBlogControllerDefault = OrganizationBlogControllerHOC;
+                    OrganizationTwitchControllerDefault = OrganizationTwitchControllerHOC;
                     // OrganizationTwitchController = null;
                     // OrganizationTwitchControllerDefault = null;
                 }
                 if (themeBase === 'felzec' || themeBase === 'enigma2') {
-                    OrganizationTeamController = await import('./sub_controllers/OrganizationTeamController');
-                    OrganizationTeamControllerDefault = OrganizationTeamController.default;
-                    OrganizationMediaController = await import('./sub_controllers/OrganizationMediaController');
-                    OrganizationMediaControllerDefault = OrganizationMediaController.default;
-                    OrganizationFooterController = await import('./sub_controllers/OrganizationFooterController');
-                    OrganizationFooterControllerDefault = OrganizationFooterController.default;
+                    OrganizationTeamControllerDefault = OrganizationTeamControllerHOC;
+                    OrganizationMediaControllerDefault = OrganizationMediaControllerHOC;
+                    // OrganizationFooterController = await import('./sub_controllers/OrganizationFooterController');
+                    // OrganizationFooterControllerDefault = OrganizationFooterController.default;
                 }
 
                 if (themeBase === 'enigma2') {
@@ -196,7 +428,7 @@ class OrganizationPageController extends Component {
                         this.mobile_roster_data.push(<div onClick={() => { this.handleRosterClick(r.node.id); }} role="menuItem" tabIndex={-1} key={`mobile_roster_${r.node.id}`}><OrganizationMobileSubMenuComponentRender name={currGame.text} /></div>);
                     });
                 }
-
+                appManager.current_theme = theme;
                 const pages = await this.props.appManager.executeQuery('query', getPagesQuery, {
                     organisationId: this.props.uiStore.current_organisation.id
                 });
@@ -232,25 +464,25 @@ class OrganizationPageController extends Component {
                     visible: true,
                     felzec_menu: false,
                     felzec_style: nf_style,
-                    OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
-                    OrganizationPageComponentRender: OrganizationPageComponentRender.default,
-                    OrganizationEmailComponentRender: OrganizationEmailComponentRender.default,
-                    OrganizationVideoController: OrganizationVideoController.default,
-                    OrganizationTwitterController: OrganizationTwitterController.default,
-                    OrganizationSponsorController: OrganizationSponsorController.default,
-                    OrganizationMatchesController: OrganizationMatchesController.default,
-                    OrganizationNavController: OrganizationNavController.default,
-                    OrganizationLogoController: OrganizationLogoController.default,
-                    OrganizationNewsController: OrganizationNewsController.default,
-                    OrganizationRosterController: OrganizationRosterController.default,
-                    OrganizationSponserListController: OrganizationSponserListController.default,
-                    OrganizationBlogListController: OrganizationBlogListController.default,
-                    OrganizationBlogViewController: OrganizationBlogViewController.default,
-                    OrganizationStaffController: OrganizationStaffController.default,
+                    // OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
+                    // OrganizationPageComponentRender: OrganizationPageComponentRender.default,
+                    // OrganizationEmailComponentRender: OrganizationEmailComponentRender.default,
+                    // OrganizationVideoController: OrganizationVideoController.default,
+                    // OrganizationTwitterController: OrganizationTwitterController.default,
+                    // OrganizationSponsorController: OrganizationSponsorController.default,
+                    // OrganizationMatchesController: OrganizationMatchesController.default,
+                    // OrganizationNavController: OrganizationNavController.default,
+                    // OrganizationLogoController: OrganizationLogoController.default,
+                    // OrganizationNewsController: OrganizationNewsController.default,
+                    // OrganizationRosterController: OrganizationRosterController.default,
+                    // OrganizationSponserListController: OrganizationSponserListController.default,
+                    // OrganizationBlogListController: OrganizationBlogListController.default,
+                    // OrganizationBlogViewController: OrganizationBlogViewController.default,
+                    // OrganizationStaffController: OrganizationStaffController.default,
                     OrganizationBlogController: OrganizationBlogControllerDefault,
                     OrganizationTeamController: OrganizationTeamControllerDefault,
                     OrganizationMediaController: OrganizationMediaControllerDefault,
-                    OrganizationFooterController: OrganizationFooterControllerDefault,
+                    // OrganizationFooterController: OrganizationFooterControllerDefault,
                     OrganizationTwitchController: OrganizationTwitchControllerDefault,
                     enigma2_home_style: { display: 'inherit', borderBottomColor: this.props.uiStore.current_organisation.primaryColor },
                     enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
@@ -580,27 +812,27 @@ class OrganizationPageController extends Component {
         const ob_light = { backgroundColor: '#fff' };
         const ob_dark = { backgroundColor: '#000', height: '100%' };
 
-        // const { OrganizationMobileSubMenuComponentRender } = this.state;
         const { subDomain } = this.props.uiStore.current_organisation;
-        const { OrganizationPageComponentRender } = this.state;
-        const { OrganizationEmailComponentRender } = this.state;
-        const { OrganizationNewsController } = this.state;
-        const { OrganizationTwitterController } = this.state;
-        const { OrganizationMatchesController } = this.state;
-        const { OrganizationVideoController } = this.state;
-        const { OrganizationSponsorController } = this.state;
-        const { OrganizationNavController } = this.state;
-        const { OrganizationLogoController } = this.state;
-        const { OrganizationMobileMenuComponentRender } = this.state;
-        const { OrganizationRosterController } = this.state;
-        const { OrganizationSponserListController } = this.state;
-        const { OrganizationBlogListController } = this.state;
-        const { OrganizationBlogViewController } = this.state;
-        const { OrganizationStaffController } = this.state;
+        // const { OrganizationMobileSubMenuComponentRender } = this.state;
+        // const { OrganizationPageComponentRender } = this.state;
+        // const { OrganizationEmailComponentRender } = this.state;
+        // const { OrganizationNewsController } = this.state;
+        // const { OrganizationTwitterController } = this.state;
+        // const { OrganizationMatchesController } = this.state;
+        // const { OrganizationVideoController } = this.state;
+        // const { OrganizationSponsorController } = this.state;
+        // const { OrganizationNavController } = this.state;
+        // const { OrganizationLogoController } = this.state;
+        // const { OrganizationMobileMenuComponentRender } = this.state;
+        // const { OrganizationRosterController } = this.state;
+        // const { OrganizationSponserListController } = this.state;
+        // const { OrganizationBlogListController } = this.state;
+        // const { OrganizationBlogViewController } = this.state;
+        // const { OrganizationStaffController } = this.state;
         const { OrganizationBlogController } = this.state;
         const { OrganizationTeamController } = this.state;
         const { OrganizationMediaController } = this.state;
-        const { OrganizationFooterController } = this.state;
+        // const { OrganizationFooterController } = this.state;
         const { OrganizationTwitchController } = this.state;
 
         let rosterComponent = <span />;
