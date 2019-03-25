@@ -46,7 +46,6 @@ class OrganizationLogoController extends Component {
         return false;
     }
     render() {
-        debugger;
         let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         if (this.isMobile()) {
             theme = 'mobile/dark';
