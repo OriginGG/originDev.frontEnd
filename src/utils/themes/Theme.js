@@ -585,7 +585,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         maxHeight: '600px',
         backgroundColor: 'transparent',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        paddingRight: '15px'
     },
 
     // ***************************************************************
@@ -951,7 +952,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dark_news_outer_constraint: {
         width: '100%',
-        height: '630px',
+        height: '680px',
         overflow: 'hidden',
     },
 
@@ -4215,7 +4216,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         maxHeight: '600px',
         backgroundColor: 'transparent',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        paddingRight: '15px'
     },
 
     dark_recent_matches_element_container: {
@@ -4389,7 +4391,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     roster_item_img: {
         width: '100px',
-        heght: '100px',
+        height: '100px',
         borderRadius: '50px'
     },
     sponser_item_img: {
