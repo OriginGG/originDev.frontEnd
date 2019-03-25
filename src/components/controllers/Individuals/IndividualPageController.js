@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
+import loadable from '@loadable/component';
 // import { GlobalStyles } from 'Theme/Theme';
 import { Card, Icon, Image, Button } from 'semantic-ui-react/dist/commonjs';
 import { Modal } from 'antd';
@@ -359,11 +360,18 @@ class IndividualPageController extends Component {
         this.instagram_stats = null;
         this.youtube_stats = null;
         // import IndividualPageComponentRender from '../../render_components/individual/IndividualPageComponentRender';
-        let IndividualPageComponentRender = await import('../../render_components/individual/IndividualPageComponentRender');
-        if (this.isMobile()) {
-            IndividualPageComponentRender = await import('../../render_components/individual/IndividualMobilePageComponentRender');
-        }
-        this.setState({ IndividualPageComponentRender: IndividualPageComponentRender.default });
+        const IndividualPageComponentRender = this.isMobile() ? loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ '../../render_components/individual/IndividualMobilePageComponentRender'),
+            {
+                fallback: <div>Loading...</div>
+            }) : loadable(
+                () =>
+                    import(/* webpackChunkName: "renderComponents" */ '../../render_components/individual/IndividualPageComponentRender'),
+                {
+                    fallback: <div>Loading...</div>
+                });
+        this.setState({ IndividualPageComponentRender });
         const view_id = this.props.appManager.GetQueryParams('u');
         const handle = (location.pathname).replace('/individual/', '');            // eslint-disable-line
         // console.log('view_id' + view_id); // eslint-disable-line

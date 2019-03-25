@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 import { isMobile } from 'react-device-detect';
 // import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
@@ -14,9 +15,16 @@ class OrganizationBlogViewController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        // const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         // console.log(`them = ${theme}`);
-        const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
+
+        const OrganizationNewsModalComponentRender = loadable(
+            (props) =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
+                    .current_theme_full_name}/OrganizationNewsModalComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         this.setState({ visible: true, OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default });
     }
 
@@ -47,7 +55,7 @@ class OrganizationBlogViewController extends Component {
         }
         const { OrganizationNewsModalComponentRender } = this.state;
 
-        const p_array = <OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
+        const p_array = <OrganizationNewsModalComponentRender uiStore={this.props.uiStore} extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
 
         return (<div>
             {this.props.shareBlog && <div
