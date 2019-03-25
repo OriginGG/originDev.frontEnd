@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
+import loadable from '@loadable/component';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 // import { GlobalStyles } from 'Theme/Theme';
@@ -23,11 +24,17 @@ class OrganizationEmailController extends Component {
                 p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
         }
-        const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        // const theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const OrganizationEmailComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationEmailComponentRender`);
+        const OrganizationEmailComponentRender = loadable(
+            (props) =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
+                    .current_theme_full_name}/OrganizationEmailComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
-        this.setState({ OrganizationEmailComponentRender: OrganizationEmailComponentRender.default });
+        this.setState({ OrganizationEmailComponentRender });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -43,6 +50,7 @@ class OrganizationEmailController extends Component {
     render() {
         const { OrganizationEmailComponentRender } = this.state;
         return <OrganizationEmailComponentRender
+            uiStore={this.props.uiStore}
             handleCustomerEmailClose={this.props.handleCustomerEmailClose}
             handleEmailChange={this.props.handleEmailChange}
             handleCustomerEmailSubmit={this.props.handleCustomerEmailSubmit}

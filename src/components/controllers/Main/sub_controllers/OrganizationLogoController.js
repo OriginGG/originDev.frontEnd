@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import find from 'lodash/find';
+import loadable from '@loadable/component';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
@@ -23,14 +24,15 @@ class OrganizationLogoController extends Component {
                 p_array.push({ roster_id: r.node.id, image: currGame.image, text: currGame.text });
             });
         }
-        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
-        if (this.isMobile()) {
-            theme = 'mobile/dark';
-        }
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const OrganizationLogoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationLogoComponentRender`);
+        const OrganizationLogoComponentRender = loadable(
+            (props) =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.theme}/OrganizationLogoComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
-        this.setState({ games: p_array, visible: true, OrganizationLogoComponentRender: OrganizationLogoComponentRender.default });
+        this.setState({ games: p_array, visible: true, OrganizationLogoComponentRender });
     }
     componentDidCatch = (error, info) => {
         console.log(error, info);
@@ -44,6 +46,11 @@ class OrganizationLogoController extends Component {
         return false;
     }
     render() {
+        debugger;
+        let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore.current_organisation.themeId}`;
+        if (this.isMobile()) {
+            theme = 'mobile/dark';
+        }
         if (this.state.visible === false) {
             return null;
         }
@@ -59,7 +66,7 @@ class OrganizationLogoController extends Component {
             </div>);
         });
         const { OrganizationLogoComponentRender } = this.state;
-        return <OrganizationLogoComponentRender roster_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} image_src={this.image_src} />;
+        return <OrganizationLogoComponentRender theme={theme} uiStore={this.props.uiStore} roster_style={s} roster_games={<div style={{ display: 'flex' }}>{m_array}</div>} image_src={this.image_src} />;
     }
 }
 
