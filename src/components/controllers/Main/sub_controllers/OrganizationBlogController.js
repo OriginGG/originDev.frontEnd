@@ -45,6 +45,7 @@ class OrganizationBlogController extends Component {
         // const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.results_array = [];
+        console.log(`blog data = ${JSON.stringify(blog_data.resultData.edges)}`);
         blog_data.resultData.edges.forEach((blog, i) => {
             const { blogContent } = blog.node;
             const { blogMedia } = blog.node;
@@ -52,7 +53,7 @@ class OrganizationBlogController extends Component {
             const { createdAt } = blog.node;
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // console.log(`blogMain = ${blog}`);
-            const formattedDate = dayjs(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('MMMM D, YYYY h:mm A');
             this.results_array.push({
                 content: bcontent, media: blogMedia, title: blogTitle, date: formattedDate, blog, key: i
             });
@@ -183,7 +184,7 @@ class OrganizationBlogController extends Component {
             main_blog1 = { display: 'none' };
         }
 
-        // console.log(`blog array = ${JSON.stringify(this.results_array)}`);
+        console.log(`blog array = ${JSON.stringify(this.results_array)}`);
 
         if (this.results_array[0]) {
             b_title_1 = this.results_array[0].title;

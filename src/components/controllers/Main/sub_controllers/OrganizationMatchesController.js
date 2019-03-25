@@ -301,7 +301,10 @@ class OrganizationMatchesController extends Component {
             // console.log(`GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG image = ${g_image.image}`);
             // console.log(`i = ${i}`);
             // console.log(`OrganizationMatchesController res = ${JSON.stringify(res)}`);
-            const formattedDate = dayjs(res.node.createdAt).format('lll');
+            console.log(`res.noe.createdAt = ${res.node.createdAt}`);
+            // const formattedDate = dayjs(res.node.createdAt).format('MM/DD/YY');
+            const formattedDate = dayjs(res.node.createdAt).format('MM/DD/YYYY @HH:mm');
+            console.log(`FORMATTED DATE = ${formattedDate}`);
 
             const score_array = res.node.score.split(' - ');
 
@@ -311,7 +314,7 @@ class OrganizationMatchesController extends Component {
             let date_exists = formattedDate;
 
             if (res.node.eventDate) {
-                date_exists = res.node.eventDate;
+                date_exists = dayjs(res.node.eventDate).format('MM/DD/YYYY @HH:mm');
             }
 
             // console.log(`home = ${home_score} | away = ${away_score}`);

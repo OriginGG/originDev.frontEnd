@@ -86,7 +86,7 @@ class OrganizationNewsController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            const formattedDate = dayjs(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('MMMM D, YYYY h:mm A');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
             this.results_array.push({
@@ -134,6 +134,9 @@ class OrganizationNewsController extends Component {
             if (theme_type === 'mobile' && i > 2) {
                 const ocontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
                 console.log(`news item = ${blogTitle}`);
+                if (i === 3) {
+                    this.blog_array = [];
+                }
                 this.blog_array.unshift(<OrganizationNewsComponentRender key={`news_blog_item_k_${i}`} blog={blog} blog_date={formattedDate} blog_title={blogTitle} blog_content={bcontent} blog_media={blogMedia} handleNewsClick={this.props.handleNewsClick} />);
                 if (blog_data.resultData.edges.length === 4) {
                     this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={ocontent} blog_media={default_image} handleNewsClick={this.props.handleNewsClick} />);

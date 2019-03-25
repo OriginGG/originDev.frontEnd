@@ -37,6 +37,7 @@ class OrganizationAdminBlogComponentRender extends Component {
                                 display: 'none'
                             }}/>
                         </div>
+                        <h2>16:9 ratio images used for all themes</h2>
                         <div className={this.props.classes.modal_blog_media_container}>
                             <img id="blog_media_preview" className={this.props.classes.modal_blog_media_preview}/>
                         </div>
