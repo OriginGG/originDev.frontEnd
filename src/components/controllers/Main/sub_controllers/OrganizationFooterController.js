@@ -61,25 +61,22 @@ class OrganizationFooterController extends Component {
 			});
 		});
 		const OrganizationFooterComponentRender = loadable(
-			(props) =>
-				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-					.current_theme_full_name}/OrganizationFooterComponentRender`),
+			() =>
+				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationFooterComponentRender`),
 			{
 				fallback: <div>Loading...</div>
 			}
 		);
 		const OrganizationFooterMobileComponentRender = loadable(
-			(props) =>
-				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-					.current_theme_full_name}/OrganizationFooterMobileComponentRender`),
+			() =>
+				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationFooterMobileComponentRender`),
 			{
 				fallback: <div>Loading...</div>
 			}
 		);
 		const OrganizationFooterNewsComponentRender = loadable(
-			(props) =>
-				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-					.current_theme_full_name}/OrganizationFooterNewsComponentRender`),
+			() =>
+				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationFooterNewsComponentRender`),
 			{
 				fallback: <div>Loading...</div>
 			}

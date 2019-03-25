@@ -148,17 +148,15 @@ class OrganizationMatchesController extends Component {
 		}
 
 		const OrganizationMatchesComponentRender = loadable(
-			(props) =>
-				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-					.current_theme_full_name}/OrganizationMatchesComponentRender`),
+			() =>
+				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationMatchesComponentRender`),
 			{
 				fallback: <div>Loading...</div>
 			}
 		);
 		const OrganizationMatchesComponentElementRender = loadable(
-			(props) =>
-				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-					.current_theme_full_name}/OrganizationMatchesComponentElementRender`),
+			() =>
+				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationMatchesComponentElementRender`),
 			{
 				fallback: <div>Loading...</div>
 			}
@@ -168,17 +166,15 @@ class OrganizationMatchesController extends Component {
 		let OrganizationMatchesMobileComponentElementRender = null;
 		if (theme === 'felzec/light') {
 			OrganizationMatchesMobileComponentRender = loadable(
-				(props) =>
-					import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-						.current_theme_full_name}/OrganizationMatchesMobileComponentRender`),
+				() =>
+					import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentRender`),
 				{
 					fallback: <div>Loading...</div>
 				}
 			);
 			OrganizationMatchesMobileComponentElementRender = loadable(
-				(props) =>
-					import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-						.current_theme_full_name}/OrganizationMatchesMobileComponentElementRender`),
+				() =>
+					import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationMatchesMobileComponentElementRender`),
 				{
 					fallback: <div>Loading...</div>
 				}

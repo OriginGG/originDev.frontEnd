@@ -40,17 +40,15 @@ class OrganizationBlogListController extends Component {
 		// console.log(`them = ${theme}`);
 		// const subDomain = this.props.uiStore.current_subdomain;
 		const OrganizationNewsModalComponentRender = loadable(
-			(props) =>
-				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-					.current_theme_full_name}/OrganizationNewsModalComponentRender`),
+			() =>
+				import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`),
 			{
 				fallback: <div>Loading...</div>
 			}
 		);
         const OrganizationNewsComponentRender = loadable(
-            (props) =>
-                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-                    .current_theme_full_name}/OrganizationNewsComponentRender`),
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationNewsComponentRender`),
             {
                 fallback: <div>Loading...</div>
             }
@@ -59,9 +57,8 @@ class OrganizationBlogListController extends Component {
 		if (this.isMobile()) {
 			if (theme === 'felzec/light' || theme === 'enigma2/dark') {
                 OrganizationNewsMobileComponentRender = loadable(
-                    (props) =>
-                        import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-                            .current_theme_full_name}/OrganizationNewsMobileComponentRender`),
+                    () =>
+                        import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationNewsMobileComponentRender`),
                     {
                         fallback: <div>Loading...</div>
                     }

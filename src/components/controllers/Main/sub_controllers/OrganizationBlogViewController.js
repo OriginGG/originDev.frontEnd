@@ -55,7 +55,7 @@ class OrganizationBlogViewController extends Component {
         }
         const { OrganizationNewsModalComponentRender } = this.state;
 
-        const p_array = <OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
+        const p_array = <OrganizationNewsModalComponentRender uiStore={this.props.uiStore} extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
 
         return (<div>
             {this.props.shareBlog && <div
