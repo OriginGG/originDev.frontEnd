@@ -25,6 +25,10 @@ import { getAllAdminUsersQuery } from '../../../queries/users';
 import appManager from '../../../utils/appManager';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
+function BlankComponent() {
+	return <div />;
+}
+
 const OrganizationPageComponentRender = loadable(
 	(props) =>
 		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.uiStore
@@ -68,8 +72,7 @@ const OrganizationEmailComponentRender = loadable(
 
 const OrganizationMobileMenuComponentRender = loadable(
     (props) =>
-        import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.uiStore
-            .current_theme_full_name}/OrganizationMobileMenuComponentRender`),
+        import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationMobileMenuComponentRender`),
     {
         fallback: <div>Loading...</div>
     }
@@ -190,8 +193,7 @@ const OrganizationBlogViewController = loadable(
 
 const OrganizationMobileSubMenuComponentRender = loadable(
     (props) =>
-        import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.uiStore
-            .current_theme_full_name}/OrganizationMobileSubMenuComponentRender`),
+        import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationMobileSubMenuComponentRender`),
     {
         fallback: <div>Loading...</div>
     }
@@ -305,29 +307,29 @@ class OrganizationPageController extends Component {
 					organisationId: this.props.uiStore.current_organisation.id
 				});
 				const { subscribed } = user.allUsers.edges[0].node;
+				let themeBase = this.props.uiStore.current_organisation.themeBaseId;
 				let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore
 					.current_organisation.themeId}`;
-				let themeBase = this.props.uiStore.current_organisation.themeBaseId;
 				if (this.isMobile()) {
 					theme = 'mobile/dark';
 					themeBase = 'mobile';
 				}
 				console.log(`theme === ${theme}`);
-				let OrganizationBlogControllerDefault = null;
-				let OrganizationTwitchControllerDefault = null;
-				let OrganizationTeamControllerDefault = null;
-				let OrganizationMediaControllerDefault = null;
+				let OrganizationBlogController = BlankComponent;
+				let OrganizationTwitchController =  BlankComponent;
+				let OrganizationTeamController = BlankComponent;
+				let OrganizationMediaController = BlankComponent;
 				if (themeBase === 'obliviot' || themeBase === 'felzec' || themeBase === 'enigma2') {
-					OrganizationBlogControllerDefault = OrganizationBlogControllerHOC;
-					OrganizationTwitchControllerDefault = OrganizationTwitchControllerHOC;
+					OrganizationBlogController = OrganizationBlogControllerHOC;
+					OrganizationTwitchController = OrganizationTwitchControllerHOC;
 				}
 				if (themeBase === 'mobile' && this.isMobile()) {
-					OrganizationBlogControllerDefault = OrganizationBlogControllerHOC;
-					OrganizationTwitchControllerDefault = OrganizationTwitchControllerHOC;
+					OrganizationBlogController = OrganizationBlogControllerHOC;
+					OrganizationTwitchController = OrganizationTwitchControllerHOC;
 				}
 				if (themeBase === 'felzec' || themeBase === 'enigma2') {
-					OrganizationTeamControllerDefault = OrganizationTeamControllerHOC;
-					OrganizationMediaControllerDefault = OrganizationMediaControllerHOC;
+					OrganizationTeamController = OrganizationTeamControllerHOC;
+					OrganizationMediaController = OrganizationMediaControllerHOC;
 				}
 
 				if (themeBase === 'enigma2') {
@@ -358,7 +360,7 @@ class OrganizationPageController extends Component {
 								tabIndex={-1}
 								key={`mobile_roster_${r.node.id}`}
 							>
-                                <OrganizationMobileSubMenuComponentRender uiStore={this.props.uiStore} name={currGame.text} />
+								<OrganizationMobileSubMenuComponentRender theme={theme} uiStore={this.props.uiStore} name={currGame.text} />
 							</div>
 						);
 					});
@@ -414,11 +416,11 @@ class OrganizationPageController extends Component {
 					// OrganizationBlogListController: OrganizationBlogListController.default,
 					// OrganizationBlogViewController: OrganizationBlogViewController.default,
 					// OrganizationStaffController: OrganizationStaffController.default,
-					OrganizationBlogController: OrganizationBlogControllerDefault,
-					OrganizationTeamController: OrganizationTeamControllerDefault,
-					OrganizationMediaController: OrganizationMediaControllerDefault,
+					OrganizationBlogController,
+					OrganizationTeamController,
+					OrganizationMediaController,
 					// OrganizationFooterController: OrganizationFooterControllerDefault,
-					OrganizationTwitchController: OrganizationTwitchControllerDefault,
+					OrganizationTwitchController,
 					enigma2_home_style: {
 						display: 'inherit',
 						borderBottomColor: this.props.uiStore.current_organisation.primaryColor
@@ -747,6 +749,11 @@ class OrganizationPageController extends Component {
 		if (this.state.visible === false) {
 			return null;
 		}
+		let curr_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore
+			.current_organisation.themeId}`;
+		if (this.isMobile()) {
+			curr_theme = 'mobile/dark';
+		}
 		const theme = this.props.uiStore.current_organisation.themeId;
 		const real_theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore
 			.current_organisation.themeId}`;
@@ -865,7 +872,8 @@ class OrganizationPageController extends Component {
 				>
 					<div id="page-wrap">
 						<div style={{ display: 'flex', width: '100%', height: '100%' }}>
-                            <OrganizationMobileMenuComponentRender
+							<OrganizationMobileMenuComponentRender
+								theme={curr_theme}
                                 uiStore={this.props.uiStore}
 								rosterContent={rosterComponent}
 								mobile_roster_item={ssss}
@@ -937,6 +945,7 @@ class OrganizationPageController extends Component {
 						<div id="page-wrap">
 							<div style={{ display: 'flex', width: '100%', height: '100%' }}>
 								<OrganizationMobileMenuComponentRender
+									theme={curr_theme}
 									rosterContent={rosterComponent}
 									mobile_roster_item={ssss}
 									facebook_style={fb_style}
