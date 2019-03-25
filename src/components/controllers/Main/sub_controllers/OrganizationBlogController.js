@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 import { Modal } from 'antd';
 import dayjs from 'dayjs';
 import { isMobile } from 'react-device-detect';
@@ -37,11 +38,28 @@ class OrganizationBlogController extends Component {
 
         let OrganizationBlogMobileComponentRender = null;
         if (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light' || theme === 'mobile/dark') {
-            OrganizationBlogMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogMobileComponentRender`);
+            OrganizationBlogMobileComponentRender = loadable(
+                (props) =>
+                    import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
+                        .current_theme_full_name}/OrganizationBlogMobileComponentRender`),
+                {
+                    fallback: <div>Loading...</div>
+                });
         }
-        const OrganizationBlogComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogComponentRender`);
-        const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
-        // const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationBlogModuleComponentRender`);
+        const OrganizationBlogComponentRender = loadable(
+            (props) =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
+                    .current_theme_full_name}/OrganizationBlogComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationNewsModalComponentRender = loadable(
+            (props) =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
+                    .current_theme_full_name}/OrganizationNewsModalComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         // const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.results_array = [];
@@ -61,15 +79,15 @@ class OrganizationBlogController extends Component {
         // if (blog_data.resultData.edges.length > 0) {
             if (theme === 'felzec/light' || theme === 'obliviot/dark' || theme === 'obliviot/light' || theme === 'mobile/dark') {
                 this.setState({
-                    OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
-                    OrganizationBlogMobileComponentRender: OrganizationBlogMobileComponentRender.default,
-                    OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                    OrganizationBlogComponentRender,
+                    OrganizationBlogMobileComponentRender,
+                    OrganizationNewsModalComponentRender,
                     visible: true
                 });
             } else {
                 this.setState({
-                    OrganizationBlogComponentRender: OrganizationBlogComponentRender.default,
-                    OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                    OrganizationBlogComponentRender,
+                    OrganizationNewsModalComponentRender,
                     visible: true
                 });
             }
@@ -231,6 +249,7 @@ class OrganizationBlogController extends Component {
             return (
                 <div>
                     <OrganizationBlogMobileComponentRender
+                        uiStore={this.props.uiStore}
                         bg_style={bg_style}
                         filter_style={f_style}
                         blog_media_1={b_media_1}
@@ -261,7 +280,7 @@ class OrganizationBlogController extends Component {
                     />
                     <BlogModal
                         modal_open={this.state.blog_modal_open}
-                        content={<OrganizationNewsModalComponentRender extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.state.blog_media} blog_content={this.state.blog_content} />}
+                        content={<OrganizationNewsModalComponentRender uiStore={this.props.uiStore} extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.state.blog_media} blog_content={this.state.blog_content} />}
                     />
                 </div>
             );
@@ -269,6 +288,7 @@ class OrganizationBlogController extends Component {
         return (
             <div>
                 <OrganizationBlogComponentRender
+                    uiStore={this.props.uiStore}
                     bg_style={bg_style}
                     blog_switch1={switch_color_1}
                     blog_switch2={switch_color_2}
