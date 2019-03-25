@@ -86,7 +86,7 @@ class OrganizationNewsController extends Component {
             const { blogMedia } = blog.node;
             const { blogTitle } = blog.node;
             const { createdAt } = blog.node;
-            const formattedDate = dayjs(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('MMMM D, YYYY h:mm A');
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup(blogContent)} />;
             // const { createdAt } = blog.node;
             this.results_array.push({

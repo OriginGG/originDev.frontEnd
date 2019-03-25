@@ -42,7 +42,7 @@ class OrganizationFooterController extends Component {
             const { createdAt } = blog.node;
             const blog_d = blog;
             // console.log(`blogMain = ${blog}`);
-            const formattedDate = dayjs(createdAt).format('lll');
+            const formattedDate = dayjs(createdAt).format('MMMM D, YYYY h:mm A');
             this.results_array.push({
                 media: blogMedia, title: blogTitle, date: formattedDate, blog: blog_d, key: i
             });
