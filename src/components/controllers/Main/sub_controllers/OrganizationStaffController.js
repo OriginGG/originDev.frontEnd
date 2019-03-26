@@ -3,12 +3,16 @@ import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
+import loadable from '@loadable/component';
 // import { GlobalStyles } from 'Theme/Theme';
 import { isMobile } from 'react-device-detect';
 import { staffOptions } from '../../Admin/sub_controllers/data/AllPositions';
 import { getRosterQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
+function BlankComponent() {
+    return <div />;
+}
 // import { getOrganisationQuery } from './queries/organisation'
 class OrganizationStaffController extends Component {
     state = { visible: false/* , overlay_showing: false */ };
@@ -20,11 +24,26 @@ class OrganizationStaffController extends Component {
         if (this.isMobile()) {
             theme = 'mobile/dark';
         }
-        const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
-        const OrganizationAboutModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`);
-        let OrganizationAboutModalMobileComponentRender = null;
+        const OrganizationRosterItemComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationAboutModalComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationAboutModalComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        let OrganizationAboutModalMobileComponentRender = BlankComponent;
         if (theme === 'felzec/light' || theme === 'enigma2/dark') {
-            OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
+            OrganizationAboutModalMobileComponentRender = loadable(
+                () =>
+                    import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`),
+                {
+                    fallback: <div>Loading...</div>
+                });
         }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { organisationId: this.props.uiStore.current_organisation.id, rosterType: 'staff' });
         const outer_edges = roster_data.allCombinedRosters.edges;
@@ -50,9 +69,9 @@ class OrganizationStaffController extends Component {
                 // theme_name: theme,
                 // overlay_showing: false,
                 visible: true,
-                OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
-                OrganizationAboutModalMobileComponentRender: OrganizationAboutModalMobileComponentRender.default,
-                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+                OrganizationAboutModalComponentRender,
+                OrganizationAboutModalMobileComponentRender,
+                OrganizationRosterItemComponentRender
             });
         } else {
             this.setState({
@@ -61,8 +80,8 @@ class OrganizationStaffController extends Component {
                 // theme_name: theme,
                 // overlay_showing: false,
                 visible: true,
-                OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
-                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+                OrganizationAboutModalComponentRender,
+                OrganizationRosterItemComponentRender
             });
         }
     }

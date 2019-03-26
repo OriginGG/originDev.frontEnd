@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 import { isMobile } from 'react-device-detect';
 // import Slider from 'react-slick';
 import AliceCarousel from 'react-alice-carousel';
@@ -16,16 +17,26 @@ class OrganizationSponsorController extends Component {
         if (this.isMobile()) {
             theme = 'mobile/dark';
         }
-        const OrganizationSponserComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentRender`);
-        const OrganizationSponserComponentElementRender = await import(`../../../render_components/themes/${theme}/OrganizationSponserComponentElementRender`);
+        const OrganizationSponserComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationSponserComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationSponserComponentElementRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationSponserComponentElementRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         // const subDomain = this.props.uiStore.current_subdomain;
         const sponsor_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const { nodes } = sponsor_data.allOrgSponsors;
         this.sponsor_data = nodes;
         this.setState({
             visible: true,
-            OrganizationSponserComponentRender: OrganizationSponserComponentRender.default,
-            OrganizationSponserComponentElementRender: OrganizationSponserComponentElementRender.default,
+            OrganizationSponserComponentRender,
+            OrganizationSponserComponentElementRender,
         });
     }
     componentDidCatch = (error, info) => {
