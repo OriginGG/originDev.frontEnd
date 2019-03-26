@@ -577,23 +577,25 @@ class AdminPageController extends Component {
 				<Chatlio />
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
 					<Layout>
-						<Sider width={366}>
-							<div style={{ height: '100vh', overflowY: 'auto' }}>
-							<OrganizationAdminMenuComponentRender
-							key={`admin_sidebar_key_${this.my_key}`}
-							handleMainMenuClick={this.handleManageClick}
-							handleCloseClick={this.handleClick}
-							close_style={close_style}
-							update_card_style={update_card_style}
-							paywall_content={info_block}
-							dropdown={
-								<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
-							}
-							fullname={full_name}
-							image_src={this.props.uiStore.current_theme_structure.header.logo.imageData}
-								/>
-							</div>
-						</Sider>
+						{this.state.isOpen &&
+							<Sider width={366}>
+								<div style={{ height: '100vh', overflowY: 'auto' }}>
+									<OrganizationAdminMenuComponentRender
+										key={`admin_sidebar_key_${this.my_key}`}
+										handleMainMenuClick={this.handleManageClick}
+										handleCloseClick={this.handleClick}
+										close_style={close_style}
+										update_card_style={update_card_style}
+										paywall_content={info_block}
+										dropdown={
+											<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
+										}
+										fullname={full_name}
+										image_src={this.props.uiStore.current_theme_structure.header.logo.imageData}
+									/>
+								</div>
+							</Sider>
+						}
 						<Layout>
 							<Content><div style={{ padding: 8, height: '100vh', overflowY: 'auto' }}>
 								<OrganizationAdminPageComponentRender
