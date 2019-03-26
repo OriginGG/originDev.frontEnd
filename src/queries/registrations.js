@@ -12,6 +12,16 @@ export const setPasswordIndividualQuery = gql`mutation resetPasswordInd($id: Int
   }
 }`;
 
+export const createIndEmailRegistrationQuery = gql`mutation createIndEmailRegistration($email: String!, $payload: String!) {
+  createIndRegistrationEmail(input:{indRegistrationEmail: {
+    email:$email
+    payload: $payload
+  }}) {
+     indRegistrationEmail{
+      email
+    }
+  }
+}`;
 
 export const createEmailRegistrationQuery = gql`mutation createEmailRegistration($email: String!, $payload: String!) {
   createRegistrationEmail(input:{registrationEmail: {
@@ -33,9 +43,25 @@ export const deleteEmailRegistrationQuery = gql`mutation deleteEmailRegistration
   }  
 }`;
 
+export const deleteIndEmailRegistrationQuery = gql`mutation deleteIndEmailRegistration($email: String!) {
+  deleteIndRegistrationEmailByEmail(input:{email:$email}) {
+     indRegistrationEmail{
+      email
+    }
+  }  
+}`;
+
 export const getEmailRegistrationQuery = gql`query getEmailRegistration($email: String!) {
     registrationEmailByEmail(email: $email) {
         email
         payload
     }
 }`;
+
+export const getIndEmailRegistrationQuery = gql`query getEmailRegistration($email: String!) {
+    indRegistrationEmailByEmail(email: $email) {
+        email
+        payload
+    }
+}`;
+
