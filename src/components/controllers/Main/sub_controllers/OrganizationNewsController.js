@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 import { Modal } from 'antd';
 import { isMobile } from 'react-device-detect';
 import dayjs from 'dayjs';
@@ -24,6 +25,12 @@ const BlogModal = (props) => {
             </div>
         </Modal >);
 };
+
+function BlankComponent() {
+    return <div />;
+}
+
+
 class OrganizationNewsController extends Component {
     state = {
         blog_modal_open: false, blog_media: null, blog_content: null, OrganizationNewsModalComponentRender: null, visible: false
@@ -36,16 +43,33 @@ class OrganizationNewsController extends Component {
             theme = 'mobile/dark';
             theme_type = 'mobile';
         }
-        const comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsComponentRender`);
-        let m_comp = null;
-        let  OrganizationNewsMobileComponentRender = null;
+        let  OrganizationNewsMobileComponentRender = BlankComponent;
         if (this.isMobile() && theme === 'felzec/light') {
-            m_comp = await import(`../../../render_components/themes/${theme}/OrganizationNewsMobileComponentRender`);
-            OrganizationNewsMobileComponentRender = m_comp.default;
+            OrganizationNewsMobileComponentRender = loadable(
+                () =>
+                    import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationNewsMobileComponentRender`),
+                {
+                    fallback: <div>Loading...</div>
+                });
         }
-        const OrganizationNewsModalComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`);
-        const OrganizationNewsModuleComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationNewsModuleComponentRender`);
-        const OrganizationNewsComponentRender = comp.default;
+        const OrganizationNewsModalComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationNewsModalComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationNewsModuleComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationNewsModuleComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationNewsComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationNewsComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         // const subDomain = this.props.uiStore.current_subdomain;
         const blog_data = await this.props.appManager.executeQuery('query', getBlogsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         this.blog_array = [];
@@ -167,8 +191,8 @@ class OrganizationNewsController extends Component {
         });
         if (blog_data.resultData.edges.length > -1) {
             this.setState({
-                OrganizationNewsModuleComponentRender: OrganizationNewsModuleComponentRender.default,
-                OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default,
+                OrganizationNewsModuleComponentRender,
+                OrganizationNewsModalComponentRender,
                 visible: true
             });
         }
