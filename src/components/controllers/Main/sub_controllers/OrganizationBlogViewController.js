@@ -20,12 +20,11 @@ class OrganizationBlogViewController extends Component {
 
         const OrganizationNewsModalComponentRender = loadable(
             (props) =>
-                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.uiStore
-                    .current_theme_full_name}/OrganizationNewsModalComponentRender`),
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${props.theme}/OrganizationNewsModalComponentRender`),
             {
                 fallback: <div>Loading...</div>
             });
-        this.setState({ visible: true, OrganizationNewsModalComponentRender: OrganizationNewsModalComponentRender.default });
+        this.setState({ visible: true, OrganizationNewsModalComponentRender });
     }
 
     createMarkup = (content) => {
@@ -55,7 +54,7 @@ class OrganizationBlogViewController extends Component {
         }
         const { OrganizationNewsModalComponentRender } = this.state;
 
-        const p_array = <OrganizationNewsModalComponentRender uiStore={this.props.uiStore} extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
+        const p_array = <OrganizationNewsModalComponentRender theme={theme} extra_style={{ display: 'inherit' }} closeModal={this.closeModal} blog_media={this.props.blog_media} blog_content={this.props.blog_content} blog_title={this.props.blog_title} blog_date={this.props.blog_date} />;
 
         return (<div>
             {this.props.shareBlog && <div
