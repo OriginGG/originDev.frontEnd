@@ -31,172 +31,153 @@ function BlankComponent() {
 
 const OrganizationPageComponentRender = loadable(
 	(props) =>
-		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.uiStore
-			.current_theme_full_name}/OrganizationPageComponentRender`),
+		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationPageComponentRender`),
 	{
 		fallback: <div>Loading...</div>
 	}
 );
 const OrganizationFooterController = loadable(
-	() =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationFooterController'),
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationFooterController'),
 	{
 		fallback: <div>Loading...</div>
 	}
 );
 
 const OrganizationVideoController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationVideoController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationVideoController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationMatchesController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationMatchesController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationMatchesController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationEmailComponentRender = loadable(
-    (props) =>
-        import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.uiStore
-            .current_theme_full_name}/OrganizationEmailComponentRender`),
-    {
-        fallback: <div>Loading...</div>
-    }
+	(props) =>
+		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.uiStore
+			.current_theme_full_name}/OrganizationEmailComponentRender`),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationMobileMenuComponentRender = loadable(
-    (props) =>
-        import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationMobileMenuComponentRender`),
-    {
-        fallback: <div>Loading...</div>
-    }
+	(props) =>
+		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationMobileMenuComponentRender`),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationNewsController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationNewsController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationNewsController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationTwitterController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationTwitterController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationTwitterController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationSponsorController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationSponsorController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationSponsorController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationNavController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationNavController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationNavController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationLogoController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationLogoController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationLogoController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationRosterController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationRosterController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationRosterController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationStaffController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationStaffController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationStaffController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationSponserListController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationSponserListController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationSponserListController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationBlogControllerHOC = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationBlogController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationBlogController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationTwitchControllerHOC = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationTwitchController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationTwitchController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationTeamControllerHOC = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationTeamController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationTeamController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
-
 const OrganizationMediaControllerHOC = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationMediaController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationMediaController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationBlogListController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationBlogListController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationBlogListController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationBlogViewController = loadable(
-    () =>
-        import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationBlogViewController'),
-    {
-        fallback: <div>Loading...</div>
-    }
+	() => import(/* webpackChunkName: "renderComponents" */ './sub_controllers/OrganizationBlogViewController'),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 const OrganizationMobileSubMenuComponentRender = loadable(
-    (props) =>
-        import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationMobileSubMenuComponentRender`),
-    {
-        fallback: <div>Loading...</div>
-    }
+	(props) =>
+		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationMobileSubMenuComponentRender`),
+	{
+		fallback: <div>Loading...</div>
+	}
 );
 
 class OrganizationPageController extends Component {
@@ -316,7 +297,7 @@ class OrganizationPageController extends Component {
 				}
 				console.log(`theme === ${theme}`);
 				let OrganizationBlogController = BlankComponent;
-				let OrganizationTwitchController =  BlankComponent;
+				let OrganizationTwitchController = BlankComponent;
 				let OrganizationTeamController = BlankComponent;
 				let OrganizationMediaController = BlankComponent;
 				if (themeBase === 'obliviot' || themeBase === 'felzec' || themeBase === 'enigma2') {
@@ -360,7 +341,11 @@ class OrganizationPageController extends Component {
 								tabIndex={-1}
 								key={`mobile_roster_${r.node.id}`}
 							>
-								<OrganizationMobileSubMenuComponentRender theme={theme} uiStore={this.props.uiStore} name={currGame.text} />
+								<OrganizationMobileSubMenuComponentRender
+									theme={theme}
+									uiStore={this.props.uiStore}
+									name={currGame.text}
+								/>
 							</div>
 						);
 					});
@@ -874,7 +859,7 @@ class OrganizationPageController extends Component {
 						<div style={{ display: 'flex', width: '100%', height: '100%' }}>
 							<OrganizationMobileMenuComponentRender
 								theme={curr_theme}
-                                uiStore={this.props.uiStore}
+								uiStore={this.props.uiStore}
 								rosterContent={rosterComponent}
 								mobile_roster_item={ssss}
 								handleSocial={this.handleSocial}
@@ -982,14 +967,15 @@ class OrganizationPageController extends Component {
 		let c_name = `${theme}_gradient_bg`;
 		let disp = (
 			<OrganizationPageComponentRender
+				theme={curr_theme}
 				uiStore={this.props.uiStore}
 				roster_style={this.state.roster_style}
 				handleWebClick={this.handleWebClick}
 				copyright={cp}
 				newsContent={<OrganizationNewsController handleNewsClick={this.handleNewsClick} />}
 				emailContent={
-                    <OrganizationEmailComponentRender
-                        uiStore={this.props.uiStore}
+					<OrganizationEmailComponentRender
+						uiStore={this.props.uiStore}
 						handleCustomerEmailClose={this.handleCustomerEmailClose}
 						handleEmailChange={this.handleEmailChange}
 						handleCustomerEmailSubmit={this.handleCustomerEmailSubmit}
@@ -1028,6 +1014,7 @@ class OrganizationPageController extends Component {
 			}
 			disp = (
 				<OrganizationPageComponentRender
+					theme={curr_theme}
 					uiStore={this.props.uiStore}
 					roster_style={this.state.roster_style}
 					copyright={cp}
@@ -1062,6 +1049,7 @@ class OrganizationPageController extends Component {
 			}
 			disp = (
 				<OrganizationPageComponentRender
+					theme={curr_theme}
 					uiStore={this.props.uiStore}
 					roster_style={this.state.roster_style}
 					copyright={cp}
@@ -1102,6 +1090,7 @@ class OrganizationPageController extends Component {
 				}
 				disp = (
 					<OrganizationPageComponentRender
+						theme={curr_theme}
 						uiStore={this.props.uiStore}
 						roster_style={this.state.roster_style}
 						copyright={cp}
@@ -1133,6 +1122,7 @@ class OrganizationPageController extends Component {
 				}
 				disp = (
 					<OrganizationPageComponentRender
+						theme={curr_theme}
 						uiStore={this.props.uiStore}
 						roster_style={this.state.roster_style}
 						copyright={cp}
@@ -1182,6 +1172,7 @@ class OrganizationPageController extends Component {
 			}
 			disp = (
 				<OrganizationPageComponentRender
+					theme={curr_theme}
 					uiStore={this.props.uiStore}
 					roster_style={this.state.roster_style}
 					copyright={cp}
@@ -1225,6 +1216,7 @@ class OrganizationPageController extends Component {
 			}
 			disp = (
 				<OrganizationPageComponentRender
+					theme={curr_theme}
 					uiStore={this.props.uiStore}
 					roster_style={this.state.roster_style}
 					copyright={cp}
