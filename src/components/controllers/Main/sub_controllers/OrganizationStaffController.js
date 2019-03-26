@@ -38,7 +38,12 @@ class OrganizationStaffController extends Component {
             });
         let OrganizationAboutModalMobileComponentRender = BlankComponent;
         if (theme === 'felzec/light' || theme === 'enigma2/dark') {
-            OrganizationAboutModalMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`);
+            OrganizationAboutModalMobileComponentRender = loadable(
+                () =>
+                    import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationAboutModalMobileComponentRender`),
+                {
+                    fallback: <div>Loading...</div>
+                });
         }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, { organisationId: this.props.uiStore.current_organisation.id, rosterType: 'staff' });
         const outer_edges = roster_data.allCombinedRosters.edges;
@@ -75,8 +80,8 @@ class OrganizationStaffController extends Component {
                 // theme_name: theme,
                 // overlay_showing: false,
                 visible: true,
-                OrganizationAboutModalComponentRender: OrganizationAboutModalComponentRender.default,
-                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+                OrganizationAboutModalComponentRender,
+                OrganizationRosterItemComponentRender
             });
         }
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
+import loadable from '@loadable/component';
 import PropTypes from 'prop-types';
 // import { GlobalStyles } from 'Theme/Theme';
 import { getYouTubeChannelsQuery } from '../../../../queries/youtube_channels';
@@ -16,7 +17,12 @@ class OrganizationVideoController extends Component {
         if (this.isMobile()) {
             theme = 'mobile/dark';
         }
-        const OrganizationVideoComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationVideoComponentRender`);
+        const OrganizationVideoComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationVideoComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         const youTubeChannels = await this.props.appManager.executeQuery('query', getYouTubeChannelsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         if (youTubeChannels.resultData.edges.length !== 0) {
             const v1 = this.props.appManager.convertYoutubeURL(youTubeChannels.resultData.edges[0].node.youtubeVideo1);
@@ -31,7 +37,7 @@ class OrganizationVideoController extends Component {
             };
             // console.log(`youtube before: ${youTubeChannels.resultData.edges[0].node.youtubeVideo1} asnd youtube after ${v1}`);
             this.setState(p);
-            this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
+            this.setState({ visible: true, OrganizationVideoComponentRender });
         } else {
             const v1 = this.props.appManager.convertYoutubeURL('https://www.youtube.com/watch?v=eXzSeGxjPCs');
             const v2 = this.props.appManager.convertYoutubeURL('https://www.youtube.com/watch?v=eXzSeGxjPCs');
@@ -45,7 +51,7 @@ class OrganizationVideoController extends Component {
             };
             // console.log(`youtube before: ${youTubeChannels.resultData.edges[0].node.youtubeVideo1} asnd youtube after ${v1}`);
             this.setState(p);
-            this.setState({ visible: true, OrganizationVideoComponentRender: OrganizationVideoComponentRender.default });
+            this.setState({ visible: true, OrganizationVideoComponentRender });
         }
     }
     componentDidCatch = (error, info) => {
