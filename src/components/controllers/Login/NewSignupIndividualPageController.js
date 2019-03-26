@@ -9,7 +9,7 @@ import historyStore from '../../../utils/stores/browserHistory';
 import { getIndividualUserByIdQuery } from '../../../queries/users';
 import { authenticateIndividualQuery } from '../../../queries/login';
 import { updateIndividualUserQuery } from '../../../queries/individuals';
-import { deleteEmailRegistrationQuery, getEmailRegistrationQuery } from '../../../queries/registrations';
+import { deleteIndEmailRegistrationQuery, getIndEmailRegistrationQuery } from '../../../queries/registrations';
 
 class NewSignupIndividualPageController extends Component {
     componentDidMount = async () => {
@@ -60,9 +60,9 @@ class NewSignupIndividualPageController extends Component {
                 this.props.appManager.authToken = u_token;
                 // debugger;
                 await this.props.appManager.executeQueryAuth('mutation', updateIndividualUserQuery, payload);
-                const exists = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, { email: u.email });
-                if (exists.registrationEmailByEmail) {
-                    await this.props.appManager.executeQuery('mutation', deleteEmailRegistrationQuery, { email: u.email });
+                const exists = await this.props.appManager.executeQuery('query', getIndEmailRegistrationQuery, { email: u.email });
+                if (exists.indRegistrationEmailByEmail) {
+                    await this.props.appManager.executeQuery('mutation', deleteIndEmailRegistrationQuery, { email: u.email });
                 }
                 const new_payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
                 this.props.appManager.pouchStore('ind_authenticate', new_payload);
