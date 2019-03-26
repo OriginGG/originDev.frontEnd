@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import find from 'lodash/find';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
+import loadable from '@loadable/component';
 import PropTypes from 'prop-types';
 // import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters';
@@ -266,18 +267,32 @@ class OrganizationTeamController extends Component {
             theme = 'mobile/dark';
         }
         // const theme = this.props.uiStore.current_organisation.themeId;
-        const OrganizationTeamComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamComponentRender`);
-        const OrganizationTeamGameController = await import('./OrganizationTeamGameController');
-        const OrganizationTeamMateController = await import('./OrganizationTeamMateController');
+        const OrganizationTeamComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationTeamComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationTeamGameController = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ './OrganizationTeamGameController'),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationTeamMateController = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ './OrganizationTeamMateController'),
+            {
+                fallback: <div>Loading...</div>
+            });
         this.image_src = this.props.uiStore.current_theme_structure.main_section.background.imageData;
         this.setState({
             games: p_array,
             current_roster_id: ros_id,
             visible: true,
-            OrganizationTeamGameController: OrganizationTeamGameController.default,
-            OrganizationTeamComponentRender: OrganizationTeamComponentRender.default,
-            OrganizationTeamMateController: OrganizationTeamMateController.default,
-            // OrganizationTeamImageComponentRender: OrganizationTeamImageComponentRender.default
+            OrganizationTeamGameController,
+            OrganizationTeamComponentRender,
+            OrganizationTeamMateController,
         });
         // console.log(`roster_array = ${JSON.stringify(this.state.rosters)}`);
     }
