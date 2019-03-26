@@ -3,13 +3,13 @@ import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import { Button, Card, Image } from 'semantic-ui-react';
-import { Modal } from 'antd';
+import { Modal, Layout } from 'antd';
 import { toast } from 'react-toastify';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { StripeProvider } from 'react-stripe-elements';
 import axios from 'axios';
-import { Accordion, Sidebar, Segment, Icon, Menu } from 'semantic-ui-react/dist/commonjs';
+import { Accordion, Icon } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 // import moment from 'moment-timezone';
@@ -39,6 +39,9 @@ import stripeImage from '../../../assets/images/stripeSecure.png';
 import Chatlio from '../Plugins/Chatlio';
 
 const { confirm } = Modal;
+const {
+	Sider, Content,
+} = Layout;
 
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
@@ -527,7 +530,7 @@ class AdminPageController extends Component {
 		}
 		const nd = this.props.uiStore.current_organisation.usersByOrganisationId.edges[0].node;
 		const full_name = `${nd.firstName} ${nd.lastName}`;
-		let nav_button = { right: '370px' };
+		let nav_button = { right: '28px' };
 		let close_style = { display: 'none' };
 		if (this.isMobile()) {
 			nav_button = { right: '10px' };
@@ -573,43 +576,37 @@ class AdminPageController extends Component {
 				)}
 				<Chatlio />
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
-					<Sidebar.Pushable as={Segment}>
-						<Sidebar
-							as={Menu}
-							animation="push"
-							width="wide"
-							visible={this.state.isOpen}
-							icon="labeled"
-							vertical
-							inverted
-						>
-							<OrganizationAdminMenuComponentRender
-								key={`admin_sidebar_key_${this.my_key}`}
-								handleMainMenuClick={this.handleManageClick}
-								handleCloseClick={this.handleClick}
-								close_style={close_style}
-								update_card_style={update_card_style}
-								paywall_content={info_block}
-								dropdown={
-									<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
-								}
-								fullname={full_name}
-								image_src={this.props.uiStore.current_theme_structure.header.logo.imageData}
-							/>
-						</Sidebar>
-						<Sidebar.Pusher>
-							<Segment basic>
+					<Layout>
+						{this.state.isOpen &&
+							<Sider width={366}>
 								<div style={{ height: '100vh', overflowY: 'auto' }}>
-									<OrganizationAdminPageComponentRender
-										navigate_style={nav_button}
-										admin_content={p_component}
-										handleClick={this.handleClick}
-										handleNavClick={this.handleNavClick}
+									<OrganizationAdminMenuComponentRender
+										key={`admin_sidebar_key_${this.my_key}`}
+										handleMainMenuClick={this.handleManageClick}
+										handleCloseClick={this.handleClick}
+										close_style={close_style}
+										update_card_style={update_card_style}
+										paywall_content={info_block}
+										dropdown={
+											<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
+										}
+										fullname={full_name}
+										image_src={this.props.uiStore.current_theme_structure.header.logo.imageData}
 									/>
 								</div>
-							</Segment>
-						</Sidebar.Pusher>
-					</Sidebar.Pushable>
+							</Sider>
+						}
+						<Layout>
+							<Content><div style={{ padding: 8, height: '100vh', overflowY: 'auto' }}>
+								<OrganizationAdminPageComponentRender
+									navigate_style={nav_button}
+									admin_content={p_component}
+									handleClick={this.handleClick}
+									handleNavClick={this.handleNavClick}
+								/>
+							</div></Content>
+						</Layout>
+					</Layout>
 				</StripeProvider>
 			</div>
 		);
