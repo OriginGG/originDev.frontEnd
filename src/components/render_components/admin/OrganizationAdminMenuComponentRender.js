@@ -8,7 +8,7 @@ class OrganizationAdminMenuComponentRender extends Component {
     render( ) {
         return (
             <div>
-                <div className="ui bottom segment">
+                <div>
                     <div className="ui inverted labeled icon left inline  vertical menu">
                         <div className={this.props.classes.menu_box_container}>
                             <div className={this.props.classes.menu_title_container}>
