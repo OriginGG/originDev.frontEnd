@@ -6,6 +6,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
 import dayjs from 'dayjs';
+import FullStory from 'react-fullstory';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import find from 'lodash/find';
@@ -20,7 +21,6 @@ import { getSponsorsQuery } from '../../../queries/sponsors';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
 import { getAllAdminUsersQuery } from '../../../queries/users';
-
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 class OrganizationPageController extends Component {
@@ -965,60 +965,66 @@ class OrganizationPageController extends Component {
                 footer_style={{ backgroundColor: this.props.uiStore.current_organisation.primaryColor }}
             />;
         }
-
-
+        let full_story = <span id="fullstory" />;
+       if (process.env.REACT_APP_ENVIRONMENT === 'production') {
+           full_story = <FullStory org="EBQW0" />;
+           console.log('react fullstory is rendering');
+       } else {
+           console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`);
+       }
         return (
             // <ThemeProvider theme={this.props.uiStore.current_theme_data}>
-				<DocumentTitle title={this.props.uiStore.current_organisation.name}>
-					<div
-						id="outer-container"
-						ref={(c) => {
-							this.ref_node = c;
-						}}
-					>
-						{this.state.error_page && (
-							<div>
-								<div id="error_page" className="error_page" />
-								<div id="error_page" className="error_page_overlay">
-									<div
-										style={{
-											paddingLeft: 32,
-											paddingRight: 32,
-											textAlign: 'center',
-											lineHeight: '32px',
-											fontSize: 32,
-											display: 'flex',
-											justifyContent: 'center'
-										}}
-									>
-										THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
-										SUBSCRIBE.
-										<br />
-										OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-										<br />
-										<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
-											support@origin.gg
-										</a>
-									</div>
-									<div
-										style={{
-											marginTop: 64,
-											textAlign: 'center',
-											display: 'flex',
-											justifyContent: 'center'
-										}}
-									>
-										<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
-									</div>
-								</div>
-							</div>
-						)}
-						<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-						{SideBar}
-						<div className={c_name}>{disp}</div>
-					</div>
-				</DocumentTitle>
-			// </ThemeProvider>
+                 <DocumentTitle title={this.props.uiStore.current_organisation.name}>
+                     <div
+                         id="outer-container"
+                         ref={(c) => {
+                             this.ref_node = c;
+                         }}
+                     >
+                         {this.state.error_page && (
+                             <div>
+                                 <div id="error_page" className="error_page" />
+                                 <div id="error_page" className="error_page_overlay">
+                                     <div
+                                         style={{
+                                             paddingLeft: 32,
+                                             paddingRight: 32,
+                                             textAlign: 'center',
+                                             lineHeight: '32px',
+                                             fontSize: 32,
+                                             display: 'flex',
+                                             justifyContent: 'center'
+                                         }}
+                                     >
+                                         THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
+                                         SUBSCRIBE.
+                                         <br />
+                                         OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+                                         <br />
+                                         <a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+                                             support@origin.gg
+                                         </a>
+                                     </div>
+                                     <div
+                                         style={{
+                                             marginTop: 64,
+                                             textAlign: 'center',
+                                             display: 'flex',
+                                             justifyContent: 'center'
+                                         }}
+                                     >
+                                         <Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+                                     </div>
+                                 </div>
+                             </div>
+                         )}
+                         <Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+                        {SideBar}
+                        {full_story}
+                         <div className={c_name}>{disp}</div>
+                     </div>
+                 </DocumentTitle>
+             // </ThemeProvider>
         );
     }
 }
