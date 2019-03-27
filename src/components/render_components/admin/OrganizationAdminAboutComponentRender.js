@@ -9,7 +9,7 @@ class OrganizationAdminAboutComponentRender extends Component {
         return (
             <div>
                 <div className={this.props.classes.admin_title_box}>
-                    <h2>Manage Pages</h2>
+                    <h2>Manage About Page</h2>
                 </div>
                 <div className={this.props.classes.admin_search_container}>
                     <div className="ui action fluid input">
