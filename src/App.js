@@ -19,6 +19,7 @@ import { SignupInd, SignupOrg, LoginInd, LoginOrg, LoginOrgUpdatePayment } from 
 // import PaywallController from './components/controllers/Login/PaywallController';
 // Test
 
+
 const reload = () => window.location.reload();
 
 const OrganizationPageControllerComponent = lazy(() => import('./components/controllers/Main/OrganizationPageController'));

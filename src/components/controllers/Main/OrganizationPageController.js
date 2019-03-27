@@ -24,6 +24,7 @@ import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '.
 import { getAllAdminUsersQuery } from '../../../queries/users';
 import appManager from '../../../utils/appManager';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
+import ErrorBoundary from '../../../ErrorBoundary';
 
 function BlankComponent() {
 	return <div />;
@@ -715,6 +716,9 @@ class OrganizationPageController extends Component {
 			this.setState({ felzec_menu: true, felzec_style: st });
 		}
 	};
+	handleLoginAndSubscribe = () => {
+		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+	};
 	render() {
 		if (this.state.visible === false) {
 			return null;
@@ -1232,6 +1236,7 @@ class OrganizationPageController extends Component {
 		return (
 			// <ThemeProvider theme={this.props.uiStore.current_theme_data}>
 			<DocumentTitle title={this.props.uiStore.current_organisation.name}>
+				<ErrorBoundary>
 				<div
 					id="outer-container"
 					ref={(c) => {
@@ -1278,7 +1283,8 @@ class OrganizationPageController extends Component {
 					<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
 					{SideBar}
 					<div className={c_name}>{disp}</div>
-				</div>
+					</div>
+				</ErrorBoundary>
 			</DocumentTitle>
 			// </ThemeProvider>
 		);
