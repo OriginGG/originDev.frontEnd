@@ -239,7 +239,7 @@ class AdminMembersController extends Component {
                         <Card.Description>
                             <Segment>
                                 <Header as="h5">Enter Users Handle, and click SEARCH</Header>
-                                <Header as="h5">You can send your members to https://origin.gg/signup_ind if they havent created an individual account</Header>
+                                <Header as="h5">You can send your members to <a href="https://origin.gg/signup_ind" rel="noopener noreferrer" target="_blank">https://origin.gg/signup_ind</a> if they havent created an individual account</Header>
                                 <Input value={this.state.handle} onChange={(e) => { this.handleInputChange(e, 'handle'); }} style={{ width: 'calc(100vw - 478px)' }} label="Handle:" placeholder="Handle" />
                             </Segment>
                             <Button disabled={this.state.disabled} primary onClick={this.handleSearch}>SEARCH</Button>

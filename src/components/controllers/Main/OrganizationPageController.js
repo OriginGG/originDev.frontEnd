@@ -8,7 +8,6 @@ import { Button } from 'semantic-ui-react';
 import Favicon from 'react-favicon';
 // import Loadable from 'react-loadable';
 import dayjs from 'dayjs';
-import FullStory from 'react-fullstory';
 import { isMobile } from 'react-device-detect';
 import DocumentTitle from 'react-document-title';
 import find from 'lodash/find';
@@ -23,10 +22,7 @@ import { getSponsorsQuery } from '../../../queries/sponsors';
 import { getIndividualUserByEmailQuery } from '../../../queries/individuals';
 import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '../../../queries/members';
 import { getAllAdminUsersQuery } from '../../../queries/users';
-<<<<<<< HEAD
-=======
 import appManager from '../../../utils/appManager';
->>>>>>> 3f353a560c993c8b5c35046af2921525ce392ff8
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
 
 function BlankComponent() {
