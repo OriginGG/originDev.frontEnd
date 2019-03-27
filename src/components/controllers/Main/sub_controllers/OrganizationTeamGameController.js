@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 import { isMobile } from 'react-device-detect';
 // import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
@@ -17,9 +18,18 @@ class OrganizationTeamGameController extends Component {
         if (this.isMobile()) {
             theme = 'mobile/dark';
         }
-        // const OrganizationTeamImageComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamImageComponentRender`);
-        const OrganizationTeamGameComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTeamGameComponentRender`);
-        const OrganizationTeamMateController = await import('./OrganizationTeamMateController');
+        const OrganizationTeamGameComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationTeamGameComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationTeamMateController = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ './OrganizationTeamMateController'),
+            {
+                fallback: <div>Loading...</div>
+            });
         // console.log(`roster ID = ${this.props.roster_id}`);
         // const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         // console.log(`ROSTER DATA = ${JSON.stringify(roster_data)}`);
@@ -35,11 +45,8 @@ class OrganizationTeamGameController extends Component {
         this.setState({
             // roster_list: edges,
             visible: true,
-            // OrganizationTeamImageComponentRender:
-            // OrganizationTeamImageComponentRender.default,
-            OrganizationTeamGameComponentRender:
-            OrganizationTeamGameComponentRender.default,
-            OrganizationTeamMateController: OrganizationTeamMateController.default,
+            OrganizationTeamGameComponentRender,
+            OrganizationTeamMateController
             // o_style: overlay_style
         });
 

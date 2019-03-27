@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 import { isMobile } from 'react-device-detect';
 // import { GlobalStyles } from 'Theme/Theme';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
@@ -19,12 +20,17 @@ class OrganizationSponserListController extends Component {
         }
         // console.log(`them = ${theme}`);
         // const subDomain = this.props.uiStore.current_subdomain;
-        const OrganizationSponsersItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationSponsersItemComponentRender`);
+        const OrganizationSponsersItemComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationSponsersItemComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         const sponser_data = await this.props.appManager.executeQuery('query', getSponsorsQuery, { organisationId: this.props.uiStore.current_organisation.id });
         const { nodes } = sponser_data.allOrgSponsors;
         // console.log(`sponser_data = ${JSON.stringify(sponser_data.resultData.edges)}`);
         // console.log(`nodes = ${JSON.stringify(nodes)}`);
-        this.setState({ sponser_data: nodes, visible: true, OrganizationSponsersItemComponentRender: OrganizationSponsersItemComponentRender.default });
+        this.setState({ sponser_data: nodes, visible: true, OrganizationSponsersItemComponentRender });
     }
     // handleClick = (link) => {
     //     if (link) {

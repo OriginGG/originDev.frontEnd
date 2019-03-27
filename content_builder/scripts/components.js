@@ -216,6 +216,11 @@ const component_array = [
     { source_html: './src/html/themes/mobile/dark/OrganizationSponsersPageComponent.html', sub_dir: 'themes/mobile/dark' },
     { source_html: './src/html/themes/mobile/dark/OrganizationRosterItemComponent.html', sub_dir: 'themes/mobile/dark' },
     { source_html: './src/html/themes/mobile/dark/OrganizationEmailComponent.html', sub_dir: 'themes/mobile/dark' },
+    { source_html: './src/html/themes/mobile/dark/OrganizationRosterItemMobileComponent.html', sub_dir: 'themes/mobile/dark' },
+    { source_html: './src/html/themes/mobile/dark/OrganizationFooterNewsComponent.html', sub_dir: 'themes/mobile/dark' },
+    { source_html: './src/html/themes/mobile/dark/OrganizationFooterComponent.html', sub_dir: 'themes/mobile/dark' },
+    { source_html: './src/html/themes/mobile/dark/OrganizationFooterMobileComponent.html', sub_dir: 'themes/mobile/dark' },
+    
 
     { source_html: './src/html/themes/admin/OrganizationAdminPageComponent.html', sub_dir: 'admin' },
     { source_html: './src/html/themes/admin/OrganizationAdminProfileComponent.html', sub_dir: 'admin' },

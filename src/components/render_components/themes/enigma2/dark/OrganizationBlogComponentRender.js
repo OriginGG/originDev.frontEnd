@@ -7,20 +7,20 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationBlogComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.felzec_lightBlogContainer}>
+            <div className={this.props.classes.enigma2_lightBlogContainer}>
                 <div className={this.props.classes.enigma2_blog_container} style={this.props.bg_style}></div>
                 <div className={this.props.classes.enigma2_blog_inner_container}>
                     <div className="ui stackable two column grid">
                         <div style={{
                             paddingRight: '0px',
                             overflow: 'auto'
-                        }} className="eleven wide column">
+                        }} className="twelve wide column">
                             <div className={this.props.classes.enigma2_lightBlogMaxContainer} style={this.props.main_blog1} onClick={( ) => {
                                 this
                                     .props
                                     .handleNewsClick( this.props.blog_1 );
                             }}>
-                                <img className={this.props.classes.felzec_main_news_item_image} src={this.props.blog_media_1}/>
+                                <img className={this.props.classes.enigma2_main_news_item_image} src={this.props.blog_media_1}/>
                                 <div className={this.props.classes.enigma2_dark_main_news_content_container}>
                                     <div>
                                         <div style={{
@@ -49,7 +49,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                     .props
                                     .handleNewsClick( this.props.blog_2 );
                             }}>
-                                <img className={this.props.classes.felzec_main_news_item_image} src={this.props.blog_media_2}/>
+                                <img className={this.props.classes.enigma2_main_news_item_image} src={this.props.blog_media_2}/>
                                 <div className={this.props.classes.enigma2_dark_main_news_content_container}>
                                     <div>
                                         <div style={{
@@ -78,7 +78,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                     .props
                                     .handleNewsClick( this.props.blog_3 );
                             }}>
-                                <img className={this.props.classes.felzec_main_news_item_image} src={this.props.blog_media_3}/>
+                                <img className={this.props.classes.enigma2_main_news_item_image} src={this.props.blog_media_3}/>
                                 <div className={this.props.classes.enigma2_dark_main_news_content_container}>
                                     <div>
                                         <div style={{
@@ -122,13 +122,13 @@ class DarkOrganizationBlogComponentRender extends Component {
                         </div>
                         <div style={{
                             paddingLeft: '0px'
-                        }} className="five wide column">
+                        }} className="four wide column">
                             <div className={this.props.classes.enigma2_lightBlogMiniContainer} onClick={( ) => {
                                 this
                                     .props
                                     .handleNewsClick( this.props.blog_4 );
                             }}>
-                                <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_4}/>
+                                <img className={this.props.classes.enigma2_main_news_item_mini_image} src={this.props.blog_media_4}/>
                                 <div className={this.props.classes.enigma2_dark_mini_news_content_container}>
                                     <div>
                                         <div style={{
@@ -157,7 +157,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                     .props
                                     .handleNewsClick( this.props.blog_5 );
                             }}>
-                                <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_5}/>
+                                <img className={this.props.classes.enigma2_main_news_item_mini_image} src={this.props.blog_media_5}/>
                                 <div className={this.props.classes.enigma2_dark_mini_news_content_container}>
                                     <div>
                                         <div style={{
@@ -186,7 +186,7 @@ class DarkOrganizationBlogComponentRender extends Component {
                                     .props
                                     .handleNewsClick( this.props.blog_6 );
                             }}>
-                                <img className={this.props.classes.felzec_main_news_item_mini_image} src={this.props.blog_media_6}/>
+                                <img className={this.props.classes.enigma2_main_news_item_mini_image} src={this.props.blog_media_6}/>
                                 <div className={this.props.classes.enigma2_dark_mini_news_content_container}>
                                     <div>
                                         <div style={{

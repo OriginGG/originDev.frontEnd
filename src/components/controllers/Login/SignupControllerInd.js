@@ -11,7 +11,7 @@ import axios from 'axios';
 import SignupComponentRender from '../../render_components/signup/SignupComponentRender';
 import { createUserQuery, createIndividualUserQuery, getIndividualUserByEmailQuery } from '../../../queries/users';
 import { getIndividualUserByHandleQuery } from '../../../queries/individuals';
-import { createEmailRegistrationQuery, getEmailRegistrationQuery } from '../../../queries/registrations';
+import { createIndEmailRegistrationQuery, getIndEmailRegistrationQuery } from '../../../queries/registrations';
 
 const { confirm } = Modal;
 
@@ -145,8 +145,8 @@ class SignupControllerInd extends Component {
                             } else {
                                 const f = await this.showSendConfirm();
                                 if (f) {
-                                    const r = await this.props.appManager.executeQuery('query', getEmailRegistrationQuery, { email: v.email.toLowerCase() });
-                                    const email_payload = r.registrationEmailByEmail.payload;
+                                    const r = await this.props.appManager.executeQuery('query', getIndEmailRegistrationQuery, { email: v.email.toLowerCase() });
+                                    const email_payload = r.indRegistrationEmailByEmail.payload;
                                     const url = Buffer.from(email_payload, 'hex').toString('utf8');
                                     await this.sendEmail(url);
                                     toast.success(`Registration email re-sent to ${v.email.toLowerCase()}, please check your email for further instructions.`, {
@@ -172,7 +172,7 @@ class SignupControllerInd extends Component {
                                 const url = `/emails/signup?host=${host}&email=${v.email.toLowerCase()}&password=${v.password}&name=${v.firstName}&${a}&id=${u_id}&dev=false`;
                                 await this.sendEmail(url);
                                 const payload_email = Buffer.from(url, 'utf8').toString('hex');
-                                await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, { email: v.email.toLowerCase(), payload: payload_email });
+                                await this.props.appManager.executeQuery('mutation', createIndEmailRegistrationQuery, { email: v.email.toLowerCase(), payload: payload_email });
                                 toast.success(`Account ${v.email.toLowerCase()} registered, please check your email for further instructions.`, {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 15000

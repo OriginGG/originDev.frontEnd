@@ -585,7 +585,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         maxHeight: '600px',
         backgroundColor: 'transparent',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        paddingRight: '15px'
     },
 
     // ***************************************************************
@@ -681,42 +682,47 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_darkBlogContainer: {
         width: '100%',
-        height: '600px',
         marginTop: '20px',
         display: 'table'
     },
 
     obliviot_darkBlogMiniContainer: {
         width: '100%',
-        height: '295px',
-        marginBottom: '10px',
+        paddingTop: '56.25%',
+        marginBottom: '15px',
         position: 'relative',
         cursor: 'pointer'
     },
 
     obliviot_darkBlogMaxContainer: {
         width: '100%',
-        height: '600px',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer'
     },
 
     obliviot_main_news_item_image: {
         width: '100%',
-        height: '600px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     obliviot_main_news_item_mini_image: {
         width: '100%',
-        height: '295px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     obliviot_main_news_item_micro_image: {
         width: '100%',
-        height: '200px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     obliviot_dark_main_news_content_container: {
@@ -946,7 +952,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_dark_news_outer_constraint: {
         width: '100%',
-        height: '630px',
+        height: '680px',
         overflow: 'hidden',
     },
 
@@ -974,9 +980,8 @@ export const GlobalStyles = GlobalTheme => ({
     },
 
     obliviot_dark_news_container: {
-        width: '100%',
-        height: '200px',
         backgroundColor: 'rgba(255,255,255,.1)',
+        paddingTop: '56.25%',
         marginTop: '10px',
         position: 'relative',
         cursor: 'pointer'
@@ -1222,42 +1227,23 @@ export const GlobalStyles = GlobalTheme => ({
 
     obliviot_lightBlogContainer: {
         width: '100%',
-        height: '600px',
         marginTop: '20px',
         display: 'table'
     },
 
     obliviot_lightBlogMiniContainer: {
         width: '100%',
-        height: '295px',
-        marginBottom: '10px',
+        paddingTop: '56.25%',
+        marginBottom: '15px',
         position: 'relative',
         cursor: 'pointer'
     },
 
     obliviot_lightBlogMaxContainer: {
         width: '100%',
-        height: '600px',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer'
-    },
-
-    obliviot_main_news_item_image: {
-        width: '100%',
-        height: '600px',
-        objectFit: 'cover'
-    },
-
-    obliviot_main_news_item_mini_image: {
-        width: '100%',
-        height: '295px',
-        objectFit: 'cover'
-    },
-
-    obliviot_main_news_item_micro_image: {
-        width: '100%',
-        height: '200px',
-        objectFit: 'cover'
     },
 
     obliviot_light_main_news_content_container: {
@@ -1732,7 +1718,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_container: {
         width: '100%',
-        height: '90vh',
         backgroundColor: '#040404',
         position: 'relative'
     },
@@ -1759,7 +1744,6 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_blog_inner_container: {
         width: '100%',
-        height: '90vh',
         padding: '0px 0% 0px 0%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -1769,7 +1753,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMaxContainer: {
         width: '100%',
-        height: '90vh',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer',
         display: 'none'
@@ -1777,7 +1761,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     enigma2_lightBlogMiniContainer: {
         width: '100%',
-        height: '30vh',
+        paddingTop: '57.80%',
         marginBottom: '0px',
         position: 'relative',
         cursor: 'pointer'
@@ -2321,6 +2305,16 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         display: 'table',
         position: 'relative',
+        paddingTop: '30%',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+
+    enigma2_lightBlogContainer: {
+        width: '100%',
+        display: 'table',
+        position: 'relative',
+        paddingTop: '42%',
         marginLeft: 'auto',
         marginRight: 'auto'
     },
@@ -2713,9 +2707,11 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_container: {
         width: '100%',
-        height: '600px',
+        height: '100%',
         backgroundColor: '#040404',
-        position: 'relative'
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
 
     felzec_blog_m_container: {
@@ -2735,7 +2731,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_filter_container: {
         width: '100%',
-        height: '600px',
+        height: '100%',
         backgroundColor: 'rgba(255,0,0,0)',
         position: 'absolute',
         top: '0',
@@ -2753,7 +2749,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_blog_inner_container: {
         width: '100%',
-        height: '600px',
+        height: '100%',
         padding: '50px 10% 50px 10%',
         backgroundColor: 'transparent',
         position: 'absolute',
@@ -3258,7 +3254,7 @@ export const GlobalStyles = GlobalTheme => ({
 
     felzec_lightBlogMaxContainer: {
         width: '100%',
-        height: '500px',
+        paddingTop: '56.25%',
         position: 'relative',
         cursor: 'pointer'
     },
@@ -3266,21 +3262,41 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_main_news_item_image: {
         width: '100%',
         height: '100%',
-        objectFit: 'cover'
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_main_news_item_image: {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%'
     },
 
     felzec_lightBlogMiniContainer: {
         width: '100%',
-        height: '245px',
-        marginBottom: '10px',
+        paddingTop: '56.25%',
         position: 'relative',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        marginBottom: '13px'
     },
 
     felzec_main_news_item_mini_image: {
         width: '100%',
         height: '100%',
-        objectFit: 'cover'
+        position: 'absolute',
+        top: '0',
+        left: '0'
+    },
+
+    enigma2_main_news_item_mini_image: {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%'
     },
 
     felzec_light_twitch_feed_container: {
@@ -4200,7 +4216,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '100%',
         maxHeight: '600px',
         backgroundColor: 'transparent',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        paddingRight: '15px'
     },
 
     dark_recent_matches_element_container: {
@@ -4374,7 +4391,7 @@ export const GlobalStyles = GlobalTheme => ({
     },
     roster_item_img: {
         width: '100px',
-        heght: '100px',
+        height: '100px',
         borderRadius: '50px'
     },
     sponser_item_img: {
@@ -4638,24 +4655,28 @@ export const GlobalStyles = GlobalTheme => ({
     },
     news_item_container: {
         width: '100%',
-        height: '286px',
         position: 'relative',
+        paddingTop: '56.25%',
         color: 'white',
         marginBottom: '4px'
     },
     news_item_body: {
         width: '100%',
-        height: '250px',
+        height: '100%',
         paddingTop: '0px',
-        position: 'relative',
+        position: 'absolute',
+        top: '0',
+        left: '0',
         backgroundColor: 'black',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: '50% 50%'
     },
     news_item_image: {
         width: '100%',
-        height: '250px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
     news_menu_item: {
         position: 'absolute',
@@ -5115,12 +5136,15 @@ export const GlobalStyles = GlobalTheme => ({
     },
     modal_news_header: {
         width: '100%',
-        height: '250px'
+        paddingTop: '56.25%',
+        position: 'relative'
     },
     modal_news_header_image: {
         width: '100%',
-        height: '250px',
-        objectFit: 'cover'
+        height: '100%',
+        position: 'absolute',
+        top: '0',
+        left: '0'
     },
     modal_news_body: {
         width: '100%',
