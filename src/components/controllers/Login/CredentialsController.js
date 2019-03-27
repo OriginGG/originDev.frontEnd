@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ThemeProvider } from 'react-jss';
 // import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import FullStory from 'react-fullstory';
 import { Header } from 'semantic-ui-react/dist/commonjs';
 // import { GlobalStyles } from 'Theme/Theme';
 import appManager from '../../../utils/appManager';
@@ -12,6 +13,7 @@ import SignupControllerOrg from './SignupControllerOrg';
 import SignupControllerInd from './SignupControllerInd';
 import LoginControllerOrg from './LoginControllerOrg';
 import LoginControllerInd from './LoginControllerInd';
+
 
 const HeaderOrg = <div style={{ display: 'inline' }}><img alt="" src={logoTop} /><Header as="h1" style={{ float: 'right', marginTop: 12 }}>ORGANIZATION</Header></div>;
 const HeaderInd = <div style={{ display: 'inline' }}><img alt="" src={logoTop} /><Header as="h1" style={{ float: 'right', marginTop: 12 }}>INDIVIDUAL</Header></div>;
@@ -66,6 +68,8 @@ class CredentialsController extends Component {
         return (
             <ThemeProvider theme={uiStore.origin_theme_data}>
                 <div>
+                {process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)}
+                     {console.log('react fullstory is rendering')}
                     <CredentialsComponentRender {...this.props} />
                 </div>
             </ThemeProvider>
