@@ -716,6 +716,9 @@ class OrganizationPageController extends Component {
 			this.setState({ felzec_menu: true, felzec_style: st });
 		}
 	};
+	handleLoginAndSubscribe = () => {
+		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+	};
 	render() {
 		if (this.state.visible === false) {
 			return null;
