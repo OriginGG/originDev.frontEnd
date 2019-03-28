@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import injectSheet from 'react-jss';
 import { inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import loadable from '@loadable/component';
 // import { GlobalStyles } from 'Theme/Theme';
 import { isMobile } from 'react-device-detect';
 // import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
@@ -9,6 +10,10 @@ import { getRosterByIDQuery } from '../../../../queries/rosters';
 import blankProfileImage from '../../../../assets/images/blank_person.png';
 
 // import { getOrganisationQuery } from './queries/organisation'
+function BlankComponent() {
+    return <div />;
+}
+
 class OrganizationRosterController extends Component {
     state = { visible: false };
     componentDidMount = async () => {
@@ -17,13 +22,28 @@ class OrganizationRosterController extends Component {
         if (this.isMobile()) {
             theme = 'mobile/dark';
         }
-        const OrganizationRosterItemComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`);
-        let OrganizationRosterItemMobileComponentRender = null;
+        const OrganizationRosterItemComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationRosterItemComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        let OrganizationRosterItemMobileComponentRender = BlankComponent;
         if (theme === 'felzec/light' || theme === 'enigma2/dark') {
-            OrganizationRosterItemMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemMobileComponentRender`);
+            OrganizationRosterItemMobileComponentRender = loadable(
+                () =>
+                    import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationRosterItemMobileComponentRender`),
+                {
+                    fallback: <div>Loading...</div>
+                });
         }
         if (theme === 'mobile/dark') {
-            OrganizationRosterItemMobileComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationRosterItemMobileComponentRender`);
+            OrganizationRosterItemMobileComponentRender = loadable(
+                () =>
+                    import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationRosterItemMobileComponentRender`),
+                {
+                    fallback: <div>Loading...</div>
+                });
         }
         const roster_data = await this.props.appManager.executeQuery('query', getRosterByIDQuery, { id: this.props.roster_id });
         const { edges } = roster_data.combinedRosterById.combinedRosterIndividualsByRosterId;
@@ -32,14 +52,14 @@ class OrganizationRosterController extends Component {
             this.setState({
                 roster_list: edges,
                 visible: true,
-                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default,
-                OrganizationRosterItemMobileComponentRender: OrganizationRosterItemMobileComponentRender.default
+                OrganizationRosterItemComponentRender,
+                OrganizationRosterItemMobileComponentRender
             });
         } else {
             this.setState({
                 roster_list: edges,
                 visible: true,
-                OrganizationRosterItemComponentRender: OrganizationRosterItemComponentRender.default
+                OrganizationRosterItemComponentRender
             });
         }
     }

@@ -24,6 +24,7 @@ import { createOrganisationMemberQuery, getOrganisationMemberByIDQuery } from '.
 import { getAllAdminUsersQuery } from '../../../queries/users';
 import appManager from '../../../utils/appManager';
 import { gameOptions } from '../Admin/sub_controllers/data/AllGames';
+import ErrorBoundary from '../../../ErrorBoundary';
 
 function BlankComponent() {
 	return <div />;
@@ -386,21 +387,6 @@ class OrganizationPageController extends Component {
 					visible: true,
 					felzec_menu: false,
 					felzec_style: nf_style,
-					// OrganizationMobileMenuComponentRender: OrganizationMobileMenuComponentRender.default,
-					// OrganizationPageComponentRender: OrganizationPageComponentRender.default,
-					// OrganizationEmailComponentRender: OrganizationEmailComponentRender.default,
-					// OrganizationVideoController: OrganizationVideoController.default,
-					// OrganizationTwitterController: OrganizationTwitterController.default,
-					// OrganizationSponsorController: OrganizationSponsorController.default,
-					// OrganizationMatchesController: OrganizationMatchesController.default,
-					// OrganizationNavController: OrganizationNavController.default,
-					// OrganizationLogoController: OrganizationLogoController.default,
-					// OrganizationNewsController: OrganizationNewsController.default,
-					// OrganizationRosterController: OrganizationRosterController.default,
-					// OrganizationSponserListController: OrganizationSponserListController.default,
-					// OrganizationBlogListController: OrganizationBlogListController.default,
-					// OrganizationBlogViewController: OrganizationBlogViewController.default,
-					// OrganizationStaffController: OrganizationStaffController.default,
 					OrganizationBlogController,
 					OrganizationTeamController,
 					OrganizationMediaController,
@@ -729,6 +715,9 @@ class OrganizationPageController extends Component {
 			const st = { display: 'table', backgroundColor: `${menu_color}` };
 			this.setState({ felzec_menu: true, felzec_style: st });
 		}
+	};
+	handleLoginAndSubscribe = () => {
+		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
 	};
 	render() {
 		if (this.state.visible === false) {
@@ -1247,6 +1236,7 @@ class OrganizationPageController extends Component {
 		return (
 			// <ThemeProvider theme={this.props.uiStore.current_theme_data}>
 			<DocumentTitle title={this.props.uiStore.current_organisation.name}>
+				<ErrorBoundary>
 				<div
 					id="outer-container"
 					ref={(c) => {
@@ -1293,7 +1283,8 @@ class OrganizationPageController extends Component {
 					<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
 					{SideBar}
 					<div className={c_name}>{disp}</div>
-				</div>
+					</div>
+				</ErrorBoundary>
 			</DocumentTitle>
 			// </ThemeProvider>
 		);

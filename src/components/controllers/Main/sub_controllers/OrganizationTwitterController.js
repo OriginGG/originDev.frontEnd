@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import { Timeline } from 'react-twitter-widgets';
+import loadable from '@loadable/component';
 import PropTypes from 'prop-types';
 // import { GlobalStyles } from 'Theme/Theme';
 
@@ -36,9 +37,14 @@ class OrganizationTwitterController extends Component {
             theme = 'mobile/dark';
         }
 
-        const OrganizationTwitterComponenRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitterComponentRender`);
+        const OrganizationTwitterComponenRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationTwitterComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
         // if (this.props.uiStore.current_organisation.twitterFeedUsername) {
-            this.setState({ visible: true, OrganizationTwitterComponenRender: OrganizationTwitterComponenRender.default });
+            this.setState({ visible: true, OrganizationTwitterComponenRender });
         // }
     }
     componentDidCatch = (error, info) => {

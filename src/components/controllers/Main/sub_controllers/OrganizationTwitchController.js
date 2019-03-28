@@ -4,6 +4,8 @@ import { inject } from 'mobx-react';
 import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import loadable from '@loadable/component';
+
 // mport _ from 'lodash';
 // import { GlobalStyles } from 'Theme/Theme';
 import { getRosterQuery } from '../../../../queries/rosters.js';
@@ -22,9 +24,18 @@ class OrganizationTwitchController extends Component {
         if (this.isMobile()) {
             theme = 'mobile/dark';
         }
-        const OrganizationTwitchComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitchComponentRender`);
-        const OrganizationTwitchHolderComponentRender = await import(`../../../render_components/themes/${theme}/OrganizationTwitchHolderComponentRender`);
-
+        const OrganizationTwitchComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationTwitchComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
+        const OrganizationTwitchHolderComponentRender = loadable(
+            () =>
+                import(/* webpackChunkName: "renderComponents" */ `../../../render_components/themes/${theme}/OrganizationTwitchHolderComponentRender`),
+            {
+                fallback: <div>Loading...</div>
+            });
 
         let team_l = null;
         if (this.props.uiStore.current_organisation.streamTeamUrl) {
@@ -64,8 +75,8 @@ class OrganizationTwitchController extends Component {
             team_list: team_l,
             roster_list: t_array,
             visible: true,
-            OrganizationTwitchComponentRender: OrganizationTwitchComponentRender.default,
-            OrganizationTwitchHolderComponentRender: OrganizationTwitchHolderComponentRender.default
+            OrganizationTwitchComponentRender,
+            OrganizationTwitchHolderComponentRender
         });
     }
 
