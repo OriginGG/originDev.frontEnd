@@ -62,6 +62,7 @@ class LoginComponentRender extends Component {
                                     </div>
                                     <div >{this.props.loginAccountButton}</div>
                                     <div >{this.props.forgotPasswordButton}</div>
+                                    <div >{this.props.needAccountButton}</div>
                                     <div className="ui error message"/>
                                 </div>
                             </div>

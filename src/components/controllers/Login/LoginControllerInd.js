@@ -53,6 +53,11 @@ class LoginControllerInd extends Component {
         e.preventDefault();
         historyStore.push('/password?t=reset_ind');
     }
+    handleNeedAccount = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        historyStore.push('/signup_ind');
+    }
     render() {
         return (
             <Formik
@@ -135,6 +140,14 @@ class LoginControllerInd extends Component {
                                         style={{
                                             color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 20
                                         }}>Forgot Password?</Button>
+                                }
+                                needAccountButton={
+                                    <Button
+                                        onClick={(e) => { this.handleNeedAccount(e); }}
+                                        className="ui fluid large"
+                                        style={{
+                                            color: 'white', background: 'rgb(10, 154, 180)', fontSize: 18, marginTop: 20
+                                        }}>Sign Up Here</Button>
                                 }
                                 errors={errors}
                                 touched={touched}
