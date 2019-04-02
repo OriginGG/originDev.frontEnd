@@ -31,6 +31,7 @@ import ssb_image from '../../../../assets/images/game_images/ssb.png';
 import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
 import tekken_image from '../../../../assets/images/game_images/tekken.png';
 import apex_image from '../../../../assets/images/game_images/apex.png';
+import  brawlhalla_image from '../../../../assets/images/game_images/brawlhalla.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -135,6 +136,12 @@ const gameOptions = [
 		text: 'Apex Legends',
 		value: 'Apex Legends',
 		image: apex_image
+	},
+	{
+		game_id: 23,
+		text: 'Brawlhalla',
+		value: 'Brawlhalla',
+		image: brawlhalla_image
 	}
 ];
 class OrganizationMatchesController extends Component {

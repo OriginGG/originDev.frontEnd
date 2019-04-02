@@ -29,6 +29,7 @@ import ssb_image from '../../../../assets/images/game_images/ssb.png';
 import dragonball_image from '../../../../assets/images/game_images/dragonball.png';
 import tekken_image from '../../../../assets/images/game_images/tekken.png';
 import apex_image from '../../../../assets/images/game_images/apex.png';
+import brawlhalla_image from '../../../../assets/images/game_images/brawlhalla.png';
 // banners
 // import coc_banner from '../../../../assets/images/game_images/coc_banner.jpg';
 import cod_banner from '../../../../assets/images/game_images/cod_banner.jpg';
@@ -52,6 +53,7 @@ import ssb_banner from '../../../../assets/images/game_images/ssb_banner.png';
 import dragonball_banner from '../../../../assets/images/game_images/dragonball_banner.jpg';
 import tekken_banner from '../../../../assets/images/game_images/tekken_banner.jpg';
 import apex_banner from '../../../../assets/images/game_images/apex_banner.jpg';
+import brawlhalla_banner from '../../../../assets/images/game_images/brawlhalla_banner.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -208,8 +210,14 @@ const gameOptions = [
         value: 'Apex Legends',
         image: apex_image,
         banner: apex_banner
+    },
+    {
+        game_id: 23,
+        text: 'Brawlhalla',
+        value: 'Brawlhalla',
+        image: brawlhalla_image,
+        banner: brawlhalla_banner
     }
-
 
 ];
 
