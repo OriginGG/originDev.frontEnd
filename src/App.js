@@ -1,6 +1,7 @@
 import React, { Component, lazy, Suspense } from 'react';
 import { inject } from 'mobx-react';
 import injectSheet from 'react-jss';
+import FullStory from 'react-fullstory';
 import { Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 // import AppController from './AppController';
@@ -34,9 +35,13 @@ function OrganizationPageController(props) {
 const IndividualPageControllerComponent = lazy(() => import('./components/controllers/Individuals/IndividualPageController'));
 function IndividualPageController(props) {
 	return (
+		<div>
+		{process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)}
+		{console.log('react fullstory is rendering')}
 		<Suspense fallback={<div />}>
 			<IndividualPageControllerComponent {...props} />
 		</Suspense>
+		</div>
 	);
 }
 
@@ -52,18 +57,26 @@ function PasswordPageController(props) {
 const AdminPageControllerComponent = lazy(() => import('./components/controllers/Admin/AdminController'));
 function AdminPageController(props) {
 	return (
+		<div>
 		<Suspense fallback={<div />}>
 			<AdminPageControllerComponent {...props} />
 		</Suspense>
+		{process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)}
+		{console.log('react fullstory is rendering')}
+		</div>
 	);
 }
 
 const PaywallControllerComponent = lazy(() => import('./components/controllers/Login/PaywallController'));
 function PaywallController(props) {
 	return (
+		<div>
+		{process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)}
+		{console.log('react fullstory is rendering')}
 		<Suspense fallback={<div />}>
 			<PaywallControllerComponent {...props} />
 		</Suspense>
+		</div>
 	);
 }
 const AppControllerComponent = lazy(() => import('./AppController'));
@@ -78,9 +91,13 @@ function AppController(props) {
 const CreateSubDomainControllerComponent = lazy(() => import('./components/controllers/Login/CreateSubDomainController'));
 function CreateSubDomainController(props) {
 	return (
+		<div>
+		{process.env.REACT_APP_ENVIRONMENT === 'production' ? <FullStory org="EBQW0" /> : console.log(`Fullstory only works in production, your current enviroment is ${process.env.REACT_APP_ENVIRONMENT}`)}
+		{console.log('react fullstory is rendering')}
 		<Suspense fallback={<div />}>
 			<CreateSubDomainControllerComponent {...props} />
 		</Suspense>
+		</div>
 	);
 }
 
