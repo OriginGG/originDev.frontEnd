@@ -206,7 +206,9 @@ class AdminAddBlogController extends Component {
                                     }
                                 }}
                                 value={this.state.text}
-                                onChange={this.handleChange} />
+                                onChange={this.handleChange}>
+                                <div style={{ minHeight: 300 }} />
+                            </ReactQuill>
                             <Button disabled={this.state.submitting} onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
                                 SUBMIT
                         </Button> {!this.create_blog &&
