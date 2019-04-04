@@ -198,7 +198,7 @@ class AdminAddBlogController extends Component {
                             <h3>16:9 ratio images used for all themes</h3>
                             <Button onClick={() => { this.dropzoneRef.open(); }} style={{ marginBottom: 12 }} primary>ATTACH MEDIA
                         </Button>
-                            <ReactQuill
+                        <ReactQuill
                                 theme="snow"
                                 modules={{
                                     clipboard: {
@@ -206,9 +206,7 @@ class AdminAddBlogController extends Component {
                                     }
                                 }}
                                 value={this.state.text}
-                                onChange={this.handleChange}>
-                                <div style={{ minHeight: 300 }} />
-                            </ReactQuill>
+                                onChange={this.handleChange} />
                             <Button disabled={this.state.submitting} onClick={this.handleSubmit} style={{ marginTop: 12 }} primary>
                                 SUBMIT
                         </Button> {!this.create_blog &&
