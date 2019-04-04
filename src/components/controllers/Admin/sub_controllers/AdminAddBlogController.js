@@ -198,7 +198,7 @@ class AdminAddBlogController extends Component {
                             <h3>16:9 ratio images used for all themes</h3>
                             <Button onClick={() => { this.dropzoneRef.open(); }} style={{ marginBottom: 12 }} primary>ATTACH MEDIA
                         </Button>
-                            <ReactQuill
+                        <ReactQuill
                                 theme="snow"
                                 modules={{
                                     clipboard: {
