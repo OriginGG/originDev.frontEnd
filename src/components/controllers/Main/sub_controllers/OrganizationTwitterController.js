@@ -65,7 +65,7 @@ class OrganizationTwitterController extends Component {
         let twitter_name = this.props.uiStore.current_organisation.twitterFeedUsername;
 
         if (!twitter_name) {
-            twitter_name = 'or1g1n_gg';
+            twitter_name = 'esportswebsite';
         }
         const { OrganizationTwitterComponenRender } = this.state;
         return <OrganizationTwitterComponenRender feed={<TwitterFeed theme={this.props.uiStore.current_organisation.themeId} feedName={twitter_name} />} />;
