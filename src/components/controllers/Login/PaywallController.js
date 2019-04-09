@@ -22,21 +22,34 @@ import freeTrialImage from '../../../assets/images/free-trial.png';
 import PaywallComponentRender from '../../render_components/signup/PaywallComponentRender';
 import browserHistory from '../../../utils/stores/browserHistory';
 
-const PricePlanBlock = ({ plan, handleClick }) => {
+const PricePlanBlock = ({ plan, handleClick, apply_discount }) => {
 	// eslint-disable-line
 	const meta_array = [];
 	for (const key in plan.metadata) {
-		// eslint-disable-line
-		meta_array.push(
-			<div
-				style={{ color: 'black', fontSize: '12px', backgroundColor: 'wheat' }}
-				className="ui center aligned segment"
-			>
-				<p> - {plan.metadata[key]} </p>
-			</div>
-		);
+		if (key.indexOf('feature_') > -1) {
+			// eslint-disable-line
+			meta_array.push(
+				<div
+					style={{ color: 'black', fontSize: '12px', backgroundColor: 'wheat' }}
+					className="ui center aligned segment"
+				>
+					<p> - {plan.metadata[key]} </p>
+				</div>
+			);
+		}
 	}
-	const dollars = plan.amount / 100;
+	let dollar_discount = 0;
+	if (apply_discount) {
+		dollar_discount = apply_discount / 100;
+	}
+	let dollars = plan.amount / 100;
+	dollars -= dollar_discount;
+	const d_amount = `Discount applied of ${dollar_discount.toLocaleString('en-US', {
+		style: 'currency',
+		currency: 'USD'
+	})}`;
+	const discount =
+		apply_discount === 0 ? <span /> : <div style={{ fontSize: '12px', lineHeight: '14px' }}>{d_amount}</div>;
 	dollars.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 	return (
 		<div className="six wide column">
@@ -53,6 +66,7 @@ const PricePlanBlock = ({ plan, handleClick }) => {
 								}}
 							>
 								${dollars}
+								{discount}
 							</span>
 						</div>
 						<div className="label">per {plan.interval}</div>
@@ -103,12 +117,16 @@ const handleReady = () => {
 };
 
 class _CreditController extends Component {
+	state = { coupon_id: '' };
+	handleCoupon = (e) => {
+		this.setState({ coupon_id: e.target.value });
+	};
 	render() {
 		return (
 			<div>
 				<form
 					onSubmit={(ev) => {
-						this.props.handleSubmit(ev, this.props.stripe);
+						this.props.handleSubmit(ev, this.props.stripe, this.state.coupon_id);
 					}}
 				>
 					<div style={{ height: 40, marginBottom: 16 }}>
@@ -156,7 +174,7 @@ class _CreditController extends Component {
 					</label>
 					<label>
 						Promo Code
-						<input />
+						<input value={this.state.coupon_id} onChange={this.handleCoupon} />
 					</label>
 					<div style={{ paddingTop: 24 }}>
 						<Button size="mini" primary>
@@ -244,7 +262,11 @@ class PaywallContent extends Component {
 		e.stopPropagation();
 		this.setState({ display_plan: true, display_credit_form: false });
 	};
-	handleCCSubmit = (ev, stripe) => {
+	handleCCSubmit = (ev, stripe, coupon_id) => {
+		let new_coupon_id = null;
+		if (this.selected_plan.metadata.coupon_id === coupon_id) {
+			new_coupon_id = coupon_id;
+		}
 		ev.preventDefault();
 		this.setDimmer(true);
 		if (stripe) {
@@ -324,12 +346,21 @@ class PaywallContent extends Component {
 										this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
 									}
 								}
+								let discount = 0;
+								if (new_coupon_id) {
+									const cpon = await axios.get(
+										`${process.env
+											.REACT_APP_API_SERVER}/stripe/new2/retrieve_coupon?coupon_id=${new_coupon_id}`
+									);
+									discount = cpon.data.amount_off;
+								}
 								await axios.post(
 									`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
 									{
 										customer_id: response.data.cust.id,
 										plan: this.selected_plan.id,
-										trial_period_days: this.subscription_days_left
+										trial_period_days: this.subscription_days_left,
+										coupon_id: new_coupon_id
 									},
 									{
 										headers: {
@@ -343,10 +374,20 @@ class PaywallContent extends Component {
 									id: uiStore.user_id,
 									subscribed: true
 								});
-								toast.success('Thanks - You have been successfully subscribed!', {
-									position: toast.POSITION.TOP_LEFT,
-									autoClose: 3000
-								});
+								if (new_coupon_id) {
+									toast.success(
+										'Thanks - You have been successfully subscribed, with the discount!',
+										{
+											position: toast.POSITION.TOP_LEFT,
+											autoClose: 3000
+										}
+									);
+								} else {
+									toast.success('Thanks - You have been successfully subscribed!', {
+										position: toast.POSITION.TOP_LEFT,
+										autoClose: 3000
+									});
+								}
 								appManager
 									.executeQueryAuth('query', getUserQuery, { id: uiStore.user_id })
 									.then((pl) => {
@@ -376,7 +417,7 @@ class PaywallContent extends Component {
 											}
 										);
 									});
-								this.props.callback(true, this.selected_plan, this.state.customer);
+								this.props.callback(true, this.selected_plan, discount);
 							} else {
 								toast.success(
 									'Thanks - You have been successfully updated your card details, redirecting you back to login page!',
@@ -447,9 +488,9 @@ class PaywallContent extends Component {
 
 class PaywallController extends Component {
 	state = { subscribed: false, plan: null };
-	handleCallback = (f, plan) => {
+	handleCallback = (f, plan, discount) => {
 		if (f) {
-			this.setState({ subscribed: true, plan });
+			this.setState({ subscribed: true, plan, discount });
 		}
 	};
 	render() {
@@ -477,7 +518,7 @@ class PaywallController extends Component {
 					<div>
 						<h4>You have subscribed to the following plan:</h4>
 					</div>
-					<PricePlanBlock plan={this.state.plan} />
+					<PricePlanBlock plan={this.state.plan} apply_discount={this.state.discount} />
 					<h4>Click Button to go to your admin portal.</h4>
 					<Button
 						onClick={() => {
@@ -515,11 +556,13 @@ _CreditController.propTypes = {
 };
 PricePlanBlock.propTypes = {
 	plan: PropTypes.object.isRequired,
-	handleClick: PropTypes.func
+	handleClick: PropTypes.func,
+	apply_discount: PropTypes.number
 };
 
 PricePlanBlock.defaultProps = {
-	handleClick: null
+	handleClick: null,
+	apply_discount: 0
 };
 
 export default PaywallController;
