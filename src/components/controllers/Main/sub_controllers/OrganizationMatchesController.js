@@ -32,6 +32,7 @@ import dragonball_image from '../../../../assets/images/game_images/dragonball.p
 import tekken_image from '../../../../assets/images/game_images/tekken.png';
 import apex_image from '../../../../assets/images/game_images/apex.png';
 import  brawlhalla_image from '../../../../assets/images/game_images/brawlhalla.png';
+import rl_image from '../../../../assets/images/game_images/rl.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -142,6 +143,12 @@ const gameOptions = [
 		text: 'Brawlhalla',
 		value: 'Brawlhalla',
 		image: brawlhalla_image
+	},
+	{
+		game_id: 24,
+		text: 'Rocket League',
+		value: 'Rocket League',
+		image: rl_image
 	}
 ];
 class OrganizationMatchesController extends Component {
