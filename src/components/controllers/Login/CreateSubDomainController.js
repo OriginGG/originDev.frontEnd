@@ -245,7 +245,7 @@ class CreateSubDomainController extends Component {
 						name: 'Origin.GG',
 						description: ''
 					});
-					await this.subcribeUser();
+					// await this.subcribeUser();
 					let slack_payload = {
 						text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${this.payload.firstName} ${this
 							.payload.lastName}\n*Sub Domain:* ${this.domain_name}\n*Owner Email:* ${this

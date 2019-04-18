@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
 import { Dimmer, Header, Segment, Button } from 'semantic-ui-react';
 import {
 	CardNumberElement,
@@ -219,6 +218,8 @@ class PaywallContent extends Component {
 	};
 	componentDidMount = async () => {
 		this.update_payment = false;
+		const pl = await appManager.executeQueryAuth('query', getUserQuery, { id: uiStore.user_id });
+		this.current_user_details = pl.resultData;
 		if (this.props.location.state) {
 			const { state } = this.props.location;
 			if (state.update_card) {
@@ -279,7 +280,23 @@ class PaywallContent extends Component {
 					});
 					this.props.callback(false);
 				} else {
-					const { customer } = this.state;
+					let { customer } = this.state;
+					if (!customer) {
+						const new_customer = await axios.post(
+							`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
+							{
+								user_id: uiStore.user_id,
+								email: this.current_user_details.email
+							},
+							{
+								headers: {
+									'Content-Type': 'application/json'
+								}
+							}
+						);
+						this.setState({ customer: new_customer.data.cust });
+						customer = new_customer.data.cust;
+					}
 					const response = await axios.post(
 						`${process.env.REACT_APP_API_SERVER}/stripe/new2/update_customer`,
 						{
@@ -320,32 +337,33 @@ class PaywallContent extends Component {
 						if (response.data.status === 'success') {
 							if (!this.update_payment) {
 								// now we delete previous subscription, and create a new one, with trial days left.
-								const { subscriptions } = response.data.cust;
-								const { id } = subscriptions.data[0];
-								await axios.post(
-									`${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
-									{
-										id
-									},
-									{
-										headers: {
-											'Content-Type': 'application/json'
-										}
-									}
-								);
-								this.subscription_days_left = null;
-								const { trial_end } = subscriptions.data[0];
-								if (trial_end) {
-									const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
-									// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
-									const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
-									// const cur = moment().tz('America/New_York');
-									// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
-									this.subscription_days_left = day_diff + 1;
-									if (this.subscription_days_left > subscriptions.data[0].plan.trial_period_days) {
-										this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
-									}
-								}
+								// there won't be a customer yet.
+								// const { subscriptions } = response.data.cust;
+								// const { id } = subscriptions.data[0];
+								// await axios.post(
+								// 	`${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
+								// 	{
+								// 		id
+								// 	},
+								// 	{
+								// 		headers: {
+								// 			'Content-Type': 'application/json'
+								// 		}
+								// 	}
+								// );
+								this.subscription_days_left = uiStore.getSubScriptionDaysLeft();
+								// const { trial_end } = subscriptions.data[0];
+								// if (trial_end) {
+								// 	const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+								// 	// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+								// 	const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
+								// 	// const cur = moment().tz('America/New_York');
+								// 	// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+								// 	this.subscription_days_left = day_diff + 1;
+								// 	if (this.subscription_days_left > subscriptions.data[0].plan.trial_period_days) {
+								// 		this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
+								// 	}
+								// }
 								let discount = 0;
 								if (new_coupon_id) {
 									const cpon = await axios.get(
@@ -357,7 +375,7 @@ class PaywallContent extends Component {
 								await axios.post(
 									`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
 									{
-										customer_id: response.data.cust.id,
+										customer_id: customer.id,
 										plan: this.selected_plan.id,
 										trial_period_days: this.subscription_days_left,
 										coupon_id: new_coupon_id
@@ -388,35 +406,32 @@ class PaywallContent extends Component {
 										autoClose: 3000
 									});
 								}
-								appManager
-									.executeQueryAuth('query', getUserQuery, { id: uiStore.user_id })
-									.then((pl) => {
-										let slack_payload = {
-											text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${pl.resultData
-												.firstName} ${pl.resultData.lastName}\n*Plan:* ${this.selected_plan
-												.id}\n*Owner Email:* ${pl.resultData.email}\n`
-										};
-										if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
-											slack_payload = {
-												text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${pl
-													.resultData.firstName} ${pl.resultData.lastName}\n*Plan:* ${this
-													.selected_plan.id}\n*Owner Email:* ${pl.resultData.email}\n`
-											};
-										}
-										axios.post(
-											process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
-											JSON.stringify(slack_payload),
-											{
-												withCredentials: false,
-												transformRequest: [
-													(data, headers) => {
-														delete headers.post['Content-Type']; // eslint-disable-line
-														return data;
-													}
-												]
+								let slack_payload = {
+									text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${this.current_user_details
+										.firstName} ${this.current_user_details.lastName}\n*Plan:* ${this.selected_plan
+										.id}\n*Owner Email:* ${this.current_user_details.email}\n`
+								};
+								if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+									slack_payload = {
+										text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${this
+											.current_user_details.firstName} ${this.current_user_details
+											.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${this
+											.current_user_details.email}\n`
+									};
+								}
+								axios.post(
+									process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
+									JSON.stringify(slack_payload),
+									{
+										withCredentials: false,
+										transformRequest: [
+											(data, headers) => {
+												delete headers.post['Content-Type']; // eslint-disable-line
+												return data;
 											}
-										);
-									});
+										]
+									}
+								);
 								this.props.callback(true, this.selected_plan, discount);
 							} else {
 								toast.success(

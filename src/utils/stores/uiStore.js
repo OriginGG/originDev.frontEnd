@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import dayjs from 'dayjs';
 
 class UiStore {
 	@observable current_organisation = {};
@@ -21,12 +22,22 @@ class UiStore {
 		this.current_theme_full_name = `${this.current_organisation.themeBaseId}/${this.current_organisation.themeId}`;
 	};
 	@action
+	getSubScriptionDaysLeft = () => {
+		const cur = dayjs(this.current_organisation.createdAt); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+		const day_diff = dayjs(new Date()).diff(cur, 'days');
+		return 14 - day_diff;
+	};
+	@action
 	setSubmittingContent = (f) => {
 		this.submitting_content = f;
 	};
 	@action
 	setUserID = (id) => {
 		this.user_id = id;
+	};
+	@action
+	setUserEmail = (email) => {
+		this.user_email = email;
 	};
 	@action
 	setIndividualUserID = (id) => {
