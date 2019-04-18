@@ -148,9 +148,9 @@ class OrganizationFooterController extends Component {
 
 		const news_array = [];
 		const default_array = [
-			{ image: 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453137/_331____blog_-1.png' },
-			{ image: 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453211/_331____blog_-1.png' },
-			{ image: 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453235/_331____blog_-1.png' }
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image1' },
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image2' },
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image3' }
 		];
 		for (let i = 0; i < 3; i += 1) {
 			if (this.results_array[i]) {

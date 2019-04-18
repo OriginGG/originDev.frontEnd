@@ -138,27 +138,27 @@ class OrganizationBlogController extends Component {
         }
         const f_style = { backgroundColor: 'rgba(255,255,255,.8)' };
         let b_title_1 = 'Coming Soon';
-        let b_media_1 = 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453137/_331____blog_-1.png';
+        let b_media_1 = 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image1';
         let b_content_1 = 'Latest news coming soon';
         let b_1 = null;
         let b_title_2 = 'Coming Soon';
-        let b_media_2 = 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453211/_331____blog_-1.png';
+        let b_media_2 = 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image2';
         let b_content_2 = 'Latest news coming soon';
         let b_2 = null;
         let b_title_3 = 'Coming Soon';
-        let b_media_3 = 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453235/_331____blog_-1.png';
+        let b_media_3 = 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image3';
         let b_content_3 = 'Latest news coming soon';
         let b_3 = null;
         let b_title_4 = 'Coming Soon';
-        let b_media_4 = 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453270/_331____blog_-1.png';
+        let b_media_4 = 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image4';
         let b_content_4 = 'Latest news coming soon';
         let b_4 = null;
         let b_title_5 = 'Coming Soon';
-        let b_media_5 = 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453294/_331____blog_-1.png';
+        let b_media_5 = 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image5';
         let b_content_5 = 'Latest news coming soon';
         let b_5 = null;
         let b_title_6 = 'Coming Soon';
-        let b_media_6 = 'https://res.cloudinary.com/origingg/image/upload/f_auto,q_auto/v1555453316/_331____blog_-1.png';
+        let b_media_6 = 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image6';
         let b_content_6 = 'Latest news coming soon';
         let b_6 = null;
 
