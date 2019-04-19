@@ -9,6 +9,7 @@ import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { StripeProvider } from 'react-stripe-elements';
 import axios from 'axios';
+import Drift from 'react-driftjs';
 import { Accordion, Icon } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
@@ -35,7 +36,7 @@ import { getEmailRegistrationQuery } from '../../../queries/registrations';
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 import stripeImage from '../../../assets/images/stripeSecure.png';
-import Chatlio from '../Plugins/Chatlio';
+
 
 const { confirm } = Modal;
 const { Sider, Content } = Layout;
@@ -580,7 +581,7 @@ class AdminPageController extends Component {
 						</div>
 					</div>
 				)}
-				<Chatlio />
+				<Drift appId="ag5c43cpxebr" />
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
 					<Layout>
 						{this.state.isOpen && (
