@@ -2129,6 +2129,7 @@ export const GlobalStyles = GlobalTheme => ({
     enigma2_teammember_image: {
         width: '100%',
         height: '70%',
+        objectFit: 'cover'
     },
 
     enigma2_player_handle: {
@@ -4392,7 +4393,8 @@ export const GlobalStyles = GlobalTheme => ({
     roster_item_img: {
         width: '100px',
         height: '100px',
-        borderRadius: '50px'
+        borderRadius: '50px',
+        objectFit: 'cover'
     },
     sponser_item_img: {
         width: '125px',
@@ -5402,7 +5404,8 @@ export const GlobalStyles = GlobalTheme => ({
         width: '170px',
         height: '170px',
         border: '2px solid #fff',
-        borderRadius: '4px'
+        borderRadius: '4px',
+        objectFit: 'cover'
     },
     individual_basic_name: {
         width: '100%',
