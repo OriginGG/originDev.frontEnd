@@ -293,7 +293,7 @@ class OrganizationPageController extends Component {
 				const customer = await axios.get(
 					`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 				);
-				if (subscribed && customer.data.success === false) {
+				if (!subscribed && customer.data.success === false) {
 					this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
 				}
 				let f = !subscribed;
