@@ -200,7 +200,7 @@ class CreateSubDomainController extends Component {
 					const org_id = new_org.resultData.organisationAccount.id;
 					await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, {
 						id: this.user_id,
-						subscribed: true,
+						subscribed: false,
 						organisationId: org_id
 					});
 					t.organisationId = org_id;
