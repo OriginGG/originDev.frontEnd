@@ -288,14 +288,16 @@ class AdminPageController extends Component {
 			if (o.resultData === null) {
 				console.log('sub domain does not exist!');
 			} else {
-				// this.subscription_days_left = null;
+				this.subscription_days_left = null;
 				this.props.uiStore.setOrganisation(o.resultData);
-				if (!subscribed && customer.data.success === false) {
-					this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+				if (!subscribed) {
+					if (customer.data.success === false || (customer.data.success === true && customer.data.customer.subscriptions.data.length === 0)) {
+						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+					}
 				}
 				let f = !subscribed;
-				if (this.subscription_days_left <= 0 && customer.data.success === false) {
-					f = true;
+				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
+					f = false;
 				}
 				this.props.uiStore.setSubDomain(subDomain);
 				this.setState({ visible: true, error_page: f });

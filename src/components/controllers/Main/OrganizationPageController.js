@@ -293,12 +293,15 @@ class OrganizationPageController extends Component {
 				const customer = await axios.get(
 					`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 				);
-				if (!subscribed && customer.data.success === false) {
-					this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+				this.subscription_days_left = null;
+				if (!subscribed) {
+					if (customer.data.success === false || (customer.data.success === true && customer.data.customer.subscriptions.data.length === 0)) {
+						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+					}
 				}
 				let f = !subscribed;
-				if (this.subscription_days_left <= 0 && customer.data.success === false) {
-					f = true;
+				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
+					f = false;
 				}
 				let themeBase = this.props.uiStore.current_organisation.themeBaseId;
 				let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore
