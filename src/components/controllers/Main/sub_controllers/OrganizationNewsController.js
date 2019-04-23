@@ -74,12 +74,12 @@ class OrganizationNewsController extends Component {
         this.blog_array = [];
         this.results_array = [];
         const default_array = [
-			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image1' },
-			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image2' },
-            { image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image3' },
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image6' },
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image5' },
             { image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image4' },
-            { image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image5' },
-            { image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image6' }
+            { image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image3' },
+            { image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image2' },
+            { image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image1' }
 		];
         if (blog_data.resultData.edges.length < 1) {
             const bcontent = <div dangerouslySetInnerHTML={this.createMarkup('Post your first News story')} />;
@@ -103,12 +103,12 @@ class OrganizationNewsController extends Component {
             }
 
             if (theme_type === 'obliviot' || theme_type === 'mobile') {
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[0].image} handleNewsClick={this.props.handleNewsClick} />);
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[1].image} handleNewsClick={this.props.handleNewsClick} />);
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${2}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[2].image} handleNewsClick={this.props.handleNewsClick} />);
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${3}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[3].image} handleNewsClick={this.props.handleNewsClick} />);
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${4}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[4].image} handleNewsClick={this.props.handleNewsClick} />);
-                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${5}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[5].image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${0}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[5].image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${1}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[4].image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${2}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[3].image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${3}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[2].image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${4}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[1].image} handleNewsClick={this.props.handleNewsClick} />);
+                this.blog_array.push(<OrganizationNewsComponentRender key={`news_blog_item_k_${5}`} blog={null} blog_date="1-30-2018" blog_title="Your Post" blog_content={bcontent} blog_media={default_array[0].image} handleNewsClick={this.props.handleNewsClick} />);
             }
         }
         blog_data.resultData.edges.forEach((blog, i) => {
