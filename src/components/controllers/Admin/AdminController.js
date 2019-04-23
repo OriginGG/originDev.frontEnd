@@ -9,11 +9,11 @@ import { isMobile } from 'react-device-detect';
 import PropTypes from 'prop-types';
 import { StripeProvider } from 'react-stripe-elements';
 import axios from 'axios';
+import Drift from 'react-driftjs';
 import { Accordion, Icon } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 // import moment from 'moment-timezone';
-import dayjs from 'dayjs';
 import OrganizationAdminPageComponentRender from '../../render_components/admin/OrganizationAdminPageComponentRender';
 import OrganizationAdminMenuComponentRender from '../../render_components/admin/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
@@ -36,12 +36,10 @@ import { getEmailRegistrationQuery } from '../../../queries/registrations';
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../queries/sponsors';
 import historyStore from '../../../utils/stores/browserHistory';
 import stripeImage from '../../../assets/images/stripeSecure.png';
-import Chatlio from '../Plugins/Chatlio';
+
 
 const { confirm } = Modal;
-const {
-	Sider, Content,
-} = Layout;
+const { Sider, Content } = Layout;
 
 // import PropTypes from 'prop-types';
 class MenuDrop extends Component {
@@ -261,23 +259,24 @@ class AdminPageController extends Component {
 			const customer = await axios.get(
 				`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 			);
+			console.log(customer);
 			this.authenticated = user.resultData.authenticated;
 			this.user_email = user.resultData.email;
 			this.subscription_days_left = null;
-			if (customer.data.success !== false) {
-				const { subscriptions } = customer.data.customer;
-				const num_sources = customer.data.customer.sources.total_count;
-				if (!num_sources) {
-					const { trial_end } = subscriptions.data[0];
-					if (trial_end) {
-						// const cur = moment().tz('America/New_York');
-						const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
-						// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
-						const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
-						this.subscription_days_left = day_diff;
-					}
-				}
-			}
+			// if (customer.data.success !== false) {
+			// 	const { subscriptions } = customer.data.customer;
+			// 	const num_sources = customer.data.customer.sources.total_count;
+			// 	if (!num_sources) {
+			// 		const { trial_end } = subscriptions.data[0];
+			// 		if (trial_end) {
+			// 			// const cur = moment().tz('America/New_York');
+			// 			const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+			// 			// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+			// 			const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
+			// 			this.subscription_days_left = day_diff;
+			// 		}
+			// 	}
+			// }
 			const { subscribed } = user.resultData;
 			const domainInfo = this.props.appManager.getDomainInfo();
 			const subDomain =
@@ -289,9 +288,17 @@ class AdminPageController extends Component {
 			if (o.resultData === null) {
 				console.log('sub domain does not exist!');
 			} else {
+				// this.subscription_days_left = null;
 				this.props.uiStore.setOrganisation(o.resultData);
+				if (subscribed && customer.data.success === false) {
+					this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+				}
+				let f = !subscribed;
+				if (this.subscription_days_left <= 0 && customer.data.success === false) {
+					f = true;
+				}
 				this.props.uiStore.setSubDomain(subDomain);
-				this.setState({ visible: true, error_page: !subscribed });
+				this.setState({ visible: true, error_page: f });
 
 				this.autorun_tracker = autorun(() => {
 					if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
@@ -411,7 +418,7 @@ class AdminPageController extends Component {
 						<Image floated="right" style={{ height: 32, width: 164 }} size="mini" src={stripeImage} />
 						<Card.Header>FREE TRIAL</Card.Header>
 						<Card.Description>
-							You have <strong>{this.subscription_days_left + 1} days left of your free trial.</strong>
+							You have <strong>{this.subscription_days_left} days left of your free trial.</strong>
 						</Card.Description>
 					</Card.Content>
 					<Card.Content extra>
@@ -574,10 +581,10 @@ class AdminPageController extends Component {
 						</div>
 					</div>
 				)}
-				<Chatlio />
+				<Drift appId="ag5c43cpxebr" />
 				<StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
 					<Layout>
-						{this.state.isOpen &&
+						{this.state.isOpen && (
 							<Sider width={366}>
 								<div style={{ height: '100vh', overflowY: 'auto' }}>
 									<OrganizationAdminMenuComponentRender
@@ -588,23 +595,28 @@ class AdminPageController extends Component {
 										update_card_style={update_card_style}
 										paywall_content={info_block}
 										dropdown={
-											<MenuDrop handleManageClick={this.handleManageClick} classes={this.props.classes} />
+											<MenuDrop
+												handleManageClick={this.handleManageClick}
+												classes={this.props.classes}
+											/>
 										}
 										fullname={full_name}
 										image_src={this.props.uiStore.current_theme_structure.header.logo.imageData}
 									/>
 								</div>
 							</Sider>
-						}
+						)}
 						<Layout>
-							<Content><div style={{ padding: 8, height: '100vh', overflowY: 'auto' }}>
-								<OrganizationAdminPageComponentRender
-									navigate_style={nav_button}
-									admin_content={p_component}
-									handleClick={this.handleClick}
-									handleNavClick={this.handleNavClick}
-								/>
-							</div></Content>
+							<Content>
+								<div style={{ padding: 8, height: '100vh', overflowY: 'auto' }}>
+									<OrganizationAdminPageComponentRender
+										navigate_style={nav_button}
+										admin_content={p_component}
+										handleClick={this.handleClick}
+										handleNavClick={this.handleNavClick}
+									/>
+								</div>
+							</Content>
 						</Layout>
 					</Layout>
 				</StripeProvider>

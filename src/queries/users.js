@@ -33,6 +33,7 @@ export const getAllAdminUsersQuery = gql`query getUsersNonAdmin($organisationId:
       node {
         subscribed
         createdAt
+        email
       }  
     }
   }

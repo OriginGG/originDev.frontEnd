@@ -11,7 +11,6 @@ import { getBlogsQuery } from '../../../../queries/blogs';
 import { getSponsorsQuery } from '../../../../queries/sponsors';
 import { getRosterQuery } from '../../../../queries/rosters';
 import { gameOptions } from '../../Admin/sub_controllers/data/AllGames';
-import default_image from '../../../../assets/images/game_images/blog_default_image.jpg';
 
 class OrganizationFooterController extends Component {
 	state = { visible: false, OrganizationFooterComponentRender: null, dropdown: false };
@@ -148,6 +147,11 @@ class OrganizationFooterController extends Component {
 		const { OrganizationFooterNewsComponentRender } = this.state;
 
 		const news_array = [];
+		const default_array = [
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image1' },
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image2' },
+			{ image: 'https://res.cloudinary.com/origingg/image/upload/c_fill,dpr_auto,e_sharpen:75,q_auto,f_auto,w_928/v1555607904/image3' }
+		];
 		for (let i = 0; i < 3; i += 1) {
 			if (this.results_array[i]) {
 				news_array.push(
@@ -162,7 +166,7 @@ class OrganizationFooterController extends Component {
 				);
 			} else {
 				const b_title_1 = 'Coming Soon';
-				const b_media_1 = default_image;
+				const b_media_1 = default_array[i].image;
 				const b_content_1 = '';
 				const b_1 = null;
 				news_array.push(
