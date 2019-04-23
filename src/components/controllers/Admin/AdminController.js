@@ -289,7 +289,7 @@ class AdminPageController extends Component {
 			} else {
 				// this.subscription_days_left = null;
 				this.props.uiStore.setOrganisation(o.resultData);
-				if (subscribed && customer.data.success === false) {
+				if (!subscribed && customer.data.success === false) {
 					this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
 				}
 				let f = !subscribed;
