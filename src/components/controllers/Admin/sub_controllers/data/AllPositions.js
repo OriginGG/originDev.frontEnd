@@ -85,4 +85,14 @@ export const staffOptions = [
         text: 'Board Member',
         value: 'Board Member'
     },
+    {
+        position_id: 18,
+        text: 'CMO',
+        value: 'CMO'
+    },
+    {
+        position_id: 19,
+        text: 'COO',
+        value: 'COO'
+    },
 ];
