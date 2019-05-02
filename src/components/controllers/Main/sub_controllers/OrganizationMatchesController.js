@@ -33,6 +33,7 @@ import tekken_image from '../../../../assets/images/game_images/tekken.png';
 import apex_image from '../../../../assets/images/game_images/apex.png';
 import  brawlhalla_image from '../../../../assets/images/game_images/brawlhalla.png';
 import rl_image from '../../../../assets/images/game_images/rl.png';
+import roe_image from '../../../../assets/images/game_images/roe.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -149,6 +150,12 @@ const gameOptions = [
 		text: 'Rocket League',
 		value: 'Rocket League',
 		image: rl_image
+	},
+	{
+		game_id: 25,
+		text: 'Ring of Elysium',
+		value: 'Ring of Elysium',
+		image: roe_image
 	}
 ];
 class OrganizationMatchesController extends Component {
