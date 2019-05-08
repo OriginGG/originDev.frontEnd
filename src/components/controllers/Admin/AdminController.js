@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Navbar, Nav, Dropdown, Icon, Sidebar, Container, Sidenav, Header, Content } from 'rsuite';
+import { Navbar, Nav, Dropdown, Icon, Sidebar, Container, Sidenav, Header, Content, Button } from 'rsuite';
 import axios from 'axios';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
@@ -59,7 +59,10 @@ class AdminPageController extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			expand: true, pageTitle: 'Company Profile', content: <AdminProfileController />, visible: false
+			expand: true,
+			pageTitle: 'Company Profile',
+			content: <AdminProfileController />,
+			visible: false
 		};
 		this.handleToggle = this.handleToggle.bind(this);
 	}
@@ -110,16 +113,19 @@ class AdminPageController extends Component {
 				this.subscription_days_left = null;
 				this.props.uiStore.setOrganisation(o.resultData);
 				if (!subscribed) {
-					if (customer.data.success === false || (customer.data.success === true && customer.data.customer.subscriptions.data.length === 0)) {
+					if (
+						customer.data.success === false ||
+						(customer.data.success === true && customer.data.customer.subscriptions.data.length === 0)
+					) {
 						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
 					}
 				}
-				// let f = !subscribed;
-				// if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
-				// 	f = false;
-				// }
+				let f = !subscribed;
+				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
+					f = false;
+				}
 				this.props.uiStore.setSubDomain(subDomain);
-				this.setState({ visible: true });
+				this.setState({ visible: true, error_page: f });
 
 				this.autorun_tracker = autorun(() => {
 					if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
@@ -144,13 +150,53 @@ class AdminPageController extends Component {
 	selectMenuItem = (pageTitle) => {
 		this.setState({ pageTitle });
 	};
+	handleLoginAndSubscribe = () => {
+		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
+	};
 	render() {
 		if (this.state.visible === false) {
 			return null;
 		}
 		const { expand } = this.state;
+		const d_width = expand ? 260 : 56;
 		return (
 			<div className="show-fake-browser sidebar-page">
+				{this.state.error_page && (
+					<div>
+						<div id="error_page" className="error_page" />
+						<div id="error_page" className="error_page_overlay">
+							<div
+								style={{
+									paddingLeft: 32,
+									paddingRight: 32,
+									textAlign: 'center',
+									lineHeight: '32px',
+									fontSize: 32,
+									display: 'flex',
+									justifyContent: 'center'
+								}}
+							>
+								THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND SUBSCRIBE.
+								<br />
+								OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+								<br />
+								<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+									support@origin.gg
+								</a>
+							</div>
+							<div
+								style={{
+									marginTop: 64,
+									textAlign: 'center',
+									display: 'flex',
+									justifyContent: 'center'
+								}}
+							>
+								<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+							</div>
+						</div>
+					</div>
+				)}
 				<Container>
 					<Sidebar style={{ display: 'flex', flexDirection: 'column' }} width={expand ? 260 : 56} collapsible>
 						<Sidenav.Header>
@@ -215,11 +261,13 @@ class AdminPageController extends Component {
 						<NavToggle expand={expand} onChange={this.handleToggle} />
 					</Sidebar>
 
-					<Container style={{ padding: 20 }}>
+					<Container style={{ width: `calc(100vw - ${d_width}px`, padding: 20 }}>
 						<Header>
 							<h2>{this.state.pageTitle}</h2>
 						</Header>
-						<Content style={{ paddingTop: 20 }}>{this.state.content}</Content>
+						<Content key={`ck_key_${expand}`} style={{ paddingTop: 20 }}>
+							{this.state.content}
+						</Content>
 					</Container>
 				</Container>
 			</div>
@@ -234,6 +282,6 @@ NavToggle.propTypes = {
 
 AdminPageController.propTypes = {
 	uiStore: PropTypes.object.isRequired,
-	appManager: PropTypes.object.isRequired,
+	appManager: PropTypes.object.isRequired
 };
 export default inject('uiStore', 'appManager')(AdminPageController);

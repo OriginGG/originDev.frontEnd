@@ -376,7 +376,7 @@ class AdminProfileController extends Component {
 					</Grid>
 				</Panel>
 				<Panel header={<h3>Social Media</h3>} bordered>
-					<Grid>
+					<Grid fluid>
 						<Col lg={12} xs={24}>
 							<div>
 								<Form
@@ -410,6 +410,7 @@ class AdminProfileController extends Component {
 						<Col lg={12} xs={24}>
 							<div>
 								<Form
+									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
 									onChange={(input_values) => {
 										console.log();
@@ -435,7 +436,7 @@ class AdminProfileController extends Component {
 					</Grid>
 				</Panel>
 				<Panel header={<h3>Twitter Feed</h3>} bordered>
-					<Grid>
+					<Grid fluid>
 						<Col lg={12} xs={24}>
 							<div>
 								<Form
@@ -457,7 +458,7 @@ class AdminProfileController extends Component {
 					</Grid>
 				</Panel>
 				<Panel header={<h3>Contact Emails</h3>} bordered>
-					<Grid>
+					<Grid fluid>
 						<Col lg={12} xs={24}>
 							<div>
 								<Form
