@@ -337,7 +337,7 @@ class AdminProfileController extends Component {
 								style={{ maxWidth: '100%', maxHeight: '320px' }}
 								src={this.state.input_values.logo_src}
 							/>
-							<Button style={{ marginTop: 8, marginBottom: 16 }} appearance="primary">
+							<Button style={{ marginTop: 8, marginBottom: 16 }} onClick={this.handleFileClick} appearance="primary">
 								Upload Company Logo
 							</Button>
 						</Col>

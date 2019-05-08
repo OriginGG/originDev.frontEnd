@@ -6,6 +6,7 @@ import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import AdminProfileController from './new_subcontrollers/AdminProfileController';
+import AdminMediaController from './new_subcontrollers/AdminMediaController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -148,7 +149,17 @@ class AdminPageController extends Component {
 		});
 	}
 	selectMenuItem = (pageTitle) => {
-		this.setState({ pageTitle });
+		let cv = <AdminProfileController />;
+		switch (pageTitle) {
+			default:
+			case 'Company Profile': {
+				break;
+			}
+			case 'Media': {
+				cv = <AdminMediaController />;
+			}
+		}
+		this.setState({ pageTitle, content: cv });
 	};
 	handleLoginAndSubscribe = () => {
 		historyStore.push({ pathname: '/login_org', state: { paywall: true } });
@@ -242,7 +253,7 @@ class AdminPageController extends Component {
 										<Dropdown.Item icon={<Icon icon="order-form" />} eventKey="3-6">
 											Blog
 										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="file-movie-o" />} eventKey="3-7">
+										<Dropdown.Item icon={<Icon icon="file-movie-o" />} eventKey="Media">
 											Media
 										</Dropdown.Item>
 										<Dropdown.Item icon={<Icon icon="trophy" />} eventKey="3-8">
