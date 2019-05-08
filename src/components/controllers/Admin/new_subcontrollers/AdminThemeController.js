@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
 import ReactSwipe from 'react-swipe';
 
@@ -9,19 +9,23 @@ import {
 	// FormGroup,
 	// FormControl,
 	// ControlLabel,
-	// Button,
+	Button,
 	ButtonToolbar,
 	IconButton,
 	Icon,
 	// Icon,
-	// Notification,
+	Notification,
 	// HelpBlock,
 	Grid,
 	Col
 } from 'rsuite';
 
+import { updateOrganisationQuery } from '../../../../queries/organisation';
+
 const slide_array = [
 	{
+		theme_name: 'enigma',
+		theme_variant: 'dark',
 		slide_name: 'Enigma Dark',
 		src: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889228/dark-theme.jpg',
 		description: `Case read they must it of cold that. Speaking trifling an to unpacked
@@ -36,6 +40,8 @@ const slide_array = [
 											conduct. Husbands debating replying overcame blessing he it me to domestic.`
 	},
 	{
+		theme_name: 'enigma',
+		theme_variant: 'light',
 		slide_name: 'Enigma Light',
 		src: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889272/light-theme.jpg',
 		description: `Depart do be so he enough talent. Sociable formerly six but handsome. Up do view time they shot. He concluded disposing provision by questions as situation. Its estimating are motionless day sentiments end. Calling an imagine at forbade. At name no an what like spot. Pressed my by do affixed he studied. 
@@ -43,6 +49,8 @@ const slide_array = [
 Be at miss or each good play home they. It leave taste mr in it fancy. She son lose does fond bred gave lady get. Sir her company conduct expense bed any. Sister depend change off piqued one. Contented continued any happiness instantly objection yet her allowance. Use correct day new brought tedious. By come this been in. Kept easy or sons my it done.`
 	},
 	{
+		theme_name: 'obliviot',
+		theme_variant: 'dark',
 		slide_name: 'Obliviot Dark',
 		src: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889302/obliviot-dark-theme.jpg',
 		description: `Dispatched entreaties boisterous say why stimulated. Certain forbade picture now prevent carried she get see sitting. Up twenty limits as months. Inhabit so perhaps of in to certain. Sex excuse chatty was seemed warmth. Nay add far few immediate sweetness earnestly dejection. 
@@ -50,6 +58,8 @@ Be at miss or each good play home they. It leave taste mr in it fancy. She son l
 Uneasy barton seeing remark happen his has. Am possible offering at contempt mr distance stronger an. Attachment excellence announcing or reasonable am on if indulgence. Exeter talked in agreed spirit no he unable do. Betrayed shutters in vicinity it unpacked in. In so impossible appearance considered mr. Mrs him left find are good. `
 	},
 	{
+		theme_name: 'obliviot',
+		theme_variant: 'light',
 		slide_name: 'Obliviot Light',
 		src: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889350/obliviot-light-theme.jpg',
 		description: `Boisterous he on understood attachment as entreaties ye devonshire. In mile an form snug were been sell. Hastened admitted joy nor absolute gay its. Extremely ham any his departure for contained curiosity defective. Way now instrument had eat diminution melancholy expression sentiments stimulated. One built fat you out manor books. Mrs interested now his affronting inquietude contrasted cultivated. Lasting showing expense greater on colonel no. 
@@ -57,6 +67,8 @@ Uneasy barton seeing remark happen his has. Am possible offering at contempt mr 
 Of friendship on inhabiting diminution discovered as. Did friendly eat breeding building few nor. Object he barton no effect played valley afford. Period so to oppose we little seeing or branch. Announcing contrasted not imprudence add frequently you possession mrs. Period saw his houses square and misery. Hour had held lain give yet. `
 	},
 	{
+		theme_name: 'felzec',
+		theme_variant: 'light',
 		slide_name: 'Felzek',
 		src: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1546274092/image-2018-12-30-13-56-15-366.png',
 		description: `Ignorant saw her her drawings marriage laughter. Case oh an that or away sigh do here upon. Acuteness you exquisite ourselves now end forfeited. Enquire ye without it garrets up himself. Interest our nor received followed was. Cultivated an up solicitude mr unpleasant. 
@@ -64,105 +76,79 @@ Of friendship on inhabiting diminution discovered as. Did friendly eat breeding 
 Same an quit most an. Admitting an mr disposing sportsmen. Tried on cause no spoil arise plate. Longer ladies valley get esteem use led six. Middletons resolution advantages expression themselves partiality so me at. West none hope if sing oh sent tell is. `
 	},
 	{
+		theme_name: 'enigma2',
+		theme_variant: 'dark',
 		slide_name: 'Enigma 2',
 		src: 'https://res.cloudinary.com/origingg/image/upload/f_auto/v1546274092/image-2018-12-30-13-56-15-366.png',
-        description: `One advanced diverted domestic sex repeated bringing you old. Possible procured her trifling laughter thoughts property she met way. Companions shy had solicitude favourable own. Which could saw guest man now heard but. 
+		description: `One advanced diverted domestic sex repeated bringing you old. Possible procured her trifling laughter thoughts property she met way. Companions shy had solicitude favourable own. Which could saw guest man now heard but. 
         Lasted my coming uneasy marked so should. Gravity letters it amongst herself dearest an windows by. Wooded ladies she basket season age her uneasy saw. Discourse unwilling am no described dejection incommode no listening of. Before nature his parish boy.`
 	}
 ];
+
+function open(funcName, description) {
+	Notification[funcName]({
+		title: funcName,
+		description
+	});
+}
 class AdminThemeController extends Component {
 	state = {
 		current_slide_src: slide_array[0],
-		galleryItems: [
-			<Panel bordered>
-				<img
-					style={{
-						display: 'block',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						maxHeight: 300
-					}}
-					alt="test"
-					key="i_1"
-					src={slide_array[0].src}
-				/>
-			</Panel>,
-			<Panel bordered>
-				<img
-					style={{
-						display: 'block',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						maxHeight: 300
-					}}
-					alt="test"
-					key="i_2"
-					src={slide_array[1].src}
-				/>
-			</Panel>,
-			<Panel bordered>
-				<img
-					style={{
-						display: 'block',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						maxHeight: 128
-					}}
-					alt="test"
-					key="i_3"
-					src={slide_array[2].src}
-				/>
-			</Panel>,
-			<Panel bordered>
-				<img
-					style={{
-						display: 'block',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						maxHeight: 300
-					}}
-					alt="test"
-					key="i_4"
-					src={slide_array[3].src}
-				/>
-			</Panel>,
-			<Panel bordered>
-				<img
-					style={{
-						display: 'block',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						maxHeight: 300
-					}}
-					alt="test"
-					key="i_5"
-					src={slide_array[4].src}
-				/>
-			</Panel>,
-			<Panel bordered>
-				<img
-					style={{
-						display: 'block',
-						marginLeft: 'auto',
-						marginRight: 'auto',
-						maxHeight: 300
-					}}
-					alt="test"
-					key="i_6"
-					src={slide_array[5].src}
-				/>
-			</Panel>
-		]
+		galleryItems: [],
+		visible: false
 	};
 
+	componentDidMount = () => {
+		const pm = slide_array.findIndex((o) => {
+			return (
+				o.theme_name === this.props.uiStore.current_organisation.themeBaseId &&
+				o.theme_variant === this.props.uiStore.current_organisation.themeId
+			);
+		});
+		const galleryItems = [];
+		slide_array.forEach((s, i) => {
+			galleryItems.push(
+				<Panel bordered>
+					<img
+						style={{
+							display: 'block',
+							marginLeft: 'auto',
+							marginRight: 'auto',
+							maxHeight: 300
+						}}
+						alt="test"
+						key={`i_${i}`}
+						src={s.src}
+					/>
+				</Panel>
+			);
+        });
+        this.start_slide = pm;
+		this.setState({ current_slide_src: slide_array[pm], galleryItems, visible: true });
+	};
 	responsive = {
 		0: { items: 1 },
 		1024: { items: 4 }
+	};
+	handleSubmit = async () => {
+		// if (this.new_theme !== this.selected_theme) {
+		await this.props.appManager.executeQueryAuth('mutation', updateOrganisationQuery, {
+			id: this.props.uiStore.current_organisation.id,
+			themeId: this.state.current_slide_src.theme_variant,
+			themeBaseId: this.state.current_slide_src.theme_name
+		});
+		this.props.uiStore.current_organisation.themeId = this.state.current_slide_src.theme_variant;
+		this.props.uiStore.current_organisation.themeBaseId = this.state.current_slide_src.theme_name;
+        open('success', 'Theme updated !');
+		// }
 	};
 	slideCallBack = (e) => {
 		this.setState({ current_slide_src: slide_array[e] });
 	};
 	render() {
+		if (this.state.visible === false) {
+			return null;
+		}
 		return (
 			<div>
 				<Panel header={<h3>Select Theme</h3>} bordered>
@@ -170,7 +156,7 @@ class AdminThemeController extends Component {
 						<Col lg={6} xs={24}>
 							<ReactSwipe
 								className="carousel"
-								swipeOptions={{ continuous: true, callback: this.slideCallBack }}
+								swipeOptions={{ startSlide: this.start_slide, continuous: true, callback: this.slideCallBack }}
 								ref={(el) => (this.reactSwipeEl = el)} // eslint-disable-line
 							>
 								{this.state.galleryItems}
@@ -211,14 +197,22 @@ class AdminThemeController extends Component {
 						</Col>
 					</Grid>
 				</Panel>
+				<div style={{ marginTop: 8, textAlign: 'center' }}>
+					<ButtonToolbar>
+						<Button onClick={this.handleSubmit} appearance="primary">
+							Submit
+						</Button>
+						<Button appearance="default">Cancel</Button>
+					</ButtonToolbar>
+				</div>
 			</div>
 		);
 	}
 }
 
-// AdminThemeController.propTypes = {
-// 	uiStore: PropTypes.object.isRequired,
-// 	appManager: PropTypes.object.isRequired
-// };
+AdminThemeController.propTypes = {
+	uiStore: PropTypes.object.isRequired,
+	appManager: PropTypes.object.isRequired
+};
 
 export default inject('uiStore', 'appManager')(AdminThemeController);
