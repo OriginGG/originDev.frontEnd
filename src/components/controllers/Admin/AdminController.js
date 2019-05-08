@@ -7,6 +7,7 @@ import { autorun } from 'mobx';
 import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import AdminProfileController from './new_subcontrollers/AdminProfileController';
 import AdminMediaController from './new_subcontrollers/AdminMediaController';
+import AdminThemeController from './new_subcontrollers/AdminThemeController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -157,6 +158,11 @@ class AdminPageController extends Component {
 			}
 			case 'Media': {
 				cv = <AdminMediaController />;
+				break;
+			}
+			case 'Theme': {
+				cv = <AdminThemeController />;
+				break;
 			}
 		}
 		this.setState({ pageTitle, content: cv });
