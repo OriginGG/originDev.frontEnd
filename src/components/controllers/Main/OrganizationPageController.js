@@ -5,6 +5,7 @@ import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
 // import { GlobalStyles } from 'Theme/Theme';
 import { Button } from 'semantic-ui-react';
+import axios from 'axios';
 import Favicon from 'react-favicon';
 // import Loadable from 'react-loadable';
 import dayjs from 'dayjs';
@@ -288,7 +289,20 @@ class OrganizationPageController extends Component {
 				const user = await this.props.appManager.executeQuery('query', getAllAdminUsersQuery, {
 					organisationId: this.props.uiStore.current_organisation.id
 				});
-				const { subscribed } = user.allUsers.edges[0].node;
+				const { subscribed, email } = user.allUsers.edges[0].node;
+				const customer = await axios.get(
+					`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
+				);
+				this.subscription_days_left = null;
+				if (!subscribed) {
+					if (customer.data.success === false || (customer.data.success === true && customer.data.customer.subscriptions.data.length === 0)) {
+						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+					}
+				}
+				let f = !subscribed;
+				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
+					f = false;
+				}
 				let themeBase = this.props.uiStore.current_organisation.themeBaseId;
 				let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore
 					.current_organisation.themeId}`;
@@ -399,7 +413,7 @@ class OrganizationPageController extends Component {
 					enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
 					enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
 					enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
-					error_page: !subscribed
+					error_page: f
 					// OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
 				});
 				if (this.invite_details) {
@@ -1237,52 +1251,52 @@ class OrganizationPageController extends Component {
 			// <ThemeProvider theme={this.props.uiStore.current_theme_data}>
 			<DocumentTitle title={this.props.uiStore.current_organisation.name}>
 				<ErrorBoundary>
-				<div
-					id="outer-container"
-					ref={(c) => {
-						this.ref_node = c;
-					}}
-				>
-					{this.state.error_page && (
-						<div>
-							<div id="error_page" className="error_page" />
-							<div id="error_page" className="error_page_overlay">
-								<div
-									style={{
-										paddingLeft: 32,
-										paddingRight: 32,
-										textAlign: 'center',
-										lineHeight: '32px',
-										fontSize: 32,
-										display: 'flex',
-										justifyContent: 'center'
-									}}
-								>
-									THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
-									SUBSCRIBE.
-									<br />
-									OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-									<br />
-									<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
-										support@origin.gg
-									</a>
-								</div>
-								<div
-									style={{
-										marginTop: 64,
-										textAlign: 'center',
-										display: 'flex',
-										justifyContent: 'center'
-									}}
-								>
-									<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+					<div
+						id="outer-container"
+						ref={(c) => {
+							this.ref_node = c;
+						}}
+					>
+						{this.state.error_page && (
+							<div>
+								<div id="error_page" className="error_page" />
+								<div id="error_page" className="error_page_overlay">
+									<div
+										style={{
+											paddingLeft: 32,
+											paddingRight: 32,
+											textAlign: 'center',
+											lineHeight: '32px',
+											fontSize: 32,
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
+										SUBSCRIBE.
+										<br />
+										OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
+										<br />
+										<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
+											support@origin.gg
+										</a>
+									</div>
+									<div
+										style={{
+											marginTop: 64,
+											textAlign: 'center',
+											display: 'flex',
+											justifyContent: 'center'
+										}}
+									>
+										<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
+									</div>
 								</div>
 							</div>
-						</div>
-					)}
-					<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
-					{SideBar}
-					<div className={c_name}>{disp}</div>
+						)}
+						<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
+						{SideBar}
+						<div className={c_name}>{disp}</div>
 					</div>
 				</ErrorBoundary>
 			</DocumentTitle>

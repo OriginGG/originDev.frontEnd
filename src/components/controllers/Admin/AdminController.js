@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Navbar, Nav, Dropdown, Icon, Sidebar, Container, Sidenav, Header, Content } from 'rsuite';
-import dayjs from 'dayjs';
 import axios from 'axios';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
@@ -79,24 +78,25 @@ class AdminPageController extends Component {
 			const customer = await axios.get(
 				`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
 			);
+			console.log(customer);
 			this.authenticated = user.resultData.authenticated;
 			this.user_email = user.resultData.email;
 			this.subscription_days_left = null;
-			if (customer.data.success !== false) {
-				const { subscriptions } = customer.data.customer;
-				const num_sources = customer.data.customer.sources.total_count;
-				if (!num_sources) {
-					const { trial_end } = subscriptions.data[0];
-					if (trial_end) {
-						// const cur = moment().tz('America/New_York');
-						const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
-						// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
-						const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
-						this.subscription_days_left = day_diff;
-					}
-				}
-			}
-			// const { subscribed } = user.resultData;
+			// if (customer.data.success !== false) {
+			// 	const { subscriptions } = customer.data.customer;
+			// 	const num_sources = customer.data.customer.sources.total_count;
+			// 	if (!num_sources) {
+			// 		const { trial_end } = subscriptions.data[0];
+			// 		if (trial_end) {
+			// 			// const cur = moment().tz('America/New_York');
+			// 			const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+			// 			// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+			// 			const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
+			// 			this.subscription_days_left = day_diff;
+			// 		}
+			// 	}
+			// }
+			const { subscribed } = user.resultData;
 			const domainInfo = this.props.appManager.getDomainInfo();
 			const subDomain =
 				domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
@@ -107,9 +107,18 @@ class AdminPageController extends Component {
 			if (o.resultData === null) {
 				console.log('sub domain does not exist!');
 			} else {
+				this.subscription_days_left = null;
 				this.props.uiStore.setOrganisation(o.resultData);
+				if (!subscribed) {
+					if (customer.data.success === false || (customer.data.success === true && customer.data.customer.subscriptions.data.length === 0)) {
+						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+					}
+				}
+				// let f = !subscribed;
+				// if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
+				// 	f = false;
+				// }
 				this.props.uiStore.setSubDomain(subDomain);
-				// this.setState({ visible: true, error_page: !subscribed });
 				this.setState({ visible: true });
 
 				this.autorun_tracker = autorun(() => {

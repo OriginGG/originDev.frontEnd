@@ -55,6 +55,7 @@ export const getOrganisationQuery = gql`
     twitterFeedUsername
     themeId
     themeBaseId
+    createdAt
     themesByOrganisationId {
       edges {
         node {

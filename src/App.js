@@ -1,6 +1,7 @@
 import React, { Component, lazy, Suspense } from 'react';
 import { inject } from 'mobx-react';
 import injectSheet from 'react-jss';
+import LogRocket from 'logrocket';
 import FullStory from 'react-fullstory';
 import { Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -31,6 +32,12 @@ function OrganizationPageController(props) {
 		</Suspense>
 	);
 }
+function LogRocketRender() {
+	LogRocket.init('gbiu7l/origingg');
+	console.log('log rocket showing');
+}
+LogRocketRender();
+
 
 const IndividualPageControllerComponent = lazy(() => import('./components/controllers/Individuals/IndividualPageController'));
 function IndividualPageController(props) {
