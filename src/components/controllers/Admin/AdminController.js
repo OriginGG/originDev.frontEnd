@@ -278,7 +278,14 @@ class AdminPageController extends Component {
 						<NavToggle expand={expand} onChange={this.handleToggle} />
 					</Sidebar>
 
-					<Container style={{ width: `calc(100vw - ${d_width}px`, padding: 20 }}>
+					<Container
+						style={{
+							height: 'calc(100vh - 20px)',
+							overflowY: 'auto',
+							width: `calc(100vw - ${d_width}px`,
+							padding: 20
+						}}
+					>
 						<Header>
 							<h2>{this.state.pageTitle}</h2>
 						</Header>

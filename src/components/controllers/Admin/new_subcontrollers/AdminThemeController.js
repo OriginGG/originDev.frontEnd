@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
+import { toJS } from 'mobx';
 import ReactSwipe from 'react-swipe';
 
 import {
@@ -17,10 +18,13 @@ import {
 	Notification,
 	// HelpBlock,
 	Grid,
-	Col
+	Col,
+	Row
 } from 'rsuite';
 
+import AdminThemeImageController from './AdminThemeImageController';
 import { updateOrganisationQuery } from '../../../../queries/organisation';
+import { updateThemeQuery } from '../../../../queries/themes';
 
 const slide_array = [
 	{
@@ -108,23 +112,27 @@ class AdminThemeController extends Component {
 		const galleryItems = [];
 		slide_array.forEach((s, i) => {
 			galleryItems.push(
-				<Panel bordered>
-					<img
-						style={{
-							display: 'block',
-							marginLeft: 'auto',
-							marginRight: 'auto',
-							maxHeight: 300
-						}}
-						alt="test"
-						key={`i_${i}`}
-						src={s.src}
-					/>
-				</Panel>
+				<img
+					style={{
+						display: 'block',
+						marginLeft: 'auto',
+						marginRight: 'auto',
+						maxHeight: 300
+					}}
+					alt="test"
+					key={`i_${i}`}
+					src={s.src}
+				/>
 			);
-        });
-        this.start_slide = pm;
-		this.setState({ current_slide_src: slide_array[pm], galleryItems, visible: true });
+		});
+		this.start_slide = pm;
+		this.selected_slide = pm;
+		this.setState({
+			updated_slide_index: pm,
+			current_slide_src: slide_array[pm],
+			galleryItems,
+			visible: true
+		});
 	};
 	responsive = {
 		0: { items: 1 },
@@ -139,11 +147,53 @@ class AdminThemeController extends Component {
 		});
 		this.props.uiStore.current_organisation.themeId = this.state.current_slide_src.theme_variant;
 		this.props.uiStore.current_organisation.themeBaseId = this.state.current_slide_src.theme_name;
-        open('success', 'Theme updated !');
+		this.setState({ updated_slide_index: this.selected_slide });
+		open('success', 'Theme chosen !');
 		// }
 	};
 	slideCallBack = (e) => {
 		this.setState({ current_slide_src: slide_array[e] });
+		this.selected_slide = e;
+	};
+	handleJumboTronImage = (f) => {
+		this.props.uiStore.current_theme_structure.main_section.background.imageData = f.secure_url;
+		this.updateThemeImages();
+	};
+	handleMainImage = (f) => {
+		this.props.uiStore.current_theme_structure.main_section.background.imageMainData = f.secure_url;
+		this.updateThemeImages();
+	};
+	handleSponsorImage = (f) => {
+		this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData = f.secure_url;
+		this.updateThemeImages();
+	};
+	handleNewsImage = (f) => {
+		this.props.uiStore.current_theme_structure.main_section.background.imageNewsData = f.secure_url;
+		this.updateThemeImages();
+	};
+	handleRostersImage = (f) => {
+		this.props.uiStore.current_theme_structure.main_section.background.imageRostersData = f.secure_url;
+		this.updateThemeImages();
+	};
+	handleMatchesImage = (f) => {
+		this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData = f.secure_url;
+		this.updateThemeImages();
+	};
+	handleMediaImage = (f) => {
+		this.props.uiStore.current_theme_structure.main_section.background.imageMediaData = f.secure_url;
+		this.updateThemeImages();
+	};
+
+	updateThemeImages = async () => {
+		const s = toJS(this.props.uiStore.current_theme_structure);
+		// console.log(`const s = ${JSON.stringify(s)}`);
+		await this.props.appManager.executeQuery('mutation', updateThemeQuery, {
+			id: this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id,
+			themeName: this.props.uiStore.current_organisation.subDomain,
+			themeStructure: JSON.stringify(s)
+		});
+		open('success', 'Image Updated !');
+		this.setState({ visible: true });
 	};
 	render() {
 		if (this.state.visible === false) {
@@ -154,57 +204,113 @@ class AdminThemeController extends Component {
 				<Panel header={<h3>Select Theme</h3>} bordered>
 					<Grid fluid>
 						<Col lg={6} xs={24}>
-							<ReactSwipe
-								className="carousel"
-								swipeOptions={{ startSlide: this.start_slide, continuous: true, callback: this.slideCallBack }}
-								ref={(el) => (this.reactSwipeEl = el)} // eslint-disable-line
-							>
-								{this.state.galleryItems}
-							</ReactSwipe>
-							<ButtonToolbar style={{ textAlign: 'center', marginTop: 16 }}>
-								<IconButton
-									onClick={() => this.reactSwipeEl.prev()}
-									icon={<Icon icon="arrow-left" />}
-									placement="left"
-								/>
-								<IconButton
-									onClick={() => this.reactSwipeEl.next()}
-									icon={<Icon icon="arrow-right" />}
-									placement="right"
-								/>
-							</ButtonToolbar>
+							<Panel bordered>
+								<ReactSwipe
+									className="carousel"
+									swipeOptions={{
+										startSlide: this.start_slide,
+										continuous: true,
+										callback: this.slideCallBack
+									}}
+									ref={(el) => (this.reactSwipeEl = el)} // eslint-disable-line
+								>
+									{this.state.galleryItems}
+								</ReactSwipe>
+								<ButtonToolbar style={{ textAlign: 'center', marginTop: 41 }}>
+									<IconButton
+										onClick={() => this.reactSwipeEl.prev()}
+										icon={<Icon icon="arrow-left" />}
+										placement="left"
+									/>
+									<IconButton
+										onClick={() => this.reactSwipeEl.next()}
+										icon={<Icon icon="arrow-right" />}
+										placement="right"
+									/>
+								</ButtonToolbar>
+							</Panel>
 						</Col>
 						<Col lg={18} xs={24}>
 							<Panel header={<h3>{this.state.current_slide_src.slide_name}</h3>} bordered>
 								<div style={{ minHeight: 300 }}>
-									<Col lg={8} xs={24}>
-										<img
-											style={{
-												display: 'block',
-												marginLeft: 'auto',
-												marginRight: 'auto',
-												maxHeight: 270
-											}}
-											alt="test"
-											src={this.state.current_slide_src.src}
-										/>
-									</Col>
-									<Col lg={16} xs={24}>
-										<div>{this.state.current_slide_src.description}</div>
-									</Col>
+									<Row>
+										<Col lg={8} xs={24}>
+											<img
+												style={{
+													display: 'block',
+													marginLeft: 'auto',
+													marginRight: 'auto',
+													maxHeight: 270
+												}}
+												alt="test"
+												src={this.state.current_slide_src.src}
+											/>
+										</Col>
+										<Col lg={16} xs={24}>
+											<div>{this.state.current_slide_src.description}</div>
+										</Col>
+									</Row>
+									<Row>
+										<div style={{ marginTop: 8, textAlign: 'center' }}>
+											<ButtonToolbar>
+												<Button onClick={this.handleSubmit} appearance="primary">
+													Choose Selected Theme
+												</Button>
+											</ButtonToolbar>
+										</div>
+									</Row>
 								</div>
 							</Panel>
 						</Col>
 					</Grid>
 				</Panel>
-				<div style={{ marginTop: 8, textAlign: 'center' }}>
-					<ButtonToolbar>
-						<Button onClick={this.handleSubmit} appearance="primary">
-							Submit
-						</Button>
-						<Button appearance="default">Cancel</Button>
-					</ButtonToolbar>
-				</div>
+				<AdminThemeImageController
+					image_src={this.props.uiStore.current_theme_structure.main_section.background.imageData}
+					title="Change Theme Jumbotron"
+					fileCallBack={this.handleJumboTronImage}
+				/>
+				{this.state.updated_slide_index === 4 && (
+					<div>
+						<AdminThemeImageController
+							image_src={this.props.uiStore.current_theme_structure.main_section.background.imageMainData}
+							title="Change Theme Main Background Image"
+							fileCallBack={this.handleMainImage}
+						/>
+						<AdminThemeImageController
+							image_src={
+								this.props.uiStore.current_theme_structure.main_section.background.imageSponsorData
+							}
+							title="Change Theme Sponsor Background Image"
+							fileCallBack={this.handleSponsorImage}
+						/>
+						<AdminThemeImageController
+							image_src={this.props.uiStore.current_theme_structure.main_section.background.imageNewsData}
+							title="Change Theme News Background Image"
+							fileCallBack={this.handleNewsImage}
+						/>
+						<AdminThemeImageController
+							image_src={
+								this.props.uiStore.current_theme_structure.main_section.background.imageMatchesData
+							}
+							title="Change Theme Matches Background Image"
+							fileCallBack={this.handleMatchesImage}
+						/>
+						<AdminThemeImageController
+							image_src={
+								this.props.uiStore.current_theme_structure.main_section.background.imageRostersData
+							}
+							title="Change Theme Rosters Background Image"
+							fileCallBack={this.handleRostersImage}
+						/>
+						<AdminThemeImageController
+							image_src={
+								this.props.uiStore.current_theme_structure.main_section.background.imageMediaData
+							}
+							title="Change Theme Media Background Image"
+							fileCallBack={this.handleMediaImage}
+						/>
+					</div>
+				)}
 			</div>
 		);
 	}
