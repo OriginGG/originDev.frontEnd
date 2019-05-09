@@ -232,6 +232,7 @@ class AdminThemeImageController extends Component {
 													}}
 												>
 													<Uploader
+														accept="image/x-png,image/gif,image/jpeg"
 														listType="picture-text"
 														onSuccess={this.handleFileSuccess}
 														onError={this.handleFileError}
