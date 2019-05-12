@@ -32,6 +32,7 @@ import apex_image from '../../../../assets/images/game_images/apex.png';
 import brawlhalla_image from '../../../../assets/images/game_images/brawlhalla.png';
 import rl_image from '../../../../assets/images/game_images/rl.png';
 import roe_image from '../../../../assets/images/game_images/roe.png';
+import splitgate_image from '../../../../assets/images/game_images/splitgate.png';
 // banners
 // import coc_banner from '../../../../assets/images/game_images/coc_banner.jpg';
 import cod_banner from '../../../../assets/images/game_images/cod_banner.jpg';
@@ -58,6 +59,7 @@ import apex_banner from '../../../../assets/images/game_images/apex_banner.jpg';
 import brawlhalla_banner from '../../../../assets/images/game_images/brawlhalla_banner.png';
 import rl_banner from '../../../../assets/images/game_images/rl_banner.jpg';
 import roe_banner from '../../../../assets/images/game_images/roe_banner.jpg';
+import splitgate_banner from '../../../../assets/images/game_images/splitgate_banner.jpg';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -235,6 +237,13 @@ const gameOptions = [
         value: 'Ring of Elysium',
         image: roe_image,
         banner: roe_banner
+    },
+    {
+        game_id: 26,
+        text: 'Splitgate',
+        value: 'Splitgate',
+        image: splitgate_image,
+        banner: splitgate_banner
     }
 
 ];
