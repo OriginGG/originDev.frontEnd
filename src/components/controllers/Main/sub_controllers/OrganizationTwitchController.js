@@ -40,7 +40,7 @@ class OrganizationTwitchController extends Component {
         let team_l = null;
         if (this.props.uiStore.current_organisation.streamTeamUrl) {
             team_l = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/get-team-member?teamurl=${this.props.uiStore.current_organisation.streamTeamUrl}`);
-            // console.log(`NEW TEAM CALL ${JSON.stringify(team_l)}`);
+            console.log(`NEW TEAM CALL ${JSON.stringify(team_l)}`);
         } else {
             console.log('no team name');
         }
@@ -66,10 +66,11 @@ class OrganizationTwitchController extends Component {
             });
         }
         // console.log(`twitch url = ${twitch_url}`);
-        // console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
+        console.log(`CONTENT PROVIDERS = ${JSON.stringify(t_array)}`);
         twitch_url = twitch_url.concat(twitch_url.length - 1);
+        console.log(`call is ${`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`}`);
         const td = await axios.get(`${process.env.REACT_APP_API_SERVER}/twitch/getTwitchStreams?users=${twitch_url}`);
-        // console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
+        console.log(`ANY LIVE PROVIDERS ${JSON.stringify(td)}`);
         this.setState({
             live_list: td,
             team_list: team_l,
