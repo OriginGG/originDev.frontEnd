@@ -34,6 +34,7 @@ import apex_image from '../../../../assets/images/game_images/apex.png';
 import  brawlhalla_image from '../../../../assets/images/game_images/brawlhalla.png';
 import rl_image from '../../../../assets/images/game_images/rl.png';
 import roe_image from '../../../../assets/images/game_images/roe.png';
+import splitgate_image from '../../../../assets/images/game_images/splitgate.png';
 // import { getOrganisationQuery } from './queries/organisation'
 
 const gameOptions = [
@@ -156,6 +157,12 @@ const gameOptions = [
 		text: 'Ring of Elysium',
 		value: 'Ring of Elysium',
 		image: roe_image
+	},
+	{
+		game_id: 26,
+		text: 'Splitgate',
+		value: 'Splitgate',
+		image: splitgate_image
 	}
 ];
 class OrganizationMatchesController extends Component {

@@ -346,6 +346,7 @@ class AdminThemeController extends Component {
             obliviot_dark_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889302/obliviot-dark-theme.jpg"
             obliviot_light_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889350/obliviot-light-theme.jpg"
             felzec_light_image="https://res.cloudinary.com/origingg/image/upload/f_auto/v1546274092/image-2018-12-30-13-56-15-366.png"
+            enigma2_dark_image="https://res.cloudinary.com/origingg/image/upload/v1556823545/enigma2_theme.png"
         />;
         if (this.state.modal_open) {
             md = <div>
