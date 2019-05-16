@@ -8924,10 +8924,10 @@ rsuite-notification@^3.0.4:
   dependencies:
     classnames "^2.2.5"
 
-rsuite-table@^3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-3.5.2.tgz#c19f038df330045b8d56cbfac308d4f26ff1c785"
-  integrity sha512-EOaWmapApdu7UkhVy75NWyJ0KCMjdilFqyScszW9L8saJ6cYjShcpeV7+UibgHe6HIXuHOZS95El1LH63bOpzg==
+rsuite-table@^3.5.3:
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-3.5.3.tgz#b71e1e41706e6ff36123015d1062b808b4ae843d"
+  integrity sha512-H1fR8ATWjPFB0ruD2JuWkgCXziWQ/vmrnKE6FaHOdTEX5ZHQVCDvXY3pV7HBKJ4sxwmPy67s1kwywW218TxPFA==
   dependencies:
     classnames "^2.2.5"
     dom-lib "^1.1.0"
@@ -8945,10 +8945,10 @@ rsuite-utils@^1.6.0:
     lodash "^4.17.5"
     react-lifecycles-compat "^3.0.4"
 
-rsuite@^3.8.2:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-3.8.2.tgz#68cfdbcad1526f4a254c59623acb4bc8895aac9a"
-  integrity sha512-pikEZRJLMwpxe4EcOGnsbhQa1RWOAfXWQiqQSA+A6hDH/7bDUXglswuQVv3X1Enxu/JTfFvC7p8llof4PVo/5w==
+rsuite@^3.8.4:
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-3.8.4.tgz#73fdff01900381cb45e84c5057ce08c967bc72f0"
+  integrity sha512-iNojgqkXmTcnd0JhKCLpMMHOv33eW40uLvv/m57nYKHn5ZqdlJzx1kMKtec1xenDyc4SqiZZn2xQbcb8nlYd+w==
   dependencies:
     "@babel/runtime" "^7.0.0"
     classnames ">=2.0.0"
@@ -8963,9 +8963,9 @@ rsuite@^3.8.2:
     recompose "^0.26.0"
     rsuite-intl "~1.0.4"
     rsuite-notification "^3.0.4"
-    rsuite-table "^3.5.2"
+    rsuite-table "^3.5.3"
     rsuite-utils "^1.6.0"
-    schema-typed "~0.2.1"
+    schema-typed "^1.0.0"
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -9045,10 +9045,10 @@ scheduler@^0.13.6:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
-schema-typed@~0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/schema-typed/-/schema-typed-0.2.1.tgz#af31f3543c3c294529923c450b66d9d7b4266c21"
-  integrity sha512-DcznP2ViGsOPqV0nKyvnh6Mmj7tw/vBl076ek96NkVz6XzVPqL4XBN7fiQY+YTCdu+0nO7hEvfuUc0YDflopmA==
+schema-typed@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/schema-typed/-/schema-typed-1.0.0.tgz#0b2fa27942e0680999b01b9602534c0a88cfc3a1"
+  integrity sha512-zJtp7BUEQOU/WJARwiP/FL1OiR3bc4SBeAgX2W4+wZW6ODHUze2zJGCMOwX2PyPZcUVxXt9zen4ZL6GS6Fyonw==
 
 schema-utils@^0.3.0:
   version "0.3.0"
