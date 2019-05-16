@@ -413,10 +413,6 @@ class AdminAddIndividualController extends Component {
 										<ControlLabel>Facebook Link</ControlLabel>
 										<FormControl name="facebook_value" />
 									</FormGroup>
-									<FormGroup>
-										<ControlLabel>YouTube Channel</ControlLabel>
-										<FormControl name="youtube_channel_value" />
-									</FormGroup>
 								</Form>
 							</div>
 						</Col>
@@ -431,6 +427,10 @@ class AdminAddIndividualController extends Component {
 									}}
 									fluid
 								>
+									<FormGroup>
+										<ControlLabel>YouTube Channel</ControlLabel>
+										<FormControl name="youtube_channel_value" />
+									</FormGroup>
 									<FormGroup>
 										<ControlLabel>YouTube Video 1</ControlLabel>
 										<FormControl name="youtube_video_1_value" />
@@ -453,7 +453,9 @@ class AdminAddIndividualController extends Component {
 						<Button onClick={this.handleSubmit} appearance="primary">
 							Submit
 						</Button>
-						<Button onClick={this.props.handleCancel} appearance="default">Cancel</Button>
+						<Button onClick={this.props.handleCancel} appearance="default">
+							Cancel
+						</Button>
 					</ButtonToolbar>
 				</div>
 			</div>
