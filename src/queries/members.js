@@ -45,14 +45,26 @@ query getMembers($organisationId: Int!) {
         individualUserByIndividalUserId {
           firstName
           lastName
+          about
           email
-          id
-          createdAt
+          contactEmail
           updatedAt
-          profileImageUrl
+          createdAt
+          youtubeChannel
           twitchUrl
           twitchUserId
+          twitterHandle
+          accomplishments
+          youtubeVideo1Url
+          youtubeVideo2Url
+          youtubeVideo3Url
+          bannerImageUrl
+          profileImageUrl
+          facebookLink
+          instagramLink
           username
+          id
+          authenticated
         }
       }
     }

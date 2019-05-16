@@ -6,6 +6,7 @@ import { isMobile } from 'react-device-detect';
 // import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import axios from 'axios';
+import faker from 'faker';
 import {
 	Button,
 	ButtonToolbar,
@@ -23,8 +24,11 @@ import {
 } from 'rsuite';
 
 // import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
-import { createIndividualUserQuery, getIndividualUserByEmailQuery } from '../../../../queries/users';
-import { updateIndividualUserQuery, getIndividualUserByHandleQuery } from '../../../../queries/individuals';
+import {
+	updateIndividualUserQuery,
+	getIndividualUserByHandleQuery,
+	createIndUserQueryNew
+} from '../../../../queries/individuals';
 import blankImage from '../../../../assets/images/blank_person.png';
 import blankImage2 from '../../../../assets/images/imgPlaceholder1.png';
 
@@ -37,6 +41,7 @@ function open(funcName, description) {
 
 class AdminAddIndividualController extends Component {
 	state = {
+		visible: false,
 		input_values: {
 			accomplishments: '',
 			first_name_value: '',
@@ -46,8 +51,6 @@ class AdminAddIndividualController extends Component {
 			twitter_value: '',
 			instagramLink: '',
 			user_name_value: '',
-			email: '',
-			password: '',
 			youtube_channel_value: '',
 			youtube_video_1_value: '',
 			youtube_video_2_value: '',
@@ -61,6 +64,31 @@ class AdminAddIndividualController extends Component {
 		this.upload_file = false;
 		this.upload_banner_file = false;
 		this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
+		const { user } = this.props;
+		if (user) {
+			const profile_src = user.profileImageUrl ? user.profileImageUrl : blankImage;
+			const banner_src = user.bannerImageUrl ? user.bannerImageUrl : blankImage2;
+			this.setState({
+				input_values: {
+					accomplishments: user.accomplishments,
+					first_name_value: user.firstName,
+					last_name_value: user.lastName,
+					facebook_value: user.facebookLink,
+					twitch_value: user.twitchUrl,
+					twitter_value: user.twitterHandle,
+					instagramLink: user.instagramLink,
+					user_name_value: user.username,
+					youtube_channel_value: user.youtubeChannel,
+					youtube_video_1_value: user.youtubeVideo1Url,
+					youtube_video_2_value: user.youtubeVideo2Url,
+					youtube_video_3_value: user.youtubeVideo3Url,
+					about: user.about,
+					profile_src,
+					banner_src
+				}
+			});
+		}
+		this.setState({ visible: true });
 	}
 	getInputValue = (i) => {
 		return i === null ? '' : i;
@@ -95,16 +123,8 @@ class AdminAddIndividualController extends Component {
 			open('error', 'First Name must be supplied');
 			return;
 		}
-		if (!this.state.input_values.email) {
-			open('error', 'Email must be supplied');
-			return;
-		}
 		if (!this.state.input_values.user_name_value) {
 			open('error', 'Username must be supplied');
-			return;
-		}
-		if (this.tooShort(this.state.input_values.password)) {
-			open('error', 'Password is too short!');
 			return;
 		}
 		if (this.tooLong(this.state.input_values.youtube_channel_value)) {
@@ -127,21 +147,14 @@ class AdminAddIndividualController extends Component {
 			open('error', 'Twitter Handle exceeds 255 char limit');
 			return;
 		}
-		if (this.tooLong(this.state.input_values.twitch_value)) {
+		if (this.state.input_values.twitch_value !== null && this.tooLong(this.state.input_values.twitch_value)) {
 			open('error', 'Twitch URL exceeds 255 char limit');
-			return;
-		}
-		const registered_user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
-			email: this.state.input_values.email
-		});
-		if (registered_user.allIndividualUsers.edges.length > 0) {
-			open('error', 'A user with that email already exists!');
 			return;
 		}
 		const named_user = await this.props.appManager.executeQuery('query', getIndividualUserByHandleQuery, {
 			handle: this.state.input_values.user_name_value
 		});
-		if (named_user.allIndividualUsers.nodes.length > 0) {
+		if (!this.props.user && named_user.allIndividualUsers.nodes.length > 0) {
 			open('error', 'A user with that username already exists!');
 			return;
 		}
@@ -159,17 +172,23 @@ class AdminAddIndividualController extends Component {
 			}
 		}
 		try {
+			let user;
 			// export const createIndividualUserQuery = gql`mutation registerIndividual($firstName: String!, $lastName: String!, $email: String!, $password: String!, $authenticated: Boolean!, $userName: String! ) {
-			const payload = {
-				firstName: this.state.input_values.first_name_value,
-				lastName: this.state.input_values.last_name_value,
-				email: this.state.input_values.email,
-				password: this.state.input_values.password,
-				authenticated: true,
-				userName: this.state.input_values.user_name_value
-			};
-			const user = await this.props.appManager.executeQuery('mutation', createIndividualUserQuery, payload);
-			console.log(user);
+			if (!this.props.user) {
+				const em = faker.internet.email().toLowerCase();
+				const pw = faker.internet.password();
+				const payload = {
+					email: em,
+					password: pw,
+					firstName: this.state.input_values.first_name_value,
+					lastName: this.state.input_values.last_name_value,
+					userName: this.state.input_values.user_name_value
+				};
+				const r_user = await this.props.appManager.executeQueryAuth('mutation', createIndUserQueryNew, payload);
+				user = r_user.createIndividualUser.individualUser;
+			} else {
+				user = this.props.user; // eslint-disable-line
+			}
 			let logo_url = null;
 			let banner_url = null;
 			if (this.upload_file) {
@@ -178,11 +197,7 @@ class AdminAddIndividualController extends Component {
 				if (!f) {
 					return;
 				}
-				const logo_data = await this.uploadLogoToCloudinary(
-					'profile',
-					user.individualUserRegister.individualUser.id,
-					this.logo_files
-				);
+				const logo_data = await this.uploadLogoToCloudinary('profile', user.id, this.logo_files);
 				logo_url = logo_data.secure_url;
 			}
 			if (this.upload_banner_file) {
@@ -191,19 +206,16 @@ class AdminAddIndividualController extends Component {
 				if (!f) {
 					return;
 				}
-				const banner_data = await this.uploadLogoToCloudinary(
-					'banner',
-					user.individualUserRegister.individualUser.id,
-					this.b_logo_files
-				);
+				const banner_data = await this.uploadLogoToCloudinary('banner', user.id, this.b_logo_files);
 				banner_url = banner_data.secure_url;
 			}
 			await this.props.appManager.executeQueryAuth('mutation', updateIndividualUserQuery, {
-				id: user.individualUserRegister.individualUser.id,
+				id: user.id,
 				about: this.state.input_values.about,
 				bannerImageUrl: banner_url,
 				profileImageUrl: logo_url,
 				twitchUserId: twitch_user_id,
+				twitchUrl: this.state.input_values.twitch_value,
 				userName: this.state.input_values.user_name_value,
 				youtubeChannel: this.state.input_values.youtube_channel_value,
 				twitterHandle: this.state.input_values.twitter_value,
@@ -214,7 +226,7 @@ class AdminAddIndividualController extends Component {
 				youtubeVideo2Url: this.state.input_values.youtube_video_2_value,
 				youtubeVideo3Url: this.state.input_values.youtube_video_3_value
 			});
-			this.props.handleAddMember(user.individualUserRegister.individualUser.id);
+			this.props.handleAddMember(user.id, this.props.user ? true : false);
 		} catch (err) {
 			this.props.appManager.networkError();
 		}
@@ -282,7 +294,22 @@ class AdminAddIndividualController extends Component {
 		this.dropzoneBannerRef.open();
 	};
 	render() {
+		if (this.state.visible === false) {
+			return null;
+		}
 		const formValue = this.state.input_values;
+		const un = this.props.user ? (
+			<FormGroup>
+				<ControlLabel>Username</ControlLabel>
+				<span style={{ fontSize: '24px' }}>{this.state.input_values.user_name_value}</span>
+			</FormGroup>
+		) : (
+			<FormGroup>
+				<ControlLabel>Username</ControlLabel>
+				<FormControl name="user_name_value" />
+				<HelpBlock>Required</HelpBlock>
+			</FormGroup>
+		);
 		return (
 			<div>
 				<Dropzone
@@ -346,6 +373,7 @@ class AdminAddIndividualController extends Component {
 										}}
 										fluid
 									>
+										{un}
 										<FormGroup>
 											<ControlLabel>First Name</ControlLabel>
 											<FormControl style={{ width: '80%' }} name="first_name_value" />
@@ -354,21 +382,6 @@ class AdminAddIndividualController extends Component {
 										<FormGroup>
 											<ControlLabel>Last Name</ControlLabel>
 											<FormControl name="last_name_value" />
-										</FormGroup>
-										<FormGroup>
-											<ControlLabel>Username</ControlLabel>
-											<FormControl name="user_name_value" />
-											<HelpBlock>Required</HelpBlock>
-										</FormGroup>
-										<FormGroup>
-											<ControlLabel>Contact Email</ControlLabel>
-											<FormControl name="email" />
-											<HelpBlock>Required</HelpBlock>
-										</FormGroup>
-										<FormGroup>
-											<ControlLabel>Password</ControlLabel>
-											<FormControl name="password" />
-											<HelpBlock>Required</HelpBlock>
 										</FormGroup>
 										<FormGroup>
 											<ControlLabel>About</ControlLabel>
@@ -465,9 +478,14 @@ class AdminAddIndividualController extends Component {
 
 AdminAddIndividualController.propTypes = {
 	uiStore: PropTypes.object.isRequired,
+	user: PropTypes.object,
 	appManager: PropTypes.object.isRequired,
 	handleAddMember: PropTypes.func.isRequired,
 	handleCancel: PropTypes.func.isRequired
+};
+
+AdminAddIndividualController.defaultProps = {
+	user: null
 };
 
 export default inject('uiStore', 'appManager')(AdminAddIndividualController);
