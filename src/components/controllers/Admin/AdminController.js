@@ -14,6 +14,7 @@ import { Accordion, Icon } from 'semantic-ui-react/dist/commonjs';
 // import { push as Menu } from 'react-burger-menu';
 import { GlobalStyles } from 'Theme/Theme';
 // import moment from 'moment-timezone';
+import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import OrganizationAdminPageComponentRender from '../../render_components/admin/OrganizationAdminPageComponentRender';
 import OrganizationAdminMenuComponentRender from '../../render_components/admin/OrganizationAdminMenuComponentRender';
 import AdminProfileController from './sub_controllers/AdminProfileController';
