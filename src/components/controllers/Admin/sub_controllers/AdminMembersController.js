@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';         // eslint-disable-line
 // import injectSheet from 'react-jss';
 import axios from 'axios';
-import findIndex from 'lodash/findIndex';
 import { Modal } from 'antd';
-import { Table, Image, Icon, Checkbox, Card, Input, Segment, Button, Header } from 'semantic-ui-react/dist/commonjs';
+import { Table, Image, Icon, Checkbox, Card, Button, Header } from 'semantic-ui-react/dist/commonjs';
 // import { GlobalStyles } from 'Theme/Theme';
 import { inject } from 'mobx-react';
 import { toast } from 'react-toastify';
 import { searchIndividualUsersByHandleQuery } from '../../../../queries/individuals';
 import { getOrganisationMembersQuery, deleteOrganisaionMemberQuery } from '../../../../queries/members';
 import { deleteContentTeamQuery, getContentTeamQuery} from '../../../../queries/content_team';      // eslint-disable-line
+import AdminAddIndividualController from './AdminAddIndividualController';
 
 const { confirm } = Modal;
 
@@ -35,8 +35,6 @@ class AdminMembersController extends Component {
     state = {
         found_members: [],                  // eslint-disable-line
         visible: false,
-        disabled: true,
-        found_disabled: false,
         members: [],
         handle: '',                         // eslint-disable-line
         email: ''                           // eslint-disable-line
@@ -161,92 +159,15 @@ class AdminMembersController extends Component {
         });
         this.setState({ found_members });           // eslint-disable-line
     }
-    handleSubmit = async () => {
-        let error = false;
-        if (this.invite_array.length === 0) {
-            toast.error('You have to selected some users to invite!', {
-                position: toast.POSITION.TOP_LEFT
-            });
-            return;
-        }
-        this.setState({ found_disabled: true });
-        this.invite_array.forEach(o => {
-            const fnd = findIndex(this.current_members, m => {
-                return (m.node.individualUserByIndividalUserId.username === o.username);
-            });
-            if (fnd > -1) {
-                toast.error(`${o.username} is already a member of your organzation!`, {
-                    position: toast.POSITION.TOP_LEFT
-                });
-                this.setState({ found_disabled: false });
-                error = true;
-            }
-        });
-        if (error) {
-            return;
-        }
-
-        const { subDomain } = this.props.uiStore.current_organisation;
-        // const user = await this.props.appManager.executeQuery('query', getIndividualUserByEmailQuery, {
-        //     email
-        // });
-        this.invite_array.forEach(async o => {
-            const { email } = o;
-            const host = window.location.origin;
-            const url = `/emails/invite_ind?host=${host}&email=${email}&organisation_id=${this.props.uiStore.current_organisation.id}&organisation_name=${subDomain}`;
-            await this.sendEmail(url);
-        });
-        toast.success('Invitation e-mail(s) sent!', {
-            position: toast.POSITION.TOP_LEFT
-        });
-        this.setState({ found_disabled: false, found_members: [], handle: '' });
-    }
     render() {
         if (this.state.visible === false) {
             return null;
         }
-        let found_mem = <span />;
-        if (this.state.found_members.length > 0) {
-            found_mem = <Card.Content>
-                <Card.Header>
-                    Found Members
-                    </Card.Header>
-                <Card.Description>
-                    <div style={{ maxHeight: 220, width: '100%', overflowY: 'auto' }}>
-                        <Table celled>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell>Image</Table.HeaderCell>
-                                    <Table.HeaderCell>Name</Table.HeaderCell>
-                                    <Table.HeaderCell>Username</Table.HeaderCell>
-                                    <Table.HeaderCell>Invite Y/N</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-                            {this.state.found_members}
-                        </Table>
-                        <Button disabled={this.state.found_disabled} primary onClick={this.handleSubmit}>SEND INVITE(S)</Button>
-                    </div>
-                </Card.Description>
-            </Card.Content>;
+        if (this.state.add_member) {
+            return <AdminAddIndividualController />;
         }
         return (
             <div style={{ height: '100vh', width: 'calc(100vw - 420px)' }}>
-                <Card style={{ width: 'calc(100vw - 380px)' }}>
-                    <Card.Content>
-                        <Card.Header>
-                            Add Members
-                    </Card.Header>
-                        <Card.Description>
-                            <Segment>
-                                <Header as="h5">Enter Users Handle, and click SEARCH</Header>
-                                <Header as="h5">You can send your members to <a href="https://origin.gg/signup_ind" rel="noopener noreferrer" target="_blank">https://origin.gg/signup_ind</a> if they havent created an individual account</Header>
-                                <Input value={this.state.handle} onChange={(e) => { this.handleInputChange(e, 'handle'); }} style={{ width: 'calc(100vw - 478px)' }} label="Handle:" placeholder="Handle" />
-                            </Segment>
-                            <Button disabled={this.state.disabled} primary onClick={this.handleSearch}>SEARCH</Button>
-                        </Card.Description>
-                    </Card.Content>
-                    {found_mem}
-                </Card>
                 <Card>
                     <Table style={{ marginLeft: 8, marginTop: 12 }} basic="very" celled collapsing>
                         <Table.Header>
@@ -261,6 +182,7 @@ class AdminMembersController extends Component {
                         </Table.Body>
                     </Table>
                 </Card>
+                <Button type="primary">ADD MEMBER</Button>
             </div>
 
         );
