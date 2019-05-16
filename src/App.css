@@ -7,6 +7,7 @@
 @import "~primereact/resources/themes/redmond/theme.css";
 @import "~primereact/resources/primereact.min.css";
 @import "~react-alice-carousel/lib/alice-carousel.css";
+@import "~rsuite/dist/styles/rsuite.min.css";
 .transition-enter {
   transform: scale(0);
 }
