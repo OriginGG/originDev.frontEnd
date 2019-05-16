@@ -13,6 +13,7 @@ import {
 } from '../../../../queries/members';
 import { createContentTeamQuery, deleteContentTeamQuery, getContentTeamQuery } from '../../../../queries/content_team'; // eslint-disable-line
 import AdminAddIndividualController from './AdminAddIndividualController';
+import { deleteIndQueryNew } from '../../../../queries/individuals';
 
 const { confirm } = Modal;
 
@@ -54,7 +55,17 @@ class AdminMembersController extends Component {
 		this.invite_array = [];
 		this.key_index = 1;
 	};
-
+	updateMember = (u) => {
+		this.setState({
+			add_member: (
+				<AdminAddIndividualController
+					user={u}
+					handleAddMember={this.handleAddMember}
+					handleCancel={this.handleCancel}
+				/>
+			)
+		});
+	};
 	calcMembers = async () => {
 		const members = await this.props.appManager.executeQuery('query', getOrganisationMembersQuery, {
 			organisationId: this.props.uiStore.current_organisation.id
@@ -65,7 +76,14 @@ class AdminMembersController extends Component {
 			m_array.push(
 				<Table.Row>
 					<Table.Cell>
-						<Header as="h4" image>
+						<Header
+							style={{ cursor: 'pointer' }}
+							onClick={() => {
+								this.updateMember(m.node.individualUserByIndividalUserId);
+							}}
+							as="h4"
+							image
+						>
 							<Image src={m.node.individualUserByIndividalUserId.profileImageUrl} rounded size="mini" />
 							<Header.Content>{m.node.individualUserByIndividalUserId.username}</Header.Content>
 						</Header>
@@ -75,7 +93,7 @@ class AdminMembersController extends Component {
 							style={{ cursor: 'pointer' }}
 							name="trash"
 							onClick={() => {
-								this.deleteMember(m.node.id);
+								this.deleteMember(m.node.id, m.node.individualUserByIndividalUserId.id);
 							}}
 						/>
 					</Table.Cell>
@@ -103,7 +121,7 @@ class AdminMembersController extends Component {
 		});
 	};
 
-	deleteMember = async (id) => {
+	deleteMember = async (id, user_id) => {
 		const f = await this.showDeleteConfirm();
 		if (f) {
 			const ct = await this.props.appManager.executeQuery('query', getContentTeamQuery, {
@@ -117,40 +135,51 @@ class AdminMembersController extends Component {
 			await this.props.appManager.executeQuery('mutation', deleteOrganisaionMemberQuery, {
 				id
 			});
+			await this.props.appManager.executeQueryAuth('mutation', deleteIndQueryNew, {
+				id: user_id
+			});
 			toast.success('Member deleted !', {
 				position: toast.POSITION.TOP_LEFT
 			});
 		}
 		this.calcMembers();
 	};
-	handleAddMember = async (user_id) => {
-		const member = await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
-			userId: user_id,
-			organisationId: this.props.uiStore.current_organisation.id
-		});
-		await this.props.appManager.executeQuery('mutation', createContentTeamQuery, {
-			memberId: member.createOrganisationMember.organisationMember.id
-		});
-		toast.success('Member Created and added!', {
-			position: toast.POSITION.TOP_LEFT
-		});
-		this.setState({ add_member: false });
+	handleAddMember = async (user_id, d_a) => {
+		if (!d_a) {
+			const member = await this.props.appManager.executeQuery('mutation', createOrganisationMemberQuery, {
+				userId: user_id,
+				organisationId: this.props.uiStore.current_organisation.id
+			});
+			await this.props.appManager.executeQuery('mutation', createContentTeamQuery, {
+				memberId: member.createOrganisationMember.organisationMember.id
+			});
+			toast.success('Member Created and added!', {
+				position: toast.POSITION.TOP_LEFT
+			});
+		} else {
+			toast.success('Member updated!', {
+				position: toast.POSITION.TOP_LEFT
+			});
+		}
+		this.setState({ add_member: null });
 		this.calcMembers();
 	};
 	addInvididual = () => {
-		this.setState({ add_member: true });
+		this.setState({
+			add_member: (
+				<AdminAddIndividualController handleAddMember={this.handleAddMember} handleCancel={this.handleCancel} />
+			)
+		});
 	};
 	handleCancel = () => {
-		this.setState({ add_member: false });
+		this.setState({ add_member: null });
 	};
 	render() {
 		if (this.state.visible === false) {
 			return null;
 		}
 		if (this.state.add_member) {
-			return (
-				<AdminAddIndividualController handleCancel={this.handleCancel} handleAddMember={this.handleAddMember} />
-			);
+			return <div>{this.state.add_member}</div>;
 		}
 		return (
 			<div style={{ height: '100vh', width: 'calc(100vw - 420px)' }}>
