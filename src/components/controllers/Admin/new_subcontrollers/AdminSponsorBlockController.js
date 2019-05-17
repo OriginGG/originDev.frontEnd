@@ -177,7 +177,7 @@ class AdminSponsorBlockController extends Component {
 							<Col lg={8} xs={24}>
 								<img
 									alt="sponsor"
-									style={{ objectFit: 'contain', width: 150, height: 100 }}
+									style={{ objectPosition: 'left', objectFit: 'contain', width: 150, height: 100 }}
 									src={this.state.imageUrl}
 								/>
 								<Uploader
@@ -198,7 +198,7 @@ class AdminSponsorBlockController extends Component {
 							<Col lg={8} xs={24}>
 								<img
 									alt="sponsor_bg"
-									style={{ objectFit: 'contain', width: 300, height: 100 }}
+									style={{ objectPosition: 'left', objectFit: 'contain', width: 300, height: 100 }}
 									src={this.state.bgImages}
 								/>
 								<Uploader
