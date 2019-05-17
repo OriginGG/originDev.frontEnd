@@ -213,6 +213,8 @@ class AdminAddIndividualController extends Component {
 				id: user.id,
 				about: this.state.input_values.about,
 				bannerImageUrl: banner_url,
+				firstName: this.state.input_values.first_name_value,
+				lastName: this.state.input_values.last_name_value,
 				profileImageUrl: logo_url,
 				twitchUserId: twitch_user_id,
 				twitchUrl: this.state.input_values.twitch_value,
