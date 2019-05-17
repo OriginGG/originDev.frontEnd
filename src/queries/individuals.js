@@ -70,6 +70,14 @@ export const getIndividualUserByEmailQuery = gql`query getIndUserByEmail($email:
   }
 }`;
 
+export const deleteIndQueryNew = gql`mutation delinduser($id: Int!) {
+  deleteIndividualUserById(input: {id: $id}) {
+    individualUser {
+      id
+    }
+  }
+}`;
+
 export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
   individualUserById(id: $id) {
     firstName
@@ -97,6 +105,23 @@ export const getIndividualUserQuery = gql`query getIndividual($id: Int!) {
   }
 }
 `;
+
+export const createIndUserQueryNew = gql`mutation createIndUser($email: String!, $password: String!, $userName: String!, $firstName: String!, $lastName: String!) {
+  createIndividualUser(input: {
+    individualUser: {
+      firstName: $firstName
+      passwordHash: $password,
+      email: $email,
+      lastName: $lastName
+      username: $userName
+      authenticated: true
+    }
+  }) {
+    individualUser {
+      id
+    }
+  }
+}`;
 
 export const updateIndividualUserQuery = gql`mutation updateIndividualUser($id: Int!, $firstName: String, $lastName: String, $about: String,
 	$contactEmail: String, $accomplishments: String, $twitchUrl: String, 
