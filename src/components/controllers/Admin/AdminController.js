@@ -14,6 +14,7 @@ import AdminAboutController from './new_subcontrollers/AdminAboutController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
+import AdminContentTeamController from './new_subcontrollers/AdminContentTeamController';
 
 const headerStyles = {
 	padding: 18,
@@ -191,6 +192,10 @@ class AdminPageController extends Component {
 				cv = <AdminAboutController />;
 				break;
 			}
+			case 'Content Team Admin': {
+				cv = <AdminContentTeamController />;
+				break;
+			}
 		}
 		this.setState({ pageTitle, content: cv });
 	};
@@ -280,7 +285,7 @@ class AdminPageController extends Component {
 										<Dropdown.Item icon={<Icon icon="shield" />} eventKey="3-4">
 											Roster
 										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="people-group" />} eventKey="3-5">
+										<Dropdown.Item icon={<Icon icon="people-group" />} eventKey="Content Team Admin">
 											Content Team
 										</Dropdown.Item>
 										<Dropdown.Item icon={<Icon icon="order-form" />} eventKey="3-6">
