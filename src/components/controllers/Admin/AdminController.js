@@ -8,6 +8,7 @@ import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import AdminProfileController from './new_subcontrollers/AdminProfileController';
 import AdminMediaController from './new_subcontrollers/AdminMediaController';
 import AdminThemeController from './new_subcontrollers/AdminThemeController';
+import AdminMembersController from './new_subcontrollers/AdminMembersController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -164,6 +165,10 @@ class AdminPageController extends Component {
 				cv = <AdminThemeController />;
 				break;
 			}
+			case 'Members Admin': {
+				cv = <AdminMembersController />;
+				break;
+			}
 		}
 		this.setState({ pageTitle, content: cv });
 	};
@@ -234,7 +239,7 @@ class AdminPageController extends Component {
 									<Nav.Item eventKey="Company Profile" active icon={<Icon icon="dashboard" />}>
 										Company Profile
 									</Nav.Item>
-									<Nav.Item eventKey="members" icon={<Icon icon="group" />}>
+									<Nav.Item eventKey="Members Admin" icon={<Icon icon="group" />}>
 										Members
 									</Nav.Item>
 									<Nav.Item eventKey="update_payment" icon={<Icon icon="cc-stripe" />}>

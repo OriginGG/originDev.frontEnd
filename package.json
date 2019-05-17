@@ -203,6 +203,7 @@
       "no-restricted-globals": "off",
       "import/no-extraneous-dependencies": "off",
       "promise/catch-or-return": "off",
+      "object-curly-newline": "off",
       "no-console": "off",
       "arrow-body-style": "off",
       "global-require": "off",
