@@ -130,6 +130,7 @@ class AdminThemeImageController extends Component {
 			return null;
 		}
 		const image_src = this.state.image_src ? this.state.image_src : imagePlaceholder;
+		const theme = '';
 		return (
 			<div>
 				<Modal backdrop="static" show={this.state.modal_open} onHide={this.closeModal} size="xs">
@@ -237,9 +238,11 @@ class AdminThemeImageController extends Component {
 														onSuccess={this.handleFileSuccess}
 														onError={this.handleFileError}
 														fileList={this.state.file_list}
-														action={`http://127.0.0.1:3333/c_upload?sub_domain=${this.props
+														name="images"
+														action={`${process.env
+															.REACT_APP_API_SERVER}/c_upload?sub_domain=${this.props
 															.uiStore.current_organisation
-															.subDomain}&theme=enigma&force_name=sponsor`}
+															.subDomain}&theme=${theme}`}
 														onChange={this.handleFileChange}
 													/>
 												</div>

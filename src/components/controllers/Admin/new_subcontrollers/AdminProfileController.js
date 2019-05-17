@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import injectSheet from 'react-jss';
-import Dropzone from 'react-dropzone';
 import { isMobile } from 'react-device-detect';
 import { toJS } from 'mobx';
 // import { GlobalStyles } from 'Theme/Theme';
@@ -14,6 +13,9 @@ import {
 	Form,
 	FormGroup,
 	FormControl,
+	Modal,
+	Icon,
+	Uploader,
 	ControlLabel,
 	Notification,
 	HelpBlock,
@@ -28,6 +30,7 @@ import {
 	getOrganisationQueryAnyCase
 } from '../../../../queries/organisation';
 import { updateThemeQuery } from '../../../../queries/themes';
+import UploaderButton from './helpers/UploaderButton';
 
 function open(funcName, description) {
 	Notification[funcName]({
@@ -38,6 +41,10 @@ function open(funcName, description) {
 
 class AdminProfileController extends Component {
 	state = {
+		file_list: [],
+		modal_open: false,
+		logo_src: null,
+		submit_disabled: true,
 		input_values: {
 			insta_value: '',
 			twitch_value: '',
@@ -53,7 +60,6 @@ class AdminProfileController extends Component {
 			twitter_username_value: '',
 			rss_value: '',
 			primary_color_value: '',
-			logo_src: null,
 			current_sub_domain: '',
 			dns_host: ''
 		}
@@ -61,27 +67,52 @@ class AdminProfileController extends Component {
 	componentDidMount() {
 		this.upload_file = false;
 		this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
-		this.setState({
-			input_values: {
-				insta_value: this.getInputValue(this.props.uiStore.current_organisation.instaLink),
-				twitter_value: this.getInputValue(this.props.uiStore.current_organisation.twitterLink),
-				twitch_value: this.getInputValue(this.props.uiStore.current_organisation.twitchLink),
-				twitch_team_value: this.getInputValue(this.props.uiStore.current_organisation.streamTeamUrl),
-				youtube_value: this.getInputValue(this.props.uiStore.current_organisation.youtubeLink),
-				discord_value: this.getInputValue(this.props.uiStore.current_organisation.discordUrl),
-				business_email_value: this.getInputValue(this.props.uiStore.current_organisation.businessContactEmail),
-				support_email_value: this.getInputValue(this.props.uiStore.current_organisation.supportContactEmail),
-				name: this.getInputValue(this.props.uiStore.current_organisation.name),
-				current_sub_domain: this.getInputValue(this.props.uiStore.current_organisation.subDomain),
-				store: this.getInputValue(this.props.uiStore.current_organisation.companyStoreLink),
-				facebook_value: this.getInputValue(this.props.uiStore.current_organisation.fbLink),
-				twitter_username_value: this.getInputValue(this.props.uiStore.current_organisation.twitterFeedUsername),
-				rss_value: '',
-				primary_color_value: this.getInputValue(this.props.uiStore.current_organisation.primaryColor),
-				logo_src: this.props.uiStore.current_theme_structure.header.logo.imageData
+		this.setState(
+			{
+				logo_src: this.props.uiStore.current_theme_structure.header.logo.imageData,
+				input_values: {
+					insta_value: this.getInputValue(this.props.uiStore.current_organisation.instaLink),
+					twitter_value: this.getInputValue(this.props.uiStore.current_organisation.twitterLink),
+					twitch_value: this.getInputValue(this.props.uiStore.current_organisation.twitchLink),
+					twitch_team_value: this.getInputValue(this.props.uiStore.current_organisation.streamTeamUrl),
+					youtube_value: this.getInputValue(this.props.uiStore.current_organisation.youtubeLink),
+					discord_value: this.getInputValue(this.props.uiStore.current_organisation.discordUrl),
+					business_email_value: this.getInputValue(
+						this.props.uiStore.current_organisation.businessContactEmail
+					),
+					support_email_value: this.getInputValue(
+						this.props.uiStore.current_organisation.supportContactEmail
+					),
+					name: this.getInputValue(this.props.uiStore.current_organisation.name),
+					current_sub_domain: this.getInputValue(this.props.uiStore.current_organisation.subDomain),
+					store: this.getInputValue(this.props.uiStore.current_organisation.companyStoreLink),
+					facebook_value: this.getInputValue(this.props.uiStore.current_organisation.fbLink),
+					twitter_username_value: this.getInputValue(
+						this.props.uiStore.current_organisation.twitterFeedUsername
+					),
+					rss_value: '',
+					primary_color_value: this.getInputValue(this.props.uiStore.current_organisation.primaryColor)
+				}
+			},
+			() => {
+				this.previous_input_values = this.state.input_values;
 			}
-		});
+		);
 	}
+	handleInputChange = (input_values) => {
+		this.setState({ input_values }, () => {
+			this.checkChange(this.state.input_values);
+		});
+	};
+	checkChange = (input_values) => {
+		let dis = true;
+		for (const key in input_values) {
+			if (input_values[key] !== this.previous_input_values[key]) {
+				dis = false;
+			}
+		}
+		this.setState({ submit_disabled: dis });
+	};
 	getInputValue = (i) => {
 		return i === null ? '' : i;
 	};
@@ -195,29 +226,6 @@ class AdminProfileController extends Component {
 			open('error', 'Discord URL not Valid Format');
 			return;
 		}
-		if (this.upload_file) {
-			// const logo_data = await this.uploadLogo();
-			const f = this.props.appManager.checkFileSizeLimit(this.logo_files);
-			if (!f) {
-				return;
-			}
-			const logo_data = await this.uploadLogoToCloudinary();
-			const s = toJS(this.props.uiStore.current_theme_structure);
-			s.header.logo.imageData = this.props.appManager.insertCloudinaryOptions(logo_data.secure_url);
-			this.props.uiStore.current_theme_structure.header.logo.imageData = this.props.appManager.insertCloudinaryOptions(
-				logo_data.secure_url
-			);
-			try {
-				const theme_id = this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id;
-				await this.props.appManager.executeQuery('mutation', updateThemeQuery, {
-					id: theme_id,
-					themeName: this.props.uiStore.current_organisation.subDomain,
-					themeStructure: JSON.stringify(s)
-				});
-			} catch (err) {
-				this.props.appManager.networkError();
-			}
-		}
 		try {
 			await this.props.appManager.executeQueryAuth('mutation', updateOrganisationQuery, {
 				id: this.props.uiStore.current_organisation.id,
@@ -291,65 +299,105 @@ class AdminProfileController extends Component {
 				});
 		});
 	};
-	uploadFile = (e) => {
-		this.logo_files = e[0]; // eslint-disable-line
-		const reader = new FileReader();
-		reader.readAsDataURL(this.logo_files);
-
-		reader.onloadend = () => {
-			const x = reader.result;
-			const p = this.state.input_values;
-			p.logo_src = x;
-			this.setState({ input_values: p });
-			this.upload_file = true;
-		};
+	handleFileChange = (value) => {
+		this.setState({ file_list: value });
 	};
-	handleChange = (field, e) => {
-		const v = e.target.value;
-		const p = this.state.input_values;
-		// console.log(`admin testing on change ${field} value ${v} input ${p}`);
-		p[field] = v;
-		this.setState({
-			input_values: p
-		});
+	handleFileSuccess = (f) => {
+		this.current_file = f;
+		this.setState({ modal_open: true });
 	};
-
-	handleFileClick = () => {
-		this.dropzoneRef.open();
+	handleFileError = (f) => {
+		console.log(f);
+	};
+	closeModal = () => {
+		this.setState({ file_list: [], modal_open: false });
+	};
+	confirmLogo = async () => {
+		this.closeModal();
+		this.setState({ file_list: [] });
+		if (this.current_file) {
+			const s = toJS(this.props.uiStore.current_theme_structure);
+			s.header.logo.imageData = this.props.appManager.insertCloudinaryOptions(this.current_file.secure_url);
+			this.props.uiStore.current_theme_structure.header.logo.imageData = this.props.appManager.insertCloudinaryOptions(
+				this.current_file.secure_url
+			);
+			try {
+				const theme_id = this.props.uiStore.current_organisation.themesByOrganisationId.edges[0].node.id;
+				await this.props.appManager.executeQuery('mutation', updateThemeQuery, {
+					id: theme_id,
+					themeName: this.props.uiStore.current_organisation.subDomain,
+					themeStructure: JSON.stringify(s)
+				});
+				this.setState({ logo_src: this.current_file.secure_url });
+			} catch (err) {
+				this.props.appManager.networkError();
+			}
+		}
 	};
 	render() {
 		const formValue = this.state.input_values;
+		const theme = '';
+		const subDomain = `_${this.props.uiStore.current_organisation.id}_`;
 		return (
 			<div>
-				<Dropzone
-					onDrop={this.uploadFile}
-					style={{ width: 0, height: 0 }}
-					ref={(node) => {
-						this.dropzoneRef = node;
-					}}
-				/>
-
+				<Modal backdrop="static" show={this.state.modal_open} onHide={this.closeModal} size="xs">
+					<Modal.Body>
+						<Icon
+							icon="remind"
+							style={{
+								color: '#ffb300',
+								fontSize: 24
+							}}
+						/>
+						{'  '}
+						This will replace the current image. Are you sure you want to proceed?
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							onClick={() => {
+								this.confirmLogo();
+							}}
+							appearance="primary"
+						>
+							Ok
+						</Button>
+						<Button onClick={this.closeModal} appearance="subtle">
+							Cancel
+						</Button>
+					</Modal.Footer>
+				</Modal>
 				<Panel header={<h3>Company Logo</h3>} bordered>
 					<Grid fluid>
 						<Col lg={12} xs={24}>
 							<img
 								alt="logo"
 								style={{ maxWidth: '100%', maxHeight: '320px' }}
-								src={this.state.input_values.logo_src}
+								src={this.state.logo_src}
 							/>
-							<Button style={{ marginTop: 8, marginBottom: 16 }} onClick={this.handleFileClick} appearance="primary">
+							<Uploader
+								toggleComponentClass={(props) => {
+									return <UploaderButton ButtonText="Upload New Company Logo" {...props} />;
+								}}
+								accept="image/x-png,image/gif,image/jpeg"
+								listType="picture-text"
+								onSuccess={this.handleFileSuccess}
+								onError={this.handleFileError}
+								fileList={this.state.file_list}
+								name="images"
+								action={`${process.env
+									.REACT_APP_API_SERVER}/c_upload/?sub_domain=${subDomain}&theme=${theme}&force_name=company_logo`}
+								onChange={this.handleFileChange}
+							/>
+							{/* <Button style={{ marginTop: 8, marginBottom: 16 }} onClick={this.handleFileClick} appearance="primary">
 								Upload Company Logo
-							</Button>
+							</Button> */}
 						</Col>
 						<Col lg={12} xs={24}>
 							<div>
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
@@ -382,10 +430,7 @@ class AdminProfileController extends Component {
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
@@ -412,10 +457,7 @@ class AdminProfileController extends Component {
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
@@ -442,10 +484,7 @@ class AdminProfileController extends Component {
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
@@ -464,10 +503,7 @@ class AdminProfileController extends Component {
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
@@ -482,10 +518,7 @@ class AdminProfileController extends Component {
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
@@ -499,7 +532,7 @@ class AdminProfileController extends Component {
 				</Panel>
 				<div style={{ marginTop: 8, textAlign: 'center' }}>
 					<ButtonToolbar>
-						<Button onClick={this.handleSubmit} appearance="primary">
+						<Button disabled={this.state.submit_disabled} onClick={this.handleSubmit} appearance="primary">
 							Submit
 						</Button>
 						<Button appearance="default">Cancel</Button>
