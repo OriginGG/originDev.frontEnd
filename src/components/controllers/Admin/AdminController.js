@@ -10,6 +10,7 @@ import AdminMediaController from './new_subcontrollers/AdminMediaController';
 import AdminThemeController from './new_subcontrollers/AdminThemeController';
 import AdminMembersController from './new_subcontrollers/AdminMembersController';
 import AdminSponsorController from './new_subcontrollers/AdminSponsorController';
+import AdminAboutController from './new_subcontrollers/AdminAboutController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -155,6 +156,18 @@ class AdminPageController extends Component {
 		let cv = <AdminProfileController />;
 		switch (pageTitle) {
 			default:
+			case 'update_payment': {
+				const domainInfo = this.props.appManager.getDomainInfo();
+				const { hostname } = domainInfo;
+				const subDomain =
+					domainInfo.subDomain === null
+						? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME
+						: domainInfo.subDomain;
+				const new_host = hostname.replace(`${subDomain}.`, '');
+				const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
+				window.location = `${u_string}/update_payment`;
+				break;
+			}
 			case 'Company Profile': {
 				break;
 			}
@@ -172,6 +185,10 @@ class AdminPageController extends Component {
 			}
 			case 'Sponsors Admin': {
 				cv = <AdminSponsorController />;
+				break;
+			}
+			case 'About Page': {
+				cv = <AdminAboutController />;
 				break;
 			}
 		}
@@ -254,7 +271,7 @@ class AdminPageController extends Component {
 										<Dropdown.Item icon={<Icon icon="frame" />} eventKey="Theme">
 											Theme
 										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="question2" />} eventKey="3-2">
+										<Dropdown.Item icon={<Icon icon="question2" />} eventKey="About Page">
 											About
 										</Dropdown.Item>
 										<Dropdown.Item icon={<Icon icon="peoples-map" />} eventKey="3-3">
