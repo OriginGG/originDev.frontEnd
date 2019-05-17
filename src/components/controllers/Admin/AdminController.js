@@ -9,6 +9,7 @@ import AdminProfileController from './new_subcontrollers/AdminProfileController'
 import AdminMediaController from './new_subcontrollers/AdminMediaController';
 import AdminThemeController from './new_subcontrollers/AdminThemeController';
 import AdminMembersController from './new_subcontrollers/AdminMembersController';
+import AdminSponsorController from './new_subcontrollers/AdminSponsorController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -169,6 +170,10 @@ class AdminPageController extends Component {
 				cv = <AdminMembersController />;
 				break;
 			}
+			case 'Sponsors Admin': {
+				cv = <AdminSponsorController />;
+				break;
+			}
 		}
 		this.setState({ pageTitle, content: cv });
 	};
@@ -270,7 +275,7 @@ class AdminPageController extends Component {
 										<Dropdown.Item icon={<Icon icon="trophy" />} eventKey="3-8">
 											Recent Matches
 										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="logo-ads" />} eventKey="3-9">
+										<Dropdown.Item icon={<Icon icon="logo-ads" />} eventKey="Sponsors Admin">
 											Sponsors
 										</Dropdown.Item>
 										<Dropdown.Item icon={<Icon icon="globe2" />} eventKey="3-10">

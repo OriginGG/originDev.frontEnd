@@ -388,16 +388,10 @@ class AdminAddIndividualController extends Component {
 											<ControlLabel>First Name</ControlLabel>
 											<FormControl style={{ width: '80%' }} name="first_name_value" />
 											<HelpBlock>Required</HelpBlock>
-										</FormGroup>
-										<FormGroup>
 											<ControlLabel>Last Name</ControlLabel>
 											<FormControl name="last_name_value" />
-										</FormGroup>
-										<FormGroup>
 											<ControlLabel>About</ControlLabel>
 											<FormControl rows={5} componentClass="textarea" name="about" />
-										</FormGroup>
-										<FormGroup>
 											<ControlLabel>Accomplishments</ControlLabel>
 											<FormControl rows={5} componentClass="textarea" name="accomplishments" />
 										</FormGroup>
@@ -420,16 +414,10 @@ class AdminAddIndividualController extends Component {
 									<FormGroup>
 										<ControlLabel>Twitch Handle</ControlLabel>
 										<FormControl name="twitch_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Twitter Handle</ControlLabel>
 										<FormControl name="twitter_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Instagram Link</ControlLabel>
 										<FormControl name="instagramLink" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Facebook Link</ControlLabel>
 										<FormControl name="facebook_value" />
 									</FormGroup>
@@ -447,16 +435,10 @@ class AdminAddIndividualController extends Component {
 									<FormGroup>
 										<ControlLabel>YouTube Channel</ControlLabel>
 										<FormControl name="youtube_channel_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>YouTube Video 1</ControlLabel>
 										<FormControl name="youtube_video_1_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>YouTube Video 1</ControlLabel>
 										<FormControl name="youtube_video_2_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>YouTube Video 1</ControlLabel>
 										<FormControl name="youtube_video_3_value" />
 									</FormGroup>

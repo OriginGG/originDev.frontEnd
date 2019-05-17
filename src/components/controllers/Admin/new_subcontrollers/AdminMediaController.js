@@ -137,8 +137,6 @@ class AdminMediaController extends Component {
 									<FormGroup>
 										<ControlLabel>Link 1</ControlLabel>
 										<FormControl name="link1_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Link 2</ControlLabel>
 										<FormControl name="link2_value" />
 									</FormGroup>
@@ -159,8 +157,6 @@ class AdminMediaController extends Component {
 									<FormGroup>
 										<ControlLabel>Link 3</ControlLabel>
 										<FormControl name="link3_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Link 4</ControlLabel>
 										<FormControl name="link4_value" />
 									</FormGroup>

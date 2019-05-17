@@ -404,17 +404,11 @@ class AdminProfileController extends Component {
 										<ControlLabel>Company Name</ControlLabel>
 										<FormControl name="name" />
 										<HelpBlock>Required</HelpBlock>
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Company Store</ControlLabel>
 										<FormControl name="store" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Sub Domain</ControlLabel>
 										<FormControl name="current_sub_domain" />
 										<HelpBlock>Required</HelpBlock>
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>DNS Host</ControlLabel>
 										<FormControl name="dns_host" />
 									</FormGroup>
@@ -436,16 +430,10 @@ class AdminProfileController extends Component {
 									<FormGroup>
 										<ControlLabel>Facebook Link</ControlLabel>
 										<FormControl name="facebook_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Twitter Link</ControlLabel>
 										<FormControl name="twitter_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Twitch Link</ControlLabel>
 										<FormControl name="twitch_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Twitch Team Link</ControlLabel>
 										<FormControl name="twitch_team_value" />
 									</FormGroup>
@@ -463,12 +451,8 @@ class AdminProfileController extends Component {
 									<FormGroup>
 										<ControlLabel>Instagram Link</ControlLabel>
 										<FormControl name="insta_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>YouTube Link</ControlLabel>
 										<FormControl name="youtube_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Discord Link</ControlLabel>
 										<FormControl name="discord_value" />
 									</FormGroup>
