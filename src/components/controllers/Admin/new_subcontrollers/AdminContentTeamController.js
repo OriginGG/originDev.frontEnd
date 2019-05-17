@@ -160,12 +160,10 @@ class AdminAboutController extends Component {
         });
         for (let a in add_array) {          // eslint-disable-line
 			const x = add_array[a];
-			debugger;
             await this.props.appManager.executeQuery('mutation', createRosterUserQuery, { rosterId: this.current_roster.id, individualId: x.id });         // eslint-disable-line
         }
         for (let a in delete_array) {          // eslint-disable-line
 			const x = delete_array[a];
-			debugger;
             await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.id });         // eslint-disable-line
         }
         let f = false;
