@@ -45,7 +45,7 @@ const RosterGame = ({ handleClick, handleDeleteClick, game_node, game }) => {
 						}}
 						style={{ backgroundColor: 'aquamarine', paddingLeft: 0, paddingRight: 0 }}
 						lg={6}
-						xs={24}
+						xs={6}
 					>
 						<img
 							alt=""
@@ -65,7 +65,7 @@ const RosterGame = ({ handleClick, handleDeleteClick, game_node, game }) => {
 						}}
 						style={{ paddingRight: 0, paddingLeft: 0 }}
 						lg={16}
-						xs={24}
+						xs={16}
 					>
 						<div
 							style={{
@@ -80,7 +80,7 @@ const RosterGame = ({ handleClick, handleDeleteClick, game_node, game }) => {
 							<h3>{game.text}</h3>
 						</div>
 					</Col>
-					<Col lg={2} xs={24}>
+					<Col lg={2} xs={2}>
 						<IconButton
 							onClick={() => {
 								handleDeleteClick(game_node);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
+import { isMobile } from 'react-device-detect';
 
 import {
 	Panel,
@@ -42,23 +43,27 @@ function open(funcName, description) {
 const MemberComponent = ({ user, handleDeleteMember, handleEditMember, member }) => {
 	const profileImageUrl = user.profileImageUrl ? user.profileImageUrl : imagePlaceholder;
 	const header = `${user.username} (${user.firstName} ${user.lastName})`;
+	const s = isMobile ? {} : { height: 300, marginBottom: 8 };
+	const accom_header = isMobile ? <h5>Accomplishments</h5> : <h3>Accomplishments</h3>;
+	const about_header = isMobile ? <h5>About</h5> : <h3>About</h3>;
+
 	return (
-		<Panel style={{ height: 300, marginBottom: 8 }} header={<h3>{header}</h3>} bordered>
+		<Panel style={s} header={<h3>{header}</h3>} bordered>
 			<Grid fluid>
-				<Col lg={4} xs={5}>
+				<Col lg={4} xs={24}>
 					<img alt="" style={{ width: '90%', height: 'auto', objectFit: 'cover' }} src={profileImageUrl} />
 				</Col>
-				<Col lg={8} xs={8}>
-					<Panel style={{ height: 200, marginBottom: 8 }} header={<h3>About</h3>} bordered>
+				<Col lg={8} xs={24}>
+					<Panel style={{ height: 200, marginBottom: 8 }} header={about_header} bordered>
 						<div style={{ maxHeight: 110, overflowY: 'auto' }}>{user.about}</div>
 					</Panel>
 				</Col>
-				<Col lg={8} xs={8}>
-					<Panel style={{ height: 200, marginBottom: 8 }} header={<h3>Accomplishments</h3>} bordered>
+				<Col lg={8} xs={24}>
+					<Panel style={{ height: 200, marginBottom: 8 }} header={accom_header} bordered>
 						<div style={{ maxHeight: 110, overflowY: 'auto' }}>{user.accomplishments}</div>
 					</Panel>
 				</Col>
-				<Col lg={4} xs={5}>
+				<Col lg={4} xs={24}>
 					<div
 						style={{
 							height: 180,
@@ -224,14 +229,15 @@ class AdminMembersController extends Component {
 						</Grid>
 					</div>
 				</Panel>
-                <div>
-                    <IconButton
-					onClick={this.addInvididual}
-					appearance="primary"
-					icon={<Icon icon="user" />}
-					placement="right">
-					ADD MEMBER
-				</IconButton>
+				<div>
+					<IconButton
+						onClick={this.addInvididual}
+						appearance="primary"
+						icon={<Icon icon="user" />}
+						placement="right"
+					>
+						ADD MEMBER
+					</IconButton>
 				</div>
 			</div>
 		);

@@ -376,7 +376,7 @@ class AdminProfileController extends Component {
 							/>
 							<Uploader
 								toggleComponentClass={(props) => {
-									return <UploaderButton ButtonText="Upload New Company Logo" {...props} />;
+									return <UploaderButton ButtonText="Upload Company Logo" {...props} />;
 								}}
 								accept="image/x-png,image/gif,image/jpeg"
 								listType="picture-text"

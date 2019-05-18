@@ -254,7 +254,7 @@ class AdminThemeController extends Component {
 										<div style={{ marginTop: 8, textAlign: 'center' }}>
 											<ButtonToolbar>
 												<Button onClick={this.handleSubmit} appearance="primary">
-													Choose Selected Theme
+													Choose Theme
 												</Button>
 											</ButtonToolbar>
 										</div>

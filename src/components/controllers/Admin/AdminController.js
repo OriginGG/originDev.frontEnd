@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Navbar, Nav, Dropdown, Icon, Sidebar, Container, Sidenav, Header, Content, Button } from 'rsuite';
+import { Navbar, Nav, Icon, Sidebar, Container, Sidenav, Header, Content, Button } from 'rsuite';
 import axios from 'axios';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
+import { isMobile } from 'react-device-detect';
 import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import AdminProfileController from './new_subcontrollers/AdminProfileController';
 import AdminMediaController from './new_subcontrollers/AdminMediaController';
@@ -132,7 +133,8 @@ class AdminPageController extends Component {
 					f = false;
 				}
 				this.props.uiStore.setSubDomain(subDomain);
-				this.setState({ visible: true, error_page: f });
+				const expand = isMobile ? false : true;
+				this.setState({ visible: true, expand, error_page: f });
 
 				this.autorun_tracker = autorun(() => {
 					if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
@@ -150,9 +152,11 @@ class AdminPageController extends Component {
 		}
 	};
 	handleToggle() {
-		this.setState({
-			expand: !this.state.expand
-		});
+		if (!isMobile) {
+			this.setState({
+				expand: !this.state.expand
+			});
+		}
 	}
 	selectMenuItem = (pageTitle) => {
 		let cv = <AdminProfileController />;
@@ -277,42 +281,40 @@ class AdminPageController extends Component {
 									<Nav.Item eventKey="update_payment" icon={<Icon icon="cc-stripe" />}>
 										Update Payment Card
 									</Nav.Item>
-									<Dropdown eventKey="3" trigger="hover" title="Manage Content" placement="rightTop">
-										<Dropdown.Item icon={<Icon icon="frame" />} eventKey="Theme">
-											Theme
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="question2" />} eventKey="About Page">
-											About
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="peoples-map" />} eventKey="3-3">
-											Staff
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="shield" />} eventKey="Roster Admin">
-											Roster
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="people-group" />} eventKey="Content Team Admin">
-											Content Team
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="order-form" />} eventKey="3-6">
-											Blog
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="file-movie-o" />} eventKey="Media">
-											Media
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="trophy" />} eventKey="3-8">
-											Recent Matches
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="logo-ads" />} eventKey="Sponsors Admin">
-											Sponsors
-										</Dropdown.Item>
-										<Dropdown.Item icon={<Icon icon="globe2" />} eventKey="3-10">
-											Add Custom Domain
-										</Dropdown.Item>
-									</Dropdown>
+									<Nav.Item icon={<Icon icon="frame" />} eventKey="Theme">
+										Theme
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="question2" />} eventKey="About Page">
+										About
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="peoples-map" />} eventKey="3-3">
+										Staff
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="shield" />} eventKey="Roster Admin">
+										Roster
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="people-group" />} eventKey="Content Team Admin">
+										Content Team
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="order-form" />} eventKey="3-6">
+										Blog
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="file-movie-o" />} eventKey="Media">
+										Media
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="trophy" />} eventKey="3-8">
+										Recent Matches
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="logo-ads" />} eventKey="Sponsors Admin">
+										Sponsors
+									</Nav.Item>
+									<Nav.Item icon={<Icon icon="globe2" />} eventKey="3-10">
+										Add Custom Domain
+									</Nav.Item>
 								</Nav>
 							</Sidenav.Body>
 						</Sidenav>
-						<NavToggle expand={expand} onChange={this.handleToggle} />
+						{!isMobile && <NavToggle expand={expand} onChange={this.handleToggle} />}
 					</Sidebar>
 
 					<Container
