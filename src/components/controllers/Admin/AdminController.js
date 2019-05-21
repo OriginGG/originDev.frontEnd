@@ -13,6 +13,7 @@ import AdminMembersController from './new_subcontrollers/AdminMembersController'
 import AdminSponsorController from './new_subcontrollers/AdminSponsorController';
 import AdminAboutController from './new_subcontrollers/AdminAboutController';
 import AdminRosterController from './new_subcontrollers/AdminRosterController';
+import AdminStaffController from './new_subcontrollers/AdminStaffController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
@@ -197,6 +198,10 @@ class AdminPageController extends Component {
 				cv = <AdminRosterController />;
 				break;
 			}
+			case 'Staff Admin': {
+				cv = <AdminStaffController />;
+				break;
+			}
 			case 'About Page': {
 				cv = <AdminAboutController />;
 				break;
@@ -287,7 +292,7 @@ class AdminPageController extends Component {
 									<Nav.Item icon={<Icon icon="question2" />} eventKey="About Page">
 										About
 									</Nav.Item>
-									<Nav.Item icon={<Icon icon="peoples-map" />} eventKey="3-3">
+									<Nav.Item icon={<Icon icon="peoples-map" />} eventKey="Staff Admin">
 										Staff
 									</Nav.Item>
 									<Nav.Item icon={<Icon icon="shield" />} eventKey="Roster Admin">

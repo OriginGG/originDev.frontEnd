@@ -22,12 +22,12 @@ import {
 } from 'rsuite';
 
 import { getRosterQuery, createRosterQuery, deleteRosterQuery } from '../../../../queries/rosters.js';
-import { gameOptions } from './data/AllGames';
 import open from './helpers/Notify';
 import ConfirmModalComponent from './helpers/ConfirmModal.js';
 import AdminSingleRosterController from './AdminSingleRoster.js';
+import { staffOptions } from './data/AllPositions.js';
 
-const RosterGame = ({ handleClick, handleDeleteClick, game_node, game }) => {
+const StaffPosition = ({ handleClick, handleDeleteClick, game_node, game }) => {
 	return (
 		<div>
 			<div
@@ -44,34 +44,14 @@ const RosterGame = ({ handleClick, handleDeleteClick, game_node, game }) => {
 						onClick={() => {
 							handleClick(game, game_node);
 						}}
-						style={{ backgroundColor: 'aquamarine', paddingLeft: 0, paddingRight: 0 }}
-						lg={6}
-						xs={6}
-					>
-						<img
-							alt=""
-							style={{
-								borderRight: '1px solid #e5e5ea',
-								width: '180px',
-								height: '48px',
-								objectFit: 'contain',
-								objectPosition: 'left'
-							}}
-							src={game.image}
-						/>
-					</Col>
-					<Col
-						onClick={() => {
-							handleClick(game, game_node);
-						}}
 						style={{ paddingRight: 0, paddingLeft: 0 }}
-						lg={16}
-						xs={16}
+						lg={21}
+						xs={21}
 					>
 						<div
 							style={{
 								paddingRight: 0,
-								paddingLeft: 0,
+								paddingLeft: 8,
 								backgroundColor: 'aquamarine',
 								display: 'flex',
 								alignItems: 'center',
@@ -91,13 +71,14 @@ const RosterGame = ({ handleClick, handleDeleteClick, game_node, game }) => {
 							icon={<Icon icon="trash" />}
 						/>
 					</Col>
+					<Col lg={6} xs={2} />
 				</Grid>
 			</div>
 		</div>
 	);
 };
 
-class AdminRosterController extends Component {
+class AdminStaffController extends Component {
 	state = {
 		visible: false,
 		delete_modal_open: false,
@@ -109,18 +90,17 @@ class AdminRosterController extends Component {
 	}
 	getRosterData = async () => {
 		const p_array = [];
-		const roster_data = await this.props.appManager.executeQuery('query', getRosterQuery, {
-			rosterType: 'roster',
+		const staff_data = await this.props.appManager.executeQuery('query', getRosterQuery, {
+			rosterType: 'staff',
 			organisationId: this.props.uiStore.current_organisation.id
 		});
-		roster_data.allCombinedRosters.edges.forEach((r, i) => {
-			const { gameId } = r.node;
-			const currGame = find(gameOptions, (o) => {
-				return o.game_id === gameId;
+		staff_data.allCombinedRosters.edges.forEach((r, i) => {
+			const { positionId } = r.node;
+			const currGame = find(staffOptions, (o) => {
+				return o.position_id === parseInt(positionId, 10);
 			});
-
 			p_array.push(
-				<RosterGame
+				<StaffPosition
 					handleDeleteClick={this.deleteRoster}
 					handleClick={() => {
 						this.handleGameSelectClick(r.node);
@@ -132,34 +112,31 @@ class AdminRosterController extends Component {
 			);
 		});
 		const select_game_options = [];
-		gameOptions.forEach((g) => {
+		staffOptions.forEach((g) => {
 			select_game_options.push(
 				<Dropdown.Item eventKey={g.value}>
-					<img
-						alt=""
-						style={{ width: 40, height: 'auto', objectFit: 'contain', objectPosition: 'left' }}
-						src={g.image}
-					/>
 					<span style={{ marginLeft: 6 }}>{g.text}</span>
 				</Dropdown.Item>
 			);
 		});
-		this.current_roster_users = roster_data.allCombinedRosters.edges;
+		this.current_roster_users = staff_data.allCombinedRosters.edges;
 		this.setState({ visible: true, games: p_array, select_game_options });
 	};
 	handleGameSelectClick = (g_node) => {
-		this.setState({ singleRoster: <AdminSingleRosterController handleBack={this.handleBack} game_node={g_node} /> });
+		this.setState({
+			singleRoster: <AdminSingleRosterController handleBack={this.handleBack} game_node={g_node} />
+		});
 	};
 	selectAddNewGame = async (v) => {
-		const currGame = find(gameOptions, (o) => {
+		const currGame = find(staffOptions, (o) => {
 			return o.value === v;
 		});
 		await this.props.appManager.executeQuery('mutation', createRosterQuery, {
-			rosterType: 'roster',
+			rosterType: 'staff',
 			organisationId: this.props.uiStore.current_organisation.id,
-			gameId: currGame.game_id
+			positionId: currGame.position_id
 		});
-		open('success', `Game ${currGame.text} added!`);
+		open('success', `Staff Position ${currGame.text} added!`);
 		this.getRosterData();
 	};
 	deleteRoster = (g_node) => {
@@ -172,13 +149,13 @@ class AdminRosterController extends Component {
 		await this.props.appManager.executeQuery('mutation', deleteRosterQuery, {
 			id: p.id
 		});
-		open('success', 'Roster deleted !');
+		open('success', 'Staff position deleted !');
 		this.getRosterData();
 	};
 	handleBack = () => {
 		this.getRosterData();
 		this.setState({ singleRoster: null });
-	}
+	};
 	render() {
 		if (this.state.visible === false) {
 			return null;
@@ -196,7 +173,7 @@ class AdminRosterController extends Component {
 						this.setState({ delete_modal_open: false });
 					}}
 				/>
-				<Panel style={{ paddingBottom: 170 }} header={<h3>Available Rosters</h3>} bordered>
+				<Panel style={{ paddingBottom: 170 }} header={<h3>Template</h3>} bordered>
 					<Grid fluid>
 						<Col lg={12} xs={24}>
 							{this.state.games}
@@ -218,15 +195,15 @@ class AdminRosterController extends Component {
 	}
 }
 
-RosterGame.propTypes = {
+StaffPosition.propTypes = {
 	game: PropTypes.object.isRequired,
 	game_node: PropTypes.object.isRequired,
 	handleClick: PropTypes.func.isRequired,
 	handleDeleteClick: PropTypes.func.isRequired
 };
-AdminRosterController.propTypes = {
+AdminStaffController.propTypes = {
 	uiStore: PropTypes.object.isRequired,
 	appManager: PropTypes.object.isRequired
 };
 
-export default inject('uiStore', 'appManager')(AdminRosterController);
+export default inject('uiStore', 'appManager')(AdminStaffController);
