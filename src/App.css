@@ -33,7 +33,10 @@
 h1, h2, h3, h4, h5 {
   color: unset;
 }
-
+.link-group{cursor:pointer}.link-group .rs-table-cell-content{padding:5px}
+.single-carousel {
+  width: 218px
+}
 @-webkit-keyframes AnimationName {
     0%{background-position:73% 0%}
     50%{background-position:28% 100%}
