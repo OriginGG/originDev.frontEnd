@@ -28,11 +28,12 @@ import {
 	Col
 } from 'rsuite';
 import find from 'lodash/find';
-
+import open from './helpers/Notify';
 import { gameOptions } from './data/AllGames';
 import imagePlaceholder from '../../../../assets/images/blank_person.png';
-import { recentMatchesQuery } from '../../../../queries/matches';
+import { recentMatchesQuery, deleteRecentMatchQuery } from '../../../../queries/matches';
 import AdminSingleMatchController from './AdminSingleMatch';
+import ConfirmModalComponent from './helpers/ConfirmModal';
 
 const { Cell, Column, HeaderCell } = Table;
 
@@ -51,33 +52,6 @@ const { Cell, Column, HeaderCell } = Table;
 // 		description
 // 	});
 // }
-
-const NameCell = ({ rowData, dataKey, ...props }) => {
-	const speaker = (
-		<Popover title="Description">
-			<p>
-				<b>Name:</b> {`${rowData.firstName} ${rowData.lastName}`}{' '}
-			</p>
-			<p>
-				<b>Email:</b> {rowData.email}{' '}
-			</p>
-			<p>
-				<b>Company:</b> {rowData.companyName}{' '}
-			</p>
-			<p>
-				<b>Sentence:</b> {rowData.sentence}{' '}
-			</p>
-		</Popover>
-	);
-
-	return (
-		<Cell {...props}>
-			<Whisper placement="top" speaker={speaker}>
-				<a>{rowData[dataKey].toLocaleString()}</a>
-			</Whisper>
-		</Cell>
-	);
-};
 
 const ImageCell = ({ rowData, dataKey, ...props }) => (
 	<Cell {...props} style={{ padding: 0 }}>
@@ -125,14 +99,6 @@ const MenuPopover = ({ onSelect, ...rest }) => (
 let tableBody;
 
 class CustomWhisper extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleSelectMenu = this.handleSelectMenu.bind(this);
-	}
-	handleSelectMenu(eventKey) {
-		console.log(eventKey);
-		this.trigger.hide();
-	}
 	render() {
 		return (
 			<Whisper
@@ -144,7 +110,13 @@ class CustomWhisper extends React.Component {
 				container={() => {
 					return tableBody;
 				}}
-				speaker={<MenuPopover onSelect={this.handleSelectMenu} />}
+				speaker={
+					<MenuPopover
+						onSelect={(e) => {
+							this.props.handleSelect(e, this.props.row);
+						}}
+					/>
+				}
 			>
 				{this.props.children}
 			</Whisper>
@@ -152,10 +124,10 @@ class CustomWhisper extends React.Component {
 	}
 }
 
-const ActionCell = ({ rowData, dataKey, ...props }) => {
+const ActionCell = ({ rowData, handleSelect, dataKey, ...props }) => {
 	return (
 		<Cell {...props} className="link-group">
-			<CustomWhisper>
+			<CustomWhisper handleSelect={handleSelect} row={rowData}>
 				<IconButton style={{ marginTop: 0 }} appearance="subtle" icon={<Icon icon="more" />} />
 			</CustomWhisper>
 		</Cell>
@@ -187,13 +159,38 @@ class AdminRecentMatchesController extends Component {
 			d.push({
 				opp_src,
 				game_src,
+				node: match.node,
 				score: match.node.score
 			});
 		});
 		this.setState({ data: d, visible: true });
 	};
+	handleSelect = (e, row) => {
+		if (e === 'edit') {
+			this.setState({ addMatch: <AdminSingleMatchController handleBack={this.handleBack} match={row.node} /> });
+		}
+		if (e === 'delete') {
+			this.deleteMatch(row.node.id);
+		}
+	};
+	deleteMatch = (id) => {
+		this.delete_match_id = id;
+		this.setState({ delete_modal_open: true });
+	};
+	confirmDeleteMatch = async () => {
+		this.setState({ delete_modal_open: false });
+		await this.props.appManager.executeQueryAuth('mutation', deleteRecentMatchQuery, {
+			id: this.delete_match_id
+		});
+		open('success', 'Recent match deleted !');
+		this.calcMatches();
+	}
 	addMatch = () => {
-		this.setState({ addMatch: <AdminSingleMatchController /> });
+		this.setState({ addMatch: <AdminSingleMatchController handleBack={this.handleBack} /> });
+	};
+	handleBack = () => {
+		this.setState({ addMatch: null });
+		this.calcMatches();
 	};
 	render() {
 		const { data } = this.state;
@@ -205,6 +202,14 @@ class AdminRecentMatchesController extends Component {
 		}
 		return (
 			<div>
+				<ConfirmModalComponent
+					modal_open={this.state.delete_modal_open}
+					modal_text="Are you sure you want to delete this match?"
+					modalConfirm={this.confirmDeleteMatch}
+					modalCancel={() => {
+						this.setState({ delete_modal_open: false });
+					}}
+				/>
 				<Panel header={<h3>Recent Matches...</h3>} bordered>
 					<Grid fluid>
 						<Col lg={24} xs={24}>
@@ -233,7 +238,7 @@ class AdminRecentMatchesController extends Component {
 								</Column>
 								<Column width={200}>
 									<HeaderCell>Action</HeaderCell>
-									<ActionCell dataKey="id" />
+									<ActionCell handleSelect={this.handleSelect} dataKey="id" />
 								</Column>
 							</Table>
 							<IconButton
@@ -251,18 +256,17 @@ class AdminRecentMatchesController extends Component {
 }
 
 CustomWhisper.propTypes = {
-	children: PropTypes.object.isRequired
+	handleSelect: PropTypes.func.isRequired,
+	children: PropTypes.object.isRequired,
+	row: PropTypes.object.isRequired
 };
 ImageCell.propTypes = {
 	rowData: PropTypes.array.isRequired,
 	dataKey: PropTypes.string.isRequired
 };
-NameCell.propTypes = {
-	rowData: PropTypes.array.isRequired,
-	dataKey: PropTypes.string.isRequired
-};
 
 ActionCell.propTypes = {
+	handleSelect: PropTypes.func.isRequired,
 	rowData: PropTypes.array.isRequired,
 	dataKey: PropTypes.string.isRequired
 };

@@ -40,10 +40,12 @@ import {
 // 		description
 // 	});
 // }
+import findIndex from 'lodash/findIndex';
 import { gameOptions } from './data/AllGames';
 import blankImage from '../../../../assets/images/new_image_placeholder.png';
 import UploaderButton from './helpers/UploaderButton';
 import open from './helpers/Notify';
+import { createRecentMatchQuery, updateRecentMatchQuery } from '../../../../queries/matches';
 
 const selData = [
 	{
@@ -74,6 +76,7 @@ class AdminSingleMatchController extends Component {
 	componentDidMount() {
 		this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
 		const galleryItems = [];
+		this.start_slide = 0;
 		gameOptions.forEach((s, i) => {
 			galleryItems.push(
 				<img
@@ -89,9 +92,32 @@ class AdminSingleMatchController extends Component {
 				/>
 			);
 		});
+		let g = 0;
+		if (this.props.match) {
+			const { gameName } = this.props.match;
+			const { gameLogo } = this.props.match;
+			g = findIndex(gameOptions, (o) => {
+				return o.value === gameName;
+			});
+			this.start_slide = g;
+			const t = this.props.match.eventInfo === 'rm' ? '1' : '2';
+			const { score } = this.props.match;
+			const p_array = score.split(' - ');
+			this.setState({
+				input_values: {
+					match_type: t,
+					date: new Date(this.props.match.eventDate),
+					desc: this.props.match.eventDescription,
+					url: this.props.match.eventUrl,
+					my_score: p_array[0],
+					their_score: p_array[1]
+				},
+				image_src: gameLogo
+			});
+		}
 		this.setState({
 			visible: true,
-			game_name: gameOptions[0].text,
+			game_name: gameOptions[g].text,
 			galleryItems
 		});
 	}
@@ -111,7 +137,7 @@ class AdminSingleMatchController extends Component {
 		this.setState({ game_name: gm.text });
 		this.selected_slide = e;
 	};
-	handleSubmit = () => {
+	handleSubmit = async () => {
 		if (!this.state.input_values.desc) {
 			open('error', 'You need to supply an event');
 			return;
@@ -119,17 +145,46 @@ class AdminSingleMatchController extends Component {
 		if (!this.state.image_src) {
 			open('error', 'You need to supply an opponents logo');
 		}
+		const ty = this.state.input_values.match_type === '1' ? 'rm' : 'um';
+		if (!this.props.match) {
+			await this.props.appManager.executeQueryAuth('mutation', createRecentMatchQuery, {
+				organisationId: this.props.uiStore.current_organisation.id,
+				gameName: this.state.game_name,
+				eventInfo: ty,
+				eventUrl: this.state.input_values.url,
+				eventDate: this.state.input_values.date,
+				gameLogo: this.state.image_src,
+				eventDescription: this.state.desc,
+				score: `${this.state.input_values.my_score} - ${this.state.input_values.their_score}`
+			});
+			open('success', 'Match Added');
+		} else {
+			await this.props.appManager.executeQueryAuth('mutation', updateRecentMatchQuery, {
+				id: this.props.match.id,
+				organisationId: this.props.uiStore.current_organisation.id,
+				gameName: this.state.game_name,
+				eventInfo: ty,
+				eventUrl: this.state.input_values.url,
+				eventDate: this.state.input_values.date,
+				gameLogo: this.state.image_src,
+				eventDescription: this.state.desc,
+				score: `${this.state.input_values.my_score} - ${this.state.input_values.their_score}`
+			});
+			open('success', 'Match Updated');
+		}
+		this.props.handleBack();
 	};
 	handleFileChange = (value) => {
 		this.setState({ file_list: value });
 	};
 	handleFileSuccess = (f) => {
-		this.setState({ image_src: f.secure_url });
+		this.setState({ file_list: [], image_src: f.secure_url });
 	};
 	handleFileError = (f) => {
 		console.log(f);
 	};
 	render() {
+		const btext = !this.props.match ? 'ADD MATCH' : 'UPDATE MATCH';
 		if (this.state.visible === false) {
 			return null;
 		}
@@ -267,7 +322,18 @@ class AdminSingleMatchController extends Component {
 													icon={<Icon icon="flag" />}
 													placement="right"
 												>
-													ADD MATCH
+													{btext}
+												</IconButton>
+												<IconButton
+													style={{ float: 'right', marginTop: 40 }}
+													onClick={() => {
+														this.props.handleBack();
+													}}
+													appearance="secondary"
+													icon={<Icon icon="arrow-left" />}
+													placement="right"
+												>
+													GO BACK
 												</IconButton>
 											</Col>
 										</Row>
@@ -283,8 +349,14 @@ class AdminSingleMatchController extends Component {
 }
 
 AdminSingleMatchController.propTypes = {
-	uiStore: PropTypes.object.isRequired
-	// appManager: PropTypes.object.isRequired
+	uiStore: PropTypes.object.isRequired,
+	handleBack: PropTypes.func.isRequired,
+	match: PropTypes.object,
+	appManager: PropTypes.object.isRequired
+};
+
+AdminSingleMatchController.defaultProps = {
+	match: null
 };
 
 export default inject('uiStore', 'appManager')(AdminSingleMatchController);
