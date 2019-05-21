@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject } from 'mobx-react';
-import ReactQuill from 'react-quill';
+// import ReactQuill from 'react-quill';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+
+// import htmlToDraft from 'html-to-draftjs';
 
 import {
 	// Button,
@@ -42,9 +48,16 @@ import open from './helpers/Notify';
 import UploaderButton from './helpers/UploaderButton';
 import blankImage from '../../../../assets/images/new_image_placeholder.png';
 
+const setEditorReference = (ref) => {
+	if (ref) {
+		ref.focus();
+	}
+};
+
 class AdminSingleBlog extends Component {
 	state = {
 		visible: false,
+		editorState: EditorState.createEmpty(),
 		input_values: {
 			blog_title: ''
 		},
@@ -55,7 +68,11 @@ class AdminSingleBlog extends Component {
 	componentDidMount() {
 		this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
 		if (this.props.blog) {
+			const contentBlock = htmlToDraft(this.props.blog.blogContent);
+			const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+			const editorState = EditorState.createWithContent(contentState);
 			this.setState({
+				editorState,
 				visible: true,
 				input_values: {
 					blog_title: this.props.blog.blogTitle
@@ -75,9 +92,17 @@ class AdminSingleBlog extends Component {
 	handleFileError = (f) => {
 		console.log(f);
 	};
-	handleQuillChange = (blog_content) => {
-		this.setState({ blog_content });
+	handleQuillChange = (editorState) => {
+		const blog_content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+		this.setState({
+			editorState,
+			blog_content
+		});
 	};
+
+	// handleQuillChange = (blog_content) => {
+	// 	this.setState({ blog_content });
+	// };
 	handleSubmit = async () => {
 		if (!this.state.input_values.blog_title) {
 			open('error', 'You must supply a title!');
@@ -106,6 +131,7 @@ class AdminSingleBlog extends Component {
 		if (this.state.visible === false) {
 			return null;
 		}
+		const { editorState } = this.state;
 		const theme = '';
 		const formValue = this.state.input_values;
 		const image_src = this.state.blog_image ? this.state.blog_image : blankImage;
@@ -170,8 +196,16 @@ class AdminSingleBlog extends Component {
 						</Col>
 						<Col style={{ marginTop: 16 }} lg={24} xs={24}>
 							<ControlLabel>Content</ControlLabel>
-							<ReactQuill
-								modules={{
+							<Editor
+								placeholder="Enter Some Text..."
+								editorRef={setEditorReference}
+								editorState={editorState}
+								wrapperClassName="demo-wrapper"
+								editorClassName="demo-editor"
+								onEditorStateChange={this.handleQuillChange}
+							/>
+							{/* <ReactQuill
+							 	modules={{
 									clipboard: {
 										matchVisual: false
 									}
@@ -179,7 +213,7 @@ class AdminSingleBlog extends Component {
 								theme="snow"
 								value={this.state.blog_content}
 								onChange={this.handleQuillChange}
-							/>
+							/> */}
 						</Col>
 						<Row>
 							<Col style={{ marginTop: 16 }} lg={24} xs={24}>

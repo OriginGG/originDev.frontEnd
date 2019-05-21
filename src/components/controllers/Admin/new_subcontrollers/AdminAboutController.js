@@ -18,7 +18,10 @@ import {
 	Col,
 	Row
 } from 'rsuite';
-import ReactQuill from 'react-quill';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 import open from './helpers/Notify';
 
 // import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
@@ -39,11 +42,18 @@ import open from './helpers/Notify';
 
 import { getPagesQuery, updatePageQuery } from '../../../../queries/pages';
 
+const setEditorReference = (ref) => {
+	if (ref) {
+		ref.focus();
+	}
+};
+
 class AdminAboutController extends Component {
 	state = {
 		submit_disabled: true,
 		visible: false,
-		aboutPageInfo: null
+		aboutPageInfo: null,
+		editorState: EditorState.createEmpty()
 	};
 	componentDidMount = async () => {
 		this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
@@ -57,17 +67,35 @@ class AdminAboutController extends Component {
 			organisationId: this.props.uiStore.current_organisation.id
 		});
 		const { edges } = pages.allPages;
-		this.setState({ aboutPageInfo: edges[0].node });
+		const contentBlock = htmlToDraft(edges[0].node.pageContent);
+		const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+		const editorState = EditorState.createWithContent(contentState);
+		this.setState({ aboutPageInfo: edges[0].node, editorState });
 		this.previous_input_values = edges[0].node;
 	};
-	handleQuillChange = (value) => {
+	handleQuillChange = (editorState) => {
+		const page_content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 		const { aboutPageInfo } = this.state;
 		const p = Object.assign({}, aboutPageInfo);
-		p.pageContent = value;
-		this.setState({ aboutPageInfo: p }, () => {
-			this.checkChange(this.state.aboutPageInfo);
-		});
+		p.pageContent = page_content;
+		this.setState(
+			{
+				editorState,
+				aboutPageInfo: p
+			},
+			() => {
+				this.checkChange(this.state.aboutPageInfo);
+			}
+		);
 	};
+	// handleQuillChange = (value) => {
+	// 	const { aboutPageInfo } = this.state;
+	// 	const p = Object.assign({}, aboutPageInfo);
+	// 	p.pageContent = value;
+	// 	this.setState({ aboutPageInfo: p }, () => {
+	// 		this.checkChange(this.state.aboutPageInfo);
+	// 	});
+	// };
 	handleSubmit = async () => {
 		await this.props.appManager.executeQueryAuth('mutation', updatePageQuery, {
 			id: this.state.aboutPageInfo.id,
@@ -99,6 +127,7 @@ class AdminAboutController extends Component {
 			return null;
 		}
 		const formValue = this.state.aboutPageInfo;
+		const { editorState } = this.state;
 		return (
 			<div>
 				<Panel bordered>
@@ -125,10 +154,13 @@ class AdminAboutController extends Component {
 						<Row>
 							<Col lg={24} xs={24}>
 								<div id="quill_container">
-									<ReactQuill
-										theme="snow"
-										value={this.state.aboutPageInfo.pageContent}
-										onChange={this.handleQuillChange}
+									<Editor
+										placeholder="Enter Some Text..."
+										editorRef={setEditorReference}
+										editorState={editorState}
+										wrapperClassName="demo-wrapper"
+										editorClassName="demo-editor"
+										onEditorStateChange={this.handleQuillChange}
 									/>
 								</div>
 							</Col>
