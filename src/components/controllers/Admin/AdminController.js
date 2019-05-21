@@ -18,6 +18,7 @@ import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
 import AdminContentTeamController from './new_subcontrollers/AdminContentTeamController';
+import AdminRecentMatchesController from './new_subcontrollers/AdminRecentMatchesController';
 
 const headerStyles = {
 	padding: 18,
@@ -210,6 +211,10 @@ class AdminPageController extends Component {
 				cv = <AdminContentTeamController />;
 				break;
 			}
+			case 'Recent Matches Admin': {
+				cv = <AdminRecentMatchesController />;
+				break;
+			}
 		}
 		this.setState({ pageTitle, content: cv });
 	};
@@ -307,7 +312,7 @@ class AdminPageController extends Component {
 									<Nav.Item icon={<Icon icon="file-movie-o" />} eventKey="Media">
 										Media
 									</Nav.Item>
-									<Nav.Item icon={<Icon icon="trophy" />} eventKey="3-8">
+									<Nav.Item icon={<Icon icon="trophy" />} eventKey="Recent Matches Admin">
 										Recent Matches
 									</Nav.Item>
 									<Nav.Item icon={<Icon icon="logo-ads" />} eventKey="Sponsors Admin">
