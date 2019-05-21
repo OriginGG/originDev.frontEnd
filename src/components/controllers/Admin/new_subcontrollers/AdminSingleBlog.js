@@ -131,6 +131,7 @@ class AdminSingleBlog extends Component {
 							</Form>
 						</Col>
 						<Col lg={12} xs={24}>
+							<ControlLabel>Current Media</ControlLabel>
 							<div
 								style={{
 									textAlign: 'center',
@@ -152,7 +153,6 @@ class AdminSingleBlog extends Component {
 							</div>
 						</Col>
 						<Col lg={12} xs={24}>
-							<ControlLabel>Media</ControlLabel>
 							<Uploader
 								toggleComponentClass={(props) => {
 									return <UploaderButton ButtonText="Upload Media" {...props} />;
