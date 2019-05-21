@@ -19,6 +19,8 @@ import { getUserQuery } from '../../../queries/users';
 import historyStore from '../../../utils/stores/browserHistory';
 import AdminContentTeamController from './new_subcontrollers/AdminContentTeamController';
 import AdminRecentMatchesController from './new_subcontrollers/AdminRecentMatchesController';
+import AdminBlogController from './new_subcontrollers/AdminBlogController';
+import AdminCustomDomainController from './new_subcontrollers/AdminCustomDomainController';
 
 const headerStyles = {
 	padding: 18,
@@ -211,8 +213,16 @@ class AdminPageController extends Component {
 				cv = <AdminContentTeamController />;
 				break;
 			}
+			case 'Blog Admin': {
+				cv = <AdminBlogController />;
+				break;
+			}
 			case 'Recent Matches Admin': {
 				cv = <AdminRecentMatchesController />;
+				break;
+			}
+			case 'Custom Domain Admin': {
+				cv = <AdminCustomDomainController />;
 				break;
 			}
 		}
@@ -227,6 +237,10 @@ class AdminPageController extends Component {
 		}
 		const { expand } = this.state;
 		const d_width = expand ? 260 : 56;
+		let dis = false;
+		if (this.subscription_days_left && this.subscription_days_left > 0) {
+			dis = true;
+		}
 		return (
 			<div className="show-fake-browser sidebar-page">
 				{this.state.error_page && (
@@ -306,7 +320,7 @@ class AdminPageController extends Component {
 									<Nav.Item icon={<Icon icon="people-group" />} eventKey="Content Team Admin">
 										Content Team
 									</Nav.Item>
-									<Nav.Item icon={<Icon icon="order-form" />} eventKey="3-6">
+									<Nav.Item icon={<Icon icon="order-form" />} eventKey="Blog Admin">
 										Blog
 									</Nav.Item>
 									<Nav.Item icon={<Icon icon="file-movie-o" />} eventKey="Media">
@@ -318,7 +332,11 @@ class AdminPageController extends Component {
 									<Nav.Item icon={<Icon icon="logo-ads" />} eventKey="Sponsors Admin">
 										Sponsors
 									</Nav.Item>
-									<Nav.Item icon={<Icon icon="globe2" />} eventKey="3-10">
+									<Nav.Item
+										disabled={dis}
+										icon={<Icon icon="globe2" />}
+										eventKey="Custom Domain Admin"
+									>
 										Add Custom Domain
 									</Nav.Item>
 								</Nav>
