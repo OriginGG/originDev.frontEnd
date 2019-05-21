@@ -25,6 +25,7 @@ import { getRosterQuery, createRosterQuery, deleteRosterQuery } from '../../../.
 import { gameOptions } from './data/AllGames';
 import open from './helpers/Notify';
 import ConfirmModalComponent from './helpers/ConfirmModal.js';
+import AdminSingleRosterController from './AdminSingleRoster.js';
 
 const RosterGame = ({ handleClick, handleDeleteClick, game_node, game }) => {
 	return (
@@ -121,7 +122,9 @@ class AdminRosterController extends Component {
 			p_array.push(
 				<RosterGame
 					handleDeleteClick={this.deleteRoster}
-					handleClick={this.handleGameSelectClick}
+					handleClick={() => {
+						this.handleGameSelectClick(r.node);
+					}}
 					game_node={r.node}
 					key={`roster_game_${i}`}
 					game={currGame}
@@ -144,6 +147,9 @@ class AdminRosterController extends Component {
 		this.current_roster_users = roster_data.allCombinedRosters.edges;
 		this.setState({ visible: true, games: p_array, select_game_options });
 	};
+	handleGameSelectClick = (g_node) => {
+		this.setState({ singleRoster: <AdminSingleRosterController handleBack={this.handleBack} game_node={g_node} /> });
+	};
 	selectAddNewGame = async (v) => {
 		const currGame = find(gameOptions, (o) => {
 			return o.value === v;
@@ -157,24 +163,29 @@ class AdminRosterController extends Component {
 		this.getRosterData();
 	};
 	deleteRoster = (g_node) => {
+		debugger;
 		this.delete_roster_node = g_node;
 		this.setState({ delete_modal_open: true });
-	}
+	};
 	confirmDeleteRoster = async () => {
 		this.setState({ delete_modal_open: false });
 		const p = this.delete_roster_node;
-            await this.props.appManager.executeQuery(
-                'mutation', deleteRosterQuery,
-                {
-                    id: p.id
-                }
-            );
+		await this.props.appManager.executeQuery('mutation', deleteRosterQuery, {
+			id: p.id
+		});
 		open('success', 'Roster deleted !');
 		this.getRosterData();
-    }
+	};
+	handleBack = () => {
+		this.getRosterData();
+		this.setState({ singleRoster: null });
+	}
 	render() {
 		if (this.state.visible === false) {
 			return null;
+		}
+		if (this.state.singleRoster) {
+			return <div>{this.state.singleRoster}</div>;
 		}
 		return (
 			<div>
