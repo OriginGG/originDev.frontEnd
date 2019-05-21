@@ -13,7 +13,8 @@ import {
 	Dropdown,
 	IconButton,
 	Icon,
-	Whisper
+	Whisper,
+	Panel,
 	// Form,
 	// FormGroup,
 	// FormControl,
@@ -23,14 +24,15 @@ import {
 	// ControlLabel,
 	// Notification,
 	// HelpBlock,
-	// Grid,
-	// Col
+	Grid,
+	Col
 } from 'rsuite';
 import find from 'lodash/find';
 
 import { gameOptions } from './data/AllGames';
 import imagePlaceholder from '../../../../assets/images/blank_person.png';
 import { recentMatchesQuery } from '../../../../queries/matches';
+import AdminSingleMatchController from './AdminSingleMatch';
 
 const { Cell, Column, HeaderCell } = Table;
 
@@ -163,7 +165,8 @@ const ActionCell = ({ rowData, dataKey, ...props }) => {
 class AdminRecentMatchesController extends Component {
 	state = {
 		visible: false,
-		data: []
+		data: [],
+		addMatch: null
 	};
 	componentDidMount() {
 		this.current_sub_domain = this.props.uiStore.current_organisation.subDomain;
@@ -189,42 +192,59 @@ class AdminRecentMatchesController extends Component {
 		});
 		this.setState({ data: d, visible: true });
 	};
+	addMatch = () => {
+		this.setState({ addMatch: <AdminSingleMatchController /> });
+	};
 	render() {
 		const { data } = this.state;
 		if (this.state.visible === false) {
 			return null;
 		}
+		if (this.state.addMatch) {
+			return <div>{this.state.addMatch}</div>;
+		}
 		return (
 			<div>
-				<Table
-					autoHeight
-					data={data}
-					id="table"
-					bodyRef={(ref) => {
-						tableBody = ref;
-					}}
-				>
-					<Column width={140} align="center">
-						<HeaderCell>Game</HeaderCell>
-						<ImageCell dataKey="game_src" />
-					</Column>
+				<Panel header={<h3>Recent Matches...</h3>} bordered>
+					<Grid fluid>
+						<Col lg={24} xs={24}>
+							<Table
+								autoHeight
+								data={data}
+								id="table"
+								bodyRef={(ref) => {
+									tableBody = ref;
+								}}
+							>
+								<Column width={140} align="center">
+									<HeaderCell>Game</HeaderCell>
+									<ImageCell dataKey="game_src" />
+								</Column>
 
-					<Column width={140} align="center">
-						<HeaderCell>Opposition Team</HeaderCell>
-						<ImageCell dataKey="opp_src" />
-					</Column>
+								<Column width={140} align="center">
+									<HeaderCell>Opposition Team</HeaderCell>
+									<ImageCell dataKey="opp_src" />
+								</Column>
 
-					<Column width={160}>
-						<HeaderCell>Score</HeaderCell>
-						<Cell dataKey="score" />
-						{/* <NameCell dataKey="firstName" /> */}
-					</Column>
-					<Column width={200}>
-						<HeaderCell>Action</HeaderCell>
-						<ActionCell dataKey="id" />
-					</Column>
-				</Table>
-				<IconButton appearance="primary" icon={<Icon icon="plus" />} circle />
+								<Column width={160}>
+									<HeaderCell>Score</HeaderCell>
+									<Cell dataKey="score" />
+									{/* <NameCell dataKey="firstName" /> */}
+								</Column>
+								<Column width={200}>
+									<HeaderCell>Action</HeaderCell>
+									<ActionCell dataKey="id" />
+								</Column>
+							</Table>
+							<IconButton
+								onClick={this.addMatch}
+								appearance="primary"
+								icon={<Icon icon="plus" />}
+								circle
+							/>
+						</Col>
+					</Grid>
+				</Panel>
 			</div>
 		);
 	}
