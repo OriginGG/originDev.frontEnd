@@ -482,6 +482,13 @@ html {
   font-size: 22px;
 }
 
+.ql-editor{
+  min-height: 400px !important;
+  max-height: 900px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .Aligner {
     display: -webkit-box;
     display: -webkit-flex;
