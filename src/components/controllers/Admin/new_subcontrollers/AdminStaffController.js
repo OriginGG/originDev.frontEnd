@@ -21,7 +21,7 @@ import {
 	Col
 } from 'rsuite';
 
-import { getRosterQuery, createRosterQuery, deleteRosterQuery } from '../../../../queries/rosters.js';
+import { getRosterQuery, createRosterQuery, deleteRosterQuery, deleteRosterUserQuery } from '../../../../queries/rosters.js';
 import open from './helpers/Notify';
 import ConfirmModalComponent from './helpers/ConfirmModal.js';
 import AdminSingleRosterController from './AdminSingleRoster.js';
@@ -145,6 +145,12 @@ class AdminStaffController extends Component {
 	};
 	confirmDeleteRoster = async () => {
 		this.setState({ delete_modal_open: false });
+		const u = this.delete_roster_node.combinedRosterIndividualsByRosterId.edges;
+		for (const a in u) {
+			// eslint-disable-line
+			const x = u[a];
+			await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.node.id }); // eslint-disable-line
+		}
 		const p = this.delete_roster_node;
 		await this.props.appManager.executeQuery('mutation', deleteRosterQuery, {
 			id: p.id
