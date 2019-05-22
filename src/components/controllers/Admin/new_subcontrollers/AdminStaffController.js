@@ -151,7 +151,6 @@ class AdminStaffController extends Component {
 			const x = u[a];
 			await this.props.appManager.executeQuery('mutation', deleteRosterUserQuery, { id: x.node.id }); // eslint-disable-line
 		}
-		console.log(u);
 		const p = this.delete_roster_node;
 		await this.props.appManager.executeQuery('mutation', deleteRosterQuery, {
 			id: p.id
