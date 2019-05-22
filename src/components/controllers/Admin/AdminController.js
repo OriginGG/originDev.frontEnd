@@ -166,6 +166,10 @@ class AdminPageController extends Component {
 		let cv = <AdminProfileController />;
 		switch (pageTitle) {
 			default:
+			case 'nav_site': {
+				historyStore.push('/main');
+				break;
+			}
 			case 'update_payment': {
 				const domainInfo = this.props.appManager.getDomainInfo();
 				const { hostname } = domainInfo;
@@ -338,6 +342,12 @@ class AdminPageController extends Component {
 										eventKey="Custom Domain Admin"
 									>
 										Add Custom Domain
+									</Nav.Item>
+									<Nav.Item
+										icon={<Icon icon="globe" />}
+										eventKey="nav_site"
+									>
+										Navigate To Site
 									</Nav.Item>
 								</Nav>
 							</Sidenav.Body>
