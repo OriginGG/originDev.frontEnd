@@ -5,6 +5,7 @@ import axios from 'axios';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import { isMobile } from 'react-device-detect';
+import Drift from 'react-driftjs';
 import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import AdminProfileController from './new_subcontrollers/AdminProfileController';
 import AdminMediaController from './new_subcontrollers/AdminMediaController';
@@ -21,6 +22,7 @@ import AdminContentTeamController from './new_subcontrollers/AdminContentTeamCon
 import AdminRecentMatchesController from './new_subcontrollers/AdminRecentMatchesController';
 import AdminBlogController from './new_subcontrollers/AdminBlogController';
 import AdminCustomDomainController from './new_subcontrollers/AdminCustomDomainController';
+
 
 const headerStyles = {
 	padding: 18,
@@ -166,6 +168,10 @@ class AdminPageController extends Component {
 		let cv = <AdminProfileController />;
 		switch (pageTitle) {
 			default:
+			case 'nav_site': {
+				historyStore.push('/main');
+				break;
+			}
 			case 'update_payment': {
 				const domainInfo = this.props.appManager.getDomainInfo();
 				const { hostname } = domainInfo;
@@ -280,6 +286,7 @@ class AdminPageController extends Component {
 					</div>
 				)}
 				<Container>
+				<Drift appId="ag5c43cpxebr" />
 					<Sidebar style={{ display: 'flex', flexDirection: 'column' }} width={expand ? 260 : 56} collapsible>
 						<Sidenav.Header>
 							<div style={headerStyles}>
@@ -338,6 +345,12 @@ class AdminPageController extends Component {
 										eventKey="Custom Domain Admin"
 									>
 										Add Custom Domain
+									</Nav.Item>
+									<Nav.Item
+										icon={<Icon icon="globe" />}
+										eventKey="nav_site"
+									>
+										Navigate To Site
 									</Nav.Item>
 								</Nav>
 							</Sidenav.Body>

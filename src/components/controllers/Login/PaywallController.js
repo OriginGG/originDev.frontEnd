@@ -264,11 +264,12 @@ class PaywallContent extends Component {
 		this.setState({ display_plan: true, display_credit_form: false });
 	};
 	handleCCSubmit = (ev, stripe, coupon_id) => {
+		ev.preventDefault();
+		ev.stopPropagation();
 		let new_coupon_id = null;
-		if (this.selected_plan.metadata.coupon_id === coupon_id) {
+		if (!this.update_payment && this.selected_plan.metadata.coupon_id === coupon_id) {
 			new_coupon_id = coupon_id;
 		}
-		ev.preventDefault();
 		this.setDimmer(true);
 		if (stripe) {
 			stripe.createToken().then(async (payload) => {

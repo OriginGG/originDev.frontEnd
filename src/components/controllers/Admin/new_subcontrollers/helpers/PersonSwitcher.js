@@ -50,6 +50,7 @@ export default class PersonSwitcher extends Component {
 		if (this.state.visible === false) {
 			return null;
 		}
+		const s = { minHeight: 500, maxHeight: 900, overflowY: 'auto' };
 		return (
 			<div>
 				<Panel bordered>
@@ -57,6 +58,7 @@ export default class PersonSwitcher extends Component {
 						<Col lg={11} xs={24}>
 							<h3>Available Users</h3>
 							<Container
+								style={s}
 								groupName="1"
 								getChildPayload={(i) => this.state.source[i]}
 								onDrop={(e) =>
@@ -65,6 +67,9 @@ export default class PersonSwitcher extends Component {
 									})}
 							>
 								{this.state.source.map((p) => {
+									if (!p) {
+										return <span />;
+									}
 									return (
 										<Draggable key={p.props.user.id}>
 											<div className="draggable-item">{p}</div>
@@ -77,6 +82,7 @@ export default class PersonSwitcher extends Component {
 						<Col lg={11} xs={24}>
 							<h3>Added Users</h3>
 							<Container
+								style={s}
 								groupName="1"
 								getChildPayload={(i) => this.state.target[i]}
 								onDrop={(e) =>
@@ -102,6 +108,6 @@ export default class PersonSwitcher extends Component {
 
 PersonSwitcher.propTypes = {
 	target: PropTypes.array.isRequired,
-    source: PropTypes.array.isRequired,
-    updateArrays: PropTypes.func.isRequired
+	source: PropTypes.array.isRequired,
+	updateArrays: PropTypes.func.isRequired
 };

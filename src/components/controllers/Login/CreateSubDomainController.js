@@ -75,6 +75,9 @@ class CreateSubDomainController extends Component {
 				});
 		});
 	};
+	sendGoogleConv = () => {
+
+	}
 	handleDomainChange = (e) => {
 		const v = e.target.value;
 		this.domain_name = v;
