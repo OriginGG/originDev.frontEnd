@@ -169,7 +169,15 @@ class AdminPageController extends Component {
 		switch (pageTitle) {
 			default:
 			case 'nav_site': {
-				historyStore.push('/main');
+				const domainInfo = this.props.appManager.getDomainInfo();
+				const { hostname } = domainInfo;
+				// const subDomain =
+				// 	domainInfo.subDomain === null
+				// 		? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME
+				// 		: domainInfo.subDomain;
+				// const new_host = hostname.replace(`${subDomain}.`, '');
+				const u_string = `${domainInfo.protocol}//${hostname}:${domainInfo.port}`;
+				window.open(`${u_string}/main`, '_blank');
 				break;
 			}
 			case 'update_payment': {
