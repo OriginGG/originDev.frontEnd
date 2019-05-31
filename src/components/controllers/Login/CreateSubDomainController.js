@@ -5,7 +5,8 @@ import axios from 'axios';
 import { inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import { toast } from 'react-toastify';
-import { Button } from 'semantic-ui-react';
+import Spinner from 'react-svg-spinner';
+import { Button, Dimmer, Segment, Header } from 'semantic-ui-react';
 // import { GlobalStyles } from 'Theme/Theme';
 import { createOrganisationQuery, getOrganisationByName } from '../../../queries/organisation';
 import CreateSubDomainComponentRender from '../../render_components/signup/CreateSubDomainComponentRender';
@@ -24,6 +25,7 @@ class CreateSubDomainController extends Component {
 	state = {
 		visible: false,
 		image_src: null,
+		dimmer: false,
 		theme1_select_style: {},
 		theme2_select_style: {},
 		button_disabled: true
@@ -75,9 +77,7 @@ class CreateSubDomainController extends Component {
 				});
 		});
 	};
-	sendGoogleConv = () => {
-
-	}
+	sendGoogleConv = () => {};
 	handleDomainChange = (e) => {
 		const v = e.target.value;
 		this.domain_name = v;
@@ -136,6 +136,8 @@ class CreateSubDomainController extends Component {
 					autoClose: 5000
 				});
 			} else {
+				this.setState({ dimmer: true });
+
 				// check domain name has n
 				this.domain_name = this.domain_name.toLowerCase();
 
@@ -156,115 +158,119 @@ class CreateSubDomainController extends Component {
 					subdomain: this.domain_name
 				});
 				if (exists.getorganisationbyname.edges.length > 0) {
+					this.setState({ dimmer: false });
 					toast.error(`Domain: ${this.domain_name} is already in use, please choose another!`, {
 						position: toast.POSITION.TOP_LEFT,
 						autoClose: 5000
 					});
 				} else {
-					const ax = await this.props.appManager.executeQuery('mutation', createUserQuery, {
-						id: this.user_id,
-						password: this.payload.password,
-						firstName: this.payload.firstName,
-						email: this.payload.email.toLowerCase(),
-						lastName: this.payload.lastName,
-						authenticated: false,
-						adminUser: true
-					});
+					try {
+						const ax = await this.props.appManager.executeQuery('mutation', createUserQuery, {
+							id: this.user_id,
+							password: this.payload.password,
+							firstName: this.payload.firstName,
+							email: this.payload.email.toLowerCase(),
+							lastName: this.payload.lastName,
+							authenticated: false,
+							adminUser: true
+						});
 
-					const host = window.location.origin;
-					const url = `/emails/signup?host=${host}&email=${this.payload.email}&password=${this.payload.password}&name=${this.payload.firstName}&id=${ax.registerUser.user.id}&admin_user=true&dev=false`;
-					await this.sendEmail(url);
-					const payload_email = Buffer.from(url, 'utf8').toString('hex');
-					await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, {
-						email: this.payload.email,
-						payload: payload_email
-					});
+						const host = window.location.origin;
+						const url = `/emails/signup?host=${host}&email=${this.payload.email}&password=${this.payload
+							.password}&name=${this.payload.firstName}&id=${ax.registerUser.user
+							.id}&admin_user=true&dev=false`;
+						await this.sendEmail(url);
+						const payload_email = Buffer.from(url, 'utf8').toString('hex');
+						await this.props.appManager.executeQuery('mutation', createEmailRegistrationQuery, {
+							email: this.payload.email,
+							payload: payload_email
+						});
 
-					// create a stripe customer as well.
+						// create a stripe customer as well.
 
-					this.authPayload = await this.props.appManager.executeQuery(
-						'mutation',
-						authenticateQuery,
-						this.payload
-					);
-					const token = this.authPayload.authenticate.resultData.jwtToken;
-					this.props.appManager.authToken = token;
-					this.user_id = ax.registerUser.user.id;
-					console.log(ax);
+						this.authPayload = await this.props.appManager.executeQuery(
+							'mutation',
+							authenticateQuery,
+							this.payload
+						);
+						const token = this.authPayload.authenticate.resultData.jwtToken;
+						this.props.appManager.authToken = token;
+						this.user_id = ax.registerUser.user.id;
+						console.log(ax);
 
-					// then we authenticate, to get back an authoken
+						// then we authenticate, to get back an authoken
 
-					const new_org = await this.props.appManager.executeQueryAuth('mutation', createOrganisationQuery, {
-						themeBaseId: baseId,
-						themeId: this.current_theme,
-						name: this.domain_name,
-						subDomain: this.domain_name
-					});
-					const org_id = new_org.resultData.organisationAccount.id;
-					await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, {
-						id: this.user_id,
-						subscribed: false,
-						organisationId: org_id
-					});
-					t.organisationId = org_id;
-					await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
-					await this.props.appManager.executeQueryAuth('mutation', createPageQuery, {
-						pageTitle: '',
-						pageContent: '',
-						pageSubtitle: '',
-						pageKey: 'about-us',
-						organisationId: org_id
-					});
-					await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-						organisationId: new_org.resultData.organisationAccount.id,
-						imageUrl:
-							'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
-						hrefLink: 'https://origin.gg',
-						name: 'Origin.GG',
-						description:
-							'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
-					});
-					await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-						organisationId: new_org.resultData.organisationAccount.id,
-						imageUrl:
-							'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
-						hrefLink: 'https://origin.gg',
-						name: 'Origin.GG',
-						description: ''
-					});
-					await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-						organisationId: new_org.resultData.organisationAccount.id,
-						imageUrl:
-							'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
-						hrefLink: 'https://origin.gg',
-						name: 'Origin',
-						description: ''
-					});
-					await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
-						organisationId: new_org.resultData.organisationAccount.id,
-						imageUrl:
-							'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
-						hrefLink: 'https://origin.gg',
-						name: 'Origin.GG',
-						description: ''
-					});
-					// await this.subcribeUser();
-					let slack_payload = {
-						text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${this.payload.firstName} ${this
-							.payload.lastName}\n*Sub Domain:* ${this.domain_name}\n*Owner Email:* ${this
-								.payload.email}\n`
-					};
-					if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
-						slack_payload = {
-							text: `*TEST-NOT-PRODUCTION*\n*Owner name:* ${this.payload.firstName} ${this
-								.payload.lastName}\n*Sub Domain:* ${this.domain_name}\n*Owner Email:* ${this
-									.payload.email}\n`
+						const new_org = await this.props.appManager.executeQueryAuth(
+							'mutation',
+							createOrganisationQuery,
+							{
+								themeBaseId: baseId,
+								themeId: this.current_theme,
+								name: this.domain_name,
+								subDomain: this.domain_name
+							}
+						);
+						const org_id = new_org.resultData.organisationAccount.id;
+						await this.props.appManager.executeQueryAuth('mutation', updateUserQuery, {
+							id: this.user_id,
+							subscribed: false,
+							organisationId: org_id
+						});
+						t.organisationId = org_id;
+						await this.props.appManager.executeQuery('mutation', createThemeQuery, t);
+						await this.props.appManager.executeQueryAuth('mutation', createPageQuery, {
+							pageTitle: '',
+							pageContent: '',
+							pageSubtitle: '',
+							pageKey: 'about-us',
+							organisationId: org_id
+						});
+						await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
+							organisationId: new_org.resultData.organisationAccount.id,
+							imageUrl:
+								'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+							hrefLink: 'https://origin.gg',
+							name: 'Origin.GG',
+							description:
+								'Building an Esports team is difficult. Recruiting players, practicing, and getting your teams to events is a full-time job. Allow us to handle the rest. Origin.gg makes it easy for you to set up a pro style organization.'
+						});
+						await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
+							organisationId: new_org.resultData.organisationAccount.id,
+							imageUrl:
+								'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+							hrefLink: 'https://origin.gg',
+							name: 'Origin.GG',
+							description: ''
+						});
+						await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
+							organisationId: new_org.resultData.organisationAccount.id,
+							imageUrl:
+								'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+							hrefLink: 'https://origin.gg',
+							name: 'Origin',
+							description: ''
+						});
+						await this.props.appManager.executeQueryAuth('mutation', createSponsorsQuery, {
+							organisationId: new_org.resultData.organisationAccount.id,
+							imageUrl:
+								'https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889692/logoSameColor.png',
+							hrefLink: 'https://origin.gg',
+							name: 'Origin.GG',
+							description: ''
+						});
+						// await this.subcribeUser();
+						let slack_payload = {
+							text: `*REAL-SIGNUP-PRODUCTION*\n*Owner name:* ${this.payload.firstName} ${this.payload
+								.lastName}\n*Sub Domain:* ${this.domain_name}\n*Owner Email:* ${this.payload.email}\n`
 						};
-					}
-					axios.post(
-						process.env.REACT_APP_SLACK_NEW_SIGNUP_WEBHOOK,
-						JSON.stringify(slack_payload),
-						{
+						if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+							slack_payload = {
+								text: `*TEST-NOT-PRODUCTION*\n*Owner name:* ${this.payload.firstName} ${this.payload
+									.lastName}\n*Sub Domain:* ${this.domain_name}\n*Owner Email:* ${this.payload
+									.email}\n`
+							};
+						}
+						axios.post(process.env.REACT_APP_SLACK_NEW_SIGNUP_WEBHOOK, JSON.stringify(slack_payload), {
 							withCredentials: false,
 							transformRequest: [
 								(data, headers) => {
@@ -272,15 +278,17 @@ class CreateSubDomainController extends Component {
 									return data;
 								}
 							]
-						}
-					);
-					const domainInfo = this.props.appManager.getDomainInfo();
-					const new_payload = Object.assign(this.authPayload, {});
-					new_payload.authenticate.resultData.organisationId = new_org.resultData.organisationAccount.id;
-					const payload = Buffer.from(JSON.stringify(new_payload), 'utf8').toString('hex');
-					const u_string = `${domainInfo.protocol}//${this
-						.domain_name}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
-					window.location = u_string;
+						});
+						const domainInfo = this.props.appManager.getDomainInfo();
+						const new_payload = Object.assign(this.authPayload, {});
+						new_payload.authenticate.resultData.organisationId = new_org.resultData.organisationAccount.id;
+						const payload = Buffer.from(JSON.stringify(new_payload), 'utf8').toString('hex');
+						const u_string = `${domainInfo.protocol}//${this
+							.domain_name}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
+						window.location = u_string;
+					} catch (err) {
+						this.setState({ dimmer: false });
+					}
 				}
 			}
 			// create a domain and theme here.
@@ -292,7 +300,7 @@ class CreateSubDomainController extends Component {
 				.REACT_APP_STRIPE_PRODUCT_ID}`
 		);
 		const { data } = plans.data;
-		const f = data.findIndex(p => {
+		const f = data.findIndex((p) => {
 			return p.id === process.env.REACT_APP_STRIPE_DEFAULT_SIGNUP_PLAN;
 		});
 		const customer = await axios.post(
@@ -378,6 +386,7 @@ class CreateSubDomainController extends Component {
 		// 	input_title = 'Enter your payment info to proceed with 14 day trial';
 		// }
 		return (
+			<Dimmer.Dimmable as={Segment} dimmed={this.state.dimmer}>
 				<CreateSubDomainComponentRender
 					dark_theme_image_src="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889228/dark-theme.jpg"
 					light_theme_image_src="https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889272/light-theme.jpg"
@@ -396,6 +405,15 @@ class CreateSubDomainController extends Component {
 					handleThemeClick={this.handleThemeClick}
 					// payWallContent={<PaywallController subscribed={this.handleSubscribed} user_id={this.user_id} />}
 				/>
+				<Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
+					<Header as="h2" icon inverted>
+						<div style={{ marginTop: 228 }}>
+							<Spinner color="yellow" size="64px" />
+						</div>
+						Processing....
+					</Header>
+				</Dimmer>
+			</Dimmer.Dimmable>
 		);
 	}
 }
