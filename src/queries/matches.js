@@ -10,8 +10,12 @@ export const createRecentMatchQuery = gql`mutation createRecentMatch($organisati
   }
 }`;
 
-export const updateRecentMatchQuery = gql`mutation upd($id: Int!, $url: String!) {
-  updateRecentmatchById(input: {id: $id, recentmatchPatch: {gameLogo: $url}}) {
+export const updateRecentMatchQuery = gql`mutation upd($id: Int!, $oppositeTeamName: String, $gameName: String!,
+  $gameLogo:String!, $score: String!, $eventDescription: String, $eventDate: String, $eventUrl: String, $eventInfo: String) {
+  updateRecentmatchById(input: {id: $id, recentmatchPatch: {
+    oppositeTeamName: $oppositeTeamName,
+    gameName: $gameName, score: $score, gameLogo: $gameLogo, eventDescription: $eventDescription, eventUrl: $eventUrl, eventInfo: $eventInfo, eventDate: $eventDate
+  }}) {
     recentmatch {
       id
     }

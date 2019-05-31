@@ -2961,7 +2961,7 @@ export const GlobalStyles = GlobalTheme => ({
     felzec_staff_filter_container: {
         width: '100%',
         height: '400px',
-        backgroundColor: 'rgba(255,0,0,0)',
+        backgroundColor: 'rgba(20,20,20,0)',
         position: 'absolute',
         top: '0',
         left: '0'

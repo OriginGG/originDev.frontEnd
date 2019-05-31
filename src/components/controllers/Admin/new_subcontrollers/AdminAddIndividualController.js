@@ -42,6 +42,9 @@ function open(funcName, description) {
 class AdminAddIndividualController extends Component {
 	state = {
 		visible: false,
+		profile_src: blankImage,
+		banner_src: blankImage2,
+		submit_disabled: true,
 		input_values: {
 			accomplishments: '',
 			first_name_value: '',
@@ -55,9 +58,7 @@ class AdminAddIndividualController extends Component {
 			youtube_video_1_value: '',
 			youtube_video_2_value: '',
 			youtube_video_3_value: '',
-			about: '',
-			profile_src: blankImage,
-			banner_src: blankImage2
+			about: ''
 		}
 	};
 	componentDidMount() {
@@ -68,25 +69,32 @@ class AdminAddIndividualController extends Component {
 		if (user) {
 			const profile_src = user.profileImageUrl ? user.profileImageUrl : blankImage;
 			const banner_src = user.bannerImageUrl ? user.bannerImageUrl : blankImage2;
-			this.setState({
-				input_values: {
-					accomplishments: user.accomplishments,
-					first_name_value: user.firstName,
-					last_name_value: user.lastName,
-					facebook_value: user.facebookLink,
-					twitch_value: user.twitchUrl,
-					twitter_value: user.twitterHandle,
-					instagramLink: user.instagramLink,
-					user_name_value: user.username,
-					youtube_channel_value: user.youtubeChannel,
-					youtube_video_1_value: user.youtubeVideo1Url,
-					youtube_video_2_value: user.youtubeVideo2Url,
-					youtube_video_3_value: user.youtubeVideo3Url,
-					about: user.about,
+			this.setState(
+				{
 					profile_src,
-					banner_src
+					banner_src,
+					input_values: {
+						accomplishments: user.accomplishments,
+						first_name_value: user.firstName,
+						last_name_value: user.lastName,
+						facebook_value: user.facebookLink,
+						twitch_value: user.twitchUrl,
+						twitter_value: user.twitterHandle,
+						instagramLink: user.instagramLink,
+						user_name_value: user.username,
+						youtube_channel_value: user.youtubeChannel,
+						youtube_video_1_value: user.youtubeVideo1Url,
+						youtube_video_2_value: user.youtubeVideo2Url,
+						youtube_video_3_value: user.youtubeVideo3Url,
+						about: user.about
+					}
+				},
+				() => {
+					this.previous_input_values = this.state.input_values;
 				}
-			});
+			);
+		} else {
+			this.previous_input_values = this.state.input_values;
 		}
 		this.setState({ visible: true });
 	}
@@ -213,12 +221,8 @@ class AdminAddIndividualController extends Component {
 				id: user.id,
 				about: this.state.input_values.about,
 				bannerImageUrl: banner_url,
-				firstName: this.state.input_values.first_name_value,
-				lastName: this.state.input_values.last_name_value,
 				profileImageUrl: logo_url,
 				twitchUserId: twitch_user_id,
-				firstName: this.state.input_values.first_name_value,
-				lastName: this.state.input_values.last_name_value,
 				twitchUrl: this.state.input_values.twitch_value,
 				userName: this.state.input_values.user_name_value,
 				youtubeChannel: this.state.input_values.youtube_channel_value,
@@ -281,14 +285,19 @@ class AdminAddIndividualController extends Component {
 			this.upload_banner_file = true;
 		};
 	};
-	handleChange = (field, e) => {
-		const v = e.target.value;
-		const p = this.state.input_values;
-		// console.log(`admin testing on change ${field} value ${v} input ${p}`);
-		p[field] = v;
-		this.setState({
-			input_values: p
+	handleInputChange = (input_values) => {
+		this.setState({ input_values }, () => {
+			this.checkChange(this.state.input_values);
 		});
+	};
+	checkChange = (input_values) => {
+		let dis = true;
+		for (const key in input_values) {
+			if (input_values[key] !== this.previous_input_values[key]) {
+				dis = false;
+			}
+		}
+		this.setState({ submit_disabled: dis });
 	};
 
 	handleFileClick = () => {
@@ -338,7 +347,7 @@ class AdminAddIndividualController extends Component {
 								<img
 									alt="logo"
 									style={{ maxWidth: '100%', maxHeight: '320px' }}
-									src={this.state.input_values.profile_src}
+									src={this.state.profile_src}
 								/>
 								<div>
 									<Button
@@ -354,7 +363,7 @@ class AdminAddIndividualController extends Component {
 								<img
 									alt="banner_logo"
 									style={{ maxWidth: '100%', maxHeight: '320px' }}
-									src={this.state.input_values.banner_src}
+									src={this.state.banner_src}
 								/>
 								<div>
 									<Button
@@ -371,10 +380,7 @@ class AdminAddIndividualController extends Component {
 									<Form
 										style={{ paddingBottom: 0, marginBottom: 0 }}
 										formValue={formValue}
-										onChange={(input_values) => {
-											console.log();
-											this.setState({ input_values });
-										}}
+										onChange={this.handleInputChange}
 										fluid
 									>
 										{un}
@@ -382,16 +388,10 @@ class AdminAddIndividualController extends Component {
 											<ControlLabel>First Name</ControlLabel>
 											<FormControl style={{ width: '80%' }} name="first_name_value" />
 											<HelpBlock>Required</HelpBlock>
-										</FormGroup>
-										<FormGroup>
 											<ControlLabel>Last Name</ControlLabel>
 											<FormControl name="last_name_value" />
-										</FormGroup>
-										<FormGroup>
 											<ControlLabel>About</ControlLabel>
 											<FormControl rows={5} componentClass="textarea" name="about" />
-										</FormGroup>
-										<FormGroup>
 											<ControlLabel>Accomplishments</ControlLabel>
 											<FormControl rows={5} componentClass="textarea" name="accomplishments" />
 										</FormGroup>
@@ -408,25 +408,16 @@ class AdminAddIndividualController extends Component {
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
 										<ControlLabel>Twitch Handle</ControlLabel>
 										<FormControl name="twitch_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Twitter Handle</ControlLabel>
 										<FormControl name="twitter_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Instagram Link</ControlLabel>
 										<FormControl name="instagramLink" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>Facebook Link</ControlLabel>
 										<FormControl name="facebook_value" />
 									</FormGroup>
@@ -438,25 +429,16 @@ class AdminAddIndividualController extends Component {
 								<Form
 									style={{ paddingBottom: 0, marginBottom: 0 }}
 									formValue={formValue}
-									onChange={(input_values) => {
-										console.log();
-										this.setState({ input_values });
-									}}
+									onChange={this.handleInputChange}
 									fluid
 								>
 									<FormGroup>
 										<ControlLabel>YouTube Channel</ControlLabel>
 										<FormControl name="youtube_channel_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>YouTube Video 1</ControlLabel>
 										<FormControl name="youtube_video_1_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>YouTube Video 1</ControlLabel>
 										<FormControl name="youtube_video_2_value" />
-									</FormGroup>
-									<FormGroup>
 										<ControlLabel>YouTube Video 1</ControlLabel>
 										<FormControl name="youtube_video_3_value" />
 									</FormGroup>
@@ -467,7 +449,7 @@ class AdminAddIndividualController extends Component {
 				</Panel>
 				<div style={{ marginTop: 8, textAlign: 'center' }}>
 					<ButtonToolbar>
-						<Button onClick={this.handleSubmit} appearance="primary">
+						<Button disabled={this.state.submit_disabled} onClick={this.handleSubmit} appearance="primary">
 							Submit
 						</Button>
 						<Button onClick={this.props.handleCancel} appearance="default">

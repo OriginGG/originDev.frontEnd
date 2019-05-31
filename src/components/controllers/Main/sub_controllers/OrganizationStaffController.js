@@ -256,7 +256,7 @@ class OrganizationStaffController extends Component {
         });
         const s = { background: 'url(https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg)', backgroundSize: 'cover', filter: 'opacity(.2)' };
         const d = { background: 'url(https://res.cloudinary.com/origingg/image/upload/f_auto/v1548889175/section1-bg3.jpg)', backgroundSize: 'cover' };
-        const f = { backgroundColor: 'rgba(255,0,0,.7)' };
+        const f = { backgroundColor: 'rgba(50,50,50,.8)' };
         let f_array = p_array;
         if (theme === 'felzec/light' || theme === 'enigma2/dark') {
             f_array = [];

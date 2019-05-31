@@ -1,13 +1,12 @@
 @import '~antd/dist/antd.min.css';
 @import "./external_styles/Semantic-UI-CSS-master/semantic.min.css";
-@import "~react-quill/dist/quill.snow.css";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 /* @import "~slick-carousel/slick/slick.css"; */
 /* @import "~slick-carousel/slick/slick-theme.css"; */
-@import "~primereact/resources/themes/redmond/theme.css";
-@import "~primereact/resources/primereact.min.css";
 @import "~react-alice-carousel/lib/alice-carousel.css";
 @import "~rsuite/dist/styles/rsuite.min.css";
+@import "~react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
 .transition-enter {
   transform: scale(0);
 }
@@ -33,7 +32,10 @@
 h1, h2, h3, h4, h5 {
   color: unset;
 }
-
+.link-group{cursor:pointer}.link-group .rs-table-cell-content{padding:5px}
+.single-carousel {
+  width: 218px
+}
 @-webkit-keyframes AnimationName {
     0%{background-position:73% 0%}
     50%{background-position:28% 100%}
@@ -479,6 +481,17 @@ html {
   font-size: 22px;
 }
 
+.demo-wrapper {
+  margin-top: 16px;
+  width: 80%;
+}
+
+.demo-editor {
+   min-height: 400px !important;
+   max-height: 900px;
+   overflow-y: auto;
+}
+
 .Aligner {
     display: -webkit-box;
     display: -webkit-flex;
@@ -549,4 +562,8 @@ width: 100vw;
     margin-top: 37vh;
     height: 120px;
     background-color: black;
+}
+
+.rdw-embedded-modal {
+  height: 228px;
 }
