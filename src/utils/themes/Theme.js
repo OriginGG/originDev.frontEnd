@@ -37,7 +37,8 @@ export const GlobalStyles = GlobalTheme => ({
         backgroundColor: GlobalTheme.signupHeaderColor,
         display: 'table',
         width: '100%',
-        padding: '15px'
+        padding: '15px',
+        opacity: 0.88
     },
     signupBGImage: {
         backgroundImage: 'url("./images/login-bg.jpg")',
@@ -51,7 +52,7 @@ export const GlobalStyles = GlobalTheme => ({
         margin: '0 auto',
         textAlign: 'center',
         width: '100%',
-        background: '#0a9ab4',
+        background: '#0a9ab4ad',
         padding: '20px',
         left: '0',
         right: '0',
@@ -113,6 +114,8 @@ export const GlobalStyles = GlobalTheme => ({
         cursor: 'pointer'
     },
     signupModalContent: {
+        backgroundColor: '#352121',
+        opacity: 0.85,
         width: '100%',
         paddingLeft: '15px',
         paddingRight: '15px'
