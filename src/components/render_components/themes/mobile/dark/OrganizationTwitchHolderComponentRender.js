@@ -6,8 +6,8 @@ import { GlobalStyles } from 'Theme/Theme';
 
 class DarkOrganizationTwitchHolderComponentRender extends Component {
     insertScript = () => {
-        const script = document.createElement(“script”);
-        script.src=“https://embed.twitch.tv/embed/v1.js“;
+        const script = document.createElement("script");
+        script.src="https://embed.twitch.tv/embed/v1.js";
         script.async = true;
         document.body.appendChild(script);
     }

@@ -33,7 +33,7 @@ function BlankComponent() {
 
 const OrganizationPageComponentRender = loadable(
 	(props) =>
-		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/OrganizationPageComponentRender`),
+		import(/* webpackChunkName: "renderComponents" */ `../../render_components/themes/${props.theme}/ 	`),
 	{
 		fallback: <div>Loading...</div>
 	}
