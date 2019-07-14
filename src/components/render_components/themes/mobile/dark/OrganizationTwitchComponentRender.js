@@ -6,6 +6,7 @@ import { GlobalStyles } from 'Theme/Theme';
 
 class DarkOrganizationTwitchComponentRender extends Component {
     render( ) {
+        console.log(this.props.key)
         return (
             <div id={`twitch-embed-${this.props.key}`} style={{
                 display: 'inline-block'
