@@ -7,20 +7,18 @@ import { GlobalStyles } from 'Theme/Theme';
 class DarkOrganizationTwitchComponentRender extends Component {
     render( ) {
         return (
-            <div style={{
+            <div id={`twitch-embed-${this.props.key}`} style={{
                 display: 'inline-block'
-            }}>
-                <div className={this.props.classes.obliviot_light_twitch_feed_container}>
-                    <a href={this.props.twitch_url}>
-                        <img className={this.props.classes.obliviot_twitch_thumbnail} src={this.props.twitch_thumbnail}/>
-                        <div className={this.props.classes.obliviot_twitch_overlay}>
-                            <div className={this.props.classes.obliviot_twitch_overlay_text}>{this.props.twitch_name}</div>
-                            <div className={this.props.classes.obliviot_twitch_overlay_status} style={this.props.status_style}/>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            }}></div>
         )
+    }
+
+    componentDidUpdate() {
+        new Twitch.Embed(`twitch-embed-${this.props.key}`, {
+            width: 854,
+            height: 480,
+            channel: this.props.twitch_url.split('/').pop()
+        });
     }
 }
 
