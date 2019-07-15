@@ -8,11 +8,12 @@ class DarkOrganizationTwitchHolderComponentRender extends Component {
     insertScript = () => {
         const script = document.createElement("script");
         script.src="https://embed.twitch.tv/embed/v1.js";
-        script.async = true;
         document.body.appendChild(script);
+        this.setState({script_loaded: false})
+        script.addEventListener('load', () => this.setState({script_loaded: true}))
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.insertScript();
     }
 
@@ -26,7 +27,7 @@ class DarkOrganizationTwitchHolderComponentRender extends Component {
                         .props
                         .storeRef( c );
                 }}>
-                {this.props.twitch_items.map((a, i) => Object.assign(a, {key: i}))}</div>
+                {this.state.script_loaded ? this.props.twitch_items : null}</div>
                 <div className={this.props.classes.obliviot_dark_twitch_left_arrow} onClick={this.props.handleLeftScroll}><i className="fa fa-arrow-left"/></div>
                 <div className={this.props.classes.obliviot_dark_twitch_right_arrow} onClick={this.props.handleRightScroll}><i className="fa fa-arrow-right"/></div>
             </div>
