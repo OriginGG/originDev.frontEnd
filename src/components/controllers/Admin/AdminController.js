@@ -22,7 +22,7 @@ import AdminContentTeamController from './new_subcontrollers/AdminContentTeamCon
 import AdminRecentMatchesController from './new_subcontrollers/AdminRecentMatchesController';
 import AdminBlogController from './new_subcontrollers/AdminBlogController';
 import AdminCustomDomainController from './new_subcontrollers/AdminCustomDomainController';
-
+import AdminSubscriptionController from './new_subcontrollers/AdminSubscriptionController';
 
 const headerStyles = {
 	padding: 18,
@@ -181,15 +181,7 @@ class AdminPageController extends Component {
 				break;
 			}
 			case 'update_payment': {
-				const domainInfo = this.props.appManager.getDomainInfo();
-				const { hostname } = domainInfo;
-				const subDomain =
-					domainInfo.subDomain === null
-						? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME
-						: domainInfo.subDomain;
-				const new_host = hostname.replace(`${subDomain}.`, '');
-				const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-				window.location = `${u_string}/update_payment`;
+			cv = <AdminSubscriptionController />;
 				break;
 			}
 			case 'Company Profile': {
