@@ -22,7 +22,7 @@ import {
 	Grid,
 	Col
 } from 'rsuite';
-//1
+
 // import OrganizationAdminProfileComponentRender from '../../../render_components/admin/OrganizationAdminProfileComponentRender';
 import {
 	updateOrganisationQuery,
