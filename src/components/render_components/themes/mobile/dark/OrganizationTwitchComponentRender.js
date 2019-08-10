@@ -5,22 +5,23 @@ import PropTypes from 'prop-types';
 import { GlobalStyles } from 'Theme/Theme';
 
 class DarkOrganizationTwitchComponentRender extends Component {
+    rand = Math.round(Math.random()*1000)
     render( ) {
+        console.log(this.props, this.rand)
         return (
-            <div style={{
+            <div id={`twitch-embed-${this.rand}`} style={{
                 display: 'inline-block'
-            }}>
-                <div className={this.props.classes.obliviot_light_twitch_feed_container}>
-                    <a href={this.props.twitch_url}>
-                        <img className={this.props.classes.obliviot_twitch_thumbnail} src={this.props.twitch_thumbnail}/>
-                        <div className={this.props.classes.obliviot_twitch_overlay}>
-                            <div className={this.props.classes.obliviot_twitch_overlay_text}>{this.props.twitch_name}</div>
-                            <div className={this.props.classes.obliviot_twitch_overlay_status} style={this.props.status_style}/>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            }}></div>
         )
+    }
+
+    componentDidMount() {
+        console.log(Twitch)
+        new Twitch.Embed(`twitch-embed-${this.rand}`, {
+            width: '100%',
+            height: '100%',
+            channel: this.props.twitch_name
+        });
     }
 }
 

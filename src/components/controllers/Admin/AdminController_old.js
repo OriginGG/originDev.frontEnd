@@ -29,6 +29,7 @@ import AdminCollaboratorController from './sub_controllers/AdminCollaboratorCont
 import AdminRecentMatchesController from './sub_controllers/AdminRecentMatchesController';
 import AdminContentTeamController from './sub_controllers/AdminContentTeamController';
 import AdminCustomDomainController from './sub_controllers/AdminCustomDomainController';
+import AdminSubscriptionController from './sub_controllers/AdminSubscriptionController';
 import AdminSocialStatsController from './sub_controllers/AdminSocialStatsController';
 import { getOrganisationQuery } from '../../../queries/organisation';
 import { getUserQuery } from '../../../queries/users';
@@ -497,15 +498,7 @@ class AdminPageController extends Component {
 				break;
 			}
 			case 'update_card': {
-				const domainInfo = this.props.appManager.getDomainInfo();
-				const { hostname } = domainInfo;
-				const subDomain =
-					domainInfo.subDomain === null
-						? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME
-						: domainInfo.subDomain;
-				const new_host = hostname.replace(`${subDomain}.`, '');
-				const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-				window.location = `${u_string}/update_payment`;
+				p_component = <AdminSubscriptionController />;
 				break;
 			}
 			case 'recentmatches': {
