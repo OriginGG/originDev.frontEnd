@@ -61,7 +61,6 @@ class AdminProfileController extends Component {
 			rss_value: '',
 			primary_color_value: '',
 			current_sub_domain: '',
-			dns_host: ''
 		}
 	};
 	componentDidMount() {
@@ -409,8 +408,6 @@ class AdminProfileController extends Component {
 										<ControlLabel>Sub Domain</ControlLabel>
 										<FormControl name="current_sub_domain" />
 										<HelpBlock>Required</HelpBlock>
-										<ControlLabel>DNS Host</ControlLabel>
-										<FormControl name="dns_host" />
 									</FormGroup>
 								</Form>
 							</div>
