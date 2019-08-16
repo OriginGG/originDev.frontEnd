@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -21,6 +22,7 @@ import {
 import stripeImage from '../../../../assets/images/powered_by_stripe@3x.png';
 import appManager from '../../../../utils/appManager';
 import { updateUserQuery } from '../../../../queries/users';
+
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 
 const { Cell, Column, HeaderCell } = Table;
@@ -79,6 +81,7 @@ const handleReady = () => {
 // 	"usage_type": "licensed"
 // }
 const PlanElement = ({ plan, handleClick }) => {
+    console.log(plan);
     const dollars = plan.amount / 100;
     const f_array = [];
     for (const k in plan.metadata) {                    // eslint-disable-line
@@ -90,33 +93,26 @@ const PlanElement = ({ plan, handleClick }) => {
         call = <li style={{ cursor: 'pointer' }} onClick={() => { handleClick(plan); }} className="call-to-action-bl" />;
     }
     return (
+        <Col lg={8} xs={24} >
+        <Panel header={<h3>{plan.nickname} Plan</h3>} bordered>
         <div className="pricing-table clearfix">
-        <Panel header={<h3>{plan.nickname}</h3>} bordered>
-					<Grid fluid>
-						<Col>
-          <Table>
-            <Column width={160}>
-            <HeaderCell>plans</HeaderCell>
-              <Cell>{plan.nickname}</Cell>
-              {/* <HeaderCell />
-              <Cell>{plan.interval}</Cell> */}
-              </Column>
-              <Column width={140} align="center">
-                <HeaderCell />
-                <Cell>{plan.interval}</Cell>
-              </Column>
-            </Table>
-            <Button>Choose Plan</Button>
-            </Col>
-					</Grid>
-				</Panel>
+
+
+        <div style={{ marginTop: 2 }}>   {f_array} </div>
+
+        <div style={{ marginTop: 16 }}>{w}/{plan.interval}</div>
+                    <Button>Choose Plan</Button>
+
+
         </div>
+        </Panel>
+         </Col>
     );
 };
 
 class _SplitForm extends React.Component {
     state = {
-        subscribed: false, show_plan: true, actual_plan: null, visible: false
+        subscribed: false, show_plan: true, actual_plan: null, visible: false, data: []
     };
     componentDidMount = async () => {
         const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/retrieve_plans`);
@@ -265,9 +261,9 @@ class _SplitForm extends React.Component {
                     </Row>;
             } else {
                 disp = <div>
-                    <Panel header={<h3>Plans</h3>} bordered>
+
                     {this.p_array}
-                    </Panel>
+
                 </div>;
             }
         }
