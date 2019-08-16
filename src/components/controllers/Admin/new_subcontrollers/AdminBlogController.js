@@ -149,6 +149,7 @@ class AdminBlogController extends Component {
 			organisationId: this.props.uiStore.current_organisation.id
 		});
 		const d = [];
+
 		blog_data.resultData.edges.forEach((blog) => {
 			const p = blog.node.blogMedia ? blog.node.blogMedia : imagePlaceholder;
 			d.push({
