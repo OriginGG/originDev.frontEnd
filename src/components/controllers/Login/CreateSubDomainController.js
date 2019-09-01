@@ -270,7 +270,7 @@ class CreateSubDomainController extends Component {
 									.email}\n`
 							};
 						}
-						axios.post(process.env.REACT_APP_SLACK_NEW_SIGNUP_WEBHOOK, JSON.stringify(slack_payload), {
+						await axios.post(process.env.REACT_APP_SLACK_NEW_SIGNUP_WEBHOOK, JSON.stringify(slack_payload), {
 							withCredentials: false,
 							transformRequest: [
 								(data, headers) => {
