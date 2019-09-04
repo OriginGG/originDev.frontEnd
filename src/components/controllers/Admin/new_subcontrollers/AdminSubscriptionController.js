@@ -88,10 +88,6 @@ const PlanElement = ({ plan, handleClick }) => {
         f_array.push(<li className="feature"><span>{plan.metadata[k]}</span></li>);
     }
     const w = dollars.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    let call = <li style={{ cursor: 'pointer' }} onClick={() => { handleClick(plan); }} className="call-to-action">Buy Now</li>;
-    if (!handleClick) {
-        call = <li style={{ cursor: 'pointer' }} onClick={() => { handleClick(plan); }} className="call-to-action-bl" />;
-    }
     return (
         <Col lg={8} xs={24} >
         <Panel header={<h3>{plan.nickname} Plan</h3>} bordered>
@@ -101,7 +97,7 @@ const PlanElement = ({ plan, handleClick }) => {
         <div style={{ marginTop: 2 }}>   {f_array} </div>
 
         <div style={{ marginTop: 16 }}>{w}/{plan.interval}</div>
-                    <Button>Choose Plan</Button>
+                    <Button onClick={() => handleClick(plan)}>Choose Plan</Button>
 
 
         </div>

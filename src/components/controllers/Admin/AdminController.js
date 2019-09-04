@@ -180,7 +180,7 @@ class AdminPageController extends Component {
 				window.open(`${u_string}/main`, '_blank');
 				break;
 			}
-			case 'update_payment': {
+			case 'Update Payment': {
 			cv = <AdminSubscriptionController />;
 				break;
 			}
@@ -309,7 +309,7 @@ class AdminPageController extends Component {
 									<Nav.Item eventKey="Members Admin" icon={<Icon icon="group" />}>
 										Members
 									</Nav.Item>
-									<Nav.Item eventKey="update_payment" icon={<Icon icon="cc-stripe" />}>
+									<Nav.Item eventKey="Update Payment" icon={<Icon icon="cc-stripe" />}>
 										Update Payment Card
 									</Nav.Item>
 									<Nav.Item icon={<Icon icon="frame" />} eventKey="Theme">
