@@ -22,6 +22,7 @@ import {
 import stripeImage from '../../../../assets/images/powered_by_stripe@3x.png';
 import appManager from '../../../../utils/appManager';
 import { updateUserQuery } from '../../../../queries/users';
+import ReactCheckout from './AdminReactTakeController';
 
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 
@@ -89,7 +90,9 @@ const PlanElement = ({ plan, handleClick }) => {
     }
     const w = dollars.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     return (
+
         <Col lg={8} xs={24} >
+             <ReactCheckout />
         <Panel header={<h3>{plan.nickname} Plan</h3>} bordered>
         <div className="pricing-table clearfix">
 
@@ -285,12 +288,12 @@ class AdminSubscriptionController extends Component {
     render() {
         return (
             <div style={{ width: 'calc(100vw - 400px)' }} >
-                <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmer}>
-                    <div className="Checkout">
+
+
                         <Elements>
                             <SplitForm setDimmer={this.setDimmer} callback={this.props.callback} domain={this.props.domain} user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
                         </Elements>
-                    </div>
+
                     <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
                         <Header as="h2" icon inverted>
                             <div style={{ marginTop: 228 }}>
@@ -299,7 +302,7 @@ class AdminSubscriptionController extends Component {
                             Processing....
             </Header>
                     </Dimmer>
-                </Dimmer.Dimmable>
+
             </div>
 
         );
