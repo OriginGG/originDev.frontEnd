@@ -135,11 +135,11 @@ class SplitForm extends React.Component {
     handleBuyClick = (plan) => {
         this.setState({ show_plan: false, actual_plan: plan });
     }
-    handleSubmit = (ev) => {
+    handleSubmit = stripe => ev => {
         ev.preventDefault();
-        if (this.props.stripe) {
+        if (stripe) {
             this.props.setDimmer(true);
-            this.props.stripe
+            stripe
                 .createToken()
                 .then(async (payload) => {
                     if (payload.error) {
@@ -268,8 +268,8 @@ class AdminSubscriptionController extends Component {
     }
 }
 
-const _CheckoutForm = ({ handleSubmit, fontSize }) =>
-    <form onSubmit={handleSubmit}>
+const _CheckoutForm = ({ stripe, handleSubmit, fontSize }) =>
+    <form onSubmit={handleSubmit(stripe)}>
         <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
         <label>
             Card number
@@ -320,6 +320,7 @@ const CheckoutForm = injectStripe(_CheckoutForm);
 _CheckoutForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     fontSize: PropTypes.string.isRequired,
+    stripe: PropTypes.func.isRequired
 };
 
 PlanElement.propTypes = {
@@ -333,7 +334,6 @@ PlanElement.defaultProps = {
 
 SplitForm.propTypes = {
     user_id: PropTypes.number.isRequired,
-    stripe: PropTypes.object.isRequired,
     fontSize: PropTypes.string.isRequired,
     subscribed: PropTypes.bool.isRequired,
     callback: PropTypes.func.isRequired,
