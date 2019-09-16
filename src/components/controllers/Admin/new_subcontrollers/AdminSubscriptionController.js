@@ -15,14 +15,15 @@ import {
     CardCVCElement,
     PostalCodeElement,
     Elements,
-    injectStripe
+    injectStripe,
+    StripeProvider
 } from 'react-stripe-elements';
 
 // import { Segment } from 'semantic-ui-react/dist/commonjs';
 import stripeImage from '../../../../assets/images/powered_by_stripe@3x.png';
 import appManager from '../../../../utils/appManager';
 import { updateUserQuery } from '../../../../queries/users';
-import ReactCheckout from './AdminReactTakeController';
+// import ReactCheckout from './AdminReactTakeController';
 
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 
@@ -92,7 +93,7 @@ const PlanElement = ({ plan, handleClick }) => {
     return (
 
         <Col lg={8} xs={24} >
-             <ReactCheckout />
+	{/* <ReactCheckout/> */}
         <Panel header={<h3>{plan.nickname} Plan</h3>} bordered>
         <div className="pricing-table clearfix">
 
@@ -100,7 +101,11 @@ const PlanElement = ({ plan, handleClick }) => {
         <div style={{ marginTop: 2 }}>   {f_array} </div>
 
         <div style={{ marginTop: 16 }}>{w}/{plan.interval}</div>
-                    <Button onClick={() => handleClick(plan)}>Choose Plan</Button>
+            <Button onClick={e => {
+                e.preventDefault();
+                handleClick(plan);
+            }
+        }>Choose Plan</Button>
 
 
         </div>
@@ -109,7 +114,7 @@ const PlanElement = ({ plan, handleClick }) => {
     );
 };
 
-class _SplitForm extends React.Component {
+class SplitForm extends React.Component {
     state = {
         subscribed: false, show_plan: true, actual_plan: null, visible: false, data: []
     };
@@ -211,52 +216,10 @@ class _SplitForm extends React.Component {
                 disp =
                     <Row>
                         <Col >
-                            <form onSubmit={this.handleSubmit}>
-                                <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
-                                <label>
-                                    Card number
-          <CardNumberElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <label>
-                                    Expiration date
-          <CardExpiryElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <label>
-                                    CVC
-          <CardCVCElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <label>
-                                    Postal code
-          <PostalCodeElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <button>Pay</button>
-                            </form>;
-                            </Col>
-                        <Col><PlanElement plan={this.state.actual_plan} /></Col>
+                            <Elements>
+                                <CheckoutForm handleSubmit={this.handleSubmit} fontSize={this.props.fontSize} />
+                            </Elements>
+                        </Col>
                     </Row>;
             } else {
                 disp = <div>
@@ -275,7 +238,6 @@ class _SplitForm extends React.Component {
     }
 }
 
-const SplitForm = injectStripe(_SplitForm);
 
 class AdminSubscriptionController extends Component {
     state = { dimmer: false }
@@ -287,27 +249,78 @@ class AdminSubscriptionController extends Component {
     }
     render() {
         return (
+            <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
             <div style={{ width: 'calc(100vw - 400px)' }} >
-
-
-                        <Elements>
-                            <SplitForm setDimmer={this.setDimmer} callback={this.props.callback} domain={this.props.domain} user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
-                        </Elements>
-
+                            <SplitForm setDimmer={this.setDimmer} callback={this.props.callback}  user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
                     <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
                         <Header as="h2" icon inverted>
                             <div style={{ marginTop: 228 }}>
                                 <Spinner color="yellow" size="64px" />
                             </div>
                             Processing....
-            </Header>
+                        </Header>
                     </Dimmer>
 
             </div>
+            </StripeProvider>
 
         );
     }
 }
+
+const _CheckoutForm = ({ handleSubmit, fontSize }) =>
+    <form onSubmit={handleSubmit}>
+        <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
+        <label>
+            Card number
+<CardNumberElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        <label>
+            Expiration date
+<CardExpiryElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        <label>
+            CVC
+<CardCVCElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        <label>
+            Postal code
+<PostalCodeElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        <button>Pay</button>
+    </form>;
+
+
+const CheckoutForm = injectStripe(_CheckoutForm);
+
+_CheckoutForm.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    fontSize: PropTypes.string.isRequired,
+};
 
 PlanElement.propTypes = {
     plan: PropTypes.object.isRequired,
@@ -318,21 +331,19 @@ PlanElement.defaultProps = {
     handleClick: null
 };
 
-_SplitForm.propTypes = {
+SplitForm.propTypes = {
     user_id: PropTypes.number.isRequired,
     stripe: PropTypes.object.isRequired,
     fontSize: PropTypes.string.isRequired,
     subscribed: PropTypes.bool.isRequired,
     callback: PropTypes.func.isRequired,
     setDimmer: PropTypes.func.isRequired,
-    domain: PropTypes.string.isRequired
 };
 
 AdminSubscriptionController.propTypes = {
     user_id: PropTypes.number.isRequired,
     subscribed: PropTypes.bool.isRequired,
     callback: PropTypes.func.isRequired,
-    domain: PropTypes.string.isRequired
 };
 
 
