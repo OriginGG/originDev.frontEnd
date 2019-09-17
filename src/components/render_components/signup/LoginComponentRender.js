@@ -108,7 +108,6 @@ class LoginComponentRender extends Component {
 							<ButtonGroup style={{ marginLeft: 74 }} vertical>
 								<Button
                                     onClick={() => {
-                                        debugger;
 										this.props.onSubmit(formValue);
 									}}
 									appearance="primary"

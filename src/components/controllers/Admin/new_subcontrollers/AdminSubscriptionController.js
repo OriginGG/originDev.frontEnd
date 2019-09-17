@@ -8,6 +8,8 @@ import axios from 'axios';
 import { Dimmer, Header, Segment } from 'semantic-ui-react';
 import Spinner from 'react-svg-spinner';
 import { Button, Grid, Panel, Col, 	Table } from 'rsuite';
+import { inject } from 'mobx-react';
+
 
 import {
     CardNumberElement,
@@ -82,7 +84,7 @@ const handleReady = () => {
 // 	"trial_period_days": 7,
 // 	"usage_type": "licensed"
 // }
-const PlanElement = ({ plan, handleClick }) => {
+const PlanElement = ({ plan, handleClick, subscribed }) => {
     console.log(plan);
     const dollars = plan.amount / 100;
     const f_array = [];
@@ -105,7 +107,7 @@ const PlanElement = ({ plan, handleClick }) => {
                 e.preventDefault();
                 handleClick(plan);
             }
-        }>Choose Plan</Button>
+}>{!subscribed ? 'Choose Plan' : 'Change Plan' }</Button>
 
 
         </div>
@@ -116,25 +118,30 @@ const PlanElement = ({ plan, handleClick }) => {
 
 class SplitForm extends React.Component {
     state = {
-        subscribed: false, show_plan: true, actual_plan: null, visible: false, data: []
+        subscribed: false, show_plan: true, actual_plan: null, visible: false, data: [], p_array: []
     };
     componentDidMount = async () => {
         const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/retrieve_plans`);
         this.p_array = [];
         if (plans.data) {
             const { data } = plans.data;
-            data.forEach(d => {
-                this.p_array.push(<PlanElement plan={d} handleClick={this.handleBuyClick} />);
-            });
+            this.set_p_array(data);
             console.log(data);
         }
         this.setState({
             subscribed: this.props.subscribed, show_plan: true, visible: true
         });
     }
+    set_p_array = plans => {
+        this.setState({ p_array: plans.filter(d => (this.state.actual_plan !== null ? (d.id !== this.state.actual_plan.id) : true)).map(d => {
+                return <PlanElement plan={d} handleClick={this.handleBuyClick} subscribed={this.state.subscribed} />;
+            })
+        });
+    }
     handleBuyClick = (plan) => {
         this.setState({ show_plan: false, actual_plan: plan });
     }
+    changePlan = () => this.set_p_array this.setState({ show_plan: true, subscribed: false })
     handleSubmit = stripe => ev => {
         ev.preventDefault();
         if (stripe) {
@@ -154,6 +161,7 @@ class SplitForm extends React.Component {
                             {
                                 token: payload.token.id,
                                 customer_id: this.props.user_id,
+                                plan: this.state.actual_plan
                             },
                             {
                                 headers: {
@@ -190,8 +198,7 @@ class SplitForm extends React.Component {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 3000
                                 });
-
-                                this.props.callback();
+                                this.setState({ subscribed: true, show_plan: false });
                             }
                         }
                     }
@@ -204,11 +211,11 @@ class SplitForm extends React.Component {
         if (this.state.visible === false) {
             return null;
         }
-        const cp = this.p_array[0];
         let disp = <div>
             <h2>You are already subscribed to the following plan.</h2>
+            {console.log('actual plans', this.state.actual_plan)}
 
-            <PlanElement plan={cp.props.plan} />     </div>;
+            <PlanElement plan={this.state.actual_plan} handleClick={this.changePlan} subscribed={this.state.subscribed} />  </div>;
 
 
         if (!this.state.subscribed) {
@@ -224,7 +231,7 @@ class SplitForm extends React.Component {
             } else {
                 disp = <div>
 
-                    {this.p_array}
+                    {this.state.p_array}
 
                 </div>;
             }
@@ -251,8 +258,8 @@ class AdminSubscriptionController extends Component {
         return (
             <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
             <div style={{ width: 'calc(100vw - 400px)' }} >
-                            <SplitForm setDimmer={this.setDimmer} callback={this.props.callback}  user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
-                    <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
+                            <SplitForm setDimmer={this.setDimmer} user_id={this.props.uiStore.user_id} subscribed={this.props.uiStore.subscribed} fontSize="14px" />
+                    <Dimmer active={this.state.dimmer}>
                         <Header as="h2" icon inverted>
                             <div style={{ marginTop: 228 }}>
                                 <Spinner color="yellow" size="64px" />
@@ -325,26 +332,24 @@ _CheckoutForm.propTypes = {
 
 PlanElement.propTypes = {
     plan: PropTypes.object.isRequired,
-    handleClick: PropTypes.func
+    handleClick: PropTypes.func,
+    subscribed: PropTypes.bool.isRequired
 };
 
 PlanElement.defaultProps = {
-    handleClick: null
+    handleClick: null,
 };
 
 SplitForm.propTypes = {
     user_id: PropTypes.number.isRequired,
     fontSize: PropTypes.string.isRequired,
     subscribed: PropTypes.bool.isRequired,
-    callback: PropTypes.func.isRequired,
     setDimmer: PropTypes.func.isRequired,
 };
 
 AdminSubscriptionController.propTypes = {
-    user_id: PropTypes.number.isRequired,
-    subscribed: PropTypes.bool.isRequired,
-    callback: PropTypes.func.isRequired,
+    uiStore: PropTypes.object.isRequired,
 };
 
 
-export default AdminSubscriptionController;
+export default inject('uiStore', 'appManager')(AdminSubscriptionController);
