@@ -114,6 +114,8 @@ class AdminPageController extends Component {
 			// 	}
 			// }
 			const { subscribed } = user.resultData;
+			this.props.uiStore.setSubscribed(subscribed);
+console.log(this.props.uiStore);
 			const domainInfo = this.props.appManager.getDomainInfo();
 			const subDomain =
 				domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
