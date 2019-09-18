@@ -117,7 +117,7 @@ const PlanElement = ({ plan, handleClick, changingPlan }) => {
 
 class SplitForm extends React.Component {
     state = {
-        subscribed: this.props.uiStore.subscribed, show_plan: true, actual_plan: null, visible: true, data: [], plans: [], changingPlan: false, customer: null
+        subscribed: false, show_plan: true, actual_plan: null, visible: true, data: [], plans: [], changingPlan: false, customer: null
     };
     componentDidMount = async () => {
         const plans = await axios.get(
@@ -129,9 +129,16 @@ class SplitForm extends React.Component {
 		const { email } = user.resultData;
         const customer = await axios.get(
 			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
-		);
-        const { data } = plans.data;
-        this.setState({ plans: data, customer: customer.data.customer, current_user_details: user.resultData });
+        );
+        console.log(customer.data);
+        this.setState({
+            plans: plans.data.data,
+            customer: customer.data.customer,
+            current_user_details: user.resultData,
+            subscribed: this.props.uiStore.subscribed,
+            actual_plan: plans.data.data
+
+        });
     }
 
     handleBuyClick = (plan) => {
@@ -294,7 +301,6 @@ class SplitForm extends React.Component {
 
 
         if (!this.state.subscribed || this.state.changingPlan) {
-            console.log('true');
             if (this.state.show_plan === false) {
                 disp =
                     <Row>
