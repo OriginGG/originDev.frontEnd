@@ -115,7 +115,7 @@ const PlanElement = ({ plan, handleClick, changingPlan }) => {
     );
 };
 
-class SplitForm extends React.Component {
+class _SplitForm extends React.Component {
     state = {
         subscribed: false, show_plan: true, actual_plan: null, visible: true, data: [], plans: [], changingPlan: false, customer: null
     };
@@ -130,28 +130,30 @@ class SplitForm extends React.Component {
         const customer = await axios.get(
 			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
         );
-        console.log(customer.data);
         this.setState({
             plans: plans.data.data,
             customer: customer.data.customer,
             current_user_details: user.resultData,
             subscribed: this.props.uiStore.subscribed,
-            actual_plan: plans.data.data
-
+            actual_plan: customer.data.customer.subscriptions.data[0].plan,
         });
     }
 
-    handleBuyClick = (plan) => {
-        this.setState({ show_plan: false, actual_plan: plan });
+    handleBuyClick = async (plan) => {
+        if (!this.state.customer) {
+            this.setState({ show_plan: false, actual_plan: plan });
+        } else {
+            this.setState({ actual_plan: plan });
+            await this.createOrUpdateSubscription();
+        }
     }
 
-    changePlan = () => this.setState({ show_plan: true, changingPlan: true, plans: this.state.plans.filter(d => d.id !== this.state.actual_plan.id) })
+    changePlan = () => this.setState({ show_plan: true, changingPlan: true })
 
-    handleSubmit = stripe => ev => {
+    handleSubmit = update => ev => {
         ev.preventDefault();
-        if (stripe) {
-            this.props.setDimmer(true);
-            stripe
+        if (this.props.stripe) {
+            this.props.stripe
                 .createToken()
                 .then(async (payload) => {
                     if (payload.error) {
@@ -176,107 +178,156 @@ class SplitForm extends React.Component {
                             );
                             this.setState({ customer: new_customer.data.cust });
                         }
-                        const response = await axios.post(
-                            `${process.env.REACT_APP_API_SERVER}/stripe/new2/update_customer`,
-                            {
-                                customer: this.state.customer.id,
-                                options: {
-                                    token: payload.token.id
-                                }
-                            },
-                            {
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            }
-                        );
-                        if (response.data.status === 'error') {
-                            this.props.setDimmer(false);
-                            let message = 'An error has occured processing your card';
-                            switch (response.data.code) {
-                                case 'card_declined': {
-                                    message = 'Your card has been declined, please try another card.';
-                                    break;
-                                }
-                                case 'insufficient_funds': {
-                                    message = 'You have insufficent funds available with this card.';
-                                    break;
-                                }
-                                default: {
-                                    console.log(response);
-                                    console.log(`STRIPE ERROR CODE - ${response.data.code}`);
-                                    break;
-                                }
-                            }
-                            toast.error(message, {
-                                position: toast.POSITION.TOP_LEFT,
-                                autoClose: 3000
-                            });
-                        } else {
-                            if (response.data.status === 'success') {
-                                if (!this.state.subscribed) {
-                                    const subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
-                                    await axios.post(
-                                        `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
-                                        {
-                                            customer_id: this.state.customer.id,
-                                            plan: this.state.actual_plan.id,
-                                            trial_period_days: subscription_days_left,
-                                        },
-                                        {
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            }
-                                        }
-                                    );
-                                    this.props.setDimmer(false);
-                                    await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.uiStore.user_id, subscribed: true });
-                                    toast.success('Thanks - You have been successfully subscribed!', {
-                                        position: toast.POSITION.TOP_LEFT,
-                                        autoClose: 3000
-                                    });
-                                    this.setState({ subscribed: true, show_plan: false });
-                                    let slack_payload = {
-                                        text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${this.state.current_user_details
-                                            .firstName} ${this.state.current_user_details.lastName}\n*Plan:* ${this.state.actual_plan
-                                            .id}\n*Owner Email:* ${this.state.current_user_details.email}\n`
-                                    };
-                                    if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
-                                        slack_payload = {
-                                            text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${this
-                                                .state.current_user_details.firstName} ${this.state.current_user_details
-                                                .lastName}\n*Plan:* ${this.state.actual_plan.id}\n*Owner Email:* ${this
-                                                .state.current_user_details.email}\n`
-                                        };
+                        if (update || !this.state.subscribed) {
+                            this.props.setDimmer(true);
+                            const response = await axios.post(
+                                `${process.env.REACT_APP_API_SERVER}/stripe/new2/update_customer`,
+                                {
+                                    customer: this.state.customer.id,
+                                    options: {
+                                        token: payload.token.id
                                     }
-                                    axios.post(
-                                        process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
-                                        JSON.stringify(slack_payload),
-                                        {
-                                            withCredentials: false,
-                                            transformRequest: [
-                                                (data, headers) => {
-                                                    delete headers.post['Content-Type']; // eslint-disable-line
-                                                    return data;
-                                                }
-                                            ]
-                                        }
-                                    );
-                                } else {
-                                    this.props.setDimmer(false);
-                                    toast.success('Thanks - You have been successfully updated your card details!', {
-                                        position: toast.POSITION.TOP_LEFT,
-                                        autoClose: 3000
-                                    });
+                                },
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
                                 }
+                            );
+                            if (response.data.status === 'error') {
+                                this.props.setDimmer(false);
+                                let message = 'An error has occured processing your card';
+                                switch (response.data.code) {
+                                    case 'card_declined': {
+                                        message = 'Your card has been declined, please try another card.';
+                                        break;
+                                    }
+                                    case 'insufficient_funds': {
+                                        message = 'You have insufficent funds available with this card.';
+                                        break;
+                                    }
+                                    default: {
+                                        console.log(response);
+                                        console.log(`STRIPE ERROR CODE - ${response.data.code}`);
+                                        break;
+                                    }
+                                }
+                                toast.error(message, {
+                                    position: toast.POSITION.TOP_LEFT,
+                                    autoClose: 3000
+                                });
+                            }
+                            if (this.state.subscribed && response.data.status === 'success') {
+                                this.props.setDimmer(false);
+                                toast.success('Thanks - You have been successfully updated your card details!', {
+                                    position: toast.POSITION.TOP_LEFT,
+                                    autoClose: 3000
+                                });
                             }
                         }
+                        await this.createOrUpdateSubscription();
                     }
                 });
         } else {
             console.log("Stripe.js hasn't loaded yet.");
         }
     };
+    createOrUpdateSubscription = async () => {
+        if (!this.state.subscribed) {
+            this.props.setDimmer(true);
+            const subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+            await axios.post(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+                {
+                    customer_id: this.state.customer.id,
+                    plan: this.state.actual_plan.id,
+                    trial_period_days: subscription_days_left,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            this.props.setDimmer(false);
+            await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.uiStore.user_id, subscribed: true });
+            toast.success('Thanks - You have been successfully subscribed!', {
+                position: toast.POSITION.TOP_LEFT,
+                autoClose: 3000
+            });
+            this.setState({ subscribed: true, show_plan: false });
+            let slack_payload = {
+                text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${this.state.current_user_details
+                    .firstName} ${this.state.current_user_details.lastName}\n*Plan:* ${this.state.actual_plan
+                    .id}\n*Owner Email:* ${this.state.current_user_details.email}\n`
+            };
+            if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+                slack_payload = {
+                    text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${this
+                        .state.current_user_details.firstName} ${this.state.current_user_details
+                        .lastName}\n*Plan:* ${this.state.actual_plan.id}\n*Owner Email:* ${this
+                        .state.current_user_details.email}\n`
+                };
+            }
+            axios.post(
+                process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
+                JSON.stringify(slack_payload),
+                {
+                    withCredentials: false,
+                    transformRequest: [
+                        (data, headers) => {
+                            delete headers.post['Content-Type']; // eslint-disable-line
+                            return data;
+                        }
+                    ]
+                }
+            );
+            const customer = await axios.get(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${this.state.current_user_details.email}`
+            );
+            this.setState({ customer: customer.data.customer });
+        }
+        if (this.state.changingPlan) {
+            this.props.setDimmer(true);
+            const delete_res = await axios.post(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
+                 {
+                     id: this.state.customer.subscriptions.data[0].id
+                 },
+                 {
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 }
+            );
+            console.log(delete_res);
+
+            const subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+            const create_res = await axios.post(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+                 {
+                     customer_id: this.state.customer.id,
+                     plan: this.state.actual_plan.id,
+                     trial_period_days: subscription_days_left,
+                 },
+                 {
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 }
+            );
+            console.log(create_res);
+            this.props.setDimmer(false);
+            toast.success('Thanks - You have been successfully changed your subscription!', {
+                position: toast.POSITION.TOP_LEFT,
+                autoClose: 3000
+            });
+            const customer = await axios.get(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${this.state.current_user_details.email}`
+            );
+            this.setState({ changingPlan: false, show_plan: false, customer: customer.data.customer });
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
@@ -287,15 +338,13 @@ class SplitForm extends React.Component {
                     <h2>You are already subscribed to the following plan.</h2>
                     {console.log('actual plans', this.state.actual_plan)}
 
-                    <PlanElement plan={this.state.actual_plan} changingPlan={this.state.changingPlan} />
+                    <PlanElement plan={this.state.actual_plan} handleClick={this.changePlan} changingPlan={true} />
                 </Col>
             </Row>
             <Row>
                 <Col>
                     <h2>Update Payment Info</h2>
-                    <Elements>
-                        <CheckoutForm handleSubmit={this.handleSubmit} fontSize={this.props.fontSize} updatePayment={true} />
-                    </Elements>
+                        <CheckoutForm handleSubmit={this.handleSubmit(true)} fontSize={this.props.fontSize} updatePayment={true} />
                 </Col>
             </Row>
         </div>;
@@ -306,14 +355,12 @@ class SplitForm extends React.Component {
                 disp =
                     <Row>
                         <Col >
-                            <Elements>
-                                <CheckoutForm handleSubmit={this.handleSubmit} fontSize={this.props.fontSize} updatePayment={false} />
-                            </Elements>
-                        </Col>
+                                <CheckoutForm handleSubmit={this.handleSubmit(false)} fontSize={this.props.fontSize} updatePayment={false} />
+                            </Col>
                     </Row>;
             } else {
                 disp = <div>
-                    {this.state.plans.map(d =>  <PlanElement plan={d} handleClick={this.handleBuyClick} changingPlan={this.state.changingPlan} />)}
+                    {this.state.plans.filter(d => this.state.actual_plan === null || this.state.actual_plan.id !== d.id).map(d =>  <PlanElement plan={d} handleClick={this.handleBuyClick} changingPlan={false} />)}
                 </div>;
             }
         }
@@ -321,6 +368,8 @@ class SplitForm extends React.Component {
         return (
             <div>
                 {disp}
+                {!this.state.subscribed && !this.state.show_plan ? <button onClick={() => this.setState({ show_plan: true })}>Back</button> : ''}
+                {this.state.changingPlan ? <button onClick={() => this.setState({ changingPlan: false })}>Back</button> : ''}
             </div>
         );
     }
@@ -339,13 +388,15 @@ class AdminSubscriptionController extends Component {
         return (
             <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
                 <div style={{ width: 'calc(100vw - 400px)' }} >
+                    <Elements>
                         <SplitForm setDimmer={this.setDimmer} uiStore={this.props.uiStore} fontSize="14px" />
+                    </Elements>
                         <Dimmer active={this.state.dimmer}>
                             <Header as="h2" icon inverted>
                                 <div style={{ marginTop: 228 }}>
                                     <Spinner color="yellow" size="64px" />
                                 </div>
-                            x    Processing....
+                                Processing....
                             </Header>
                         </Dimmer>
 
@@ -356,8 +407,8 @@ class AdminSubscriptionController extends Component {
     }
 }
 
-const _CheckoutForm = ({ stripe, handleSubmit, fontSize, updatePayment }) =>
-    <form onSubmit={handleSubmit(stripe)}>
+const CheckoutForm = ({ handleSubmit, fontSize, updatePayment }) =>
+    <form onSubmit={handleSubmit}>
         <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
         <label>
             Card number
@@ -403,12 +454,11 @@ const _CheckoutForm = ({ stripe, handleSubmit, fontSize, updatePayment }) =>
     </form>;
 
 
-const CheckoutForm = injectStripe(_CheckoutForm);
+const SplitForm = injectStripe(_SplitForm);
 
-_CheckoutForm.propTypes = {
+CheckoutForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     fontSize: PropTypes.string.isRequired,
-    stripe: PropTypes.func.isRequired,
     updatePayment: PropTypes.bool.isRequired
 };
 
@@ -422,10 +472,11 @@ PlanElement.defaultProps = {
     handleClick: null,
 };
 
-SplitForm.propTypes = {
+_SplitForm.propTypes = {
     fontSize: PropTypes.string.isRequired,
     uiStore: PropTypes.object.isRequired,
     setDimmer: PropTypes.func.isRequired,
+    stripe: PropTypes.object.isRequired
 };
 
 AdminSubscriptionController.propTypes = {
