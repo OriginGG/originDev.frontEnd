@@ -8,6 +8,8 @@ import axios from 'axios';
 import { Dimmer, Header, Segment } from 'semantic-ui-react';
 import Spinner from 'react-svg-spinner';
 import { Button, Grid, Panel, Col, 	Table } from 'rsuite';
+import { inject } from 'mobx-react';
+
 
 import {
     CardNumberElement,
@@ -22,7 +24,7 @@ import {
 // import { Segment } from 'semantic-ui-react/dist/commonjs';
 import stripeImage from '../../../../assets/images/powered_by_stripe@3x.png';
 import appManager from '../../../../utils/appManager';
-import { updateUserQuery } from '../../../../queries/users';
+import { updateUserQuery, getUserQuery } from '../../../../queries/users';
 // import ReactCheckout from './AdminReactTakeController';
 
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
@@ -82,8 +84,7 @@ const handleReady = () => {
 // 	"trial_period_days": 7,
 // 	"usage_type": "licensed"
 // }
-const PlanElement = ({ plan, handleClick }) => {
-    console.log(plan);
+const PlanElement = ({ plan, handleClick, changingPlan }) => {
     const dollars = plan.amount / 100;
     const f_array = [];
     for (const k in plan.metadata) {                    // eslint-disable-line
@@ -101,11 +102,11 @@ const PlanElement = ({ plan, handleClick }) => {
         <div style={{ marginTop: 2 }}>   {f_array} </div>
 
         <div style={{ marginTop: 16 }}>{w}/{plan.interval}</div>
-            <Button onClick={e => {
+            { handleClick ? <Button onClick={e => {
                 e.preventDefault();
                 handleClick(plan);
             }
-        }>Choose Plan</Button>
+        }>{!changingPlan ? 'Choose Plan' : 'Change Plan' }</Button> : '' }
 
 
         </div>
@@ -116,25 +117,36 @@ const PlanElement = ({ plan, handleClick }) => {
 
 class SplitForm extends React.Component {
     state = {
-        subscribed: false, show_plan: true, actual_plan: null, visible: false, data: []
+        subscribed: false, show_plan: true, actual_plan: null, visible: true, data: [], plans: [], changingPlan: false, customer: null
     };
     componentDidMount = async () => {
-        const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/retrieve_plans`);
-        this.p_array = [];
-        if (plans.data) {
-            const { data } = plans.data;
-            data.forEach(d => {
-                this.p_array.push(<PlanElement plan={d} handleClick={this.handleBuyClick} />);
-            });
-            console.log(data);
-        }
+        const plans = await axios.get(
+            `${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env
+                .REACT_APP_STRIPE_PRODUCT_ID}`
+        );
+
+        const user = await appManager.executeQueryAuth('query', getUserQuery, { id: this.props.uiStore.user_id });
+		const { email } = user.resultData;
+        const customer = await axios.get(
+			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
+        );
+        console.log(customer.data);
         this.setState({
-            subscribed: this.props.subscribed, show_plan: true, visible: true
+            plans: plans.data.data,
+            customer: customer.data.customer,
+            current_user_details: user.resultData,
+            subscribed: this.props.uiStore.subscribed,
+            actual_plan: plans.data.data
+
         });
     }
+
     handleBuyClick = (plan) => {
         this.setState({ show_plan: false, actual_plan: plan });
     }
+
+    changePlan = () => this.setState({ show_plan: true, changingPlan: true, plans: this.state.plans.filter(d => d.id !== this.state.actual_plan.id) })
+
     handleSubmit = stripe => ev => {
         ev.preventDefault();
         if (stripe) {
@@ -149,11 +161,28 @@ class SplitForm extends React.Component {
                             autoClose: 3000
                         });
                     } else {
+                        if (!this.state.customer) {
+                            const new_customer = await axios.post(
+                                `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
+                                {
+                                    user_id: this.props.uiStore.user_id,
+                                    email: this.state.current_user_details.email
+                                },
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                }
+                            );
+                            this.setState({ customer: new_customer.data.cust });
+                        }
                         const response = await axios.post(
-                            `${process.env.REACT_APP_API_SERVER}/stripe/create_subscription`,
+                            `${process.env.REACT_APP_API_SERVER}/stripe/new2/update_customer`,
                             {
-                                token: payload.token.id,
-                                customer_id: this.props.user_id,
+                                customer: this.state.customer.id,
+                                options: {
+                                    token: payload.token.id
+                                }
                             },
                             {
                                 headers: {
@@ -184,15 +213,62 @@ class SplitForm extends React.Component {
                                 autoClose: 3000
                             });
                         } else {
-                            if (response.data.status === 'subscribed') {
-                                this.props.setDimmer(false);
-                                await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
-                                toast.success('Thanks - You have been successfully subscribed!', {
-                                    position: toast.POSITION.TOP_LEFT,
-                                    autoClose: 3000
-                                });
-
-                                this.props.callback();
+                            if (response.data.status === 'success') {
+                                if (!this.state.subscribed) {
+                                    const subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+                                    await axios.post(
+                                        `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+                                        {
+                                            customer_id: this.state.customer.id,
+                                            plan: this.state.actual_plan.id,
+                                            trial_period_days: subscription_days_left,
+                                        },
+                                        {
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            }
+                                        }
+                                    );
+                                    this.props.setDimmer(false);
+                                    await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.uiStore.user_id, subscribed: true });
+                                    toast.success('Thanks - You have been successfully subscribed!', {
+                                        position: toast.POSITION.TOP_LEFT,
+                                        autoClose: 3000
+                                    });
+                                    this.setState({ subscribed: true, show_plan: false });
+                                    let slack_payload = {
+                                        text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${this.state.current_user_details
+                                            .firstName} ${this.state.current_user_details.lastName}\n*Plan:* ${this.state.actual_plan
+                                            .id}\n*Owner Email:* ${this.state.current_user_details.email}\n`
+                                    };
+                                    if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+                                        slack_payload = {
+                                            text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${this
+                                                .state.current_user_details.firstName} ${this.state.current_user_details
+                                                .lastName}\n*Plan:* ${this.state.actual_plan.id}\n*Owner Email:* ${this
+                                                .state.current_user_details.email}\n`
+                                        };
+                                    }
+                                    axios.post(
+                                        process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
+                                        JSON.stringify(slack_payload),
+                                        {
+                                            withCredentials: false,
+                                            transformRequest: [
+                                                (data, headers) => {
+                                                    delete headers.post['Content-Type']; // eslint-disable-line
+                                                    return data;
+                                                }
+                                            ]
+                                        }
+                                    );
+                                } else {
+                                    this.props.setDimmer(false);
+                                    toast.success('Thanks - You have been successfully updated your card details!', {
+                                        position: toast.POSITION.TOP_LEFT,
+                                        autoClose: 3000
+                                    });
+                                }
                             }
                         }
                     }
@@ -205,28 +281,39 @@ class SplitForm extends React.Component {
         if (this.state.visible === false) {
             return null;
         }
-        const cp = this.p_array[0];
         let disp = <div>
-            <h2>You are already subscribed to the following plan.</h2>
+            <Row>
+                <Col>
+                    <h2>You are already subscribed to the following plan.</h2>
+                    {console.log('actual plans', this.state.actual_plan)}
 
-            <PlanElement plan={cp.props.plan} />     </div>;
+                    <PlanElement plan={this.state.actual_plan} changingPlan={this.state.changingPlan} />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h2>Update Payment Info</h2>
+                    <Elements>
+                        <CheckoutForm handleSubmit={this.handleSubmit} fontSize={this.props.fontSize} updatePayment={true} />
+                    </Elements>
+                </Col>
+            </Row>
+        </div>;
 
 
-        if (!this.state.subscribed) {
+        if (!this.state.subscribed || this.state.changingPlan) {
             if (this.state.show_plan === false) {
                 disp =
                     <Row>
                         <Col >
                             <Elements>
-                                <CheckoutForm handleSubmit={this.handleSubmit} fontSize={this.props.fontSize} />
+                                <CheckoutForm handleSubmit={this.handleSubmit} fontSize={this.props.fontSize} updatePayment={false} />
                             </Elements>
                         </Col>
                     </Row>;
             } else {
                 disp = <div>
-
-                    {this.p_array}
-
+                    {this.state.plans.map(d =>  <PlanElement plan={d} handleClick={this.handleBuyClick} changingPlan={this.state.changingPlan} />)}
                 </div>;
             }
         }
@@ -251,25 +338,25 @@ class AdminSubscriptionController extends Component {
     render() {
         return (
             <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
-            <div style={{ width: 'calc(100vw - 400px)' }} >
-                            <SplitForm setDimmer={this.setDimmer} callback={this.props.callback}  user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
-                    <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
-                        <Header as="h2" icon inverted>
-                            <div style={{ marginTop: 228 }}>
-                                <Spinner color="yellow" size="64px" />
-                            </div>
-                            Processing....
-                        </Header>
-                    </Dimmer>
+                <div style={{ width: 'calc(100vw - 400px)' }} >
+                        <SplitForm setDimmer={this.setDimmer} uiStore={this.props.uiStore} fontSize="14px" />
+                        <Dimmer active={this.state.dimmer}>
+                            <Header as="h2" icon inverted>
+                                <div style={{ marginTop: 228 }}>
+                                    <Spinner color="yellow" size="64px" />
+                                </div>
+                            x    Processing....
+                            </Header>
+                        </Dimmer>
 
-            </div>
+                </div>
             </StripeProvider>
 
         );
     }
 }
 
-const _CheckoutForm = ({ stripe, handleSubmit, fontSize }) =>
+const _CheckoutForm = ({ stripe, handleSubmit, fontSize, updatePayment }) =>
     <form onSubmit={handleSubmit(stripe)}>
         <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
         <label>
@@ -312,7 +399,7 @@ const _CheckoutForm = ({ stripe, handleSubmit, fontSize }) =>
                 {...createOptions(fontSize)}
             />
         </label>
-        <button>Pay</button>
+        <button>{updatePayment ? 'Update' : 'Pay'}</button>
     </form>;
 
 
@@ -321,31 +408,29 @@ const CheckoutForm = injectStripe(_CheckoutForm);
 _CheckoutForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     fontSize: PropTypes.string.isRequired,
-    stripe: PropTypes.func.isRequired
+    stripe: PropTypes.func.isRequired,
+    updatePayment: PropTypes.bool.isRequired
 };
 
 PlanElement.propTypes = {
     plan: PropTypes.object.isRequired,
-    handleClick: PropTypes.func
+    handleClick: PropTypes.func,
+    changingPlan: PropTypes.bool.isRequired
 };
 
 PlanElement.defaultProps = {
-    handleClick: null
+    handleClick: null,
 };
 
 SplitForm.propTypes = {
-    user_id: PropTypes.number.isRequired,
     fontSize: PropTypes.string.isRequired,
-    subscribed: PropTypes.bool.isRequired,
-    callback: PropTypes.func.isRequired,
+    uiStore: PropTypes.object.isRequired,
     setDimmer: PropTypes.func.isRequired,
 };
 
 AdminSubscriptionController.propTypes = {
-    user_id: PropTypes.number.isRequired,
-    subscribed: PropTypes.bool.isRequired,
-    callback: PropTypes.func.isRequired,
+    uiStore: PropTypes.object.isRequired,
 };
 
 
-export default AdminSubscriptionController;
+export default inject('uiStore', 'appManager')(AdminSubscriptionController);

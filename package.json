@@ -83,6 +83,7 @@
     "react-slick": "^0.23.1",
     "react-smooth-dnd": "^0.11.0",
     "react-spinkit": "^3.0.0",
+    "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^2.0.1",
     "react-svg-spinner": "^1.0.1",
     "react-swipe": "^6.0.4",

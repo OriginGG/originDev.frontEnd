@@ -112,6 +112,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
+				{console.log(process.env.REACT_APP_API_SERVER)}
 				<Route exact path="/" component={AppController} />
 				<Route exact path="/signup_org" component={SignupOrg} />
 				<Route exact path="/signup_ind" component={SignupInd} />
