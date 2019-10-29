@@ -10,7 +10,6 @@ import Spinner from 'react-svg-spinner';
 import { Button, Grid, Panel, Col, 	Table } from 'rsuite';
 import { inject } from 'mobx-react';
 
-
 import {
     CardNumberElement,
     CardExpiryElement,
@@ -116,7 +115,7 @@ const PlanElement = ({ plan, handleClick, changingPlan }) => {
 
 class _SplitForm extends React.Component {
     state = {
-        subscribed: false, show_plan: true, actual_plan: null, visible: true, data: [], plans: [], changingPlan: false, customer: null, promoCode: ''
+        subscribed: false, show_plan: true, actual_plan: null, visible: true, data: [], plans: [], changingPlan: false, customer: null,
     };
     componentDidMount = async () => {
         const plans = await axios.get(
@@ -138,8 +137,6 @@ class _SplitForm extends React.Component {
             actual_plan: actualPlan,
         });
     }
-
-    promoCodeInput = v => this.setState({ promoCode: v });
     handleBuyClick = async (plan) => {
         if (!this.state.customer || this.state.customer.delinquent) {
             await this.setState({ show_plan: false, actual_plan: plan });
@@ -391,12 +388,16 @@ class _SplitForm extends React.Component {
                 disp =
                     <Row>
                         <Col >
-                                <CheckoutForm handleSubmit={this.handleSubmit(false)} promoCode={this.state.promoCode} promoCodeInput={this.promoCodeInput} fontSize={this.props.fontSize} updatePayment={false} />
+                                <CheckoutForm handleSubmit={this.handleSubmit(false)}  fontSize={this.props.fontSize} updatePayment={false} />
                             </Col>
                     </Row>;
             } else {
                 disp = <div>
+                   <Row>
+                      <Col>
                     {this.state.plans.filter(d => this.state.actual_plan === null || this.state.actual_plan.id !== d.id).map(d =>  <PlanElement plan={d} handleClick={this.handleBuyClick} changingPlan={false} />)}
+                      </Col>
+                  </Row>
                 </div>;
             }
         }
@@ -404,9 +405,13 @@ class _SplitForm extends React.Component {
         return (
             <div>
                 {disp}
-                {!this.state.subscribed && !this.state.show_plan ? <button onClick={() => this.setState({ show_plan: true, actual_plan: null })}>Back</button> : ''}
-                {this.state.changingPlan ? <button onClick={() => this.setState({ changingPlan: false })}>Back</button> : ''}
-                {this.state.subscribed && !this.state.changingPlan ? <button onClick={this.cancelSubscription}>Unsubscribe</button> : ''}
+                <Row>
+                    <Col>
+                        {!this.state.subscribed && !this.state.show_plan ? <button onClick={() => this.setState({ show_plan: true, actual_plan: null })}>Back</button> : ''}
+                        {this.state.changingPlan ? <button onClick={() => this.setState({ changingPlan: false })}>Back</button> : ''}
+                        {this.state.subscribed && !this.state.changingPlan ? <button onClick={this.cancelSubscription}>Unsubscribe</button> : ''}
+                   </Col>
+                </Row>
             </div>
         );
     }
@@ -444,7 +449,7 @@ class AdminSubscriptionController extends Component {
     }
 }
 
-const CheckoutForm = ({ handleSubmit, fontSize, updatePayment, promoCode, promoCodeInput }) =>
+const CheckoutForm = ({ handleSubmit, fontSize, updatePayment }) =>
     <form onSubmit={handleSubmit}>
         <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
         <label>
@@ -487,7 +492,6 @@ const CheckoutForm = ({ handleSubmit, fontSize, updatePayment, promoCode, promoC
                 {...createOptions(fontSize)}
             />
         </label>
-        { !updatePayment ? <label>Promo Code<input type="text" onChange={e => promoCodeInput(e.target.value)} value={promoCode} /></label> : '' }
         <button>{updatePayment ? 'Update' : 'Pay'}</button>
     </form>;
 
@@ -498,13 +502,6 @@ CheckoutForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     fontSize: PropTypes.string.isRequired,
     updatePayment: PropTypes.bool.isRequired,
-    promoCode: PropTypes.string,
-    promoCodeInput: PropTypes.func
-};
-
-CheckoutForm.defaultProps = {
-    promoCodeInput: null,
-    promoCode: ''
 };
 
 PlanElement.propTypes = {
