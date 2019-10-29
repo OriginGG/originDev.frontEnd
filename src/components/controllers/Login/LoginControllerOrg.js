@@ -66,7 +66,6 @@ class LoginControllerOrg extends Component {
 		historyStore.push('/password?t=reset_org');
 	};
 	handleSubmit = async (v) => {
-		debugger;
 		// console.log('submitting....');
 		// const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
 		// if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
@@ -187,7 +186,6 @@ class LoginControllerOrg extends Component {
 					return errors;
 				}}
 				onSubmit={async (v) => {
-					debugger;
 					// console.log('submitting....');
 					// const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
 					// if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
