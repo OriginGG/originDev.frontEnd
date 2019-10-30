@@ -320,6 +320,7 @@ class LoginControllerOrg extends Component {
 							values={values}
 							handleChange={handleChange}
 							handleSubmit={handleSubmit}
+							handleForgotPassword={this.handleForgotPassword}
 							handleBlur={handleBlur}
 							handleClick={this.handleClick}
 						/>
