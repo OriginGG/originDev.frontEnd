@@ -8,6 +8,8 @@ import axios from 'axios';
 import { Dimmer, Header, Segment } from 'semantic-ui-react';
 import Spinner from 'react-svg-spinner';
 import { Button, Grid, Panel, Col, 	Table } from 'rsuite';
+import { inject } from 'mobx-react';
+
 
 import {
     CardNumberElement,
@@ -15,13 +17,15 @@ import {
     CardCVCElement,
     PostalCodeElement,
     Elements,
-    injectStripe
+    injectStripe,
+    StripeProvider
 } from 'react-stripe-elements';
 
 // import { Segment } from 'semantic-ui-react/dist/commonjs';
 import stripeImage from '../../../../assets/images/powered_by_stripe@3x.png';
 import appManager from '../../../../utils/appManager';
-import { updateUserQuery } from '../../../../queries/users';
+import { updateUserQuery, getUserQuery } from '../../../../queries/users';
+// import ReactCheckout from './AdminReactTakeController';
 
 // import { getSponsorsQuery, createSponsorsQuery } from '../../../../queries/sponsors';
 
@@ -80,19 +84,15 @@ const handleReady = () => {
 // 	"trial_period_days": 7,
 // 	"usage_type": "licensed"
 // }
-const PlanElement = ({ plan, handleClick }) => {
-    console.log(plan);
+const PlanElement = ({ plan, handleClick, changingPlan }) => {
     const dollars = plan.amount / 100;
     const f_array = [];
     for (const k in plan.metadata) {                    // eslint-disable-line
         f_array.push(<li className="feature"><span>{plan.metadata[k]}</span></li>);
     }
     const w = dollars.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    let call = <li style={{ cursor: 'pointer' }} onClick={() => { handleClick(plan); }} className="call-to-action">Buy Now</li>;
-    if (!handleClick) {
-        call = <li style={{ cursor: 'pointer' }} onClick={() => { handleClick(plan); }} className="call-to-action-bl" />;
-    }
     return (
+
         <Col lg={8} xs={24} >
         <Panel header={<h3>{plan.nickname} Plan</h3>} bordered>
         <div className="pricing-table clearfix">
@@ -101,7 +101,11 @@ const PlanElement = ({ plan, handleClick }) => {
         <div style={{ marginTop: 2 }}>   {f_array} </div>
 
         <div style={{ marginTop: 16 }}>{w}/{plan.interval}</div>
-                    <Button>Choose Plan</Button>
+            { handleClick ? <Button onClick={e => {
+                e.preventDefault();
+                handleClick(plan);
+            }
+        }>{!changingPlan ? 'Choose Plan' : 'Change Plan' }</Button> : '' }
 
 
         </div>
@@ -112,29 +116,80 @@ const PlanElement = ({ plan, handleClick }) => {
 
 class _SplitForm extends React.Component {
     state = {
-        subscribed: false, show_plan: true, actual_plan: null, visible: false, data: []
+        subscribed: false, show_plan: true, actual_plan: null, visible: true, data: [], plans: [], changingPlan: false, customer: null, promoCode: ''
     };
     componentDidMount = async () => {
-        const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/retrieve_plans`);
-        this.p_array = [];
-        if (plans.data) {
-            const { data } = plans.data;
-            data.forEach(d => {
-                this.p_array.push(<PlanElement plan={d} handleClick={this.handleBuyClick} />);
-            });
-            console.log(data);
-        }
+        const plans = await axios.get(
+            `${process.env.REACT_APP_API_SERVER}/stripe/new/retrieve_plans?product=${process.env
+                .REACT_APP_STRIPE_PRODUCT_ID}`
+        );
+
+        const user = await appManager.executeQueryAuth('query', getUserQuery, { id: this.props.uiStore.user_id });
+		const { email } = user.resultData;
+        const customer = await axios.get(
+			`${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${email}`
+        );
+        const actualPlan = customer.data && customer.data.customer && customer.data.customer.subscriptions.data.length ? customer.data.customer.subscriptions.data[0].plan : null;
         this.setState({
-            subscribed: this.props.subscribed, show_plan: true, visible: true
+            plans: plans.data.data,
+            customer: customer.data.customer,
+            current_user_details: user.resultData,
+            subscribed: this.props.uiStore.subscribed,
+            actual_plan: actualPlan,
         });
     }
-    handleBuyClick = (plan) => {
-        this.setState({ show_plan: false, actual_plan: plan });
+
+    promoCodeInput = v => this.setState({ promoCode: v });
+    handleBuyClick = async (plan) => {
+        if (!this.state.customer || this.state.customer.delinquent) {
+            await this.setState({ show_plan: false, actual_plan: plan });
+        } else {
+            await this.setState({ actual_plan: plan });
+            await this.createOrUpdateSubscription();
+        }
     }
-    handleSubmit = (ev) => {
+
+    cancelSubscription = async () => {
+        this.props.setDimmer(true);
+        const delete_res = await axios.post(
+            `${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
+             {
+                 id: this.state.customer.subscriptions.data[0].id
+             },
+             {
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             }
+        );
+        const cancel_res = await axios.post(
+            `${process.env.REACT_APP_API_SERVER}/stripe/new2/cancel_subscription`,
+             {
+                 data: {
+                     object: {
+                         customer: this.state.customer.id
+                     }
+                 }
+             },
+             {
+                 headers: {
+                     'Content-Type': 'application/json'
+                 }
+             }
+        );
+        this.props.setDimmer(false);
+        this.setState({ subscribed: false, actual_plan: null, show_plan: true });
+        toast.success('Thanks - You have been successfully cancelled your subscription!', {
+            position: toast.POSITION.TOP_LEFT,
+            autoClose: 3000
+        });
+    }
+
+    changePlan = () => this.setState({ show_plan: true, changingPlan: true })
+
+    handleSubmit = update => ev => {
         ev.preventDefault();
         if (this.props.stripe) {
-            this.props.setDimmer(true);
             this.props.stripe
                 .createToken()
                 .then(async (payload) => {
@@ -145,125 +200,203 @@ class _SplitForm extends React.Component {
                             autoClose: 3000
                         });
                     } else {
-                        const response = await axios.post(
-                            `${process.env.REACT_APP_API_SERVER}/stripe/create_subscription`,
-                            {
-                                token: payload.token.id,
-                                customer_id: this.props.user_id,
-                            },
-                            {
-                                headers: {
-                                    'Content-Type': 'application/json'
+                        if (!this.state.customer) {
+                            const new_customer = await axios.post(
+                                `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
+                                {
+                                    user_id: this.props.uiStore.user_id,
+                                    email: this.state.current_user_details.email
+                                },
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
                                 }
-                            }
-                        );
-                        if (response.data.status === 'error') {
-                            this.props.setDimmer(false);
-                            let message = 'An error has occured processing your card';
-                            switch (response.data.code) {
-                                case 'card_declined': {
-                                    message = 'Your card has been declined, please try another card.';
-                                    break;
+                            );
+                            this.setState({ customer: new_customer.data.cust });
+                        }
+                        if (update || !this.state.subscribed) {
+                            this.props.setDimmer(true);
+                            const response = await axios.post(
+                                `${process.env.REACT_APP_API_SERVER}/stripe/new2/update_customer`,
+                                {
+                                    customer: this.state.customer.id,
+                                    options: {
+                                        token: payload.token.id
+                                    }
+                                },
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
                                 }
-                                case 'insufficient_funds': {
-                                    message = 'You have insufficent funds available with this card.';
-                                    break;
-                                }
-                                default: {
-                                    console.log(`STRIPE ERROR CODE - ${response.data.code}`);
-                                    break;
-                                }
-                            }
-                            toast.error(message, {
-                                position: toast.POSITION.TOP_LEFT,
-                                autoClose: 3000
-                            });
-                        } else {
-                            if (response.data.status === 'subscribed') {
+                            );
+                            if (response.data.status === 'error') {
                                 this.props.setDimmer(false);
-                                await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
-                                toast.success('Thanks - You have been successfully subscribed!', {
+                                let message = 'An error has occured processing your card';
+                                switch (response.data.code) {
+                                    case 'card_declined': {
+                                        message = 'Your card has been declined, please try another card.';
+                                        break;
+                                    }
+                                    case 'insufficient_funds': {
+                                        message = 'You have insufficent funds available with this card.';
+                                        break;
+                                    }
+                                    default: {
+                                        console.log(response);
+                                        console.log(`STRIPE ERROR CODE - ${response.data.code}`);
+                                        break;
+                                    }
+                                }
+                                toast.error(message, {
                                     position: toast.POSITION.TOP_LEFT,
                                     autoClose: 3000
                                 });
-
-                                this.props.callback();
+                            }
+                            if (this.state.subscribed && response.data.status === 'success') {
+                                this.props.setDimmer(false);
+                                toast.success('Thanks - You have been successfully updated your card details!', {
+                                    position: toast.POSITION.TOP_LEFT,
+                                    autoClose: 3000
+                                });
                             }
                         }
+                        await this.createOrUpdateSubscription();
                     }
                 });
         } else {
             console.log("Stripe.js hasn't loaded yet.");
         }
     };
+    createOrUpdateSubscription = async () => {
+        if (!this.state.subscribed) {
+            this.props.setDimmer(true);
+            const subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+            await axios.post(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+                {
+                    customer_id: this.state.customer.id,
+                    plan: this.state.actual_plan.id,
+                    trial_period_days: subscription_days_left,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+            this.props.setDimmer(false);
+            await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.uiStore.user_id, subscribed: true });
+            toast.success('Thanks - You have been successfully subscribed!', {
+                position: toast.POSITION.TOP_LEFT,
+                autoClose: 3000
+            });
+            this.setState({ subscribed: true, show_plan: false });
+            let slack_payload = {
+                text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${this.state.current_user_details
+                    .firstName} ${this.state.current_user_details.lastName}\n*Plan:* ${this.state.actual_plan
+                    .id}\n*Owner Email:* ${this.state.current_user_details.email}\n`
+            };
+            if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+                slack_payload = {
+                    text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${this
+                        .state.current_user_details.firstName} ${this.state.current_user_details
+                        .lastName}\n*Plan:* ${this.state.actual_plan.id}\n*Owner Email:* ${this
+                        .state.current_user_details.email}\n`
+                };
+            }
+            axios.post(
+                process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
+                JSON.stringify(slack_payload),
+                {
+                    withCredentials: false,
+                    transformRequest: [
+                        (data, headers) => {
+                            delete headers.post['Content-Type']; // eslint-disable-line
+                            return data;
+                        }
+                    ]
+                }
+            );
+            const customer = await axios.get(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${this.state.current_user_details.email}`
+            );
+            this.setState({ customer: customer.data.customer });
+        }
+        if (this.state.changingPlan) {
+            this.props.setDimmer(true);
+            const delete_res = await axios.post(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
+                 {
+                     id: this.state.customer.subscriptions.data[0].id
+                 },
+                 {
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 }
+            );
+            console.log(delete_res);
+
+            const subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
+            const create_res = await axios.post(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+                 {
+                     customer_id: this.state.customer.id,
+                     plan: this.state.actual_plan.id,
+                     trial_period_days: subscription_days_left,
+                 },
+                 {
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 }
+            );
+            console.log(create_res);
+            this.props.setDimmer(false);
+            toast.success('Thanks - You have been successfully changed your subscription!', {
+                position: toast.POSITION.TOP_LEFT,
+                autoClose: 3000
+            });
+            const customer = await axios.get(
+                `${process.env.REACT_APP_API_SERVER}/stripe/new2/retrieve_customer?email=${this.state.current_user_details.email}`
+            );
+            this.setState({ changingPlan: false, show_plan: false, customer: customer.data.customer });
+        }
+    }
     render() {
         if (this.state.visible === false) {
             return null;
         }
-        const cp = this.p_array[0];
         let disp = <div>
-            <h2>You are already subscribed to the following plan.</h2>
+            <Row>
+                <Col>
+                    <h2>You are already subscribed to the following plan.</h2>
 
-            <PlanElement plan={cp.props.plan} />     </div>;
+                    <PlanElement plan={this.state.actual_plan} handleClick={this.changePlan} changingPlan={true} />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h2>Update Payment Info</h2>
+                        <CheckoutForm handleSubmit={this.handleSubmit(true)} fontSize={this.props.fontSize} updatePayment={true} />
+                </Col>
+            </Row>
+        </div>;
 
 
-        if (!this.state.subscribed) {
+        if (!this.state.subscribed || this.state.changingPlan) {
             if (this.state.show_plan === false) {
                 disp =
                     <Row>
                         <Col >
-                            <form onSubmit={this.handleSubmit}>
-                                <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
-                                <label>
-                                    Card number
-          <CardNumberElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <label>
-                                    Expiration date
-          <CardExpiryElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <label>
-                                    CVC
-          <CardCVCElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <label>
-                                    Postal code
-          <PostalCodeElement
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        onFocus={handleFocus}
-                                        onReady={handleReady}
-                                        {...createOptions(this.props.fontSize)}
-                                    />
-                                </label>
-                                <button>Pay</button>
-                            </form>;
+                                <CheckoutForm handleSubmit={this.handleSubmit(false)} promoCode={this.state.promoCode} promoCodeInput={this.promoCodeInput} fontSize={this.props.fontSize} updatePayment={false} />
                             </Col>
-                        <Col><PlanElement plan={this.state.actual_plan} /></Col>
                     </Row>;
             } else {
                 disp = <div>
-
-                    {this.p_array}
-
+                    {this.state.plans.filter(d => this.state.actual_plan === null || this.state.actual_plan.id !== d.id).map(d =>  <PlanElement plan={d} handleClick={this.handleBuyClick} changingPlan={false} />)}
                 </div>;
             }
         }
@@ -271,12 +404,14 @@ class _SplitForm extends React.Component {
         return (
             <div>
                 {disp}
+                {!this.state.subscribed && !this.state.show_plan ? <button onClick={() => this.setState({ show_plan: true, actual_plan: null })}>Back</button> : ''}
+                {this.state.changingPlan ? <button onClick={() => this.setState({ changingPlan: false })}>Back</button> : ''}
+                {this.state.subscribed && !this.state.changingPlan ? <button onClick={this.cancelSubscription}>Unsubscribe</button> : ''}
             </div>
         );
     }
 }
 
-const SplitForm = injectStripe(_SplitForm);
 
 class AdminSubscriptionController extends Component {
     state = { dimmer: false }
@@ -288,53 +423,110 @@ class AdminSubscriptionController extends Component {
     }
     render() {
         return (
-            <div style={{ width: 'calc(100vw - 400px)' }} >
-                <Dimmer.Dimmable as={Segment} dimmed={this.state.dimmer}>
-                    <div className="Checkout">
-                        <Elements>
-                            <SplitForm setDimmer={this.setDimmer} callback={this.props.callback} domain={this.props.domain} user_id={this.props.user_id} subscribed={this.props.subscribed} fontSize="14px" />
-                        </Elements>
-                    </div>
-                    <Dimmer active={this.state.dimmer} onClickOutside={this.handleHide}>
-                        <Header as="h2" icon inverted>
-                            <div style={{ marginTop: 228 }}>
-                                <Spinner color="yellow" size="64px" />
-                            </div>
-                            Processing....
-            </Header>
-                    </Dimmer>
-                </Dimmer.Dimmable>
-            </div>
+            <StripeProvider apiKey={process.env.REACT_APP_STRIPE_PK_KEY}>
+                <div style={{ width: 'calc(100vw - 400px)' }} >
+                    <Elements>
+                        <SplitForm setDimmer={this.setDimmer} uiStore={this.props.uiStore} fontSize="14px" />
+                    </Elements>
+                        <Dimmer active={this.state.dimmer}>
+                            <Header as="h2" icon inverted>
+                                <div style={{ marginTop: 228 }}>
+                                    <Spinner color="yellow" size="64px" />
+                                </div>
+                                Processing....
+                            </Header>
+                        </Dimmer>
+
+                </div>
+            </StripeProvider>
 
         );
     }
 }
 
+const CheckoutForm = ({ handleSubmit, fontSize, updatePayment, promoCode, promoCodeInput }) =>
+    <form onSubmit={handleSubmit}>
+        <div style={{ height: 40, marginBottom: 16 }}><img style={{ height: 'inherit' }} alt="Powered By Stripe" src={stripeImage} /></div>
+        <label>
+            Card number
+<CardNumberElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        <label>
+            Expiration date
+<CardExpiryElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        <label>
+            CVC
+<CardCVCElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        <label>
+            Postal code
+<PostalCodeElement
+                onBlur={handleBlur}
+                onChange={handleChange}
+                onFocus={handleFocus}
+                onReady={handleReady}
+                {...createOptions(fontSize)}
+            />
+        </label>
+        { !updatePayment ? <label>Promo Code<input type="text" onChange={e => promoCodeInput(e.target.value)} value={promoCode} /></label> : '' }
+        <button>{updatePayment ? 'Update' : 'Pay'}</button>
+    </form>;
+
+
+const SplitForm = injectStripe(_SplitForm);
+
+CheckoutForm.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    fontSize: PropTypes.string.isRequired,
+    updatePayment: PropTypes.bool.isRequired,
+    promoCode: PropTypes.string,
+    promoCodeInput: PropTypes.func
+};
+
+CheckoutForm.defaultProps = {
+    promoCodeInput: null,
+    promoCode: ''
+};
+
 PlanElement.propTypes = {
     plan: PropTypes.object.isRequired,
-    handleClick: PropTypes.func
+    handleClick: PropTypes.func,
+    changingPlan: PropTypes.bool.isRequired
 };
 
 PlanElement.defaultProps = {
-    handleClick: null
+    handleClick: null,
 };
 
 _SplitForm.propTypes = {
-    user_id: PropTypes.number.isRequired,
-    stripe: PropTypes.object.isRequired,
     fontSize: PropTypes.string.isRequired,
-    subscribed: PropTypes.bool.isRequired,
-    callback: PropTypes.func.isRequired,
+    uiStore: PropTypes.object.isRequired,
     setDimmer: PropTypes.func.isRequired,
-    domain: PropTypes.string.isRequired
+    stripe: PropTypes.object.isRequired
 };
 
 AdminSubscriptionController.propTypes = {
-    user_id: PropTypes.number.isRequired,
-    subscribed: PropTypes.bool.isRequired,
-    callback: PropTypes.func.isRequired,
-    domain: PropTypes.string.isRequired
+    uiStore: PropTypes.object.isRequired,
 };
 
 
-export default AdminSubscriptionController;
+export default inject('uiStore', 'appManager')(AdminSubscriptionController);

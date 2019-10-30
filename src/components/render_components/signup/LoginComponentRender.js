@@ -108,14 +108,13 @@ class LoginComponentRender extends Component {
 							<ButtonGroup style={{ marginLeft: 74 }} vertical>
 								<Button
                                     onClick={() => {
-                                        debugger;
 										this.props.onSubmit(formValue);
 									}}
 									appearance="primary"
 								>
 									LOGIN
 								</Button>
-								<Button appearance="default">FORGOT PASSWORD</Button>
+								<Button onClick={(e) => { this.props.handleForgotPassword(e); }}appearance="default">FORGOT PASSWORD</Button>
 							</ButtonGroup>
 						</FormGroup>
 					</Form>
@@ -126,7 +125,8 @@ class LoginComponentRender extends Component {
 }
 
 LoginComponentRender.propTypes = {
-	onSubmit: PropTypes.func.isRequired
+	onSubmit: PropTypes.func.isRequired,
+	handleForgotPassword: PropTypes.func.isRequired
 };
 
 export default LoginComponentRender;

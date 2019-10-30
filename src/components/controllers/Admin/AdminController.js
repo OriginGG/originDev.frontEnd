@@ -5,7 +5,7 @@ import axios from 'axios';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import { isMobile } from 'react-device-detect';
-import Drift from 'react-driftjs';
+// import Drift from 'react-driftjs';
 import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import AdminProfileController from './new_subcontrollers/AdminProfileController';
 import AdminMediaController from './new_subcontrollers/AdminMediaController';
@@ -114,6 +114,8 @@ class AdminPageController extends Component {
 			// 	}
 			// }
 			const { subscribed } = user.resultData;
+			this.props.uiStore.setSubscribed(subscribed);
+console.log(this.props.uiStore);
 			const domainInfo = this.props.appManager.getDomainInfo();
 			const subDomain =
 				domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
@@ -180,7 +182,7 @@ class AdminPageController extends Component {
 				window.open(`${u_string}/main`, '_blank');
 				break;
 			}
-			case 'update_payment': {
+			case 'Update Payment': {
 			cv = <AdminSubscriptionController />;
 				break;
 			}
@@ -286,7 +288,7 @@ class AdminPageController extends Component {
 					</div>
 				)}
 				<Container>
-				<Drift appId="ag5c43cpxebr" />
+				{/* <Drift appId="ag5c43cpxebr" /> */}
 					<Sidebar style={{ display: 'flex', flexDirection: 'column' }} width={expand ? 260 : 56} collapsible>
 						<Sidenav.Header>
 							<div style={headerStyles}>
@@ -309,7 +311,7 @@ class AdminPageController extends Component {
 									<Nav.Item eventKey="Members Admin" icon={<Icon icon="group" />}>
 										Members
 									</Nav.Item>
-									<Nav.Item eventKey="update_payment" icon={<Icon icon="cc-stripe" />}>
+									<Nav.Item eventKey="Update Payment" icon={<Icon icon="cc-stripe" />}>
 										Update Payment Card
 									</Nav.Item>
 									<Nav.Item icon={<Icon icon="frame" />} eventKey="Theme">

@@ -99,7 +99,7 @@ const PlanElement = ({ plan, handleClick }) => {
 
 class _SplitForm extends React.Component {
     state = {
-        subscribed: false, show_plan: true, actual_plan: null, visible: false
+        subscribed: false, show_plan: true, actual_plan: null, visible: false, coupon_id
     };
     componentDidMount = async () => {
         const plans = await axios.get(`${process.env.REACT_APP_API_SERVER}/stripe/retrieve_plans`);
@@ -118,71 +118,198 @@ class _SplitForm extends React.Component {
     handleBuyClick = (plan) => {
         this.setState({ show_plan: false, actual_plan: plan });
     }
-    handleSubmit = (ev) => {
+    handleSubmit = (ev, stripe, coupon_id) => {
         ev.preventDefault();
-        if (this.props.stripe) {
-            this.props.setDimmer(true);
-            this.props.stripe
-                .createToken()
-                .then(async (payload) => {
-                    if (payload.error) {
-                        this.props.setDimmer(false);
-                        toast.error(payload.error.message, {
-                            position: toast.POSITION.TOP_LEFT,
-                            autoClose: 3000
-                        });
-                    } else {
-                        const response = await axios.post(
-                            `${process.env.REACT_APP_API_SERVER}/stripe/create_subscription`,
-                            {
-                                token: payload.token.id,
-                                customer_id: this.props.user_id,
-                            },
-                            {
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            }
-                        );
-                        if (response.data.status === 'error') {
-                            this.props.setDimmer(false);
-                            let message = 'An error has occured processing your card';
-                            switch (response.data.code) {
-                                case 'card_declined': {
-                                    message = 'Your card has been declined, please try another card.';
-                                    break;
-                                }
-                                case 'insufficient_funds': {
-                                    message = 'You have insufficent funds available with this card.';
-                                    break;
-                                }
-                                default: {
-                                    console.log(`STRIPE ERROR CODE - ${response.data.code}`);
-                                    break;
-                                }
-                            }
-                            toast.error(message, {
-                                position: toast.POSITION.TOP_LEFT,
-                                autoClose: 3000
-                            });
-                        } else {
-                            if (response.data.status === 'subscribed') {
-                                this.props.setDimmer(false);
-                                await appManager.executeQueryAuth('mutation', updateUserQuery, { id: this.props.user_id, subscribed: true });
-                                toast.success('Thanks - You have been successfully subscribed!', {
-                                    position: toast.POSITION.TOP_LEFT,
-                                    autoClose: 3000
-                                });
+		ev.stopPropagation();
+		let new_coupon_id = null;
+		if (!this.update_payment && this.actual_plan.metadata.coupon_id === coupon_id) {
+			new_coupon_id = coupon_id;
+		}
+		this.setDimmer(true);
+		if (stripe) {
+			stripe.createToken().then(async (payload) => {
+				if (payload.error) {
+					this.setDimmer(false);
+					toast.error(payload.error.message, {
+						position: toast.POSITION.TOP_LEFT,
+						autoClose: 3000
+					});
+					this.props.callback(false);
+				} else {
+					let { customer } = this.state;
+					if (!customer) {
+						const new_customer = await axios.post(
+							`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_customer`,
+							{
+								user_id: uiStore.user_id,
+								email: this.current_user_details.email
+							},
+							{
+								headers: {
+									'Content-Type': 'application/json'
+								}
+							}
+						);
+						this.setState({ customer: new_customer.data.cust });
+						customer = new_customer.data.cust;
+					}
+					const response = await axios.post(
+						`${process.env.REACT_APP_API_SERVER}/stripe/new2/update_customer`,
+						{
+							customer: customer.id,
+							options: {
+								token: payload.token.id
+							}
+						},
+						{
+							headers: {
+								'Content-Type': 'application/json'
+							}
+						}
+					);
+					if (response.data.status === 'error') {
+						this.setDimmer(false);
+						let message = 'An error has occured processing your card';
+						switch (response.data.code) {
+							case 'card_declined': {
+								message = 'Your card has been declined, please try another card.';
+								break;
+							}
+							case 'insufficient_funds': {
+								message = 'You have insufficent funds available with this card.';
+								break;
+							}
+							default: {
+								console.log(`STRIPE ERROR CODE - ${response.data.code}`);
+								break;
+							}
+						}
+						toast.error(message, {
+							position: toast.POSITION.TOP_LEFT,
+							autoClose: 3000
+						});
+						this.props.callback(false);
+					} else {
+						if (response.data.status === 'success') {
+							if (!this.update_payment) {
+								// now we delete previous subscription, and create a new one, with trial days left.
+								// there won't be a customer yet.
+								// const { subscriptions } = response.data.cust;
+								// const { id } = subscriptions.data[0];
+								// await axios.post(
+								// 	`${process.env.REACT_APP_API_SERVER}/stripe/new2/delete_subscription`,
+								// 	{
+								// 		id
+								// 	},
+								// 	{
+								// 		headers: {
+								// 			'Content-Type': 'application/json'
+								// 		}
+								// 	}
+								// );
+								this.subscription_days_left = uiStore.getSubScriptionDaysLeft();
+								// const { trial_end } = subscriptions.data[0];
+								// if (trial_end) {
+								// 	const cur = dayjs(new Date()); // .toLocaleString('en-US', { timeZone: 'America/New_York' }));
+								// 	// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+								// 	const day_diff = dayjs(trial_end * 1000).diff(cur, 'days');
+								// 	// const cur = moment().tz('America/New_York');
+								// 	// const day_diff = moment(Math.round(trial_end * 1000)).diff(cur, 'days');
+								// 	this.subscription_days_left = day_diff + 1;
+								// 	if (this.subscription_days_left > subscriptions.data[0].plan.trial_period_days) {
+								// 		this.subscription_days_left = subscriptions.data[0].plan.trial_period_days;
+								// 	}
+								// }
+								let discount = 0;
+								if (new_coupon_id) {
+									const cpon = await axios.get(
+										`${process.env
+											.REACT_APP_API_SERVER}/stripe/new2/retrieve_coupon?coupon_id=${new_coupon_id}`
+									);
+									discount = cpon.data.amount_off;
+								}
+								await axios.post(
+									`${process.env.REACT_APP_API_SERVER}/stripe/new2/create_subscription`,
+									{
+										customer_id: customer.id,
+										plan: this.selected_plan.id,
+										trial_period_days: this.subscription_days_left,
+										coupon_id: new_coupon_id
+									},
+									{
+										headers: {
+											'Content-Type': 'application/json'
+										}
+									}
+								);
 
-                                this.props.callback();
-                            }
-                        }
-                    }
-                });
-        } else {
-            console.log("Stripe.js hasn't loaded yet.");
-        }
-    };
+								this.setDimmer(false);
+								await appManager.executeQueryAuth('mutation', updateUserQuery, {
+									id: uiStore.user_id,
+									subscribed: true
+								});
+								if (new_coupon_id) {
+									toast.success(
+										'Thanks - You have been successfully subscribed, with the discount!',
+										{
+											position: toast.POSITION.TOP_LEFT,
+											autoClose: 3000
+										}
+									);
+								} else {
+									toast.success('Thanks - You have been successfully subscribed!', {
+										position: toast.POSITION.TOP_LEFT,
+										autoClose: 3000
+									});
+								}
+								let slack_payload = {
+									text: `*REAL-PAID-ALERT-PRODUCTION*\n*Owner name:* ${this.current_user_details
+										.firstName} ${this.current_user_details.lastName}\n*Plan:* ${this.selected_plan
+										.id}\n*Owner Email:* ${this.current_user_details.email}\n`
+								};
+								if (process.env.REACT_APP_ENVIRONMENT !== 'production') {
+									slack_payload = {
+										text: `*TEST-NOT-PAID-NO-CASH-BOO-NOT-PRODUCTION*\n*Owner name:* ${this
+											.current_user_details.firstName} ${this.current_user_details
+											.lastName}\n*Plan:* ${this.selected_plan.id}\n*Owner Email:* ${this
+											.current_user_details.email}\n`
+									};
+								}
+								axios.post(
+									process.env.REACT_APP_SLACK_NEW_PRODUCT_WEBHOOK,
+									JSON.stringify(slack_payload),
+									{
+										withCredentials: false,
+										transformRequest: [
+											(data, headers) => {
+												delete headers.post['Content-Type']; // eslint-disable-line
+												return data;
+											}
+										]
+									}
+								);
+								this.props.callback(true, this.selected_plan, discount);
+							} else {
+								toast.success(
+									'Thanks - You have been successfully updated your card details, redirecting you back to login page!',
+									{
+										position: toast.POSITION.TOP_LEFT,
+										autoClose: 3000
+									}
+								);
+								setTimeout(() => {
+									browserHistory.push('/login_org');
+								}, 3000);
+							}
+						}
+					}
+				}
+			});
+		} else {
+			this.props.callback(false);
+			console.log("Stripe.js hasn't loaded yet.");
+		}
+	};
     render() {
         if (this.state.visible === false) {
             return null;
