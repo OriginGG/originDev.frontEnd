@@ -12,6 +12,7 @@ class UiStore {
 	@observable individual_user_id = 0;
 	@observable current_blog = {};
 	@observable submitting_content = false;
+	@observable subscribed = false;
 	setOrganisation = (o) => {
 		const theme = o.nodes[0];
 		const { themeData } = theme.themesByOrganisationId.edges[0].node;
@@ -34,6 +35,10 @@ class UiStore {
 	@action
 	setUserID = (id) => {
 		this.user_id = id;
+	};
+	@action
+	setSubscribed = (subscribed) => {
+		this.subscribed = subscribed;
 	};
 	@action
 	setUserEmail = (email) => {

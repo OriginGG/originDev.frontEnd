@@ -22,7 +22,7 @@ import AdminContentTeamController from './new_subcontrollers/AdminContentTeamCon
 import AdminRecentMatchesController from './new_subcontrollers/AdminRecentMatchesController';
 import AdminBlogController from './new_subcontrollers/AdminBlogController';
 import AdminCustomDomainController from './new_subcontrollers/AdminCustomDomainController';
-
+import AdminSubscriptionController from './new_subcontrollers/AdminSubscriptionController';
 
 const headerStyles = {
 	padding: 18,
@@ -114,6 +114,8 @@ class AdminPageController extends Component {
 			// 	}
 			// }
 			const { subscribed } = user.resultData;
+			this.props.uiStore.setSubscribed(subscribed);
+console.log(this.props.uiStore);
 			const domainInfo = this.props.appManager.getDomainInfo();
 			const subDomain =
 				domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
@@ -180,16 +182,8 @@ class AdminPageController extends Component {
 				window.open(`${u_string}/main`, '_blank');
 				break;
 			}
-			case 'update_payment': {
-				const domainInfo = this.props.appManager.getDomainInfo();
-				const { hostname } = domainInfo;
-				const subDomain =
-					domainInfo.subDomain === null
-						? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME
-						: domainInfo.subDomain;
-				const new_host = hostname.replace(`${subDomain}.`, '');
-				const u_string = `${domainInfo.protocol}//${new_host}:${domainInfo.port}`;
-				window.location = `${u_string}/update_payment`;
+			case 'Update Payment': {
+			cv = <AdminSubscriptionController />;
 				break;
 			}
 			case 'Company Profile': {
@@ -294,7 +288,7 @@ class AdminPageController extends Component {
 					</div>
 				)}
 				<Container>
-				<Drift appId="ag5c43cpxebr" />
+                    <Drift appId="ag5c43cpxebr" />
 					<Sidebar style={{ display: 'flex', flexDirection: 'column' }} width={expand ? 260 : 56} collapsible>
 						<Sidenav.Header>
 							<div style={headerStyles}>
@@ -317,7 +311,7 @@ class AdminPageController extends Component {
 									<Nav.Item eventKey="Members Admin" icon={<Icon icon="group" />}>
 										Members
 									</Nav.Item>
-									<Nav.Item eventKey="update_payment" icon={<Icon icon="cc-stripe" />}>
+									<Nav.Item eventKey="Update Payment" icon={<Icon icon="cc-stripe" />}>
 										Update Payment Card
 									</Nav.Item>
 									<Nav.Item icon={<Icon icon="frame" />} eventKey="Theme">
