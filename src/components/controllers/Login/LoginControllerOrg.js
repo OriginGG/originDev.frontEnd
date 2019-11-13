@@ -20,10 +20,10 @@ const { confirm } = Modal;
 class LoginControllerOrg extends Component {
 	state = { button_disabled: false };
 	componentDidMount = () => {
-        this.paywall = false;
+		this.paywall = false;
 		document.getElementById('origin_loader').style.display = 'none';
-        this.paywall = this.props.pw;
-        if (this.props.location.state) {
+		this.paywall = this.props.pw;
+		if (this.props.location.state) {
 			const { state } = this.props.location;
 			if (state.paywall) {
 				this.paywall = true;
@@ -64,6 +64,92 @@ class LoginControllerOrg extends Component {
 		e.stopPropagation();
 		e.preventDefault();
 		historyStore.push('/password?t=reset_org');
+	};
+	handleSubmit = async (v) => {
+		// console.log('submitting....');
+		// const registered_user = await this.props.appManager.executeQuery('query', getUserByEmailQuery, { email: v.email });
+		// if (registered_user.allUsers.edges.length > 0 && registered_user.allUsers.edges[0].node.authenticated === false) {
+		//     toast.error("You haven't completed the signup process yet. Check your email and hit the link to proceed!", {
+		//         position: toast.POSITION.TOP_LEFT,
+		//         autoClose: 5000
+		//     });
+		//     return;
+		// }
+		v.email = v.email.toLowerCase(); // eslint-disable-line
+		const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
+		if (authPayload.authenticate.resultData !== null) {
+			// console.log('submitting2....');
+			const token = authPayload.authenticate.resultData.jwtToken;
+			this.props.appManager.authToken = token;
+			const d = this.props.appManager.decodeJWT(token);
+			// console.log(`d:-${d}`);
+			this.props.uiStore.setUserID(d.id);
+
+			const { organisationId } = authPayload.authenticate.resultData;
+			const domainInfo = this.props.appManager.getDomainInfo();
+			// console.log(`domain info:-${domainInfo}`);
+			const subDomain =
+				domainInfo.subDomain === null ? process.env.REACT_APP_DEFAULT_ORGANISATION_NAME : domainInfo.subDomain;
+			// console.log(`subDomain-${subDomain}`);
+			// we might have a valid user somewhere, but is he part of this domain?
+			const payload = Buffer.from(JSON.stringify(authPayload), 'utf8').toString('hex');
+			// console.log(`payload:-${d}`);
+			const org = await this.props.appManager.executeQuery('query', getOrganisationByIdQuery, {
+				id: organisationId
+			});
+			const organisation = org.organisationAccountById.subDomain;
+			const named_org = await this.props.appManager.executeQuery('query', getOrganisationByName, {
+				subdomain: organisation
+			});
+			console.log(named_org);
+			if (subDomain === 'origin' && organisationId !== null) {
+				if (this.paywall) {
+					if (this.props.pw) {
+						historyStore.push({ pathname: '/paywall', state: { update_card: true } });
+					} else {
+						historyStore.push('/paywall');
+					}
+				} else {
+					const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
+					window.location = u_string;
+				}
+			}
+			if (subDomain === 'origin' && !organisationId) {
+				if (authPayload.authenticate.resultData.isAdmin === false) {
+					// it's an individual users, go to ind page.
+					this.props.appManager.pouchStore('ind_authenticate', payload);
+					historyStore.push(`/individual?u=${d.id}`);
+				} else {
+					historyStore.push(`/createsubdomain?p=${payload}`);
+				}
+			}
+			if (subDomain === named_org.getorganisationbyname.edges[0].node.subDomain) {
+				// succesfully logged in store in pouch then change page.
+				this.props.appManager.pouchStore('authenticate', authPayload);
+				// await this.props.appManager.pouchStore('authenticate', authPayload);
+				if (!this.paywall) {
+					historyStore.push('/admin');
+				} else {
+					historyStore.push('/paywall');
+				}
+			}
+		} else {
+			// does user exist as a pre-user?
+			// const pre_user = await this.props.appManager.executeQuery('mutation', authenticatePreUserQuery, { email: v.email, password: v.password });
+			// const { jwtToken } = pre_user.preUserAuthenticate;
+			// if (jwtToken) {
+			//     debugger;
+			// }
+			toast.error(
+				`Cannot log into ${v.email.toLowerCase()}. Check email & password is correct. Are you signed up?`,
+				{
+					position: toast.POSITION.TOP_LEFT,
+					autoClose: 5000
+				}
+			);
+		}
+		// console.log('submitting3....');
+		// const authPayload = await this.props.appManager.executeQuery('mutation', authenticateQuery, v);
 	};
 	render() {
 		return (
@@ -145,10 +231,10 @@ class LoginControllerOrg extends Component {
 								} else {
 									historyStore.push('/paywall');
 								}
-                            } else {
-                                const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
-                                window.location = u_string;
-                            }
+							} else {
+								const u_string = `${domainInfo.protocol}//${organisation}.${domainInfo.hostname}:${domainInfo.port}?p=${payload}`;
+								window.location = u_string;
+							}
 						}
 						if (subDomain === 'origin' && !organisationId) {
 							if (authPayload.authenticate.resultData.isAdmin === false) {
@@ -163,7 +249,7 @@ class LoginControllerOrg extends Component {
 							// succesfully logged in store in pouch then change page.
 							this.props.appManager.pouchStore('authenticate', authPayload);
 							// await this.props.appManager.pouchStore('authenticate', authPayload);
-                            if (!this.paywall) {
+							if (!this.paywall) {
 								historyStore.push('/admin');
 							} else {
 								historyStore.push('/paywall');
@@ -198,6 +284,7 @@ class LoginControllerOrg extends Component {
 				}) => (
 					<div>
 						<LoginComponentRender
+							onSubmit={this.handleSubmit}
 							loginAccountButton={
 								<Button
 									disabled={this.state.button_disabled}
@@ -233,6 +320,7 @@ class LoginControllerOrg extends Component {
 							values={values}
 							handleChange={handleChange}
 							handleSubmit={handleSubmit}
+							handleForgotPassword={this.handleForgotPassword}
 							handleBlur={handleBlur}
 							handleClick={this.handleClick}
 						/>
@@ -244,14 +332,14 @@ class LoginControllerOrg extends Component {
 }
 
 LoginControllerOrg.propTypes = {
-    pw: PropTypes.bool,
+	pw: PropTypes.bool,
 	uiStore: PropTypes.object.isRequired,
 	location: PropTypes.object.isRequired,
 	appManager: PropTypes.object.isRequired
 };
 
 LoginControllerOrg.defaultProps = {
-    pw: false
+	pw: false
 };
 
 export default inject('uiStore', 'appManager')(LoginControllerOrg);

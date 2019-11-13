@@ -7,7 +7,7 @@ import { GlobalStyles } from 'Theme/Theme';
 class SignupPageComponentRender extends Component {
     render( ) {
         return (
-            <div className={this.props.classes.signupBGImage}>
+            <div className={this.props.classes}>
                 <header className={this.props.classes.signupHeader}>
                     <div className="ui container">
                         <a href="/" className="header item">{this.props.headerComponent}</a>
