@@ -4,7 +4,6 @@ import loadable from '@loadable/component';
 import { inject } from 'mobx-react';
 import { slide as Menu } from 'react-burger-menu';
 // import { GlobalStyles } from 'Theme/Theme';
-import { Button } from 'semantic-ui-react';
 import axios from 'axios';
 import Favicon from 'react-favicon';
 // import Loadable from 'react-loadable';
@@ -299,10 +298,6 @@ class OrganizationPageController extends Component {
 						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
 					}
 				}
-				let f = !subscribed;
-				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
-					f = false;
-				}
 				let themeBase = this.props.uiStore.current_organisation.themeBaseId;
 				let theme = `${this.props.uiStore.current_organisation.themeBaseId}/${this.props.uiStore
 					.current_organisation.themeId}`;
@@ -413,7 +408,6 @@ class OrganizationPageController extends Component {
 					enigma2_sponsors_style: { display: 'inherit', borderBottomColor: 'transparent' },
 					enigma2_about_style: { display: 'inherit', borderBottomColor: 'transparent' },
 					enigma2_news_style: { display: 'inherit', borderBottomColor: 'transparent' },
-					error_page: f
 					// OrganizationMobileSubMenuComponentRender: OrganizationMobileSubMenuComponentRender.default
 				});
 				if (this.invite_details) {
@@ -1257,43 +1251,6 @@ class OrganizationPageController extends Component {
 							this.ref_node = c;
 						}}
 					>
-						{this.state.error_page && (
-							<div>
-								<div id="error_page" className="error_page" />
-								<div id="error_page" className="error_page_overlay">
-									<div
-										style={{
-											paddingLeft: 32,
-											paddingRight: 32,
-											textAlign: 'center',
-											lineHeight: '32px',
-											fontSize: 32,
-											display: 'flex',
-											justifyContent: 'center'
-										}}
-									>
-										THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND
-										SUBSCRIBE.
-										<br />
-										OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-										<br />
-										<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
-											support@origin.gg
-										</a>
-									</div>
-									<div
-										style={{
-											marginTop: 64,
-											textAlign: 'center',
-											display: 'flex',
-											justifyContent: 'center'
-										}}
-									>
-										<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
-									</div>
-								</div>
-							</div>
-						)}
 						<Favicon url={this.props.uiStore.current_theme_structure.header.logo.imageData} />
 						{SideBar}
 						<div className={c_name}>{disp}</div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Navbar, Nav, Icon, Sidebar, Container, Sidenav, Header, Content, Button } from 'rsuite';
+import { Navbar, Nav, Icon, Sidebar, Container, Sidenav, Header, Content } from 'rsuite';
 import axios from 'axios';
 import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
@@ -136,10 +136,6 @@ console.log(this.props.uiStore);
 						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
 					}
 				}
-				let f = !subscribed;
-				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
-					f = false;
-				}
 				this.props.uiStore.setSubDomain(subDomain);
 				const expand = isMobile ? false : true;
 				this.setState({ visible: true, expand, error_page: f });
@@ -251,42 +247,6 @@ console.log(this.props.uiStore);
 		}
 		return (
 			<div className="show-fake-browser sidebar-page">
-				{this.state.error_page && (
-					<div>
-						<div id="error_page" className="error_page" />
-						<div id="error_page" className="error_page_overlay">
-							<div
-								style={{
-									paddingLeft: 32,
-									paddingRight: 32,
-									textAlign: 'center',
-									lineHeight: '32px',
-									fontSize: 32,
-									display: 'flex',
-									justifyContent: 'center'
-								}}
-							>
-								THIS SUBDOMAIN REQUIRES A SUBSCRIPTION TO CONTINUE, CLICK BELOW TO LOGIN AND SUBSCRIBE.
-								<br />
-								OR CONTACT ORIGIN SUPPORT FOR MORE INFORMATION.
-								<br />
-								<a href="mailto:support@origin.gg" style={{ display: 'contents' }}>
-									support@origin.gg
-								</a>
-							</div>
-							<div
-								style={{
-									marginTop: 64,
-									textAlign: 'center',
-									display: 'flex',
-									justifyContent: 'center'
-								}}
-							>
-								<Button onClick={this.handleLoginAndSubscribe}>LOGIN AND SUBSCRIBE</Button>
-							</div>
-						</div>
-					</div>
-				)}
 				<Container>
                     <Drift appId="ag5c43cpxebr" />
 					<Sidebar style={{ display: 'flex', flexDirection: 'column' }} width={expand ? 260 : 56} collapsible>
