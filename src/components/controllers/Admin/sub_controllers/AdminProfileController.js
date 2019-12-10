@@ -97,7 +97,7 @@ class AdminProfileController extends Component {
                 });
                 return;
             }
-            const regExp = /^[a-zA-Z0-9][a-zA-Z0-9.-]*[a-zA-Z0-9]$/;
+            const regExp = /^[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]$/;
             const match = current_sub_domain.match(regExp);
             if (!match) {
                 toast.error('Subdomain has illegal characters. Only numbers, letters and hyphens are allowed!', {
