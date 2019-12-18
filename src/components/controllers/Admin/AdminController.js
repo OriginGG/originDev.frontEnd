@@ -142,7 +142,7 @@ console.log(this.props.uiStore);
 				}
 				this.props.uiStore.setSubDomain(subDomain);
 				const expand = isMobile ? false : true;
-				this.setState({ visible: true, expand, error_page: f });
+				this.setState({ visible: true, expand });
 
 				this.autorun_tracker = autorun(() => {
 					if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
