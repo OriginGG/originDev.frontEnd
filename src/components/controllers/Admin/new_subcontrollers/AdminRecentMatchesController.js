@@ -214,7 +214,6 @@ class AdminRecentMatchesController extends Component {
 					<Grid fluid>
 						<Col lg={24} xs={24}>
 							<Table
-								autoHeight
 								data={data}
 								id="table"
 								bodyRef={(ref) => {

@@ -138,13 +138,6 @@ class AdminSingleMatchController extends Component {
 		this.selected_slide = e;
 	};
 	handleSubmit = async () => {
-		if (!this.state.input_values.desc) {
-			open('error', 'You need to supply an event');
-			return;
-		}
-		if (!this.state.image_src) {
-			open('error', 'You need to supply an opponents logo');
-		}
 		const ty = this.state.input_values.match_type === '1' ? 'rm' : 'um';
 		if (!this.props.match) {
 			await this.props.appManager.executeQueryAuth('mutation', createRecentMatchQuery, {

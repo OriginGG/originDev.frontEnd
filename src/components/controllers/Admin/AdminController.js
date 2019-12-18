@@ -136,13 +136,14 @@ console.log(this.props.uiStore);
 						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
 					}
 				}
+				// eslint-disable-next-line no-unused-vars
 				let f = !subscribed;
 				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
 					f = false;
 				}
 				this.props.uiStore.setSubDomain(subDomain);
 				const expand = isMobile ? false : true;
-				this.setState({ visible: true, expand, error_page: f });
+				this.setState({ visible: true, expand });
 
 				this.autorun_tracker = autorun(() => {
 					if (this.props.uiStore.current_theme_structure.header.logo.imageData) {
