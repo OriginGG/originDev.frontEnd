@@ -136,6 +136,7 @@ console.log(this.props.uiStore);
 						this.subscription_days_left = this.props.uiStore.getSubScriptionDaysLeft();
 					}
 				}
+				// eslint-disable-next-line no-unused-vars
 				let f = !subscribed;
 				if (this.subscription_days_left !== null && this.subscription_days_left > 0) {
 					f = false;
