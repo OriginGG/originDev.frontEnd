@@ -108,11 +108,19 @@ function CreateSubDomainController(props) {
 	);
 }
 
+const AdminSubscriptionController = lazy(() => import('./components/controllers/Admin/new_subcontrollers/AdminSubscriptionController'));
+function CreateAdminSubscriptionController(props) {
+return (
+		<Suspense fallback={<div />}>
+			<AdminSubscriptionController {...props} />
+		</Suspense>
+	);
+}
+
 class App extends Component {
 	render() {
 		return (
 			<div>
-				<Route exact path="/" component={AppController} />
 				<Route exact path="/signup_org" component={SignupOrg} />
 				<Route exact path="/signup_ind" component={SignupInd} />
 				<Route exact path="/login_org" component={LoginOrg} />
@@ -127,6 +135,7 @@ class App extends Component {
 				<Route exact path="/individual/*" component={IndividualPageController} />
 				<Route exact path="/admin" component={AppController} />
 				<Route exact path="/admin_page" component={AdminPageController} />
+				<Route exact path="/admin_page/payment" component={CreateAdminSubscriptionController} />
 				<Route exact path="/paywall" component={PaywallController} />
 				<Route exact path="/go_paywall" component={AppController} />
 				<Route exact path="/createsubdomain" component={CreateSubDomainController} />

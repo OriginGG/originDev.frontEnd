@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Navbar, Nav, Icon, Sidebar, Container, Sidenav, Header, Content, Button } from 'rsuite';
@@ -6,6 +7,7 @@ import { inject } from 'mobx-react';
 import { autorun } from 'mobx';
 import { isMobile } from 'react-device-detect';
 import Drift from 'react-driftjs';
+import { Switch, Route } from 'react-router-dom';
 import '../../../../node_modules/rsuite/dist/styles/rsuite.min.css';
 import AdminProfileController from './new_subcontrollers/AdminProfileController';
 import AdminMediaController from './new_subcontrollers/AdminMediaController';
@@ -184,7 +186,10 @@ console.log(this.props.uiStore);
 				break;
 			}
 			case 'Update Payment': {
-			cv = <AdminSubscriptionController />;
+				const domainInfo = this.props.appManager.getDomainInfo();
+				const { hostname } = domainInfo;
+		const u_string = `${domainInfo.protocol}//${hostname}:${domainInfo.port}`;
+		window.location = `${u_string}/admin_page/payment`;
 				break;
 			}
 			case 'Company Profile': {
@@ -251,6 +256,7 @@ console.log(this.props.uiStore);
 			dis = true;
 		}
 		return (
+
 			<div className="show-fake-browser sidebar-page">
 				{this.state.error_page && (
 					<div>
@@ -290,6 +296,10 @@ console.log(this.props.uiStore);
 				)}
 				<Container>
                     <Drift appId="ag5c43cpxebr" />
+					<Switch>
+				<Route path="/payment" exact component={AdminSubscriptionController} />
+				<Route exact path="/media" exact component={AdminMediaController} />
+				</Switch>
 					<Sidebar style={{ display: 'flex', flexDirection: 'column' }} width={expand ? 260 : 56} collapsible>
 						<Sidenav.Header>
 							<div style={headerStyles}>
@@ -297,6 +307,15 @@ console.log(this.props.uiStore);
 								<span style={{ marginLeft: 12 }}>ADMIN PANEL</span>
 							</div>
 						</Sidenav.Header>
+						<Switch>
+            {/* <AuthenticatedRoute path="/docs" exact component={AsyncDocs} props={{ loggedIn }} />
+            <UnauthenticatedRoute path="/companyNotFound" exact component={AsyncCompanyNotFound} props={{ loggedIn }} />
+            <AuthenticatedRoute path="/" exact component={AsyncHome} props={{ loggedIn }} />
+            <AuthenticatedRoute path="/company" component={AsyncCompany} props={{ loggedIn }} />
+            <AuthenticatedRoute path="/broadcasts/broadcasters" component={AsyncBroadcasters} props={{ loggedIn }} />
+            <AuthenticatedRoute path="/access-denied" exact component={AsyncNoAccess} props={{ loggedIn }} />
+            <AuthenticatedRoute path="/deployer" exact component={AsyncDeployer} props={{ loggedIn }} /> */}
+          </Switch>
 						<Sidenav
 							onSelect={this.selectMenuItem}
 							expanded={expand}
@@ -367,8 +386,7 @@ console.log(this.props.uiStore);
 							overflowY: 'auto',
 							width: `calc(100vw - ${d_width}px`,
 							padding: 20
-						}}
-					>
+						}}	>
 						<Header>
 							<h2>{this.state.pageTitle}</h2>
 						</Header>
